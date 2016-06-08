@@ -10,46 +10,48 @@ class Initial < ActiveRecord::Migration
       t.string :organization
       t.string :team
       t.string :company
+      t.integer :role_id
+      t.integer :office_id
       t.boolean :TOS_accepted
       t.timestamps
     end
 
     create_table :roles do |t|
-      t.string :type
+      t.string :title
+      t.timestamps
+    end
+
+    create_table :sop_checklists do |t|
       t.integer :user_id
       t.timestamps
     end
 
-    create_table :SOP_checklist do |t|
+    create_table :c4d_checklists do |t|
       t.integer :user_id
       t.timestamps
     end
 
-    create_table :C4D_checklist do |t|
-      t.integer :user_id
-      t.timestamps
-    end
-
-    create_table :C4D_articles do |t|
+    create_table :c4d_articles do |t|
       t.string :CMS_title
       t.string :description
       t.string :title
-      t.integer :C4D_category_id
-      t.integer :C4D_subcategory_id
+      t.integer :c4d_category_id
+      t.integer :c4d_subcategory_id
       t.string :version
       t.string :status
       t.string :owner_id
       t.timestamps
     end
 
-    create_table :SOP_articles do |t|
+    create_table :sop_articles do |t|
       t.string :CMS_title
       t.string :article
       t.string :title
-      t.integer :SOP_category_id
-      t.integer :SOP_time_id
+      t.integer :sop_category_id
+      t.integer :sop_time_id
       t.string :version
       t.string :status
+      t.integer :responsibility_id
       t.integer :owner_id
       t.timestamps
     end
@@ -59,22 +61,22 @@ class Initial < ActiveRecord::Migration
       t.timestamps
     end
 
-    create_table :C4D_categories do |t|
+    create_table :c4d_categories do |t|
       t.string :title
       t.timestamps
     end
 
-    create_table :SOP_categories do |t|
+    create_table :sop_categories do |t|
       t.string :title
       t.timestamps
     end
 
-    create_table :C4D_subcategories do |t|
+    create_table :c4d_subcategories do |t|
       t.string :title
       t.timestamps
     end
 
-    create_table :SOP_times do |t|
+    create_table :sop_times do |t|
       t.string :period
       t.timestamps
     end

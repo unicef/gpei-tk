@@ -16,12 +16,12 @@ ActiveRecord::Schema.define(version: 20160608142244) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
-  create_table "C4D_articles", force: :cascade do |t|
+  create_table "c4d_articles", force: :cascade do |t|
     t.string   "CMS_title"
     t.string   "description"
     t.string   "title"
-    t.integer  "C4D_category_id"
-    t.integer  "C4D_subcategory_id"
+    t.integer  "c4d_category_id"
+    t.integer  "c4d_subcategory_id"
     t.string   "version"
     t.string   "status"
     t.string   "owner_id"
@@ -29,51 +29,20 @@ ActiveRecord::Schema.define(version: 20160608142244) do
     t.datetime "updated_at"
   end
 
-  create_table "C4D_categories", force: :cascade do |t|
+  create_table "c4d_categories", force: :cascade do |t|
     t.string   "title"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
-  create_table "C4D_checklist", force: :cascade do |t|
+  create_table "c4d_checklists", force: :cascade do |t|
     t.integer  "user_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
-  create_table "C4D_subcategories", force: :cascade do |t|
+  create_table "c4d_subcategories", force: :cascade do |t|
     t.string   "title"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  create_table "SOP_articles", force: :cascade do |t|
-    t.string   "CMS_title"
-    t.string   "article"
-    t.string   "title"
-    t.integer  "SOP_category_id"
-    t.integer  "SOP_time_id"
-    t.string   "version"
-    t.string   "status"
-    t.integer  "owner_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  create_table "SOP_categories", force: :cascade do |t|
-    t.string   "title"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  create_table "SOP_checklist", force: :cascade do |t|
-    t.integer  "user_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  create_table "SOP_times", force: :cascade do |t|
-    t.string   "period"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -85,8 +54,39 @@ ActiveRecord::Schema.define(version: 20160608142244) do
   end
 
   create_table "roles", force: :cascade do |t|
-    t.string   "type"
+    t.string   "title"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "sop_articles", force: :cascade do |t|
+    t.string   "CMS_title"
+    t.string   "article"
+    t.string   "title"
+    t.integer  "sop_category_id"
+    t.integer  "sop_time_id"
+    t.string   "version"
+    t.string   "status"
+    t.integer  "responsibility_id"
+    t.integer  "owner_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "sop_categories", force: :cascade do |t|
+    t.string   "title"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "sop_checklists", force: :cascade do |t|
     t.integer  "user_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "sop_times", force: :cascade do |t|
+    t.string   "period"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -101,6 +101,8 @@ ActiveRecord::Schema.define(version: 20160608142244) do
     t.string   "organization"
     t.string   "team"
     t.string   "company"
+    t.integer  "role_id"
+    t.integer  "office_id"
     t.boolean  "TOS_accepted"
     t.datetime "created_at"
     t.datetime "updated_at"

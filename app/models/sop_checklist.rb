@@ -1,0 +1,3 @@
+class SopChecklist < ActiveRecord::Base
+  has_one :user
+end
