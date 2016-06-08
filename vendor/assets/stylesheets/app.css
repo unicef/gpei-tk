@@ -1,0 +1,13 @@
+.sop_filter_header {
+  background-color:red;
+}
+.application {
+  background-color:blue;
+  font-family:Trebuchet MS;
+}
+.sop_checkboxes {
+  background-color:grey;
+}
+#logo-nav {
+  z-index:3;
+}

@@ -1,21 +1,17 @@
-<!DOCTYPE html>
-<html lang='en'>
-<head>
-  <title>GPEI Toolkit</title>
-</head>
-<body style='background-color:black;'>
-  <div class='container-fluid'>
-    <div id='logo' class='row'>
-        <%= image_tag 'home/GPEI_logo_b-w.png', class: 'image-responsive center-block' %>
+<div class='container-fluid'>
+  <div id='logo' class='row'>
+      <%= image_tag 'home/GPEI_logo_b-w.png', class: 'image-responsive center-block', alt: 'GPEI Toolkit' %>
+  </div>
+  <div id='sop_logo' class='row'>
+    <div class='col-xs-6'>
+      <%= link_to sop_path do %>
+        <%= image_tag 'home/GPEI_logo_b-w.png', class: 'image-responsive center-block', alt: 'SOP' %>
+      <% end %>
     </div>
-    <div id='sop_logo' class='row'>
-      <div class='col-xs-6'>
-        <%= image_tag 'home/GPEI_logo_b-w.png', class: 'img-lg' %>
-      </div>
-      <div id='c4d_logo' class='col-xs-6'>
-        <%= image_tag 'home/GPEI_logo_b-w.png', class: 'img-lg' %>
-      </div>
+    <div id='c4d_logo' class='col-xs-6'>
+      <%= link_to c4d_path do %>
+        <%= image_tag 'home/GPEI_logo_b-w.png', class: 'image-responsive center-block', alt: 'C4D' %>
+      <% end %>
     </div>
   </div>
-</body>
-</html>
+</div>
