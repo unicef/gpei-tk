@@ -50,10 +50,21 @@ Office.create(title: 'UNICEF')
 Office.create(title: 'Rapid Response')
 Office.create(title: 'Surge Team')
 
+SopArticle.create(title: 'awesome_title', sop_time_id: 1, CMS_title: 'awesome_title')
+SopArticle.create(title: 'awesome_title2', sop_time_id: 1, CMS_title: 'awesome_title2')
+SopArticle.create(title: 'awesome_title3', sop_time_id: 1, CMS_title: 'awesome_title3')
+SopArticle.create(title: 'awesome_title4', sop_time_id: 1, CMS_title: 'awesome_title4')
+SopArticle.create(title: 'awesome_title5', sop_time_id: 1, CMS_title: 'awesome_title5')
+SopArticle.create(title: 'awesome_title6', sop_time_id: 1, CMS_title: 'awesome_title6')
+SopArticle.create(title: 'awesome_title7', sop_time_id: 1, CMS_title: 'awesome_title7')
+SopArticle.create(title: 'awesome_title8', sop_time_id: 1, CMS_title: 'awesome_title8')
+
 user = User.new(first_name: 'root', email: 'root@example.com', screenname: 'root', TOS_accepted: true)
 user.password = 'foobar'
 user.role = Role.where(title: 'root').first
 user.office = Office.where(title: 'UNICEF').first
 user.save
+
+SopChecklist.create(user_id: user.id)
 
 puts 'done!'

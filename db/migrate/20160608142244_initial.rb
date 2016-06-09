@@ -80,5 +80,11 @@ class Initial < ActiveRecord::Migration
       t.string :period
       t.timestamps
     end
+
+    create_table :sopchecklist_soparticles do |t|
+      t.integer :sop_article_id
+      t.integer :sop_checklist_id
+      t.timestamps
+    end
   end
 end
