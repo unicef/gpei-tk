@@ -3,19 +3,27 @@
 <div class='container-fluid'>
   <div class='row'>
     <div class='row'>
-      <div class='col-md-6 text-center bg-warning'>
-        1. <%= @c4d_categories.first.title %>
+      <div class='col-md-6 text-center'>
+        <div class='jumbotron' style=<%='background-color:' + @c4d_categories.first.color + ';' %>>
+          1. <%= @c4d_categories.first.title %>
+        </div>
       </div>
-      <div class='col-md-6 text-center bg-primary'>
-        2. <%= @c4d_categories.second.title %>
+      <div class='col-md-6 text-center'>
+        <div class='jumbotron' style=<%='background-color:' + @c4d_categories.second.color + ';' %>>
+          2. <%= @c4d_categories.second.title %>
+        </div>
       </div>
     </div>
     <div class='row'>
-      <div class='col-md-6 text-center bg-success'>
-        3. <%= @c4d_categories.third.title %>
+      <div class='col-md-6 text-center'>
+        <div class='jumbotron' style=<%='background-color:' + @c4d_categories.third.color + ';' %>>
+          3. <%= @c4d_categories.third.title %>
+        </div>
       </div>
-      <div class='col-md-6 text-center bg-info'>
-        4. <%= @c4d_categories.fourth.title %>
+      <div class='col-md-6 text-center'>
+        <div class='jumbotron' style=<%='background-color:' + @c4d_categories.fourth.color + ';' %>>
+          4. <%= @c4d_categories.fourth.title %>
+        </div>
       </div>
     </div>
   </div>

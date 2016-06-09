@@ -1,14 +1,44 @@
 <%= render 'dashboard/sop_nav' %>
 
 <div id='sop_filter_container' class='container-fluid'>
+  <div class='col-md-12'>
+    <div id='sop_filter_panel' class='panel text-center'>
+      <div class='panel-heading sop_panel_header'>
+        <span class='panel-title'><em>Please select the filters you would like to use</em></span>
+      </div>
+      <div class='panel-body panel-filter-background img-rounded'>
+        <div class='col-md-3 text-left'>
+          <ul class='list-unstyled'>
+            <% @sop_times.each do |time| %>
+              <li class='filter-item'><label><input id=<%= 'Time ' + time.period %> type='checkbox' value=""><%= time.period %></label></li>
+            <% end %>
+          </ul>
+        </div>
+        <div class='col-md-3 text-left'>
+          <ul class='list-unstyled'>
+            <% @sop_categories.each do |category| %>
+              <li class='filter-item'><label><input id=<%= 'Category ' + category.title %> type='checkbox' value=""><%= category.title %></label></li>
+            <% end %>
+          </ul>
+        </div>
+        <div class='col-md-3 text-left'>
+          <ul class='list-unstyled'>
+            <% @offices.each do |office| %>
+              <li class='filter-item'><label><input id=<%= 'Office ' + office.title %> type='checkbox' value=""><%= office.title %></label></li>
+            <% end %>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
   <div class='col-md-2'>
     <div class='row text-center'>Select filters</div>
     <div class='row'>
-      <div class='sop_filter_header text-center'>Time</div>
+      <div class='sop_filter_header img-rounded text-center'>Time</div>
       <div class='sop_checkboxes'>
-        <ul class='list-unstyled'>
+        <ul class='list-unstyled img-rounded'>
           <% @sop_times.each do |time| %>
-            <li class='filter-item'><label><input id=<%= time.period %> type='checkbox' value=""><%= time.period %></label></li>
+            <li class='filter-item'><label><input id=<%= 'Time ' + time.period %> type='checkbox' value=""><%= time.period %></label></li>
           <% end %>
         </ul>
       </div>
@@ -18,7 +48,7 @@
       <div class='sop_checkboxes'>
         <ul class='list-unstyled'>
           <% @sop_categories.each do |category| %>
-            <li class='filter-item'><label><input id=<%= category.title %> type='checkbox' value=""><%= category.title %></label></li>
+            <li class='filter-item'><label><input id=<%= 'Category ' + category.title %> type='checkbox' value=""><%= category.title %></label></li>
           <% end %>
         </ul>
       </div>
@@ -28,7 +58,7 @@
       <div class='sop_checkboxes'>
         <ul class='list-unstyled'>
           <% @offices.each do |office| %>
-            <li class='filter-item'><label><input id=<%= office.title %> type='checkbox' value=""><%= office.title %></label></li>
+            <li class='filter-item'><label><input id=<%= 'Office ' + office.title %> type='checkbox' value=""><%= office.title %></label></li>
           <% end %>
         </ul>
       </div>
@@ -37,11 +67,10 @@
       <span class='btn btn-danger'>Clear All</span>
     </div>
   </div>
-  <div class='col-md-9'>
+  <div class='col-md-8'>
     <div class='grid'>
-      <div class='grid-sizer'></div>
       <% @sop_articles.each do |article| %>
-        <div id=<%= 'article '+ article.id.to_s %> class='grid-item bg-primary'>
+        <div id=<%= 'article '+ article.id.to_s %> class='grid-item' style=<%='background-color:' + @sop_times[article.sop_time_id - 1].color + ';' %>>
           <ul class='list-unstyled'>
             <li><%= @sop_times[article.sop_time_id - 1].period %></li>
             <li>icon</li>
@@ -49,6 +78,16 @@
           </ul>
         </div>
       <% end %>
+    </div>
+  </div>
+  <div class='col-md-2'>
+    <div class='list-unstyled text-center'>
+      <h3 id='sop_checklist_header' class='img-rounded'>SOP Checklist</h3>
+      <ul>
+      <% @user.sop_checklist.sop_articles.each do |article| %>
+        <li><%= article.title %></li>
+      <% end %>
+      </ul>
     </div>
   </div>
 </div>
