@@ -3,5 +3,6 @@ class SopController < ApplicationController
     @sop_times = SopTime.all
     @sop_categories = SopCategory.all
     @offices = Office.all
+    @sop_articles = SopArticle.all
   end
 end

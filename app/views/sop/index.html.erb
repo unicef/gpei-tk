@@ -1,47 +1,55 @@
-<div class='container-fluid'>
-  <div class='col-md-2'>
-    <%= image_tag 'home/GPEI_logo_b-w.png', width:'60%', height:'60%', class: 'image-responsive', alt: 'GPEI Toolkit' %>
-    <%= image_tag 'home/GPEI_logo_b-w.png', width:'60%', height:'60%',class: 'image-responsive', alt: 'SOP' %>
-  </div>
-  <div class='col-md-2 col-md-offset-8 text-right'>
-      My Rhizome
-  </div>
-</div>
+<%= render 'dashboard/nav' %>
+
 <div id='sop_filter_container' class='container-fluid'>
   <div class='col-md-2'>
-    <div class='row'>Select filters</div>
+    <div class='row text-center'>Select filters</div>
     <div class='row'>
-      <div class='sop_filter_header'>Time</div>
+      <div class='sop_filter_header text-center'>Time</div>
       <div class='sop_checkboxes'>
         <ul class='list-unstyled'>
           <% @sop_times.each do |time| %>
-            <li><label><input type='checkbox' value=""><%= time.period %></label></li>
+            <li class='filter-item'><label><input id=<%= time.period %> type='checkbox' value=""><%= time.period %></label></li>
           <% end %>
         </ul>
       </div>
     </div>
     <div class='row'>
-      <div class='sop_filter_header'>Category</div>
+      <div class='sop_filter_header text-center'>Category</div>
       <div class='sop_checkboxes'>
         <ul class='list-unstyled'>
           <% @sop_categories.each do |category| %>
-            <li><label><input type='checkbox' value=""><%= category.title %></label></li>
+            <li class='filter-item'><label><input id=<%= category.title %> type='checkbox' value=""><%= category.title %></label></li>
           <% end %>
         </ul>
       </div>
     </div>
     <div class='row'>
-      <div class='sop_filter_header'>Responsibility</div>
+      <div class='sop_filter_header text-center'>Responsibility</div>
       <div class='sop_checkboxes'>
         <ul class='list-unstyled'>
           <% @offices.each do |office| %>
-            <li><label><input type='checkbox' value=""><%= office.title %></label></li>
+            <li class='filter-item'><label><input id=<%= office.title %> type='checkbox' value=""><%= office.title %></label></li>
           <% end %>
         </ul>
       </div>
     </div>
+    <div class='row text-center'>
+      <span class='btn btn-danger'>Clear All</span>
+    </div>
   </div>
-  <div class='col-md-8'>
-  text in the middle of the pagetext in the middle of the pagetext in the middle of the pagetext in the middle of the pagetext in the middle of the pagetext in the middle of the pagetext in the middle of the pagetext in the middle of the pagetext in the middle of the pagetext in the middle of the pagetext in the middle of the pagetext in the middle of the pagetext in the middle of the pagetext in the middle of the pagetext in the middle of the pagetext in the middle of the pagetext in the middle of the pagetext in the middle of the page
+  <div class='col-md-9'>
+    <div class='grid'>
+      <div class='grid-sizer'></div>
+      <% @sop_articles.each do |article| %>
+        <div id=<%= 'article '+ article.id.to_s %> class='grid-item bg-primary'>
+          <ul class='list-unstyled'>
+            <li><%= @sop_times[article.sop_time_id - 1].period %></li>
+            <li>icon</li>
+            <li id='title'><%= article.title %></li>
+          </ul>
+        </div>
+      <% end %>
+    </div>
   </div>
 </div>
+
