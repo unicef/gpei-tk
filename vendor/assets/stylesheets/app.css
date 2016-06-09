@@ -1,13 +1,20 @@
 .sop_filter_header {
   background-color:red;
+  font-weight:bold;
+  border-style:double;
+  border-width:1px;
 }
 .application {
-  background-color:blue;
-  font-family:Trebuchet MS;
-}
-.sop_checkboxes {
   background-color:grey;
+  font-family:Trebuchet MS;
+  font-size:120%;
 }
-#logo-nav {
-  z-index:3;
+.filter-item {
+  border-style:double;
+  border-width:1px;
+}
+.grid-sizer,
+.grid-item {
+  width: 20%;
+  margin: 3px;
 }
