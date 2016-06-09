@@ -9,11 +9,11 @@ class SopChecklistController < ApplicationController
         join_table_article = SopchecklistSoparticle.where(title: article.title, sop_checklist_id: user.sop_checklist.id).first
         SopchecklistSoparticle.destroy(join_table_article.id)
       end
+      @user = user
       @sop_times = SopTime.all
       @sop_categories = SopCategory.all
       @offices = Office.all
       @sop_articles = SopArticle.all
-      binding.pry
       render 'sop/index', layout: false
     end
   end

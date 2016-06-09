@@ -4,5 +4,6 @@ class SopController < ApplicationController
     @sop_categories = SopCategory.all
     @offices = Office.all
     @sop_articles = SopArticle.all
+    @user = User.all.first
   end
 end
