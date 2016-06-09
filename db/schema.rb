@@ -31,6 +31,7 @@ ActiveRecord::Schema.define(version: 20160608142244) do
 
   create_table "c4d_categories", force: :cascade do |t|
     t.string   "title"
+    t.string   "color"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -87,6 +88,7 @@ ActiveRecord::Schema.define(version: 20160608142244) do
 
   create_table "sop_times", force: :cascade do |t|
     t.string   "period"
+    t.string   "color"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

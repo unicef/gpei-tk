@@ -63,6 +63,7 @@ class Initial < ActiveRecord::Migration
 
     create_table :c4d_categories do |t|
       t.string :title
+      t.string :color
       t.timestamps
     end
 
@@ -78,6 +79,7 @@ class Initial < ActiveRecord::Migration
 
     create_table :sop_times do |t|
       t.string :period
+      t.string :color
       t.timestamps
     end
 
