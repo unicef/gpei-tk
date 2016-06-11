@@ -5,7 +5,15 @@
       <%= image_tag "home/#{@img_name}.png", width:'75%', height:'75%',class: 'image-responsive', alt: 'SOP' %>
     </div>
   <% end %>
-  <div class='col-md-2 col-md-offset-8 text-right'>
-    My Rhizome
+  <div id='my_rhizome_dropdown' class='col-md-offset-9'>
+    <div class="ui selection dropdown">
+      <input type="hidden" name="account">
+      <div class="default text">My Rhizome</div>
+      <div class="menu">
+        <div class="item" data-value="Account">Account</div>
+        <div class="item" data-value="SOP Checklist"><i class="fa fa-list" aria-hidden="true"></i>SOP Checklist</div>
+        <div class="item" data-value="C4D Toolkit"><i class="fa fa-list" aria-hidden="true"></i>C4D Toolkit</div>
+      </div>
+    </div>
   </div>
 </div>
