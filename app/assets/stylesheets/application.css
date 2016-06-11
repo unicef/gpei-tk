@@ -13,5 +13,8 @@
  *= require_tree .
  *= require_self
  *= require minified/bootstrap.min
+ *= require semantic.min
+ *= require dropdown.min
+ *= require font-awesome-4.6.3/css/font-awesome.min
  *= require app
  */
