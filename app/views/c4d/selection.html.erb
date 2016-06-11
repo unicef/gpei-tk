@@ -1,0 +1,20 @@
+<%= render 'dashboard/nav' %>
+<div class='container-fluid'>
+  <div class='row'>
+    <div class='col-md-3'>
+      <% @c4d_categories.each do |category| %>
+        <button class="button" data-filter=".<%= category.title %>"><%= category.title %></button>
+      <% end %>
+    </div>
+  </div>
+  <div id='c4d_isotope_container'>
+    <% @c4d_articles.each do |article| %>
+      <div class="<%= build_classes({item: 'item', category: article.c4d_category.title.gsub(' ', '_')}) %>"
+        style=<%='background-color:' + article.c4d_subcategory.color + ';' %>>
+        <p id='grid_item_sub_category'><%= article.c4d_subcategory.title %></p>
+        <p id='grid_item_icon'>icon</p>
+        <p id='grid_item_article_title'><%= article.title %></p>
+      </div>
+    <% end %>
+  </div>
+</div>
