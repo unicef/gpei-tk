@@ -8,6 +8,13 @@
   padding-bottom: 5px;
   padding-left: 10px;
 }
+#my_rhizome_button {
+  background-color: black;
+  color: white;
+}
+#my_rhizome_nav {
+  background-color: black;
+}
 #application {
   background-color: white;
   font-family: Trebuchet MS;
@@ -97,10 +104,13 @@ body, button, input, select, textarea {
   border: 2px solid #333;
   border-color: hsla(0, 0%, 0%, 0.5);
   border-radius: 5px;
-  margin: 5px;
-  padding: 5px;
+  margin: 1px;
+  padding: 1px;
 }
-
+.container-fluid {
+  margin:0;
+  padding:0;
+}
 .item p {
   margin: 0;
 }
@@ -114,3 +124,55 @@ select, label, input { font-size: 20px; }
 
 label { margin-right: 10px; }
 /**/
+.col-md-1 {
+  margin: 0;
+  padding: 0;
+}
+.col-md-2 {
+  margin: 0;
+  padding: 0;
+}
+.col-md-3 {
+  margin: 0;
+  padding: 0;
+}
+.col-md-4 {
+  margin: 0;
+  padding: 0;
+}
+.col-md-5 {
+  margin: 0;
+  padding: 0;
+}
+.col-md-6 {
+  margin: 0;
+  padding: 0;
+}
+.col-md-7 {
+  margin: 0;
+  padding: 0;
+}
+.col-md-8 {
+  margin: 0;
+  padding: 0;
+}
+.col-md-9 {
+  margin: 0;
+  padding: 0;
+}
+.col-md-10 {
+  margin: 0;
+  padding: 0;
+}
+.col-md-11 {
+  margin: 0;
+  padding: 0;
+}
+.col-md-12 {
+  margin: 0;
+  padding: 0;
+}
+#my_rhizome_dropdown {
+  color: white;
+  background-color:black;
+}
