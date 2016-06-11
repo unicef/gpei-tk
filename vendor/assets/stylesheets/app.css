@@ -1,34 +1,116 @@
 .sop_filter_header {
-  background-color: red;
+  background-color: #B12924;
   font-weight: bold;
   border-style: double;
   border-width: 1px;
-  font-size: 130%;
+  font-size: 150%;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  padding-left: 10px;
 }
-.application {
-  background-color: grey;
+#application {
+  background-color: white;
   font-family: Trebuchet MS;
   font-size: 120%;
+  color: white;
 }
-.grid-sizer,
-.grid-item {
-  width: 20%;
-  margin: 3px;
+.sop_checkbox {
+  margin-right: 5px;
 }
 #sop_checklist_header {
   border-style: double;
   border-width: 1px;
   font-size: 130%;
-  background-color: red;
+  background-color: #B12924;
 }
-.grid-item {
-  height: 120px;
+.filter-item {
+  margin-left: 3px;
+  color: #6B7A83;
+}
+#sop_panel_header {
+  background-color: #B12924;
+}
+#nav-bar {
+  background-color: black;
+  padding-bottom: 10px
+}
+#select_filter_text {
+  border: solid;
+  border-color: white;
+  border-width: 1px;
+  font-size: 150%;
+  margin-right: 1px;
+  margin-left: 1px;
+  background-color: #6B7A83;
+}
+#filter_list {
+  padding: 1px;
+}
+.no-padding {
+  padding: 0;
+}
+#sop_filter_container {
+  padding: 1px;
+}
+#filter_clear_all {
+  background-color: #6B7A83;
+  border-color: #6B7A83;
+}
+.sop_checkboxes {
+  background-color: #D9E0DE;
+}
+.text-vertical-center {
+    display: inline-block;
+    vertical-align: middle;
+    float: none;
+}
+html {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  width: 100%;
+}
+body {
+  line-height: 1.231;
+  font-size: 13px;
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  width: 100%;
+  font-family: 'adelle', Arial, Helvetica, sans-serif !important;
+}
+body, button, input, select, textarea {
+  color: #222;
+}
+
+/*isotope styles*/
+* { box-sizing: border-box; }
+.isotope_container {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+}
+.item {
+  width: 19%;
+  height: 200px;
   float: left;
-  background: #D26;
   border: 2px solid #333;
   border-color: hsla(0, 0%, 0%, 0.5);
   border-radius: 5px;
+  margin: 5px;
+  padding: 5px;
 }
-.sop_panel_header {
-   background-color: red;
+
+.item p {
+  margin: 0;
 }
+
+.red { background: #F33; }
+.blue { background: #88F; }
+.green { background: #3A3; }
+.orange { background: orange;}
+
+select, label, input { font-size: 20px; }
+
+label { margin-right: 10px; }
+/**/
