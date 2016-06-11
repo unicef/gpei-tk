@@ -64,16 +64,34 @@ class Initial < ActiveRecord::Migration
     create_table :c4d_categories do |t|
       t.string :title
       t.string :color
+      t.string :description
       t.timestamps
     end
 
     create_table :sop_categories do |t|
       t.string :title
+      t.integer :icon_id
+      t.timestamps
+    end
+
+    create_table :c4d_icons do |t|
+      t.string :short_name
+      t.string :name
+      t.integer :c4d_subcategory_id
+      t.timestamps
+    end
+
+    create_table :sop_icons do |t|
+      t.string :short_name
+      t.string :name
+      t.integer :sop_category_id
       t.timestamps
     end
 
     create_table :c4d_subcategories do |t|
       t.string :title
+      t.string :color
+      t.integer :c4d_category_id
       t.timestamps
     end
 

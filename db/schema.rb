@@ -32,6 +32,7 @@ ActiveRecord::Schema.define(version: 20160608142244) do
   create_table "c4d_categories", force: :cascade do |t|
     t.string   "title"
     t.string   "color"
+    t.string   "description"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -42,8 +43,18 @@ ActiveRecord::Schema.define(version: 20160608142244) do
     t.datetime "updated_at"
   end
 
+  create_table "c4d_icons", force: :cascade do |t|
+    t.string   "short_name"
+    t.string   "name"
+    t.integer  "c4d_subcategory_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "c4d_subcategories", force: :cascade do |t|
     t.string   "title"
+    t.string   "color"
+    t.integer  "c4d_category_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -76,12 +87,21 @@ ActiveRecord::Schema.define(version: 20160608142244) do
 
   create_table "sop_categories", force: :cascade do |t|
     t.string   "title"
+    t.integer  "icon_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
   create_table "sop_checklists", force: :cascade do |t|
     t.integer  "user_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "sop_icons", force: :cascade do |t|
+    t.string   "short_name"
+    t.string   "name"
+    t.integer  "sop_category_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
