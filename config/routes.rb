@@ -1,6 +1,7 @@
 Rails.application.routes.draw do
   root 'home#index'
   get '/c4d' => 'c4d#index'
+  get '/c4d/selection' => 'c4d#selection'
   get '/sop' => 'sop#index'
   patch '/sop/checklist/:title' => 'sop_checklist#update'
   resources :sop_articles, only: [:index, :show]
