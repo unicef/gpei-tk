@@ -1,0 +1,76 @@
+<%= render 'dashboard/nav' %>
+<div class='col-md-12'>
+  <!-- 4 columns for categories -->
+</div>
+<div class='col-md-3' style=<%='background-color:' + @c4d_aticle.c4d_subcategory.color + ';' %>>
+  <div class='row'>
+    <div class='col-md-1'>
+      <div class='c4d_article_icon'>
+        <%= image_tag "c4d_subcategory/#{@c4d_article.image_name}.png", class: 'image-responsive', alt: @c4d_article.c4d_subcategory %>
+      </div>
+    </div>
+    <div class='col-md-1'>
+      <ul id='c4d_article_logo_category' class='list-unstyled'>
+        <li><%= @c4d_article.c4d_subcategory %></li>
+        <li><%= @c4d_article.title %></li>
+      </ul>
+    </div>
+  </div>
+  <div id='c4d_show_table_of_contents'>
+  <!-- need more info? -->
+  </div>
+  <div id='c4d_show_references'>
+    <!-- is there a mapping to this? -->
+  </div>
+  <div id='c4d_toolkit'>
+    <
+    <ul class='list-unstyled'>
+
+    </ul>
+  </div>
+  <div id='c4d_add_toolkit'>
+    <input id=<%= @c4d_article.title.gsub(' ', '_') %> type='checkbox' value="<%= @c4d_article.title.gsub(' ', '_') %>"><label for=<%= @c4d_article.title.gsub(' ', '_') %>>ADD TO MY TOOLKIT</label>
+  </div>
+  <div id='c4d_cycle_articles'>
+    <% if @c4d_article.id != 1 %>
+      <div id='c4d_prev_topic'>
+      <!-- link to previous article render c4d_subcategory article index -1 -->
+      <%= link_to c4d_article_path(@c4d_article.id - 1) do %>
+        <i class="fa fa-arrow-left fa-2x" aria-hidden="true"></i>
+      <% end %>
+      </div>
+    <% end %>
+    <% if @c4d_article.id != @c4d_article_last_index %>
+      <div id='c4d_next_topic'>
+      <!-- link to previous article render c4d_subcategory article index +1 -->
+      <%= link_to c4d_article_path(@c4d_article.id + 1) do %>
+        <i class="fa fa-arrow-right fa-2x" aria-hidden="true"></i>
+      <% end %>
+      </div>
+    <% end %>
+  </div>
+</div>
+<div class='col-md-9'>
+  <div id='c4d_article_show'>
+   <%= @c4d_article.description %>
+  </div>
+  <div id='c4d_article_related_articles'>
+    <div class='row'>
+    <% @c4d_article.c4d_subcategory.c4d_articles.each do |article| %>
+      <div class='c4d_relative_article'>
+        <div class='col-md-1'>
+          <div class='c4d_article_icon'>
+            <%= image_tag "c4d_subcategory/#{article.image_name}.png", class: 'image-responsive', alt: article.c4d_subcategory %>
+          </div>
+        </div>
+        <div class='col-md-1'>
+          <ul id='c4d_article_logo_category' class='list-unstyled'>
+            <li><%= article.c4d_subcategory %></li>
+            <li><%= article.title %></li>
+          </ul>
+        </div>
+      </div>
+    <% end %>
+    </div>
+  </div>
+</div>
