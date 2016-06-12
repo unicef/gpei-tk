@@ -7,4 +7,5 @@ Rails.application.routes.draw do
   delete '/sop/checklist/:title' => 'sop_checklist#destroy'
   resources :sop_articles, only: [:index, :show]
   resources :c4d_articles, only: [:index, :show]
+  resources :users, only: [:show]
 end
