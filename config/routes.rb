@@ -3,7 +3,8 @@ Rails.application.routes.draw do
   get '/c4d' => 'c4d#index'
   get '/c4d/selection' => 'c4d#selection'
   get '/sop' => 'sop#index'
-  patch '/sop/checklist/:title' => 'sop_checklist#update'
+  post '/sop/checklist/:title' => 'sop_checklist#create'
+  delete '/sop/checklist/:title' => 'sop_checklist#destroy'
   resources :sop_articles, only: [:index, :show]
   resources :c4d_articles, only: [:index, :show]
 end
