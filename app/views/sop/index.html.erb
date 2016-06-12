@@ -2,10 +2,10 @@
 <div id='sop_filter_container' class='container-fluid'>
   <!-- filters -->
   <div class='row text-center'>
-    <div id='select_filter_text' class='col-md-9'>
+    <div id='select_filter_text' class='col-md-8'>
       <em>Please select the filters you would like to use</em>
     </div>
-    <div id='filter_clear_all' class='col-md-2'>
+    <div id='sop_filter_clear_all' class='col-md-2'>
       <em>Clear All</em>
     </div>
   </div>
@@ -60,17 +60,20 @@
     <div class='row text-center' style="padding-left:40px;">
       <div id='isotope_container'>
         <% @sop_articles.each do |article| %>
-          <div class="<%= build_classes({item: 'item', time: article.sop_time.period.gsub(' ', '_'), offices: article.responsibility.title.gsub(' ', '_'), category: article.sop_category.title.gsub(' ', '_')}) %>"
+          <%= link_to sop_article_path(article), {:style=>'color:#FFFFFF;'} do %>
+          <div id="grid_tile_<%= article.title %>" class="<%= build_classes({item: 'item', time: article.sop_time.period.gsub(' ', '_'), offices: article.responsibility.title.gsub(' ', '_'), category: article.sop_category.title.gsub(' ', '_')}) %>"
             style=<%='background-color:' + article.sop_time.color + ';' %>>
-            <p id='grid_item_time_period'><%= article.sop_time.period %></p>
+            <p id='grid_item_time_period'><%= article.sop_time.period %><span id='sop_article_id' style='visibility:hidden;'><%= article.id %></span></p>
             <p id='grid_item_icon'>icon</p>
             <p id='grid_item_article_title'><%= article.title %></p>
+            <a class='grid_add' href='#' style="top:5px;right:5px;position:absolute;<%= style_visible('add', @user, article) %>;color:black;"><i class="fa fa-plus" aria-hidden="true"></i></a>
+            <a class='grid_check' href='#' style="top:5px;right:5px;position:absolute;<%= style_visible('check', @user, article) %>;color:black;"><i class="fa fa-check" aria-hidden="true"></i></a>
           </div>
+          <% end %>
         <% end %>
       </div>
     </div>
   </div>
-  <div id='sop_filter' class='list-unstyled text-center'></div>
 </div>
 <div class="long modal">
 </div>
