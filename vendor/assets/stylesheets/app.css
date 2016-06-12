@@ -59,7 +59,7 @@
 #sop_filter_container {
   padding: 1px;
 }
-#filter_clear_all {
+#sop_filter_clear_all {
   background-color: #6B7A83;
   border-color: #6B7A83;
 }
@@ -92,10 +92,11 @@ body, button, input, select, textarea {
 
 /*isotope styles*/
 * { box-sizing: border-box; }
-.isotope_container {
+#isotope_container, {
   margin: 0;
   padding: 0;
   width: 100%;
+  color: white;
 }
 .item {
   width: 19%;
