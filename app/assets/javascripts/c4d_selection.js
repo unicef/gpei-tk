@@ -4,13 +4,7 @@ $(function(){
   });
 
   // clear-all filter listener
-  var $filter_clear = $('#filter_clear_all');
   var $c4d_categories = $('.c4d_category input');
-  $filter_clear.click(function(){
-    for (var idx = 0; idx < $c4d_categories.length; idx++)
-      $c4d_categories[idx].checked = false;
-    updateIsotope();
-  });
 
   //isotope listener
   $c4d_categories.change(function() {
