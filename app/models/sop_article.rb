@@ -6,4 +6,8 @@ class SopArticle < ActiveRecord::Base
   has_many :sopchecklist_soparticles
 
   validates_uniqueness_of :title, :CMS_title
+
+  def to_param
+    [id, title.parameterize].join("-")
+  end
 end

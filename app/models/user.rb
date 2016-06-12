@@ -3,7 +3,7 @@ class User < ActiveRecord::Base
   has_many :c4d_articles
   has_many :sop_articles
   has_one :sop_checklist
-  has_one :c4d_checklist
+  has_one :c4d_toolkit
   belongs_to :office
   belongs_to :role
 end
