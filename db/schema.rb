@@ -37,12 +37,6 @@ ActiveRecord::Schema.define(version: 20160608142244) do
     t.datetime "updated_at"
   end
 
-  create_table "c4d_checklists", force: :cascade do |t|
-    t.integer  "user_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
   create_table "c4d_icons", force: :cascade do |t|
     t.string   "short_name"
     t.string   "name"
@@ -55,6 +49,19 @@ ActiveRecord::Schema.define(version: 20160608142244) do
     t.string   "title"
     t.string   "color"
     t.integer  "c4d_category_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "c4d_toolkits", force: :cascade do |t|
+    t.integer  "user_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "c4dchecklist_c4darticles", force: :cascade do |t|
+    t.integer  "c4d_article_id"
+    t.integer  "c4d_checklist_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

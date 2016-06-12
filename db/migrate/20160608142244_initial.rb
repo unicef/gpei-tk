@@ -26,7 +26,7 @@ class Initial < ActiveRecord::Migration
       t.timestamps
     end
 
-    create_table :c4d_checklists do |t|
+    create_table :c4d_toolkits do |t|
       t.integer :user_id
       t.timestamps
     end
@@ -106,5 +106,11 @@ class Initial < ActiveRecord::Migration
       t.integer :sop_checklist_id
       t.timestamps
     end
+    create_table :c4dchecklist_c4darticles do |t|
+      t.integer :c4d_article_id
+      t.integer :c4d_checklist_id
+      t.timestamps
+    end
+
   end
 end
