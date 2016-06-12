@@ -6,7 +6,15 @@ class C4dArticlesController < ApplicationController
   def show
     @user = User.all.first
     @img_name = 'C4D'
-    @c4d_article = C4dArticle.where(title: params['title'])
-    @c4d_article_last_index = C4dArticle.last.id
+    if params['id'].nil?
+      @c4d_article = C4dArticle.where(title: params['title']).first
+    else
+      @c4d_article = C4dArticle.where(id: params['id']).first
+    end
+    if !C4dArticle.last.nil?
+      @c4d_article_last_index = C4dArticle.last.id
+    else
+      @c4d_article_last_index = 0
+    end
   end
 end

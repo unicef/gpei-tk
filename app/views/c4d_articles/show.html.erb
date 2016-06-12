@@ -1,8 +1,10 @@
 <%= render 'dashboard/nav' %>
 <div class='col-md-12'>
+  <!-- c4d_categories.each -->
   <!-- 4 columns for categories -->
 </div>
-<div class='col-md-3' style=<%='background-color:' + @c4d_aticle.c4d_subcategory.color + ';' %>>
+<% if @c4d_article %>
+<div class='col-md-3' style="background-color: <%=  @c4d_aticle.c4d_subcategory.color %>;">
   <div class='row'>
     <div class='col-md-1'>
       <div class='c4d_article_icon'>
@@ -32,21 +34,21 @@
     <input id=<%= @c4d_article.title.gsub(' ', '_') %> type='checkbox' value="<%= @c4d_article.title.gsub(' ', '_') %>"><label for=<%= @c4d_article.title.gsub(' ', '_') %>>ADD TO MY TOOLKIT</label>
   </div>
   <div id='c4d_cycle_articles'>
-    <% if @c4d_article.id != 1 %>
-      <div id='c4d_prev_topic'>
-      <!-- link to previous article render c4d_subcategory article index -1 -->
-      <%= link_to c4d_article_path(@c4d_article.id - 1) do %>
-        <i class="fa fa-arrow-left fa-2x" aria-hidden="true"></i>
+    <% if @c4d_article_last_index != 0 %>
+      <% if @c4d_article.id != 1 %>
+        <div id='c4d_prev_topic'>
+        <%= link_to c4d_article_path(@c4d_article.id - 1) do %>
+          <i class="fa fa-arrow-left fa-2x" aria-hidden="true"></i>
+        <% end %>
+        </div>
       <% end %>
-      </div>
-    <% end %>
-    <% if @c4d_article.id != @c4d_article_last_index %>
-      <div id='c4d_next_topic'>
-      <!-- link to previous article render c4d_subcategory article index +1 -->
-      <%= link_to c4d_article_path(@c4d_article.id + 1) do %>
-        <i class="fa fa-arrow-right fa-2x" aria-hidden="true"></i>
+      <% if @c4d_article.id != @c4d_article_last_index %>
+        <div id='c4d_next_topic'>
+        <%= link_to c4d_article_path(@c4d_article.id + 1) do %>
+          <i class="fa fa-arrow-right fa-2x" aria-hidden="true"></i>
+        <% end %>
+        </div>
       <% end %>
-      </div>
     <% end %>
   </div>
 </div>
@@ -74,3 +76,4 @@
     </div>
   </div>
 </div>
+<% end %>
