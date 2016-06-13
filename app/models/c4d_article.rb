@@ -13,7 +13,6 @@ class C4dArticle < ActiveRecord::Base
   has_many :c4d_article_c4d_template_links
   has_many :c4d_reference_links, :through => :c4d_article_c4d_reference_links
   has_many :c4d_template_links, :through => :c4d_article_c4d_template_links
-  validates_uniqueness_of :title, :CMS_title
 
   def to_param
     [id, title.parameterize].join("-")
