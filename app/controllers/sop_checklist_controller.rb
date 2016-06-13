@@ -17,7 +17,7 @@ class SopChecklistController < ApplicationController
       user = User.all.first
       article = user.sop_checklist.sop_articles.where(title: params['title']).first
       if article
-        SopchecklistSoparticle.where(sop_article_id: article.id, sop_checklist_id: user.sop_checklist.id).first.destroy
+        SopChecklistSopArticle.where(sop_article_id: article.id, sop_checklist_id: user.sop_checklist.id).first.destroy
         render json: { status: "success" }
       else
         render json: { status: "fail" }
