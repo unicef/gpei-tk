@@ -6,53 +6,69 @@
     </div>
   <% end %>
   <div id='my_rhizome_dropdown' class='col-md-offset-10'>
+    <div class="ui menu">
+      <div class="ui pointing dropdown link item" style='background-color: black;color: white;'>
+        <span class="text" style='background-color: black;color: white;'>My Rhizome</span>
+        <i class="dropdown icon" style='background-color: black;color: white;'></i>
+        <div class="left menu" style='background-color: black;color: white;'>
+          <div class="item">
+            <i class="fa fa-caret-left" style='background-color: black;color: white;'></i>
+            <span class="text" style='background-color: black;color: white;'>SOP Checklist</span>
+            <div id='sop_checklist_list'class="left menu" style='background-color: black;color: white;'>
+              <% if @user.sop_checklist.sop_articles.empty? %>
+                <div class="item" id="sop_no_items_selected" style='background-color: black;color: white;'><span style='background-color: black;color: white;'>No articles selected</span></div>
+              <% else %>
+                <% @user.sop_checklist.sop_articles.each do |article| %>
+                  <div id="<%= article.title %>" class="item">
+                  <%= link_to sop_article_path(article),  :id => article.title, style: 'background-color: black;color: white;' do %>
+                    <%= article.title %>
+                  <% end %>
+                  <i id="<%= article.title %>" class="fa fa-remove" aria-hidden="true" style='background-color: black;color: white;'></i>
+                  </div>
+                <% end %>
+              <% end %>
+            </div>
+          </div>
+          <div class="item" style='background-color: black;color: white;'>
+            <i class="fa fa-caret-left" style='background-color: black;color: white;'></i>
+            <span class="text" style='background-color: black;color: white;'>C4D Toolkit</span>
+            <div id ='c4d_toolkit_list' class="left menu" style='background-color: black;color: white;'>
+              <% if @user.c4d_toolkit.c4d_articles.empty? %>
+                <div class="item" id="c4d_no_items_selected" style='background-color: black;color: white;'><span style='background-color: black;color: white;'>No articles selected</span></div>
+              <% else %>
+                <% @user.c4d_toolkit.c4d_articles.each do |article| %>
+                  <div id="<%= article.title %>" class="item">
+                  <%= link_to c4d_article_path(article),  :id => article.title, style: 'background-color: black;color: white;' do %>
+                    <%= article.title %>
+                  <% end %>
+                  <i id="<%= article.title %>" class="fa fa-remove" aria-hidden="true" style='background-color: black;color: white;'></i>
+                  </div>
+                <% end %>
+              <% end %>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+<!--   <div id='my_rhizome_dropdown' class='col-md-offset-10'>
     <div class="ui selection dropdown">
     <div class='header'>My Rhizome</div>
       <div class="menu">
-        <div class="item" data-value="Account">Account</div>
-        <ul id='sop_checklist_list' class="item list-unstyled" data-value="SOP Checklist"><i class="fa fa-list" aria-hidden="true"></i>SOP Checklist
-          <% @user.sop_checklist.sop_articles.each do |article| %>
-          <li id="<%= article.title %>"><a href="sop_articles/<%= article.id.to_s %>"><%= article.title %></a><i class="fa fa-remove" aria-hidden="true"></i></li>
-          <% end %>
+        <ul id='c4d_toolkit_list' class="item list-unstyled" data-value="SOP Checklist"><i class="fa fa-list" aria-hidden="true"></i>SOP Checklist
+          <#% @user.sop_checklist.sop_articles.each do |article| %>
+          <li id="<#%= article.title %>">
+            <#%= link_to sop_article_path(article),  :id => article.title do %>
+              <#%= article.title %>
+            <#% end %>
+            <i class="fa fa-remove" aria-hidden="true"></i>
+          <#% end %>
         </ul>
         <div class="item" data-value="C4D Toolkit"><i class="fa fa-list" aria-hidden="true"></i>C4D Toolkit</div>
         <div class="item" data-value="Sign Out"><i class="fa fa-sign-out" aria-hidden="true"></i>Sign Out</div>
       </div>
     </div>
-  </div>
+  </div> -->
 </div>
 
-<!--   <div id='my_rhizome_dropdown'>
-    <div class="ui menu">
-      <div class="ui pointing dropdown link item">
-        <span class="text">My Rhizome</span>
-        <i class="dropdown icon"></i>
-        <div class="menu">
-          <div class="header">Categories</div>
-          <div class="item">
-            <i class="dropdown icon"></i>
-            <span class="text">Clothing</span>
-            <div class="menu">
-              <div class="header">Mens</div>
-              <div class="item">Shirts</div>
-              <div class="item">Pants</div>
-              <div class="item">Jeans</div>
-              <div class="item">Shoes</div>
-              <div class="divider"></div>
-              <div class="header">Womens</div>
-              <div class="item">Dresses</div>
-              <div class="item">Shoes</div>
-              <div class="item">Bags</div>
-            </div>
-          </div>
-          <div class="item">Home Goods</div>
-          <div class="item">Bedroom</div>
-          <div class="divider"></div>
-          <div class="header">Order</div>
-          <div class="item">Status</div>
-          <div class="item">Cancellations</div>
-        </div>
-      </div>
-    </div>
-  </div>
- -->
