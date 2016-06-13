@@ -6,7 +6,7 @@
       <em>Please select the filters you would like to use</em>
     </div>
     <div id='sop_filter_clear_all' class='col-md-2'>
-      <em>Clear All</em>
+      <a href='#' style='text-decoration: none !important;'><em style='color:white;'>Clear All</em></a>
     </div>
   </div>
   <div class='row'>
@@ -51,10 +51,16 @@
         <%= link_to sop_article_path(article), {:style=>'color:#FFFFFF;'} do %>
         <div id="grid_tile_<%= article.title %>" class="<%= build_classes({grid_item: 'grid_item', time: article.sop_time.period.gsub(' ', '_'), offices: article.responsibility.title.gsub(' ', '_'), category: article.sop_category.title.gsub(' ', '_')}) %>"
           style=<%='background-color:' + article.sop_time.color + ';' %>>
-          <p id='grid_item_time_period'><%= article.sop_time.period %><span id='sop_article_id' style='visibility:hidden;'><%= article.id %></span></p>
+          <div class='sop_grid_content'>
+          <% color = 'white' %>
+          <% if article.sop_time.period == '14 Days-Close' %>
+            <% color = 'black' %>
+          <% end %>
+          <p id='grid_item_time_period' style="color:<%= color %>;"><strong><%= article.sop_time.period.upcase %></strong><span id='sop_article_id' style='visibility:hidden;'><%= article.id %></span></p>
           <p id='grid_item_icon'><%= image_tag "sop/icons/#{article.sop_icon.title}.png", width:'40%', height:'40%', class: 'image-responsive', alt: '' %></p>
           <!-- "home/#{@img_name}.png" -->
-          <p id='grid_item_article_title'><%= article.title %></p>
+          <p id='grid_item_article_title' style="color:<%= color %>;"><%= article.title %></p>
+          </div>
           <a class='grid_add' href='#' style="top:5px;right:5px;position:absolute;<%= style_visible('add', @user, article) %>;color:black;"><i class="fa fa-plus" aria-hidden="true"></i></a>
           <a class='grid_check' href='#' style="top:5px;right:5px;position:absolute;<%= style_visible('check', @user, article) %>;color:black;"><i class="fa fa-check" aria-hidden="true"></i></a>
         </div>
