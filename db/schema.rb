@@ -73,15 +73,15 @@ ActiveRecord::Schema.define(version: 20160608142244) do
     t.datetime "updated_at"
   end
 
-  create_table "c4d_toolkits", force: :cascade do |t|
-    t.integer  "user_id"
+  create_table "c4d_toolkit_c4d_articles", force: :cascade do |t|
+    t.integer  "c4d_article_id"
+    t.integer  "c4d_toolkit_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
-  create_table "c4dchecklist_c4darticles", force: :cascade do |t|
-    t.integer  "c4d_article_id"
-    t.integer  "c4d_checklist_id"
+  create_table "c4d_toolkits", force: :cascade do |t|
+    t.integer  "user_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -135,6 +135,13 @@ ActiveRecord::Schema.define(version: 20160608142244) do
     t.datetime "updated_at"
   end
 
+  create_table "sop_checklist_sop_articles", force: :cascade do |t|
+    t.integer  "sop_article_id"
+    t.integer  "sop_checklist_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "sop_checklists", force: :cascade do |t|
     t.integer  "user_id"
     t.datetime "created_at"
@@ -165,13 +172,6 @@ ActiveRecord::Schema.define(version: 20160608142244) do
   create_table "sop_times", force: :cascade do |t|
     t.string   "period"
     t.string   "color"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  create_table "sopchecklist_soparticles", force: :cascade do |t|
-    t.integer  "sop_article_id"
-    t.integer  "sop_checklist_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

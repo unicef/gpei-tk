@@ -152,5 +152,6 @@ user.office = Office.where(title: 'UNICEF').first
 user.save
 
 SopChecklist.create(user_id: user.id)
+C4dToolkit.create(user_id: user.id)
 
 puts 'done!'

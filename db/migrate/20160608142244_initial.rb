@@ -91,15 +91,15 @@ class Initial < ActiveRecord::Migration
       t.timestamps
     end
 
-    create_table :sopchecklist_soparticles do |t|
+    create_table :sop_checklist_sop_articles do |t|
       t.integer :sop_article_id
       t.integer :sop_checklist_id
       t.timestamps
     end
 
-    create_table :c4dchecklist_c4darticles do |t|
+    create_table :c4d_toolkit_c4d_articles do |t|
       t.integer :c4d_article_id
-      t.integer :c4d_checklist_id
+      t.integer :c4d_toolkit_id
       t.timestamps
     end
 
