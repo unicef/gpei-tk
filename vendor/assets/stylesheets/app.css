@@ -65,6 +65,14 @@
 #sop_filter_container {
   padding: 1px;
 }
+#c4d_no_items_selected {
+  color: white;
+  background-color: black;
+}
+#sop_no_items_selected {
+  color: white;
+  background-color: black;
+}
 #sop_filter_clear_all {
   background-color: #6B7A83;
   border-color: #6B7A83;
@@ -86,6 +94,7 @@ html {
   padding: 0;
   height: 100%;
   width: 100%;
+  color: white;
 }
 body {
   line-height: 1.231;
@@ -107,6 +116,11 @@ body, button, input, select, textarea {
   padding: 0;
   width: 100%;
   color: white;
+}
+.sop_grid_content {
+  height: 100%;
+  position: absolute;
+  top:20%;
 }
 .grid_item {
   width: 20%;
@@ -186,7 +200,10 @@ label { margin-right: 10px; }
   color: white;
   background-color:black;
 }
-.bbgwt
+.black-background-white-text{
+  background-color: black;
+  color: white;
+}
 .ui.menu {
   color: white;
   background-color:black;
