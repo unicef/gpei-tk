@@ -1,6 +1,6 @@
 $(function(){
   var $container = $('#isotope_container').isotope({
-    itemSelector: '.item'
+    itemSelector: '.grid_item'
   });
 
   // clear-all filter listener
@@ -77,7 +77,6 @@ $(function(){
   $('#sop_checklist_list').on('click', 'i', function(e) {
     var parent_element = e.currentTarget.parentElement
     var article_title = parent_element.id
-    debugger
     $.ajax({
       method: 'DELETE',
       url: '/sop/checklist/' + article_title
