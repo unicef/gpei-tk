@@ -5,6 +5,8 @@ Rails.application.routes.draw do
   get '/sop' => 'sop#index'
   post '/sop/checklist/:title' => 'sop_checklist#create'
   delete '/sop/checklist/:title' => 'sop_checklist#destroy'
+  post '/c4d/toolkit/:title' => 'c4d_toolkit#create'
+  delete '/c4d/toolkit/:title' => 'c4d_toolkit#destroy'
   resources :sop_articles, only: [:index, :show]
   resources :c4d_articles, only: [:index, :show]
   resources :users, only: [:show]
