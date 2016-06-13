@@ -9,9 +9,9 @@ Role.create(title: 'Member')
 
 ##immediately, 3 weeks, and 3 months do not have a color assigned.
 SopTime.create(period: 'Immediately', color:'#FDFDFD')
-SopTime.create(period: '14 Days', color: '#B12924')
-SopTime.create(period: '24 Hours', color: '#EB5F65')
-SopTime.create(period: '72 Hours', color: '#F49393')
+SopTime.create(period: '14 Days', color: '#F49393')
+SopTime.create(period: '24 Hours', color: '#B12924')
+SopTime.create(period: '72 Hours', color: '#EB5F65')
 SopTime.create(period: '15 Days-Close', color: '#FBE3E6')
 SopTime.create(period: '3 Weeks', color:'#FDFDFD')
 SopTime.create(period: '3 Months', color:'#FDFDFD')
@@ -23,6 +23,32 @@ SopCategory.create(title: 'Communication')
 SopCategory.create(title: 'Finances and Logistics')
 SopCategory.create(title: 'Context')
 SopCategory.create(title: 'Outbreak Confirmation')
+
+SopIcon.create(sop_time_id: 2, sop_category_id: 1, title: '14Days_AdvoCoor')
+SopIcon.create(sop_time_id: 2, sop_category_id: 4, title: '14Days_ExCom')
+SopIcon.create(sop_time_id: 2, sop_category_id: 5, title: '14Days_Finance')
+SopIcon.create(sop_time_id: 2, sop_category_id: 3, title: '14Days_InfoMan')
+SopIcon.create(sop_time_id: 2, sop_category_id: 2, title: '14Days_TechHuman')
+
+SopIcon.create(sop_time_id: 5, sop_category_id: 1, title: '15DaysClose_AdvoCoor')
+SopIcon.create(sop_time_id: 5, sop_category_id: 6, title: '15DaysClose_Context')
+SopIcon.create(sop_time_id: 5, sop_category_id: 4, title: '15DaysClose_ExCom')
+SopIcon.create(sop_time_id: 5, sop_category_id: 5, title: '15DaysClose_Finance')
+SopIcon.create(sop_time_id: 5, sop_category_id: 3, title: '15DaysClose_InfoMan')
+SopIcon.create(sop_time_id: 5, sop_category_id: 2, title: '15DaysClose_TechHuman')
+
+SopIcon.create(sop_time_id: 3, sop_category_id: 5, title: '24Hours_Finance')
+SopIcon.create(sop_time_id: 3, sop_category_id: 3, title: '24Hours_InfoMan')
+SopIcon.create(sop_time_id: 3, sop_category_id: 7, title: '24Hours_OutbreakConfir')
+SopIcon.create(sop_time_id: 3, sop_category_id: 2, title: '24Hours_TechHuman')
+
+SopIcon.create(sop_time_id: 4, sop_category_id: 1, title: '72Hours_AdvoCoor')
+SopIcon.create(sop_time_id: 4, sop_category_id: 6, title: '72Hours_Context')
+SopIcon.create(sop_time_id: 4, sop_category_id: 4, title: '72Hours_ExCom')
+SopIcon.create(sop_time_id: 4, sop_category_id: 5, title: '72Hours_Finance')
+SopIcon.create(sop_time_id: 4, sop_category_id: 3, title: '72Hours_InfoMan')
+SopIcon.create(sop_time_id: 4, sop_category_id: 7, title: '72Hours_OutbreakConfir')
+SopIcon.create(sop_time_id: 4, sop_category_id: 2, title: '72Hours_TechHuman')
 
 C4dCategory.create(title: 'Understand', color:'#8DA900', description: "At the end of this section, you will understand the problem and the highest risk groups and their perception of vaccination, you will understand how to use research to refine the objectives and the role communication can play.")
 C4dCategory.create(title: 'Plan', color:'#0735AC', description: "At the end of this section, you will have defined the target audience, barriers to change, developed messaging and channels to reach the target. You will have used and understood the Comms Planning Tool.")
@@ -52,13 +78,72 @@ Office.create(title: 'UNICEF')
 Office.create(title: 'Rapid Response')
 Office.create(title: 'Surge Team')
 
-SopArticle.create(title: 'awesome_title', sop_time_id: 2, CMS_title: 'awesome_title', responsibility_id: 1, sop_category_id: 7)
-SopArticle.create(title: 'awesome_title2', sop_time_id: 3, CMS_title: 'awesome_title2', responsibility_id: 2, sop_category_id: 6)
-SopArticle.create(title: 'awesome_title3', sop_time_id: 4, CMS_title: 'awesome_title3', responsibility_id: 3, sop_category_id: 5)
-SopArticle.create(title: 'awesome_title4', sop_time_id: 4, CMS_title: 'awesome_title4', responsibility_id: 4, sop_category_id: 4)
-SopArticle.create(title: 'awesome_title5', sop_time_id: 2, CMS_title: 'awesome_title5', responsibility_id: 5, sop_category_id: 3)
-SopArticle.create(title: 'awesome_title6', sop_time_id: 4, CMS_title: 'awesome_title6', responsibility_id: 3, sop_category_id: 2)
-SopArticle.create(title: 'awesome_title7', sop_time_id: 5, CMS_title: 'awesome_title7', responsibility_id: 3, sop_category_id: 2)
+sop_article = SopArticle.create(title: 'awesome_title', sop_time_id: 2, CMS_title: 'awesome_title', responsibility_id: 1, sop_category_id: 1)
+sop_article.sop_icon = SopIcon.where(sop_time_id: sop_article.sop_time.id, sop_category_id: sop_article.sop_category.id).first
+sop_article.save
+sop_article = SopArticle.create(title: 'awesome_title2', sop_time_id: 2, CMS_title: 'awesome_title2', responsibility_id: 2, sop_category_id: 4)
+sop_article.sop_icon = SopIcon.where(sop_time_id: sop_article.sop_time.id, sop_category_id: sop_article.sop_category.id).first
+sop_article.save
+sop_article = SopArticle.create(title: 'awesome_title4', sop_time_id: 2, CMS_title: 'awesome_title4', responsibility_id: 4, sop_category_id: 5)
+sop_article.sop_icon = SopIcon.where(sop_time_id: sop_article.sop_time.id, sop_category_id: sop_article.sop_category.id).first
+sop_article.save
+sop_article = SopArticle.create(title: 'awesome_title6', sop_time_id: 2, CMS_title: 'awesome_title6', responsibility_id: 3, sop_category_id: 3)
+sop_article.sop_icon = SopIcon.where(sop_time_id: sop_article.sop_time.id, sop_category_id: sop_article.sop_category.id).first
+sop_article.save
+sop_article = SopArticle.create(title: 'awesome_title7', sop_time_id: 2, CMS_title: 'awesome_title7', responsibility_id: 1, sop_category_id: 2)
+sop_article.sop_icon = SopIcon.where(sop_time_id: sop_article.sop_time.id, sop_category_id: sop_article.sop_category.id).first
+sop_article.save
+sop_article = SopArticle.create(title: 'awesome_title8', sop_time_id: 5, CMS_title: 'awesome_title8', responsibility_id: 2, sop_category_id: 1)
+sop_article.sop_icon = SopIcon.where(sop_time_id: sop_article.sop_time.id, sop_category_id: sop_article.sop_category.id).first
+sop_article.save
+sop_article = SopArticle.create(title: 'awesome_title9', sop_time_id: 5, CMS_title: 'awesome_title9', responsibility_id: 4, sop_category_id: 6)
+sop_article.sop_icon = SopIcon.where(sop_time_id: sop_article.sop_time.id, sop_category_id: sop_article.sop_category.id).first
+sop_article.save
+sop_article = SopArticle.create(title: 'awesome_title10', sop_time_id: 5, CMS_title: 'awesome_title10', responsibility_id: 3, sop_category_id: 4)
+sop_article.sop_icon = SopIcon.where(sop_time_id: sop_article.sop_time.id, sop_category_id: sop_article.sop_category.id).first
+sop_article.save
+sop_article = SopArticle.create(title: 'awesome_title11', sop_time_id: 5, CMS_title: 'awesome_title11', responsibility_id: 1, sop_category_id: 5)
+sop_article.sop_icon = SopIcon.where(sop_time_id: sop_article.sop_time.id, sop_category_id: sop_article.sop_category.id).first
+sop_article.save
+sop_article = SopArticle.create(title: 'awesome_title12', sop_time_id: 5, CMS_title: 'awesome_title12', responsibility_id: 2, sop_category_id: 3)
+sop_article.sop_icon = SopIcon.where(sop_time_id: sop_article.sop_time.id, sop_category_id: sop_article.sop_category.id).first
+sop_article.save
+sop_article = SopArticle.create(title: 'awesome_title13', sop_time_id: 5, CMS_title: 'awesome_title13', responsibility_id: 4, sop_category_id: 2)
+sop_article.sop_icon = SopIcon.where(sop_time_id: sop_article.sop_time.id, sop_category_id: sop_article.sop_category.id).first
+sop_article.save
+sop_article = SopArticle.create(title: 'awesome_title14', sop_time_id: 3, CMS_title: 'awesome_title14', responsibility_id: 3, sop_category_id: 5)
+sop_article.sop_icon = SopIcon.where(sop_time_id: sop_article.sop_time.id, sop_category_id: sop_article.sop_category.id).first
+sop_article.save
+sop_article = SopArticle.create(title: 'awesome_title15', sop_time_id: 3, CMS_title: 'awesome_title15', responsibility_id: 1, sop_category_id: 3)
+sop_article.sop_icon = SopIcon.where(sop_time_id: sop_article.sop_time.id, sop_category_id: sop_article.sop_category.id).first
+sop_article.save
+sop_article = SopArticle.create(title: 'awesome_title16', sop_time_id: 3, CMS_title: 'awesome_title16', responsibility_id: 2, sop_category_id: 7)
+sop_article.sop_icon = SopIcon.where(sop_time_id: sop_article.sop_time.id, sop_category_id: sop_article.sop_category.id).first
+sop_article.save
+sop_article = SopArticle.create(title: 'awesome_title17', sop_time_id: 3, CMS_title: 'awesome_title17', responsibility_id: 4, sop_category_id: 2)
+sop_article.sop_icon = SopIcon.where(sop_time_id: sop_article.sop_time.id, sop_category_id: sop_article.sop_category.id).first
+sop_article.save
+sop_article = SopArticle.create(title: 'awesome_title18', sop_time_id: 4, CMS_title: 'awesome_title18', responsibility_id: 3, sop_category_id: 1)
+sop_article.sop_icon = SopIcon.where(sop_time_id: sop_article.sop_time.id, sop_category_id: sop_article.sop_category.id).first
+sop_article.save
+sop_article = SopArticle.create(title: 'awesome_title19', sop_time_id: 4, CMS_title: 'awesome_title19', responsibility_id: 2, sop_category_id: 6)
+sop_article.sop_icon = SopIcon.where(sop_time_id: sop_article.sop_time.id, sop_category_id: sop_article.sop_category.id).first
+sop_article.save
+sop_article = SopArticle.create(title: 'awesome_title20', sop_time_id: 4, CMS_title: 'awesome_title20', responsibility_id: 4, sop_category_id: 4)
+sop_article.sop_icon = SopIcon.where(sop_time_id: sop_article.sop_time.id, sop_category_id: sop_article.sop_category.id).first
+sop_article.save
+sop_article = SopArticle.create(title: 'awesome_title21', sop_time_id: 4, CMS_title: 'awesome_title21', responsibility_id: 3, sop_category_id: 5)
+sop_article.sop_icon = SopIcon.where(sop_time_id: sop_article.sop_time.id, sop_category_id: sop_article.sop_category.id).first
+sop_article.save
+sop_article = SopArticle.create(title: 'awesome_title22', sop_time_id: 4, CMS_title: 'awesome_title22', responsibility_id: 1, sop_category_id: 3)
+sop_article.sop_icon = SopIcon.where(sop_time_id: sop_article.sop_time.id, sop_category_id: sop_article.sop_category.id).first
+sop_article.save
+sop_article = SopArticle.create(title: 'awesome_title23', sop_time_id: 4, CMS_title: 'awesome_title23', responsibility_id: 2, sop_category_id: 7)
+sop_article.sop_icon = SopIcon.where(sop_time_id: sop_article.sop_time.id, sop_category_id: sop_article.sop_category.id).first
+sop_article.save
+sop_article = SopArticle.create(title: 'awesome_title24', sop_time_id: 4, CMS_title: 'awesome_title24', responsibility_id: 4, sop_category_id: 2)
+sop_article.sop_icon = SopIcon.where(sop_time_id: sop_article.sop_time.id, sop_category_id: sop_article.sop_category.id).first
+sop_article.save
 
 user = User.new(first_name: 'root', email: 'root@example.com', screenname: 'root', TOS_accepted: true)
 user.password = 'foobar'

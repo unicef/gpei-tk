@@ -16,6 +16,20 @@ ActiveRecord::Schema.define(version: 20160608142244) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
+  create_table "c4d_article_c4d_reference_links", force: :cascade do |t|
+    t.integer  "c4d_reference_link_id"
+    t.integer  "c4d_article_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "c4d_article_c4d_template_links", force: :cascade do |t|
+    t.integer  "c4d_template_link_id"
+    t.integer  "c4d_article_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "c4d_articles", force: :cascade do |t|
     t.string   "CMS_title"
     t.string   "description"
@@ -23,6 +37,7 @@ ActiveRecord::Schema.define(version: 20160608142244) do
     t.integer  "c4d_category_id"
     t.integer  "c4d_subcategory_id"
     t.string   "version"
+    t.string   "videoURL"
     t.string   "status"
     t.string   "owner_id"
     t.datetime "created_at"
@@ -37,10 +52,8 @@ ActiveRecord::Schema.define(version: 20160608142244) do
     t.datetime "updated_at"
   end
 
-  create_table "c4d_icons", force: :cascade do |t|
-    t.string   "short_name"
-    t.string   "name"
-    t.integer  "c4d_subcategory_id"
+  create_table "c4d_reference_links", force: :cascade do |t|
+    t.integer  "file_name"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -48,7 +61,14 @@ ActiveRecord::Schema.define(version: 20160608142244) do
   create_table "c4d_subcategories", force: :cascade do |t|
     t.string   "title"
     t.string   "color"
+    t.string   "image_name"
     t.integer  "c4d_category_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "c4d_template_links", force: :cascade do |t|
+    t.integer  "file_name"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -78,6 +98,20 @@ ActiveRecord::Schema.define(version: 20160608142244) do
     t.datetime "updated_at"
   end
 
+  create_table "sop_article_sop_reference_links", force: :cascade do |t|
+    t.integer  "sop_reference_link_id"
+    t.integer  "sop_article_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "sop_article_sop_template_links", force: :cascade do |t|
+    t.integer  "sop_template_link_id"
+    t.integer  "sop_article_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "sop_articles", force: :cascade do |t|
     t.string   "CMS_title"
     t.string   "article"
@@ -86,6 +120,8 @@ ActiveRecord::Schema.define(version: 20160608142244) do
     t.integer  "sop_time_id"
     t.string   "version"
     t.string   "status"
+    t.string   "video_url"
+    t.string   "support"
     t.integer  "responsibility_id"
     t.integer  "owner_id"
     t.datetime "created_at"
@@ -106,9 +142,22 @@ ActiveRecord::Schema.define(version: 20160608142244) do
   end
 
   create_table "sop_icons", force: :cascade do |t|
-    t.string   "short_name"
-    t.string   "name"
+    t.integer  "sop_time_id"
     t.integer  "sop_category_id"
+    t.integer  "sop_article_id"
+    t.string   "title"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "sop_reference_links", force: :cascade do |t|
+    t.integer  "file_name"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "sop_template_links", force: :cascade do |t|
+    t.integer  "file_name"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
