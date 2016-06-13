@@ -4,16 +4,16 @@
   <!-- 4 columns for categories -->
 </div>
 <% if @sop_article %>
-<div class='col-md-3' style="background-color: <%= @sop_aticle.sop_subcategory.color %>;">
+<div class='col-md-3' style="background-color: <%= @sop_article.sop_time.color %>;">
   <div class='row'>
     <div class='col-md-1'>
       <div class='sop_article_icon'>
-        <%= image_tag "sop_subcategory/#{@sop_article.image_name}.png", class: 'image-responsive', alt: @sop_article.sop_subcategory %>
+        <%= image_tag "sop/icons/#{@sop_article.sop_icon.title}.png", width:'40%', height:'40%', class: 'image-responsive', alt: @sop_article.sop_category %>
       </div>
     </div>
     <div class='col-md-1'>
       <ul id='sop_article_logo_category' class='list-unstyled'>
-        <li><%= @sop_article.sop_subcategory %></li>
+        <li><%= @sop_article.sop_category.title %></li>
         <li><%= @sop_article.title %></li>
       </ul>
     </div>
@@ -21,17 +21,30 @@
   <div id='sop_show_table_of_contents'>
   <!-- need more info? -->
   </div>
-  <div id='sop_show_references'>
-    <!-- is there a mapping to this? -->
-  </div>
-  <div id='sop_checklist'>
-    <
+  <div id='sop_related_topics'>
     <ul class='list-unstyled'>
-
+    <% @sop_related_topics.each do |article| %>
+      <%= link_to sop_article_path(article) do %>
+      <li id="sop_related_topics_<%= article.title %>"><%= article.title %></li>
+      <% end %>
+    <% end %>
     </ul>
   </div>
-  <div id='sop_add_checklist'>
-    <input id=<%= @sop_article.title.gsub(' ', '_') %> type='checkbox' value="<%= @sop_article.title.gsub(' ', '_') %>"><label for=<%= @sop_article.title.gsub(' ', '_') %>>ADD TO MY CHECKLIST</label>
+  <div id='sop_show_references'>
+    <ul class='list-unstyled'>
+    <% @sop_related_topics.each do |reference| %>
+    <!-- is there a mapping to this? -->
+        <% if reference.id != @sop_article.id %>
+          <%= link_to sop_article_path(reference) do %>
+            <li id='reference_link_<%= reference.title %>'><%= reference.title %></li>
+          <% end %>
+        <% end %>
+      </ul>
+    <% end %>
+  </div>
+  <div id='sop_checklist_icons'>
+    <a id='grid_add' href='#' style="top:5px;right:5px;position:absolute;<%= style_visible('add', @user, @sop_article) %>;color:black;"><i class="fa fa-plus" aria-hidden="true"><span id='<%= @sop_article.title %>'></span></i></a>
+    <a id='grid_check' href='#' style="top:5px;right:5px;position:absolute;<%= style_visible('check', @user, @sop_article) %>;color:black;"><i class="fa fa-check" aria-hidden="true"><span id='<%= @sop_article.title %>'></span></i></a>
   </div>
   <div id='sop_cycle_articles'>
     <% if @sop_article.id != 1 %>
@@ -52,20 +65,23 @@
 </div>
 <div class='col-md-9'>
   <div id='sop_article_show'>
-   <%= @sop_article.description %>
+   <%= @sop_article.article %>
   </div>
   <div id='sop_article_related_articles'>
     <div class='row'>
-    <% @sop_article.sop_subcategory.sop_articles.each do |article| %>
+    <% @sop_category_articles.each do |article| %>
       <div class='sop_relative_article'>
         <div class='col-md-1'>
+        <% if article.id != @sop_article.id %>
+
           <div class='sop_article_icon'>
-            <%= image_tag "sop_subcategory/#{article.image_name}.png", class: 'image-responsive', alt: article.sop_subcategory %>
+            <%= image_tag "sop/icons/#{article.sop_icon.title}.png", width:'40%', height:'40%', class: 'image-responsive', alt: article.sop_category.title %>
           </div>
+        <% end %>
         </div>
         <div class='col-md-1'>
           <ul id='sop_article_logo_category' class='list-unstyled'>
-            <li><%= article.sop_subcategory %></li>
+            <li><%= article.sop_category.title %></li>
             <li><%= article.title %></li>
           </ul>
         </div>
