@@ -3,7 +3,7 @@
   font-weight: bold;
   border-style: double;
   border-width: 1px;
-  font-size: 150%;
+  font-size: 100%;
   padding-top: 5px;
   padding-bottom: 5px;
   padding-left: 10px;
@@ -30,8 +30,12 @@
   font-size: 130%;
   background-color: #B12924;
 }
+.filter-label {
+  font-size: 80%;
+  margin-left: 5px;
+}
 .filter-item {
-  margin-left: 3px;
+  margin-left: 6px;
   color: #6B7A83;
 }
 #sop_panel_header {
@@ -46,12 +50,14 @@
   border-color: white;
   border-width: 1px;
   font-size: 150%;
-  margin-right: 1px;
-  margin-left: 1px;
   background-color: #6B7A83;
 }
 #filter_list {
-  padding: 1px;
+  padding-right: 1px;
+  padding-left: 1px;
+  padding-top: 1px;
+  padding-bottom: 0px;
+  margin-bottom: 0px;
 }
 .no-padding {
   padding: 0;
@@ -62,6 +68,10 @@
 #sop_filter_clear_all {
   background-color: #6B7A83;
   border-color: #6B7A83;
+  border: solid;
+  border-color: white;
+  border-width: 1px;
+  font-size: 150%;
 }
 .sop_checkboxes {
   background-color: #D9E0DE;
@@ -92,27 +102,22 @@ body, button, input, select, textarea {
 
 /*isotope styles*/
 * { box-sizing: border-box; }
-#isotope_container, {
+#isotope_container {
   margin: 0;
   padding: 0;
   width: 100%;
   color: white;
 }
-.item {
-  width: 19%;
-  height: 200px;
-  float: left;
-  border: 2px solid #333;
-  border-color: hsla(0, 0%, 0%, 0.5);
-  border-radius: 5px;
-  margin: 1px;
-  padding: 1px;
+.grid_item {
+  width: 20%;
+  height: 275px;
+  border: 1px solid white;
 }
 .container-fluid {
   margin:0;
   padding:0;
 }
-.item p {
+.grid_item p {
   margin: 0;
 }
 
@@ -122,9 +127,13 @@ body, button, input, select, textarea {
 .orange { background: orange;}
 
 select, label, input { font-size: 20px; }
-
+ul { margin-bottom: 0px; }
 label { margin-right: 10px; }
 /**/
+.row {
+  padding: 0px;
+  margin: 0px;
+}
 .col-md-1 {
   margin: 0;
   padding: 0;
@@ -174,6 +183,11 @@ label { margin-right: 10px; }
   padding: 0;
 }
 #my_rhizome_dropdown {
+  color: white;
+  background-color:black;
+}
+.bbgwt
+.ui.menu {
   color: white;
   background-color:black;
 }
