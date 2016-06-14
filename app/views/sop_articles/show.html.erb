@@ -1,93 +1,80 @@
 <%= render 'dashboard/nav' %>
-
-<div class='col-md-12'>
-  <!-- 4 columns for categories -->
-</div>
 <% if @sop_article %>
-<div class='col-md-3' style="background-color: <%= @sop_article.sop_time.color %>;">
-  <div class='row'>
-    <div class='col-md-1'>
-      <div class='sop_article_icon'>
-        <%= image_tag "sop/icons/#{@sop_article.sop_icon.title}.png", width:'40%', height:'40%', class: 'image-responsive', alt: @sop_article.sop_category %>
-      </div>
-    </div>
-    <div class='col-md-1'>
-      <ul id='sop_article_logo_category' class='list-unstyled'>
-        <li><%= @sop_article.sop_category.title %></li>
-        <li><%= @sop_article.title %></li>
-      </ul>
-    </div>
-  </div>
-  <div id='sop_show_table_of_contents'>
-  <!-- need more info? -->
-  </div>
-  <div id='sop_related_topics'>
-    <ul class='list-unstyled'>
-    <% @sop_related_topics.each do |article| %>
-      <%= link_to sop_article_path(article) do %>
-      <li id="sop_related_topics_<%= article.title %>"><%= article.title %></li>
-      <% end %>
+<div class='col-md-3' style='border: 2px white solid'>
+  <div id="sop_article_logo_row" class='row' style="background-color: <%=  @sop_article.sop_time.color %>;">
+    <%= link_to sop_path do %>
+    <div style="position:absolute;top:5px;left:5px;color:white;z-index=10"><span>close</span><i class="fa fa-remove" aria-hidden="true"></i></div>
     <% end %>
+    <div class='sop_article_icon col-md-2'>
+      <%= image_tag "sop/icons/#{@sop_article.sop_icon.title}.png", id: "sop_article_icon", class: 'image-responsive', alt: @sop_article.sop_icon.title %>
+    </div>
+    <ul id='sop_article_logo_text' class='list-unstyled col-md-1'>
+      <li><strong style='font-size:115%;color:<%= get_color_for_sop_time(@sop_article.sop_time.period) %>;'><%= @sop_article.sop_time.period %></strong></li>
+      <li><strong style='font-size:125%;position:absolute;left:-100%;margin-top:10px;color:<%= get_color_for_sop_time(@sop_article.sop_time.period) %>;'><%= @sop_article.title.capitalize %></strong></li>
     </ul>
   </div>
-  <div id='sop_show_references'>
-    <ul class='list-unstyled'>
-    <% @sop_related_topics.each do |reference| %>
-    <!-- is there a mapping to this? -->
-        <% if reference.id != @sop_article.id %>
-          <%= link_to sop_article_path(reference) do %>
-            <li id='reference_link_<%= reference.title %>'><%= reference.title %></li>
-          <% end %>
+  <% if !@sop_article.sop_reference_links.empty? %>
+  <div class='row'>
+    <div id='sop_show_references'>
+      <ul class='list-unstyled' style='color: black;'>
+        <% @sop_article.sop_reference_links.each do |link| %>
+          <li><%= link_to link.file_name, sop_reference_link_path(link) %></li>
         <% end %>
       </ul>
-    <% end %>
+    </div>
   </div>
-  <div id='sop_checklist_icons'>
-    <a id='grid_add' href='#' style="top:5px;right:5px;position:absolute;<%= style_visible('add', @user, @sop_article) %>;color:black;"><i class="fa fa-plus" aria-hidden="true"><span id='<%= @sop_article.title %>'></span></i></a>
-    <a id='grid_check' href='#' style="top:5px;right:5px;position:absolute;<%= style_visible('check', @user, @sop_article) %>;color:black;"><i class="fa fa-check" aria-hidden="true"><span id='<%= @sop_article.title %>'></span></i></a>
-  </div>
-  <div id='sop_cycle_articles'>
-    <% if @sop_article.id != 1 %>
-      <div id='sop_prev_topic'>
-      <%= link_to sop_article_path(@sop_article.id - 1) do %>
-        <i class="fa fa-arrow-left fa-2x" aria-hidden="true"></i>
-      <% end %>
-      </div>
-    <% end %>
-    <% if @sop_article.id != @sop_article_last_index %>
-      <div id='sop_next_topic'>
-      <%= link_to sop_article_path(@sop_article.id + 1) do %>
-        <i class="fa fa-arrow-right fa-2x" aria-hidden="true"></i>
-      <% end %>
-      </div>
-    <% end %>
-  </div>
+  <% end %>
+    <!-- if table of content exists row of toc -->
+    <!-- <div id='sop_show_table_of_contents'> -->
+    <!-- </div> -->
 </div>
-<div class='col-md-9'>
-  <div id='sop_article_show'>
-   <%= @sop_article.article %>
+<div class='col-md-9' style='border: 2px white solid'>
+  <div class='row'>
+    <div id='sop_article_show'>
+     <%= @sop_article.article %>
+    </div>
   </div>
-  <div id='sop_article_related_articles'>
-    <div class='row'>
-    <% @sop_category_articles.each do |article| %>
-      <div class='sop_relative_article'>
-        <div class='col-md-1'>
-        <% if article.id != @sop_article.id %>
-
-          <div class='sop_article_icon'>
-            <%= image_tag "sop/icons/#{article.sop_icon.title}.png", width:'40%', height:'40%', class: 'image-responsive', alt: article.sop_category.title %>
-          </div>
+  <div class='row'>
+    <div id='sop_cycle_articles'>
+      <% if @sop_article_last_index != 0 %>
+        <div class='row'>
+        <% if @sop_article.id != 1 %>
+          <%= link_to sop_article_path(@sop_article.id - 1) do %>
+            <span style='position:absolute;left:0px;font-size:120%;color:black;'><i class="fa fa-caret-left" aria-hidden="true" style='font-size:120%'></i>  Previous Topic<span>
+          <% end %>
+        <% end %>
+        <% if @sop_article.id != @sop_article_last_index %>
+          <%= link_to sop_article_path(@sop_article.id + 1) do %>
+            <span style='position:absolute;right:0px;font-size:120%;color:black;'>Next Topic  <i class="fa fa-caret-right" aria-hidden="true" style='font-size:120%'></i><span>
+          <% end %>
         <% end %>
         </div>
-        <div class='col-md-1'>
-          <ul id='sop_article_logo_category' class='list-unstyled'>
-            <li><%= article.sop_category.title %></li>
-            <li><%= article.title %></li>
-          </ul>
-        </div>
-      </div>
-    <% end %>
+      <% end %>
     </div>
+  </div>
+  <% if !@sop_related_topics.empty? %>
+    <div id='isotope_container' style='margin-top:40px;'>
+      <% @sop_related_topics.each do |article| %>
+        <%= link_to sop_article_path(article), {:style=>'color:#FFFFFF;'} do %>
+        <div id="grid_tile_<%= article.title %>" class="<%= build_classes({grid_item: 'grid_item', time: article.sop_time.period.gsub(' ', '_'), offices: article.responsibility.title.gsub(' ', '_'), category: article.sop_category.title.gsub(' ', '_')}) %>"
+          style=<%='background-color:' + article.sop_time.color + ';height:220px;' %>>
+          <div class='sop_grid_content' style='position:absolute;left:20%;top:30%;'>
+          <% color = 'white' %>
+          <% if article.sop_time.period == '14 Days-Close' %>
+            <% color = 'black' %>
+          <% end %>
+          <p id='grid_item_time_period' style="color:<%= color %>;position:absolute;top:-10%;left:10%;"><strong><%= article.sop_time.period.upcase %></strong><span id='sop_article_id' style='visibility:hidden;'><%= article.id %></span></p>
+          <p id='grid_item_icon'><%= image_tag "sop/icons/#{article.sop_icon.title}.png", width:'70%', height:'70%', class: 'image-responsive', alt: '' %></p>
+          <!-- "home/#{@img_name}.png" -->
+          <p id='grid_item_article_title' style="color:<%= color %>;"><%= article.title %></p>
+          </div>
+          <a class='grid_add' href='#' style="top:5px;right:5px;position:absolute;<%= style_visible('add', @user, article) %>;color:black;"><i class="fa fa-plus" aria-hidden="true"></i></a>
+          <a class='grid_check' href='#' style="top:5px;right:5px;position:absolute;<%= style_visible('check', @user, article) %>;color:black;"><i class="fa fa-check" aria-hidden="true"></i></a>
+        </div>
+        <% end %>
+      <% end %>
+    </div>
+  <% end %>
   </div>
 </div>
 <% end %>
