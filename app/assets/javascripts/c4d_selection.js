@@ -78,7 +78,7 @@ $('.button-group').each(function(i, buttonGroup) {
 
       toggleVisibility(e.currentTarget.nextElementSibling);
       var article_id = $('#c4d_article_id').text()
-      var list_item = "<div id=\"" + article_title + "\" class=\"item\" style='background-color: black;color: white;'><a href=c4d_articles/" + article_id + "\" style='background-color: black;color: white;'>" + article_title + "</a> <i id=\"" + article_title + "\" class=\"fa fa-remove\" aria-hidden=\"true\" style='background-color: black;color: white;'></i></div>"
+      var list_item = "<div id=\"" + article_title + "\" class=\"item\" style='background-color: black;color: white;'><a href=/c4d_articles/" + article_id + " style='background-color: black;color: white;'>" + article_title + "</a> <i id=\"" + article_title + "\" class=\"fa fa-remove\" aria-hidden=\"true\" style='background-color: black;color: white;'></i></div>"
       removeNoArticlesSelected('#c4d_no_items_selected')
       $('#c4d_toolkit_list').append(list_item);
     });
@@ -101,7 +101,6 @@ $('.button-group').each(function(i, buttonGroup) {
       var grid_check = e.currentTarget.previousElementSibling
 
       toggleVisibility(e.currentTarget.previousElementSibling);
-
       var article_list_item = '#c4d_toolkit_list #'+article_title;
       $(article_list_item).remove();
       checkIfArticlesSelectedAndAppend('#c4d_toolkit_list')
