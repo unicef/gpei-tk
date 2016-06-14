@@ -30,6 +30,7 @@ $(function(){
     // $output.html("<li id=\"checklist_article\">" + filterValue + "</li>");
   }
   function toggleVisibility(el) {
+    debugger
     if ($(el).css('visibility') == 'hidden' )
       $(el).css('visibility','visible');
     else
@@ -50,7 +51,7 @@ $(function(){
 
       toggleVisibility(e.currentTarget.nextElementSibling);
       var article_id = $('#sop_article_id').text()
-      var list_item = "<div id=\"" + article_title + "\" class=\"item\" style='background-color: black;color: white;'><a href=sop_articles/" + article_id + "\" style='background-color: black;color: white;'>" + article_title + "</a> <i id=\"" + article_title + "\" class=\"fa fa-remove\" aria-hidden=\"true\" style='background-color: black;color: white;'></i></div>"
+      var list_item = "<div id=\"" + article_title + "\" class=\"item\" style='background-color: black;color: white;'><a href=sop_articles/" + article_id + " style='background-color: black;color: white;'>" + article_title + "</a> <i id=\"" + article_title + "\" class=\"fa fa-remove\" aria-hidden=\"true\" style='background-color: black;color: white;'></i></div>"
       removeNoArticlesSelected('#sop_no_items_selected')
       $('#sop_checklist_list').append(list_item);
     });
