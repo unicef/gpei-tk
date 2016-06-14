@@ -16,6 +16,7 @@ class C4dArticlesController < ApplicationController
     else
       @c4d_article_last_index = 0
     end
-    @c4d_related_topics = C4dArticle.where(c4d_category: @c4d_article.c4d_category, c4d_subcategory: @c4d_article.c4d_subcategory)
+    @c4d_categories = C4dCategory.all
+    @c4d_related_topics = C4dArticle.where("c4d_subcategory_id = ? AND id != ?", @c4d_article.c4d_subcategory_id, @c4d_article.id)
   end
 end
