@@ -1,79 +1,80 @@
 <%= render 'dashboard/nav' %>
-<div class='col-md-12'>
-  <!-- c4d_categories.each -->
-  <!-- 4 columns for categories -->
-</div>
+<!-- <div class='row' style='color: black;'>
+<#% @c4d_categories.each_with_index do |category, index| %>
+  <div id='c4d_show_categories' class='col-md-3 text-center' style="background-color: <#%= category.color %>;">
+    <#%= index + 1 %>. <#%= category.title %>
+  </div>
+<#% end %>
+</div> -->
 <% if @c4d_article %>
-<div class='col-md-3' style="background-color: <%=  @c4d_aticle.c4d_subcategory.color %>;">
-  <div class='row'>
-    <div class='col-md-1'>
-      <div class='c4d_article_icon'>
-        <%= image_tag "c4d_subcategory/#{@c4d_article.image_name}.png", class: 'image-responsive', alt: @c4d_article.c4d_subcategory %>
-      </div>
+<div class='col-md-3' style='border: 2px white solid'>
+  <div id="c4d_article_logo_row" class='row' style="background-color: <%=  @c4d_article.c4d_subcategory.color %>;">
+    <%= link_to c4d_selection_path do %>
+    <div style="position:absolute;top:5px;left:5px;color:white;z-index=10"><span>close</span><i class="fa fa-remove" aria-hidden="true"></i></div>
+    <% end %>
+    <div class='c4d_article_icon col-md-2'>
+      <%= image_tag "c4d/icons/#{@c4d_article.c4d_category.title}/#{@c4d_article.c4d_subcategory.title + '.png'}", id: "c4d_article_icon", class: 'image-responsive', alt: @c4d_article.c4d_subcategory.title %>
     </div>
-    <div class='col-md-1'>
-      <ul id='c4d_article_logo_category' class='list-unstyled'>
-        <li><%= @c4d_article.c4d_subcategory %></li>
-        <li><%= @c4d_article.title %></li>
+    <ul id='c4d_article_logo_text' class='list-unstyled col-md-1'>
+      <li><strong style='font-size:115%;color:<%= get_color_for_subcategory(@c4d_article.c4d_subcategory.title) %>;'><%= @c4d_article.c4d_subcategory.title %></strong></li>
+      <li><strong style='font-size:125%;position:absolute;left:-100%;margin-top:10px;color:<%= get_color_for_subcategory(@c4d_article.c4d_subcategory.title) %>;'><%= @c4d_article.title.capitalize %></strong></li>
+    </ul>
+  </div>
+  <% if !@c4d_article.c4d_reference_links.empty? %>
+  <div class='row'>
+    <div id='c4d_show_references'>
+      <ul class='list-unstyled' style='color: black;'>
+        <% @c4d_article.c4d_reference_links.each do |link| %>
+          <li><%= link_to link.file_name, c4d_reference_link_path(link) %></li>
+        <% end %>
       </ul>
     </div>
   </div>
-  <div id='c4d_show_table_of_contents'>
-  <!-- need more info? -->
-  </div>
-  <div id='c4d_show_references'>
-    <!-- is there a mapping to this? -->
-  </div>
-  <div id='c4d_toolkit'>
-    <
-    <ul class='list-unstyled'>
-
-    </ul>
-  </div>
-  <div id='c4d_add_toolkit'>
-    <input id=<%= @c4d_article.title.gsub(' ', '_') %> type='checkbox' value="<%= @c4d_article.title.gsub(' ', '_') %>"><label for=<%= @c4d_article.title.gsub(' ', '_') %>>ADD TO MY TOOLKIT</label>
-  </div>
-  <div id='c4d_cycle_articles'>
-    <% if @c4d_article_last_index != 0 %>
-      <% if @c4d_article.id != 1 %>
-        <div id='c4d_prev_topic'>
-        <%= link_to c4d_article_path(@c4d_article.id - 1) do %>
-          <i class="fa fa-arrow-left fa-2x" aria-hidden="true"></i>
-        <% end %>
-        </div>
-      <% end %>
-      <% if @c4d_article.id != @c4d_article_last_index %>
-        <div id='c4d_next_topic'>
-        <%= link_to c4d_article_path(@c4d_article.id + 1) do %>
-          <i class="fa fa-arrow-right fa-2x" aria-hidden="true"></i>
-        <% end %>
-        </div>
-      <% end %>
-    <% end %>
-  </div>
+  <% end %>
+    <!-- if table of content exists row of toc -->
+    <!-- <div id='c4d_show_table_of_contents'> -->
+    <!-- </div> -->
 </div>
-<div class='col-md-9'>
-  <div id='c4d_article_show'>
-   <%= @c4d_article.description %>
-  </div>
-  <div id='c4d_article_related_articles'>
-    <div class='row'>
-    <% @c4d_article.c4d_subcategory.c4d_articles.each do |article| %>
-      <div class='c4d_relative_article'>
-        <div class='col-md-1'>
-          <div class='c4d_article_icon'>
-            <%= image_tag "c4d_subcategory/#{article.image_name}.png", class: 'image-responsive', alt: article.c4d_subcategory %>
-          </div>
-        </div>
-        <div class='col-md-1'>
-          <ul id='c4d_article_logo_category' class='list-unstyled'>
-            <li><%= article.c4d_subcategory %></li>
-            <li><%= article.title %></li>
-          </ul>
-        </div>
-      </div>
-    <% end %>
+<div class='col-md-9' style='border: 2px white solid'>
+  <div class='row'>
+    <div id='c4d_article_show'>
+     <%= @c4d_article.description %>
     </div>
+  </div>
+  <div class='row'>
+    <div id='c4d_cycle_articles'>
+      <% if @c4d_article_last_index != 0 %>
+        <div class='row'>
+        <% if @c4d_article.id != 1 %>
+          <%= link_to c4d_article_path(@c4d_article.id - 1) do %>
+            <span style='position:absolute;left:0px;font-size:120%;color:black;'><i class="fa fa-caret-left" aria-hidden="true" style='font-size:120%'></i>  Previous Topic<span>
+          <% end %>
+        <% end %>
+        <% if @c4d_article.id != @c4d_article_last_index %>
+          <%= link_to c4d_article_path(@c4d_article.id + 1) do %>
+            <span style='position:absolute;right:0px;font-size:120%;color:black;'>Next Topic  <i class="fa fa-caret-right" aria-hidden="true" style='font-size:120%'></i><span>
+          <% end %>
+        <% end %>
+        </div>
+      <% end %>
+    </div>
+  </div>
+  <% if !@c4d_related_topics.empty? %>
+    <div id='c4d_category_grid' style='margin-top:35px'>
+      <% @c4d_related_topics.each do |article| %>
+        <div id="c4d_grid_tile_<%= article.title %>" class="<%= build_classes({item: 'c4d_grid_item', c4d_category: article.c4d_category.title.gsub(' ', '_')}) %>"
+          style="height:200px;background-color: <%= article.c4d_subcategory.color %>;">
+          <div class='c4d_grid_item_content' style='position:absolute;left:32px;top:25%;'>
+            <p class="c4d_grid_item_subcategory <%= article.c4d_subcategory.title %>" style='position:absolute;top:-35px;left:10%;'><strong style='color:<%= get_color_for_subcategory(@c4d_article.c4d_subcategory.title) %>;'><%= article.c4d_subcategory.title %></strong><span id='c4d_article_id' style='visibility:hidden;'><%= article.id %></span></p>
+            <%= image_tag "c4d/icons/#{article.c4d_category.title}/#{article.c4d_subcategory.title + '.png'}", width: '70%', height: '55%', class: 'image-responsive', alt: article.c4d_subcategory.title %>
+            <p class="c4d_grid_item_article_title <%= article.title %>" style='color:<%= get_color_for_subcategory(@c4d_article.c4d_subcategory.title) %>;'><%= article.title %></p>
+          </div>
+          <a class='c4d_grid_add' href='#' style="top:5px;right:5px;position:absolute;<%= c4d_style_visible('add', @user, article) %>;color:black;"><i class="fa fa-plus" aria-hidden="true"></i></a>
+          <a class='c4d_grid_check' href='#' style="top:5px;right:5px;position:absolute;<%= c4d_style_visible('check', @user, article) %>;color:black;"><i class="fa fa-check" aria-hidden="true"></i></a>
+        </div>
+      <% end %>
+    </div>
+  <% end %>
   </div>
 </div>
 <% end %>
