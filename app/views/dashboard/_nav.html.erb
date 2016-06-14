@@ -1,10 +1,12 @@
-<div id='nav-bar' class='container-fluid'>
+<div id='nav_bar'>
   <%= link_to root_path do %>
-    <div class='col-md-2'>
-      <%= image_tag 'home/GPEI_logo_b-w.png', width:'75%', height:'75%', class: 'image-responsive', alt: 'GPEI Toolkit' %>
-      <%= image_tag "home/#{@img_name}.png", width:'75%', height:'75%',class: 'image-responsive', alt: 'SOP' %>
-    </div>
+  <div class='col-md-2'>
+    <%= image_tag 'home/GPEI.png', width:'75%', height:'75%', alt: 'GPEI Toolkit' %>
+  </div>
   <% end %>
+  <div class="col-md-2">
+    <%= image_tag "home/#{@img_name}_cropped.png", :id => 'nav_section_icon', height:'50%', width:'50%', class: 'img-rounded', alt: 'SOP' %>
+  </div>
   <div id='my_rhizome_dropdown' class='col-md-offset-10'>
     <div class="ui menu">
       <div class="ui pointing dropdown link item" style='background-color: black;color: white;'>

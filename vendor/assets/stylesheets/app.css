@@ -8,6 +8,10 @@
   padding-bottom: 5px;
   padding-left: 10px;
 }
+.col-md-2 #nav_section_icon {
+  position:relative;
+  top: 5px;
+}
 .sop_article_show_summary_header {
   color: red;
   margin:0;
