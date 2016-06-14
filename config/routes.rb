@@ -10,4 +10,6 @@ Rails.application.routes.draw do
   resources :sop_articles, only: [:index, :show]
   resources :c4d_articles, only: [:index, :show]
   resources :users, only: [:show]
+  resources :c4d_reference_links, only: [:show]
+  resources :sop_reference_links, only: [:show]
 end
