@@ -8,6 +8,70 @@
   padding-bottom: 5px;
   padding-left: 10px;
 }
+a {
+  text-decoration: none !important;
+  color:black```````````;
+}
+/**/
+#sop_article_related_articles {
+  margin-top:25px;
+  margin-bottom:25px;
+}
+.sop_cycle_articles {
+  min-height:100px;
+}
+#sop_show_categories {
+  height: 40px;
+  border: 2px white solid;
+}
+#sop_article_logo_row {
+  min-height: 120px;
+  padding: 30px;
+}
+#sop_article_icon {
+  margin: -25%;
+  width: 400%;
+  height: 400%;
+}
+#sop_article_logo_text{
+  position: absolute;
+  right:38%;
+  top:30%;
+}
+#sop_show_references {
+  padding-top: 10px;
+}
+/**/
+/**/
+#c4d_article_related_articles {
+  margin-top:25px;
+  margin-bottom:25px;
+}
+.c4d_cycle_articles {
+  min-height:100px;
+}
+#c4d_show_categories {
+  height: 40px;
+  border: 2px white solid;
+}
+#c4d_article_logo_row {
+  min-height: 120px;
+  padding: 30px;
+}
+#c4d_article_icon {
+  margin: -25%;
+  width: 400%;
+  height: 400%;
+}
+#c4d_article_logo_text{
+  position: absolute;
+  right:38%;
+  top:30%;
+}
+#c4d_show_references {
+  padding-top: 10px;
+}
+/**/
 #my_rhizome_button {
   background-color: black;
   color: white;
@@ -108,9 +172,61 @@ body {
 body, button, input, select, textarea {
   color: #222;
 }
+/*c4d_isotope styles*/
+.c4d-filters-button-group {
+  margin-bottom: 1px;
+}
+.button-group:after {
+  content: '';
+  display: block;
+  clear: both;
+}
+.button-group .button {
+  float: left;
+  border-radius: 0;
+  margin-left: 0;
+  margin-right: 1px;
+}
+#c4d_category_grid {
 
+}
+.c4d_category_grid:after {
+  content: '';
+  display: block;
+  clear: both;
+}
+.c4d_grid_item {
+  position: relative;
+  float: left;
+  width: 20%;
+  border: 1px solid white;
+  height: 275px;
+  color: white;
+}
+.c4d_grid_item > * {
+  margin: 0;
+  padding: 0;
+}
+.c4d_grid_item .c4d_grid_item_subcategory {
+  position: absolute;
+
+  left: 10px;
+  top: 60px;
+  text-transform: none;
+  letter-spacing: 0;
+  font-size: 12px;
+  font-weight: normal;
+}
+.c4d_grid_item_content {
+  height: 100%;
+  position: absolute;
+  top:20%;
+  left:25%;
+}
 /*isotope styles*/
-* { box-sizing: border-box; }
+* {
+  box-sizing: border-box;
+}
 #isotope_container {
   margin: 0;
   padding: 0;
@@ -207,4 +323,8 @@ label { margin-right: 10px; }
 .ui.menu {
   color: white;
   background-color:black;
+}
+.row {
+  margin: 0;
+  padding: 0;
 }
