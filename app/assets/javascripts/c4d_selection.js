@@ -1,8 +1,7 @@
 $(function(){
-  var $grid = $('#c4d_isotope_container').isotope({
+  var $grid = $('#c4d_category_grid').isotope({
     itemSelector: '.c4d_grid_item'
   });
-
 // // filter functions
 //   var filterFns = {
 //     // show if number is greater than 50
@@ -28,9 +27,33 @@ $('.button-group').each(function(i, buttonGroup) {
   var $buttonGroup = $(buttonGroup);
   $buttonGroup.on( 'click', 'button', function() {
     $buttonGroup.find('.is_checked').removeClass('is_checked');
+    // var color_class = getColorClass($(this).attr('class').substr(7,$(this).attr('class').length))
     $(this).addClass('is_checked');
   });
+  // function getColorClass(class_string) {
+  //   if (class_string === 'c4d_selection_background_Act') {
+  //     return 'Act_color';
+  //   } else if (class_string === 'c4d_selection_background_Understand') {
+  //     return 'Understand_color';
+  //   } else if (class_string === 'c4d_selection_background_Plan') {
+  //     return 'Plan_color';
+  //   } else if (class_string === 'c4d_selection_background_Tools') {
+  //     return 'Tools_color';
+  //   }
+  // }
 });
+// $('.button-group').on('click', '.c4d_selection_background_Act', function(){
+//   $(this).toggleClass('Act_color')
+// })
+// $('.button-group').on('click', '.c4d_selection_background_Plan', function(){
+//   $(this).toggleClass('Plan_color')
+// })
+// $('.button-group').on('click', '.c4d_selection_background_Understand', function(){
+//   $(this).toggleClass('Understand_color')
+// })
+// $('.button-group').on('click', '.c4d_selection_background_Tools', function(){
+//   $(this).toggleClass('Tools_color')
+// })
 
 //   // clear-all filter listener
 //   var $filter_clear = $('#sop_filter_clear_all');
