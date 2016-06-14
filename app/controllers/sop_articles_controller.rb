@@ -16,7 +16,6 @@ class SopArticlesController < ApplicationController
     else
       @sop_article_last_index = 0
     end
-    @sop_category_articles = SopArticle.where(sop_category: @sop_article.sop_category_id)
-    @sop_related_topics = SopArticle.where(sop_category: @sop_article.sop_category, sop_time: @sop_article.sop_time)
+    @sop_related_topics = SopArticle.where("sop_category_id = ? AND id != ?", @sop_article.sop_category_id, @sop_article.id)
   end
 end
