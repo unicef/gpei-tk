@@ -8,6 +8,20 @@
   padding-bottom: 5px;
   padding-left: 10px;
 }
+.sop_article_show_summary_header {
+  color: red;
+  margin:0;
+  padding:0;
+  padding-left:3%;
+  font-size:60%;
+}
+.sop_article_show_summary_text {
+  color:black;
+  margin:0;
+  padding:0;
+  padding-left:3%;
+  font-size:60%;
+}
 #home_container {
   background-color: #FFFFFF;
   height:100%;
@@ -40,6 +54,14 @@ a {
 a .c4d_category_outer_container {
   text-decoration: none !important;
   color: white;
+}
+.c4d_grid_article_icon img {
+  position:absolute;
+  bottom:51%;
+}
+.c4d_grid_item_article_title {
+  position:absolute;
+  bottom:40%;
 }
 .GPEI_home_page {
   position:relative;
@@ -81,7 +103,7 @@ a .c4d_category_outer_container {
 #sop_article_logo_text{
   position: absolute;
   right:38%;
-  top:30%;
+  top:20%;
 }
 #sop_show_references {
   padding-top: 10px;
@@ -111,7 +133,7 @@ a .c4d_category_outer_container {
 #c4d_article_logo_text{
   position: absolute;
   right:38%;
-  top:30%;
+  top:40%;
 }
 #c4d_show_references {
   padding-top: 10px;
@@ -171,9 +193,9 @@ a .c4d_category_outer_container {
 #sop_panel_header {
   background-color: #B12924;
 }
-#nav-bar {
+#nav_bar {
   background-color: black;
-  height:18%;
+  height:10%;
   padding-bottom: 10px
 }
 #select_filter_text {
@@ -276,19 +298,15 @@ body, button, input, select, textarea {
 }
 .c4d_grid_item .c4d_grid_item_subcategory {
   position: absolute;
-
-  left: 10px;
-  top: 60px;
-  text-transform: none;
-  letter-spacing: 0;
-  font-size: 12px;
-  font-weight: normal;
+  width:100%;
+  left: -8%;
+  top:-9%;
 }
 .c4d_grid_item_content {
   height: 100%;
   position: absolute;
   top:20%;
-  left:25%;
+  left:27%;
 }
 /*isotope styles*/
 * {

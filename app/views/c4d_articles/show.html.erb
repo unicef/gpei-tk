@@ -12,7 +12,11 @@
     <%= link_to c4d_selection_path do %>
     <div style="position:absolute;top:5px;left:5px;color:white;z-index=10"><span>close</span><i class="fa fa-remove" aria-hidden="true"></i></div>
     <% end %>
-    <div class='c4d_article_icon col-md-2'>
+
+    <p class="c4d_grid_item_article_title <%= @c4d_article.title %>" style='visibility:hidden;color:<%= get_color_for_subcategory(@c4d_article.c4d_subcategory.title) %>;'><%= @c4d_article.title %></p>
+    <a class='c4d_grid_add' href='#' style="top:5px;right:5px;position:absolute;<%= c4d_style_visible('add', @user, @c4d_article) %>;color:black;"><i class="fa fa-plus" aria-hidden="true"></i></a>
+    <a class='c4d_grid_check' href='#' style="top:5px;right:5px;position:absolute;<%= c4d_style_visible('check', @user, @c4d_article) %>;color:black;"><i class="fa fa-check" aria-hidden="true"></i></a>
+      <div class='c4d_article_icon col-md-2'>
       <%= image_tag "c4d/icons/#{@c4d_article.c4d_category.title}/#{@c4d_article.c4d_subcategory.title + '.png'}", id: "c4d_article_icon", class: 'image-responsive', alt: @c4d_article.c4d_subcategory.title %>
     </div>
     <ul id='c4d_article_logo_text' class='list-unstyled col-md-1'>
@@ -62,6 +66,7 @@
   <% if !@c4d_related_topics.empty? %>
     <div id='c4d_category_grid' style='margin-top:35px'>
       <% @c4d_related_topics.each do |article| %>
+        <%= link_to c4d_article_path(article) do %>
         <div id="c4d_grid_tile_<%= article.title %>" class="<%= build_classes({item: 'c4d_grid_item', c4d_category: article.c4d_category.title.gsub(' ', '_')}) %>"
           style="height:200px;background-color: <%= article.c4d_subcategory.color %>;">
           <div class='c4d_grid_item_content' style='position:absolute;left:32px;top:25%;'>
@@ -72,6 +77,7 @@
           <a class='c4d_grid_add' href='#' style="top:5px;right:5px;position:absolute;<%= c4d_style_visible('add', @user, article) %>;color:black;"><i class="fa fa-plus" aria-hidden="true"></i></a>
           <a class='c4d_grid_check' href='#' style="top:5px;right:5px;position:absolute;<%= c4d_style_visible('check', @user, article) %>;color:black;"><i class="fa fa-check" aria-hidden="true"></i></a>
         </div>
+        <% end %>
       <% end %>
     </div>
   <% end %>
