@@ -1,15 +1,19 @@
-<div id='home_container' class='container-fluid'>
-  <div id='logo_img' class='col-md-12'>
-      <%= image_tag 'home/GPEI_logo_b-w.png', class: 'image-responsive center-block', alt: 'GPEI Toolkit' %>
+<div id='home_container'>
+  <div class='row' style="height:65%; width:100%">
+    <div class='col-md-12 GPEI_home_page'>
+        <%= image_tag 'home/GPEI.png', width: '65%', height: '65%', :id => 'gpei_home_image', alt: 'GPEI Toolkit' %>
+    </div>
   </div>
-  <div id='sop_home_img' class='col-md-6'>
-    <%= link_to sop_path do %>
-      <%= image_tag 'home/SOP.png', class: 'image-responsive center-block', alt: 'SOP' %>
-    <% end %>
-  </div>
-  <div id='c4d_logo_img' class='col-md-6'>
-    <%= link_to c4d_path do %>
-      <%= image_tag 'home/C4D.png', class: 'image-responsive  center-block', alt: 'C4D' %>
-    <% end %>
+  <div class='row sop_c4d_home_row' style='height:35%;width:100%'>
+    <div class='col-md-6' style='height:100%;width:50%;'>
+      <%= link_to sop_path do %>
+        <%= image_tag 'home/SOP.png', width: '97%', height: '97%', :id => 'sop_home_image' , alt: 'SOP' %>
+      <% end %>
+    </div>
+    <div id='c4d_home_img' class='col-md-6' style='height:100%;width:50%;'>
+      <%= link_to c4d_path do %>
+        <%= image_tag 'home/C4D.png', width: '97%', height: '97%', :id => 'c4d_home_image', alt: 'C4D' %>
+      <% end %>
+    </div>
   </div>
 </div>
