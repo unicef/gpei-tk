@@ -1,19 +1,75 @@
 <%= render 'dashboard/nav' %>
-
-<div id='fill-vertical' class='container'>
-  <% @c4d_categories.each_with_index do |category, index| %>
-    <div class='col-md-6' style='background-color:<%= category.color %>';>
-      <div class='col-md-2'>
-        <p><%= "#{index +1}."+ "#{category.title}" %></p>
-        <p><%= category.description %></p>
-      </div>
-      <div class='col-md-2'>
-        <ul class='list-unstyled'>
-          <% category.c4d_subcategories.each do |sub_category| %>
-            <li><%= sub_category.title %></li>
+<div style='height:82%;'>
+  <div class='row' style='height:50%;'>
+    <%= link_to c4d_selection_path do %>
+    <div class='col-md-6 c4d_category_outer_container' style='height:100%;background-color: <%= @c4d_categories.first.color %>'>
+      <div class='c4d_category_landing_category_text'>
+        <strong>1. <%= @c4d_categories.first.title.upcase %></strong>
+        <div class='c4d_category_landing_category_description'>
+          <%= @c4d_categories.first.description %>
+        </div>
+        <div class='c4d_category_landing_subcategory_title'>
+          <ul class='list-unstyled'>
+          <% @c4d_categories.second.c4d_subcategories.each do |subcat| %>
+            <li style='margin-bottom:5px;border-bottom: 1px white solid'><strong><%= subcat.title.upcase %></strong></li>
           <% end %>
-        </ul>
+          </ul>
+        </div>
       </div>
     </div>
-  <% end %>
+    <% end %>
+    <%= link_to c4d_selection_path do %>
+    <div class='col-md-6 c4d_category_outer_container' style='height:100%;background-color: <%= @c4d_categories.second.color %>'>
+      <div class='c4d_category_landing_category_text'>
+        <strong>2. <%= @c4d_categories.second.title.upcase %></strong>
+        <div class='c4d_category_landing_category_description'>
+          <%= @c4d_categories.second.description %>
+        </div>
+        <div class='c4d_category_landing_subcategory_title'>
+          <ul class='list-unstyled'>
+          <% @c4d_categories.second.c4d_subcategories.each do |subcat| %>
+            <li style='margin-bottom:5px;border-bottom: 1px white solid'><strong><%= subcat.title.upcase %></strong></li>
+          <% end %>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <% end %>
+  </div>
+  <div class='row' style='height:50%;background-color: black'>
+    <%= link_to c4d_selection_path do %>
+    <div class='col-md-6 c4d_category_outer_container' style='height:100%;background-color: <%= @c4d_categories.third.color %>'>
+      <div class='c4d_category_landing_category_text'>
+        <strong>3. <%= @c4d_categories.third.title.upcase %></strong>
+        <div class='c4d_category_landing_category_description'>
+          <%= @c4d_categories.third.description %>
+        </div>
+        <div class='c4d_category_landing_subcategory_title'>
+          <ul class='list-unstyled'>
+          <% @c4d_categories.third.c4d_subcategories.each do |subcat| %>
+            <li style='margin-bottom:5px;border-bottom: 1px white solid'><strong><%= subcat.title.upcase %></strong></li>
+          <% end %>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <% end %>
+    <%= link_to c4d_selection_path do %>
+    <div class='col-md-6 c4d_category_outer_container' style='height:100%;background-color: <%= @c4d_categories.fourth.color %>'>
+      <div class='c4d_category_landing_category_text'>
+        <strong>4. <%= @c4d_categories.fourth.title.upcase %></strong>
+        <div class='c4d_category_landing_category_description'>
+          <%= @c4d_categories.fourth.description %>
+        </div>
+        <div class='c4d_category_landing_subcategory_title'>
+          <ul class='list-unstyled'>
+          <% @c4d_categories.fourth.c4d_subcategories.each do |subcat| %>
+            <li style='margin-bottom:5px;border-bottom: 1px white solid'><strong><%= subcat.title.upcase %></strong></li>
+          <% end %>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <% end %>
+  </div>
 </div>
