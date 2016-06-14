@@ -1,21 +1,27 @@
 <%= render 'dashboard/nav' %>
 <div class='container-fluid'>
+   <div class="button-group c4d-filters-button-group">
+  <% @c4d_categories.each do |category| %>
+  <!-- set button .is-checked to background color -->
+    <div class='col-md-3' style="background-color: <%= category.color%>;">
+      <button class="button<%= category.id == 1 ? ' is_checked': '' %>" data-filter=".<%= category.title %>" style="background-color: <%= category.color%>;"><%= category.title %></button>
+    </div>
+  <% end %>
+  </div>
   <div class='row'>
-    <div class='col-md-3'>
-      <% @c4d_categories.each do |category| %>
-        <button class="button" data-filter=".<%= category.title %>"><%= category.title %></button>
+    <div id='c4d_category_grid'>
+      <% @c4d_articles.each do |article| %>
+        <div id="c4d_grid_tile_<%= article.title %>" class="<%= build_classes({item: 'c4d_grid_item', c4d_category: article.c4d_category.title.gsub(' ', '_')}) %>"
+          style="background-color: <%= article.c4d_subcategory.color %>;">
+          <div class='c4d_grid_item_content'>
+            <p class="c4d_grid_item_subcategory <%= article.c4d_subcategory.title %>"><strong style='color:<%= get_color_for_subcategory(article.c4d_subcategory.title) %>;'><%= article.c4d_subcategory.title %></strong><span id='c4d_article_id' style='visibility:hidden;'><%= article.id %></span></p>
+            <!-- <p id='c4d_grid_item_icon'>icon</p> -->
+            <p class="c4d_grid_item_article_title <%= article.title %>" style='color:<%= get_color_for_subcategory(article.c4d_subcategory.title) %>;'><%= article.title %></p>
+          </div>
+          <a class='c4d_grid_add' href='#' style="top:5px;right:5px;position:absolute;<%= c4d_style_visible('add', @user, article) %>;color:black;"><i class="fa fa-plus" aria-hidden="true"></i></a>
+          <a class='c4d_grid_check' href='#' style="top:5px;right:5px;position:absolute;<%= c4d_style_visible('check', @user, article) %>;color:black;"><i class="fa fa-check" aria-hidden="true"></i></a>
+        </div>
       <% end %>
     </div>
-  </div>
-  <div id='c4d_isotope_container'>
-    <% @c4d_articles.each do |article| %>
-      <div class="<%= build_classes({item: 'item', category: article.c4d_category.title.gsub(' ', '_')}) %>"
-        style=<%='background-color:' + article.c4d_subcategory.color + ';' %>>
-        <p id='grid_item_sub_category'><%= article.c4d_subcategory.title %></p>
-        <p id='grid_item_icon'>icon</p>
-        <p id='grid_item_article_title'><%= article.title %></p>
-        <i class="fa fa-plus" aria-hidden="true"></i>
-      </div>
-    <% end %>
   </div>
 </div>
