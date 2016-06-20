@@ -6,7 +6,4 @@ class User < ActiveRecord::Base
   has_one :c4d_toolkit
   belongs_to :office
   belongs_to :role
-
-  def show
-  end
 end
