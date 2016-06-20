@@ -221,7 +221,7 @@ a .c4d_category_outer_container {
   border: solid;
   border-color: white;
   border-width: 1px;
-  font-size: 150%;
+  font-size: 100%;
   background-color: #6B7A83;
 }
 #filter_list {
@@ -251,7 +251,7 @@ a .c4d_category_outer_container {
   border: solid;
   border-color: white;
   border-width: 1px;
-  font-size: 150%;
+  font-size: 100%;
 }
 .sop_checkboxes {
   background-color: #D9E0DE;
