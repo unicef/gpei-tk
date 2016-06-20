@@ -14,8 +14,6 @@ Rails.application.routes.draw do
   resources :sop_articles, only: [:index, :show]
   resources :c4d_articles, only: [:index, :show]
 
-  resources :users, only: [:index, :show]
-
   resources :c4d_reference_links, only: [:show]
   resources :sop_reference_links, only: [:show]
 
@@ -23,4 +21,6 @@ Rails.application.routes.draw do
   namespace :cms, defaults: { format: :json } do
     resources :users, only: [:index]
   end
+
+  resources :users, only: [:show]
 end
