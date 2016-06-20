@@ -17,20 +17,6 @@
       <li><strong style='font-size:125%;position:absolute;left:-100%;margin-top:10px;color:<%= get_color_for_sop_time(@sop_article.sop_time.period) %>;'><%= @sop_article.title.capitalize %></strong></li>
     </ul>
   </div>
-  <div class='row'>
-    <h2 style='color:#B12924;margin-top:15px;padding-left:3%;font-size:110%'>Article Classification</h3>
-    <p class='sop_article_show_summary_header'>TIME</p>
-    <p class='sop_article_show_summary_text'><%= @sop_article.sop_time.period.upcase %></p>
-    <br>
-    <p class='sop_article_show_summary_header'>FUNCTION</p>
-    <p class='sop_article_show_summary_text'><%= @sop_article.sop_category.title.upcase %></p>
-    <br>
-    <p class='sop_article_show_summary_header'>RESPONSIBLE</p>
-    <p class='sop_article_show_summary_text'><%= @sop_article.responsibility.title.upcase %></p>
-    <br>
-    <p class='sop_article_show_summary_header'>SUPPORT</p>
-    <p class='sop_article_show_summary_text'><%= @sop_article.support.upcase if @sop_article.support %></p>
-  </div>
   <% if !@sop_article.sop_reference_links.empty? %>
   <div class='row'>
     <div id='sop_show_references'>
