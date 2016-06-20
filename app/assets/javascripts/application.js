@@ -16,5 +16,4 @@
 //= require lodash
 //= require isotope.pkgd.min
 //= require semantic.min
-//= require dropdown.min
 //= require_tree .
