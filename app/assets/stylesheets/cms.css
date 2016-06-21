@@ -14,9 +14,14 @@
 #CMS_modal {
   position:absolute;
   top:10%;
-  background:rgba(0, 0, 0, 0.0);
-  background-color:rgba(0, 0, 0, 0.0);
-  box-shadow:0 0 0 0 rgba(0,0,0,0.0),0 0 0 0 rgba(0,0,0,0.0);
+
+  /*background:rgba(0, 0, 0, 0.0);*/
+  /*background-color:rgba(0, 0, 0, 0.0);*/
+  /*box-shadow:0 0 0 0 rgba(0,0,0,0.0),0 0 0 0 rgba(0,0,0,0.0);*/
+}
+#CMS_modal_header {
+}
+#CMS__modal_content {
 }
 .CMS_actions_dropdown {
 

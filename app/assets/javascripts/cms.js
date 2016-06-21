@@ -5,15 +5,15 @@ $(function(){
       trigger: '.title .icon'
     }
   });
-
+  $('.ui.modal')
+    .modal({
+      onHide: () => {
+        $('.ui.modal .content').empty()
+        $('.ui.modal .header').empty()
+      }
+    })
   $('#CMS_index_content').on('click', '#CMS_user_assign_role', e => {
     $('.ui.modal')
-      .modal({
-        onHide: () => {
-          $('.ui.modal .content').empty()
-          $('.ui.modal .header').empty()
-        }
-      })
       .modal('toggle')
       // .modal('show');
 
