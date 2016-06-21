@@ -19,8 +19,9 @@ Rails.application.routes.draw do
 
   resources :cms, only: [:index]
   namespace :cms, defaults: { format: :json } do
-    resources :users, only: [:index]
+    resources :users, only: [:index, :update]
   end
 
   resources :users, only: [:show]
+  resources :roles, only: [:index]
 end
