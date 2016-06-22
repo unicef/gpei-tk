@@ -1,13 +1,13 @@
 Rails.application.routes.draw do
   root 'home#index'
-  
+
   get '/c4d' => 'c4d#index'
   get '/c4d/selection' => 'c4d#selection'
-  
+
   get '/sop' => 'sop#index'
   post '/sop/checklist/:title' => 'sop_checklist#create'
   delete '/sop/checklist/:title' => 'sop_checklist#destroy'
-  
+
   post '/c4d/toolkit/:title' => 'c4d_toolkit#create'
   delete '/c4d/toolkit/:title' => 'c4d_toolkit#destroy'
 
@@ -19,7 +19,7 @@ Rails.application.routes.draw do
 
   resources :cms, only: [:index]
   namespace :cms, defaults: { format: :json } do
-    resources :users, only: [:index, :update]
+    resources :users, only: [:index, :update, :create]
   end
 
   resources :users, only: [:show]
