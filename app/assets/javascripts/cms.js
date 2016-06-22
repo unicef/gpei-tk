@@ -148,8 +148,19 @@ $(function(){
   }
 
 
-  $('#CMS_index_content').on('click', '#CMS_user_remove_membership', e => {
-
+  $('#CMS_index_content').on('click', '#CMS_user_delete_user', e => {
+    $.ajax({
+      method: 'DELETE',
+      url: 'cms/users/' + e.currentTarget.parentElement.id + "?&authenticity_token=" + escape($('meta[name=csrf-token]').attr('content')),
+      data: $(e.currentTarget).find('.ui.form').serialize()
+    }).done(response => {
+      let element = _.filter($('#CMS_users_table tr'), tr => {
+        if (tr.id === response.id) {
+          return tr
+        }
+      })
+      $(element).empty()
+    })
   })
 
   $('#CMS_users_link').click(e => {
@@ -176,7 +187,7 @@ $(function(){
   })
   function getUserActionDropdown(id){
     return (
-      '<div class="ui buttons"><div id="CMS_actions_dropdown" class="ui button">Actions</div><div class="ui floating dropdown icon button"><i class="dropdown icon"></i><div class="menu"><div id="' + id + '" class="item"><span id="CMS_user_assign_role">Assign Roles</span></div><div id="' + id + '" class="item"><span id="CMS_user_remove_membership">Remove Membership</span></div></div></div>'
+      '<div class="ui buttons"><div id="CMS_actions_dropdown" class="ui button">Actions</div><div class="ui floating dropdown icon button"><i class="dropdown icon"></i><div class="menu"><div id="' + id + '" class="item"><span id="CMS_user_assign_role">Assign Roles</span></div><div id="' + id + '" class="item"><span id="CMS_user_delete_user">Delete User</span></div></div></div>'
     );
   }
 });

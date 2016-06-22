@@ -31,6 +31,16 @@ class Cms::UsersController < ApplicationController
     end
   end
 
+  def destroy
+    if request.xhr?
+      begin
+        User.find(params[:id]).destroy
+        render json: { status: 'success', id: params[:id] }
+      rescue Exception => e
+        puts e.message
+      end
+    end
+  end
   def safe_create_params
     params.permit(:first_name, :last_name, :email, :role_id)
   end
