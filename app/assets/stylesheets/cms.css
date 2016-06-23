@@ -14,19 +14,6 @@
   width: auto;
   min-width: 0;
 }
-.ui.positive.message .header {
-  width: auto;
-  min-width: 0;
-}
-.ui.positive.message {
-  width:auto;
-  min-width: 0;
-  margin-bottom: 1%;
-}
-#success_status_message {
-  width: auto;
-  min-width: 0;
-}
 .field .ui.dropdown {
   font-size:90%;
 }
@@ -57,19 +44,9 @@
 #CMS_modal {
   position:relative;
   top:10%;
-  /*background:rgba(0, 0, 0, 0.0);*/
-  /*background-color:rgba(0, 0, 0, 0.0);*/
-  /*box-shadow:0 0 0 0 rgba(0,0,0,0.0),0 0 0 0 rgba(0,0,0,0.0);*/
 }
 .CMS_menu_list {
   height:100%;
   width:100%;
   display:block;
-}
-#CMS_modal_header {
-}
-#CMS__modal_content {
-}
-.CMS_actions_dropdown {
-
 }
