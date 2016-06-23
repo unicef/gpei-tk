@@ -17,7 +17,6 @@ class Cms::SopArticlesController < ApplicationController
     if request.xhr?
       sop_article = SopArticle.new(safe_article_params)
       sop_article.sop_icon = SopIcon.where(sop_time_id: sop_article.sop_time.id, sop_category_id: sop_article.sop_category.id).first
-      binding.pry
       if sop_article.save
         render json: { sop_article: sop_article, status: 'success' }
       end
@@ -29,7 +28,8 @@ class Cms::SopArticlesController < ApplicationController
       sop_article = SopArticle.find(params[:id])
       sop_times = SopTime.all
       sop_categories = SopCategory.all
-      render json: { sop_article: sop_article, sop_times: sop_times, sop_categories: sop_categories, status: 'success' }
+      offices = Office.all
+      render json: { sop_article: sop_article, sop_times: sop_times, sop_categories: sop_categories, offices: offices, status: 'success' }
     end
   end
 
