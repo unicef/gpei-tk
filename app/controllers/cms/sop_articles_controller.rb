@@ -13,6 +13,17 @@ class Cms::SopArticlesController < ApplicationController
     end
   end
 
+  def create
+    if request.xhr?
+      sop_article = SopArticle.new(safe_article_params)
+      sop_article.sop_icon = SopIcon.where(sop_time_id: sop_article.sop_time.id, sop_category_id: sop_article.sop_category.id).first
+      binding.pry
+      if sop_article.save
+        render json: { sop_article: sop_article, status: 'success' }
+      end
+    end
+  end
+
   def show
     if request.xhr?
       sop_article = SopArticle.find(params[:id])
@@ -25,12 +36,12 @@ class Cms::SopArticlesController < ApplicationController
   def update
     if request.xhr?
       article = SopArticle.find(params[:id])
-      article.update(safe_update_params)
+      article.update(safe_article_params)
       render json: { status: 'success' }
     end
   end
 
-  def safe_update_params
-    params.permit(:cms_title, :title, :responsible, :support, :article, :video_url, :sop_time_id, :sop_category_id)
+  def safe_article_params
+    params.permit(:cms_title, :title, :responsibility_id, :responsible, :support, :article, :video_url, :sop_time_id, :sop_category_id)
   end
 end
