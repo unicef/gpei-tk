@@ -6,7 +6,6 @@ Role.create(title: 'Administrator')
 Role.create(title: 'Editor')
 Role.create(title: 'Member')
 
-
 ##immediately, 3 weeks, and 3 months do not have a color assigned.
 SopTime.create(period: 'Immediately', color:'#FDFDFD')
 SopTime.create(period: '14 Days', color: '#F49393')
@@ -72,6 +71,12 @@ C4dSubcategory.create(title: 'Training', c4d_category_id: 4, color: '#009DA4')
 C4dSubcategory.create(title: 'Management Tools', c4d_category_id: 4, color: '#1DBEBE')
 C4dSubcategory.create(title: 'Innovations', c4d_category_id: 4, color: '#AEF1DF')
 
+Office.create(title: 'Country')
+Office.create(title: 'WHO')
+Office.create(title: 'UNICEF')
+Office.create(title: 'Rapid Response')
+Office.create(title: 'Surge Team')
+
 C4dArticle.create(title: 'awesome_title', c4d_category_id: 1, c4d_subcategory_id: 1, description: 'foobar', cms_title: 'awesome_title')
 C4dArticle.create(title: 'awesome_title2', c4d_category_id: 1, c4d_subcategory_id: 2, description: 'foobar', cms_title: 'awesome_title')
 C4dArticle.create(title: 'awesome_title3', c4d_category_id: 1, c4d_subcategory_id: 3, description: 'foobar', cms_title: 'awesome_title')
@@ -120,11 +125,6 @@ C4dArticle.create(title: 'awesome_title43', c4d_category_id: 4, c4d_subcategory_
 C4dArticle.create(title: 'awesome_title44', c4d_category_id: 4, c4d_subcategory_id: 14, description: 'foobar', cms_title: 'awesome_title')
 C4dArticle.create(title: 'awesome_title45', c4d_category_id: 4, c4d_subcategory_id: 15, description: 'foobar', cms_title: 'awesome_title')
 
-Office.create(title: 'Country')
-Office.create(title: 'WHO')
-Office.create(title: 'UNICEF')
-Office.create(title: 'Rapid Response')
-Office.create(title: 'Surge Team')
 
 sop_article = SopArticle.create(title: 'awesome_title', sop_time_id: 2, cms_title: 'awesome_title', responsibility_id: 1, sop_category_id: 1)
 sop_article.sop_icon = SopIcon.where(sop_time_id: sop_article.sop_time.id, sop_category_id: sop_article.sop_category.id).first
@@ -139,6 +139,7 @@ sop_article = SopArticle.create(title: 'awesome_title6', sop_time_id: 2, cms_tit
 sop_article.sop_icon = SopIcon.where(sop_time_id: sop_article.sop_time.id, sop_category_id: sop_article.sop_category.id).first
 sop_article.save
 sop_article = SopArticle.create(title: 'awesome_title7', sop_time_id: 2, cms_title: 'awesome_title7', responsibility_id: 1, sop_category_id: 2)
+binding.pry
 sop_article.sop_icon = SopIcon.where(sop_time_id: sop_article.sop_time.id, sop_category_id: sop_article.sop_category.id).first
 sop_article.save
 sop_article = SopArticle.create(title: 'awesome_title8', sop_time_id: 5, cms_title: 'awesome_title8', responsibility_id: 2, sop_category_id: 1)
