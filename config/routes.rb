@@ -21,9 +21,15 @@ Rails.application.routes.draw do
   resources :cms, only: [:index]
   namespace :cms, defaults: { format: :json } do
     resources :users, only: [:index, :update, :create, :destroy]
-    resources :sop_articles, only: [:index, :update, :show]
+    resources :sop_articles, only: [:index, :update, :show, :create]
   end
 
   resources :users, only: [:show]
   resources :roles, only: [:index]
+
+  namespace :api, defaults: { format: :json } do
+    resources :sop_times, only: [:index]
+    resources :sop_categories, only: [:index]
+    resources :offices, only: [:index]
+  end
 end
