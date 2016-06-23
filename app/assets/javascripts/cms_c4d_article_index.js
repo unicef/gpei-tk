@@ -65,10 +65,6 @@ $(() => {
           <textarea name="description">${article.description}</textarea>
         </div>
         <div class="field">
-          <label>Video URL</label>
-          <input type="text" name="video_url" value="${article.video_url}">
-        </div>
-        <div class="field">
           <label>Template Links</label>
           <input type="text" name="template_links" value="">
         </div>
@@ -121,8 +117,8 @@ $(() => {
     e.preventDefault()
     $.ajax({
       method: 'PATCH',
-      url: 'cms/c4d_articles/' + e.currentTarget.parentElement.id + "?&authenticity_token=" + escape($('meta[name=csrf-token]').attr('content')),
-      data: $('#CMS_c4d_article_form').serialize()
+      url: 'cms/c4d_articles/' + e.currentTarget.parentElement.id,
+      data: $('#CMS_c4d_article_form').serialize() + "?&authenticity_token=" + escape($('meta[name=csrf-token]').attr('content'))
     }).done(response => {
       $('.ui.dimmer').dimmer('show')
     })

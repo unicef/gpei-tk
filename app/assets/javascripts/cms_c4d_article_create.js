@@ -1,7 +1,7 @@
 $(() => {
   $('#CMS_create_c4d_article_link').click(e => {
     e.preventDefault();
-    let c4d_categories, c4d_subcategories, offices
+    let c4d_categories, c4d_subcategories
     $.ajax({
       method: 'GET',
       url: 'api/c4d_categories/'
@@ -12,15 +12,9 @@ $(() => {
         url: 'api/c4d_subcategories/'
       }).done(response => {
         c4d_subcategories = response.c4d_subcategories
-        $.ajax({
-          method: 'GET',
-          url: 'api/offices/'
-        }).done(response => {
-          offices = response.offices
-          $('#CMS_index_content').empty();
-          let content = getEmptyC4dArticleForm(c4d_subcategories, c4d_categories, offices);
-          $('#CMS_index_content').append(content);
-        })
+        $('#CMS_index_content').empty()
+        let content = getEmptyC4dArticleForm(c4d_subcategories, c4d_categories)
+        $('#CMS_index_content').append(content)
       })
     })
   })
@@ -28,8 +22,8 @@ $(() => {
   $('#CMS_index_content').on('submit', '#CMS_c4d_article_form', e => {
     $.ajax({
       method: 'POST',
-      url: 'cms/c4d_articles/' + "?&authenticity_token=" + escape($('meta[name=csrf-token]').attr('content')),
-      data: $('#CMS_c4d_article_form').serialize()
+      url: 'cms/c4d_articles/',
+      data: $('#CMS_c4d_article_form').serialize() + "?&authenticity_token=" + escape($('meta[name=csrf-token]').attr('content'))
     }).done(response => {
       $('.ui.dimmer').dimmer('show')
       $('#CMS_c4d_articles_link').trigger('click')
@@ -39,7 +33,7 @@ $(() => {
     })
   })
 
-  function getEmptyC4dArticleForm(c4d_subcategories, c4d_categories, offices){
+  function getEmptyC4dArticleForm(c4d_subcategories, c4d_categories){
     return (`
       <form id="CMS_c4d_article_form" class="ui form CMS_c4d_article_form_div">
         <div class="field">
@@ -53,21 +47,8 @@ $(() => {
           <input type="text" name="title" placeholder="Title" value="" required>
         </div>
         <div class="field">
-          <label>Responsible</label>
-          <input type="text" name="responsible" value="" required>
-        </div>
-        ${getOfficesDropdown("Office", "responsibility_id", offices)}
-        <div class="field">
-          <label>Support</label>
-          <input type="text" name="support" value="" required>
-        </div>
-        <div class="field">
-          <label>Article</label>
-          <textarea name="article"></textarea>
-        </div>
-        <div class="field">
-          <label>Video URL</label>
-          <input type="text" name="video_url" value="">
+          <label>Description</label>
+          <textarea name="description"></textarea>
         </div>
         <div class="field">
           <label>Template Links</label>
@@ -102,18 +83,6 @@ $(() => {
         <select name="${option_name}" class="ui dropdown cms_dropdown_select" required>
           <option value="">Select Category</option>
           ${_.map(c4d_categories, category => { return `<option value="${category.id}">${category.title}</option>` }).join('\n')}
-        </select>
-      </div>
-      `)
-  }
-
-  function getOfficesDropdown(label, option_name, offices){
-    return (`
-      <div class="field">
-        <label>${label}</label>
-        <select name="${option_name}" class="ui dropdown cms_dropdown_select" required>
-          <option value="">Select Office</option>
-          ${_.map(offices, office => { return `<option value="${office.id}">${office.title}</option>` }).join('\n')}
         </select>
       </div>
       `)
