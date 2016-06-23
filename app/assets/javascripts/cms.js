@@ -1,4 +1,4 @@
-$(function(){
+$(() => {
   $('.ui.styled.accordion')
   .accordion({
     selector: {
@@ -323,7 +323,6 @@ $(function(){
       url: 'cms/sop_articles/' + e.currentTarget.parentElement.id + "?&authenticity_token=" + escape($('meta[name=csrf-token]').attr('content')),
       data: $('#CMS_sop_article_form').serialize()
     }).done(response => {
-      debugger
       $('.ui.dimmer').dimmer('show')
     })
   })
