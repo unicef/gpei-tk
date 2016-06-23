@@ -20,11 +20,11 @@ $(() => {
           $('#CMS_index_content').empty();
           let content = getEmptySopArticleForm(sop_times, sop_categories, offices);
           $('#CMS_index_content').append(content);
-          debugger
         })
       })
     })
   })
+
   $('#CMS_index_content').on('submit', '#CMS_sop_article_form', e => {
     $.ajax({
       method: 'POST',
@@ -38,6 +38,7 @@ $(() => {
       }, 3000, 'later');
     })
   })
+
   function getEmptySopArticleForm(sop_times, sop_categories, offices){
     return (`
       <form id="CMS_sop_article_form" class="ui form CMS_sop_article_form_div">
@@ -76,11 +77,11 @@ $(() => {
           <label>Reference Links</label>
           <input type="text" name="reference_links" value="">
         </div>
-        <div id="response_status_div"></div>
         <button class="ui button" type="submit">Submit</button>
       </form>
     `)
   }
+
   function getSopTimeDropdown(label, option_name, sop_times){
     return (`
       <div class="field">
@@ -92,6 +93,7 @@ $(() => {
       </div>
       `)
   }
+
   function getSopCategoryDropdown(label, option_name, sop_categories){
     return (`
       <div class="field">
@@ -103,6 +105,7 @@ $(() => {
       </div>
       `)
   }
+
   function getOfficesDropdown(label, option_name, offices){
     return (`
       <div class="field">
