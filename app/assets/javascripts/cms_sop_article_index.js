@@ -130,8 +130,8 @@ $(() => {
     e.preventDefault()
     $.ajax({
       method: 'PATCH',
-      url: 'cms/sop_articles/' + e.currentTarget.parentElement.id + "?&authenticity_token=" + escape($('meta[name=csrf-token]').attr('content')),
-      data: $('#CMS_sop_article_form').serialize()
+      url: 'cms/sop_articles/' + e.currentTarget.parentElement.id,
+      data: $('#CMS_sop_article_form').serialize() + "?&authenticity_token=" + escape($('meta[name=csrf-token]').attr('content'))
     }).done(response => {
       $('.ui.dimmer').dimmer('show')
     })

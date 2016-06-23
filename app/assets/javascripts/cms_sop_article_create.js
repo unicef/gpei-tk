@@ -28,8 +28,8 @@ $(() => {
   $('#CMS_index_content').on('submit', '#CMS_sop_article_form', e => {
     $.ajax({
       method: 'POST',
-      url: 'cms/sop_articles/' + "?&authenticity_token=" + escape($('meta[name=csrf-token]').attr('content')),
-      data: $('#CMS_sop_article_form').serialize()
+      url: 'cms/sop_articles/',
+      data: $('#CMS_sop_article_form').serialize() + "?&authenticity_token=" + escape($('meta[name=csrf-token]').attr('content'))
     }).done(response => {
       $('.ui.dimmer').dimmer('show')
       $('#CMS_sop_articles_link').trigger('click')
