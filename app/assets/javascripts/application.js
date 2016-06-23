@@ -16,4 +16,5 @@
 //= require lodash
 //= require isotope.pkgd.min
 //= require semantic.min
+//= require moment.min
 //= require_tree .
