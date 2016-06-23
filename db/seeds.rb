@@ -72,53 +72,53 @@ C4dSubcategory.create(title: 'Training', c4d_category_id: 4, color: '#009DA4')
 C4dSubcategory.create(title: 'Management Tools', c4d_category_id: 4, color: '#1DBEBE')
 C4dSubcategory.create(title: 'Innovations', c4d_category_id: 4, color: '#AEF1DF')
 
-C4dArticle.create(title: 'awesome_title', c4d_category_id: 1, c4d_subcategory_id: 1, description: 'foobar', CMS_title: 'awesome_title')
-C4dArticle.create(title: 'awesome_title2', c4d_category_id: 1, c4d_subcategory_id: 2, description: 'foobar', CMS_title: 'awesome_title')
-C4dArticle.create(title: 'awesome_title3', c4d_category_id: 1, c4d_subcategory_id: 3, description: 'foobar', CMS_title: 'awesome_title')
-C4dArticle.create(title: 'awesome_title4', c4d_category_id: 2, c4d_subcategory_id: 4, description: 'foobar', CMS_title: 'awesome_title')
-C4dArticle.create(title: 'awesome_title5', c4d_category_id: 2, c4d_subcategory_id: 5, description: 'foobar', CMS_title: 'awesome_title')
-C4dArticle.create(title: 'awesome_title6', c4d_category_id: 2, c4d_subcategory_id: 6, description: 'foobar', CMS_title: 'awesome_title')
-C4dArticle.create(title: 'awesome_title7', c4d_category_id: 2, c4d_subcategory_id: 7, description: 'foobar', CMS_title: 'awesome_title')
-C4dArticle.create(title: 'awesome_title8', c4d_category_id: 2, c4d_subcategory_id: 8, description: 'foobar', CMS_title: 'awesome_title')
-C4dArticle.create(title: 'awesome_title9', c4d_category_id: 3, c4d_subcategory_id: 9, description: 'foobar', CMS_title: 'awesome_title')
-C4dArticle.create(title: 'awesome_title10', c4d_category_id: 3, c4d_subcategory_id: 10, description: 'foobar', CMS_title: 'awesome_title')
-C4dArticle.create(title: 'awesome_title11', c4d_category_id: 3, c4d_subcategory_id: 11, description: 'foobar', CMS_title: 'awesome_title')
-C4dArticle.create(title: 'awesome_title12', c4d_category_id: 4, c4d_subcategory_id: 12, description: 'foobar', CMS_title: 'awesome_title')
-C4dArticle.create(title: 'awesome_title13', c4d_category_id: 4, c4d_subcategory_id: 13, description: 'foobar', CMS_title: 'awesome_title')
-C4dArticle.create(title: 'awesome_title14', c4d_category_id: 4, c4d_subcategory_id: 14, description: 'foobar', CMS_title: 'awesome_title')
-C4dArticle.create(title: 'awesome_title15', c4d_category_id: 4, c4d_subcategory_id: 15, description: 'foobar', CMS_title: 'awesome_title')
+C4dArticle.create(title: 'awesome_title', c4d_category_id: 1, c4d_subcategory_id: 1, description: 'foobar', cms_title: 'awesome_title')
+C4dArticle.create(title: 'awesome_title2', c4d_category_id: 1, c4d_subcategory_id: 2, description: 'foobar', cms_title: 'awesome_title')
+C4dArticle.create(title: 'awesome_title3', c4d_category_id: 1, c4d_subcategory_id: 3, description: 'foobar', cms_title: 'awesome_title')
+C4dArticle.create(title: 'awesome_title4', c4d_category_id: 2, c4d_subcategory_id: 4, description: 'foobar', cms_title: 'awesome_title')
+C4dArticle.create(title: 'awesome_title5', c4d_category_id: 2, c4d_subcategory_id: 5, description: 'foobar', cms_title: 'awesome_title')
+C4dArticle.create(title: 'awesome_title6', c4d_category_id: 2, c4d_subcategory_id: 6, description: 'foobar', cms_title: 'awesome_title')
+C4dArticle.create(title: 'awesome_title7', c4d_category_id: 2, c4d_subcategory_id: 7, description: 'foobar', cms_title: 'awesome_title')
+C4dArticle.create(title: 'awesome_title8', c4d_category_id: 2, c4d_subcategory_id: 8, description: 'foobar', cms_title: 'awesome_title')
+C4dArticle.create(title: 'awesome_title9', c4d_category_id: 3, c4d_subcategory_id: 9, description: 'foobar', cms_title: 'awesome_title')
+C4dArticle.create(title: 'awesome_title10', c4d_category_id: 3, c4d_subcategory_id: 10, description: 'foobar', cms_title: 'awesome_title')
+C4dArticle.create(title: 'awesome_title11', c4d_category_id: 3, c4d_subcategory_id: 11, description: 'foobar', cms_title: 'awesome_title')
+C4dArticle.create(title: 'awesome_title12', c4d_category_id: 4, c4d_subcategory_id: 12, description: 'foobar', cms_title: 'awesome_title')
+C4dArticle.create(title: 'awesome_title13', c4d_category_id: 4, c4d_subcategory_id: 13, description: 'foobar', cms_title: 'awesome_title')
+C4dArticle.create(title: 'awesome_title14', c4d_category_id: 4, c4d_subcategory_id: 14, description: 'foobar', cms_title: 'awesome_title')
+C4dArticle.create(title: 'awesome_title15', c4d_category_id: 4, c4d_subcategory_id: 15, description: 'foobar', cms_title: 'awesome_title')
 
-C4dArticle.create(title: 'awesome_title16', c4d_category_id: 1, c4d_subcategory_id: 1, description: 'foobar', CMS_title: 'awesome_title')
-C4dArticle.create(title: 'awesome_title17', c4d_category_id: 1, c4d_subcategory_id: 2, description: 'foobar', CMS_title: 'awesome_title')
-C4dArticle.create(title: 'awesome_title18', c4d_category_id: 1, c4d_subcategory_id: 3, description: 'foobar', CMS_title: 'awesome_title')
-C4dArticle.create(title: 'awesome_title19', c4d_category_id: 2, c4d_subcategory_id: 4, description: 'foobar', CMS_title: 'awesome_title')
-C4dArticle.create(title: 'awesome_title20', c4d_category_id: 2, c4d_subcategory_id: 5, description: 'foobar', CMS_title: 'awesome_title')
-C4dArticle.create(title: 'awesome_title21', c4d_category_id: 2, c4d_subcategory_id: 6, description: 'foobar', CMS_title: 'awesome_title')
-C4dArticle.create(title: 'awesome_title22', c4d_category_id: 2, c4d_subcategory_id: 7, description: 'foobar', CMS_title: 'awesome_title')
-C4dArticle.create(title: 'awesome_title23', c4d_category_id: 2, c4d_subcategory_id: 8, description: 'foobar', CMS_title: 'awesome_title')
-C4dArticle.create(title: 'awesome_title24', c4d_category_id: 3, c4d_subcategory_id: 9, description: 'foobar', CMS_title: 'awesome_title')
-C4dArticle.create(title: 'awesome_title25', c4d_category_id: 3, c4d_subcategory_id: 10, description: 'foobar', CMS_title: 'awesome_title')
-C4dArticle.create(title: 'awesome_title26', c4d_category_id: 3, c4d_subcategory_id: 11, description: 'foobar', CMS_title: 'awesome_title')
-C4dArticle.create(title: 'awesome_title27', c4d_category_id: 4, c4d_subcategory_id: 12, description: 'foobar', CMS_title: 'awesome_title')
-C4dArticle.create(title: 'awesome_title28', c4d_category_id: 4, c4d_subcategory_id: 13, description: 'foobar', CMS_title: 'awesome_title')
-C4dArticle.create(title: 'awesome_title29', c4d_category_id: 4, c4d_subcategory_id: 14, description: 'foobar', CMS_title: 'awesome_title')
-C4dArticle.create(title: 'awesome_title30', c4d_category_id: 4, c4d_subcategory_id: 15, description: 'foobar', CMS_title: 'awesome_title')
+C4dArticle.create(title: 'awesome_title16', c4d_category_id: 1, c4d_subcategory_id: 1, description: 'foobar', cms_title: 'awesome_title')
+C4dArticle.create(title: 'awesome_title17', c4d_category_id: 1, c4d_subcategory_id: 2, description: 'foobar', cms_title: 'awesome_title')
+C4dArticle.create(title: 'awesome_title18', c4d_category_id: 1, c4d_subcategory_id: 3, description: 'foobar', cms_title: 'awesome_title')
+C4dArticle.create(title: 'awesome_title19', c4d_category_id: 2, c4d_subcategory_id: 4, description: 'foobar', cms_title: 'awesome_title')
+C4dArticle.create(title: 'awesome_title20', c4d_category_id: 2, c4d_subcategory_id: 5, description: 'foobar', cms_title: 'awesome_title')
+C4dArticle.create(title: 'awesome_title21', c4d_category_id: 2, c4d_subcategory_id: 6, description: 'foobar', cms_title: 'awesome_title')
+C4dArticle.create(title: 'awesome_title22', c4d_category_id: 2, c4d_subcategory_id: 7, description: 'foobar', cms_title: 'awesome_title')
+C4dArticle.create(title: 'awesome_title23', c4d_category_id: 2, c4d_subcategory_id: 8, description: 'foobar', cms_title: 'awesome_title')
+C4dArticle.create(title: 'awesome_title24', c4d_category_id: 3, c4d_subcategory_id: 9, description: 'foobar', cms_title: 'awesome_title')
+C4dArticle.create(title: 'awesome_title25', c4d_category_id: 3, c4d_subcategory_id: 10, description: 'foobar', cms_title: 'awesome_title')
+C4dArticle.create(title: 'awesome_title26', c4d_category_id: 3, c4d_subcategory_id: 11, description: 'foobar', cms_title: 'awesome_title')
+C4dArticle.create(title: 'awesome_title27', c4d_category_id: 4, c4d_subcategory_id: 12, description: 'foobar', cms_title: 'awesome_title')
+C4dArticle.create(title: 'awesome_title28', c4d_category_id: 4, c4d_subcategory_id: 13, description: 'foobar', cms_title: 'awesome_title')
+C4dArticle.create(title: 'awesome_title29', c4d_category_id: 4, c4d_subcategory_id: 14, description: 'foobar', cms_title: 'awesome_title')
+C4dArticle.create(title: 'awesome_title30', c4d_category_id: 4, c4d_subcategory_id: 15, description: 'foobar', cms_title: 'awesome_title')
 
-C4dArticle.create(title: 'awesome_title31', c4d_category_id: 1, c4d_subcategory_id: 1, description: 'foobar', CMS_title: 'awesome_title')
-C4dArticle.create(title: 'awesome_title32', c4d_category_id: 1, c4d_subcategory_id: 2, description: 'foobar', CMS_title: 'awesome_title')
-C4dArticle.create(title: 'awesome_title33', c4d_category_id: 1, c4d_subcategory_id: 3, description: 'foobar', CMS_title: 'awesome_title')
-C4dArticle.create(title: 'awesome_title34', c4d_category_id: 2, c4d_subcategory_id: 4, description: 'foobar', CMS_title: 'awesome_title')
-C4dArticle.create(title: 'awesome_title35', c4d_category_id: 2, c4d_subcategory_id: 5, description: 'foobar', CMS_title: 'awesome_title')
-C4dArticle.create(title: 'awesome_title36', c4d_category_id: 2, c4d_subcategory_id: 6, description: 'foobar', CMS_title: 'awesome_title')
-C4dArticle.create(title: 'awesome_title37', c4d_category_id: 2, c4d_subcategory_id: 7, description: 'foobar', CMS_title: 'awesome_title')
-C4dArticle.create(title: 'awesome_title38', c4d_category_id: 2, c4d_subcategory_id: 8, description: 'foobar', CMS_title: 'awesome_title')
-C4dArticle.create(title: 'awesome_title39', c4d_category_id: 3, c4d_subcategory_id: 9, description: 'foobar', CMS_title: 'awesome_title')
-C4dArticle.create(title: 'awesome_title40', c4d_category_id: 3, c4d_subcategory_id: 10, description: 'foobar', CMS_title: 'awesome_title')
-C4dArticle.create(title: 'awesome_title41', c4d_category_id: 3, c4d_subcategory_id: 11, description: 'foobar', CMS_title: 'awesome_title')
-C4dArticle.create(title: 'awesome_title42', c4d_category_id: 4, c4d_subcategory_id: 12, description: 'foobar', CMS_title: 'awesome_title')
-C4dArticle.create(title: 'awesome_title43', c4d_category_id: 4, c4d_subcategory_id: 13, description: 'foobar', CMS_title: 'awesome_title')
-C4dArticle.create(title: 'awesome_title44', c4d_category_id: 4, c4d_subcategory_id: 14, description: 'foobar', CMS_title: 'awesome_title')
-C4dArticle.create(title: 'awesome_title45', c4d_category_id: 4, c4d_subcategory_id: 15, description: 'foobar', CMS_title: 'awesome_title')
+C4dArticle.create(title: 'awesome_title31', c4d_category_id: 1, c4d_subcategory_id: 1, description: 'foobar', cms_title: 'awesome_title')
+C4dArticle.create(title: 'awesome_title32', c4d_category_id: 1, c4d_subcategory_id: 2, description: 'foobar', cms_title: 'awesome_title')
+C4dArticle.create(title: 'awesome_title33', c4d_category_id: 1, c4d_subcategory_id: 3, description: 'foobar', cms_title: 'awesome_title')
+C4dArticle.create(title: 'awesome_title34', c4d_category_id: 2, c4d_subcategory_id: 4, description: 'foobar', cms_title: 'awesome_title')
+C4dArticle.create(title: 'awesome_title35', c4d_category_id: 2, c4d_subcategory_id: 5, description: 'foobar', cms_title: 'awesome_title')
+C4dArticle.create(title: 'awesome_title36', c4d_category_id: 2, c4d_subcategory_id: 6, description: 'foobar', cms_title: 'awesome_title')
+C4dArticle.create(title: 'awesome_title37', c4d_category_id: 2, c4d_subcategory_id: 7, description: 'foobar', cms_title: 'awesome_title')
+C4dArticle.create(title: 'awesome_title38', c4d_category_id: 2, c4d_subcategory_id: 8, description: 'foobar', cms_title: 'awesome_title')
+C4dArticle.create(title: 'awesome_title39', c4d_category_id: 3, c4d_subcategory_id: 9, description: 'foobar', cms_title: 'awesome_title')
+C4dArticle.create(title: 'awesome_title40', c4d_category_id: 3, c4d_subcategory_id: 10, description: 'foobar', cms_title: 'awesome_title')
+C4dArticle.create(title: 'awesome_title41', c4d_category_id: 3, c4d_subcategory_id: 11, description: 'foobar', cms_title: 'awesome_title')
+C4dArticle.create(title: 'awesome_title42', c4d_category_id: 4, c4d_subcategory_id: 12, description: 'foobar', cms_title: 'awesome_title')
+C4dArticle.create(title: 'awesome_title43', c4d_category_id: 4, c4d_subcategory_id: 13, description: 'foobar', cms_title: 'awesome_title')
+C4dArticle.create(title: 'awesome_title44', c4d_category_id: 4, c4d_subcategory_id: 14, description: 'foobar', cms_title: 'awesome_title')
+C4dArticle.create(title: 'awesome_title45', c4d_category_id: 4, c4d_subcategory_id: 15, description: 'foobar', cms_title: 'awesome_title')
 
 Office.create(title: 'Country')
 Office.create(title: 'WHO')
@@ -126,70 +126,70 @@ Office.create(title: 'UNICEF')
 Office.create(title: 'Rapid Response')
 Office.create(title: 'Surge Team')
 
-sop_article = SopArticle.create(title: 'awesome_title', sop_time_id: 2, CMS_title: 'awesome_title', responsibility_id: 1, sop_category_id: 1)
+sop_article = SopArticle.create(title: 'awesome_title', sop_time_id: 2, cms_title: 'awesome_title', responsibility_id: 1, sop_category_id: 1)
 sop_article.sop_icon = SopIcon.where(sop_time_id: sop_article.sop_time.id, sop_category_id: sop_article.sop_category.id).first
 sop_article.save
-sop_article = SopArticle.create(title: 'awesome_title2', sop_time_id: 2, CMS_title: 'awesome_title2', responsibility_id: 2, sop_category_id: 4)
+sop_article = SopArticle.create(title: 'awesome_title2', sop_time_id: 2, cms_title: 'awesome_title2', responsibility_id: 2, sop_category_id: 4)
 sop_article.sop_icon = SopIcon.where(sop_time_id: sop_article.sop_time.id, sop_category_id: sop_article.sop_category.id).first
 sop_article.save
-sop_article = SopArticle.create(title: 'awesome_title4', sop_time_id: 2, CMS_title: 'awesome_title4', responsibility_id: 4, sop_category_id: 5)
+sop_article = SopArticle.create(title: 'awesome_title4', sop_time_id: 2, cms_title: 'awesome_title4', responsibility_id: 4, sop_category_id: 5)
 sop_article.sop_icon = SopIcon.where(sop_time_id: sop_article.sop_time.id, sop_category_id: sop_article.sop_category.id).first
 sop_article.save
-sop_article = SopArticle.create(title: 'awesome_title6', sop_time_id: 2, CMS_title: 'awesome_title6', responsibility_id: 3, sop_category_id: 3)
+sop_article = SopArticle.create(title: 'awesome_title6', sop_time_id: 2, cms_title: 'awesome_title6', responsibility_id: 3, sop_category_id: 3)
 sop_article.sop_icon = SopIcon.where(sop_time_id: sop_article.sop_time.id, sop_category_id: sop_article.sop_category.id).first
 sop_article.save
-sop_article = SopArticle.create(title: 'awesome_title7', sop_time_id: 2, CMS_title: 'awesome_title7', responsibility_id: 1, sop_category_id: 2)
+sop_article = SopArticle.create(title: 'awesome_title7', sop_time_id: 2, cms_title: 'awesome_title7', responsibility_id: 1, sop_category_id: 2)
 sop_article.sop_icon = SopIcon.where(sop_time_id: sop_article.sop_time.id, sop_category_id: sop_article.sop_category.id).first
 sop_article.save
-sop_article = SopArticle.create(title: 'awesome_title8', sop_time_id: 5, CMS_title: 'awesome_title8', responsibility_id: 2, sop_category_id: 1)
+sop_article = SopArticle.create(title: 'awesome_title8', sop_time_id: 5, cms_title: 'awesome_title8', responsibility_id: 2, sop_category_id: 1)
 sop_article.sop_icon = SopIcon.where(sop_time_id: sop_article.sop_time.id, sop_category_id: sop_article.sop_category.id).first
 sop_article.save
-sop_article = SopArticle.create(title: 'awesome_title9', sop_time_id: 5, CMS_title: 'awesome_title9', responsibility_id: 4, sop_category_id: 6)
+sop_article = SopArticle.create(title: 'awesome_title9', sop_time_id: 5, cms_title: 'awesome_title9', responsibility_id: 4, sop_category_id: 6)
 sop_article.sop_icon = SopIcon.where(sop_time_id: sop_article.sop_time.id, sop_category_id: sop_article.sop_category.id).first
 sop_article.save
-sop_article = SopArticle.create(title: 'awesome_title10', sop_time_id: 5, CMS_title: 'awesome_title10', responsibility_id: 3, sop_category_id: 4)
+sop_article = SopArticle.create(title: 'awesome_title10', sop_time_id: 5, cms_title: 'awesome_title10', responsibility_id: 3, sop_category_id: 4)
 sop_article.sop_icon = SopIcon.where(sop_time_id: sop_article.sop_time.id, sop_category_id: sop_article.sop_category.id).first
 sop_article.save
-sop_article = SopArticle.create(title: 'awesome_title11', sop_time_id: 5, CMS_title: 'awesome_title11', responsibility_id: 1, sop_category_id: 5)
+sop_article = SopArticle.create(title: 'awesome_title11', sop_time_id: 5, cms_title: 'awesome_title11', responsibility_id: 1, sop_category_id: 5)
 sop_article.sop_icon = SopIcon.where(sop_time_id: sop_article.sop_time.id, sop_category_id: sop_article.sop_category.id).first
 sop_article.save
-sop_article = SopArticle.create(title: 'awesome_title12', sop_time_id: 5, CMS_title: 'awesome_title12', responsibility_id: 2, sop_category_id: 3)
+sop_article = SopArticle.create(title: 'awesome_title12', sop_time_id: 5, cms_title: 'awesome_title12', responsibility_id: 2, sop_category_id: 3)
 sop_article.sop_icon = SopIcon.where(sop_time_id: sop_article.sop_time.id, sop_category_id: sop_article.sop_category.id).first
 sop_article.save
-sop_article = SopArticle.create(title: 'awesome_title13', sop_time_id: 5, CMS_title: 'awesome_title13', responsibility_id: 4, sop_category_id: 2)
+sop_article = SopArticle.create(title: 'awesome_title13', sop_time_id: 5, cms_title: 'awesome_title13', responsibility_id: 4, sop_category_id: 2)
 sop_article.sop_icon = SopIcon.where(sop_time_id: sop_article.sop_time.id, sop_category_id: sop_article.sop_category.id).first
 sop_article.save
-sop_article = SopArticle.create(title: 'awesome_title14', sop_time_id: 3, CMS_title: 'awesome_title14', responsibility_id: 3, sop_category_id: 5)
+sop_article = SopArticle.create(title: 'awesome_title14', sop_time_id: 3, cms_title: 'awesome_title14', responsibility_id: 3, sop_category_id: 5)
 sop_article.sop_icon = SopIcon.where(sop_time_id: sop_article.sop_time.id, sop_category_id: sop_article.sop_category.id).first
 sop_article.save
-sop_article = SopArticle.create(title: 'awesome_title15', sop_time_id: 3, CMS_title: 'awesome_title15', responsibility_id: 1, sop_category_id: 3)
+sop_article = SopArticle.create(title: 'awesome_title15', sop_time_id: 3, cms_title: 'awesome_title15', responsibility_id: 1, sop_category_id: 3)
 sop_article.sop_icon = SopIcon.where(sop_time_id: sop_article.sop_time.id, sop_category_id: sop_article.sop_category.id).first
 sop_article.save
-sop_article = SopArticle.create(title: 'awesome_title16', sop_time_id: 3, CMS_title: 'awesome_title16', responsibility_id: 2, sop_category_id: 7)
+sop_article = SopArticle.create(title: 'awesome_title16', sop_time_id: 3, cms_title: 'awesome_title16', responsibility_id: 2, sop_category_id: 7)
 sop_article.sop_icon = SopIcon.where(sop_time_id: sop_article.sop_time.id, sop_category_id: sop_article.sop_category.id).first
 sop_article.save
-sop_article = SopArticle.create(title: 'awesome_title17', sop_time_id: 3, CMS_title: 'awesome_title17', responsibility_id: 4, sop_category_id: 2)
+sop_article = SopArticle.create(title: 'awesome_title17', sop_time_id: 3, cms_title: 'awesome_title17', responsibility_id: 4, sop_category_id: 2)
 sop_article.sop_icon = SopIcon.where(sop_time_id: sop_article.sop_time.id, sop_category_id: sop_article.sop_category.id).first
 sop_article.save
-sop_article = SopArticle.create(title: 'awesome_title18', sop_time_id: 4, CMS_title: 'awesome_title18', responsibility_id: 3, sop_category_id: 1)
+sop_article = SopArticle.create(title: 'awesome_title18', sop_time_id: 4, cms_title: 'awesome_title18', responsibility_id: 3, sop_category_id: 1)
 sop_article.sop_icon = SopIcon.where(sop_time_id: sop_article.sop_time.id, sop_category_id: sop_article.sop_category.id).first
 sop_article.save
-sop_article = SopArticle.create(title: 'awesome_title19', sop_time_id: 4, CMS_title: 'awesome_title19', responsibility_id: 2, sop_category_id: 6)
+sop_article = SopArticle.create(title: 'awesome_title19', sop_time_id: 4, cms_title: 'awesome_title19', responsibility_id: 2, sop_category_id: 6)
 sop_article.sop_icon = SopIcon.where(sop_time_id: sop_article.sop_time.id, sop_category_id: sop_article.sop_category.id).first
 sop_article.save
-sop_article = SopArticle.create(title: 'awesome_title20', sop_time_id: 4, CMS_title: 'awesome_title20', responsibility_id: 4, sop_category_id: 4)
+sop_article = SopArticle.create(title: 'awesome_title20', sop_time_id: 4, cms_title: 'awesome_title20', responsibility_id: 4, sop_category_id: 4)
 sop_article.sop_icon = SopIcon.where(sop_time_id: sop_article.sop_time.id, sop_category_id: sop_article.sop_category.id).first
 sop_article.save
-sop_article = SopArticle.create(title: 'awesome_title21', sop_time_id: 4, CMS_title: 'awesome_title21', responsibility_id: 3, sop_category_id: 5)
+sop_article = SopArticle.create(title: 'awesome_title21', sop_time_id: 4, cms_title: 'awesome_title21', responsibility_id: 3, sop_category_id: 5)
 sop_article.sop_icon = SopIcon.where(sop_time_id: sop_article.sop_time.id, sop_category_id: sop_article.sop_category.id).first
 sop_article.save
-sop_article = SopArticle.create(title: 'awesome_title22', sop_time_id: 4, CMS_title: 'awesome_title22', responsibility_id: 1, sop_category_id: 3)
+sop_article = SopArticle.create(title: 'awesome_title22', sop_time_id: 4, cms_title: 'awesome_title22', responsibility_id: 1, sop_category_id: 3)
 sop_article.sop_icon = SopIcon.where(sop_time_id: sop_article.sop_time.id, sop_category_id: sop_article.sop_category.id).first
 sop_article.save
-sop_article = SopArticle.create(title: 'awesome_title23', sop_time_id: 4, CMS_title: 'awesome_title23', responsibility_id: 2, sop_category_id: 7)
+sop_article = SopArticle.create(title: 'awesome_title23', sop_time_id: 4, cms_title: 'awesome_title23', responsibility_id: 2, sop_category_id: 7)
 sop_article.sop_icon = SopIcon.where(sop_time_id: sop_article.sop_time.id, sop_category_id: sop_article.sop_category.id).first
 sop_article.save
-sop_article = SopArticle.create(title: 'awesome_title24', sop_time_id: 4, CMS_title: 'awesome_title24', responsibility_id: 4, sop_category_id: 2)
+sop_article = SopArticle.create(title: 'awesome_title24', sop_time_id: 4, cms_title: 'awesome_title24', responsibility_id: 4, sop_category_id: 2)
 sop_article.sop_icon = SopIcon.where(sop_time_id: sop_article.sop_time.id, sop_category_id: sop_article.sop_category.id).first
 sop_article.save
 
