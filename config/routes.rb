@@ -5,6 +5,7 @@ Rails.application.routes.draw do
   get '/c4d/selection' => 'c4d#selection'
 
   get '/sop' => 'sop#index'
+
   post '/sop/checklist/:title' => 'sop_checklist#create'
   delete '/sop/checklist/:title' => 'sop_checklist#destroy'
 
@@ -20,6 +21,7 @@ Rails.application.routes.draw do
   resources :cms, only: [:index]
   namespace :cms, defaults: { format: :json } do
     resources :users, only: [:index, :update, :create, :destroy]
+    resources :sop_articles, only: [:index, :update, :show]
   end
 
   resources :users, only: [:show]
