@@ -19,9 +19,11 @@ Rails.application.routes.draw do
   resources :sop_reference_links, only: [:show]
 
   resources :cms, only: [:index]
+
   namespace :cms, defaults: { format: :json } do
     resources :users, only: [:index, :update, :create, :destroy]
     resources :sop_articles, only: [:index, :update, :show, :create]
+    resources :c4d_articles, only: [:index, :update, :show, :create]
   end
 
   resources :users, only: [:show]
@@ -31,5 +33,7 @@ Rails.application.routes.draw do
     resources :sop_times, only: [:index]
     resources :sop_categories, only: [:index]
     resources :offices, only: [:index]
+    resources :c4d_subcategories, only: [:index]
+    resources :c4d_categories, only: [:index]
   end
 end
