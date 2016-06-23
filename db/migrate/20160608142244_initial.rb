@@ -32,7 +32,7 @@ class Initial < ActiveRecord::Migration
     end
 
     create_table :c4d_articles do |t|
-      t.string :CMS_title
+      t.string :cms_title
       t.string :description
       t.string :title
       t.integer :c4d_category_id
@@ -45,7 +45,7 @@ class Initial < ActiveRecord::Migration
     end
 
     create_table :sop_articles do |t|
-      t.string :CMS_title
+      t.string :cms_title
       t.string :article
       t.string :title
       t.integer :sop_category_id
@@ -54,6 +54,7 @@ class Initial < ActiveRecord::Migration
       t.string :status
       t.string :video_url
       t.string :support
+      t.string :responsible
       t.integer :responsibility_id
       t.integer :owner_id
       t.timestamps
