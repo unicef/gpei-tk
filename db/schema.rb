@@ -31,7 +31,7 @@ ActiveRecord::Schema.define(version: 20160608142244) do
   end
 
   create_table "c4d_articles", force: :cascade do |t|
-    t.string   "CMS_title"
+    t.string   "cms_title"
     t.string   "description"
     t.string   "title"
     t.integer  "c4d_category_id"
@@ -113,7 +113,7 @@ ActiveRecord::Schema.define(version: 20160608142244) do
   end
 
   create_table "sop_articles", force: :cascade do |t|
-    t.string   "CMS_title"
+    t.string   "cms_title"
     t.string   "article"
     t.string   "title"
     t.integer  "sop_category_id"
@@ -122,6 +122,7 @@ ActiveRecord::Schema.define(version: 20160608142244) do
     t.string   "status"
     t.string   "video_url"
     t.string   "support"
+    t.string   "responsible"
     t.integer  "responsibility_id"
     t.integer  "owner_id"
     t.datetime "created_at"
