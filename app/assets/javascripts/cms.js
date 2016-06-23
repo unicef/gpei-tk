@@ -272,7 +272,7 @@ $(() => {
         </div>
         <div class="field">
           <label>Video URL</label>
-          <input type="text" name="video_url" value="${article.video_url}" required>
+          <input type="text" name="video_url" value="${article.video_url}">
         </div>
         <div class="field">
           <label>Template Links</label>

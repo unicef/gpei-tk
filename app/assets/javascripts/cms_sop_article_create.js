@@ -66,7 +66,7 @@ $(() => {
         </div>
         <div class="field">
           <label>Video URL</label>
-          <input type="text" name="video_url" value="" required>
+          <input type="text" name="video_url" value="">
         </div>
         <div class="field">
           <label>Template Links</label>
