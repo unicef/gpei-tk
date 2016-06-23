@@ -30,7 +30,6 @@ $(function(){
     // $output.html("<li id=\"checklist_article\">" + filterValue + "</li>");
   }
   function toggleVisibility(el) {
-    debugger
     if ($(el).css('visibility') == 'hidden' )
       $(el).css('visibility','visible');
     else

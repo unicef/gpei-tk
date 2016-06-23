@@ -2,7 +2,6 @@
 
   var $sopcheck_list_icons = $('#sop_checklist_icons')
   $sopcheck_list_icons.on('click', '#grid_add', function(e){
-    debugger
     var article_title = e.currentTarget.parentElement.querySelector('#grid_item_article_title').innerHTML;
     $.ajax({
       method: 'POST',
@@ -20,7 +19,6 @@
   });
 
   $sopcheck_list_icons.on('click', '#grid_check', function(e){
-    debugger
     var article_title = e.currentTarget.parentElement.querySelector('#grid_item_article_title').innerHTML;
     $.ajax({
       method: 'DELETE',
