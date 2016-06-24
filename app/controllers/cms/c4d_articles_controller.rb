@@ -3,22 +3,15 @@ class Cms::C4dArticlesController < ApplicationController
     if request.xhr?
       c4d_articles = C4dArticle.all
       users = {}
-      User.all.each do |user|
-        users[user.id] = user
-      end
-      c4d_articles.each do |article|
-        article.owner_id = User.all.first.id
-      end
+      User.all.each { |user| users[user.id] = user }
+      c4d_articles.each { |article| article.owner_id = User.all.first.id }
       render json: { c4d_articles: c4d_articles, users: users, status: 'success' }
     end
   end
 
   def create
     if request.xhr?
-      params.delete('authenticity_token')
-      params.delete('format')
-      params.delete('reference_links')
-      params.delete('template_links')
+
       c4d_article = C4dArticle.new(safe_article_params)
       if c4d_article.save
         render json: { c4d_article: c4d_article, status: 'success' }
@@ -47,6 +40,7 @@ class Cms::C4dArticlesController < ApplicationController
   end
 
   def safe_article_params
-    params.permit(:cms_title, :title, :description, :c4d_subcategory_id, :c4d_category_id, :reference_links, :template_links)
+    exclusion_keys = ['authenticity_token', 'format', 'reference_links', 'template_links']
+    params.select { |key, value| !exclusion_keys.include?(key) }.permit(:cms_title, :title, :description, :c4d_subcategory_id, :c4d_category_id)
   end
 end
