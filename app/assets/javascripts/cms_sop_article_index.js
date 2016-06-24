@@ -133,7 +133,23 @@ $(() => {
       url: 'cms/sop_articles/' + e.currentTarget.parentElement.id,
       data: $('#CMS_sop_article_form').serialize() + "?&authenticity_token=" + escape($('meta[name=csrf-token]').attr('content'))
     }).done(response => {
+      $('#CMS_sop_articles_link').trigger('click')
       $('.ui.dimmer').dimmer('show')
+      _.delay(() => {
+        $('.ui.dimmer').dimmer('hide')
+      }, 3000, 'later');
+
     })
   })
+  function getOfficesDropdown(label, option_name, offices){
+    return (`
+      <div class="field">
+        <label>${label}</label>
+        <select name="${option_name}" class="ui dropdown cms_dropdown_select" required>
+          <option value="">Select Office</option>
+          ${_.map(offices, office => { return `<option value="${office.id}">${office.title}</option>` }).join('\n')}
+        </select>
+      </div>
+      `)
+  }
 })

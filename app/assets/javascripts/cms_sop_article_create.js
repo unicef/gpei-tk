@@ -25,14 +25,14 @@ $(() => {
     })
   })
 
-  $('#CMS_index_content').on('submit', '#CMS_sop_article_form', e => {
+  $('#CMS_index_content').on('submit', '#CMS_sop_article_create_form', e => {
     $.ajax({
       method: 'POST',
       url: 'cms/sop_articles/',
-      data: $('#CMS_sop_article_form').serialize() + "?&authenticity_token=" + escape($('meta[name=csrf-token]').attr('content'))
+      data: $('#CMS_sop_article_create_form').serialize() + "?&authenticity_token=" + escape($('meta[name=csrf-token]').attr('content'))
     }).done(response => {
-      $('.ui.dimmer').dimmer('show')
       $('#CMS_sop_articles_link').trigger('click')
+      $('.ui.dimmer').dimmer('show')
       _.delay(() => {
         $('.ui.dimmer').dimmer('hide')
       }, 3000, 'later');
@@ -41,7 +41,7 @@ $(() => {
 
   function getEmptySopArticleForm(sop_times, sop_categories, offices){
     return (`
-      <form id="CMS_sop_article_form" class="ui form CMS_sop_article_form_div">
+      <form id="CMS_sop_article_create_form" class="ui form CMS_sop_article_form_div">
         <div class="field">
           <label>CMS Title</label>
           <input type="text" name="cms_title" placeholder="CMS Title" value="" required>

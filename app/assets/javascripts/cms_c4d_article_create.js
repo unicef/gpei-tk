@@ -19,14 +19,14 @@ $(() => {
     })
   })
 
-  $('#CMS_index_content').on('submit', '#CMS_c4d_article_form', e => {
+  $('#CMS_index_content').on('submit', '#CMS_c4d_article_create_form', e => {
     $.ajax({
       method: 'POST',
       url: 'cms/c4d_articles/',
-      data: $('#CMS_c4d_article_form').serialize() + "?&authenticity_token=" + escape($('meta[name=csrf-token]').attr('content'))
+      data: $('#CMS_c4d_article_create_form').serialize() + "?&authenticity_token=" + escape($('meta[name=csrf-token]').attr('content'))
     }).done(response => {
-      $('.ui.dimmer').dimmer('show')
       $('#CMS_c4d_articles_link').trigger('click')
+      $('.ui.dimmer').dimmer('show')
       _.delay(() => {
         $('.ui.dimmer').dimmer('hide')
       }, 3000, 'later');
@@ -35,7 +35,7 @@ $(() => {
 
   function getEmptyC4dArticleForm(c4d_subcategories, c4d_categories){
     return (`
-      <form id="CMS_c4d_article_form" class="ui form CMS_c4d_article_form_div">
+      <form id="CMS_c4d_article_create_form" class="ui form CMS_c4d_article_form_div">
         <div class="field">
           <label>CMS Title</label>
           <input type="text" name="cms_title" placeholder="CMS Title" value="" required>
