@@ -2,7 +2,7 @@ class SopArticle < ActiveRecord::Base
   belongs_to :sop_time
   belongs_to :sop_category
   belongs_to :responsibility, class_name: 'Office', foreign_key: 'responsibility_id'
-  belongs_to :owner, class_name: 'User', foreign_key: 'owner_id'
+  belongs_to :author, class_name: 'User', foreign_key: 'author_id'
 
   has_many :sop_checklists
   has_many :sop_checklist_sop_articles

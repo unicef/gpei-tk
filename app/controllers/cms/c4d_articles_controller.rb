@@ -4,7 +4,7 @@ class Cms::C4dArticlesController < ApplicationController
       c4d_articles = C4dArticle.all
       users = {}
       User.all.each { |user| users[user.id] = user }
-      c4d_articles.each { |article| article.owner_id = User.all.first.id }
+      c4d_articles.each { |article| article.author_id = User.all.first.id }
       render json: { c4d_articles: c4d_articles, users: users, status: 'success' }
     end
   end

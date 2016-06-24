@@ -1,7 +1,7 @@
 class C4dArticle < ActiveRecord::Base
   belongs_to :c4d_category
   belongs_to :c4d_subcategory
-  belongs_to :owner, class_name: 'User', foreign_key: 'owner_id'
+  belongs_to :author, class_name: 'User', foreign_key: 'author_id'
 
   has_many :c4d_toolkits
   has_many :c4d_toolkit_c4d_articles

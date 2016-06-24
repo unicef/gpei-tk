@@ -7,7 +7,7 @@ class Cms::SopArticlesController < ApplicationController
         users[user.id] = user
       end
       sop_articles.each do |article|
-        article.owner_id = User.all.first.id
+        article.author_id = User.all.first.id
       end
       render json: { sop_articles: sop_articles, users: users, status: 'success' }
     end
