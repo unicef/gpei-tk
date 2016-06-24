@@ -15,7 +15,6 @@ class Cms::SopArticlesController < ApplicationController
 
   def create
     if request.xhr?
-      binding.pry
       sop_article = SopArticle.new(safe_article_params)
       sop_article.sop_icon = SopIcon.where(sop_time_id: sop_article.sop_time.id, sop_category_id: sop_article.sop_category.id).first
       if sop_article.save

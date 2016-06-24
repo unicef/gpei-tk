@@ -19,10 +19,8 @@ class Cms::C4dArticlesController < ApplicationController
       params.delete('format')
       params.delete('reference_links')
       params.delete('template_links')
-      binding.pry
       c4d_article = C4dArticle.new(safe_article_params)
       if c4d_article.save
-        binding.pry
         render json: { c4d_article: c4d_article, status: 'success' }
       end
     end
@@ -40,6 +38,8 @@ class Cms::C4dArticlesController < ApplicationController
 
   def update
     if request.xhr?
+      params.delete('reference_links')
+      params.delete('template_links')
       article = C4dArticle.find(params[:id])
       article.update(safe_article_params)
       render json: { status: 'success' }
