@@ -54,8 +54,8 @@ $(() => {
           <label>CMS Title</label>
           <input type="text" name="cms_title" placeholder="${article.cms_title}" value="${article.cms_title}" required>
         </div>
-        ${getC4dSubcategoryDropdown("Subcategory", "c4d_subcategory_id", c4d_subcategories)}
-        ${getC4dCategoryDropdown("Category", "c4d_category_id", c4d_categories)}
+        ${getC4dSubcategoryDropdown("Subcategory", "c4d_subcategory_id", c4d_subcategories, article.c4d_subcategory_id)}
+        ${getC4dCategoryDropdown("Category", "c4d_category_id", c4d_categories, article.c4d_category_id)}
         <div class="field">
           <label>Title</label>
           <input type="text" name="title" placeholder="Title" value="${article.title}" required>
@@ -83,13 +83,16 @@ $(() => {
       action: 'hide'
     });
 
-  function getC4dSubcategoryDropdown(label, option_name, c4d_subcategories){
+  function getC4dSubcategoryDropdown(label, option_name, c4d_subcategories, article_subcategory_id){
     return (`
       <div class="field">
         <label>${label}</label>
         <select name="${option_name}" class="ui dropdown cms_dropdown_select" required>
           <option value="">Select Subcategory</option>
-          ${_.map(c4d_subcategories, subcategory => { return `<option value="${subcategory.id}">${subcategory.title}</option>` }).join('\n')}
+          ${_.map(c4d_subcategories, subcategory => {
+            selected = subcategory.id == article_subcategory_id ? 'selected' : ''
+            return `<option ${selected} value="${subcategory.id}">${subcategory.title}</option>`
+          }).join('\n')}
         </select>
       </div>
       `)
@@ -101,13 +104,16 @@ $(() => {
     );
   }
 
-  function getC4dCategoryDropdown(label, option_name, c4d_categories){
+  function getC4dCategoryDropdown(label, option_name, c4d_categories, article_category_id){
     return (`
       <div class="field">
         <label>${label}</label>
         <select name="${option_name}" class="ui dropdown cms_dropdown_select" required>
           <option value="">Select Category</option>
-          ${_.map(c4d_categories, category => { return `<option value="${category.id}">${category.title}</option>` }).join('\n')}
+          ${_.map(c4d_categories, category => {
+            selected = category.id == article_category_id ? 'selected' : ''
+            return `<option ${selected} value="${category.id}">${category.title}</option>`
+          }).join('\n')}
         </select>
       </div>
       `)

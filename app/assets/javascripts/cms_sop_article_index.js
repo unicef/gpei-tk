@@ -60,8 +60,8 @@ $(() => {
           <label>CMS Title</label>
           <input type="text" name="cms_title" placeholder="${article.cms_title}" value="${article.cms_title}" required>
         </div>
-        ${getSopTimeDropdown("Time", "sop_time_id", sop_times)}
-        ${getSopCategoryDropdown("Category", "sop_category_id", sop_categories)}
+        ${getSopTimeDropdown("Time", "sop_time_id", sop_times, article.sop_time_id)}
+        ${getSopCategoryDropdown("Category", "sop_category_id", sop_categories, article.sop_category_id)}
         <div class="field">
           <label>Title</label>
           <input type="text" name="title" placeholder="Title" value="${article.title}" required>
@@ -70,7 +70,7 @@ $(() => {
           <label>Responsible</label>
           <input type="text" name="responsible" value="${article.responsible}" required>
         </div>
-        ${getOfficesDropdown("Office", "responsibility_id", offices)}
+        ${getOfficesDropdown("Office", "responsibility_id", offices, article.responsibility_id)}
         <div class="field">
           <label>Support</label>
           <input type="text" name="support" value="${article.support}" required>
@@ -102,25 +102,31 @@ $(() => {
       action: 'hide'
     });
 
-  function getSopTimeDropdown(label, option_name, sop_times){
+  function getSopTimeDropdown(label, option_name, sop_times, article_sop_time_id){
     return (`
       <div class="field">
         <label>${label}</label>
         <select name="${option_name}" class="ui dropdown cms_dropdown_select" required>
           <option value="">Select Time Period</option>
-          ${_.map(sop_times, time => { return `<option value="${time.id}">${time.period}</option>` }).join('\n')}
+          ${_.map(sop_times, time => {
+            selected = time.id == article_sop_time_id ? 'selected' : ''
+            return `<option ${selected} value="${time.id}">${time.period}</option>`
+          }).join('\n')}
         </select>
       </div>
       `)
   }
 
-  function getSopCategoryDropdown(label, option_name, sop_categories){
+  function getSopCategoryDropdown(label, option_name, sop_categories, article_category_id){
     return (`
       <div class="field">
         <label>${label}</label>
         <select name="${option_name}" class="ui dropdown cms_dropdown_select" required>
           <option value="">Select Category</option>
-          ${_.map(sop_categories, category => { return `<option value="${category.id}">${category.title}</option>` }).join('\n')}
+          ${_.map(sop_categories, category => {
+            selected = category.id == article_category_id ? 'selected' : ''
+            return `<option ${selected} value="${category.id}">${category.title}</option>`
+          }).join('\n')}
         </select>
       </div>
       `)
@@ -141,13 +147,16 @@ $(() => {
 
     })
   })
-  function getOfficesDropdown(label, option_name, offices){
+  function getOfficesDropdown(label, option_name, offices, article_office_id){
     return (`
       <div class="field">
         <label>${label}</label>
         <select name="${option_name}" class="ui dropdown cms_dropdown_select" required>
           <option value="">Select Office</option>
-          ${_.map(offices, office => { return `<option value="${office.id}">${office.title}</option>` }).join('\n')}
+          ${_.map(offices, office => {
+            selected = office.id == article_office_id ? 'selected' : ''
+            return `<option ${selected} value="${office.id}">${office.title}</option>`
+          }).join('\n')}
         </select>
       </div>
       `)
