@@ -139,7 +139,6 @@ sop_article = SopArticle.create(title: 'awesome_title6', sop_time_id: 2, cms_tit
 sop_article.sop_icon = SopIcon.where(sop_time_id: sop_article.sop_time.id, sop_category_id: sop_article.sop_category.id).first
 sop_article.save
 sop_article = SopArticle.create(title: 'awesome_title7', sop_time_id: 2, cms_title: 'awesome_title7', responsibility_id: 1, sop_category_id: 2)
-binding.pry
 sop_article.sop_icon = SopIcon.where(sop_time_id: sop_article.sop_time.id, sop_category_id: sop_article.sop_category.id).first
 sop_article.save
 sop_article = SopArticle.create(title: 'awesome_title8', sop_time_id: 5, cms_title: 'awesome_title8', responsibility_id: 2, sop_category_id: 1)
