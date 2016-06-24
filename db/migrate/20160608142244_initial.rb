@@ -1,15 +1,12 @@
 class Initial < ActiveRecord::Migration
   def change
     create_table :users do |t|
-      t.string :name
       t.string :first_name
       t.string :last_name
       t.string :email
-      t.string :screenname
       t.string :password_digest
       t.string :organization
-      t.string :team
-      t.string :company
+      t.string :country
       t.integer :role_id
       t.integer :office_id
       t.boolean :TOS_accepted
@@ -33,30 +30,30 @@ class Initial < ActiveRecord::Migration
 
     create_table :c4d_articles do |t|
       t.string :cms_title
-      t.string :description
+      t.string :content
       t.string :title
       t.integer :c4d_category_id
       t.integer :c4d_subcategory_id
-      t.string :version
       t.string :videoURL
-      t.string :status
-      t.string :owner_id
+      t.integer :order_id
+      t.boolean :published
+      t.string :author_id
       t.timestamps
     end
 
     create_table :sop_articles do |t|
       t.string :cms_title
-      t.string :article
+      t.string :content
       t.string :title
       t.integer :sop_category_id
       t.integer :sop_time_id
-      t.string :version
       t.string :status
       t.string :video_url
+      t.boolean :published
       t.string :support
       t.string :responsible
       t.integer :responsibility_id
-      t.integer :owner_id
+      t.integer :author_id
       t.timestamps
     end
 
