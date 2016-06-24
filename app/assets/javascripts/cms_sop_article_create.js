@@ -62,8 +62,8 @@ $(() => {
           <input type="text" name="support" value="" required>
         </div>
         <div class="field">
-          <label>Article</label>
-          <textarea name="article"></textarea>
+          <label>Content</label>
+          <textarea name="content"></textarea>
         </div>
         <div class="field">
           <label>Video URL</label>

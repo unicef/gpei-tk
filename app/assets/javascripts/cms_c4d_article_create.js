@@ -47,8 +47,8 @@ $(() => {
           <input type="text" name="title" placeholder="Title" value="" required>
         </div>
         <div class="field">
-          <label>Description</label>
-          <textarea name="description"></textarea>
+          <label>Content</label>
+          <textarea name="content"></textarea>
         </div>
         <div class="field">
           <label>Template Links</label>

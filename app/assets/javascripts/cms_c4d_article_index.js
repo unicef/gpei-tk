@@ -18,7 +18,7 @@ $(() => {
 
   function appendC4dArticleRows(c4d_articles, users){
     _.forEach(c4d_articles, article => {
-      let row = '<tr id="' + article.id + '">' + '<td>' + article.id + '</td>' + '<td><a id="' + article.id + '" href="">' + article.title + '</td>' + '<td>' + article.status + '</td>' + '<td>' + moment(article.updated_at, "YYYY-MM-DD").format("MMM DD, YYYY") + '</td>' + '<td>' + moment(article.created_at, "YYYY-MM-DD").format("MMM DD, YYYY") + '</td>' + '<td>' + users[article.owner_id].first_name + ' ' + users[article.owner_id].last_name + '</td>' + '<td>' + getUserActionDropdown(article.id) + '</td>' + '</tr>'
+      let row = '<tr id="' + article.id + '">' + '<td>' + article.id + '</td>' + '<td><a id="' + article.id + '" href="">' + article.title + '</td>' + '<td>' + article.status + '</td>' + '<td>' + moment(article.updated_at, "YYYY-MM-DD").format("MMM DD, YYYY") + '</td>' + '<td>' + moment(article.created_at, "YYYY-MM-DD").format("MMM DD, YYYY") + '</td>' + '<td>' + users[article.author_id].first_name + ' ' + users[article.author_id].last_name + '</td>' + '<td>' + getUserActionDropdown(article.id) + '</td>' + '</tr>'
       $('#CMS_c4d_articles_table').append(row)
     })
   }
@@ -37,17 +37,6 @@ $(() => {
 
   function getCMSC4dArticleContent(article, c4d_subcategories, c4d_categories) {
     return (`
-    <div id='article_header' class='row'>
-      <div class='col-md-3'>
-      ID: ${article.id}
-      </div>
-      <div class='col-md-3'>
-      Version: ${article.version}
-      </div>
-      <div class='col-md-3'>
-      Status: ${article.status}
-      </div>
-    </div>
     <div id="${article.id}" class="CMS_c4d_article_form_div">
       <form id="CMS_c4d_article_form" class="ui form">
         <div class="field">
@@ -61,8 +50,8 @@ $(() => {
           <input type="text" name="title" placeholder="Title" value="${article.title}" required>
         </div>
         <div class="field">
-          <label>Description</label>
-          <textarea name="description">${article.description}</textarea>
+          <label>Content</label>
+          <textarea name="content">${article.content}</textarea>
         </div>
         <div class="field">
           <label>Template Links</label>
