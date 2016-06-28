@@ -28,8 +28,8 @@ class Cms::SopArticlesController < ApplicationController
       sop_article = SopArticle.find(params[:id])
       sop_times = SopTime.all
       sop_categories = SopCategory.all
-      offices = Office.all
-      render json: { sop_article: sop_article, sop_times: sop_times, sop_categories: sop_categories, offices: offices, status: 'success' }
+      responsible_offices = ResponsibleOffice.all
+      render json: { sop_article: sop_article, sop_times: sop_times, sop_categories: sop_categories, responsible_offices: responsible_offices, status: 'success' }
     end
   end
 
