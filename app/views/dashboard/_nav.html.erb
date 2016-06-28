@@ -21,7 +21,7 @@
                 <div class="item" id="sop_no_items_selected" style='background-color: black;color: white;'><span style='background-color: black;color: white;'>No articles selected</span></div>
               <% else %>
                 <% @user.sop_checklist.sop_articles.each do |article| %>
-                  <div id="<%= article.title %>" class="item">
+                  <div id="<%= article.id %>" class="item">
                   <%= link_to sop_article_path(article),  :id => article.title, style: 'background-color: black;color: white;' do %>
                     <%= article.title %>
                   <% end %>
@@ -39,7 +39,7 @@
                 <div class="item" id="c4d_no_items_selected" style='background-color: black;color: white;'><span style='background-color: black;color: white;'>No articles selected</span></div>
               <% else %>
                 <% @user.c4d_toolkit.c4d_articles.each do |article| %>
-                  <div id="<%= article.title %>" class="item">
+                  <div id="<%= article.id %>" class="item">
                   <%= link_to c4d_article_path(article),  :id => article.title, style: 'background-color: black;color: white;' do %>
                     <%= article.title %>
                   <% end %>
