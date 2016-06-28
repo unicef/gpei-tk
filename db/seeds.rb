@@ -105,11 +105,11 @@ C4dCategory.all.count.times do |x|
     category_offset = 0
     c4d_category = C4dCategory.find(c4d_category_id)
     if c4d_category.title == 'Plan'
-      category_offset = 4
+      category_offset = 3
     elsif c4d_category.title == 'Act'
-      category_offset = 9
+      category_offset = 8
     elsif c4d_category.title == 'Tools'
-      category_offset = 12
+      category_offset = 11
     end
     C4dSubcategory.where(c4d_category_id: c4d_category.id).count.times do |y|
       C4dArticle.create(
