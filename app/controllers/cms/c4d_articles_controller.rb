@@ -21,7 +21,7 @@ class Cms::C4dArticlesController < ApplicationController
 
   def show
     if request.xhr?
-      c4d_article = C4dArticle.find(params[:id])
+      c4d_article = C4dArticle.find_by(id: params[:id])
       c4d_subcategories = C4dSubcategory.all
       c4d_categories = C4dCategory.all
       responsible_offices = ResponsibleOffice.all
@@ -33,7 +33,7 @@ class Cms::C4dArticlesController < ApplicationController
     if request.xhr?
       params.delete('reference_links')
       params.delete('template_links')
-      article = C4dArticle.find(params[:id])
+      article = C4dArticle.find_by(id: params[:id])
       article.update(safe_article_params)
       render json: { status: 'success' }
     end
