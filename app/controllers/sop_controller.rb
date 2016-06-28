@@ -3,7 +3,7 @@ class SopController < ApplicationController
     @img_name = 'SOP'
     @sop_times = SopTime.all
     @sop_categories = SopCategory.all
-    @offices = Office.all
+    @responsible_offices = ResponsibleOffice.all
     @sop_articles = SopArticle.all
     @user = User.all.first
   end
