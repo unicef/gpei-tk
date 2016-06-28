@@ -16,9 +16,13 @@ $(() => {
     $('#CMS_c4d_articles_table').append('<thead><tr><th class="text-center"> ID </th><th class="text-center"> Title </th><th class="text-center"> Status </th><th class="text-center"> Updated </th><th class="text-center"> Created </th><th class="text-center"> Author </th><th class="text-center"></th></tr></thead>')
   }
 
+  function formatPublished(published) {
+    return published ? 'Published' : 'Not Published'
+  }
+
   function appendC4dArticleRows(c4d_articles, users){
     _.forEach(c4d_articles, article => {
-      let row = '<tr id="' + article.id + '">' + '<td>' + article.id + '</td>' + '<td><a id="' + article.id + '" href="">' + article.title + '</td>' + '<td>' + article.status + '</td>' + '<td>' + moment(article.updated_at, "YYYY-MM-DD").format("MMM DD, YYYY") + '</td>' + '<td>' + moment(article.created_at, "YYYY-MM-DD").format("MMM DD, YYYY") + '</td>' + '<td>' + users[article.author_id].first_name + ' ' + users[article.author_id].last_name + '</td>' + '<td>' + getUserActionDropdown(article.id) + '</td>' + '</tr>'
+      let row = '<tr id="' + article.id + '">' + '<td>' + article.id + '</td>' + '<td><a id="' + article.id + '" href="">' + article.title + '</td>' + '<td>' + formatPublished(article.published) + '</td>' + '<td>' + moment(article.updated_at, "YYYY-MM-DD").format("MMM DD, YYYY") + '</td>' + '<td>' + moment(article.created_at, "YYYY-MM-DD").format("MMM DD, YYYY") + '</td>' + '<td>' + users[article.author_id].first_name + ' ' + users[article.author_id].last_name + '</td>' + '<td>' + getUserActionDropdown(article.id) + '</td>' + '</tr>'
       $('#CMS_c4d_articles_table').append(row)
     })
   }
@@ -41,17 +45,17 @@ $(() => {
       <form id="CMS_c4d_article_form" class="ui form">
         <div class="field">
           <label>CMS Title</label>
-          <input type="text" name="cms_title" placeholder="${article.cms_title}" value="${article.cms_title}" required>
+          <input type="text" name="article[cms_title]" placeholder="${article.cms_title}" value="${article.cms_title}" required>
         </div>
-        ${getC4dSubcategoryDropdown("Subcategory", "c4d_subcategory_id", c4d_subcategories, article.c4d_subcategory_id)}
-        ${getC4dCategoryDropdown("Category", "c4d_category_id", c4d_categories, article.c4d_category_id)}
+        ${getDropdown("Subcategory", "c4d_subcategory_id", c4d_subcategories, article.c4d_subcategory_id)}
+        ${getDropdown("Category", "c4d_category_id", c4d_categories, article.c4d_category_id)}
         <div class="field">
           <label>Title</label>
-          <input type="text" name="title" placeholder="Title" value="${article.title}" required>
+          <input type="text" name="article[title]" placeholder="Title" value="${article.title}" required>
         </div>
         <div class="field">
           <label>Content</label>
-          <textarea name="content">${article.content}</textarea>
+          <textarea name="article[content]">${article.content}</textarea>
         </div>
         <div class="field">
           <label>Template Links</label>
@@ -72,35 +76,20 @@ $(() => {
       action: 'hide'
     });
 
-  function getC4dSubcategoryDropdown(label, option_name, c4d_subcategories, article_subcategory_id){
-    return (`
-      <div class="field">
-        <label>${label}</label>
-        <select name="${option_name}" class="ui dropdown cms_dropdown_select" required>
-          <option value="">Select Subcategory</option>
-          ${_.map(c4d_subcategories, subcategory => {
-            selected = subcategory.id == article_subcategory_id ? 'selected' : ''
-            return `<option ${selected} value="${subcategory.id}">${subcategory.title}</option>`
-          }).join('\n')}
-        </select>
-      </div>
-      `)
-  }
-
   function getUserActionDropdown(id){
     return (
       '<div class="ui buttons"><div id="CMS_actions_dropdown" class="ui button">Actions</div><div class="ui floating dropdown icon button"><i class="dropdown icon"></i><div class="menu"><div id="' + id + '" class="item"><span id="CMS_user_assign_role">Assign Roles</span></div><div id="' + id + '" class="item"><span id="CMS_user_delete_user">Delete User</span></div></div></div>'
     );
   }
 
-  function getC4dCategoryDropdown(label, option_name, c4d_categories, article_category_id){
+  function getDropdown(label, option_name, categories, id){
     return (`
       <div class="field">
         <label>${label}</label>
-        <select name="${option_name}" class="ui dropdown cms_dropdown_select" required>
+        <select name="article[${option_name}]" class="ui dropdown cms_dropdown_select" required>
           <option value="">Select Category</option>
-          ${_.map(c4d_categories, category => {
-            selected = category.id == article_category_id ? 'selected' : ''
+          ${_.map(categories, category => {
+            selected = category.id == id ? 'selected' : ''
             return `<option ${selected} value="${category.id}">${category.title}</option>`
           }).join('\n')}
         </select>

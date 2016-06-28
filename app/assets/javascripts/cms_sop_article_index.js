@@ -51,23 +51,23 @@ $(() => {
       <form id="CMS_sop_article_form" class="ui form">
         <div class="field">
           <label>CMS Title</label>
-          <input type="text" name="cms_title" placeholder="${article.cms_title}" value="${article.cms_title}" required>
+          <input type="text" name="article[cms_title]" placeholder="${article.cms_title}" value="${article.cms_title}" required>
         </div>
         ${getSopTimeDropdown("Time", "sop_time_id", sop_times, article.sop_time_id)}
         ${getDropdown("Category", "sop_category_id", sop_categories, article.sop_category_id)}
         <div class="field">
           <label>Title</label>
-          <input type="text" name="title" placeholder="Title" value="${article.title}" required>
+          <input type="text" name="article[title]" placeholder="Title" value="${article.title}" required>
         </div>
         ${getDropdown("Responsible", "responsible_office_id", responsible_offices, article.responsible_office_id)}
         ${getDropdown("Support", "support_affiliation_id", support_affiliations, article.support_affiliation_id)}
         <div class="field">
           <label>Content</label>
-          <textarea name="article">${article.content}</textarea>
+          <textarea name="article[content]">${article.content}</textarea>
         </div>
         <div class="field">
           <label>Video URL</label>
-          <input type="text" name="video_url" value="${article.video_url}">
+          <input type="text" name="article[video_url]" value="${article.video_url}">
         </div>
         <div class="field">
           <label>Template Links</label>
@@ -92,7 +92,7 @@ $(() => {
     return (`
       <div class="field">
         <label>${label}</label>
-        <select name="${option_name}" class="ui dropdown cms_dropdown_select" required>
+        <select name="article[${option_name}]" class="ui dropdown cms_dropdown_select" required>
           <option value="">Select Time Period</option>
           ${_.map(sop_times, time => {
             selected = time.id === article_sop_time_id ? 'selected' : ''
@@ -123,7 +123,7 @@ $(() => {
     return (`
       <div class="field">
         <label>${label}</label>
-        <select name="${option_name}" class="ui dropdown cms_dropdown_select" required>
+        <select name="article[${option_name}]" class="ui dropdown cms_dropdown_select" required>
           <option value="">Select Office</option>
           ${_.map(responsible_offices, office => {
             selected = office.id === article_office_id ? 'selected' : ''
