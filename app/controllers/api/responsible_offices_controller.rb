@@ -1,8 +1,6 @@
-class Api::OfficesController < ApplicationController
+class Api::ResponsibleOfficesController < ApplicationController
   def index
-    if request.xhr?
-      offices = Office.all
-      render json: { offices: offices, status: 'success' }
-    end
+    responsible_offices = ResponsibleOffice.all
+    render json: { responsible_offices: responsible_offices, status: 'success' }
   end
 end
