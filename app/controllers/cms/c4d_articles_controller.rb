@@ -11,8 +11,9 @@ class Cms::C4dArticlesController < ApplicationController
 
   def create
     if request.xhr?
-
       c4d_article = C4dArticle.new(safe_article_params)
+      c4d_article.order_id = C4dArticle.maximum(:order_id) + 1
+      c4d_article.author = current_user
       if c4d_article.save
         render json: { c4d_article: c4d_article, status: 'success' }
       end
@@ -39,7 +40,6 @@ class Cms::C4dArticlesController < ApplicationController
   end
 
   def safe_article_params
-    exclusion_keys = ['authenticity_token', 'format', 'reference_links', 'template_links']
-    params.select { |key, value| !exclusion_keys.include?(key) }.permit(:cms_title, :title, :description, :c4d_subcategory_id, :c4d_category_id)
+    params.require(:article).permit(:cms_title, :title, :content, :c4d_subcategory_id, :c4d_category_id)
   end
 end
