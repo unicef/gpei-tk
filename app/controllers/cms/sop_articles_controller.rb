@@ -18,7 +18,6 @@ class Cms::SopArticlesController < ApplicationController
       sop_article = SopArticle.new(safe_article_params)
       sop_article.sop_icon = SopIcon.where(sop_time_id: sop_article.sop_time.id, sop_category_id: sop_article.sop_category.id).first
       sop_article.order_id = SopArticle.maximum(:order_id) + 1
-      binding.pry
       sop_article.author = current_user
       if sop_article.save
         render json: { sop_article: sop_article, status: 'success' }
