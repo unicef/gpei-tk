@@ -1,3 +1,3 @@
-class Office < ActiveRecord::Base
+class ResponsibleOffice < ActiveRecord::Base
   validates_uniqueness_of :title
 end
