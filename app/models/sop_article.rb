@@ -1,7 +1,9 @@
 class SopArticle < ActiveRecord::Base
   belongs_to :sop_time
   belongs_to :sop_category
-  belongs_to :responsibility, class_name: 'Office', foreign_key: 'responsibility_id'
+
+  belongs_to :support_affiliation, class_name: 'SupportAffiliation', foreign_key: 'support_affiliation_id'
+  belongs_to :responsible_office, class_name: 'ResponsibleOffice', foreign_key: 'responsible_office_id'
   belongs_to :author, class_name: 'User', foreign_key: 'author_id'
 
   has_many :sop_checklists
