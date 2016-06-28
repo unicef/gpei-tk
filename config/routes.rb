@@ -6,11 +6,11 @@ Rails.application.routes.draw do
 
   get '/sop' => 'sop#index'
 
-  post '/sop/checklist/:title' => 'sop_checklist#create'
-  delete '/sop/checklist/:title' => 'sop_checklist#destroy'
+  post '/sop/checklist/' => 'sop_checklist#create'
+  delete '/sop/checklist/' => 'sop_checklist#destroy'
 
-  post '/c4d/toolkit/:title' => 'c4d_toolkit#create'
-  delete '/c4d/toolkit/:title' => 'c4d_toolkit#destroy'
+  post '/c4d/toolkit/' => 'c4d_toolkit#create'
+  delete '/c4d/toolkit/' => 'c4d_toolkit#destroy'
 
   resources :sop_articles, only: [:index, :show]
   resources :c4d_articles, only: [:index, :show]
@@ -32,7 +32,8 @@ Rails.application.routes.draw do
   namespace :api, defaults: { format: :json } do
     resources :sop_times, only: [:index]
     resources :sop_categories, only: [:index]
-    resources :offices, only: [:index]
+    resources :responsible_offices, only: [:index]
+    resources :support_affiliations, only: [:index]
     resources :c4d_subcategories, only: [:index]
     resources :c4d_categories, only: [:index]
   end
