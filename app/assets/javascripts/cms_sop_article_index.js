@@ -24,9 +24,13 @@ $(() => {
 
   function appendSopArticleRows(sop_articles, users){
     _.forEach(sop_articles, article => {
-      let row = '<tr id="' + article.id + '">' + '<td>' + article.id + '</td>' + '<td><a id="' + article.id + '" href="">' + article.title + '</td>' + '<td>' + article.status + '</td>' + '<td>' + moment(article.updated_at, "YYYY-MM-DD").format("MMM DD, YYYY") + '</td>' + '<td>' + moment(article.created_at, "YYYY-MM-DD").format("MMM DD, YYYY") + '</td>' + '<td>' + users[article.author_id].first_name + ' ' + users[article.author_id].last_name + '</td>' + '<td>' + getUserActionDropdown(article.id) + '</td>' + '</tr>'
+      let row = '<tr id="' + article.id + '">' + '<td>' + article.order_id + '</td>' + '<td><a id="' + article.id + '" href="">' + article.title + '</td>' + '<td>' + formatPublished(article.published) + '</td>' + '<td>' + moment(article.updated_at, "YYYY-MM-DD").format("MMM DD, YYYY") + '</td>' + '<td>' + moment(article.created_at, "YYYY-MM-DD").format("MMM DD, YYYY") + '</td>' + '<td>' + users[article.author_id].first_name + ' ' + users[article.author_id].last_name + '</td>' + '<td>' + getUserActionDropdown(article.id) + '</td>' + '</tr>'
       $('#CMS_sop_articles_table').append(row)
     })
+  }
+
+  function formatPublished(published) {
+    return published ? 'Published' : 'Not Published'
   }
 
   $('#CMS_index_content').on('click', '#CMS_sop_articles_table a', e => {
@@ -36,12 +40,12 @@ $(() => {
       url: 'cms/sop_articles/' + e.currentTarget.id
     }).done(response => {
       $('#CMS_index_content').empty()
-      let content = getCMSSopArticleContent(response.sop_article, response.sop_times, response.sop_categories, response.offices)
+      let content = getCMSSopArticleContent(response.sop_article, response.sop_times, response.sop_categories, response.responsible_offices, response.support_affiliations)
       $('#CMS_index_content').append(content)
     })
   })
 
-  function getCMSSopArticleContent(article, sop_times, sop_categories, offices) {
+  function getCMSSopArticleContent(article, sop_times, sop_categories, responsible_offices, support_affiliations) {
     return (`
     <div id="${article.id}" class="CMS_sop_article_form_div">
       <form id="CMS_sop_article_form" class="ui form">
@@ -50,20 +54,13 @@ $(() => {
           <input type="text" name="cms_title" placeholder="${article.cms_title}" value="${article.cms_title}" required>
         </div>
         ${getSopTimeDropdown("Time", "sop_time_id", sop_times, article.sop_time_id)}
-        ${getSopCategoryDropdown("Category", "sop_category_id", sop_categories, article.sop_category_id)}
+        ${getDropdown("Category", "sop_category_id", sop_categories, article.sop_category_id)}
         <div class="field">
           <label>Title</label>
           <input type="text" name="title" placeholder="Title" value="${article.title}" required>
         </div>
-        <div class="field">
-          <label>Responsible</label>
-          <input type="text" name="responsible" value="${article.responsible}" required>
-        </div>
-        ${getOfficesDropdown("Office", "responsibility_id", offices, article.responsibility_id)}
-        <div class="field">
-          <label>Support</label>
-          <input type="text" name="support" value="${article.support}" required>
-        </div>
+        ${getDropdown("Responsible", "responsible_office_id", responsible_offices, article.responsible_office_id)}
+        ${getDropdown("Support", "support_affiliation_id", support_affiliations, article.support_affiliation_id)}
         <div class="field">
           <label>Content</label>
           <textarea name="article">${article.content}</textarea>
@@ -98,23 +95,8 @@ $(() => {
         <select name="${option_name}" class="ui dropdown cms_dropdown_select" required>
           <option value="">Select Time Period</option>
           ${_.map(sop_times, time => {
-            selected = time.id == article_sop_time_id ? 'selected' : ''
+            selected = time.id === article_sop_time_id ? 'selected' : ''
             return `<option ${selected} value="${time.id}">${time.period}</option>`
-          }).join('\n')}
-        </select>
-      </div>
-      `)
-  }
-
-  function getSopCategoryDropdown(label, option_name, sop_categories, article_category_id){
-    return (`
-      <div class="field">
-        <label>${label}</label>
-        <select name="${option_name}" class="ui dropdown cms_dropdown_select" required>
-          <option value="">Select Category</option>
-          ${_.map(sop_categories, category => {
-            selected = category.id == article_category_id ? 'selected' : ''
-            return `<option ${selected} value="${category.id}">${category.title}</option>`
           }).join('\n')}
         </select>
       </div>
@@ -136,14 +118,15 @@ $(() => {
 
     })
   })
-  function getOfficesDropdown(label, option_name, offices, article_office_id){
+
+  function getDropdown(label, option_name, responsible_offices, article_office_id){
     return (`
       <div class="field">
         <label>${label}</label>
         <select name="${option_name}" class="ui dropdown cms_dropdown_select" required>
           <option value="">Select Office</option>
-          ${_.map(offices, office => {
-            selected = office.id == article_office_id ? 'selected' : ''
+          ${_.map(responsible_offices, office => {
+            selected = office.id === article_office_id ? 'selected' : ''
             return `<option ${selected} value="${office.id}">${office.title}</option>`
           }).join('\n')}
         </select>

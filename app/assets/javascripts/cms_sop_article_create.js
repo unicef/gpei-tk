@@ -1,25 +1,31 @@
 $(() => {
   $('#CMS_create_sop_article_link').click(e => {
     e.preventDefault();
-    let sop_categories, sop_times, offices
+    let sop_categories, sop_times, responsible_offices
     $.ajax({
       method: 'GET',
       url: 'api/sop_categories/'
     }).done(response => {
-      sop_categories = response.sop_categories
+      let sop_categories = response.sop_categories
       $.ajax({
         method: 'GET',
         url: 'api/sop_times/'
       }).done(response => {
-        sop_times = response.sop_times
+        let sop_times = response.sop_times
         $.ajax({
           method: 'GET',
-          url: 'api/offices/'
+          url: 'api/responsible_offices/'
         }).done(response => {
-          offices = response.offices
-          $('#CMS_index_content').empty();
-          let content = getEmptySopArticleForm(sop_times, sop_categories, offices);
-          $('#CMS_index_content').append(content);
+          let responsible_offices = response.responsible_offices
+          $.ajax({
+            method: 'GET',
+            url: 'api/support_affiliations/'
+          }).done(response => {
+            let support_affiliations = response.support_affiliations
+            $('#CMS_index_content').empty();
+            let content = getEmptySopArticleForm(sop_times, sop_categories, responsible_offices, support_affiliations);
+            $('#CMS_index_content').append(content);
+          })
         })
       })
     })
@@ -39,35 +45,28 @@ $(() => {
     })
   })
 
-  function getEmptySopArticleForm(sop_times, sop_categories, offices){
+  function getEmptySopArticleForm(sop_times, sop_categories, responsible_offices, support_affiliations){
     return (`
       <form id="CMS_sop_article_create_form" class="ui form CMS_sop_article_form_div">
         <div class="field">
           <label>CMS Title</label>
-          <input type="text" name="cms_title" placeholder="CMS Title" value="" required>
+          <input type="text" name="article[cms_title]" placeholder="CMS Title" value="" required>
         </div>
         ${getSopTimeDropdown("Time", "sop_time_id", sop_times)}
-        ${getSopCategoryDropdown("Category", "sop_category_id", sop_categories)}
+        ${getDropdown("Category", "sop_category_id", sop_categories)}
         <div class="field">
           <label>Title</label>
-          <input type="text" name="title" placeholder="Title" value="" required>
+          <input type="text" name="article[title]" placeholder="Title" value="" required>
         </div>
-        <div class="field">
-          <label>Responsible</label>
-          <input type="text" name="responsible" value="" required>
-        </div>
-        ${getOfficesDropdown("Office", "responsibility_id", offices)}
-        <div class="field">
-          <label>Support</label>
-          <input type="text" name="support" value="" required>
-        </div>
+        ${getDropdown("Responsible", "responsible_office_id", responsible_offices)}
+        ${getDropdown("Support", "support_affiliation_id", support_affiliations)}
         <div class="field">
           <label>Content</label>
-          <textarea name="content"></textarea>
+          <textarea name="article[content]"></textarea>
         </div>
         <div class="field">
           <label>Video URL</label>
-          <input type="text" name="video_url" value="">
+          <input type="text" name="article[video_url]" value="">
         </div>
         <div class="field">
           <label>Template Links</label>
@@ -86,7 +85,7 @@ $(() => {
     return (`
       <div class="field">
         <label>${label}</label>
-        <select name="${option_name}" class="ui dropdown cms_dropdown_select" required>
+        <select name="article[${option_name}]" class="ui dropdown cms_dropdown_select" required>
           <option value="">Select Time Period</option>
           ${_.map(sop_times, time => { return `<option value="${time.id}">${time.period}</option>` }).join('\n')}
         </select>
@@ -94,25 +93,13 @@ $(() => {
       `)
   }
 
-  function getSopCategoryDropdown(label, option_name, sop_categories){
+  function getDropdown(label, option_name, responsible_offices){
     return (`
       <div class="field">
         <label>${label}</label>
-        <select name="${option_name}" class="ui dropdown cms_dropdown_select" required>
-          <option value="">Select Category</option>
-          ${_.map(sop_categories, category => { return `<option value="${category.id}">${category.title}</option>` }).join('\n')}
-        </select>
-      </div>
-      `)
-  }
-
-  function getOfficesDropdown(label, option_name, offices){
-    return (`
-      <div class="field">
-        <label>${label}</label>
-        <select name="${option_name}" class="ui dropdown cms_dropdown_select" required>
-          <option value="">Select Office</option>
-          ${_.map(offices, office => { return `<option value="${office.id}">${office.title}</option>` }).join('\n')}
+        <select name="article[${option_name}]" class="ui dropdown cms_dropdown_select" required>
+          <option value="">Select ${label}</option>
+          ${_.map(responsible_offices, office => { return `<option value="${office.id}">${office.title}</option>` }).join('\n')}
         </select>
       </div>
       `)
