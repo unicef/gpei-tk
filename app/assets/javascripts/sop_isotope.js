@@ -35,22 +35,25 @@ $(function(){
     else
       $(el).css('visibility','hidden');
   }
-  var $add = $('.grid_add')
+  var $add = $('#isotope_container .grid_add')
 
   $add.click(function(e){
-
     var article_title = e.currentTarget.parentElement.querySelector('#grid_item_article_title').innerHTML;
+    var article_id = e.currentTarget.parentElement.id
     $.ajax({
       method: 'POST',
-      url: '/sop/checklist/' + article_title
+      url: '/sop/checklist/',
+      data: { title: article_title, id: article_id, authenticity_token: escape($('meta[name=csrf-token]').attr('content')) }
     }).done(function(response) {
       toggleVisibility(e.currentTarget);
 
       var grid_check = e.currentTarget.nextElementSibling
 
       toggleVisibility(e.currentTarget.nextElementSibling);
-      var article_id = $('#sop_article_id').text()
-      var list_item = "<div id=\"" + article_title + "\" class=\"item\" style='background-color: black;color: white;'><a href=sop_articles/" + article_id + " style='background-color: black;color: white;'>" + article_title + "</a> <i id=\"" + article_title + "\" class=\"fa fa-remove\" aria-hidden=\"true\" style='background-color: black;color: white;'></i></div>"
+
+      var article_title = response.article_title
+      var id = response.id
+      var list_item = "<div id=\"" + id + "\" class=\"item\" style='background-color: black;color: white;'><a href=sop_articles/" + id + " style='background-color: black;color: white;'>" + article_title + "</a> <i id=\"checklist_item" + article_title + "\" class=\"fa fa-remove\" aria-hidden=\"true\" style='background-color: black;color: white;'></i></div>"
       removeNoArticlesSelected('#sop_no_items_selected')
       $('#sop_checklist_list').append(list_item);
     });
@@ -60,13 +63,14 @@ $(function(){
     $(el).remove()
   }
 
-  var $remove = $('.grid_check')
+  var $remove = $('#isotope_container .grid_check')
   $remove.click(function(e){
-
+    var article_id = e.currentTarget.parentElement.id
     var article_title = e.currentTarget.parentElement.querySelector('#grid_item_article_title').innerHTML;
     $.ajax({
       method: 'DELETE',
-      url: '/sop/checklist/' + article_title
+      url: '/sop/checklist/',
+      data: { title: article_title, id: article_id }
     }).done(function(response) {
       toggleVisibility(e.currentTarget);
 
@@ -74,25 +78,33 @@ $(function(){
 
       toggleVisibility(e.currentTarget.previousElementSibling);
 
-      var article_list_item = '#sop_checklist_list #'+article_title;
+      var article_list_item = '#sop_checklist_list #' + response.id;
       $(article_list_item).remove();
       checkIfArticlesSelectedAndAppend('#sop_checklist_list')
     });
   });
 
   $('#sop_checklist_list').on('click', 'i', function(e) {
-    var article_title = e.currentTarget.id
+    var title = e.currentTarget.id
     var parent_element = e.currentTarget.parentElement
     $.ajax({
       method: 'DELETE',
-      url: '/sop/checklist/' + article_title
+      url: '/sop/checklist/',
+      data: { id: parent_element.id, title: title }
     }).done(function(response) {
-      var $grid_tile = $('#grid_tile_'+article_title)
-      var $check_icon = $('#grid_tile_'+ article_title + ' .grid_add')
-      var $add_icon = $('#grid_tile_'+ article_title + ' .grid_check')
-      toggleVisibility($check_icon);
-      toggleVisibility($add_icon);
-      var sop_checklist_list_item = '#sop_checklist_list #' + parent_element.id
+      if (_.isEmpty($grid_tile)) {
+        var $check_icon = $('#sop_article_logo_row .grid_add')
+        var $add_icon = $('#sop_article_logo_row .grid_check')
+        toggleVisibility($check_icon);
+        toggleVisibility($add_icon);
+      } else {
+        var $grid_tile = $('#isotope_container #' + response.id)
+        var $check_icon = $('#isotope_container #'+ response.id + ' .grid_add')
+        var $add_icon = $('#isotope_container #'+ response.id + ' .grid_check')
+        toggleVisibility($check_icon);
+        toggleVisibility($add_icon);
+      }
+      var sop_checklist_list_item = '#sop_checklist_list #' + response.id
       $(sop_checklist_list_item).remove()
       checkIfArticlesSelectedAndAppend('#sop_checklist_list')
     })

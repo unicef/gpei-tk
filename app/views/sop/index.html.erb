@@ -34,7 +34,7 @@
       <div class='sop_filter_header'>RESPONSIBILITY</div>
       <div class='sop_checkboxes'>
         <ul class='list-unstyled text-uppercase' style='height:100%'>
-          <% @offices.each do |office| %>
+          <% @responsible_offices.each do |office| %>
             <li class='filter-item'><input class='check_box' id=<%= office.title.gsub(' ', '_') %> type='checkbox' value=".<%= office.title.gsub(' ', '_') %>"><label class='filter-label' for=<%= office.title.gsub(' ', '_') %>><%= office.title %></label></li>
           <% end %>
           <li style='margin-bottom: 10px'></li>
@@ -49,7 +49,7 @@
     <div id='isotope_container'>
       <% @sop_articles.each do |article| %>
         <%= link_to sop_article_path(article), {:style=>'color:#FFFFFF;'} do %>
-        <div id="grid_tile_<%= article.title %>" class="<%= build_classes({grid_item: 'grid_item', time: article.sop_time.period.gsub(' ', '_'), offices: article.responsibility.title.gsub(' ', '_'), category: article.sop_category.title.gsub(' ', '_')}) %>"
+        <div id="<%= article.id %>" class="<%= build_classes({grid_item: 'grid_item', time: article.sop_time.period.gsub(' ', '_'), offices: article.responsible_office.title.gsub(' ', '_'), category: article.sop_category.title.gsub(' ', '_')}) %>"
           style=<%='background-color:' + article.sop_time.color + ';' %>>
           <div class='sop_grid_content'>
           <% color = 'white' %>
