@@ -24,8 +24,8 @@ class Cms::C4dArticlesController < ApplicationController
       c4d_article = C4dArticle.find(params[:id])
       c4d_subcategories = C4dSubcategory.all
       c4d_categories = C4dCategory.all
-      offices = Office.all
-      render json: { c4d_article: c4d_article, c4d_subcategories: c4d_subcategories, c4d_categories: c4d_categories, offices: offices, status: 'success' }
+      responsible_offices = ResponsibleOffice.all
+      render json: { c4d_article: c4d_article, c4d_subcategories: c4d_subcategories, c4d_categories: c4d_categories, responsible_offices: responsible_offices, status: 'success' }
     end
   end
 
