@@ -14,8 +14,8 @@
     <% end %>
 
     <p class="c4d_grid_item_article_title <%= @c4d_article.title %>" style='visibility:hidden;color:<%= get_color_for_subcategory(@c4d_article.c4d_subcategory.title) %>;'><%= @c4d_article.title %></p>
-    <a class='c4d_grid_add' href='#' style="top:5px;right:5px;position:absolute;<%= c4d_style_visible('add', @user, @c4d_article) %>;color:black;"><i class="fa fa-plus" aria-hidden="true"></i></a>
-    <a class='c4d_grid_check' href='#' style="top:5px;right:5px;position:absolute;<%= c4d_style_visible('check', @user, @c4d_article) %>;color:black;"><i class="fa fa-check" aria-hidden="true"></i></a>
+    <a class='c4d_grid_add' href='' style="top:5px;right:5px;position:absolute;<%= c4d_style_visible('add', @user, @c4d_article) %>;color:black;"><i class="fa fa-plus" aria-hidden="true"></i></a>
+    <a class='c4d_grid_check' href='' style="top:5px;right:5px;position:absolute;<%= c4d_style_visible('check', @user, @c4d_article) %>;color:black;"><i class="fa fa-check" aria-hidden="true"></i></a>
       <div class='c4d_article_icon col-md-2'>
       <%= image_tag "c4d/icons/#{@c4d_article.c4d_category.title}/#{@c4d_article.c4d_subcategory.title + '.png'}", id: "c4d_article_icon", class: 'image-responsive', alt: @c4d_article.c4d_subcategory.title %>
     </div>
@@ -74,8 +74,8 @@
             <%= image_tag "c4d/icons/#{article.c4d_category.title}/#{article.c4d_subcategory.title + '.png'}", width: '70%', height: '55%', class: 'image-responsive', alt: article.c4d_subcategory.title %>
             <p class="c4d_grid_item_article_title <%= article.title %>" style='color:<%= get_color_for_subcategory(@c4d_article.c4d_subcategory.title) %>;'><%= article.title %></p>
           </div>
-          <a class='c4d_grid_add' href='#' style="top:5px;right:5px;position:absolute;<%= c4d_style_visible('add', @user, article) %>;color:black;"><i class="fa fa-plus" aria-hidden="true"></i></a>
-          <a class='c4d_grid_check' href='#' style="top:5px;right:5px;position:absolute;<%= c4d_style_visible('check', @user, article) %>;color:black;"><i class="fa fa-check" aria-hidden="true"></i></a>
+          <a class='c4d_grid_add' href='' style="top:5px;right:5px;position:absolute;<%= c4d_style_visible('add', @user, article) %>;color:black;"><i class="fa fa-plus" aria-hidden="true"></i></a>
+          <a class='c4d_grid_check' href='' style="top:5px;right:5px;position:absolute;<%= c4d_style_visible('check', @user, article) %>;color:black;"><i class="fa fa-check" aria-hidden="true"></i></a>
         </div>
         <% end %>
       <% end %>

@@ -9,8 +9,8 @@
       <%= image_tag "sop/icons/#{@sop_article.sop_icon.title}.png", id: "sop_article_icon", class: 'image-responsive', alt: @sop_article.sop_icon.title %>
     </div>
     <p id='grid_item_article_title' style="visibility:hidden;"><%= @sop_article.title %></p>
-    <a id="<%= @sop_article.id %>" class='grid_add' href='#' style="top:5px;right:5px;position:absolute;<%= style_visible('add', @user, @sop_article) %>;color:black;"><i class="fa fa-plus" aria-hidden="true"></i></a>
-    <a id="<%= @sop_article.id %>" class='grid_check' href='#' style="top:5px;right:5px;position:absolute;<%= style_visible('check', @user, @sop_article) %>;color:black;"><i class="fa fa-check" aria-hidden="true"></i></a>
+    <a id="<%= @sop_article.id %>" class='grid_add' href='' style="top:5px;right:5px;position:absolute;<%= style_visible('add', @user, @sop_article) %>;color:black;"><i class="fa fa-plus" aria-hidden="true"></i></a>
+    <a id="<%= @sop_article.id %>" class='grid_check' href='' style="top:5px;right:5px;position:absolute;<%= style_visible('check', @user, @sop_article) %>;color:black;"><i class="fa fa-check" aria-hidden="true"></i></a>
 
     <ul id='sop_article_logo_text' class='list-unstyled col-md-1'>
       <li><strong style='font-size:115%;color:<%= get_color_for_sop_time(@sop_article.sop_time.period) %>;'><%= @sop_article.sop_time.period %></strong></li>
@@ -72,8 +72,8 @@
           <!-- "home/#{@img_name}.png" -->
           <p id='grid_item_article_title' style="color:<%= color %>;"><%= article.title %></p>
           </div>
-          <a class='grid_add' href='#' style="top:5px;right:5px;position:absolute;<%= style_visible('add', @user, article) %>;color:black;"><i class="fa fa-plus" aria-hidden="true"></i></a>
-          <a class='grid_check' href='#' style="top:5px;right:5px;position:absolute;<%= style_visible('check', @user, article) %>;color:black;"><i class="fa fa-check" aria-hidden="true"></i></a>
+          <a class='grid_add' href='' style="top:5px;right:5px;position:absolute;<%= style_visible('add', @user, article) %>;color:black;"><i class="fa fa-plus" aria-hidden="true"></i></a>
+          <a class='grid_check' href='' style="top:5px;right:5px;position:absolute;<%= style_visible('check', @user, article) %>;color:black;"><i class="fa fa-check" aria-hidden="true"></i></a>
         </div>
         <% end %>
       <% end %>

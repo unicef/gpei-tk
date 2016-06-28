@@ -22,8 +22,8 @@
           </p>
           <p class="c4d_grid_item_article_title <%= article.title %>" style='color:<%= get_color_for_subcategory(article.c4d_subcategory.title) %>;'><%= article.title %></p>
         </div>
-        <a class='c4d_grid_add' href='#' style="top:5px;right:5px;position:absolute;<%= c4d_style_visible('add', @user, article) %>;color:black;"><i class="fa fa-plus" aria-hidden="true"></i></a>
-        <a class='c4d_grid_check' href='#' style="top:5px;right:5px;position:absolute;<%= c4d_style_visible('check', @user, article) %>;color:black;"><i class="fa fa-check" aria-hidden="true"></i></a>
+        <a class='c4d_grid_add' href='' style="top:5px;right:5px;position:absolute;<%= c4d_style_visible('add', @user, article) %>;color:black;"><i class="fa fa-plus" aria-hidden="true"></i></a>
+        <a class='c4d_grid_check' href='' style="top:5px;right:5px;position:absolute;<%= c4d_style_visible('check', @user, article) %>;color:black;"><i class="fa fa-check" aria-hidden="true"></i></a>
       </div>
       <% end %>
     <% end %>
