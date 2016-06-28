@@ -13,7 +13,7 @@
       <%= link_to c4d_article_path(article) do %>
       <% if article.c4d_subcategory.nil? %>
       <% end %>
-      <div id="c4d_grid_tile_<%= article.title %>" class="<%= build_classes({item: 'c4d_grid_item', c4d_category: article.c4d_category.title.gsub(' ', '_')}) %>"
+      <div id="<%= article.id %>" class="<%= build_classes({item: 'c4d_grid_item', c4d_category: article.c4d_category.title.gsub(' ', '_')}) %>"
         style="background-color: <%= article.c4d_subcategory.color %>;">
         <div class='c4d_grid_item_content'>
           <p class="c4d_grid_item_subcategory <%= article.c4d_subcategory.title %>"><strong class='text-left' style='white-space:nowrap;color:<%= get_color_for_subcategory(article.c4d_subcategory.title) %>;'><%= article.c4d_subcategory.title %></strong><span id='c4d_article_id' style='visibility:hidden;'><%= article.id %></span></p>
