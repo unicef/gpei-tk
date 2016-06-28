@@ -9,8 +9,8 @@
       <%= image_tag "sop/icons/#{@sop_article.sop_icon.title}.png", id: "sop_article_icon", class: 'image-responsive', alt: @sop_article.sop_icon.title %>
     </div>
     <p id='grid_item_article_title' style="visibility:hidden;"><%= @sop_article.title %></p>
-    <a class='grid_add' href='#' style="top:5px;right:5px;position:absolute;<%= style_visible('add', @user, @sop_article) %>;color:black;"><i class="fa fa-plus" aria-hidden="true"></i></a>
-    <a class='grid_check' href='#' style="top:5px;right:5px;position:absolute;<%= style_visible('check', @user, @sop_article) %>;color:black;"><i class="fa fa-check" aria-hidden="true"></i></a>
+    <a id="<%= @sop_article.id %>" class='grid_add' href='#' style="top:5px;right:5px;position:absolute;<%= style_visible('add', @user, @sop_article) %>;color:black;"><i class="fa fa-plus" aria-hidden="true"></i></a>
+    <a id="<%= @sop_article.id %>" class='grid_check' href='#' style="top:5px;right:5px;position:absolute;<%= style_visible('check', @user, @sop_article) %>;color:black;"><i class="fa fa-check" aria-hidden="true"></i></a>
 
     <ul id='sop_article_logo_text' class='list-unstyled col-md-1'>
       <li><strong style='font-size:115%;color:<%= get_color_for_sop_time(@sop_article.sop_time.period) %>;'><%= @sop_article.sop_time.period %></strong></li>
@@ -60,7 +60,7 @@
     <div id='isotope_container' style='margin-top:40px;'>
       <% @sop_related_topics.each do |article| %>
         <%= link_to sop_article_path(article), {:style=>'color:#FFFFFF;'} do %>
-        <div id="grid_tile_<%= article.title %>" class="<%= build_classes({grid_item: 'grid_item', time: article.sop_time.period.gsub(' ', '_'), offices: article.responsibility.title.gsub(' ', '_'), category: article.sop_category.title.gsub(' ', '_')}) %>"
+        <div id="grid_tile_<%= article.title %>" class="<%= build_classes({grid_item: 'grid_item', time: article.sop_time.period.gsub(' ', '_'), offices: article.responsible_office.title.gsub(' ', '_'), category: article.sop_category.title.gsub(' ', '_')}) %>"
           style=<%='background-color:' + article.sop_time.color + ';height:220px;' %>>
           <div class='sop_grid_content' style='position:absolute;left:20%;top:30%;'>
           <% color = 'white' %>
