@@ -93,7 +93,7 @@ user.organization = user.role.title
 user.responsible_office = ResponsibleOffice.where(title: 'UNICEF').first
 user.save
 
-content_random_number_max = 20
+content_random_number_max = 40
 order_id = 0
 all_users = User.all
 responsible_offices = ResponsibleOffice.all
@@ -126,6 +126,8 @@ C4dCategory.all.count.times do |x|
     end
   end
 end
+
+order_id = 0
 
 SopTime.all.count.times do |x|
   sop_time_id = x + 1
