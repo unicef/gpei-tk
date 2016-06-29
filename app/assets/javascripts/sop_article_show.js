@@ -3,7 +3,6 @@ $(function(){
   $sopcheck_list_icons.on('click', '.grid_add', function(e){
     let article_title = e.currentTarget.parentElement.querySelector('#grid_item_article_title').innerHTML;
     let id = e.currentTarget.id
-    debugger
     $.ajax({
       method: 'POST',
       url: '/sop/checklist/',
@@ -25,13 +24,11 @@ $(function(){
   $sopcheck_list_icons.on('click', '.grid_check', function(e){
     let article_title = e.currentTarget.parentElement.querySelector('#grid_item_article_title').innerHTML;
     let id = e.currentTarget.id
-    debugger
     $.ajax({
       method: 'DELETE',
       url: '/sop/checklist/',
       data: { title: article_title, id: id }
     }).done(function(response) {
-      debugger
       toggleVisibility(e.currentTarget);
 
       let grid_check = e.currentTarget.previousElementSibling
