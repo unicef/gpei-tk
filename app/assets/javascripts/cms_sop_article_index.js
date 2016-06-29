@@ -42,6 +42,8 @@ $(() => {
       $('#CMS_index_content').empty()
       let content = getCMSSopArticleContent(response.sop_article, response.sop_times, response.sop_categories, response.responsible_offices, response.support_affiliations)
       $('#CMS_index_content').append(content)
+      initSample()
+      $('#editor').val(response.sop_article.content)
     })
   })
 
@@ -63,7 +65,7 @@ $(() => {
         ${getDropdown("Support", "support_affiliation_id", support_affiliations, article.support_affiliation_id)}
         <div class="field">
           <label>Content</label>
-          <textarea name="article[content]">${article.content}</textarea>
+          <textarea name="article[content]" id="editor"></textarea>
         </div>
         <div class="field">
           <label>Video URL</label>
@@ -119,18 +121,62 @@ $(() => {
     })
   })
 
-  function getDropdown(label, option_name, responsible_offices, article_office_id){
+  function getDropdown(label, option_name, objects, id){
     return (`
       <div class="field">
         <label>${label}</label>
         <select name="article[${option_name}]" class="ui dropdown cms_dropdown_select" required>
           <option value="">Select Office</option>
-          ${_.map(responsible_offices, office => {
-            selected = office.id === article_office_id ? 'selected' : ''
-            return `<option ${selected} value="${office.id}">${office.title}</option>`
+          ${_.map(objects, object => {
+            selected = object.id === id ? 'selected' : ''
+            return `<option ${selected} value="${object.id}">${object.title}</option>`
           }).join('\n')}
         </select>
       </div>
       `)
   }
+
+  if ( CKEDITOR.env.ie && CKEDITOR.env.version < 9 )
+    CKEDITOR.tools.enableHtml5Elements( document );
+
+  // The trick to keep the editor in the sample quite small
+  // unless user specified own height.
+  CKEDITOR.config.height = 150;
+  CKEDITOR.config.width = 'auto';
+
+  var initSample = (function() {
+    var wysiwygareaAvailable = isWysiwygareaAvailable(),
+      isBBCodeBuiltIn = !!CKEDITOR.plugins.get( 'bbcode' );
+    return function() {
+      var editorElement = CKEDITOR.document.getById( 'editor' );
+
+      // :(((
+      // if ( isBBCodeBuiltIn ) {
+      //   editorElement.setHtml(
+      //     'Hello world!\n\n' +
+      //     'I\'m an instance of [url=http://ckeditor.com]CKEditor[/url].'
+      //   );
+      // }
+      // Depending on the wysiwygare plugin availability initialize classic or inline editor.
+      if ( wysiwygareaAvailable ) {
+        CKEDITOR.replace( 'editor' );
+      } else {
+        editorElement.setAttribute( 'contenteditable', 'true' );
+        CKEDITOR.inline( 'editor' );
+
+        // TODO we can consider displaying some info box that
+        // without wysiwygarea the classic editor may not work.
+      }
+    };
+
+    function isWysiwygareaAvailable() {
+      // If in development mode, then the wysiwygarea must be available.
+      // Split REV into two strings so builder does not replace it :D.
+      if ( CKEDITOR.revision == ( '%RE' + 'V%' ) ) {
+        return true;
+      }
+
+      return !!CKEDITOR.plugins.get( 'wysiwygarea' );
+    }
+  })();
 })
