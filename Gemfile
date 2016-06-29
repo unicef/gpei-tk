@@ -28,6 +28,9 @@ gem 'bcrypt'
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
 
+# remove once MVP is finalized.
+gem 'faker'
+
 group :development, :test do
   # binding.pry for code and pretty console
   gem 'pry-rails'
