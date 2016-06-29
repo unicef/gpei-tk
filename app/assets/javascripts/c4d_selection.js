@@ -16,8 +16,8 @@ $(function(){
 //     }
 //   };
 // bind filter button click
-$('.c4d-filters-button-group').on('click', 'button', function() {
-  let filterValue = $(this).attr('data-filter');
+$('.c4d-filters-button-group').on('click', 'button', e => {
+  let filterValue = $(e.currentTarget).attr('data-filter')
   // use filterFn if matches value
   // filterValue = filterFns[ filterValue ] || filterValue;
   $grid.isotope({ filter: filterValue });
@@ -55,16 +55,6 @@ $('.button-group').each(function(i, buttonGroup) {
 //   $(this).toggleClass('Tools_color')
 // })
 
-  // clear-all filter listener
-  let $filter_clear = $('#sop_filter_clear_all');
-  let $checkboxes = $('.sop_checkboxes input');
-  $filter_clear.click(e => {
-    e.preventDefault()
-    for (let idx = 0; idx < $checkboxes.length; idx++)
-      $checkboxes[idx].checked = false;
-    $grid.isotope({ filter: '*' })
-  });
-
 //   //isotope listener
 //   let $output = $('#sop_filter');
 //   $checkboxes.change(function() {
@@ -90,7 +80,8 @@ $('.button-group').each(function(i, buttonGroup) {
   }
   let $add = $('#c4d_category_grid .c4d_grid_add')
 
-  $add.click(function(e){
+  $add.click(e => {
+    e.preventDefault()
     let article_title = e.currentTarget.parentElement.querySelector('.c4d_grid_item_article_title').innerHTML;
     let article_id = e.currentTarget.parentElement.id
     $.ajax({
@@ -115,7 +106,8 @@ $('.button-group').each(function(i, buttonGroup) {
   }
 
   let $remove = $('#c4d_category_grid .c4d_grid_check')
-  $remove.click(function(e){
+  $remove.click(e => {
+    e.preventDefault()
     let article_title = e.currentTarget.parentElement.querySelector('.c4d_grid_item_article_title').innerHTML;
     let article_id = e.currentTarget.parentElement.id
     $.ajax({
@@ -134,7 +126,8 @@ $('.button-group').each(function(i, buttonGroup) {
     });
   });
 
-  $('#c4d_toolkit_list').on('click', 'i', function(e) {
+  $('#c4d_toolkit_list').on('click', 'i', e => {
+    e.preventDefault()
     let article_title = e.currentTarget.id
     let parent_element = e.currentTarget.parentElement
     $.ajax({
