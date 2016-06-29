@@ -57,7 +57,7 @@ $(() => {
         </div>
         <div class="field">
           <label>Content</label>
-          <textarea name="article[content]" id="editor"></textarea>
+          <textarea name="article[content]" id="editor" required></textarea>
         </div>
         <div class="field">
           <label>Template Links</label>

@@ -65,7 +65,7 @@ $(() => {
         ${getDropdown("Support", "support_affiliation_id", support_affiliations, article.support_affiliation_id)}
         <div class="field">
           <label>Content</label>
-          <textarea name="article[content]" id="editor"></textarea>
+          <textarea name="article[content]" id="editor" required></textarea>
         </div>
         <div class="field">
           <label>Video URL</label>
