@@ -28269,7 +28269,7 @@ $(() => {
         </div>
         <div class="field">
           <label>Content</label>
-          <textarea name="article[content]" id="editor"></textarea>
+          <textarea name="article[content]" id="editor" required></textarea>
         </div>
         <div class="field">
           <label>Template Links</label>
@@ -28399,7 +28399,7 @@ $(() => {
         </div>
         <div class="field">
           <label>Content</label>
-          <textarea name="article[content]" id="editor"></textarea>
+          <textarea name="article[content]" id="editor" required></textarea>
         </div>
         <div class="field">
           <label>Template Links</label>
@@ -28566,7 +28566,7 @@ $(() => {
         ${getDropdown("Support", "support_affiliation_id", support_affiliations)}
         <div class="field">
           <label>Content</label>
-          <textarea name="article[content]" id="editor">
+          <textarea name="article[content]" id="editor" required>
           </textarea>
         </div>
         <div class="field">
@@ -28722,7 +28722,7 @@ $(() => {
         ${getDropdown("Support", "support_affiliation_id", support_affiliations, article.support_affiliation_id)}
         <div class="field">
           <label>Content</label>
-          <textarea name="article[content]" id="editor"></textarea>
+          <textarea name="article[content]" id="editor" required></textarea>
         </div>
         <div class="field">
           <label>Video URL</label>
