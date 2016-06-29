@@ -55,14 +55,15 @@ $('.button-group').each(function(i, buttonGroup) {
 //   $(this).toggleClass('Tools_color')
 // })
 
-//   // clear-all filter listener
-//   let $filter_clear = $('#sop_filter_clear_all');
-//   let $checkboxes = $('.sop_checkboxes input');
-//   $filter_clear.click(function(){
-//     for (let idx = 0; idx < $checkboxes.length; idx++)
-//       $checkboxes[idx].checked = false;
-//     updateIsotope();
-//   });
+  // clear-all filter listener
+  let $filter_clear = $('#sop_filter_clear_all');
+  let $checkboxes = $('.sop_checkboxes input');
+  $filter_clear.click(e => {
+    e.preventDefault()
+    for (let idx = 0; idx < $checkboxes.length; idx++)
+      $checkboxes[idx].checked = false;
+    $grid.isotope({ filter: '*' })
+  });
 
 //   //isotope listener
 //   let $output = $('#sop_filter');

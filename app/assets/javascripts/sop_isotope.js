@@ -6,10 +6,11 @@ $(function(){
   // clear-all filter listener
   var $filter_clear = $('#sop_filter_clear_all');
   var $checkboxes = $('.sop_checkboxes input');
-  $filter_clear.click(function(){
+  $filter_clear.click(e => {
+    e.preventDefault()
     for (var idx = 0; idx < $checkboxes.length; idx++)
       $checkboxes[idx].checked = false;
-    updateIsotope();
+    $container.isotope({ filter: '*' })
   });
 
   //isotope listener
