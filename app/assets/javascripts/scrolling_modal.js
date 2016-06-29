@@ -1,6 +1,5 @@
 // $(function(){
 //   $('#filter_clear_all').click(function(e){
-//     console.log('e', e)
 //     $('.long.modal')
 //     .modal('show');
 //   })
