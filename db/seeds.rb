@@ -1,3 +1,4 @@
+# encoding: utf-8
 puts 'seeding database...'
 
 Role.create(title: 'root')
@@ -18,10 +19,10 @@ SupportAffiliation.create(title: 'Other')
 
 ##immediately, 3 weeks, and 3 months do not have a color assigned.
 # SopTime.create(period: 'Immediately', color:'#FDFDFD')
-SopTime.create(period: '14 Days', color: '#F49393')
 SopTime.create(period: '24 Hours', color: '#B12924')
 SopTime.create(period: '72 Hours', color: '#EB5F65')
-SopTime.create(period: '14 Days-Close', color: '#FBE3E6')
+SopTime.create(period: '14 Days', color: '#F49393')
+SopTime.create(period: '14 Days to Close', color: '#FBE3E6')
 # SopTime.create(period: '3 Weeks', color:'#FDFDFD')
 # SopTime.create(period: '3 Months', color:'#FDFDFD')
 
@@ -33,24 +34,24 @@ SopCategory.create(title: 'Finances and Logistics')
 SopCategory.create(title: 'Context')
 SopCategory.create(title: 'Outbreak Confirmation')
 
-SopIcon.create(sop_time_id: 1, sop_category_id: 1, title: '14Days_AdvoCoor')
-SopIcon.create(sop_time_id: 1, sop_category_id: 2, title: '14Days_TechHuman')
-SopIcon.create(sop_time_id: 1, sop_category_id: 3, title: '14Days_InfoMan')
-SopIcon.create(sop_time_id: 1, sop_category_id: 4, title: '14Days_ExCom')
-SopIcon.create(sop_time_id: 1, sop_category_id: 5, title: '14Days_Finance')
+SopIcon.create(sop_time_id: 1, sop_category_id: 2, title: '24Hours_TechHuman')
+SopIcon.create(sop_time_id: 1, sop_category_id: 3, title: '24Hours_InfoMan')
+SopIcon.create(sop_time_id: 1, sop_category_id: 5, title: '24Hours_Finance')
+SopIcon.create(sop_time_id: 1, sop_category_id: 7, title: '24Hours_OutbreakConfir')
 
-SopIcon.create(sop_time_id: 2, sop_category_id: 2, title: '24Hours_TechHuman')
-SopIcon.create(sop_time_id: 2, sop_category_id: 3, title: '24Hours_InfoMan')
-SopIcon.create(sop_time_id: 2, sop_category_id: 5, title: '24Hours_Finance')
-SopIcon.create(sop_time_id: 2, sop_category_id: 7, title: '24Hours_OutbreakConfir')
+SopIcon.create(sop_time_id: 2, sop_category_id: 1, title: '72Hours_AdvoCoor')
+SopIcon.create(sop_time_id: 2, sop_category_id: 2, title: '72Hours_TechHuman')
+SopIcon.create(sop_time_id: 2, sop_category_id: 3, title: '72Hours_InfoMan')
+SopIcon.create(sop_time_id: 2, sop_category_id: 4, title: '72Hours_ExCom')
+SopIcon.create(sop_time_id: 2, sop_category_id: 5, title: '72Hours_Finance')
+SopIcon.create(sop_time_id: 2, sop_category_id: 6, title: '72Hours_Context')
+SopIcon.create(sop_time_id: 2, sop_category_id: 7, title: '72Hours_OutbreakConfir')
 
-SopIcon.create(sop_time_id: 3, sop_category_id: 1, title: '72Hours_AdvoCoor')
-SopIcon.create(sop_time_id: 3, sop_category_id: 2, title: '72Hours_TechHuman')
-SopIcon.create(sop_time_id: 3, sop_category_id: 3, title: '72Hours_InfoMan')
-SopIcon.create(sop_time_id: 3, sop_category_id: 4, title: '72Hours_ExCom')
-SopIcon.create(sop_time_id: 3, sop_category_id: 5, title: '72Hours_Finance')
-SopIcon.create(sop_time_id: 3, sop_category_id: 6, title: '72Hours_Context')
-SopIcon.create(sop_time_id: 3, sop_category_id: 7, title: '72Hours_OutbreakConfir')
+SopIcon.create(sop_time_id: 3, sop_category_id: 1, title: '14Days_AdvoCoor')
+SopIcon.create(sop_time_id: 3, sop_category_id: 2, title: '14Days_TechHuman')
+SopIcon.create(sop_time_id: 3, sop_category_id: 3, title: '14Days_InfoMan')
+SopIcon.create(sop_time_id: 3, sop_category_id: 4, title: '14Days_ExCom')
+SopIcon.create(sop_time_id: 3, sop_category_id: 5, title: '14Days_Finance')
 
 SopIcon.create(sop_time_id: 4, sop_category_id: 1, title: '14DaysClose_AdvoCoor')
 SopIcon.create(sop_time_id: 4, sop_category_id: 2, title: '14DaysClose_TechHuman')
@@ -83,7 +84,7 @@ C4dSubcategory.create(title: 'Innovations', c4d_category_id: 4, color: '#AEF1DF'
 
 user = User.new(
   first_name: 'root',
-  last_name: 'guy',
+  last_name: 'admin',
   country: 'USA',
   email: 'root@example.com',
   TOS_accepted: true)
@@ -99,69 +100,168 @@ all_users = User.all
 responsible_offices = ResponsibleOffice.all
 support_affiliations = SupportAffiliation.all
 
-C4dCategory.all.count.times do |x|
-  c4d_category_id = x + 1
-  3.times do |times|
-    category_offset = 0
-    c4d_category = C4dCategory.find(c4d_category_id)
-    if c4d_category.title == 'Plan'
-      category_offset = 3
-    elsif c4d_category.title == 'Act'
-      category_offset = 8
-    elsif c4d_category.title == 'Tools'
-      category_offset = 11
-    end
-    C4dSubcategory.where(c4d_category_id: c4d_category.id).count.times do |y|
-      C4dArticle.create(
-        cms_title: Faker::Lorem.words(rand(2)+1).join(' '),
-        title: Faker::Lorem.sentence,
-        content: Faker::Lorem.paragraph(rand(content_random_number_max)+1),
-        c4d_category_id: c4d_category_id,
-        c4d_subcategory_id: category_offset += 1,
-        video_url: rand(2).even? ? Faker::Internet.url : '',
-        published: true,
-        order_id: order_id += 1,
-        author_id: all_users.sample.id
-        )
+def generateC4dArticles(content_random_number_max, all_users)
+  C4dCategory.all.count.times do |x|
+    c4d_category_id = x + 1
+    3.times do |times|
+      category_offset = 0
+      c4d_category = C4dCategory.find(c4d_category_id)
+      if c4d_category.title == 'Plan'
+        category_offset = 3
+      elsif c4d_category.title == 'Act'
+        category_offset = 8
+      elsif c4d_category.title == 'Tools'
+        category_offset = 11
+      end
+      C4dSubcategory.where(c4d_category_id: c4d_category.id).count.times do |y|
+        C4dArticle.create(
+          cms_title: Faker::Lorem.words(rand(2)+1).join(' '),
+          title: Faker::Lorem.sentence,
+          content: Faker::Lorem.paragraph(rand(content_random_number_max)+1),
+          c4d_category_id: c4d_category_id,
+          c4d_subcategory_id: category_offset += 1,
+          video_url: rand(2).even? ? Faker::Internet.url : '',
+          published: true,
+          order_id: order_id += 1,
+          author_id: all_users.sample.id
+          )
+      end
     end
   end
 end
+# generateC4dArticles(content_random_number_max, all_users)
 
 order_id = 0
-
-SopTime.all.count.times do |x|
-  sop_time_id = x + 1
-  3.times do |times|
-    sop_time_id_categories = []
-    sop_time = SopTime.find(sop_time_id)
-    if sop_time.period == '14 Days'
-      sop_time_id_categories = [2,3,4,5]
-    elsif sop_time.period == '24 Hours'
-      sop_time_id_categories = [2,3,5,7]
-    elsif sop_time.period == '72 Hours'
-      sop_time_id_categories = [1,2,3,4,5,6,7]
-    elsif sop_time.period == '14 Days-Close'
-      sop_time_id_categories = [1,2,3,4,5,6]
-    end
-    sop_time_id_categories.size.times do |idx|
-      sop_article = SopArticle.create(
-        cms_title: Faker::Lorem.words(rand(2)+1).join(' '),
-        content: Faker::Lorem.paragraph(rand(content_random_number_max)+1),
-        title: Faker::Lorem.sentence,
-        sop_category_id: sop_time_id_categories[idx],
-        sop_time_id: sop_time_id,
-        video_url: rand(2).even? ? Faker::Internet.url : '',
-        order_id: order_id += 1,
-        responsible_office_id: responsible_offices.sample.id,
-        support_affiliation_id: support_affiliations.sample.id,
-        published: true,
-        author_id: all_users.sample.id
-      )
-      icon_title = SopIcon.where(sop_time_id: sop_article.sop_time_id, sop_category_id: sop_article.sop_category_id).first.title
-      SopIcon.create(sop_time_id: sop_article.sop_time_id, sop_category_id: sop_article.sop_category_id, sop_article_id: sop_article.id, title: icon_title)
+def generateSopArticles(content_random_number_max, all_users, responsible_offices, support_affiliations)
+  SopTime.all.count.times do |x|
+    sop_time_id = x + 1
+    3.times do |times|
+      sop_time_id_categories = []
+      sop_time = SopTime.find(sop_time_id)
+      if sop_time.period == '14 Days'
+        sop_time_id_categories = [2,3,4,5]
+      elsif sop_time.period == '24 Hours'
+        sop_time_id_categories = [2,3,5,7]
+      elsif sop_time.period == '72 Hours'
+        sop_time_id_categories = [1,2,3,4,5,6,7]
+      elsif sop_time.period == '14 Days-Close'
+        sop_time_id_categories = [1,2,3,4,5,6]
+      end
+      sop_time_id_categories.size.times do |idx|
+        sop_article = SopArticle.create(
+          cms_title: Faker::Lorem.words(rand(2)+1).join(' '),
+          content: Faker::Lorem.paragraph(rand(content_random_number_max)+1),
+          title: Faker::Lorem.sentence,
+          sop_category_id: sop_time_id_categories[idx],
+          sop_time_id: sop_time_id,
+          video_url: rand(2).even? ? Faker::Internet.url : '',
+          order_id: order_id += 1,
+          responsible_office_id: responsible_offices.sample.id,
+          support_affiliation_id: support_affiliations.sample.id,
+          published: true,
+          author_id: all_users.sample.id
+        )
+        icon_title = SopIcon.where(sop_time_id: sop_article.sop_time_id, sop_category_id: sop_article.sop_category_id).first.title
+        SopIcon.create(sop_time_id: sop_article.sop_time_id, sop_category_id: sop_article.sop_category_id, sop_article_id: sop_article.id, title: icon_title)
+      end
     end
   end
 end
+# generateSopArticles(content_random_number_max, all_users, responsible_offices, support_affiliations)
+
+def createC4dArticle(row_elements)
+  c4d_article = C4dArticle.new
+  c4d_article.cms_title = row_elements[3][row_elements[3].index("\"urlTitle\">")+11..row_elements[3].index("</field>")-1].downcase
+  c4d_article.created_at = row_elements[1][row_elements[1].index("\"createDate\">")+14..row_elements[1].index("</field>")-1]
+  c4d_article.updated_at = row_elements[2][row_elements[2].index("\"modifiedDate\">")+15..row_elements[2].index("</field>")-1]
+  c4d_article.order_id = row_elements[3][row_elements[3].index("\"urlTitle\">")+11..row_elements[3].index("</field>")-1].downcase.gsub!('c4d_','').to_i
+  c4d_article.published = true
+  c4d_article.author_id = 1
+  row_elements[-1].split("<dynamic-element name=")[1..-1].each do |field|
+    field_data = field[field.index('><![CDATA[')+10..field.index(']]')-1]
+    if !field.index("\"Sub-Category\"").nil? && field.index("\"Sub-Category\"") == 0
+      c4d_article.c4d_subcategory_id = C4dSubcategory.find_by(title: field_data).id
+    elsif !field.index("\"Category\"").nil? && field.index("\"Category\"") == 0
+      c4d_article.c4d_category_id = C4dCategory.find_by(title: field_data).id
+    elsif !field.index("\"Title\"").nil? && field.index("\"Title\"") == 0
+      c4d_article.title = field_data
+    elsif !field.index("\"Description\"").nil? && field.index("\"Description\"") == 0
+      c4d_article.content = field_data
+    end
+  end
+  c4d_article.save
+end
+
+def createSopArticle(row_elements)
+  # PARSE OUT &lt; &gt; &quot;
+  sop_article = SopArticle.new
+  if row_elements[3].index("\"urlTitle\">")
+    sop_article.cms_title = row_elements[3][row_elements[3].index("\"urlTitle\">")+11..row_elements[3].index("</field>")-1].downcase
+    sop_article.order_id = row_elements[3][row_elements[3].index("\"urlTitle\">")+11..row_elements[3].index("</field>")-1].downcase.gsub!('sop_','').to_i
+  else
+    sop_article.cms_title = row_elements[3][row_elements[3].index("\"urlTitle\"<name />")+11..row_elements[3].index("</field>")-1].downcase
+    sop_article.order_id = row_elements[3][row_elements[3].index("\"urlTitle\"<name />")+11..row_elements[3].index("</field>")-1].downcase.gsub!('sop_','').to_i
+  end
+
+  sop_article.created_at = row_elements[1][row_elements[1].index("\"createDate\">")+14..row_elements[1].index("</field>")-1]
+  sop_article.updated_at = row_elements[2][row_elements[2].index("\"modifiedDate\">")+15..row_elements[2].index("</field>")-1]
+  sop_article.published = true
+  sop_article.author_id = 1
+  row_elements[-1].split("<dynamic-element name=")[1..-1].each do |field|
+    field_data = field[field.index('><![CDATA[')+10..field.index(']]')-1]
+    if !field.index("\"TIME\"").nil? && field.index("\"TIME\"") == 0
+      if field_data.downcase.start_with?('14 day')
+        field_data = '14 Days To Close'
+      elsif field_data.downcase.start_with?('immediately')
+        return
+      elsif field_data.downcase.start_with?('3 weeks')
+        return
+      elsif field_data.downcase.start_with?('3 months')
+        return
+      end
+      sop_article.sop_time_id = SopTime.where('lower(period) = ?', field_data.downcase).first.id
+    elsif !field.index("\"Category\"").nil? && field.index("\"Category\"") == 0
+      if field_data.downcase.start_with?('extenral')
+        field_data = 'Communication'
+      end
+      sop_article.sop_category_id = SopCategory.where('lower(title) = ?', field_data.downcase).first.id
+    elsif !field.index("\"Title\"").nil? && field.index("\"Title\"") == 0
+      sop_article.title = field_data
+    elsif !field.index("\"Responsible\"").nil? && field.index("\"Responsible\"") == 0
+      # do string parsing to find responsible office and find that from database
+      # sop_article.responsible_office_id = ResponsibleOffice.find_by(title: field_data).id
+      sop_article.responsible_office_id = rand(3)+1
+    elsif !field.index("\"Support\"").nil? && field.index("\"Support\"") == 0
+      # do string parsing to find responsible office and find that from database
+      # sop_article.support_affiliation_id = SupportAffiliation.find_by(title: field_data).id
+      sop_article.support_affiliation_id = rand(3)+1
+    elsif !field.index("\"Article\"").nil? && field.index("\"Article\"") == 0
+      sop_article.content = field_data
+    end
+  end
+  sop_article.save
+  icon_title = SopIcon.where(sop_time_id: sop_article.sop_time_id, sop_category_id: sop_article.sop_category_id).first.title
+  SopIcon.create(sop_time_id: sop_article.sop_time_id, sop_category_id: sop_article.sop_category_id, sop_article_id: sop_article.id, title: icon_title)
+end
+
+
+content = IO.read("../file.xml")
+content.split("<row>")[1..-1].each do |row|
+  row_elements = row.split("<field name=")
+  isSop = row_elements[3].downcase.include? 'sop'
+  isC4d = row_elements[3].downcase.include? 'c4d' unless isSop
+  if isSop
+    createSopArticle(row_elements)
+  elsif isC4d
+    createC4dArticle(row_elements)
+  end
+end
+
+#  video_url: nil, missing currently not found in database
+#  1 = createDate
+#  2 = updateDate
+#  3 = cms title
+#  4 = content
 
 SopChecklist.create(user_id: user.id)
 C4dToolkit.create(user_id: user.id)
