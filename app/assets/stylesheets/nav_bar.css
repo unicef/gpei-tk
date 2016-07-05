@@ -1,0 +1,18 @@
+.white_text_black_bg,
+.item.white_text_black_bg,
+.text.white_text_black_bg,
+.fa.fa-remove.white_text_black_bg,
+#c4d_toolkit_list,
+.fa.fa-caret-left.white_text_black_bg,
+.left.menu.white_text_black_bg,
+#sop_checklist_list,
+#my_rhizome_dropdown_items,
+.ui.pointing.dropdown.link.item.white_text_black_bg
+ {
+  background-color: black;
+  color: white;
+}
+#sop_no_items_selected,
+#c4d_no_items_selected {
+  pointer-events:none;
+}
