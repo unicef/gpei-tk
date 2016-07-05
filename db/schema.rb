@@ -59,8 +59,8 @@ ActiveRecord::Schema.define(version: 20160608142244) do
   end
 
   create_table "c4d_subcategories", force: :cascade do |t|
-    t.string   "title"
-    t.string   "color"
+    t.string   "title",           null: false
+    t.string   "color",           null: false
     t.integer  "c4d_category_id"
     t.datetime "created_at",      null: false
     t.datetime "updated_at",      null: false
@@ -118,6 +118,8 @@ ActiveRecord::Schema.define(version: 20160608142244) do
     t.integer  "sop_category_id",                        null: false
     t.integer  "sop_time_id",                            null: false
     t.string   "video_url"
+    t.string   "support"
+    t.string   "responsible"
     t.integer  "support_affiliation_id"
     t.integer  "responsible_office_id"
     t.integer  "order_id",                               null: false
