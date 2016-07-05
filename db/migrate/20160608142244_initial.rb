@@ -3,7 +3,7 @@ class Initial < ActiveRecord::Migration
     create_table :users do |t|
       t.string :first_name, null: false
       t.string :last_name, null: false
-      t.string :email, null: false
+      t.string :email, null: false, unique: true
       t.string :password_digest
       t.string :country, null: false
       t.string :organization, null: false
@@ -14,17 +14,17 @@ class Initial < ActiveRecord::Migration
     end
 
     create_table :roles do |t|
-      t.string :title, null: false
+      t.string :title, null: false, unique: true
       t.timestamps null: false
     end
 
     create_table :sop_checklists do |t|
-      t.integer :user_id, null: false
+      t.integer :user_id, null: false, unique: true
       t.timestamps null: false
     end
 
     create_table :c4d_toolkits do |t|
-      t.integer :user_id, null: false
+      t.integer :user_id, null: false, unique: true
       t.timestamps null: false
     end
 
@@ -35,7 +35,7 @@ class Initial < ActiveRecord::Migration
       t.integer :c4d_category_id, null: false
       t.integer :c4d_subcategory_id, null: false
       t.string :video_url
-      t.integer :order_id, null: false
+      t.integer :order_id, null: false, unique: true
       t.boolean :published, null: false, default: false
       t.integer :author_id, null: false
       t.timestamps null: false
@@ -48,45 +48,47 @@ class Initial < ActiveRecord::Migration
       t.integer :sop_category_id, null: false
       t.integer :sop_time_id, null: false
       t.string :video_url
+      t.string :support
+      t.string :responsible
       t.integer :support_affiliation_id
       t.integer :responsible_office_id
-      t.integer :order_id, null: false
+      t.integer :order_id, null: false, unique: true
       t.boolean :published, null: false, default: false
       t.integer :author_id, null: false
       t.timestamps null: false
     end
 
     create_table :support_affiliations do |t|
-      t.string :title, null: false
+      t.string :title, null: false, unique: true
       t.timestamps null: false
     end
 
     create_table :responsible_offices do |t|
-      t.string :title, null: false
+      t.string :title, null: false, unique: true
       t.timestamps null: false
     end
 
     create_table :c4d_categories do |t|
-      t.string :title, null: false
+      t.string :title, null: false, unique: true
       t.string :color, null: false
       t.string :description, null: false
       t.timestamps null: false
     end
 
     create_table :sop_categories do |t|
-      t.string :title, null: false
+      t.string :title, null: false, unique: true
       t.timestamps null: false
     end
 
     create_table :c4d_subcategories do |t|
-      t.string :title
-      t.string :color
+      t.string :title, null: false, unique: true
+      t.string :color, null: false
       t.integer :c4d_category_id
       t.timestamps null: false
     end
 
     create_table :sop_times do |t|
-      t.string :period
+      t.string :period, unique: true
       t.string :color
       t.timestamps null: false
     end
