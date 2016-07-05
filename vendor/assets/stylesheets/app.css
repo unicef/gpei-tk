@@ -237,14 +237,14 @@ a .c4d_category_outer_container {
 #sop_filter_container {
   padding: 1px;
 }
-#c4d_no_items_selected {
+/*#c4d_no_items_selected {
   color: white;
   background-color: black;
 }
-#sop_no_items_selected {
+*//*#sop_no_items_selected {
   color: white;
   background-color: black;
-}
+}*/
 #sop_filter_clear_all {
   background-color: #6B7A83;
   border-color: #6B7A83;
