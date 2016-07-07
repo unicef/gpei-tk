@@ -16,3 +16,7 @@
 #c4d_no_items_selected {
   pointer-events:none;
 }
+#my_rhizome_dropdown {
+  color: white;
+  background-color:black;
+}
