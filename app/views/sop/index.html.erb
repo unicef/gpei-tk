@@ -1,72 +1,72 @@
 <%= render 'dashboard/nav' %>
-<div id='sop_filter_container' class='container-fluid'>
+<div id='sop_filter_container'>
   <!-- filters -->
-  <div class='row text-center'>
-    <div id='select_filter_text' class='col-md-10'>
-      <em>Please select the filters you would like to use</em>
-    </div>
-    <div id='sop_filter_clear_all' class='col-md-2'>
-      <a href='' style='text-decoration: none !important;'><em style='color:white;'>Clear All</em></a>
-    </div>
-  </div>
-  <div class='row'>
-    <div id='filter_list' class='col-md-4'>
-      <div class='sop_filter_header'>TIME</div>
-      <div class='sop_checkboxes'>
-        <ul class='list-unstyled text-uppercase'>
-          <% @sop_times.each do |time| %>
-            <li class='filter-item'><input class='check_box' id=<%= time.period.gsub(' ', '_') %> type='checkbox' value=".<%= time.period.gsub(' ', '_') %>"><label class='filter-label' for=<%= time.period.gsub(' ', '_') %>><%= time.period %></label></li>
-          <% end %>
-        </ul>
-      </div>
-    </div>
-    <div id='filter_list' class='col-md-4'>
-      <div class='sop_filter_header'>CATEGORY</div>
-      <div class='sop_checkboxes'>
-        <ul class='list-unstyled text-uppercase'>
-          <% @sop_categories.each do |category| %>
-            <li class='filter-item'><input class='check_box' id=<%= category.title.gsub(' ', '_') %> type='checkbox' value=".<%= category.title.gsub(' ', '_') %>"><label class='filter-label' for=<%= category.title.gsub(' ', '_') %>><%= category.title %></label></li>
-          <% end %>
-        </ul>
-      </div>
-    </div>
-    <div id='filter_list' class='col-md-4'>
-      <div class='sop_filter_header'>RESPONSIBILITY</div>
-      <div class='sop_checkboxes'>
-        <ul class='list-unstyled text-uppercase' style='height:100%'>
-          <% @responsible_offices.each do |office| %>
-            <li class='filter-item'><input class='check_box' id=<%= office.title.gsub(' ', '_') %> type='checkbox' value=".<%= office.title.gsub(' ', '_') %>"><label class='filter-label' for=<%= office.title.gsub(' ', '_') %>><%= office.title %></label></li>
-          <% end %>
-          <li style='margin-bottom: 10px'></li>
-          <br>
-          <br>
-        </ul>
-      </div>
-    </div>
-  </div>
-  </div>
-  <div class='row text-center'>
-    <div id='isotope_container'>
-      <% @sop_articles.each do |article| %>
-        <%= link_to sop_article_path(article), {:style=>'color:#FFFFFF;'} do %>
-        <div id="<%= article.id %>" class="<%= build_classes({grid_item: 'grid_item', time: article.sop_time.period.gsub(' ', '_'), offices: article.responsible_office.title.gsub(' ', '_'), category: article.sop_category.title.gsub(' ', '_')}) %>"
-          style=<%='background-color:' + article.sop_time.color + ';' %>>
-          <div class='sop_grid_content'>
-          <% color = 'white' %>
-          <% if article.sop_time.period == '14 Days-Close' %>
-            <% color = 'black' %>
-          <% end %>
-          <p id='grid_item_time_period' style="color:<%= color %>;"><strong><%= article.sop_time.period.upcase %></strong><span id='sop_article_id' style='visibility:hidden;'><%= article.id %></span></p>
-          <p id='grid_item_icon'><%= image_tag "sop/icons/#{article.sop_icon.title}.png", width:'40%', height:'40%', class: 'image-responsive', alt: '' %></p>
-          <!-- "home/#{@img_name}.png" -->
-          <p id='grid_item_article_title' style="color:<%= color %>;"><%= article.title %></p>
+  <div data-spy="affix_top" id="sop_grid_filter_row" class='row text-center'>
+    <div id="select_filter_dropdown_menu" class="ui dropdown col-md-2">
+      <i class="fa fa-filter" aria-hidden="true"></i>
+      <div id="select_filter_header" class="text">Filter by</div>
+      <div class="menu">
+        <div class="item">
+          <div id='filter_list' class=''>
+            <div class='sop_filter_header'>TIME</div>
+            <div class='sop_checkboxes'>
+              <ul class='list-unstyled text-uppercase'>
+                <% @sop_times.each do |time| %>
+                  <li class='filter-item'><input class='check_box' id=<%= time.period.gsub(' ', '_') %> type='checkbox' value=".<%= time.period.gsub(' ', '_') %>"><label class='filter-label' for=<%= time.period.gsub(' ', '_') %>><%= time.period %></label></li>
+                <% end %>
+              </ul>
+            </div>
           </div>
-          <a class='grid_add' href='' style="top:5px;right:5px;position:absolute;<%= style_visible('add', @user, article) %>;color:black;"><i class="fa fa-plus" aria-hidden="true"></i></a>
-          <a class='grid_check' href='' style="top:5px;right:5px;position:absolute;<%= style_visible('check', @user, article) %>;color:black;"><i class="fa fa-check" aria-hidden="true"></i></a>
+          <div id='filter_list' class=''>
+            <div class='sop_filter_header'>CATEGORY</div>
+            <div class='sop_checkboxes'>
+              <ul class='list-unstyled text-uppercase'>
+                <% @sop_categories.each do |category| %>
+                  <li class='filter-item'><input class='check_box' id=<%= category.title.gsub(' ', '_') %> type='checkbox' value=".<%= category.title.gsub(' ', '_') %>"><label class='filter-label' for=<%= category.title.gsub(' ', '_') %>><%= category.title %></label></li>
+                <% end %>
+              </ul>
+            </div>
+          </div>
+          <div id='filter_list' class=''>
+            <div class='sop_filter_header'>RESPONSIBILITY</div>
+            <div class='sop_checkboxes'>
+              <ul class='list-unstyled text-uppercase'>
+                <% @responsible_offices.each do |office| %>
+                  <li class='filter-item'><input class='check_box' id=<%= office.title.gsub(' ', '_') %> type='checkbox' value=".<%= office.title.gsub(' ', '_') %>"><label class='filter-label' for=<%= office.title.gsub(' ', '_') %>><%= office.title %></label></li>
+                <% end %>
+              </ul>
+            </div>
+          </div>
         </div>
-        <% end %>
-      <% end %>
+      </div>
     </div>
+    <div id='selected_filters_output' class='col-md-8 text-left'>
+    </div>
+    <button id='sop_filter_clear_all' class='col-md-2'>
+      <a href=''>Clear All</em></a>
+    </button>
+  </div>
+</div>
+<div class='row text-center'>
+  <div id='isotope_container'>
+    <% @sop_articles.each do |article| %>
+      <%= link_to sop_article_path(article) do %>
+      <div id="<%= article.id %>" class="<%= build_classes({grid_item: 'grid_item', time: article.sop_time.period.gsub(' ', '_'), offices: article.responsible_office.title.gsub(' ', '_'), category: article.sop_category.title.gsub(' ', '_')}) %>"
+        style=<%='background-color:' + article.sop_time.color + ';' %>>
+        <div class='sop_grid_content'>
+        <% color = 'white' %>
+        <% if article.sop_time.period == '14 Days to Close' %>
+          <% color = 'black' %>
+        <% end %>
+        <p id='grid_item_time_period' style="color:<%= color %>;"><strong><%= article.sop_time.period.upcase %></strong><span id="<%= article.id %>"></span></p>
+        <p id='grid_item_icon'><%= image_tag "sop/icons/#{article.sop_icon.title}.png", width:'40%', height:'40%', class: 'image-responsive', alt: "" %></p>
+        <p id='grid_item_article_title' style="color:<%= color %>;"><%= article.title %></p>
+        </div>
+        <a class='grid_add' href='' style="<%= style_visible('add', @user, article) %>;"><i class="fa fa-plus" aria-hidden="true"></i></a>
+        <a class='grid_check' href='' style="<%= style_visible('check', @user, article) %>;"><i class="fa fa-check" aria-hidden="true"></i></a>
+      </div>
+      <% end %>
+    <% end %>
   </div>
 </div>
 <div class="long modal">
