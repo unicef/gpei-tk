@@ -1,0 +1,23 @@
+.sop_grid_content {
+  height: 100%;
+  position: absolute;
+  top:15%;
+}
+* {
+  box-sizing: border-box;
+}
+.grid_item {
+  width: 20%;
+  height: 230px;
+  border: 1px solid white;
+}
+.grid_item p {
+  margin: 0;
+}
+.grid_add,
+.grid_check {
+  top:5px;
+  right:5px;
+  position:absolute;
+  color:black;
+}
