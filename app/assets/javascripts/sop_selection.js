@@ -1,4 +1,10 @@
 $(() => {
+  $('.ui.dropdown')
+    .dropdown({
+      on: 'hover',
+      action: 'nothing'
+    });
+
   let $container = $('#isotope_container').isotope({
     itemSelector: '.grid_item'
   })
@@ -11,6 +17,7 @@ $(() => {
     for (let idx = 0; idx < $checkboxes.length; idx++)
       $checkboxes[idx].checked = false
     $container.isotope({ filter: '*' })
+    return false
   })
 
   //isotope listener
@@ -21,15 +28,30 @@ $(() => {
 
   function updateIsotope(){
     let inclusives = []
+    let checked_labels = ''
     $checkboxes.each((i, elem) => {
       if (elem.checked)
+      {
         inclusives.push(elem.value)
+        let elem_value = elem.value.replace(/\./g,"").replace(/_/g," ")
+        checked_labels += `<div id="filter_output_label" class="ui label"><span id="${elem.value}">${elem_value} </span><i style="color:black;" class="fa fa-times" aria-hidden="true"></i></div>`
+      }
     })
+    $('#selected_filters_output').empty()
+    $('#selected_filters_output').append(checked_labels)
     let filterValue = inclusives.length ? inclusives.join(', ') : '*'
     $container.isotope({ filter: filterValue })
     filterValue = filterValue === '*' ? '' : filterValue
     // $output.html("<li id=\"checklist_article\">" + filterValue + "</li>")
   }
+
+  $('#selected_filters_output').on('click', 'i', e => {
+    let target_id = e.currentTarget.parentElement.children[0].id
+    let target_query = `:input[value="${target_id}"]`
+    let target_checkbox = $(target_query)
+    target_checkbox.attr('checked', false)
+    updateIsotope()
+  })
   function toggleVisibility(el) {
     if ($(el).css('visibility') == 'hidden' )
       $(el).css('visibility','visible')
@@ -39,7 +61,7 @@ $(() => {
   let $add = $('#isotope_container .grid_add')
 
   $add.click(e => {
-    let article_title = e.currentTarget.parentElement.querySelector('#grid_item_article_title').innerHTML
+    let article_title = e.currentTarget.parentElement.querySelector('#grid_item_article_title').id
     let article_id = e.currentTarget.parentElement.id
     $.ajax({
       method: 'POST',
@@ -54,10 +76,11 @@ $(() => {
 
       let article_title = response.article_title
       let id = response.id
-      let list_item = "<div id=\"" + id + "\" class=\"item white_text_black_bg\"><a href=\"sop_articles/" + id + "\">" + article_title + "</a> <i id=\"checklist_item" + article_title + "\" class=\"fa fa-remove white_text_black_bg\" aria-hidden=\"true\"></i></div>"
+      let list_item = "<div id=\"" + id + "\" class=\"item white_text_black_bg\"><a href=\"sop_articles/" + id + "\" class=\"white_text_black_bg\">" + article_title + "</a> <i id=\"" + article_title + "\" class=\"fa fa-remove\" aria-hidden=\"true\"></i></div>"
       removeNoArticlesSelected('#sop_no_items_selected')
       $('#sop_checklist_list').append(list_item)
     })
+    return false
   })
   function removeNoArticlesSelected(ele) {
     let el = "#sop_checklist_list " + ele
@@ -83,9 +106,10 @@ $(() => {
       $(article_list_item).remove()
       checkIfArticlesSelectedAndAppend('#sop_checklist_list')
     })
+    return false
   })
 
-  $('#sop_checklist_list').on('click', 'i', function(e) {
+  $('#sop_checklist_list').on('click', 'i', e => {
     let title = e.currentTarget.id
     let parent_element = e.currentTarget.parentElement
     $.ajax({
@@ -109,6 +133,7 @@ $(() => {
       $(sop_checklist_list_item).remove()
       checkIfArticlesSelectedAndAppend('#sop_checklist_list')
     })
+    return false
   })
 
   function checkIfArticlesSelectedAndAppend(el_id){
@@ -119,4 +144,18 @@ $(() => {
       $(list_id).append(no_items)
     }
   }
+
+  // stick to top if scrolled
+  function affixTop() {
+    let offset = $('#nav_bar').height()
+    offset += $('#sop_grid_filter_row').height()
+    $("#sop_grid_filter_row").affix({
+      offset: {
+        top: offset
+      }
+    })
+  }
+
+  if ($('#nav_bar').length > 0)
+    affixTop()
 })
