@@ -15,7 +15,7 @@ $(function(){
       toggleVisibility(e.currentTarget.nextElementSibling);
       let article_title = response.article_title
       let id = response.id
-      let list_item = "<div id=\"" + id + "\" class=\"item\" style='background-color: black;color: white;'><a href=sop_articles/" + id + " style='background-color: black;color: white;'>" + article_title + "</a> <i id=\"checklist_item" + article_title + "\" class=\"fa fa-remove\" aria-hidden=\"true\" style='background-color: black;color: white;'></i></div>"
+      let list_item = "<div id=\"" + id + "\" class=\"item\" style='background-color: black;color: white;'><a href=sop_articles/" + id + " style='background-color: black;color: white;'>" + article_title + "</a> <i id=\"" + article_title + "\" class=\"fa fa-remove\" aria-hidden=\"true\" style='background-color: black;color: white;'></i></div>"
       removeNoArticlesSelected('#sop_no_items_selected')
       $('#sop_checklist_list').append(list_item);
     });
