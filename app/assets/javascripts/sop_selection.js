@@ -79,7 +79,11 @@ $(() => {
     $.ajax({
       method: 'POST',
       url: '/sop/checklist/',
-      data: { title: article_title, id: article_id, authenticity_token: escape($('meta[name=csrf-token]').attr('content')) }
+      data: {
+        title: article_title,
+        id: article_id,
+        authenticity_token: _.escape($('meta[name=csrf-token]').attr('content'))
+      }
     }).done(response => {
       toggleVisibility(e.currentTarget)
 
@@ -107,7 +111,11 @@ $(() => {
     $.ajax({
       method: 'DELETE',
       url: '/sop/checklist/',
-      data: { title: article_title, id: article_id }
+      data: {
+        title: article_title,
+        id: article_id,
+        authenticity_token: _.escape($('meta[name=csrf-token]').attr('content'))
+      }
     }).done(response => {
       toggleVisibility(e.currentTarget)
 
@@ -128,7 +136,11 @@ $(() => {
     $.ajax({
       method: 'DELETE',
       url: '/sop/checklist/',
-      data: { id: parent_element.id, title: title }
+      data: {
+        id: parent_element.id,
+        title: title,
+        authenticity_token: _.escape($('meta[name=csrf-token]').attr('content'))
+       }
     }).done(response => {
       let $grid_tile = $('#isotope_container #' + response.id)
       if (_.isEmpty($grid_tile)) {
