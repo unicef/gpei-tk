@@ -37,23 +37,27 @@ $(() => {
       {
         inclusives.push(elem.value)
         let elem_value = elem.value.replace(/\./g,"").replace(/_/g," ")
-        checked_labels += `<div id="filter_output_label" class="ui label"><span id="${elem.value}">${elem_value} </span><i style="color:black;" class="fa fa-times" aria-hidden="true"></i></div>`
+        checked_labels += `<div id="filter_output_label" class="ui label"><span id="${elem.value}">${elem_value} </span><a href=''><i style="color:black;" class="fa fa-times" aria-hidden="true"></i></a></div>`
       }
     })
     $('#selected_filters_output').empty()
     $('#selected_filters_output').append(checked_labels)
+    $('#select_filter_dropdown_menu').height($('#selected_filters_output').height())
+    $('#sop_filter_clear_all').height($('#selected_filters_output').height())
     let filterValue = inclusives.length ? inclusives.join(', ') : '*'
     $container.isotope({ filter: filterValue })
     filterValue = filterValue === '*' ? '' : filterValue
     // $output.html("<li id=\"checklist_article\">" + filterValue + "</li>")
   }
 
-  $('#selected_filters_output').on('click', 'i', e => {
+  $('#selected_filters_output').on('click', 'a', e => {
+    e.preventDefault()
     let target_id = e.currentTarget.parentElement.children[0].id
     let target_query = `:input[value="${target_id}"]`
     let target_checkbox = $(target_query)
     target_checkbox.attr('checked', false)
     updateIsotope()
+    return false
   })
   function toggleVisibility(el) {
     if ($(el).css('visibility') == 'hidden' )
