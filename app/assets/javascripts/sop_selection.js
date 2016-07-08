@@ -20,6 +20,7 @@ $(() => {
 
     $('#selected_filters_output').empty()
     $container.isotope({ filter: '*' })
+    autoAdjustSopFilterHeights()
     return false
   })
 
@@ -27,6 +28,7 @@ $(() => {
   let $output = $('#sop_filter')
   $checkboxes.change(() => {
     updateIsotope()
+    autoAdjustSopFilterHeights()
   })
 
   function updateIsotope(){
@@ -42,12 +44,15 @@ $(() => {
     })
     $('#selected_filters_output').empty()
     $('#selected_filters_output').append(checked_labels)
-    $('#select_filter_dropdown_menu').height($('#selected_filters_output').height())
-    $('#sop_filter_clear_all').height($('#selected_filters_output').height())
     let filterValue = inclusives.length ? inclusives.join(', ') : '*'
     $container.isotope({ filter: filterValue })
     filterValue = filterValue === '*' ? '' : filterValue
     // $output.html("<li id=\"checklist_article\">" + filterValue + "</li>")
+  }
+
+  function autoAdjustSopFilterHeights() {
+    $('#select_filter_dropdown_menu').height($('#selected_filters_output').height())
+    $('#sop_filter_clear_all').height($('#selected_filters_output').height())
   }
 
   $('#selected_filters_output').on('click', 'a', e => {
@@ -57,6 +62,7 @@ $(() => {
     let target_checkbox = $(target_query)
     target_checkbox.attr('checked', false)
     updateIsotope()
+    autoAdjustSopFilterHeights()
     return false
   })
   function toggleVisibility(el) {
