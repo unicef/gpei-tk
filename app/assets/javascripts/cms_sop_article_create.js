@@ -36,7 +36,7 @@ $(() => {
     $.ajax({
       method: 'POST',
       url: 'cms/sop_articles/',
-      data: $('#CMS_sop_article_create_form').serialize() + "?&authenticity_token=" + escape($('meta[name=csrf-token]').attr('content'))
+      data: $('#CMS_sop_article_create_form').serialize() + "&authenticity_token=" + _.escape($('meta[name=csrf-token]').attr('content'))
     }).done(response => {
       $('#CMS_sop_articles_link').trigger('click')
       $('.ui.dimmer').dimmer('show')

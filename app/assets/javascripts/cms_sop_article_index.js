@@ -110,7 +110,7 @@ $(() => {
     $.ajax({
       method: 'PATCH',
       url: 'cms/sop_articles/' + e.currentTarget.parentElement.id,
-      data: $('#CMS_sop_article_form').serialize() + "?&authenticity_token=" + escape($('meta[name=csrf-token]').attr('content'))
+      data: $('#CMS_sop_article_form').serialize() + "&authenticity_token=" + _.escape($('meta[name=csrf-token]').attr('content'))
     }).done(response => {
       $('#CMS_sop_articles_link').trigger('click')
       $('.ui.dimmer').dimmer('show')

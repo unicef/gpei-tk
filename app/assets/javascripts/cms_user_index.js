@@ -1,4 +1,4 @@
-$(() => {
+  $(() => {
   $('#CMS_users_link').click(e => {
     e.preventDefault();
 
@@ -31,7 +31,7 @@ $(() => {
   $('#CMS_index_content').on('click', '#CMS_user_delete_user', e => {
     $.ajax({
       method: 'DELETE',
-      url: 'cms/users/' + e.currentTarget.parentElement.id + "?&authenticity_token=" + escape($('meta[name=csrf-token]').attr('content')),
+      url: 'cms/users/' + e.currentTarget.parentElement.id + "&authenticity_token=" + _.escape($('meta[name=csrf-token]').attr('content')),
       data: $(e.currentTarget).find('.ui.form').serialize()
     }).done(response => {
       let element = _.filter($('#CMS_users_table tr'), tr => {
@@ -100,7 +100,7 @@ $(() => {
       e.preventDefault();
       $.ajax({
         method: 'PATCH',
-        url: 'cms/users/' + $(e.currentTarget).find('form').attr('id') + "?&authenticity_token=" + escape($('meta[name=csrf-token]').attr('content')),
+        url: 'cms/users/' + $(e.currentTarget).find('form').attr('id') + "&authenticity_token=" + _.escape($('meta[name=csrf-token]').attr('content')),
         data: $(e.currentTarget).find('.ui.form').serialize()
       }).done(response => {
         $('.ui.modal').modal('hide')
