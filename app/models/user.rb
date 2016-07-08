@@ -6,4 +6,6 @@ class User < ActiveRecord::Base
   has_one :c4d_toolkit
   belongs_to :responsible_office
   belongs_to :role
+
+  validates_uniqueness_of :email
 end
