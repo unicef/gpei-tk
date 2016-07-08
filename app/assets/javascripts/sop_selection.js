@@ -14,8 +14,11 @@ $(() => {
   let $checkboxes = $('.sop_checkboxes input')
   $filter_clear.click(e => {
     e.preventDefault()
+
     for (let idx = 0; idx < $checkboxes.length; idx++)
       $checkboxes[idx].checked = false
+
+    $('#selected_filters_output').empty()
     $container.isotope({ filter: '*' })
     return false
   })
