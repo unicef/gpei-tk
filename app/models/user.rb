@@ -8,4 +8,13 @@ class User < ActiveRecord::Base
   belongs_to :role
 
   validates_uniqueness_of :email
+
+  def is_admin?
+    self.role.title == 'Administrator' || self.role.title == 'root'
+  end
+
+  def is_editor?
+    self.role.title == 'Editor'
+  end
+
 end
