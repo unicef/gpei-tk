@@ -1,4 +1,3 @@
-# encoding: utf-8
 puts 'seeding database...'
 
 Role.create(title: 'root')
