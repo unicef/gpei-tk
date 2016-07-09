@@ -1,51 +1,60 @@
 class Cms::UsersController < ApplicationController
   def index
-    if request.xhr?
-      columns = User.attribute_names - ['password_digest']
-      users = User.all.select(columns)
-      roles = Role.all
-      render json: { users: users, roles: roles, status: 'success' }
+    if current_user.is_admin?
+      if request.xhr?
+        columns = User.attribute_names - ['password_digest']
+        root = Role.find_by(title: 'root')
+        users = User.all.select(columns).where.not('role_id = ? OR is_deleted = ?', root.id, true)
+        roles = Role.all
+        render json: { users: users, roles: roles, status: 'success' }
+      end
     end
   end
 
   def update
-    if request.xhr?
-      # if user is a privledged user
-      if User.find(params[:id]).update(safe_update_params)
-        user = User.find(params[:id])
-        role = User.find(params[:id]).role
-        render json: { status: 'success', role: role, id: user.id }
+    if current_user.is_admin?
+      if request.xhr?
+        user = User.find_by(id: params['id'])
+        if user.update(safe_update_params)
+          render json: { status: 'success', role: user.role, id: params['id'] }
+        end
       end
     end
   end
 
   def create
-    if request.xhr?
-      user = User.new(safe_create_params)
-      user.password = 'temporary'
-      if user.save
-        role = User.find(user.id).role
-        user = { id: user.id, first_name: user.first_name, last_name: user.last_name, email: user.email }
-        render json: { status: 'success', user: user, role: role }
+    if current_user.is_admin?
+      if request.xhr?
+        @user = User.new(safe_create_params)
+        if @user.save
+          SopChecklist.create(user_id: @user.id)
+          C4dToolkit.create(user_id: @user.id)
+          user = { id: @user.id, first_name: @user.first_name, last_name: @user.last_name, email: @user.email }
+          render json: { status: 'success', user: user, role: @user.role }
+        end
       end
     end
   end
 
   def destroy
-    if request.xhr?
-      begin
-        User.find(params[:id]).destroy
-        render json: { status: 'success', id: params[:id] }
-      rescue Exception => e
-        puts e.message
+    if current_user.is_admin?
+      if request.xhr?
+        user = User.find_by(id: params[:id])
+        user.is_deleted = true
+        if user.save
+          render json: { status: 'success', id: params[:id] }
+        end
       end
     end
   end
+
+  private
+
   def safe_create_params
-    params.permit(:first_name, :last_name, :email, :role_id)
+    params.require(:user).permit(:first_name, :last_name, :password, :country, :responsible_office_id, :organization, :email, :role_id)
   end
 
   def safe_update_params
-    params.permit(:first_name, :last_name, :email, :role_id)
+    params.require(:user).permit(:first_name, :last_name, :email, :role_id)
   end
 end
