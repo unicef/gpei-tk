@@ -1,15 +1,8 @@
 <%= render 'dashboard/nav' %>
-<!-- <div class='row' style='color: black;'>
-<#% @c4d_categories.each_with_index do |category, index| %>
-  <div id='c4d_show_categories' class='col-md-3 text-center' style="background-color: <#%= category.color %>;">
-    <#%= index + 1 %>. <#%= category.title %>
-  </div>
-<#% end %>
-</div> -->
 <% if @c4d_article %>
 <div class='col-md-3' style='border: 2px white solid'>
   <div id="c4d_article_logo_row" class='row' style="background-color: <%=  @c4d_article.c4d_subcategory.color %>;">
-    <%= link_to c4d_selection_path do %>
+    <%= link_to c4d_path do %>
     <div style="position:absolute;top:5px;left:5px;color:white;z-index=10"><span>close</span><i class="fa fa-remove" aria-hidden="true"></i></div>
     <% end %>
 
