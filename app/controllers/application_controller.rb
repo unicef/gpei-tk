@@ -4,7 +4,6 @@ class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
 
   def current_user
-    current_user ||= User.find_by(id: 1)
-    # @current_user ||= User.find_by(id: session[:id]) if session[:uid]
+    @current_user ||= User.find_by(id: session[:id]) if session[:uuid]
   end
 end
