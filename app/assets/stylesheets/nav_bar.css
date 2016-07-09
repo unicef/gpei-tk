@@ -20,3 +20,30 @@
   color: white;
   background-color:black;
 }
+#nav_user_sign_in {
+  font-size:95%;
+}
+#user_account_modal {
+  position:absolute;
+  top:1%;
+}
+.ui.dropdown.user_dropdowns {
+  width: auto;
+  min-width: 0;
+}
+.ui.form .input_fields {
+  width:20%;
+}
+#user_create_form_first_column {
+  margin-bottom: 30px
+}
+#sign_in_submit_button {
+  margin-bottom: 20px;
+  margin-top: 20px;
+}
+#sign_in_error_message, #register_user_text {
+  color:black;
+}
+#nav_user_register {
+  color:#ADD8E6;
+}
