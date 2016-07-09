@@ -61,17 +61,6 @@ a .c4d_category_outer_container {
 .Tools_color {
   background-color: #009DA4;
 }
-.button.is-checked {
-  background-color: #FFFFFF;
-}
-.c4d_grid_article_icon img {
-  position:absolute;
-  bottom:51%;
-}
-.c4d_grid_item_article_title {
-  position:absolute;
-  bottom:40%;
-}
 .GPEI_home_page {
   position:relative;
   width:100%;
@@ -238,50 +227,12 @@ body, button, input, select, textarea {
   color: #222;
 }
 /*c4d_isotope styles*/
-.c4d-filters-button-group {
-  padding-bottom: 1px;
-}
-.button-group:after {
+/*.c4d_category_grid:after {
   content: '';
   display: block;
   clear: both;
 }
-.c4d-filters-button-group button {
-  width:100%;
-  height: 50px;
-}
-#c4d_category_grid {
-
-}
-.c4d_category_grid:after {
-  content: '';
-  display: block;
-  clear: both;
-}
-.c4d_grid_item {
-  position: relative;
-  float: left;
-  width: 20%;
-  border: 1px solid white;
-  height: 275px;
-  color: white;
-}
-.c4d_grid_item > * {
-  margin: 0;
-  padding: 0;
-}
-.c4d_grid_item .c4d_grid_item_subcategory {
-  position: absolute;
-  width:100%;
-  left: -8%;
-  top:-9%;
-}
-.c4d_grid_item_content {
-  height: 100%;
-  position: absolute;
-  top:20%;
-  left:27%;
-}
+*/
 /*isotope styles*/
 
 
