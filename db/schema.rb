@@ -191,6 +191,7 @@ ActiveRecord::Schema.define(version: 20160608142244) do
     t.string   "organization",                          null: false
     t.integer  "role_id",                               null: false
     t.integer  "responsible_office_id",                 null: false
+    t.boolean  "is_deleted",            default: false, null: false
     t.boolean  "TOS_accepted",          default: false, null: false
     t.datetime "created_at",                            null: false
     t.datetime "updated_at",                            null: false

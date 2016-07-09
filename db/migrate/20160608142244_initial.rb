@@ -9,6 +9,7 @@ class Initial < ActiveRecord::Migration
       t.string :organization, null: false
       t.integer :role_id, null: false
       t.integer :responsible_office_id, null: false
+      t.boolean :is_deleted, null: false, default: false
       t.boolean :TOS_accepted, null: false, default: false
       t.timestamps null: false
     end
@@ -38,6 +39,7 @@ class Initial < ActiveRecord::Migration
       t.integer :order_id, null: false, unique: true
       t.boolean :published, null: false, default: false
       t.integer :author_id, null: false
+      t.index :order_id
       t.timestamps null: false
     end
 
@@ -55,6 +57,7 @@ class Initial < ActiveRecord::Migration
       t.integer :order_id, null: false, unique: true
       t.boolean :published, null: false, default: false
       t.integer :author_id, null: false
+      t.index :order_id
       t.timestamps null: false
     end
 
