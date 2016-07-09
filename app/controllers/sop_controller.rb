@@ -5,6 +5,6 @@ class SopController < ApplicationController
     @sop_categories = SopCategory.all
     @responsible_offices = ResponsibleOffice.all
     @sop_articles = SopArticle.all
-    @user = User.all.first
+    @user = current_user
   end
 end

@@ -4,7 +4,7 @@ class C4dArticlesController < ApplicationController
   end
 
   def show
-    @user = User.all.first
+    @user = current_user
     @img_name = 'C4D'
     if params['id'].nil?
       @c4d_article = C4dArticle.where(title: params['title']).first

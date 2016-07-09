@@ -4,7 +4,7 @@ class SopArticlesController < ApplicationController
   end
 
   def show
-    @user = User.all.first
+    @user = current_user
     @img_name = 'SOP'
     if params['id'].nil?
       @sop_article = SopArticle.where(title: params['title']).first
