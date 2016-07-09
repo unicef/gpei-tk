@@ -3,17 +3,35 @@ $(() => {
     e.preventDefault();
     $.ajax({
       method: 'GET',
-      url: 'cms/sop_articles/'
+      url: '/cms/sop_articles/'
     }).done(response => {
       $('#CMS_index_content').empty()
       appendSopArticleTableHeader()
       appendSopArticleRows(response.sop_articles, response.users)
+      $('#CMS_index_content .ui.floating.dropdown.icon.button').dropdown({
+        action: 'hide',
+        transition: 'drop'
+      })
     })
   })
+  $('#CMS_index_content').on('click', '#CMS_sop_toggle_published', e => {
+    let id = e.currentTarget.parentElement.id
+    $.ajax({
+      method: 'PATCH',
+      url: '/cms/sop_articles/publish/' + id,
+      data: { authenticity_token: _.escape($('meta[name=csrf-token]').attr('content')) }
+    }).done(response => {
+      $('#CMS_sop_articles_link').trigger('click')
+      $('.ui.dimmer').dimmer('show')
+      _.delay(() => {
+        $('.ui.dimmer').dimmer('hide')
+      }, 3000, 'later');
 
+    })
+  })
   function getUserActionDropdown(id){
     return (
-      '<div class="ui buttons"><div id="CMS_actions_dropdown" class="ui button">Actions</div><div class="ui floating dropdown icon button"><i class="dropdown icon"></i><div class="menu"><div id="' + id + '" class="item"><span id="CMS_user_assign_role">Assign Roles</span></div><div id="' + id + '" class="item"><span id="CMS_user_delete_user">Delete User</span></div></div></div>'
+      '<div class="ui buttons"><div id="CMS_actions_dropdown" class="ui button">Actions</div><div class="ui floating dropdown icon button"><i class="dropdown icon"></i><div class="menu"><div id="' + id + '" class="item"><span id="CMS_sop_toggle_published">Toggle published</span></div></div></div>'
     );
   }
 
@@ -37,12 +55,12 @@ $(() => {
     e.preventDefault()
     $.ajax({
       method: 'GET',
-      url: 'cms/sop_articles/' + e.currentTarget.id
+      url: '/cms/sop_articles/' + e.currentTarget.id
     }).done(response => {
       $('#CMS_index_content').empty()
       let content = getCMSSopArticleContent(response.sop_article, response.sop_times, response.sop_categories, response.responsible_offices, response.support_affiliations)
       $('#CMS_index_content').append(content)
-      initSample()
+      initializeCKEditor()
       $('#editor').val(response.sop_article.content)
     })
   })
@@ -56,13 +74,21 @@ $(() => {
           <input type="text" name="article[cms_title]" placeholder="${article.cms_title}" value="${article.cms_title}" required>
         </div>
         ${getSopTimeDropdown("Time", "sop_time_id", sop_times, article.sop_time_id)}
-        ${getDropdown("Category", "sop_category_id", sop_categories, article.sop_category_id)}
+        ${getDropdown("Category", "sop_category_id", sop_categories, article.sop_category_id, true)}
         <div class="field">
           <label>Title</label>
           <input type="text" name="article[title]" placeholder="Title" value="${article.title}" required>
         </div>
-        ${getDropdown("Responsible", "responsible_office_id", responsible_offices, article.responsible_office_id)}
-        ${getDropdown("Support", "support_affiliation_id", support_affiliations, article.support_affiliation_id)}
+        <div class="field">
+          <label>Responsible</label>
+          <input type="text" name="article[responsible]" placeholder="Responsible" value="${article.responsible}" required>
+        </div>
+        <div class="field">
+          <label>Support</label>
+          <input type="text" name="article[support]" placeholder="Support" value="${article.support}" required>
+        </div>
+        ${getDropdown("Responsible", "responsible_office_id", responsible_offices, article.responsible_office_id, false)}
+        ${getDropdown("Support", "support_affiliation_id", support_affiliations, article.support_affiliation_id, false)}
         <div class="field">
           <label>Content</label>
           <textarea name="article[content]" id="editor" required></textarea>
@@ -109,7 +135,7 @@ $(() => {
     e.preventDefault()
     $.ajax({
       method: 'PATCH',
-      url: 'cms/sop_articles/' + e.currentTarget.parentElement.id,
+      url: '/cms/sop_articles/' + e.currentTarget.parentElement.id,
       data: $('#CMS_sop_article_form').serialize() + "&authenticity_token=" + _.escape($('meta[name=csrf-token]').attr('content'))
     }).done(response => {
       $('#CMS_sop_articles_link').trigger('click')
@@ -117,15 +143,14 @@ $(() => {
       _.delay(() => {
         $('.ui.dimmer').dimmer('hide')
       }, 3000, 'later');
-
     })
   })
 
-  function getDropdown(label, option_name, objects, id){
+  function getDropdown(label, option_name, objects, id, is_required){
     return (`
       <div class="field">
         <label>${label}</label>
-        <select name="article[${option_name}]" class="ui dropdown cms_dropdown_select" required>
+        <select name="article[${option_name}]" class="ui dropdown cms_dropdown_select" ${is_required ? 'required' : ''}>
           <option value="">Select Office</option>
           ${_.map(objects, object => {
             selected = object.id === id ? 'selected' : ''
@@ -144,7 +169,7 @@ $(() => {
   CKEDITOR.config.height = 150;
   CKEDITOR.config.width = 'auto';
 
-  var initSample = (function() {
+  var initializeCKEditor = (function() {
     var wysiwygareaAvailable = isWysiwygareaAvailable(),
       isBBCodeBuiltIn = !!CKEDITOR.plugins.get( 'bbcode' );
     return function() {

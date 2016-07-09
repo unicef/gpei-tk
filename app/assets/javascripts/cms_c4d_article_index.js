@@ -8,6 +8,10 @@ $(() => {
       $('#CMS_index_content').empty()
       appendC4dArticleTableHeader()
       appendC4dArticleRows(response.c4d_articles, response.users)
+      $('#CMS_index_content .ui.floating.dropdown.icon.button').dropdown({
+        action: 'hide',
+        transition: 'drop'
+      })
     })
   })
 
@@ -36,7 +40,7 @@ $(() => {
       $('#CMS_index_content').empty()
       let content = getCMSC4dArticleContent(response.c4d_article, response.c4d_subcategories, response.c4d_categories)
       $('#CMS_index_content').append(content)
-      initSample()
+      initializeCKEditor()
       $('#editor').val(response.c4d_article.content)
     })
   })
@@ -78,9 +82,25 @@ $(() => {
       action: 'hide'
     });
 
+  $('#CMS_index_content').on('click', '#CMS_c4d_toggle_published', e => {
+    let id = e.currentTarget.parentElement.id
+    $.ajax({
+      method: 'PATCH',
+      url: '/cms/c4d_articles/publish/' + id,
+      data: { authenticity_token: _.escape($('meta[name=csrf-token]').attr('content')) }
+    }).done(response => {
+      $('#CMS_c4d_articles_link').trigger('click')
+      $('.ui.dimmer').dimmer('show')
+      _.delay(() => {
+        $('.ui.dimmer').dimmer('hide')
+      }, 3000, 'later');
+
+    })
+  })
+
   function getUserActionDropdown(id){
     return (
-      '<div class="ui buttons"><div id="CMS_actions_dropdown" class="ui button">Actions</div><div class="ui floating dropdown icon button"><i class="dropdown icon"></i><div class="menu"><div id="' + id + '" class="item"><span id="CMS_user_assign_role">Assign Roles</span></div><div id="' + id + '" class="item"><span id="CMS_user_delete_user">Delete User</span></div></div></div>'
+      '<div class="ui buttons"><div id="CMS_actions_dropdown" class="ui button">Actions</div><div class="ui floating dropdown icon button"><i class="dropdown icon"></i><div class="menu"><div id="' + id + '" class="item"><span id="CMS_c4d_toggle_published">Toggle published</span></div></div></div>'
     );
   }
 
@@ -118,10 +138,10 @@ $(() => {
 
   // The trick to keep the editor in the sample quite small
   // unless user specified own height.
-  CKEDITOR.config.height = 150;
+  CKEDITOR.config.height = 300;
   CKEDITOR.config.width = 'auto';
 
-  var initSample = (function() {
+  var initializeCKEditor = (function() {
     var wysiwygareaAvailable = isWysiwygareaAvailable(),
       isBBCodeBuiltIn = !!CKEDITOR.plugins.get( 'bbcode' );
     return function() {

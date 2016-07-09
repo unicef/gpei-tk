@@ -15,7 +15,7 @@ $(() => {
         $('#CMS_index_content').empty()
         let content = getEmptyC4dArticleForm(c4d_subcategories, c4d_categories)
         $('#CMS_index_content').append(content)
-        initSample();
+        initializeCKEditor();
       })
     })
   })
@@ -81,10 +81,10 @@ $(() => {
 
   // The trick to keep the editor in the sample quite small
   // unless user specified own height.
-  CKEDITOR.config.height = 150;
+  CKEDITOR.config.height = 300;
   CKEDITOR.config.width = 'auto';
 
-  var initSample = (function() {
+  var initializeCKEditor = (function() {
     var wysiwygareaAvailable = isWysiwygareaAvailable(),
       isBBCodeBuiltIn = !!CKEDITOR.plugins.get( 'bbcode' );
     return function() {

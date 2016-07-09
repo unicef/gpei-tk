@@ -4,28 +4,28 @@ $(() => {
     let sop_categories, sop_times, responsible_offices
     $.ajax({
       method: 'GET',
-      url: 'api/sop_categories/'
+      url: '/api/sop_categories/'
     }).done(response => {
       let sop_categories = response.sop_categories
       $.ajax({
         method: 'GET',
-        url: 'api/sop_times/'
+        url: '/api/sop_times/'
       }).done(response => {
         let sop_times = response.sop_times
         $.ajax({
           method: 'GET',
-          url: 'api/responsible_offices/'
+          url: '/api/responsible_offices/'
         }).done(response => {
           let responsible_offices = response.responsible_offices
           $.ajax({
             method: 'GET',
-            url: 'api/support_affiliations/'
+            url: '/api/support_affiliations/'
           }).done(response => {
             let support_affiliations = response.support_affiliations
-            $('#CMS_index_content').empty();
-            let content = getEmptySopArticleForm(sop_times, sop_categories, responsible_offices, support_affiliations);
-            $('#CMS_index_content').append(content);
-            initSample();
+            $('#CMS_index_content').empty()
+            let content = getEmptySopArticleForm(sop_times, sop_categories, responsible_offices, support_affiliations)
+            $('#CMS_index_content').append(content)
+            initializeCKEditor()
           })
         })
       })
@@ -59,6 +59,14 @@ $(() => {
         <div class="field">
           <label>Title</label>
           <input type="text" name="article[title]" placeholder="Title" value="" required>
+        </div>
+        <div class="field">
+          <label>Responsible</label>
+          <input type="text" name="article[responsible]" placeholder="Responsible" value="" required>
+        </div>
+        <div class="field">
+          <label>Support</label>
+          <input type="text" name="article[support]" placeholder="Support" value="" required>
         </div>
         ${getDropdown("Responsible", "responsible_office_id", responsible_offices)}
         ${getDropdown("Support", "support_affiliation_id", support_affiliations)}
@@ -116,7 +124,7 @@ $(() => {
   CKEDITOR.config.height = 150;
   CKEDITOR.config.width = 'auto';
 
-  var initSample = (function() {
+  var initializeCKEditor = (function() {
     var wysiwygareaAvailable = isWysiwygareaAvailable(),
       isBBCodeBuiltIn = !!CKEDITOR.plugins.get( 'bbcode' );
     return function() {
