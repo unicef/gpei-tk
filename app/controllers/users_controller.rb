@@ -10,6 +10,8 @@ class UsersController < ApplicationController
     @user = User.new(safe_user_params)
     @user.role = Role.find_by(title: 'Member')
     if @user.save
+      SopChecklist.create(user_id: @user.id)
+      C4dToolkit.create(user_id: @user.id)
       session[:uuid] = SecureRandom.base64
       session[:id] = @user.id
       current_time = Time.current
