@@ -41,6 +41,9 @@
   margin-top:2%;
   margin-bottom:2%;
 }
+#cms_user_create_submit_button {
+  margin-bottom: 10px;
+}
 #CMS_modal {
   position:relative;
   top:50%;
@@ -49,4 +52,15 @@
   height:100%;
   width:100%;
   display:block;
+}
+.ui.negative.message {
+  width:40%;
+}
+#modal_error_message_close {
+  position:absolute;
+  top:10px;
+  right:10px;
+}
+#editor {
+
 }
