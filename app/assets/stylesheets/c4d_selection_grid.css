@@ -1,0 +1,45 @@
+.button-group:after {
+  content: '';
+  display: block;
+  clear: both;
+}
+.button-group.c4d-filters-button-group .col-md-3 {
+  padding-top: 0;
+  padding-bottom: 0;
+  padding-right: 1px;
+  padding-left: 1px;
+}
+.button-group.c4d-filters-button-group {
+  border-top: 2px white solid;
+}
+.c4d-filters-button-group {
+  padding-bottom: 1px;
+}
+.c4d-filters-button-group button {
+  width:100%;
+  height: 50px;
+  background-color: transparent;
+}
+.c4d_grid_item {
+  width: 20%;
+  border: 1px solid white;
+  height: 220px;
+  color: white;
+}
+.c4d_grid_item_subcategory,
+.c4d_grid_item_article_title {
+  margin-left:5%;
+  margin-right:5%;
+}
+.c4d_grid_item_subcategory {
+  font-size:120%;
+}
+.c4d_grid_article_icon {
+  float: right;
+  position: absolute;
+  right: 5%;
+  bottom: 5%;
+}
+.c4d_grid_item_content {
+  margin-top:5%;
+}
