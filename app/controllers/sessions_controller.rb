@@ -9,12 +9,14 @@ class SessionsController < ApplicationController
       session[:last_seen] = current_time
       render :js => "window.location = '/'"
     else
-      render json: { status: 'fail', error: 'Please re-enter your email or password and try again.' }
+      render json: { status: 403, error: 'Please re-enter your email or password and try again.' }
     end
   end
 
   def destroy
-    session.clear
-    render :js => "window.location = '/'"
+    if session
+      session.clear
+      render :js => "window.location = '/'"
+    end
   end
 end
