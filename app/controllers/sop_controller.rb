@@ -4,7 +4,7 @@ class SopController < ApplicationController
     @sop_times = SopTime.all
     @sop_categories = SopCategory.all
     @responsible_offices = ResponsibleOffice.all
-    @sop_articles = SopArticle.all
+    @sop_articles = SopArticle.where(published: true)
     @user = current_user
   end
 end
