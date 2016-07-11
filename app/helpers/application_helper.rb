@@ -5,33 +5,42 @@ module ApplicationHelper
 
   def style_visible icon, user, article
     if icon == 'add'
-      user.sop_checklist.sop_articles.each do |check_list_article|
-        if check_list_article.title == article.title
-          return 'visibility:hidden'
+      if user
+        user.sop_checklist.sop_articles.each do |check_list_article|
+          if check_list_article.title == article.title
+            return 'visibility:hidden'
+          end
         end
       end
       return 'visibility:visible'
     else
-      user.sop_checklist.sop_articles.each do |check_list_article|
-        if check_list_article.title == article.title
-          return 'visibility:visible'
+      if user
+        user.sop_checklist.sop_articles.each do |check_list_article|
+          if check_list_article.title == article.title
+            return 'visibility:visible'
+          end
         end
       end
       return 'visibility:hidden'
     end
   end
+
   def c4d_style_visible icon, user, article
     if icon == 'add'
-      user.c4d_toolkit.c4d_articles.each do |check_list_article|
-        if check_list_article.title == article.title
-          return 'visibility:hidden'
+      if user
+        user.c4d_toolkit.c4d_articles.each do |check_list_article|
+          if check_list_article.title == article.title
+            return 'visibility:hidden'
+          end
         end
       end
       return 'visibility:visible'
     else
-      user.c4d_toolkit.c4d_articles.each do |check_list_article|
-        if check_list_article.title == article.title
-          return 'visibility:visible'
+      if user
+        user.c4d_toolkit.c4d_articles.each do |check_list_article|
+          if check_list_article.title == article.title
+            return 'visibility:visible'
+          end
         end
       end
       return 'visibility:hidden'
@@ -48,7 +57,7 @@ module ApplicationHelper
   end
 
   def get_color_for_sop_time article_time
-    special_categories = ['14 Days-Close']
+    special_categories = ['14 Days to Close']
     if special_categories.include?(article_time)
       return 'black'
     else
