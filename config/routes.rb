@@ -19,10 +19,10 @@ Rails.application.routes.draw do
     resources :users, only: [:index, :update, :create, :destroy]
     resources :sop_articles, only: [:index, :update, :show, :create]
     resources :c4d_articles, only: [:index, :update, :show, :create]
-    resources :c4d_reference_links, only: [:show]
     patch '/sop_articles/publish/:id', to: 'sop_articles#publish', as: :sop_article_publish
     patch '/c4d_articles/publish/:id', to: 'c4d_articles#publish', as: :c4d_article_publish
-    resources :sop_reference_links, only: [:show]
+    resources :reference_links, only: [:index, :show]
+    resources :template_links, only: [:index, :show]
   end
 
   namespace :api, defaults: { format: :json } do
