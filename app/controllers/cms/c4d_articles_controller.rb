@@ -2,7 +2,7 @@ class Cms::C4dArticlesController < ApplicationController
   def index
     if current_user.is_admin? || current_user.is_editor?
       if request.xhr?
-        c4d_articles = C4dArticle.all
+        c4d_articles = C4dArticle.all.order(:order_id)
         users = {}
         User.all.each { |user| users[user.id] = user }
         render json: { c4d_articles: c4d_articles, users: users, status: 200 }
@@ -11,6 +11,7 @@ class Cms::C4dArticlesController < ApplicationController
   end
 
   def create
+    binding.pry
     if current_user.is_admin? || current_user.is_editor?
       if request.xhr?
         c4d_article = C4dArticle.new(safe_article_params)
