@@ -80,12 +80,12 @@ $(() => {
           <input type="text" name="article[video_url]" value="">
         </div>
         <div class="field">
-          <label>Template Links</label>
-          <input type="text" name="template_links" value="">
+          <label>Template Links<a id="add_template_link_input"  href=''><i class="fa fa-plus" aria-hidden="true"></i></a></label>
+          <input class="template_link_file" type="file" name="template_links" value="">
         </div>
         <div class="field">
-          <label>Reference Links</label>
-          <input type="text" name="reference_links" value="">
+          <label>Reference Links<a id="add_reference_link_input"  href=''><i class="fa fa-plus" aria-hidden="true"></i></a></label>
+          <input class="reference_link_file" type="file" name="reference_links" value="">
         </div>
         <button class="ui button" type="submit">Submit</button>
       </form>
