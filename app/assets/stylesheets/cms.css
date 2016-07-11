@@ -61,6 +61,11 @@
   top:10px;
   right:10px;
 }
-#editor {
-
+#add_template_link_input {
+  position:absolute;
+  left:30%;
+}
+#add_reference_link_input {
+  position:absolute;
+  left:30%;
 }
