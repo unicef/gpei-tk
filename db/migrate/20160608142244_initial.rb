@@ -116,47 +116,15 @@ class Initial < ActiveRecord::Migration
       t.timestamps null: false
     end
 
-    create_table :sop_reference_links do |t|
-      t.integer :file_name
+    create_table :reference_links do |t|
+      t.integer :file_name, null: false
+      t.references :reference_linkable, polymorphic: true
       t.timestamps null: false
     end
 
-    create_table :sop_template_links do |t|
-      t.integer :file_name
-      t.timestamps null: false
-    end
-
-    create_table :sop_article_sop_reference_links do |t|
-      t.integer :sop_reference_link_id
-      t.integer :sop_article_id
-      t.timestamps null: false
-    end
-
-    create_table :sop_article_sop_template_links do |t|
-      t.integer :sop_template_link_id
-      t.integer :sop_article_id
-      t.timestamps null: false
-    end
-
-    create_table :c4d_reference_links do |t|
-      t.integer :file_name
-      t.timestamps null: false
-    end
-
-    create_table :c4d_template_links do |t|
-      t.integer :file_name
-      t.timestamps null: false
-    end
-
-    create_table :c4d_article_c4d_reference_links do |t|
-      t.integer :c4d_reference_link_id
-      t.integer :c4d_article_id
-      t.timestamps null: false
-    end
-
-    create_table :c4d_article_c4d_template_links do |t|
-      t.integer :c4d_template_link_id
-      t.integer :c4d_article_id
+    create_table :template_links do |t|
+      t.integer :file_name, null: false
+      t.references :template_linkable, polymorphic: true
       t.timestamps null: false
     end
   end

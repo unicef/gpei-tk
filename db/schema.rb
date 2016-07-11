@@ -16,20 +16,6 @@ ActiveRecord::Schema.define(version: 20160608142244) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
-  create_table "c4d_article_c4d_reference_links", force: :cascade do |t|
-    t.integer  "c4d_reference_link_id"
-    t.integer  "c4d_article_id"
-    t.datetime "created_at",            null: false
-    t.datetime "updated_at",            null: false
-  end
-
-  create_table "c4d_article_c4d_template_links", force: :cascade do |t|
-    t.integer  "c4d_template_link_id"
-    t.integer  "c4d_article_id"
-    t.datetime "created_at",           null: false
-    t.datetime "updated_at",           null: false
-  end
-
   create_table "c4d_articles", force: :cascade do |t|
     t.string   "cms_title",                          null: false
     t.string   "title",                              null: false
@@ -44,6 +30,8 @@ ActiveRecord::Schema.define(version: 20160608142244) do
     t.datetime "updated_at",                         null: false
   end
 
+  add_index "c4d_articles", ["order_id"], name: "index_c4d_articles_on_order_id", using: :btree
+
   create_table "c4d_categories", force: :cascade do |t|
     t.string   "title",       null: false
     t.string   "color",       null: false
@@ -52,24 +40,12 @@ ActiveRecord::Schema.define(version: 20160608142244) do
     t.datetime "updated_at",  null: false
   end
 
-  create_table "c4d_reference_links", force: :cascade do |t|
-    t.integer  "file_name"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
   create_table "c4d_subcategories", force: :cascade do |t|
     t.string   "title",           null: false
     t.string   "color",           null: false
     t.integer  "c4d_category_id"
     t.datetime "created_at",      null: false
     t.datetime "updated_at",      null: false
-  end
-
-  create_table "c4d_template_links", force: :cascade do |t|
-    t.integer  "file_name"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
   end
 
   create_table "c4d_toolkit_c4d_articles", force: :cascade do |t|
@@ -85,6 +61,14 @@ ActiveRecord::Schema.define(version: 20160608142244) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "reference_links", force: :cascade do |t|
+    t.integer  "file_name",               null: false
+    t.integer  "reference_linkable_id"
+    t.string   "reference_linkable_type"
+    t.datetime "created_at",              null: false
+    t.datetime "updated_at",              null: false
+  end
+
   create_table "responsible_offices", force: :cascade do |t|
     t.string   "title",      null: false
     t.datetime "created_at", null: false
@@ -95,20 +79,6 @@ ActiveRecord::Schema.define(version: 20160608142244) do
     t.string   "title",      null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-  end
-
-  create_table "sop_article_sop_reference_links", force: :cascade do |t|
-    t.integer  "sop_reference_link_id"
-    t.integer  "sop_article_id"
-    t.datetime "created_at",            null: false
-    t.datetime "updated_at",            null: false
-  end
-
-  create_table "sop_article_sop_template_links", force: :cascade do |t|
-    t.integer  "sop_template_link_id"
-    t.integer  "sop_article_id"
-    t.datetime "created_at",           null: false
-    t.datetime "updated_at",           null: false
   end
 
   create_table "sop_articles", force: :cascade do |t|
@@ -128,6 +98,8 @@ ActiveRecord::Schema.define(version: 20160608142244) do
     t.datetime "created_at",                             null: false
     t.datetime "updated_at",                             null: false
   end
+
+  add_index "sop_articles", ["order_id"], name: "index_sop_articles_on_order_id", using: :btree
 
   create_table "sop_categories", force: :cascade do |t|
     t.string   "title",      null: false
@@ -157,18 +129,6 @@ ActiveRecord::Schema.define(version: 20160608142244) do
     t.datetime "updated_at",      null: false
   end
 
-  create_table "sop_reference_links", force: :cascade do |t|
-    t.integer  "file_name"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
-  create_table "sop_template_links", force: :cascade do |t|
-    t.integer  "file_name"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
   create_table "sop_times", force: :cascade do |t|
     t.string   "period"
     t.string   "color"
@@ -180,6 +140,14 @@ ActiveRecord::Schema.define(version: 20160608142244) do
     t.string   "title",      null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "template_links", force: :cascade do |t|
+    t.integer  "file_name",              null: false
+    t.integer  "template_linkable_id"
+    t.string   "template_linkable_type"
+    t.datetime "created_at",             null: false
+    t.datetime "updated_at",             null: false
   end
 
   create_table "users", force: :cascade do |t|
