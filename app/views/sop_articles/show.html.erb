@@ -17,7 +17,7 @@
       <li><strong style='font-size:125%;position:absolute;left:-100%;margin-top:10px;color:<%= get_color_for_sop_time(@sop_article.sop_time.period) %>;'><%= @sop_article.title.capitalize %></strong></li>
     </ul>
   </div>
-  <% if !@sop_article.sop_reference_links.empty? %>
+  <% if !@sop_article.reference_links.empty? %>
   <div class='row'>
     <div id='sop_show_references'>
       <ul class='list-unstyled' style='color: black;'>
@@ -35,7 +35,7 @@
 <div class='col-md-9' style='border: 2px white solid'>
   <div class='row'>
     <div id='sop_article_show'>
-     <%= @sop_article.content %>
+     <%= @sop_article.content.html_safe %>
     </div>
   </div>
   <div class='row'>

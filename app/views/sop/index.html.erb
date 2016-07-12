@@ -50,17 +50,19 @@
 <div class='row text-center'>
   <div id='isotope_container'>
     <% @sop_articles.each do |article| %>
+      <% if article.responsible_office_id.nil? %>
+      <% binding.pry %>
+      <% end %>
+      <% if article.sop_time.nil? %>
+      <% binding.pry %>
+      <% end %>
       <%= link_to sop_article_path(article) do %>
         <div id="<%= article.id %>" class="<%= build_classes({grid_item: 'grid_item', time: article.sop_time.period.gsub(' ', '_'), offices: article.responsible_office.title.gsub(' ', '_'), category: article.sop_category.title.gsub(' ', '_')}) %>"
           style=<%='background-color:' + article.sop_time.color + ';' %>>
           <div class='sop_grid_content'>
-          <% color = 'white' %>
-          <% if article.sop_time.period == '14 Days to Close' %>
-            <% color = 'black' %>
-          <% end %>
-          <p id='grid_item_time_period' style="color:<%= color %>;"><strong><%= article.sop_time.period.upcase %></strong><span id="<%= article.id %>"></span></p>
+          <p id='grid_item_time_period' style="color:<%= get_color_for_sop_time(article.sop_time.period) %>;"><strong><%= article.sop_time.period.upcase %></strong><span id="<%= article.id %>"></span></p>
           <p id='grid_item_icon'><%= image_tag "sop/icons/#{article.sop_icon.title}.png", width:'40%', height:'40%', class: 'image-responsive', alt: "" %></p>
-          <p id='grid_item_article_title' style="color:<%= color %>;"><%= article.title %></p>
+          <p id='grid_item_article_title' style="color:<%= get_color_for_sop_time(article.sop_time.period) %>;"><%= article.title %></p>
           </div>
           <a class='grid_add' href='' style="<%= style_visible('add', @user, article) %>;"><i class="fa fa-plus" aria-hidden="true"></i></a>
           <a class='grid_check' href='' style="<%= style_visible('check', @user, article) %>;"><i class="fa fa-check" aria-hidden="true"></i></a>
