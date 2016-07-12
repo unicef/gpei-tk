@@ -7,12 +7,13 @@ class SopArticlesController < ApplicationController
     @user = current_user
     @img_name = 'SOP'
     if params['id'].nil?
-      @sop_article = SopArticle.where(title: params['title']).first
+      @sop_article = SopArticle.find_by(title: params['title'])
     else
-      @sop_article = SopArticle.where(id: params['id']).first
+      @sop_article = SopArticle.find_by(id: params['id'])
     end
-    if !SopArticle.last.nil?
-      @sop_article_last_index = SopArticle.last.id
+    last_article = SopArticle.order(:id).last
+    if !last_article.nil?
+      @sop_article_last_index = last_article.id
     else
       @sop_article_last_index = 0
     end
