@@ -34,7 +34,7 @@ function toggleVisibility(el) {
   else
     $(el).css('visibility','hidden')
 }
-let $add = $('#c4d_category_grid .c4d_grid_add')
+let $add = $('.c4d_grid_add')
 
 $add.click(e => {
   e.preventDefault()
@@ -61,7 +61,7 @@ function removeNoArticlesSelected(ele) {
   $(el).remove()
 }
 
-let $remove = $('#c4d_category_grid .c4d_grid_check')
+let $remove = $('.c4d_grid_check')
 $remove.click(e => {
   e.preventDefault()
   let article_title = e.currentTarget.parentElement.querySelector('.c4d_grid_item_article_title').innerHTML
