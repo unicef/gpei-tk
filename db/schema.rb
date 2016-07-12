@@ -17,7 +17,7 @@ ActiveRecord::Schema.define(version: 20160608142244) do
   enable_extension "plpgsql"
 
   create_table "c4d_articles", force: :cascade do |t|
-    t.string   "cms_title",                          null: false
+    t.string   "cms_title"
     t.string   "title",                              null: false
     t.string   "content",                            null: false
     t.integer  "c4d_category_id",                    null: false
@@ -82,7 +82,7 @@ ActiveRecord::Schema.define(version: 20160608142244) do
   end
 
   create_table "sop_articles", force: :cascade do |t|
-    t.string   "cms_title",                              null: false
+    t.string   "cms_title"
     t.string   "content",                                null: false
     t.string   "title",                                  null: false
     t.integer  "sop_category_id",                        null: false

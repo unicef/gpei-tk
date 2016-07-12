@@ -30,7 +30,7 @@ class Initial < ActiveRecord::Migration
     end
 
     create_table :c4d_articles do |t|
-      t.string :cms_title, null: false
+      t.string :cms_title
       t.string :title, null: false
       t.string :content, null: false
       t.integer :c4d_category_id, null: false
@@ -44,7 +44,7 @@ class Initial < ActiveRecord::Migration
     end
 
     create_table :sop_articles do |t|
-      t.string :cms_title, null: false
+      t.string :cms_title
       t.string :content, null: false
       t.string :title, null: false
       t.integer :sop_category_id, null: false
