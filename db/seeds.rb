@@ -8,8 +8,11 @@ Role.create(title: 'Member')
 ResponsibleOffice.create(title: 'Country')
 ResponsibleOffice.create(title: 'Rapid Response')
 ResponsibleOffice.create(title: 'Surge Team')
+ResponsibleOffice.create(title: 'Ministry of Health')
 ResponsibleOffice.create(title: 'UNICEF')
 ResponsibleOffice.create(title: 'WHO')
+ResponsibleOffice.create(title: 'EOMG')
+ResponsibleOffice.create(title: 'GPEI')
 
 SupportAffiliation.create(title: 'WHO')
 SupportAffiliation.create(title: 'CDC')
@@ -191,6 +194,28 @@ def createC4dArticle(row_elements)
   c4d_article.save
 end
 
+def getResponsibleTitleToQuery(field_data, support_field, sop_article, calledOnce)
+  if field_data.include?('who') && field_data.index('who') == 0
+    return 'WHO'
+  elsif field_data.include?('ministry of health') && field_data.index('ministry of health')
+    return 'Ministry of Health'
+  elsif field_data.include?('eomg') && field_data.index('eomg')
+    return 'EOMG'
+  elsif field_data.include?('unicef') && field_data.index('unicef')
+    return 'UNICEF'
+  elsif field_data.include?('rapid response team') && field_data.index('rapid response team')
+    return 'Rapid Response'
+  elsif field_data.include?('country') && field_data.index('country')
+    return 'Country'
+  elsif field_data.include?('gpei') && field_data.index('gpei')
+    return 'GPEI'
+  elsif field_data.include?('first surge') && field_data.index('first surge')
+    return 'Surge Team'
+  elsif field_data.include?('') && field_data.index('')
+    getResponsibleTitleToQuery(support_field, '', sop_article, !calledOnce) if calledOnce
+  end
+end
+
 def createSopArticle(row_elements)
   # PARSE OUT &lt; &gt; &quot;
   sop_article = SopArticle.new
@@ -198,8 +223,8 @@ def createSopArticle(row_elements)
     sop_article.cms_title = row_elements[3][row_elements[3].index("\"urlTitle\">")+11..row_elements[3].index("</field>")-1].downcase
     sop_article.order_id = row_elements[3][row_elements[3].index("\"urlTitle\">")+11..row_elements[3].index("</field>")-1].downcase.gsub!('sop_','').to_i
   else
-    sop_article.cms_title = row_elements[3][row_elements[3].index("\"urlTitle\"<name />")+11..row_elements[3].index("</field>")-1].downcase
-    sop_article.order_id = row_elements[3][row_elements[3].index("\"urlTitle\"<name />")+11..row_elements[3].index("</field>")-1].downcase.gsub!('sop_','').to_i
+    sop_article.cms_title = row_elements[3][row_elements[3].index("\"urlTitle\"<name />")+18..row_elements[3].index("</field>")-1].downcase
+    sop_article.order_id = row_elements[3][row_elements[3].index("\"urlTitle\"<name />")+18..row_elements[3].index("</field>")-1].downcase.gsub!('sop_','').to_i
   end
 
   sop_article.created_at = row_elements[1][row_elements[1].index("\"createDate\">")+14..row_elements[1].index("</field>")-1]
@@ -227,13 +252,20 @@ def createSopArticle(row_elements)
     elsif !field.index("\"Title\"").nil? && field.index("\"Title\"") == 0
       sop_article.title = field_data
     elsif !field.index("\"Responsible\"").nil? && field.index("\"Responsible\"") == 0
-      # do string parsing to find responsible office and find that from database
-      # sop_article.responsible_office_id = ResponsibleOffice.find_by(title: field_data).id
-      sop_article.responsible_office_id = rand(3)+1
+      sop_article.responsible = field_data
+      support_field = row_elements[-1].split("<dynamic-element name=")[1..-1].select{|field| !field.index("\"Support\"").nil? && field.index("\"Support\"") == 0 }
+      if !support_field.empty?
+        support_field = support_field.first
+        if !support_field.index('><![CDATA[').nil?
+          support_field = support_field[support_field.index('><![CDATA[')+10..support_field.index(']]')-1]
+        end
+      else
+        support_field = ''
+      end
+      found_title = getResponsibleTitleToQuery(field_data.downcase, support_field.downcase, sop_article, true)
+      sop_article.responsible_office_id = ResponsibleOffice.find_by(title: found_title).id
     elsif !field.index("\"Support\"").nil? && field.index("\"Support\"") == 0
-      # do string parsing to find responsible office and find that from database
-      # sop_article.support_affiliation_id = SupportAffiliation.find_by(title: field_data).id
-      sop_article.support_affiliation_id = rand(3)+1
+      sop_article.support = field_data
     elsif !field.index("\"Article\"").nil? && field.index("\"Article\"") == 0
       sop_article.content = field_data
     end
@@ -242,7 +274,6 @@ def createSopArticle(row_elements)
   icon_title = SopIcon.where(sop_time_id: sop_article.sop_time_id, sop_category_id: sop_article.sop_category_id).first.title
   SopIcon.create(sop_time_id: sop_article.sop_time_id, sop_category_id: sop_article.sop_category_id, sop_article_id: sop_article.id, title: icon_title)
 end
-
 
 content = IO.read("../file.xml")
 content.split("<row>")[1..-1].each do |row|
