@@ -119,15 +119,6 @@ a .c4d_category_outer_container {
   height: 40px;
   border: 2px white solid;
 }
-#c4d_article_logo_row {
-  min-height: 120px;
-  padding: 30px;
-}
-#c4d_article_icon {
-  margin: -25%;
-  width: 400%;
-  height: 400%;
-}
 #c4d_article_logo_text{
   position: absolute;
   right:38%;
