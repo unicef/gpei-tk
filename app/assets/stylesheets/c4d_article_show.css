@@ -1,0 +1,35 @@
+#sop_article_show_close_button {
+  position:absolute;
+  top:5px;
+  left:5px;
+  color:white;
+}
+.c4d_grid_add,
+.c4d_grid_check {
+  top:5px;
+  right:5px;
+  position:absolute;
+  color:black;
+}
+#c4d_article_icon {
+  width:45%;
+  height:45%;
+}
+#sop_article_show_logo {
+  margin: 0px;
+  padding-top: 10px;
+  box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  border:2px solid white;
+  padding-bottom: 10px
+}
+#sop_article_show_subcategory_text {
+  font-size: 20px;
+  font-weight:bold;
+  font-family: 'Adelle';
+}
+#sop_article_show_article_title_text {
+  font-size: 25px;
+  font-family: 'Adelle';
+}
