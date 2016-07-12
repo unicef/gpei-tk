@@ -87,7 +87,7 @@ $(() => {
           <label>Support</label>
           <input type="text" name="article[support]" placeholder="Support" value="${article.support}" required>
         </div>
-        ${getDropdown("Responsible", "responsible_office_id", responsible_offices, article.responsible_office_id, false)}
+        ${getDropdown("Responsible", "responsible_office_id", responsible_offices, article.responsible_office_id, true)}
         ${getDropdown("Support", "support_affiliation_id", support_affiliations, article.support_affiliation_id, false)}
         <div class="field">
           <label>Content</label>

@@ -68,8 +68,8 @@ $(() => {
           <label>Support</label>
           <input type="text" name="article[support]" placeholder="Support" value="" required>
         </div>
-        ${getDropdown("Responsible", "responsible_office_id", responsible_offices)}
-        ${getDropdown("Support", "support_affiliation_id", support_affiliations)}
+        ${getDropdown("Responsible", "responsible_office_id", responsible_offices, true)}
+        ${getDropdown("Support", "support_affiliation_id", support_affiliations, false)}
         <div class="field">
           <label>Content</label>
           <textarea name="article[content]" id="editor" required>
@@ -92,11 +92,11 @@ $(() => {
     `)
   }
 
-  function getSopTimeDropdown(label, option_name, sop_times){
+  function getSopTimeDropdown(label, option_name, sop_times, is_required){
     return (`
       <div class="field">
         <label>${label}</label>
-        <select name="article[${option_name}]" class="ui dropdown cms_dropdown_select" required>
+        <select name="article[${option_name}]" class="ui dropdown cms_dropdown_select" ${is_required ? 'required' : ''}>
           <option value="">Select Time Period</option>
           ${_.map(sop_times, time => { return `<option value="${time.id}">${time.period}</option>` }).join('\n')}
         </select>
@@ -104,11 +104,11 @@ $(() => {
       `)
   }
 
-  function getDropdown(label, option_name, responsible_offices){
+  function getDropdown(label, option_name, responsible_offices, is_required){
     return (`
       <div class="field">
         <label>${label}</label>
-        <select name="article[${option_name}]" class="ui dropdown cms_dropdown_select" required>
+        <select name="article[${option_name}]" class="ui dropdown cms_dropdown_select" ${is_required ? 'required' : ''}>
           <option value="">Select ${label}</option>
           ${_.map(responsible_offices, office => { return `<option value="${office.id}">${office.title}</option>` }).join('\n')}
         </select>
