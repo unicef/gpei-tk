@@ -34,8 +34,8 @@ $(() => {
   function getTemplateLinkField() {
     return (`
       <div class="field">
-          <label>Template Links<a id="add_template_link_input"  href=''><i class="fa fa-plus" aria-hidden="true"></i></a></label>
-          <input class="template_link_file" type="file" name="template_links" value="">
+        <label>Template Links<a id="add_template_link_input"  href=''><i class="fa fa-plus" aria-hidden="true"></i></a></label>
+        <input class="template_link_file" type="file" name="template_links" value="">
       </div>
     `)
   }
