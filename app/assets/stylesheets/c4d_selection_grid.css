@@ -26,8 +26,7 @@
   height: 220px;
   color: white;
 }
-.c4d_grid_item_subcategory,
-.c4d_grid_item_article_title {
+.c4d_grid_item_subcategory {
   margin-left:5%;
   margin-right:5%;
 }
