@@ -8,10 +8,9 @@
   border-left: 0;
   overflow:hidden;
 }
-
 #sop_filter_clear_all, #selected_filters_output, #select_filter_text, #empty_space_sop_filter_header {
-  background-color: #6B7A83;
-  border-color: #6B7A83;
+  background-color: #8D3733;
+  border-color: #8D3733;
   border: solid;
   border-color: white;
   border-width: 0.5px;
@@ -20,9 +19,12 @@
 #selected_filters_output {
   min-height: 22px;
 }
-
+#sop_grid_filter_row {
+  background: white;
+}
 .sop_filter_header {
-  background-color: #B12924;
+  background-color: #8D3733;
+  color:white;
   font-weight: bold;
   border-style: double;
   font-size: 100%;
@@ -52,13 +54,16 @@
 #select_filter_dropdown_menu {
   margin:0;
   padding:0;
-  background-color: #6B7A83;
+  margin-top: 1px;
+  padding-left: 1px;
+  background-color: #8D3733;
   border: 0;
   font-size: 100%;
-  display: flex;
+  padding-left: 5%;
 }
-#select_filter_dropdown_menu {
-  padding-left:5%;
+#select_filter_dropdown_menu .fa.fa-filter,
+#select_filter_header {
+  color: white;
 }
 #select_filter_dropdown_menu .menu {
   padding:0;
@@ -69,7 +74,7 @@
 }
 #filter_output_label {
   padding:0;
-  background-color: #6B7A83;
+  background-color: #8D3733;
   color: white;
 }
 
