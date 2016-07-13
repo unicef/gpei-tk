@@ -1,5 +1,5 @@
 $(() => {
-  $('.ui.dropdown')
+  $('#my_rhizome_dropdown .ui.pointing.dropdown.link.item.white_text_black_bg')
     .dropdown({
       on: 'hover',
       action: 'nothing'
@@ -8,7 +8,6 @@ $(() => {
   let $container = $('#isotope_container').isotope({
     itemSelector: '.grid_item'
   })
-
   // clear-all filter listener
   let $filter_clear = $('#sop_filter_clear_all')
   let $checkboxes = $('.sop_checkboxes input')
@@ -169,18 +168,26 @@ $(() => {
       $(list_id).append(no_items)
     }
   }
-
+  let padding = $('#nav_bar').outerHeight() + 1
+  padding += "px"
+  $('#sop_selection_page').css({ paddingTop: padding })
+  $('#select_filter_dropdown_menu').dropdown({
+    on:'hover',
+    action:'nothing'
+  })
+  let height = $('#sop_filter_clear_all').innerHeight()
+  $('#select_filter_dropdown_menu').css({ height: height })
   // stick to top if scrolled
-  function affixTop() {
-    let offset = $('#nav_bar').height()
-    offset += $('#sop_grid_filter_row').height()
-    $("#sop_grid_filter_row").affix({
-      offset: {
-        top: offset
-      }
-    })
-  }
+  // function affixTop() {
+  //   let offset = $('#nav_bar').height()
+  //   offset += $('#sop_grid_filter_row').height()
+  //   $("#sop_grid_filter_row").affix({
+  //     offset: {
+  //       top: offset
+  //     }
+  //   })
+  // }
 
-  if ($('#nav_bar').length > 0)
-    affixTop()
+  // if ($('#nav_bar').length > 0)
+  //   affixTop()
 })

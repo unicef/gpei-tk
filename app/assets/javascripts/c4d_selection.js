@@ -110,5 +110,8 @@ function checkIfArticlesSelectedAndAppend(el_id){
     $(list_id).append(no_items)
   }
 }
+let padding = $('#nav_bar').outerHeight() + 1
+padding += "px"
+$('#c4d_selection_page').css({ paddingTop: padding })
 
 })

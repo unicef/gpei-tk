@@ -60,5 +60,7 @@ $(function(){
     var el = "#sop_checklist_list " + ele
     $(el).remove()
   }
-
+  let padding = $('#nav_bar').outerHeight() + 1
+  padding += "px"
+  $('#sop_article_show_page').css({ paddingTop: padding })
 })
