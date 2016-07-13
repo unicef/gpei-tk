@@ -14,3 +14,19 @@
   margin: 0;
   padding: 0;
 }
+html {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  width: 100%;
+  color: white;
+  font-size: 15px;
+  font-family: 'adelle', sans-serif !important;
+}
+body {
+  margin: 0;
+  padding: 0;
+}
+body, button, input, select, textarea {
+  color: #222;
+}
