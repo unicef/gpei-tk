@@ -1,29 +1,30 @@
-<div id='nav_bar'>
+<div id='nav_bar' class='row'>
   <%= link_to root_path do %>
   <div class='col-md-2'>
-    <%= image_tag 'home/GPEI.png', width:'75%', height:'75%', alt: 'GPEI Toolkit' %>
+    <%= image_tag 'home/Rhizome-V2_White.png', id: 'nav_bar_logo', alt: 'GPEI Toolkit' %>
   </div>
   <% end %>
-  <div class="col-md-2">
-    <% if @img_name %>
-      <%= image_tag "home/#{@img_name}_cropped.png", :id => 'nav_section_icon', height:'50%', width:'50%', class: 'img-rounded', alt: "#{@img_name}" %>
-    <% end %>
+  <div id="nav_contact_link" class='col-md-1 col-md-offset-6 text-right'>
+    <a href=''>CONTACT</a>
+  </div>
+  <div id="nav_about_link" class='col-md-1 text-center'>
+    <a href=''>ABOUT</a>
   </div>
   <% if current_user %>
-  <div id='my_rhizome_dropdown' class='col-md-offset-10'>
+  <div id='my_rhizome_dropdown' class='col-md-2'>
     <div class="ui menu">
       <div class="ui pointing dropdown link item white_text_black_bg">
-        <span class="text">My Rhizome</span>
+        <span class="text">MY TOOLKIT</span>
         <i class="dropdown icon"></i>
         <div id="my_rhizome_dropdown_items" class="left menu">
           <div class="item">
             <i class="fa fa-caret-left white_text_black_bg"></i>
             <span class="text white_text_black_bg">SOP Checklist</span>
             <div id='sop_checklist_list' class="left menu">
-              <% if @user.sop_checklist.sop_articles.empty? %>
+              <% if current_user.sop_checklist.sop_articles.empty? %>
                 <div class="item white_text_black_bg" id="sop_no_items_selected">No articles selected</div>
               <% else %>
-                <% @user.sop_checklist.sop_articles.each do |article| %>
+                <% current_user.sop_checklist.sop_articles.each do |article| %>
                   <div id="<%= article.id %>" class="item">
                   <%= link_to sop_article_path(article),  :id => article.title, class: 'white_text_black_bg' do %>
                     <%= article.title %>
@@ -38,10 +39,10 @@
             <i class="fa fa-caret-left white_text_black_bg"></i>
             <span class="text white_text_black_bg">C4D Toolkit</span>
             <div id ='c4d_toolkit_list' class="left menu">
-              <% if @user.c4d_toolkit.c4d_articles.empty? %>
+              <% if current_user.c4d_toolkit.c4d_articles.empty? %>
                 <div id="c4d_no_items_selected" class="item white_text_black_bg">No articles selected</div>
               <% else %>
-                <% @user.c4d_toolkit.c4d_articles.each do |article| %>
+                <% current_user.c4d_toolkit.c4d_articles.each do |article| %>
                   <div id="<%= article.id %>" class="item">
                   <%= link_to c4d_article_path(article),  :id => article.title, class: 'white_text_black_bg' do %>
                     <%= article.title %>
@@ -60,9 +61,7 @@
     </div>
   </div>
   <% else %>
-  <div>
-    <a id="nav_user_sign_in" class="white_text_black_bg col-md-offset-9" href=''><i id="sign_in_icon" class="fa fa-sign-in" aria-hidden="true"></i>Sign in</a>
-  </div>
+  <a id="nav_user_sign_in" class="white_text_black_bg col-md-2" href=''><i id="sign_in_icon" class="fa fa-sign-in" aria-hidden="true"></i>&nbsp;Sign in</a>
   <% end %>
 </div>
 <div id='user_account_modal' class="ui modal">

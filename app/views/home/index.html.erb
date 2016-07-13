@@ -1,19 +1,20 @@
-<div id='home_container'>
-  <div class='row' style="height:65%; width:100%">
-    <div class='col-md-12 GPEI_home_page'>
-        <%= image_tag 'home/GPEI.png', width: '65%', height: '65%', :id => 'gpei_home_image', alt: 'GPEI Toolkit' %>
+<%= render 'dashboard/nav' %>
+<div id='landing_page_container' class='container fill'>
+  <div id='logo_container' class='text-center'>
+    <div id='landing_logo'>
+      <%= image_tag "home/gpei_logo_white_orange.png", width: '18%', height: '18%', alt: 'GPEI' %>
     </div>
-  </div>
-  <div class='row sop_c4d_home_row' style='height:35%;width:100%'>
-    <div class='col-md-6' style='height:100%;width:50%;'>
-      <%= link_to sop_path do %>
-        <%= image_tag 'home/SOP.png', width: '97%', height: '97%', :id => 'sop_home_image' , alt: 'SOP' %>
-      <% end %>
+    <div class='row'>
+      &nbsp;
     </div>
-    <div id='c4d_home_img' class='col-md-6' style='height:100%;width:50%;'>
-      <%= link_to c4d_path do %>
-        <%= image_tag 'home/C4D.png', width: '97%', height: '97%', :id => 'c4d_home_image', alt: 'C4D' %>
-      <% end %>
+    <div id='landing_logo_text'>
+      Rhizome is a collection of guidance and tools from the GPEI to help you eradicate polio.
+    </div>
+    <div id='landing_scroll_begin_container'>
+      <div id='landing_scroll_begin_text'>
+        SCROLL TO BEGIN
+      </div>
+      <a id='link_to_second_part_of_landing' href='#landing_page_second_container'><i id='landing_scroll_down_angle' class="fa fa-angle-down" aria-hidden="true"></i></a>
     </div>
   </div>
 </div>

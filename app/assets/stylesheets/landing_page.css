@@ -1,0 +1,86 @@
+#application {
+  background: #000000; /* For browsers that do not support gradients */
+  background: -webkit-linear-gradient(#000000, #252F38); /* For Safari 5.1 to 6.0 */
+  background: -o-linear-gradient(#000000, #252F38); /* For Opera 11.1 to 12.0 */
+  background: -moz-linear-gradient(#000000, #252F38); /* For Firefox 3.6 to 15 */
+  background: linear-gradient(#000000, #252F38); /* Standard syntax */
+  min-height: 100%;
+  height:100%;
+}
+#landing_scroll_down_angle {
+  color:white;
+  font-size:300%;
+}
+#landing_scroll_begin_text,
+#landing_logo_text {
+  color:white;
+  font-size:15px;
+}
+#landing_logo_text {
+  width:30%;
+  margin-left:auto;
+  margin-right:auto;
+}
+#landing_scroll_begin_container {
+  position: absolute;
+  bottom: 10%;
+  width:50%;
+  margin-left:25%;
+  margin-right:25%;
+}
+.fill {
+  min-height: 100%;
+  height: 92%;
+  min-width:100%;
+  width:100%;
+}
+#landing_page_container {
+  display: table;
+}
+#logo_container {
+  display:table-cell;
+  vertical-align: middle;
+}
+#landing_page_sop_c4d_nav_container {
+  color: white;
+  margin-left:auto;
+  margin-right:auto;
+}
+#landing_sop_container_header {
+  margin-top: 20%;
+  font-weight: bold;
+  background: #E5DDDD;
+  color:#904941;
+}
+#landing_c4d_container_header {
+  font-weight: bold;
+  background: #E5DDDD;
+  color:#35A3AE;
+}
+#landing_sop_container_content {
+  color:white;
+  background:#904941;
+  height:20%;
+}
+#landing_c4d_container_content {
+  color:white;
+  background:#35A3AE;
+  height:20%;
+}
+#sop_c4d_landing_title_span {
+  font-size:40px;
+  position: relative;
+  padding-top: 20px;
+  font-weight: bold;
+}
+#landing_sop_c4d_angle_right {
+  font-size:50px;
+  padding-left:90%;
+  color:white;
+}
+#sop_c4d_landing_description_span {
+  width:70%;
+  position: relative;
+  bottom:9%;
+  padding-left:5%;
+}
