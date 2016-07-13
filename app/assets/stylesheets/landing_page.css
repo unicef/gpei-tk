@@ -1,16 +1,18 @@
 #application {
   background: #000000; /* For browsers that do not support gradients */
-  background: -webkit-linear-gradient(#000000, #252F38); /* For Safari 5.1 to 6.0 */
-  background: -o-linear-gradient(#000000, #252F38); /* For Opera 11.1 to 12.0 */
-  background: -moz-linear-gradient(#000000, #252F38); /* For Firefox 3.6 to 15 */
-  background: linear-gradient(#000000, #252F38); /* Standard syntax */
+  background: -webkit-linear-gradient(#252F38, #000000); /* For Safari 5.1 to 6.0 */
+  background: -o-linear-gradient(#252F38, #000000); /* For Opera 11.1 to 12.0 */
+  background: -moz-linear-gradient(#252F38, #000000); /* For Firefox 3.6 to 15 */
+  background: linear-gradient(#252F38, #000000); /* Standard syntax */
   min-height: 100%;
   height:100%;
 }
+
 #landing_scroll_down_angle {
   color:white;
   font-size:300%;
 }
+
 #landing_scroll_begin_text,
 #landing_logo_text {
   color:white;
@@ -81,6 +83,6 @@
 #sop_c4d_landing_description_span {
   width:70%;
   position: relative;
-  bottom:20%;
   padding-left:5%;
+  bottom:5px;
 }
