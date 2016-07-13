@@ -275,7 +275,7 @@ def createSopArticle(row_elements)
   SopIcon.create(sop_time_id: sop_article.sop_time_id, sop_category_id: sop_article.sop_category_id, sop_article_id: sop_article.id, title: icon_title)
 end
 
-content = IO.read("../file.xml")
+content = IO.read("file.xml")
 content.split("<row>")[1..-1].each do |row|
   row_elements = row.split("<field name=")
   isSop = row_elements[3].downcase.include? 'sop'
