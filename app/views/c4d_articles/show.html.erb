@@ -23,6 +23,9 @@
       </div>
     </div>
     <div class='row'>
+      <div id='related_topics_header' class='row text-center'>
+        <u>Related Topics</u>
+      </div>
       <ul id="related_topics_list" class='list-unstyled'>
       <% @c4d_related_topics.each do |article| %>
         <li><i class="fa fa-angle-right fa-lg" aria-hidden="true"></i>&nbsp;<%= link_to article.title, c4d_article_path(article) %></li>
