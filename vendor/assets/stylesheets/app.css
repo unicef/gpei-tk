@@ -1,7 +1,3 @@
-.col-md-2 #nav_section_icon {
-  position:relative;
-  top: 5px;
-}
 .sop_article_show_summary_header {
   color: red;
   margin:0;
@@ -16,31 +12,7 @@
   padding-left:3%;
   font-size:60%;
 }
-#home_container {
-  background-color: #FFFFFF;
-  height:100%;
-  width:100%;
-  padding-right:6px;
-  padding-left:6px;
-  padding-top:6px;
-  padding-bottom:3px;
-}
-#gpei_home_image {
-  position:absolute;
-  left:18%;
-  top:15%;
-}
-#sop_home_image {
-  position:absolute;
-  top:1%;
-  left:1%;
-  right:1%;
-}
-#c4d_home_image {
-  position:absolute;
-  top:1%;
-  left:2%;
-}
+
 a {
   text-decoration: none !important;
   color:black;
@@ -60,22 +32,6 @@ a .c4d_category_outer_container {
 }
 .Tools_color {
   background-color: #009DA4;
-}
-.GPEI_home_page {
-  position:relative;
-  width:100%;
-  height:100%;
-  background-color: black;
-}
-.center-block {
-  margin:0;
-  padding:0;
-}
-.sop_c4d_home_row {
-  position:relative;
-  height:50%;
-  width:100%;
-  background-color: #E6E6EA;
 }
 /**/
 #sop_article_related_articles {
@@ -128,19 +84,6 @@ a .c4d_category_outer_container {
   padding-top: 10px;
 }
 /**/
-#my_rhizome_button {
-  background-color: black;
-  color: white;
-}
-#my_rhizome_nav {
-  background-color: black;
-}
-#application {
-  background-color: white;
-  font-family: Trebuchet MS;
-  font-size: 120%;
-  color: white;
-}
 .sop_checkbox {
   margin-right: 5px;
 }
@@ -174,16 +117,8 @@ a .c4d_category_outer_container {
 #sop_panel_header {
   background-color: #B12924;
 }
-#nav_bar {
-  background-color: black;
-  height:10%;
-  padding-bottom: 10px
-}
 .no-padding {
   padding: 0;
-}
-#sop_filter_container {
-  padding: 1px;
 }
 /*#c4d_no_items_selected {
   color: white;
@@ -197,25 +132,6 @@ a .c4d_category_outer_container {
     display: inline-block;
     vertical-align: middle;
     float: none;
-}
-html {
-  margin: 0;
-  padding: 0;
-  height: 100%;
-  width: 100%;
-  color: white;
-}
-body {
-  line-height: 1.231;
-  font-size: 13px;
-  margin: 0;
-  padding: 0;
-  height: 100%;
-  width: 100%;
-  font-family: 'adelle', Arial, Helvetica, sans-serif !important;
-}
-body, button, input, select, textarea {
-  color: #222;
 }
 /*c4d_isotope styles*/
 /*.c4d_category_grid:after {
