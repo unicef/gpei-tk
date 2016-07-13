@@ -40,10 +40,10 @@ $(() => {
       <form id="CMS_c4d_article_create_form" class="ui form CMS_c4d_article_form_div">
         <div class="field">
           <label>CMS Title</label>
-          <input type="text" name="article[cms_title]" placeholder="CMS Title" value="" required>
+          <input type="text" name="article[cms_title]" placeholder="CMS Title" value="">
         </div>
-        ${getDropdown("Subcategory", "c4d_subcategory_id", c4d_subcategories)}
         ${getDropdown("Category", "c4d_category_id", c4d_categories)}
+        ${getDropdown("Subcategory", "c4d_subcategory_id", c4d_subcategories)}
         <div class="field">
           <label>Title</label>
           <input type="text" name="article[title]" placeholder="Title" value="" required>

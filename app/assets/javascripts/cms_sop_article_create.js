@@ -52,7 +52,7 @@ $(() => {
       <form id="CMS_sop_article_create_form" class="ui form CMS_sop_article_form_div">
         <div class="field">
           <label>CMS Title</label>
-          <input type="text" name="article[cms_title]" placeholder="CMS Title" value="" required>
+          <input type="text" name="article[cms_title]" placeholder="CMS Title" value="">
         </div>
         ${getSopTimeDropdown("Time", "sop_time_id", sop_times)}
         ${getDropdown("Category", "sop_category_id", sop_categories)}
