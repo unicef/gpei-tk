@@ -4,13 +4,14 @@
   clear: both;
 }
 .button-group.c4d-filters-button-group .col-md-3 {
+  background: white;
   padding-top: 0;
   padding-bottom: 0;
   padding-right: 1px;
   padding-left: 1px;
 }
 .button-group.c4d-filters-button-group {
-  border-top: 2px white solid;
+  border-top: 1px white solid;
 }
 .c4d-filters-button-group {
   padding-bottom: 1px;
@@ -41,4 +42,8 @@
 }
 .c4d_grid_item_content {
   margin-top:5%;
+}
+#c4d_grid_tile_title {
+  position: relative;
+  margin-left:5%;
 }
