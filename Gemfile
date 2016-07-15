@@ -20,16 +20,15 @@ gem 'jbuilder', '~> 2.0'
 # bundle exec rake doc:rails generates the API under doc/api.
 gem 'sdoc', '~> 0.4.0', group: :doc
 # verbose console and serve assets on heroku
-gem 'rails_12factor'
+gem 'rails_12factor', group: :production
 # rails web server multithreaded
 gem 'puma'
 # Use ActiveModel has_secure_password
 gem 'bcrypt'
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
-
-# remove once MVP is finalized.
-gem 'faker'
+gem 'aws-sdk'
+gem "paperclip", git: "git://github.com/thoughtbot/paperclip.git"
 
 group :development, :test do
   # binding.pry for code and pretty console
