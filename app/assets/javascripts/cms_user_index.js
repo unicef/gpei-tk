@@ -56,7 +56,6 @@
         url: '/cms/users/',
         data: $('#CMS_modal_content #cms_user_create').serialize()
       }).done(response => {
-        debugger
         $('.ui.modal').modal('toggle')
         let content = '<tr id="' + response.user.id + '">' + '<td>' + response.user.first_name + '</td>' + '<td>' + response.user.last_name + '</td>' + '<td>' + response.user.email + '</td>' + '<td>' + response.role.title + '</td>' + '<td>' + getUserActionDropdown(response.user.id) + '</td>' + '</tr>'
         $('#CMS_index_content #CMS_users_table').append(content)
@@ -121,7 +120,6 @@
 
   $('.ui.modal').on('submit', '#update_user_form',e => {
     e.preventDefault()
-    debugger
     $.ajax({
       method: 'PATCH',
       url: '/cms/users/' + $('#user_update_id_input input').val(),
