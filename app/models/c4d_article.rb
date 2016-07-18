@@ -8,7 +8,6 @@ class C4dArticle < ActiveRecord::Base
   has_many :c4d_toolkits, :through => :c4d_toolkit_c4d_articles
 
   has_many :reference_links, as: :reference_linkable
-  has_many :template_links, as: :template_linkable
 
   def to_param
     [id, title.parameterize].join("-")
