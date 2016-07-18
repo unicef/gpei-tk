@@ -51,12 +51,6 @@
   <div class='row text-center'>
     <div id='isotope_container'>
       <% @sop_articles.each do |article| %>
-        <% if article.responsible_office_id.nil? %>
-        <% binding.pry %>
-        <% end %>
-        <% if article.sop_time.nil? %>
-        <% binding.pry %>
-        <% end %>
         <%= link_to sop_article_path(article) do %>
           <div id="<%= article.id %>" class="<%= build_classes({grid_item: 'grid_item', time: article.sop_time.period.gsub(' ', '_'), offices: article.responsible_office.title.gsub(' ', '_'), category: article.sop_category.title.gsub(' ', '_')}) %>"
             style=<%='background-color:' + article.sop_time.color + ';' %>>
