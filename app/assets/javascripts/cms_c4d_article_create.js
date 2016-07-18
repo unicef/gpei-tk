@@ -53,10 +53,6 @@ $(() => {
           <textarea name="article[content]" id="editor" required></textarea>
         </div>
         <div class="field">
-          <label>Template Links<a id="add_template_link_input"  href=''><i class="fa fa-plus" aria-hidden="true"></i></a></label>
-          <input class="template_link_file" type="file" name="template_links" value="">
-        </div>
-        <div class="field">
           <label>Reference Links<a id="add_reference_link_input"  href=''><i class="fa fa-plus" aria-hidden="true"></i></a></label>
           <input class="reference_link_file" type="file" name="reference_links" value="">
         </div>
