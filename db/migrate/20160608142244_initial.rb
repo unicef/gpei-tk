@@ -119,12 +119,7 @@ class Initial < ActiveRecord::Migration
     create_table :reference_links do |t|
       t.integer :file_name, null: false
       t.references :reference_linkable, polymorphic: true
-      t.timestamps null: false
-    end
-
-    create_table :template_links do |t|
-      t.integer :file_name, null: false
-      t.references :template_linkable, polymorphic: true
+      t.integer :author_id, null: false
       t.timestamps null: false
     end
   end

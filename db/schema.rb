@@ -65,6 +65,7 @@ ActiveRecord::Schema.define(version: 20160608142244) do
     t.integer  "file_name",               null: false
     t.integer  "reference_linkable_id"
     t.string   "reference_linkable_type"
+    t.integer  "author_id",               null: false
     t.datetime "created_at",              null: false
     t.datetime "updated_at",              null: false
   end
@@ -140,14 +141,6 @@ ActiveRecord::Schema.define(version: 20160608142244) do
     t.string   "title",      null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-  end
-
-  create_table "template_links", force: :cascade do |t|
-    t.integer  "file_name",              null: false
-    t.integer  "template_linkable_id"
-    t.string   "template_linkable_type"
-    t.datetime "created_at",             null: false
-    t.datetime "updated_at",             null: false
   end
 
   create_table "users", force: :cascade do |t|
