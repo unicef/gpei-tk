@@ -6,5 +6,7 @@ class ReferenceLink < ActiveRecord::Base
                     :path => 'reference_links/:language/:filename'
   validates_attachment :document, content_type: { content_type: "application/pdf" }
 
-  Paperclip.interpolates :language { |attachment, style| attachment.instance.language }
+  Paperclip.interpolates :language do |attachment, style|
+    attachment.instance.language
+  end
 end
