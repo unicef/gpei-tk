@@ -7,6 +7,7 @@ class C4dArticle < ActiveRecord::Base
   has_many :c4d_toolkit_c4d_articles
   has_many :c4d_toolkits, :through => :c4d_toolkit_c4d_articles
 
+  has_attached_file :reference_link
   has_many :reference_links, as: :reference_linkable
 
   def to_param
