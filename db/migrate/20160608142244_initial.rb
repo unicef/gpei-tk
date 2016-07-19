@@ -117,7 +117,7 @@ class Initial < ActiveRecord::Migration
     end
 
     create_table :reference_links do |t|
-      t.integer :file_name, null: false
+      t.string :language, null: false
       t.references :reference_linkable, polymorphic: true
       t.integer :author_id, null: false
       t.timestamps null: false

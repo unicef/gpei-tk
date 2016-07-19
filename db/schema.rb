@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160608142244) do
+ActiveRecord::Schema.define(version: 20160718212402) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -62,12 +62,16 @@ ActiveRecord::Schema.define(version: 20160608142244) do
   end
 
   create_table "reference_links", force: :cascade do |t|
-    t.integer  "file_name",               null: false
+    t.string   "language",                null: false
     t.integer  "reference_linkable_id"
     t.string   "reference_linkable_type"
     t.integer  "author_id",               null: false
     t.datetime "created_at",              null: false
     t.datetime "updated_at",              null: false
+    t.string   "document_file_name"
+    t.string   "document_content_type"
+    t.integer  "document_file_size"
+    t.datetime "document_updated_at"
   end
 
   create_table "responsible_offices", force: :cascade do |t|
