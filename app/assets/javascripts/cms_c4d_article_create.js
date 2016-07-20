@@ -12,10 +12,16 @@ $(() => {
         url: 'api/c4d_subcategories/'
       }).done(response => {
         c4d_subcategories = response.c4d_subcategories
-        $('#CMS_index_content').empty()
-        let content = getEmptyC4dArticleForm(c4d_subcategories, c4d_categories)
-        $('#CMS_index_content').append(content)
-        initializeCKEditor();
+        $.ajax({
+          method: 'GET',
+          url: 'cms/reference_links/'
+        }).done(response => {
+          let reference_links = response.reference_links
+          $('#CMS_index_content').empty()
+          let content = getEmptyC4dArticleForm(c4d_subcategories, c4d_categories, reference_links)
+          $('#CMS_index_content').append(content)
+          initializeCKEditor();
+        })
       })
     })
   })
@@ -35,7 +41,7 @@ $(() => {
     })
   })
 
-  function getEmptyC4dArticleForm(c4d_subcategories, c4d_categories){
+  function getEmptyC4dArticleForm(c4d_subcategories, c4d_categories, reference_links){
     return (`
       <form id="CMS_c4d_article_create_form" class="ui form CMS_c4d_article_form_div">
         <div class="field">
@@ -52,14 +58,25 @@ $(() => {
           <label>Content</label>
           <textarea name="article[content]" id="editor" required></textarea>
         </div>
-        <div class="field">
-          <label>Reference Links<a id="add_reference_link_input"  href=''><i class="fa fa-plus" aria-hidden="true"></i></a></label>
-          <input class="reference_link_file" type="file" name="reference_links" value="">
-        </div>
-        <button class="ui button" type="submit">Submit</button>
+        ${getReferenceLinkDropdown(reference_links)}        <button class="ui button" type="submit">Submit</button>
       </form>
     `)
   }
+
+  function getReferenceLinkDropdown(reference_links) {
+    return (`
+      <div id='reference_link_multi_select' class="field">
+        <label>Reference Links</label>
+        <select name="article[reference_links][]" class="ui dropdown cms_dropdown_select" required multiple>
+          <option value="">Select Reference Links</option>
+          ${_.map(reference_links, reference_link => {
+            return `<option value="${reference_link.id}">${reference_link.document_file_name}</option>`
+          }).join('\n')}
+        </select>
+      </div>
+      `)
+  }
+
 
   function getDropdown(label, option_name, categories){
     return (`

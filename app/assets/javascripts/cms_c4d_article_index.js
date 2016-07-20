@@ -32,7 +32,7 @@ $(() => {
 
   function appendC4dArticleRows(c4d_articles, users){
     _.forEach(c4d_articles, article => {
-      let row = '<tr id="' + article.id + '">' + '<td>' + article.id + '</td>' + '<td><a id="' + article.id + '" href="">' + article.title + '</td>' + '<td>' + formatPublished(article.published) + '</td>' + '<td>' + moment(article.updated_at, "YYYY-MM-DD").format("MMM DD, YYYY") + '</td>' + '<td>' + moment(article.created_at, "YYYY-MM-DD").format("MMM DD, YYYY") + '</td>' + '<td>' + users[article.author_id].first_name + ' ' + users[article.author_id].last_name + '</td>' + '<td>' + getUserActionDropdown(article.id) + '</td>' + '</tr>'
+      let row = '<tr id="' + article.id + '">' + '<td>' + article.order_id + '</td>' + '<td><a id="' + article.id + '" href="">' + article.title + '</td>' + '<td>' + formatPublished(article.published) + '</td>' + '<td>' + moment(article.updated_at, "YYYY-MM-DD").format("MMM DD, YYYY") + '</td>' + '<td>' + moment(article.created_at, "YYYY-MM-DD").format("MMM DD, YYYY") + '</td>' + '<td>' + users[article.author_id].first_name + ' ' + users[article.author_id].last_name + '</td>' + '<td>' + getUserActionDropdown(article.id) + '</td>' + '</tr>'
       $('#CMS_c4d_articles_table').append(row)
     })
   }
@@ -41,19 +41,32 @@ $(() => {
     e.preventDefault()
     $.ajax({
       method: 'GET',
-      url: 'cms/c4d_articles/' + e.currentTarget.id
+      url: 'cms/reference_links/'
     }).done(response => {
-      $('#CMS_index_content').empty()
-      let content = getCMSC4dArticleContent(response.c4d_article, response.c4d_subcategories, response.c4d_categories)
-      $('#CMS_index_content').append(content)
-      initializeCKEditor()
-      $('#editor').val(response.c4d_article.content)
+      let reference_links_all = response.reference_links
+      $.ajax({
+        method: 'GET',
+        url: 'cms/c4d_articles/' + e.currentTarget.id
+      }).done(response => {
+        $('#CMS_index_content').empty()
+        let content = getCMSC4dArticleContent(response.c4d_article,
+                                              response.c4d_subcategories,
+                                              response.c4d_categories,
+                                              response.embedded_images,
+                                              response.selected_reference_links,
+                                              reference_links_all)
+        $('#CMS_index_content').append(content)
+        initializeCKEditor()
+        $('#editor').val(response.c4d_article.content)
+      })
     })
   })
 
-  function getCMSC4dArticleContent(article, c4d_subcategories, c4d_categories) {
+  function getCMSC4dArticleContent(article, c4d_subcategories, c4d_categories, embedded_images, selected_reference_links, reference_links_all) {
     return (`
     <div id="${article.id}" class="CMS_c4d_article_form_div">
+      <span><strong>Order ID: ${article.order_id}</strong></span>
+      &nbsp;
       <form id="CMS_c4d_article_form" class="ui form">
         <div class="field">
           <label>CMS Title</label>
@@ -69,14 +82,31 @@ $(() => {
           <label>Content</label>
           <textarea name="article[content]" id="editor" required></textarea>
         </div>
-        <div class="field">
-          <label>Reference Links<a id="add_reference_link_input"  href=''><i class="fa fa-plus" aria-hidden="true"></i></a></label>
-          <input class="reference_link_file" type="file" name="reference_links" value="">
+        <div id="field">
+            ${_.map(embedded_images, embedded_image => {
+              return (`<p><strong>Embedded Image: </strong> ${embedded_image.image_file_name} - <a href="${embedded_image.url}" target="_blank">${embedded_image.url}</a></p>`)
+            }).join('\n')}
         </div>
+        ${getReferenceLinkDropdown(selected_reference_links, reference_links_all)}
         <button class="ui button" type="submit">Submit</button>
       </form>
     </div>
     `)
+  }
+
+  function getReferenceLinkDropdown(selected_reference_links, reference_links) {
+    return (`
+      <div id='reference_link_multi_select' class="field">
+        <label>Reference Links</label>
+        <select name="article[reference_links][]" class="ui dropdown cms_dropdown_select" required multiple>
+          <option value="">Select Reference Links</option>
+          ${_.map(reference_links, reference_link => {
+            selected = (undefined === _.find(selected_reference_links, selected_reference_link => { selected_reference_link == reference_link.id})) ? '' : 'selected'
+            return `<option ${selected} value="${reference_link.id}">${reference_link.document_file_name}</option>`
+          }).join('\n')}
+        </select>
+      </div>
+      `)
   }
 
   $('select.dropdown')
@@ -88,7 +118,7 @@ $(() => {
     let id = e.currentTarget.parentElement.id
     $.ajax({
       method: 'PATCH',
-      url: '/cms/c4d_articles/publish/' + id,
+      url: 'cms/c4d_articles/publish/' + id,
       data: { authenticity_token: _.escape($('meta[name=csrf-token]').attr('content')) }
     }).done(response => {
       $('#CMS_c4d_articles_link').trigger('click')
@@ -111,7 +141,7 @@ $(() => {
       <div class="field">
         <label>${label}</label>
         <select name="article[${option_name}]" class="ui dropdown cms_dropdown_select" required>
-          <option value="">Select Category</option>
+          <option value="">Select ${label}</option>
           ${_.map(categories, category => {
             selected = category.id == id ? 'selected' : ''
             return `<option ${selected} value="${category.id}">${category.title}</option>`
