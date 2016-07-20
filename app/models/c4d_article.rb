@@ -8,7 +8,8 @@ class C4dArticle < ActiveRecord::Base
   has_many :c4d_toolkits, :through => :c4d_toolkit_c4d_articles
 
   has_attached_file :reference_link
-  has_many :reference_links, as: :reference_linkable
+  has_many :reference_link_articles, as: :reference_linkable
+  has_many :reference_links, through: :reference_link_articles
 
   def to_param
     [id, title.parameterize].join("-")

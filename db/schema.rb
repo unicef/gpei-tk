@@ -61,13 +61,19 @@ ActiveRecord::Schema.define(version: 20160718212402) do
     t.datetime "updated_at", null: false
   end
 
-  create_table "reference_links", force: :cascade do |t|
-    t.string   "language",                null: false
+  create_table "reference_link_articles", force: :cascade do |t|
+    t.integer  "reference_link_id"
     t.integer  "reference_linkable_id"
     t.string   "reference_linkable_type"
-    t.integer  "author_id",               null: false
     t.datetime "created_at",              null: false
     t.datetime "updated_at",              null: false
+  end
+
+  create_table "reference_links", force: :cascade do |t|
+    t.string   "language",              null: false
+    t.integer  "author_id",             null: false
+    t.datetime "created_at",            null: false
+    t.datetime "updated_at",            null: false
     t.string   "document_file_name"
     t.string   "document_content_type"
     t.integer  "document_file_size"

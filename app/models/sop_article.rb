@@ -13,7 +13,8 @@ class SopArticle < ActiveRecord::Base
   has_one :sop_icon
 
   has_attached_file :reference_link
-  has_many :reference_links, as: :reference_linkable
+  has_many :reference_link_articles, as: :reference_linkable
+  has_many :reference_links, through: :reference_link_articles
 
   def to_param
     [id, title.parameterize].join("-")
