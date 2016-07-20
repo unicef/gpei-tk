@@ -5,8 +5,10 @@ class Cms::UsersController < ApplicationController
         columns = User.attribute_names - ['password_digest']
         root = Role.find_by(title: 'root')
         users = User.all.select(columns).where.not('role_id = ? OR is_deleted = ?', root.id, true)
+        users_hash = {}
+        User.all.each { |user| users_hash[user.id] = user }
         roles = Role.all
-        render json: { users: users, roles: roles, status: 'success' }
+        render json: { users: users, users_hash: users_hash, roles: roles, status: 'success' }
       end
     end
   end
