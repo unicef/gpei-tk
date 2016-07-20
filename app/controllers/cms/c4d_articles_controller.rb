@@ -14,6 +14,9 @@ class Cms::C4dArticlesController < ApplicationController
         c4d_article = C4dArticle.new(safe_article_params)
         c4d_article.order_id = C4dArticle.maximum(:order_id) + 1
         c4d_article.author = current_user
+        params[:article][:reference_links].each do |reference_id|
+          ReferenceLinkArticle.first_or_create(reference_link_id: reference_id, reference_linkable: article)
+        end
         if c4d_article.save
           render json: { c4d_article: c4d_article, status: 200 }
         end
@@ -27,7 +30,12 @@ class Cms::C4dArticlesController < ApplicationController
         c4d_article = C4dArticle.find_by(id: params[:id])
         c4d_subcategories = C4dSubcategory.all
         c4d_categories = C4dCategory.all
-        render json: { c4d_article: c4d_article, c4d_subcategories: c4d_subcategories, c4d_categories: c4d_categories, status: 200 }
+        embedded_images = c4d_article.embedded_images
+        render json: { c4d_article: c4d_article,
+                       c4d_subcategories: c4d_subcategories,
+                       c4d_categories: c4d_categories,
+                       embedded_images: embedded_images,
+                       status: 200 }
       end
     end
   end
@@ -36,8 +44,13 @@ class Cms::C4dArticlesController < ApplicationController
     if current_user.is_admin? || current_user.is_editor?
       if request.xhr?
         article = C4dArticle.find_by(id: params[:id])
-        article.update(safe_article_params)
-        render json: { status: 200 }
+        if article
+          params[:article][:reference_links].each do |reference_id|
+            ReferenceLinkArticle.first_or_create(reference_link_id: reference_id, reference_linkable: article)
+          end
+          article.update(safe_article_params)
+          render json: { status: 200 }
+        end
       end
     end
   end
