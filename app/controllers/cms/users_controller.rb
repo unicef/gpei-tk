@@ -2,9 +2,9 @@ class Cms::UsersController < ApplicationController
   def index
     if current_user.is_admin?
       if request.xhr?
-        users_hash = getAllowedUsers
+        users = getAllowedUsers
         roles = Role.all
-        render json: { users_hash: users_hash, roles: roles, status: 200 }
+        render json: { users: users, roles: roles, status: 200 }
       end
     end
   end
