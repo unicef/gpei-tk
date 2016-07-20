@@ -69,3 +69,6 @@
   position:absolute;
   left:30%;
 }
+#reference_link_multi_select .ui.dropdown.cms_dropdown_select {
+  height:100px;
+}
