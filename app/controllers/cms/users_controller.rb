@@ -4,7 +4,7 @@ class Cms::UsersController < ApplicationController
       if request.xhr?
         users_hash = getAllowedUsers
         roles = Role.all
-        render json: { users: users, users_hash: users_hash, roles: roles, status: 200 }
+        render json: { users_hash: users_hash, roles: roles, status: 200 }
       end
     end
   end

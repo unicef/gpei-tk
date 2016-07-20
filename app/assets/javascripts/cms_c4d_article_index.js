@@ -12,7 +12,7 @@ $(() => {
       }).done(response => {
         $('#CMS_index_content').empty()
         appendC4dArticleTableHeader()
-        appendC4dArticleRows(c4d_articles, response.users_hash)
+        appendC4dArticleRows(c4d_articles, response.users)
         $('#CMS_index_content .ui.floating.dropdown.icon.button').dropdown({
           action: 'hide',
           transition: 'drop'

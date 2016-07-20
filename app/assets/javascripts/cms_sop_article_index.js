@@ -3,7 +3,7 @@ $(() => {
     e.preventDefault();
     $.ajax({
       method: 'GET',
-      url: '/cms/sop_articles/'
+      url: 'cms/sop_articles/'
     }).done(response => {
       let sop_articles = response.sop_articles
       $.ajax({
@@ -12,7 +12,7 @@ $(() => {
       }).done(response => {
         $('#CMS_index_content').empty()
         appendSopArticleTableHeader()
-        appendSopArticleRows(sop_articles, response.users_hash)
+        appendSopArticleRows(sop_articles, response.users)
         $('#CMS_index_content .ui.floating.dropdown.icon.button').dropdown({
           action: 'hide',
           transition: 'drop'
