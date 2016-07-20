@@ -3,7 +3,7 @@ class Cms::SopArticlesController < ApplicationController
     if current_user.is_admin? || current_user.is_editor?
       if request.xhr?
         sop_articles = SopArticle.all.order(:order_id)
-        render json: { sop_articles: sop_articles, status: 'success' }
+        render json: { sop_articles: sop_articles, status: 200 }
       end
     end
   end
@@ -16,7 +16,7 @@ class Cms::SopArticlesController < ApplicationController
         sop_article.order_id = SopArticle.maximum(:order_id) + 1
         sop_article.author = current_user
         if sop_article.save
-          render json: { sop_article: sop_article, status: 'success' }
+          render json: { sop_article: sop_article, status: 200 }
         end
       end
     end
@@ -30,7 +30,7 @@ class Cms::SopArticlesController < ApplicationController
         sop_categories = SopCategory.all
         responsible_offices = ResponsibleOffice.all
         support_affiliations = SupportAffiliation.all
-        render json: { sop_article: sop_article, sop_times: sop_times, sop_categories: sop_categories, responsible_offices: responsible_offices, support_affiliations: support_affiliations, status: 'success' }
+        render json: { sop_article: sop_article, sop_times: sop_times, sop_categories: sop_categories, responsible_offices: responsible_offices, support_affiliations: support_affiliations, status: 200 }
       end
     end
   end
@@ -40,7 +40,7 @@ class Cms::SopArticlesController < ApplicationController
       if request.xhr?
         article = SopArticle.find_by(id: params[:id])
         article.update(safe_article_params)
-        render json: { status: 'success' }
+        render json: { status: 200 }
       end
     end
   end
