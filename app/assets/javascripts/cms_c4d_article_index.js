@@ -5,12 +5,18 @@ $(() => {
       method: 'GET',
       url: 'cms/c4d_articles/'
     }).done(response => {
-      $('#CMS_index_content').empty()
-      appendC4dArticleTableHeader()
-      appendC4dArticleRows(response.c4d_articles, response.users)
-      $('#CMS_index_content .ui.floating.dropdown.icon.button').dropdown({
-        action: 'hide',
-        transition: 'drop'
+      let c4d_articles = response.c4d_articles
+      $.ajax({
+        method: 'GET',
+        url: 'cms/users/'
+      }).done(response => {
+        $('#CMS_index_content').empty()
+        appendC4dArticleTableHeader()
+        appendC4dArticleRows(c4d_articles, response.users_hash)
+        $('#CMS_index_content .ui.floating.dropdown.icon.button').dropdown({
+          action: 'hide',
+          transition: 'drop'
+        })
       })
     })
   })
