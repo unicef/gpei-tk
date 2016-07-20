@@ -3,9 +3,7 @@ class Cms::SopArticlesController < ApplicationController
     if current_user.is_admin? || current_user.is_editor?
       if request.xhr?
         sop_articles = SopArticle.all.order(:order_id)
-        users = {}
-        User.all.each { |user| users[user.id] = user }
-        render json: { sop_articles: sop_articles, users: users, status: 'success' }
+        render json: { sop_articles: sop_articles, status: 'success' }
       end
     end
   end

@@ -5,12 +5,18 @@ $(() => {
       method: 'GET',
       url: '/cms/sop_articles/'
     }).done(response => {
-      $('#CMS_index_content').empty()
-      appendSopArticleTableHeader()
-      appendSopArticleRows(response.sop_articles, response.users)
-      $('#CMS_index_content .ui.floating.dropdown.icon.button').dropdown({
-        action: 'hide',
-        transition: 'drop'
+      let sop_articles = response.sop_articles
+      $.ajax({
+        method: 'GET',
+        url: 'cms/users/'
+      }).done(response => {
+        $('#CMS_index_content').empty()
+        appendSopArticleTableHeader()
+        appendSopArticleRows(sop_articles, response.users_hash)
+        $('#CMS_index_content .ui.floating.dropdown.icon.button').dropdown({
+          action: 'hide',
+          transition: 'drop'
+        })
       })
     })
   })

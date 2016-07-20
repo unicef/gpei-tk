@@ -3,9 +3,7 @@ class Cms::C4dArticlesController < ApplicationController
     if current_user.is_admin? || current_user.is_editor?
       if request.xhr?
         c4d_articles = C4dArticle.all.order(:order_id)
-        users = {}
-        User.all.each { |user| users[user.id] = user }
-        render json: { c4d_articles: c4d_articles, users: users, status: 200 }
+        render json: { c4d_articles: c4d_articles, status: 200 }
       end
     end
   end
