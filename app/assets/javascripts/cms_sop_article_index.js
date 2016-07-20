@@ -74,6 +74,8 @@ $(() => {
   function getCMSSopArticleContent(article, sop_times, sop_categories, responsible_offices, support_affiliations) {
     return (`
     <div id="${article.id}" class="CMS_sop_article_form_div">
+      <span><strong>Order ID: ${article.order_id}</strong></span>
+      &nbsp;
       <form id="CMS_sop_article_form" class="ui form">
         <div class="field">
           <label>CMS Title</label>
