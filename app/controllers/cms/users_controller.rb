@@ -53,7 +53,8 @@ class Cms::UsersController < ApplicationController
     root = Role.find_by(title: 'root')
     users = User.all.select(columns).where.not('role_id = ? OR is_deleted = ?', root.id, true)
     users_hash = {}
-    User.all.each { |user| users_hash[user.id] = user }
+    users.each { |user| users_hash[user.id] = user }
+    return users_hash
   end
 
   def safe_create_params
