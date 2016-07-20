@@ -22,7 +22,7 @@ $(() => {
       }).done(response => {
         $('#CMS_index_content').empty()
         appendReferenceLinkHeader()
-        appendReferenceLinkRows(reference_links, response.users)
+        appendReferenceLinkRows(reference_links, response.users_hash)
       })
     })
 
@@ -74,12 +74,12 @@ $(() => {
 
   function appendReferenceLinkHeader(){
     $('#CMS_index_content').append('<table id="CMS_reference_link_table" class="ui celled table"></table>')
-    $('#CMS_reference_link_table').append('<thead><tr><th class="text-center"> Name </th><th class="text-center"> Updated </th><th class="text-center"> Created </th><th class="text-center"> Author </th></tr></thead>')
+    $('#CMS_reference_link_table').append('<thead><tr><th class="text-center"> Name </th><th class="text-center"> Language </th><th class="text-center"> Updated </th><th class="text-center"> Created </th><th class="text-center"> Author </th></tr></thead>')
   }
 
   function appendReferenceLinkRows(reference_links, users){
     _.forEach(reference_links, reference_link => {
-      let row = `<tr id="${reference_link.id}"><td>${reference_link.id}</td><td>${reference_link.file_name}</td><td>${moment(reference_link.updated_at, "YYYY-MM-DD").format("MMM DD, YYYY")}</td><td>${moment(reference_link.created_at, "YYYY-MM-DD").format("MMM DD, YYYY")}</td><td>${users[reference_link.author_id].first_name + ' ' + users[reference_link.author_id].last_name}</td></tr>`
+      let row = `<tr id="${reference_link.id}"><td>${reference_link.document_file_name}</td><td>${reference_link.language}</td><td>${moment(reference_link.updated_at, "YYYY-MM-DD").format("MMM DD, YYYY")}</td><td>${moment(reference_link.created_at, "YYYY-MM-DD").format("MMM DD, YYYY")}</td><td>${users[reference_link.author_id].first_name + ' ' + users[reference_link.author_id].last_name}</td></tr>`
       $('#CMS_reference_link_table').append(row)
     })
   }
