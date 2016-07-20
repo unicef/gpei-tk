@@ -91,14 +91,28 @@ user = User.new(
   email: 'root@example.com',
   TOS_accepted: true)
 user.password = 'foobar'
-user.role = Role.where(title: 'root').first
+user.role = Role.find_by(title: 'root')
 user.organization = user.role.title
-user.responsible_office = ResponsibleOffice.where(title: 'UNICEF').first
+user.responsible_office = ResponsibleOffice.find_by(title: 'UNICEF')
+user.save
+
+user = User.new(
+  first_name: 'core',
+  last_name: 'admin',
+  country: 'USA',
+  email: 'admin@example.com',
+  TOS_accepted: true)
+user.password = 'password'
+user.role = Role.find_by(title: 'Administrator')
+user.organization = user.role.title
+user.responsible_office = ResponsibleOffice.find_by(title: 'UNICEF')
 user.save
 
 content_random_number_max = 40
 order_id = 0
-all_users = User.all
+root = Role.find_by(title: 'root')
+all_users = User.where.not(role_id: root.id)
+admin_user = User.find_by(first_name: 'core', last_name: 'admin', email: 'admin@example.com')
 responsible_offices = ResponsibleOffice.all
 support_affiliations = SupportAffiliation.all
 
@@ -171,14 +185,14 @@ def generateSopArticles(content_random_number_max, all_users, responsible_office
 end
 # generateSopArticles(content_random_number_max, all_users, responsible_offices, support_affiliations)
 
-def createC4dArticle(row_elements)
+def createC4dArticle(row_elements, admin_user)
   c4d_article = C4dArticle.new
   c4d_article.cms_title = row_elements[3][row_elements[3].index("\"urlTitle\">")+11..row_elements[3].index("</field>")-1].downcase
   c4d_article.created_at = row_elements[1][row_elements[1].index("\"createDate\">")+14..row_elements[1].index("</field>")-1]
   c4d_article.updated_at = row_elements[2][row_elements[2].index("\"modifiedDate\">")+15..row_elements[2].index("</field>")-1]
   c4d_article.order_id = row_elements[3][row_elements[3].index("\"urlTitle\">")+11..row_elements[3].index("</field>")-1].downcase.gsub!('c4d_','').to_i
   c4d_article.published = true
-  c4d_article.author_id = 1
+  c4d_article.author_id = admin_user.id
   row_elements[-1].split("<dynamic-element name=")[1..-1].each do |field|
     field_data = field[field.index('><![CDATA[')+10..field.index(']]')-1]
     if !field.index("\"Sub-Category\"").nil? && field.index("\"Sub-Category\"") == 0
@@ -216,7 +230,7 @@ def getResponsibleTitleToQuery(field_data, support_field, sop_article, calledOnc
   end
 end
 
-def createSopArticle(row_elements)
+def createSopArticle(row_elements, admin_user)
   # PARSE OUT &lt; &gt; &quot;
   sop_article = SopArticle.new
   if row_elements[3].index("\"urlTitle\">")
@@ -230,7 +244,7 @@ def createSopArticle(row_elements)
   sop_article.created_at = row_elements[1][row_elements[1].index("\"createDate\">")+14..row_elements[1].index("</field>")-1]
   sop_article.updated_at = row_elements[2][row_elements[2].index("\"modifiedDate\">")+15..row_elements[2].index("</field>")-1]
   sop_article.published = true
-  sop_article.author_id = 1
+  sop_article.author_id = admin_user.id
   row_elements[-1].split("<dynamic-element name=")[1..-1].each do |field|
     field_data = field[field.index('><![CDATA[')+10..field.index(']]')-1]
     if !field.index("\"TIME\"").nil? && field.index("\"TIME\"") == 0
@@ -281,19 +295,15 @@ content.split("<row>")[1..-1].each do |row|
   isSop = row_elements[3].downcase.include? 'sop'
   isC4d = row_elements[3].downcase.include? 'c4d' unless isSop
   if isSop
-    createSopArticle(row_elements)
+    createSopArticle(row_elements, admin_user)
   elsif isC4d
-    createC4dArticle(row_elements)
+    createC4dArticle(row_elements, admin_user)
   end
 end
 
-#  video_url: nil, missing currently not found in database
-#  1 = createDate
-#  2 = updateDate
-#  3 = cms title
-#  4 = content
-
-SopChecklist.create(user_id: user.id)
-C4dToolkit.create(user_id: user.id)
+SopChecklist.create(user_id: root.id)
+C4dToolkit.create(user_id: root.id)
+SopChecklist.create(user_id: admin_user.id)
+C4dToolkit.create(user_id: admin_user.id)
 
 puts 'done!'
