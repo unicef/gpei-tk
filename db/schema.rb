@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160718212402) do
+ActiveRecord::Schema.define(version: 20160720154307) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -61,6 +61,17 @@ ActiveRecord::Schema.define(version: 20160718212402) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "embedded_images", force: :cascade do |t|
+    t.string   "url",                null: false
+    t.integer  "c4d_article_id",     null: false
+    t.datetime "created_at",         null: false
+    t.datetime "updated_at",         null: false
+    t.string   "image_file_name"
+    t.string   "image_content_type"
+    t.integer  "image_file_size"
+    t.datetime "image_updated_at"
+  end
+
   create_table "reference_link_articles", force: :cascade do |t|
     t.integer  "reference_link_id"
     t.integer  "reference_linkable_id"
@@ -70,6 +81,7 @@ ActiveRecord::Schema.define(version: 20160718212402) do
   end
 
   create_table "reference_links", force: :cascade do |t|
+    t.string   "url",                   null: false
     t.string   "language",              null: false
     t.integer  "author_id",             null: false
     t.datetime "created_at",            null: false

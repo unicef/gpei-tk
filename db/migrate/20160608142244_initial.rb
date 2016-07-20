@@ -117,6 +117,7 @@ class Initial < ActiveRecord::Migration
     end
 
     create_table :reference_links do |t|
+      t.string :url, null: false
       t.string :language, null: false
       t.integer :author_id, null: false
       t.timestamps null: false
@@ -125,6 +126,12 @@ class Initial < ActiveRecord::Migration
     create_table :reference_link_articles do |t|
       t.integer :reference_link_id
       t.references :reference_linkable, polymorphic: true
+      t.timestamps null: false
+    end
+
+    create_table :embedded_images do |t|
+      t.string :url, null: false
+      t.integer :c4d_article_id, null: false
       t.timestamps null: false
     end
   end
