@@ -11,6 +11,8 @@ class C4dArticle < ActiveRecord::Base
   has_many :reference_link_articles, as: :reference_linkable
   has_many :reference_links, through: :reference_link_articles
 
+  has_many :embedded_images
+
   def to_param
     [id, title.parameterize].join("-")
   end
