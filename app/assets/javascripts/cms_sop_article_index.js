@@ -95,11 +95,11 @@ $(() => {
         </div>
         <div class="field">
           <label>Responsible</label>
-          <input type="text" name="article[responsible]" placeholder="Responsible" value="${article.responsible}" required>
+          <input type="text" name="article[responsible]" placeholder="" value="${article.responsible}">
         </div>
         <div class="field">
           <label>Support</label>
-          <input type="text" name="article[support]" placeholder="Support" value="${article.support}" required>
+          <input type="text" name="article[support]" placeholder="" value="${article.support}">
         </div>
         ${getDropdown("Responsible", "responsible_office_id", responsible_offices, article.responsible_office_id, true)}
         ${getDropdown("Support", "support_affiliation_id", support_affiliations, article.support_affiliation_id, false)}
@@ -125,8 +125,8 @@ $(() => {
         <select name="article[reference_links][]" class="ui dropdown cms_dropdown_select" required multiple>
           <option value="">Select Reference Links</option>
           ${_.map(reference_links, reference_link => {
-            selected = _.includes(selected_reference_links, reference_link.id) ? 'selected' : ''
-            return `<option ${selected} value="${reference_link.id}">${reference_link.document_file_name}</option>`
+            selected = _.includes(selected_reference_links, reference_link.id) ? "selected=\"selected\"" : ""
+            return `<option value="${reference_link.id}" ${selected}>${reference_link.document_file_name}</option>`
           }).join('\n')}
         </select>
       </div>

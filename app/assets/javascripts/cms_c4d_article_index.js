@@ -84,7 +84,7 @@ $(() => {
         </div>
         <div id="field">
             ${_.map(embedded_images, embedded_image => {
-              return (`<p><strong>Embedded Image: </strong> ${embedded_image.image_file_name} - <a href="${embedded_image.url}" target="_blank">${embedded_image.url}</a></p>`)
+              return (`<p><strong>Embedded Image: </strong>${embedded_image.image_file_name} - <a href="${embedded_image.url}" target="_blank">${embedded_image.url}</a></p>`)
             }).join('\n')}
         </div>
         ${getReferenceLinkDropdown(reference_links, selected_reference_links)}
@@ -101,8 +101,8 @@ $(() => {
         <select name="article[reference_links][]" class="ui dropdown cms_dropdown_select" required multiple>
           <option value="">Select Reference Links</option>
           ${_.map(reference_links, reference_link => {
-            selected = _.includes(selected_reference_links, reference_link.id) ? 'selected' : ''
-            return `<option ${selected} value="${reference_link.id}">${reference_link.document_file_name}</option>`
+            selected = _.includes(selected_reference_links, reference_link.id) ? "selected=\"selected\"" : ""
+            return `<option value="${reference_link.id}" ${selected}>${reference_link.document_file_name}</option>`
           }).join('\n')}
         </select>
       </div>
