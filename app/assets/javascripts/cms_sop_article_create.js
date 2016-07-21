@@ -68,11 +68,11 @@ $(() => {
         </div>
         <div class="field">
           <label>Responsible</label>
-          <input type="text" name="article[responsible]" placeholder="Responsible" value="" required>
+          <input type="text" name="article[responsible]" placeholder="" value="">
         </div>
         <div class="field">
           <label>Support</label>
-          <input type="text" name="article[support]" placeholder="Support" value="" required>
+          <input type="text" name="article[support]" placeholder="" value="">
         </div>
         ${getDropdown("Responsible", "responsible_office_id", responsible_offices, true)}
         ${getDropdown("Support", "support_affiliation_id", support_affiliations, false)}
@@ -95,7 +95,7 @@ $(() => {
     return (`
       <div id='reference_link_multi_select' class="field">
         <label>Reference Links</label>
-        <select name="article[reference_links][]" class="ui dropdown cms_dropdown_select" required multiple>
+        <select name="article[reference_links][]" class="ui dropdown cms_dropdown_select" multiple>
           <option value="">Select Reference Links</option>
           ${_.map(reference_links, reference_link => {
             return `<option value="${reference_link.id}">${reference_link.document_file_name}</option>`
