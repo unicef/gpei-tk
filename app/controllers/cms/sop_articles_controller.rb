@@ -15,11 +15,10 @@ class Cms::SopArticlesController < ApplicationController
         sop_article.sop_icon = SopIcon.find_by(sop_time_id: sop_article.sop_time.id, sop_category_id: sop_article.sop_category.id)
         sop_article.order_id = SopArticle.maximum(:order_id) + 1
         sop_article.author = current_user
-        ReferenceLinkArticle.where(reference_linkable_id: sop_article.id).delete_all
-        params[:article][:reference_links].each do |reference_id|
-          ReferenceLinkArticle.create(reference_link_id: reference_id, reference_linkable: article)
-        end
         if sop_article.save
+          params[:article][:reference_links].each do |reference_id|
+            ReferenceLinkArticle.create(reference_link_id: reference_id, reference_linkable: sop_article)
+          end
           render json: { sop_article: sop_article, status: 200 }
         end
       end

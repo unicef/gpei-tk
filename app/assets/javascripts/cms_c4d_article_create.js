@@ -58,7 +58,8 @@ $(() => {
           <label>Content</label>
           <textarea name="article[content]" id="editor" required></textarea>
         </div>
-        ${getReferenceLinkDropdown(reference_links)}        <button class="ui button" type="submit">Submit</button>
+        ${getReferenceLinkDropdown(reference_links)}
+        <button class="ui button" type="submit">Submit</button>
       </form>
     `)
   }
