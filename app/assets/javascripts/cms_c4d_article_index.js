@@ -43,7 +43,7 @@ $(() => {
       method: 'GET',
       url: 'cms/reference_links/'
     }).done(response => {
-      let reference_links_all = response.reference_links
+      let reference_links = response.reference_links
       $.ajax({
         method: 'GET',
         url: 'cms/c4d_articles/' + e.currentTarget.id
@@ -54,7 +54,7 @@ $(() => {
                                               response.c4d_categories,
                                               response.embedded_images,
                                               response.selected_reference_links,
-                                              reference_links_all)
+                                              reference_links)
         $('#CMS_index_content').append(content)
         initializeCKEditor()
         $('#editor').val(response.c4d_article.content)
@@ -62,7 +62,7 @@ $(() => {
     })
   })
 
-  function getCMSC4dArticleContent(article, c4d_subcategories, c4d_categories, embedded_images, selected_reference_links, reference_links_all) {
+  function getCMSC4dArticleContent(article, c4d_subcategories, c4d_categories, embedded_images, selected_reference_links, reference_links) {
     return (`
     <div id="${article.id}" class="CMS_c4d_article_form_div">
       <span><strong>Order ID: ${article.order_id}</strong></span>
@@ -87,21 +87,21 @@ $(() => {
               return (`<p><strong>Embedded Image: </strong> ${embedded_image.image_file_name} - <a href="${embedded_image.url}" target="_blank">${embedded_image.url}</a></p>`)
             }).join('\n')}
         </div>
-        ${getReferenceLinkDropdown(selected_reference_links, reference_links_all)}
+        ${getReferenceLinkDropdown(reference_links, selected_reference_links)}
         <button class="ui button" type="submit">Submit</button>
       </form>
     </div>
     `)
   }
 
-  function getReferenceLinkDropdown(selected_reference_links, reference_links) {
+  function getReferenceLinkDropdown(reference_links, selected_reference_links) {
     return (`
       <div id='reference_link_multi_select' class="field">
         <label>Reference Links</label>
         <select name="article[reference_links][]" class="ui dropdown cms_dropdown_select" required multiple>
           <option value="">Select Reference Links</option>
           ${_.map(reference_links, reference_link => {
-            selected = (undefined === _.find(selected_reference_links, selected_reference_link => { selected_reference_link == reference_link.id})) ? '' : 'selected'
+            selected = _.includes(selected_reference_links, reference_link.id) ? 'selected' : ''
             return `<option ${selected} value="${reference_link.id}">${reference_link.document_file_name}</option>`
           }).join('\n')}
         </select>

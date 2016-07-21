@@ -4,28 +4,34 @@ $(() => {
     let sop_categories, sop_times, responsible_offices
     $.ajax({
       method: 'GET',
-      url: '/api/sop_categories/'
+      url: 'api/sop_categories/'
     }).done(response => {
       let sop_categories = response.sop_categories
       $.ajax({
         method: 'GET',
-        url: '/api/sop_times/'
+        url: 'api/sop_times/'
       }).done(response => {
         let sop_times = response.sop_times
         $.ajax({
           method: 'GET',
-          url: '/api/responsible_offices/'
+          url: 'api/responsible_offices/'
         }).done(response => {
           let responsible_offices = response.responsible_offices
           $.ajax({
             method: 'GET',
-            url: '/api/support_affiliations/'
+            url: 'api/support_affiliations/'
           }).done(response => {
             let support_affiliations = response.support_affiliations
-            $('#CMS_index_content').empty()
-            let content = getEmptySopArticleForm(sop_times, sop_categories, responsible_offices, support_affiliations)
-            $('#CMS_index_content').append(content)
-            initializeCKEditor()
+            $.ajax({
+              method: 'GET',
+              url: 'cms/reference_links'
+            }).done(response => {
+              let reference_links = response.reference_links
+              $('#CMS_index_content').empty()
+              let content = getEmptySopArticleForm(sop_times, sop_categories, responsible_offices, support_affiliations, reference_links)
+              $('#CMS_index_content').append(content)
+              initializeCKEditor()
+            })
           })
         })
       })
@@ -47,7 +53,7 @@ $(() => {
     })
   })
 
-  function getEmptySopArticleForm(sop_times, sop_categories, responsible_offices, support_affiliations){
+  function getEmptySopArticleForm(sop_times, sop_categories, responsible_offices, support_affiliations, reference_links){
     return (`
       <form id="CMS_sop_article_create_form" class="ui form CMS_sop_article_form_div">
         <div class="field">
@@ -79,13 +85,24 @@ $(() => {
           <label>Video URL</label>
           <input type="text" name="article[video_url]" value="">
         </div>
-        <div class="field">
-          <label>Reference Links<a id="add_reference_link_input"  href=''><i class="fa fa-plus" aria-hidden="true"></i></a></label>
-          <input class="reference_link_file" type="file" name="reference_links" value="">
-        </div>
+        ${getReferenceLinkDropdown(reference_links)}
         <button class="ui button" type="submit">Submit</button>
       </form>
     `)
+  }
+
+  function getReferenceLinkDropdown(reference_links) {
+    return (`
+      <div id='reference_link_multi_select' class="field">
+        <label>Reference Links</label>
+        <select name="article[reference_links][]" class="ui dropdown cms_dropdown_select" required multiple>
+          <option value="">Select Reference Links</option>
+          ${_.map(reference_links, reference_link => {
+            return `<option value="${reference_link.id}">${reference_link.document_file_name}</option>`
+          }).join('\n')}
+        </select>
+      </div>
+      `)
   }
 
   function getSopTimeDropdown(label, option_name, sop_times, is_required){

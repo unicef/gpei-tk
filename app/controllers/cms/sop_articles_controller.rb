@@ -12,9 +12,13 @@ class Cms::SopArticlesController < ApplicationController
     if current_user.is_admin? || current_user.is_editor?
       if request.xhr?
         sop_article = SopArticle.new(safe_article_params)
-        sop_article.sop_icon = SopIcon.where(sop_time_id: sop_article.sop_time.id, sop_category_id: sop_article.sop_category.id).first
+        sop_article.sop_icon = SopIcon.find_by(sop_time_id: sop_article.sop_time.id, sop_category_id: sop_article.sop_category.id)
         sop_article.order_id = SopArticle.maximum(:order_id) + 1
         sop_article.author = current_user
+        ReferenceLinkArticle.where(reference_linkable_id: sop_article.id).delete_all
+        params[:article][:reference_links].each do |reference_id|
+          ReferenceLinkArticle.create(reference_link_id: reference_id, reference_linkable: article)
+        end
         if sop_article.save
           render json: { sop_article: sop_article, status: 200 }
         end
@@ -30,7 +34,14 @@ class Cms::SopArticlesController < ApplicationController
         sop_categories = SopCategory.all
         responsible_offices = ResponsibleOffice.all
         support_affiliations = SupportAffiliation.all
-        render json: { sop_article: sop_article, sop_times: sop_times, sop_categories: sop_categories, responsible_offices: responsible_offices, support_affiliations: support_affiliations, status: 200 }
+        selected_reference_links = sop_article.reference_links
+        render json: { sop_article: sop_article,
+                       sop_times: sop_times,
+                       sop_categories: sop_categories,
+                       responsible_offices: responsible_offices,
+                       support_affiliations: support_affiliations,
+                       selected_reference_links: selected_reference_links,
+                       status: 200 }
       end
     end
   end
@@ -38,8 +49,12 @@ class Cms::SopArticlesController < ApplicationController
   def update
     if current_user.is_admin? || current_user.is_editor?
       if request.xhr?
-        article = SopArticle.find_by(id: params[:id])
-        article.update(safe_article_params)
+        sop_article = SopArticle.find_by(id: params[:id])
+        ReferenceLinkArticle.where(reference_linkable_id: sop_article.id).delete_all
+        params[:article][:reference_links].each do |reference_id|
+          ReferenceLinkArticle.create(reference_link_id: reference_id, reference_linkable: sop_article)
+        end
+        sop_article.update(safe_article_params)
         render json: { status: 200 }
       end
     end

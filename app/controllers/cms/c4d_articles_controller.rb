@@ -14,8 +14,9 @@ class Cms::C4dArticlesController < ApplicationController
         c4d_article = C4dArticle.new(safe_article_params)
         c4d_article.order_id = C4dArticle.maximum(:order_id) + 1
         c4d_article.author = current_user
+        ReferenceLinkArticle.where(reference_linkable_id: c4d_article.id).delete_all
         params[:article][:reference_links].each do |reference_id|
-          ReferenceLinkArticle.first_or_create(reference_link_id: reference_id, reference_linkable: article)
+          ReferenceLinkArticle.create(reference_link_id: reference_id, reference_linkable: article)
         end
         if c4d_article.save
           render json: { c4d_article: c4d_article, status: 200 }
@@ -31,10 +32,12 @@ class Cms::C4dArticlesController < ApplicationController
         c4d_subcategories = C4dSubcategory.all
         c4d_categories = C4dCategory.all
         embedded_images = c4d_article.embedded_images
+        selected_reference_links = c4d_article.reference_links
         render json: { c4d_article: c4d_article,
                        c4d_subcategories: c4d_subcategories,
                        c4d_categories: c4d_categories,
                        embedded_images: embedded_images,
+                       selected_reference_links: selected_reference_links,
                        status: 200 }
       end
     end
@@ -43,12 +46,13 @@ class Cms::C4dArticlesController < ApplicationController
   def update
     if current_user.is_admin? || current_user.is_editor?
       if request.xhr?
-        article = C4dArticle.find_by(id: params[:id])
-        if article
+        c4d_article = C4dArticle.find_by(id: params[:id])
+        if c4d_article
+          ReferenceLinkArticle.where(reference_linkable_id: c4d_article.id).delete_all
           params[:article][:reference_links].each do |reference_id|
-            ReferenceLinkArticle.first_or_create(reference_link_id: reference_id, reference_linkable: article)
+            ReferenceLinkArticle.create(reference_link_id: reference_id, reference_linkable: c4d_article)
           end
-          article.update(safe_article_params)
+          c4d_article.update(safe_article_params)
           render json: { status: 200 }
         end
       end

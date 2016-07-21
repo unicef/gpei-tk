@@ -24,7 +24,7 @@ $(() => {
     let id = e.currentTarget.parentElement.id
     $.ajax({
       method: 'PATCH',
-      url: '/cms/sop_articles/publish/' + id,
+      url: 'cms/sop_articles/publish/' + id,
       data: { authenticity_token: _.escape($('meta[name=csrf-token]').attr('content')) }
     }).done(response => {
       $('#CMS_sop_articles_link').trigger('click')
@@ -61,17 +61,23 @@ $(() => {
     e.preventDefault()
     $.ajax({
       method: 'GET',
-      url: '/cms/sop_articles/' + e.currentTarget.id
+      url: 'cms/reference_links'
     }).done(response => {
-      $('#CMS_index_content').empty()
-      let content = getCMSSopArticleContent(response.sop_article, response.sop_times, response.sop_categories, response.responsible_offices, response.support_affiliations)
-      $('#CMS_index_content').append(content)
-      initializeCKEditor()
-      $('#editor').val(response.sop_article.content)
+      let reference_links = response.reference_links
+      $.ajax({
+        method: 'GET',
+        url: 'cms/sop_articles/' + e.currentTarget.id
+      }).done(response => {
+        $('#CMS_index_content').empty()
+        let content = getCMSSopArticleContent(response.sop_article, response.sop_times, response.sop_categories, response.responsible_offices, response.support_affiliations, reference_links, response.selected_reference_links)
+        $('#CMS_index_content').append(content)
+        initializeCKEditor()
+        $('#editor').val(response.sop_article.content)
+      })
     })
   })
 
-  function getCMSSopArticleContent(article, sop_times, sop_categories, responsible_offices, support_affiliations) {
+  function getCMSSopArticleContent(article, sop_times, sop_categories, responsible_offices, support_affiliations, reference_links, selected_reference_links) {
     return (`
     <div id="${article.id}" class="CMS_sop_article_form_div">
       <span><strong>Order ID: ${article.order_id}</strong></span>
@@ -105,14 +111,26 @@ $(() => {
           <label>Video URL</label>
           <input type="text" name="article[video_url]" value="${article.video_url}">
         </div>
-        <div class="field">
-          <label>Reference Links<a id="add_reference_link_input"  href=''><i class="fa fa-plus" aria-hidden="true"></i></a></label>
-          <input class="reference_link_file" type="file" name="reference_links" value="">
-        </div>
+        ${getReferenceLinkDropdown(reference_links, selected_reference_links)}
         <button class="ui button" type="submit">Submit</button>
       </form>
     </div>
     `)
+  }
+
+  function getReferenceLinkDropdown(reference_links, selected_reference_links) {
+    return (`
+      <div id='reference_link_multi_select' class="field">
+        <label>Reference Links</label>
+        <select name="article[reference_links][]" class="ui dropdown cms_dropdown_select" required multiple>
+          <option value="">Select Reference Links</option>
+          ${_.map(reference_links, reference_link => {
+            selected = _.includes(selected_reference_links, reference_link.id) ? 'selected' : ''
+            return `<option ${selected} value="${reference_link.id}">${reference_link.document_file_name}</option>`
+          }).join('\n')}
+        </select>
+      </div>
+      `)
   }
 
   $('select.dropdown')
@@ -139,7 +157,7 @@ $(() => {
     e.preventDefault()
     $.ajax({
       method: 'PATCH',
-      url: '/cms/sop_articles/' + e.currentTarget.parentElement.id,
+      url: 'cms/sop_articles/' + e.currentTarget.parentElement.id,
       data: $('#CMS_sop_article_form').serialize() + "&authenticity_token=" + _.escape($('meta[name=csrf-token]').attr('content'))
     }).done(response => {
       $('#CMS_sop_articles_link').trigger('click')
