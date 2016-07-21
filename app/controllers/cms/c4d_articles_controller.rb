@@ -31,7 +31,7 @@ class Cms::C4dArticlesController < ApplicationController
         c4d_subcategories = C4dSubcategory.all
         c4d_categories = C4dCategory.all
         embedded_images = c4d_article.embedded_images
-        selected_reference_links = c4d_article.reference_links
+        selected_reference_links = c4d_article.reference_links.pluck(:id)
         render json: { c4d_article: c4d_article,
                        c4d_subcategories: c4d_subcategories,
                        c4d_categories: c4d_categories,
@@ -52,6 +52,7 @@ class Cms::C4dArticlesController < ApplicationController
             ReferenceLinkArticle.create(reference_link_id: reference_id, reference_linkable: c4d_article)
           end
           c4d_article.update(safe_article_params)
+          binding.pry
           render json: { status: 200 }
         end
       end

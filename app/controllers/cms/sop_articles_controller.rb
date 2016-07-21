@@ -33,7 +33,7 @@ class Cms::SopArticlesController < ApplicationController
         sop_categories = SopCategory.all
         responsible_offices = ResponsibleOffice.all
         support_affiliations = SupportAffiliation.all
-        selected_reference_links = sop_article.reference_links
+        selected_reference_links = sop_article.reference_links.pluck(:id)
         render json: { sop_article: sop_article,
                        sop_times: sop_times,
                        sop_categories: sop_categories,
@@ -54,6 +54,7 @@ class Cms::SopArticlesController < ApplicationController
           ReferenceLinkArticle.create(reference_link_id: reference_id, reference_linkable: sop_article)
         end
         sop_article.update(safe_article_params)
+        binding.pry
         render json: { status: 200 }
       end
     end
