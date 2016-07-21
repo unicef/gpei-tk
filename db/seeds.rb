@@ -109,12 +109,16 @@ user.responsible_office = ResponsibleOffice.find_by(title: 'UNICEF')
 user.save
 
 content_random_number_max = 40
-order_id = 0
 root = Role.find_by(title: 'root')
 all_users = User.where.not(role_id: root.id)
 admin_user = User.find_by(first_name: 'core', last_name: 'admin', email: 'admin@example.com')
 responsible_offices = ResponsibleOffice.all
 support_affiliations = SupportAffiliation.all
+
+SopChecklist.create(user_id: root.id)
+C4dToolkit.create(user_id: root.id)
+SopChecklist.create(user_id: admin_user.id)
+C4dToolkit.create(user_id: admin_user.id)
 
 def generateC4dArticles(content_random_number_max, all_users)
   C4dCategory.all.count.times do |x|
@@ -145,9 +149,9 @@ def generateC4dArticles(content_random_number_max, all_users)
     end
   end
 end
+# order_id = 0
 # generateC4dArticles(content_random_number_max, all_users)
 
-order_id = 0
 def generateSopArticles(content_random_number_max, all_users, responsible_offices, support_affiliations)
   SopTime.all.count.times do |x|
     sop_time_id = x + 1
@@ -183,6 +187,7 @@ def generateSopArticles(content_random_number_max, all_users, responsible_office
     end
   end
 end
+# order_id = 0
 # generateSopArticles(content_random_number_max, all_users, responsible_offices, support_affiliations)
 
 def createC4dArticle(row_elements, admin_user)
@@ -289,6 +294,7 @@ def createSopArticle(row_elements, admin_user)
   SopIcon.create(sop_time_id: sop_article.sop_time_id, sop_category_id: sop_article.sop_category_id, sop_article_id: sop_article.id, title: icon_title)
 end
 
+order_id = 0
 content = IO.read("file.xml")
 content.split("<row>")[1..-1].each do |row|
   row_elements = row.split("<field name=")
@@ -300,10 +306,5 @@ content.split("<row>")[1..-1].each do |row|
     createC4dArticle(row_elements, admin_user)
   end
 end
-
-SopChecklist.create(user_id: root.id)
-C4dToolkit.create(user_id: root.id)
-SopChecklist.create(user_id: admin_user.id)
-C4dToolkit.create(user_id: admin_user.id)
 
 puts 'done!'
