@@ -240,7 +240,7 @@ def createSopArticle(row_elements, admin_user)
   sop_article = SopArticle.new
   if row_elements[3].index("\"urlTitle\">")
     sop_article.cms_title = row_elements[3][row_elements[3].index("\"urlTitle\">")+11..row_elements[3].index("</field>")-1].downcase
-    sop_article.order_id = row_elements[3][row_elements[3].index("\"urlTitle\">")+11..row_elements[3].index("</field>")-1].downcase.gsub!('sop_','').to_i
+    sop_article.order_id = row_elements[3][row_elements[3].index("\"urlTitle\">")+11..row_elements[3].index("</field>")-1].downcase.gsub!('sop_00','').to_i
   else
     sop_article.cms_title = row_elements[3][row_elements[3].index("\"urlTitle\"<name />")+18..row_elements[3].index("</field>")-1].downcase
     sop_article.order_id = row_elements[3][row_elements[3].index("\"urlTitle\"<name />")+18..row_elements[3].index("</field>")-1].downcase.gsub!('sop_','').to_i
