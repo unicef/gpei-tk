@@ -294,17 +294,23 @@ def createSopArticle(row_elements, admin_user)
   SopIcon.create(sop_time_id: sop_article.sop_time_id, sop_category_id: sop_article.sop_category_id, sop_article_id: sop_article.id, title: icon_title)
 end
 
-order_id = 0
+sop_order_id = 0
+c4d_order_id = 0
 content = IO.read("file.xml")
 content.split("<row>")[1..-1].each do |row|
   row_elements = row.split("<field name=")
   isSop = row_elements[3].downcase.include? 'sop'
   isC4d = row_elements[3].downcase.include? 'c4d' unless isSop
   if isSop
+    sop_order_id += 1
     createSopArticle(row_elements, admin_user)
   elsif isC4d
+    c4d_order_id += 1
     createC4dArticle(row_elements, admin_user)
   end
 end
+
+puts "#{sop_order_id} sop articles"
+puts "#{c4d_order_id} c4d articles"
 
 puts 'done!'
