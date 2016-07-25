@@ -198,7 +198,7 @@ def createC4dArticle(row_elements, admin_user)
   c4d_article.order_id = row_elements[3][row_elements[3].index("\"urlTitle\">")+11..row_elements[3].index("</field>")-1].downcase.gsub!('c4d_','').to_i
   c4d_article.published = true
   c4d_article.author_id = admin_user.id
-  row_elements[-1].split("<dynamic-element name=")[1..-1].each do |field|
+  row_elements[-2].split("<dynamic-element name=")[1..-1].each do |field|
     field_data = field[field.index('><![CDATA[')+10..field.index(']]')-1]
     if !field.index("\"Sub-Category\"").nil? && field.index("\"Sub-Category\"") == 0
       c4d_article.c4d_subcategory_id = C4dSubcategory.find_by(title: field_data).id
@@ -240,17 +240,16 @@ def createSopArticle(row_elements, admin_user)
   sop_article = SopArticle.new
   if row_elements[3].index("\"urlTitle\">")
     sop_article.cms_title = row_elements[3][row_elements[3].index("\"urlTitle\">")+11..row_elements[3].index("</field>")-1].downcase
-    sop_article.order_id = row_elements[3][row_elements[3].index("\"urlTitle\">")+11..row_elements[3].index("</field>")-1].downcase.gsub!('sop_00','').to_i
+    sop_article.order_id = row_elements[3][row_elements[3].index("\"urlTitle\">")+11..row_elements[3].index("</field>")-1].downcase.gsub!('sop_','').to_i
   else
     sop_article.cms_title = row_elements[3][row_elements[3].index("\"urlTitle\"<name />")+18..row_elements[3].index("</field>")-1].downcase
     sop_article.order_id = row_elements[3][row_elements[3].index("\"urlTitle\"<name />")+18..row_elements[3].index("</field>")-1].downcase.gsub!('sop_','').to_i
   end
-
-  sop_article.created_at = row_elements[1][row_elements[1].index("\"createDate\">")+14..row_elements[1].index("</field>")-1]
+  sop_article.created_at = row_elements[1][row_elements[1].index("\"createDate\">")+13..row_elements[1].index("</field>")-1]
   sop_article.updated_at = row_elements[2][row_elements[2].index("\"modifiedDate\">")+15..row_elements[2].index("</field>")-1]
   sop_article.published = true
   sop_article.author_id = admin_user.id
-  row_elements[-1].split("<dynamic-element name=")[1..-1].each do |field|
+  row_elements[-2].split("<dynamic-element name=")[1..-1].each do |field|
     field_data = field[field.index('><![CDATA[')+10..field.index(']]')-1]
     if !field.index("\"TIME\"").nil? && field.index("\"TIME\"") == 0
       if field_data.downcase.start_with?('14 day')
@@ -272,7 +271,7 @@ def createSopArticle(row_elements, admin_user)
       sop_article.title = field_data
     elsif !field.index("\"Responsible\"").nil? && field.index("\"Responsible\"") == 0
       sop_article.responsible = field_data
-      support_field = row_elements[-1].split("<dynamic-element name=")[1..-1].select{|field| !field.index("\"Support\"").nil? && field.index("\"Support\"") == 0 }
+      support_field = row_elements[-2].split("<dynamic-element name=")[1..-1].select{|field| !field.index("\"Support\"").nil? && field.index("\"Support\"") == 0 }
       if !support_field.empty?
         support_field = support_field.first
         if !support_field.index('><![CDATA[').nil?
