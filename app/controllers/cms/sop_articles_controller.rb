@@ -54,7 +54,6 @@ class Cms::SopArticlesController < ApplicationController
           ReferenceLinkArticle.create(reference_link_id: reference_id, reference_linkable: sop_article)
         end
         sop_article.update(safe_article_params)
-        binding.pry
         render json: { status: 200 }
       end
     end
