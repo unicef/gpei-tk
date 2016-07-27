@@ -80,6 +80,7 @@ test:
 #
 production:
   <<: *default
+  host: localhost
   database: GPEI-TK_production
   username: GPEI-TK
   password: <%= ENV['GPEI-TK_DATABASE_PASSWORD'] %>
