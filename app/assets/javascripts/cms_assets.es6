@@ -140,7 +140,7 @@ $(() => {
     return (`
       <div class="field">
         <label>C4D Article</label>
-        <select name="embedded_image[article]" class="ui dropdown cms_dropdown_select" required>
+        <select name="embedded_image[article_id]" class="ui dropdown cms_dropdown_select" required>
           <option value="">Select Article</option>
           ${_.map(c4d_articles, article => {
             return `<option value="${article.id}">Order ID:${article.order_id} Title: ${article.title}</option>`
