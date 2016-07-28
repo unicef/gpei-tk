@@ -85,13 +85,13 @@ $(() => {
           <label>Video URL</label>
           <input type="text" name="article[video_url]" value="">
         </div>
-        ${getReferenceLinkDropdown(reference_links)}
+        ${getReferenceLinkSelect(reference_links)}
         <button class="ui button" type="submit">Submit</button>
       </form>
     `)
   }
 
-  function getReferenceLinkDropdown(reference_links) {
+  function getReferenceLinkSelect(reference_links) {
     return (`
       <div id='reference_link_multi_select' class="field">
         <label>Reference Links</label>
