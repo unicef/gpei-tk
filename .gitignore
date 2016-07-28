@@ -2,6 +2,7 @@
 .DS_STORE
 capybara-*.html
 .rspec
+.rbenv-vars
 /log
 /tmp
 /db/*.sqlite3
