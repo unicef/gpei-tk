@@ -199,6 +199,9 @@ def createC4dArticle(row_elements, admin_user)
   c4d_article.published = true
   c4d_article.author_id = admin_user.id
   row_elements[-2].split("<dynamic-element name=")[1..-1].each do |field|
+    # if c4d_article.cms_title == "c4d_19"
+    #   binding.pry
+    # end
     field_data = field[field.index('><![CDATA[')+10..field.index(']]')-1]
     if !field.index("\"Sub-Category\"").nil? && field.index("\"Sub-Category\"") == 0
       c4d_article.c4d_subcategory_id = C4dSubcategory.find_by(title: field_data).id
@@ -252,7 +255,7 @@ def createSopArticle(row_elements, admin_user)
   row_elements[-2].split("<dynamic-element name=")[1..-1].each do |field|
     field_data = field[field.index('><![CDATA[')+10..field.index(']]')-1]
     if !field.index("\"TIME\"").nil? && field.index("\"TIME\"") == 0
-      if field_data.downcase.start_with?('14 day')
+      if field_data.downcase.start_with?('14 dayes')
         field_data = '14 Days To Close'
       elsif field_data.downcase.start_with?('immediately')
         return
@@ -309,7 +312,74 @@ content.split("<row>")[1..-1].each do |row|
   end
 end
 
-puts "#{sop_order_id} sop articles"
-puts "#{c4d_order_id} c4d articles"
+def videoPersistRaise(article)
+  if !article.save
+    raise Exception.new("SEEDING VIDEO URL ERROR")
+  end
+end
+twentyFour_hours_id = SopTime.find_by(period: '24 Hours').id
+seventyTwo_hours_id = SopTime.find_by(period: '72 Hours').id
+fourteen_days_id = SopTime.find_by(period: '14 Days').id
+fourteen_days_to_close_id = SopTime.find_by(period: '14 Days to Close').id
+
+article = SopArticle.where('lower(title) = ? AND sop_time_id = ?', 'Ensure government notification'.downcase, twentyFour_hours_id).first
+article.video_url = 'https://vimeo.com/138580685'
+videoPersistRaise(article)
+
+article = SopArticle.where('lower(title) = ? AND sop_time_id = ?', 'Initiate Epidemiological & Social Investigation'.downcase, twentyFour_hours_id).first
+article.video_url = 'https://vimeo.com/136684766'
+videoPersistRaise(article)
+
+article = SopArticle.where('lower(title) = ? AND sop_time_id = ?', "Ensure Notification of GPEI's EOMG".downcase, twentyFour_hours_id).first
+article.video_url = 'https://vimeo.com/138580748'
+videoPersistRaise(article)
+
+article = SopArticle.where('lower(title) = ? AND sop_time_id = ?', "Assess Human Resource Capacity".downcase, twentyFour_hours_id).first
+article.video_url = 'https://vimeo.com/136684824'
+videoPersistRaise(article)
+
+article = SopArticle.where('lower(title) = ? AND sop_time_id = ?', "EOMG Outbreak Grading".downcase, seventyTwo_hours_id).first
+article.video_url = 'https://vimeo.com/136684765'
+videoPersistRaise(article)
+
+article = SopArticle.where('lower(title) = ? AND sop_time_id = ?', "Establish Outbreak Response Cell".downcase, seventyTwo_hours_id).first
+article.video_url = 'https://vimeo.com/136684870'
+videoPersistRaise(article)
+
+article = SopArticle.where('lower(title) = ? AND sop_time_id = ?', "Establish Outbreak Task Forces".downcase, seventyTwo_hours_id).first
+article.video_url = 'https://vimeo.com/138580799'
+videoPersistRaise(article)
+
+article = SopArticle.where('lower(title) = ? AND sop_time_id = ?', "Identify Human Resource Surge Capacity".downcase, seventyTwo_hours_id).first
+article.video_url = 'https://vimeo.com/136684825'
+videoPersistRaise(article)
+
+article = SopArticle.where('lower(title) = ? AND sop_time_id = ?', "Finalize Media Protocol".downcase, seventyTwo_hours_id).first
+article.video_url = 'https://vimeo.com/136684767'
+videoPersistRaise(article)
+
+article = SopArticle.where('lower(title) = ? AND sop_time_id = ?', "Finalize C4D Community Engagement".downcase, fourteen_days_id).first
+article.video_url = 'https://vimeo.com/136684823'
+videoPersistRaise(article)
+
+article = SopArticle.where('lower(title) = ? AND sop_time_id = ?', "Facilitate Social Mobilization".downcase, fourteen_days_id).first
+article.video_url = 'https://vimeo.com/138580862'
+videoPersistRaise(article)
+
+article = SopArticle.where('lower(title) = ? AND sop_time_id = ?', "Support Partners' Communication Campaigns".downcase, fourteen_days_id).first
+article.video_url = 'https://vimeo.com/138580884'
+videoPersistRaise(article)
+
+article = SopArticle.where('lower(title) = ? AND sop_time_id = ?', "Assess Cold-Chain Capacity".downcase, fourteen_days_id).first
+article.video_url = 'https://youtu.be/i0kbQkyP0P8'
+videoPersistRaise(article)
+
+article = SopArticle.where('lower(title) = ? AND sop_time_id = ?', "Conduct SIAs".downcase, fourteen_days_to_close_id).first
+article.video_url = 'https://youtu.be/i0kbQkyP0P8'
+videoPersistRaise(article)
+
+article = SopArticle.where('lower(title) = ? AND sop_time_id = ?', "Implement Strategic Communication Plan".downcase, fourteen_days_to_close_id).first
+article.video_url = 'https://vimeo.com/136684822'
+videoPersistRaise(article)
 
 puts 'done!'
