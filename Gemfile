@@ -23,7 +23,8 @@ gem 'sdoc', '~> 0.4.0', group: :doc
 # verbose console and serve assets on heroku
 gem 'rails_12factor', group: :production
 
-gem 'unicorn'
+gem 'puma'
+
 # Use ActiveModel has_secure_password
 gem 'bcrypt'
 # Use Capistrano for deployment
