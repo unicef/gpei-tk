@@ -9,7 +9,7 @@ class C4dController < ApplicationController
     @user = current_user
     @c4d_categories = C4dCategory.all
     @c4d_subcateogires = C4dSubcategory.all
-    @c4d_articles = C4dArticle.where(published: true)
+    @c4d_articles = C4dArticle.where(published: true).order(c4d_category_id: :asc, c4d_subcategory_id: :asc)
     @img_name = 'C4D'
   end
 end
