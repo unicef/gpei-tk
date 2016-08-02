@@ -188,7 +188,7 @@
             <input type="password" name="user[password]" placeholder="Password" class="input_fields" value="" required>
           </div>
           <div class="field">
-            <label>Password</label>
+            <label>Re-enter password</label>
             <input type="password" name="user[password]" placeholder="Password" class="input_fields" value="" required>
           </div>
           <button id="cms_user_create_submit_button" class="ui button" type="submit">Submit</button>
@@ -207,7 +207,7 @@
 
   function getRolesRadioCheckBoxWithUserRole(roles, user_role) {
     return (
-      `<div class="inline fields">
+      `<div class="grouped fields">
         <label for="role">Select user role:</label>
         ${_.map(roles, role => {
             let checked = ''
@@ -500,7 +500,7 @@
         <select name="user[${option_name}]" class="ui dropdown user_dropdowns" required>
           <option value="">Select Office</option>
           ${_.map(objects, object => {
-            selected = object.id === id ? 'selected' : ''
+            let selected = object.id === id ? 'selected' : ''
             return `<option ${selected} value="${object.id}">${object.title}</option>`
           }).join('\n')}
         </select>
