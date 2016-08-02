@@ -1,36 +1,238 @@
 <?xml version="1.0"?>
 
-<resultset statement="SELECT createDate, modifiedDate, urlTitle, content, MAX(version) as currentVersion FROM journalarticle  GROUP BY articleId  HAVING currentVersion LIMIT 0, 10000" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+<resultset statement="SELECT createDate, modifiedDate, urlTitle, content, MAX(version) as currentVersion FROM journalarticle GROUP BY articleId HAVING currentVersion LIMIT 0, 10000" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
   <row>
-	<field name="createDate">2015-06-30 12:21:37</field>
-	<field name="modifiedDate">2015-06-30 12:21:37</field>
-	<field name="urlTitle">sop_76</field>
+	<field name="createDate">2015-11-09 07:05:11</field>
+	<field name="modifiedDate">2015-11-09 07:05:11</field>
+	<field name="urlTitle">c4d_41</field>
 	<field name="content"><?xml version="1.0"?>
 
 <root available-locales="en_US" default-locale="en_US">
-	<dynamic-element name="TIME" index="0" type="list" index-type="keyword">
-		<dynamic-content language-id="en_US"><![CDATA[14 Days]]></dynamic-content>
+	<dynamic-element name="Title" index="0" type="text" index-type="keyword">
+		<dynamic-content language-id="en_US"><![CDATA[Social Mobilization Curriculum]]></dynamic-content>
 	</dynamic-element>
 	<dynamic-element name="Category" index="0" type="list" index-type="keyword">
-		<dynamic-content language-id="en_US"><![CDATA[Finances and logistics]]></dynamic-content>
+		<dynamic-content language-id="en_US"><![CDATA[Tools]]></dynamic-content>
 	</dynamic-element>
-	<dynamic-element name="Title" index="0" type="text" index-type="keyword">
-		<dynamic-content language-id="en_US"><![CDATA[Implement six-month response plan]]></dynamic-content>
+	<dynamic-element name="Sub-Category" index="0" type="list" index-type="keyword">
+		<dynamic-content language-id="en_US"><![CDATA[Training]]></dynamic-content>
 	</dynamic-element>
-	<dynamic-element name="Responsible" index="0" type="text" index-type="keyword">
-		<dynamic-content language-id="en_US"><![CDATA[Rapid Response Team and Surge Team, with repurposed country staff to coordinate the implementation with ministry of health (lead; country); WHO and UNICEF regional office and headquarters to review and release the budget (regional/global)]]></dynamic-content>
-	</dynamic-element>
-	<dynamic-element name="Support" index="0" type="text" index-type="keyword">
-		<dynamic-content language-id="en_US"><![CDATA[WHO and UNICEF regional office to track and support]]></dynamic-content>
-	</dynamic-element>
-	<dynamic-element name="Article" index="0" type="text_area" index-type="keyword">
-		<dynamic-content language-id="en_US"><![CDATA[Fully implement the comprehensive six-month outbreak response plan]]></dynamic-content>
-	</dynamic-element>
-	<dynamic-element name="ArticleImage" index="0" type="document_library" index-type="keyword">
-		<dynamic-content language-id="en_US"><![CDATA[/documents/10184/11319/SOP_76/a2b10e0a-c96d-4ece-b77b-ae287ace1ab3?t=1435660033000]]></dynamic-content>
+	<dynamic-element name="Description" index="0" type="text_area" index-type="keyword">
+		<dynamic-content language-id="en_US"><![CDATA[<span style="color: rgb(255, 255, 255); font-family: adelle, Arial, Helvetica, sans-serif; font-size: 17px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: 18px; orphans: auto; text-align: center; text-indent: 0px; text-transform: none; white-space: normal; widows: 1; word-spacing: 0px; -webkit-text-stroke-width: 0px; display: inline !important; float: none; background-color: rgb(0, 157, 164);">Social Mobilization Curriculum</span>]]></dynamic-content>
 	</dynamic-element>
 </root></field>
-	<field name="currentVersion">1.7</field>
+	<field name="currentVersion">1.3</field>
+  </row>
+
+  <row>
+	<field name="createDate">2016-05-04 02:51:59</field>
+	<field name="modifiedDate">2016-06-14 16:11:36</field>
+	<field name="urlTitle">testing-m</field>
+	<field name="content"><?xml version="1.0"?>
+
+<root available-locales="en_US" default-locale="en_US">
+	<dynamic-element name="Title" type="text" index-type="keyword" index="0">
+		<dynamic-content language-id="en_US"><![CDATA[Testing M 2]]></dynamic-content>
+	</dynamic-element>
+	<dynamic-element name="Category" type="list" index-type="keyword" index="0">
+		<dynamic-content language-id="en_US"><![CDATA[Understand]]></dynamic-content>
+	</dynamic-element>
+	<dynamic-element name="Sub-Category" type="list" index-type="keyword" index="0">
+		<dynamic-content language-id="en_US"><![CDATA[Behavioural Goal]]></dynamic-content>
+	</dynamic-element>
+	<dynamic-element name="imageArticle" type="document_library" index-type="keyword" index="0">
+		<dynamic-content language-id="en_US"><![CDATA[]]></dynamic-content>
+	</dynamic-element>
+	<dynamic-element name="Description" type="text_area" index-type="keyword" index="0">
+		<dynamic-content language-id="en_US"><![CDATA[]]></dynamic-content>
+	</dynamic-element>
+	<dynamic-element name="templateLinks" type="document_library" index-type="keyword" index="0">
+		<dynamic-content language-id="en_US"><![CDATA[]]></dynamic-content>
+	</dynamic-element>
+	<dynamic-element name="referenceLinks" type="document_library" index-type="keyword" index="0">
+		<dynamic-content language-id="en_US"><![CDATA[]]></dynamic-content>
+	</dynamic-element>
+</root></field>
+	<field name="currentVersion">1</field>
+  </row>
+
+  <row>
+	<field name="createDate">2015-11-09 07:08:46</field>
+	<field name="modifiedDate">2015-11-09 07:08:46</field>
+	<field name="urlTitle">c4d_47</field>
+	<field name="content"><?xml version="1.0"?>
+
+<root available-locales="en_US" default-locale="en_US">
+	<dynamic-element name="Title" index="0" type="text" index-type="keyword">
+		<dynamic-content language-id="en_US"><![CDATA[Communication Commitee ToRs]]></dynamic-content>
+	</dynamic-element>
+	<dynamic-element name="Category" index="0" type="list" index-type="keyword">
+		<dynamic-content language-id="en_US"><![CDATA[Tools]]></dynamic-content>
+	</dynamic-element>
+	<dynamic-element name="Sub-Category" index="0" type="list" index-type="keyword">
+		<dynamic-content language-id="en_US"><![CDATA[Management Tools]]></dynamic-content>
+	</dynamic-element>
+	<dynamic-element name="Description" index="0" type="text_area" index-type="keyword">
+		<dynamic-content language-id="en_US"><![CDATA[<span style="color: rgb(255, 255, 255); font-family: adelle, Arial, Helvetica, sans-serif; font-size: 17px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: 18px; orphans: auto; text-align: center; text-indent: 0px; text-transform: none; white-space: normal; widows: 1; word-spacing: 0px; -webkit-text-stroke-width: 0px; display: inline !important; float: none; background-color: rgb(29, 190, 190);">Communication Commitee ToRs</span>]]></dynamic-content>
+	</dynamic-element>
+</root></field>
+	<field name="currentVersion">1.3</field>
+  </row>
+
+  <row>
+	<field name="createDate">2015-11-09 07:07:25</field>
+	<field name="modifiedDate">2015-11-09 07:07:25</field>
+	<field name="urlTitle">c4d_45</field>
+	<field name="content"><?xml version="1.0"?>
+
+<root available-locales="en_US" default-locale="en_US">
+	<dynamic-element name="Title" index="0" type="text" index-type="keyword">
+		<dynamic-content language-id="en_US"><![CDATA[Training Tools]]></dynamic-content>
+	</dynamic-element>
+	<dynamic-element name="Category" index="0" type="list" index-type="keyword">
+		<dynamic-content language-id="en_US"><![CDATA[Tools]]></dynamic-content>
+	</dynamic-element>
+	<dynamic-element name="Sub-Category" index="0" type="list" index-type="keyword">
+		<dynamic-content language-id="en_US"><![CDATA[Training]]></dynamic-content>
+	</dynamic-element>
+	<dynamic-element name="Description" index="0" type="text_area" index-type="keyword">
+		<dynamic-content language-id="en_US"><![CDATA[<span style="color: rgb(255, 255, 255); font-family: adelle, Arial, Helvetica, sans-serif; font-size: 17px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: 18px; orphans: auto; text-align: center; text-indent: 0px; text-transform: none; white-space: normal; widows: 1; word-spacing: 0px; -webkit-text-stroke-width: 0px; display: inline !important; float: none; background-color: rgb(0, 157, 164);">Training Tools</span>]]></dynamic-content>
+	</dynamic-element>
+</root></field>
+	<field name="currentVersion">2.1</field>
+  </row>
+
+  <row>
+	<field name="createDate">2015-11-09 07:12:12</field>
+	<field name="modifiedDate">2015-11-09 07:12:12</field>
+	<field name="urlTitle">c4d_50</field>
+	<field name="content"><?xml version="1.0"?>
+
+<root available-locales="en_US" default-locale="en_US">
+	<dynamic-element name="Title" index="0" type="text" index-type="keyword">
+		<dynamic-content language-id="en_US"><![CDATA[Multi-Media communication]]></dynamic-content>
+	</dynamic-element>
+	<dynamic-element name="Category" index="0" type="list" index-type="keyword">
+		<dynamic-content language-id="en_US"><![CDATA[Tools]]></dynamic-content>
+	</dynamic-element>
+	<dynamic-element name="Sub-Category" index="0" type="list" index-type="keyword">
+		<dynamic-content language-id="en_US"><![CDATA[Innovations]]></dynamic-content>
+	</dynamic-element>
+	<dynamic-element name="Description" index="0" type="text_area" index-type="keyword">
+		<dynamic-content language-id="en_US"><![CDATA[<span style="color: rgb(0, 0, 0); font-family: adelle, Arial, Helvetica, sans-serif; font-size: 17px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: 18px; orphans: auto; text-align: center; text-indent: 0px; text-transform: none; white-space: normal; widows: 1; word-spacing: 0px; -webkit-text-stroke-width: 0px; display: inline !important; float: none; background-color: rgb(174, 241, 223);">Multi-Media communication</span>]]></dynamic-content>
+	</dynamic-element>
+</root></field>
+	<field name="currentVersion">1.3</field>
+  </row>
+
+  <row>
+	<field name="createDate">2015-11-09 07:13:29</field>
+	<field name="modifiedDate">2015-11-09 07:13:29</field>
+	<field name="urlTitle">c4d_53</field>
+	<field name="content"><?xml version="1.0"?>
+
+<root available-locales="en_US" default-locale="en_US">
+	<dynamic-element name="Title" index="0" type="text" index-type="keyword">
+		<dynamic-content language-id="en_US"><![CDATA[Social Media and Online]]></dynamic-content>
+	</dynamic-element>
+	<dynamic-element name="Category" index="0" type="list" index-type="keyword">
+		<dynamic-content language-id="en_US"><![CDATA[Tools]]></dynamic-content>
+	</dynamic-element>
+	<dynamic-element name="Sub-Category" index="0" type="list" index-type="keyword">
+		<dynamic-content language-id="en_US"><![CDATA[Innovations]]></dynamic-content>
+	</dynamic-element>
+	<dynamic-element name="Description" index="0" type="text_area" index-type="keyword">
+		<dynamic-content language-id="en_US"><![CDATA[<span style="color: rgb(0, 0, 0); font-family: adelle, Arial, Helvetica, sans-serif; font-size: 17px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: 18px; orphans: auto; text-align: center; text-indent: 0px; text-transform: none; white-space: normal; widows: 1; word-spacing: 0px; -webkit-text-stroke-width: 0px; display: inline !important; float: none; background-color: rgb(174, 241, 223);">Social Media and Online</span>]]></dynamic-content>
+	</dynamic-element>
+</root></field>
+	<field name="currentVersion">1.2</field>
+  </row>
+
+  <row>
+	<field name="createDate">2016-07-26 13:41:08</field>
+	<field name="modifiedDate">2016-07-26 13:41:28</field>
+	<field name="urlTitle">c4d_56-design</field>
+	<field name="content"><?xml version="1.0"?>
+
+<root available-locales="en_US" default-locale="en_US">
+	<dynamic-element name="Title" type="text" index-type="keyword" index="0">
+		<dynamic-content language-id="en_US"><![CDATA[Design]]></dynamic-content>
+	</dynamic-element>
+	<dynamic-element name="Category" type="list" index-type="keyword" index="0">
+		<dynamic-content language-id="en_US"><![CDATA[Tools]]></dynamic-content>
+	</dynamic-element>
+	<dynamic-element name="Sub-Category" type="list" index-type="keyword" index="0">
+		<dynamic-content language-id="en_US"><![CDATA[Innovations]]></dynamic-content>
+	</dynamic-element>
+	<dynamic-element name="imageArticle" type="document_library" index-type="keyword" index="0">
+		<dynamic-content language-id="en_US"><![CDATA[]]></dynamic-content>
+	</dynamic-element>
+	<dynamic-element name="Description" type="text_area" index-type="keyword" index="0">
+		<dynamic-content language-id="en_US"><![CDATA[]]></dynamic-content>
+	</dynamic-element>
+	<dynamic-element name="templateLinks" type="document_library" index-type="keyword" index="0">
+		<dynamic-content language-id="en_US"><![CDATA[]]></dynamic-content>
+	</dynamic-element>
+	<dynamic-element name="referenceLinks" type="document_library" index-type="keyword" index="0">
+		<dynamic-content language-id="en_US"><![CDATA[]]></dynamic-content>
+	</dynamic-element>
+</root></field>
+	<field name="currentVersion">1</field>
+  </row>
+
+  <row>
+	<field name="createDate">2015-11-09 07:13:03</field>
+	<field name="modifiedDate">2015-11-09 07:13:03</field>
+	<field name="urlTitle">c4d_52</field>
+	<field name="content"><?xml version="1.0"?>
+
+<root available-locales="en_US" default-locale="en_US">
+	<dynamic-element name="Title" index="0" type="text" index-type="keyword">
+		<dynamic-content language-id="en_US"><![CDATA[U-Report]]></dynamic-content>
+	</dynamic-element>
+	<dynamic-element name="Category" index="0" type="list" index-type="keyword">
+		<dynamic-content language-id="en_US"><![CDATA[Tools]]></dynamic-content>
+	</dynamic-element>
+	<dynamic-element name="Sub-Category" index="0" type="list" index-type="keyword">
+		<dynamic-content language-id="en_US"><![CDATA[Innovations]]></dynamic-content>
+	</dynamic-element>
+	<dynamic-element name="Description" index="0" type="text_area" index-type="keyword">
+		<dynamic-content language-id="en_US"><![CDATA[<span style="color: rgb(0, 0, 0); font-family: adelle, Arial, Helvetica, sans-serif; font-size: 17px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: 18px; orphans: auto; text-align: center; text-indent: 0px; text-transform: none; white-space: normal; widows: 1; word-spacing: 0px; -webkit-text-stroke-width: 0px; display: inline !important; float: none; background-color: rgb(174, 241, 223);">U-Report</span>]]></dynamic-content>
+	</dynamic-element>
+</root></field>
+	<field name="currentVersion">1.3</field>
+  </row>
+
+  <row>
+	<field name="createDate">2016-07-26 13:33:48</field>
+	<field name="modifiedDate">2016-07-26 13:33:48</field>
+	<field name="urlTitle">c4d_53-design</field>
+	<field name="content"><?xml version="1.0"?>
+
+<root available-locales="en_US" default-locale="en_US">
+	<dynamic-element name="Title" type="text" index-type="keyword" index="0">
+		<dynamic-content language-id="en_US"><![CDATA[Design]]></dynamic-content>
+	</dynamic-element>
+	<dynamic-element name="Category" type="list" index-type="keyword" index="0">
+		<dynamic-content language-id="en_US"><![CDATA[Tools]]></dynamic-content>
+	</dynamic-element>
+	<dynamic-element name="Sub-Category" type="list" index-type="keyword" index="0">
+		<dynamic-content language-id="en_US"><![CDATA[Innovations]]></dynamic-content>
+	</dynamic-element>
+	<dynamic-element name="imageArticle" type="document_library" index-type="keyword" index="0">
+		<dynamic-content language-id="en_US"><![CDATA[/documents/10184/33331/Innovations/43db60a4-1890-42c6-b743-0956725221ef?t=1447062268000]]></dynamic-content>
+	</dynamic-element>
+	<dynamic-element name="Description" type="text_area" index-type="keyword" index="0">
+		<dynamic-content language-id="en_US"><![CDATA[]]></dynamic-content>
+	</dynamic-element>
+	<dynamic-element name="templateLinks" type="document_library" index-type="keyword" index="0">
+		<dynamic-content language-id="en_US"><![CDATA[]]></dynamic-content>
+	</dynamic-element>
+	<dynamic-element name="referenceLinks" type="document_library" index-type="keyword" index="0">
+		<dynamic-content language-id="en_US"><![CDATA[]]></dynamic-content>
+	</dynamic-element>
+</root></field>
+	<field name="currentVersion">2.2</field>
   </row>
 
   <row>
@@ -62,7 +264,7 @@
 		<dynamic-content language-id="en_US"><![CDATA[/documents/10184/11319/SOP_1/d811f445-94e0-4b51-9033-6444abcf5525?t=1435648931000]]></dynamic-content>
 	</dynamic-element>
 </root></field>
-	<field name="currentVersion">3.6</field>
+	<field name="currentVersion">3</field>
   </row>
 
   <row>
@@ -94,7 +296,7 @@
 		<dynamic-content language-id="en_US"><![CDATA[/documents/10184/11319/SOP_2/42d4dcf0-bdf0-4a36-93cc-42eca8329939?t=1435657472000]]></dynamic-content>
 	</dynamic-element>
 </root></field>
-	<field name="currentVersion">3.2</field>
+	<field name="currentVersion">4.1</field>
   </row>
 
   <row>
@@ -126,7 +328,7 @@
 		<dynamic-content language-id="en_US"><![CDATA[/documents/10184/11319/SOP_3/d22b629d-c936-4082-9737-8a259269557c?t=1435658400000]]></dynamic-content>
 	</dynamic-element>
 </root></field>
-	<field name="currentVersion">2.4</field>
+	<field name="currentVersion">2.2</field>
   </row>
 
   <row>
@@ -158,7 +360,7 @@
 		<dynamic-content language-id="en_US"><![CDATA[/documents/10184/11319/SOP_4/77145371-3fde-46f1-a407-26a4af324dd2?t=1435658422000]]></dynamic-content>
 	</dynamic-element>
 </root></field>
-	<field name="currentVersion">2.1</field>
+	<field name="currentVersion">2.5</field>
   </row>
 
   <row>
@@ -190,7 +392,7 @@
 		<dynamic-content language-id="en_US"><![CDATA[/documents/10184/11319/SOP_5/67f0f3a8-8da9-427d-a7fd-3b3c63be7305?t=1435658444000]]></dynamic-content>
 	</dynamic-element>
 </root></field>
-	<field name="currentVersion">2</field>
+	<field name="currentVersion">1.9</field>
   </row>
 
   <row>
@@ -222,7 +424,7 @@
 		<dynamic-content language-id="en_US"><![CDATA[/documents/10184/11319/SOP_6/974335ce-57a9-459a-9171-bdf92400ab18?t=1435658462000]]></dynamic-content>
 	</dynamic-element>
 </root></field>
-	<field name="currentVersion">2.2</field>
+	<field name="currentVersion">2.1</field>
   </row>
 
   <row>
@@ -318,7 +520,7 @@
 		<dynamic-content language-id="en_US"><![CDATA[/documents/10184/11319/SOP_9/2df30dba-de90-4e4d-afe5-f985189a1ae6?t=1435658517000]]></dynamic-content>
 	</dynamic-element>
 </root></field>
-	<field name="currentVersion">2.2</field>
+	<field name="currentVersion">2.3</field>
   </row>
 
   <row>
@@ -350,7 +552,7 @@
 		<dynamic-content language-id="en_US"><![CDATA[/documents/10184/11319/SOP_10/6542e5d9-ff13-402f-92dd-c3a6ae2c20e9?t=1435658540190]]></dynamic-content>
 	</dynamic-element>
 </root></field>
-	<field name="currentVersion">1.9</field>
+	<field name="currentVersion">1.8</field>
   </row>
 
   <row>
@@ -510,7 +712,7 @@
 		<dynamic-content language-id="en_US"><![CDATA[/documents/10184/11319/SOP_15/9dd12779-90d5-4962-b49e-e3bafe3c2104?t=1435658633850]]></dynamic-content>
 	</dynamic-element>
 </root></field>
-	<field name="currentVersion">2</field>
+	<field name="currentVersion">2.1</field>
   </row>
 
   <row>
@@ -542,7 +744,7 @@
 		<dynamic-content language-id="en_US"><![CDATA[/documents/10184/11319/SOP_16/011019ac-0046-426f-b591-576b792a9275?t=1435658665263]]></dynamic-content>
 	</dynamic-element>
 </root></field>
-	<field name="currentVersion">1.6</field>
+	<field name="currentVersion">1.5</field>
   </row>
 
   <row>
@@ -606,7 +808,7 @@
 		<dynamic-content language-id="en_US"><![CDATA[/documents/10184/11319/SOP_18/2e0b9d56-1e93-4b89-9388-80057240c2bc?t=1435658730522]]></dynamic-content>
 	</dynamic-element>
 </root></field>
-	<field name="currentVersion">1.6</field>
+	<field name="currentVersion">1.5</field>
   </row>
 
   <row>
@@ -670,7 +872,7 @@
 		<dynamic-content language-id="en_US"><![CDATA[/documents/10184/11319/SOP_20/450791e9-c4cc-45c6-8fb3-bd8c8bcde13f?t=1435658773081]]></dynamic-content>
 	</dynamic-element>
 </root></field>
-	<field name="currentVersion">1.7</field>
+	<field name="currentVersion">1.8</field>
   </row>
 
   <row>
@@ -830,7 +1032,7 @@
 		<dynamic-content language-id="en_US"><![CDATA[/documents/10184/11319/SOP_25/e8714d7d-04b5-42d9-8da6-d793e3e56ce8?t=1435658894000]]></dynamic-content>
 	</dynamic-element>
 </root></field>
-	<field name="currentVersion">2.3</field>
+	<field name="currentVersion">2.8</field>
   </row>
 
   <row>
@@ -894,7 +1096,7 @@
 		<dynamic-content language-id="en_US"><![CDATA[/documents/10184/11319/SOP_27/efca387d-fc27-4bc7-b691-83ce0b00a87e?t=1435658927000]]></dynamic-content>
 	</dynamic-element>
 </root></field>
-	<field name="currentVersion">2.4</field>
+	<field name="currentVersion">2.6</field>
   </row>
 
   <row>
@@ -926,7 +1128,7 @@
 		<dynamic-content language-id="en_US"><![CDATA[/documents/10184/11319/SOP_28/6e8d7548-88b0-4416-9575-7cfa61345c4b?t=1435658951000]]></dynamic-content>
 	</dynamic-element>
 </root></field>
-	<field name="currentVersion">2.5</field>
+	<field name="currentVersion">2.7</field>
   </row>
 
   <row>
@@ -990,7 +1192,7 @@
 		<dynamic-content language-id="en_US"><![CDATA[/documents/10184/11319/SOP_30/639cfb9a-adda-4f2f-8c2c-6cc890954443?t=1435659028000]]></dynamic-content>
 	</dynamic-element>
 </root></field>
-	<field name="currentVersion">2.2</field>
+	<field name="currentVersion">2.1</field>
   </row>
 
   <row>
@@ -1054,7 +1256,7 @@
 		<dynamic-content language-id="en_US"><![CDATA[/documents/10184/11319/SOP_32/b9f278cf-d97c-4a76-934e-4957829c2f8c?t=1435659068000]]></dynamic-content>
 	</dynamic-element>
 </root></field>
-	<field name="currentVersion">2.4</field>
+	<field name="currentVersion">2.5</field>
   </row>
 
   <row>
@@ -1118,7 +1320,7 @@
 		<dynamic-content language-id="en_US"><![CDATA[/documents/10184/11319/SOP_34/18576e3a-4515-4506-9c00-11e4f055d1e5?t=1435659103000]]></dynamic-content>
 	</dynamic-element>
 </root></field>
-	<field name="currentVersion">2.1</field>
+	<field name="currentVersion">2.3</field>
   </row>
 
   <row>
@@ -1150,7 +1352,7 @@
 		<dynamic-content language-id="en_US"><![CDATA[/documents/10184/11319/SOP_35/66d6f3fd-2c02-4019-a612-d07b5976a65a?t=1435659121000]]></dynamic-content>
 	</dynamic-element>
 </root></field>
-	<field name="currentVersion">2.4</field>
+	<field name="currentVersion">2.6</field>
   </row>
 
   <row>
@@ -1182,7 +1384,7 @@
 		<dynamic-content language-id="en_US"><![CDATA[/documents/10184/11319/SOP_36/ada8878a-00d6-41d2-a327-54295a3c3682?t=1435659138000]]></dynamic-content>
 	</dynamic-element>
 </root></field>
-	<field name="currentVersion">2.3</field>
+	<field name="currentVersion">2.4</field>
   </row>
 
   <row>
@@ -1214,7 +1416,7 @@
 		<dynamic-content language-id="en_US"><![CDATA[/documents/10184/11319/SOP_37/9e654de4-ed7e-4223-8884-d61fd9b9d9a9?t=1435659155000]]></dynamic-content>
 	</dynamic-element>
 </root></field>
-	<field name="currentVersion">2.3</field>
+	<field name="currentVersion">2.4</field>
   </row>
 
   <row>
@@ -1246,7 +1448,7 @@
 		<dynamic-content language-id="en_US"><![CDATA[/documents/10184/11319/SOP_38/26d9ea07-4e4e-48a5-bae0-5aadcd243ad4?t=1435659172000]]></dynamic-content>
 	</dynamic-element>
 </root></field>
-	<field name="currentVersion">2.2</field>
+	<field name="currentVersion">2.3</field>
   </row>
 
   <row>
@@ -1310,7 +1512,7 @@
 		<dynamic-content language-id="en_US"><![CDATA[/documents/10184/11319/SOP_41/8350e605-bc8d-4fbc-bd9e-369e3911e86c?t=1435659225000]]></dynamic-content>
 	</dynamic-element>
 </root></field>
-	<field name="currentVersion">2.3</field>
+	<field name="currentVersion">2.6</field>
   </row>
 
   <row>
@@ -1342,7 +1544,7 @@
 		<dynamic-content language-id="en_US"><![CDATA[/documents/10184/11319/SOP_42/84734e12-070a-4f08-b618-b7b388e731e1?t=1435659245000]]></dynamic-content>
 	</dynamic-element>
 </root></field>
-	<field name="currentVersion">2.1</field>
+	<field name="currentVersion">2.3</field>
   </row>
 
   <row>
@@ -1374,7 +1576,7 @@
 		<dynamic-content language-id="en_US"><![CDATA[/documents/10184/11319/SOP_43/25d14958-d854-457c-8d5b-de89b6527c2f?t=1435659264000]]></dynamic-content>
 	</dynamic-element>
 </root></field>
-	<field name="currentVersion">2.2</field>
+	<field name="currentVersion">2.3</field>
   </row>
 
   <row>
@@ -1438,7 +1640,7 @@
 		<dynamic-content language-id="en_US"><![CDATA[/documents/10184/11319/SOP_45/7320e29d-daf4-4aa0-b1f5-1e04938c67f8?t=1435659309000]]></dynamic-content>
 	</dynamic-element>
 </root></field>
-	<field name="currentVersion">2</field>
+	<field name="currentVersion">2.1</field>
   </row>
 
   <row>
@@ -1470,7 +1672,7 @@
 		<dynamic-content language-id="en_US"><![CDATA[/documents/10184/11319/SOP_46/136157b2-674d-411a-8e57-530a99ca35c5?t=1435659349000]]></dynamic-content>
 	</dynamic-element>
 </root></field>
-	<field name="currentVersion">2.1</field>
+	<field name="currentVersion">2.3</field>
   </row>
 
   <row>
@@ -1566,7 +1768,7 @@
 		<dynamic-content language-id="en_US"><![CDATA[/documents/10184/11319/SOP_49/a7454e6c-42b5-47f9-945e-f09746a0012b?t=1435659420000]]></dynamic-content>
 	</dynamic-element>
 </root></field>
-	<field name="currentVersion">2</field>
+	<field name="currentVersion">2.1</field>
   </row>
 
   <row>
@@ -1598,7 +1800,7 @@
 		<dynamic-content language-id="en_US"><![CDATA[/documents/10184/11319/SOP_50/d3982e31-26af-4e21-a200-8095eb0d3eaf?t=1435659445000]]></dynamic-content>
 	</dynamic-element>
 </root></field>
-	<field name="currentVersion">2.6</field>
+	<field name="currentVersion">3.1</field>
   </row>
 
   <row>
@@ -1662,7 +1864,7 @@
 		<dynamic-content language-id="en_US"><![CDATA[/documents/10184/11319/SOP_52/a51ec315-8acb-4e09-8c8e-8021a76f76b5?t=1435659488000]]></dynamic-content>
 	</dynamic-element>
 </root></field>
-	<field name="currentVersion">2.6</field>
+	<field name="currentVersion">2.7</field>
   </row>
 
   <row>
@@ -1694,7 +1896,7 @@
 		<dynamic-content language-id="en_US"><![CDATA[/documents/10184/11319/SOP_53/521ece7f-6145-4e69-afe0-38698e0a133e?t=1435659510000]]></dynamic-content>
 	</dynamic-element>
 </root></field>
-	<field name="currentVersion">3</field>
+	<field name="currentVersion">3.1</field>
   </row>
 
   <row>
@@ -1726,7 +1928,7 @@
 		<dynamic-content language-id="en_US"><![CDATA[/documents/10184/11319/SOP_54/3c86c085-3c39-400e-8775-8360d454fb4c?t=1435659533000]]></dynamic-content>
 	</dynamic-element>
 </root></field>
-	<field name="currentVersion">2.5</field>
+	<field name="currentVersion">2.6</field>
   </row>
 
   <row>
@@ -1758,7 +1960,7 @@
 		<dynamic-content language-id="en_US"><![CDATA[/documents/10184/11319/SOP_55/cf36ae3c-0fc2-4586-98f7-ee0e1bc566c6?t=1435659586000]]></dynamic-content>
 	</dynamic-element>
 </root></field>
-	<field name="currentVersion">2.7</field>
+	<field name="currentVersion">2.9</field>
   </row>
 
   <row>
@@ -1854,7 +2056,7 @@
 		<dynamic-content language-id="en_US"><![CDATA[/documents/10184/11319/SOP_58/b2199d45-57ea-418e-bb6e-ab311cf2ea18?t=1435659648000]]></dynamic-content>
 	</dynamic-element>
 </root></field>
-	<field name="currentVersion">2.8</field>
+	<field name="currentVersion">2.9</field>
   </row>
 
   <row>
@@ -1886,7 +2088,7 @@
 		<dynamic-content language-id="en_US"><![CDATA[/documents/10184/11319/SOP_59/2fe854cf-1b10-4870-8aa8-aab19e55318d?t=1435659668000]]></dynamic-content>
 	</dynamic-element>
 </root></field>
-	<field name="currentVersion">2.6</field>
+	<field name="currentVersion">2.5</field>
   </row>
 
   <row>
@@ -1950,7 +2152,7 @@
 		<dynamic-content language-id="en_US"><![CDATA[/documents/10184/11319/SOP_61/3b1f74d9-839f-49ee-9596-e7e3cce2ffe5?t=1435659713000]]></dynamic-content>
 	</dynamic-element>
 </root></field>
-	<field name="currentVersion">2.8</field>
+	<field name="currentVersion">2.9</field>
   </row>
 
   <row>
@@ -1982,7 +2184,7 @@
 		<dynamic-content language-id="en_US"><![CDATA[/documents/10184/11319/SOP_62/c8f81111-c9c2-451e-9296-c380ffab4ee9?t=1435659745000]]></dynamic-content>
 	</dynamic-element>
 </root></field>
-	<field name="currentVersion">2.6</field>
+	<field name="currentVersion">2.8</field>
   </row>
 
   <row>
@@ -2046,7 +2248,7 @@
 		<dynamic-content language-id="en_US"><![CDATA[/documents/10184/11319/SOP_64/f96aea97-6403-4c18-bdf6-9060a6739777?t=1435659800000]]></dynamic-content>
 	</dynamic-element>
 </root></field>
-	<field name="currentVersion">2.6</field>
+	<field name="currentVersion">2.8</field>
   </row>
 
   <row>
@@ -2078,7 +2280,7 @@
 		<dynamic-content language-id="en_US"><![CDATA[/documents/10184/11319/SOP_67/ab35e675-787a-4ad0-a28d-2e7fef863b66?t=1435659860000]]></dynamic-content>
 	</dynamic-element>
 </root></field>
-	<field name="currentVersion">1.7</field>
+	<field name="currentVersion">1.6</field>
   </row>
 
   <row>
@@ -2110,7 +2312,7 @@
 		<dynamic-content language-id="en_US"><![CDATA[/documents/10184/11319/SOP_68/817f5618-19bc-4133-b635-51e5ccb9c1a1?t=1435659879000]]></dynamic-content>
 	</dynamic-element>
 </root></field>
-	<field name="currentVersion">1.6</field>
+	<field name="currentVersion">1.5</field>
   </row>
 
   <row>
@@ -2142,7 +2344,7 @@
 		<dynamic-content language-id="en_US"><![CDATA[/documents/10184/11319/SOP_69/fe8f7368-ea33-44be-b661-e058b905e992?t=1435659897000]]></dynamic-content>
 	</dynamic-element>
 </root></field>
-	<field name="currentVersion">1.6</field>
+	<field name="currentVersion">1.5</field>
   </row>
 
   <row>
@@ -2174,7 +2376,7 @@
 		<dynamic-content language-id="en_US"><![CDATA[/documents/10184/11319/SOP_70/2f789ef4-06e6-416e-ba72-777af269c1ae?t=1435659917000]]></dynamic-content>
 	</dynamic-element>
 </root></field>
-	<field name="currentVersion">1.6</field>
+	<field name="currentVersion">1.5</field>
   </row>
 
   <row>
@@ -2206,7 +2408,7 @@
 		<dynamic-content language-id="en_US"><![CDATA[/documents/10184/11319/SOP_71/d0e6f7f9-b183-4f3c-83cb-d5fe42655fa4?t=1435659936000]]></dynamic-content>
 	</dynamic-element>
 </root></field>
-	<field name="currentVersion">1.6</field>
+	<field name="currentVersion">1.5</field>
   </row>
 
   <row>
@@ -2238,7 +2440,7 @@
 		<dynamic-content language-id="en_US"><![CDATA[/documents/10184/11319/SOP_72/4f78806b-ba8c-4628-90b3-6725e041d1be?t=1435659957000]]></dynamic-content>
 	</dynamic-element>
 </root></field>
-	<field name="currentVersion">1.6</field>
+	<field name="currentVersion">1.8</field>
   </row>
 
   <row>
@@ -2270,7 +2472,7 @@
 		<dynamic-content language-id="en_US"><![CDATA[/documents/10184/11319/SOP_73/9bb6280d-459e-4310-865c-3124ffbc8f23?t=1435659980000]]></dynamic-content>
 	</dynamic-element>
 </root></field>
-	<field name="currentVersion">1.6</field>
+	<field name="currentVersion">1.5</field>
   </row>
 
   <row>
@@ -2302,7 +2504,7 @@
 		<dynamic-content language-id="en_US"><![CDATA[/documents/10184/11319/SOP_74/bedc71b6-611d-4382-aee8-7ae9d4dbbd80?t=1435659996000]]></dynamic-content>
 	</dynamic-element>
 </root></field>
-	<field name="currentVersion">1.6</field>
+	<field name="currentVersion">1.5</field>
   </row>
 
   <row>
@@ -2338,6 +2540,38 @@
   </row>
 
   <row>
+	<field name="createDate">2015-06-30 12:21:37</field>
+	<field name="modifiedDate">2015-06-30 12:21:37</field>
+	<field name="urlTitle">sop_76</field>
+	<field name="content"><?xml version="1.0"?>
+
+<root available-locales="en_US" default-locale="en_US">
+	<dynamic-element name="TIME" index="0" type="list" index-type="keyword">
+		<dynamic-content language-id="en_US"><![CDATA[14 Days]]></dynamic-content>
+	</dynamic-element>
+	<dynamic-element name="Category" index="0" type="list" index-type="keyword">
+		<dynamic-content language-id="en_US"><![CDATA[Finances and logistics]]></dynamic-content>
+	</dynamic-element>
+	<dynamic-element name="Title" index="0" type="text" index-type="keyword">
+		<dynamic-content language-id="en_US"><![CDATA[Implement six-month response plan]]></dynamic-content>
+	</dynamic-element>
+	<dynamic-element name="Responsible" index="0" type="text" index-type="keyword">
+		<dynamic-content language-id="en_US"><![CDATA[Rapid Response Team and Surge Team, with repurposed country staff to coordinate the implementation with ministry of health (lead; country); WHO and UNICEF regional office and headquarters to review and release the budget (regional/global)]]></dynamic-content>
+	</dynamic-element>
+	<dynamic-element name="Support" index="0" type="text" index-type="keyword">
+		<dynamic-content language-id="en_US"><![CDATA[WHO and UNICEF regional office to track and support]]></dynamic-content>
+	</dynamic-element>
+	<dynamic-element name="Article" index="0" type="text_area" index-type="keyword">
+		<dynamic-content language-id="en_US"><![CDATA[Fully implement the comprehensive six-month outbreak response plan]]></dynamic-content>
+	</dynamic-element>
+	<dynamic-element name="ArticleImage" index="0" type="document_library" index-type="keyword">
+		<dynamic-content language-id="en_US"><![CDATA[/documents/10184/11319/SOP_76/a2b10e0a-c96d-4ece-b77b-ae287ace1ab3?t=1435660033000]]></dynamic-content>
+	</dynamic-element>
+</root></field>
+	<field name="currentVersion">1.6</field>
+  </row>
+
+  <row>
 	<field name="createDate">2015-06-30 12:22:42</field>
 	<field name="modifiedDate">2015-06-30 12:22:42</field>
 	<field name="urlTitle">sop_77</field>
@@ -2366,7 +2600,7 @@
 		<dynamic-content language-id="en_US"><![CDATA[/documents/10184/11319/SOP_77/4e2f1ba4-beef-4229-976f-cd2cf5f95b73?t=1435660050000]]></dynamic-content>
 	</dynamic-element>
 </root></field>
-	<field name="currentVersion">1.6</field>
+	<field name="currentVersion">1.5</field>
   </row>
 
   <row>
@@ -2430,7 +2664,7 @@
 		<dynamic-content language-id="en_US"><![CDATA[/documents/10184/11319/SOP_80/707fe618-76c7-4399-85d4-2a87f118a203?t=1435660129000]]></dynamic-content>
 	</dynamic-element>
 </root></field>
-	<field name="currentVersion">1.6</field>
+	<field name="currentVersion">1.5</field>
   </row>
 
   <row>
@@ -2462,7 +2696,7 @@
 		<dynamic-content language-id="en_US"><![CDATA[/documents/10184/11319/SOP_81/d23e0a75-506a-45fc-ab3e-ece094a0473b?t=1435660147000]]></dynamic-content>
 	</dynamic-element>
 </root></field>
-	<field name="currentVersion">1.6</field>
+	<field name="currentVersion">1.5</field>
   </row>
 
   <row>
@@ -2534,7 +2768,7 @@
 		<dynamic-content language-id="en_US"><![CDATA[/documents/10184/11319/SOP_40/8f70e6a9-4917-4be2-95d6-448b0e26731a?t=1435659206000]]></dynamic-content>
 	</dynamic-element>
 </root></field>
-	<field name="currentVersion">2.4</field>
+	<field name="currentVersion">4.2</field>
   </row>
 
   <row>
@@ -2575,7 +2809,7 @@
 		<dynamic-content language-id="en_US"><![CDATA[/documents/10184/11319/SOP_65/117ba725-85e8-4f93-980a-293a35360cef?t=1435659821000]]></dynamic-content>
 	</dynamic-element>
 </root></field>
-	<field name="currentVersion">2.6</field>
+	<field name="currentVersion">2.7</field>
   </row>
 
   <row>
@@ -2661,7 +2895,7 @@ Grading of the outbreak is the responsibility of the Eradication and Outbreak Ma
 		<dynamic-content language-id="en_US"><![CDATA[/documents/10184/11319/SOP_78/eee1902d-8be1-44db-b39f-557d620148e8?t=1435660086000]]></dynamic-content>
 	</dynamic-element>
 </root></field>
-	<field name="currentVersion">1.8</field>
+	<field name="currentVersion">2.3</field>
   </row>
 
   <row>
@@ -2693,7 +2927,7 @@ Grading of the outbreak is the responsibility of the Eradication and Outbreak Ma
 		<dynamic-content language-id="en_US"><![CDATA[/documents/10184/11319/SOP_83/4ee7cb21-14ae-46d5-a7c4-37892f9a70b3?t=1435660183000]]></dynamic-content>
 	</dynamic-element>
 </root></field>
-	<field name="currentVersion">1.6</field>
+	<field name="currentVersion">1.5</field>
   </row>
 
   <row>
@@ -2725,7 +2959,7 @@ Grading of the outbreak is the responsibility of the Eradication and Outbreak Ma
 		<dynamic-content language-id="en_US"><![CDATA[/documents/10184/11319/SOP_84/9e16061d-f961-448c-be4c-0b151f69f3d9?t=1435660209000]]></dynamic-content>
 	</dynamic-element>
 </root></field>
-	<field name="currentVersion">1.6</field>
+	<field name="currentVersion">1.5</field>
   </row>
 
   <row>
@@ -2757,7 +2991,7 @@ Grading of the outbreak is the responsibility of the Eradication and Outbreak Ma
 		<dynamic-content language-id="en_US"><![CDATA[/documents/10184/11319/SOP_85/43b7b4b9-e729-4c98-99dc-56d5a6f48e37?t=1435660228000]]></dynamic-content>
 	</dynamic-element>
 </root></field>
-	<field name="currentVersion">1.6</field>
+	<field name="currentVersion">1.5</field>
   </row>
 
   <row>
@@ -2987,7 +3221,7 @@ Grading of the outbreak is the responsibility of the Eradication and Outbreak Ma
 <p style="margin-bottom: 0in">Even if time is short, prepare a brief summary of your initial findings and ensure broad participation from your communication and operational colleagues. Getting buy-in and understanding of the communication approach from the beginning will only help in the implementation phase.</p>]]></dynamic-content>
 	</dynamic-element>
 </root></field>
-	<field name="currentVersion">2.1</field>
+	<field name="currentVersion">3.1</field>
   </row>
 
   <row>
@@ -3108,7 +3342,7 @@ Grading of the outbreak is the responsibility of the Eradication and Outbreak Ma
 <p style="margin-bottom: 0in">This exercise can help you consider where to invest your energy and where more intensive and innovative efforts may have to be invested, or alternatively which behaviours can be safely dropped or taken up at later phases in the campaign.</p>]]></dynamic-content>
 	</dynamic-element>
 </root></field>
-	<field name="currentVersion">2.1</field>
+	<field name="currentVersion">2.6</field>
   </row>
 
   <row>
@@ -3433,7 +3667,7 @@ Grading of the outbreak is the responsibility of the Eradication and Outbreak Ma
 <p style="margin-bottom: 0in">Keep this analysis in mind, and incorporate it into your thinking as you put together your behavioural objectives. <font color="#252525"><font face="Arial, serif"><font size="2" style="font-size: 10pt"></font></font></font></p>]]></dynamic-content>
 	</dynamic-element>
 </root></field>
-	<field name="currentVersion">1.8</field>
+	<field name="currentVersion">3.5</field>
   </row>
 
   <row>
@@ -3569,7 +3803,7 @@ We must consider the different components of a society (e.g. ethnic groups, mino
 <p style="margin-bottom: 0in"><font face="Times New Roman, serif">Use the guiding principles to create adaptive communications that highlight the role of the health worker. </font></p>]]></dynamic-content>
 	</dynamic-element>
 </root></field>
-	<field name="currentVersion">2.4</field>
+	<field name="currentVersion">2.6</field>
   </row>
 
   <row>
@@ -3741,7 +3975,7 @@ We must consider the different components of a society (e.g. ethnic groups, mino
 <p style="margin-top: 0.02in; margin-bottom: 0.07in"><font face="Times, serif"><font size="2"><font face="StoneSerif, serif"><font size="2" style="font-size: 11pt">Once your objective reflects your target issue based on evidence, we must measure our impact. If the SMART formula has been adopted then we have a timeframe (by the end of 2016), as well as a measure of success (50% increase). This could be measured through logs and tracking reports at health centres and by keeping detailed statistics about calls into the hotline, as well as through spot checks of households reporting being unvisited. Keeping an eye on campaign data and coverage will also give an indication of success.</font></font></font></font></p>]]></dynamic-content>
 	</dynamic-element>
 </root></field>
-	<field name="currentVersion">2</field>
+	<field name="currentVersion">2.3</field>
   </row>
 
   <row>
@@ -3872,7 +4106,7 @@ We must consider the different components of a society (e.g. ethnic groups, mino
 </ul>]]></dynamic-content>
 	</dynamic-element>
 </root></field>
-	<field name="currentVersion">1.8</field>
+	<field name="currentVersion">2.2</field>
   </row>
 
   <row>
@@ -4121,7 +4355,7 @@ We must consider the different components of a society (e.g. ethnic groups, mino
 <p style="margin-bottom: 0in"><span style="background: #ffff00">Reference: </span>IM Guidelines and Forms</p>]]></dynamic-content>
 	</dynamic-element>
 </root></field>
-	<field name="currentVersion">1.9</field>
+	<field name="currentVersion">2.2</field>
   </row>
 
   <row>
@@ -4220,7 +4454,7 @@ We must consider the different components of a society (e.g. ethnic groups, mino
 <p style="margin-bottom: 0in"></p>]]></dynamic-content>
 	</dynamic-element>
 </root></field>
-	<field name="currentVersion">2</field>
+	<field name="currentVersion">2.8</field>
   </row>
 
   <row>
@@ -4401,7 +4635,7 @@ We must consider the different components of a society (e.g. ethnic groups, mino
 <p style="margin-bottom: 0in">UNICEF also holds LTAs with 11 vetted top-of-the-line research and analysis companies that allow quick and easy contracting. Click here to visit the <span style="background: #ffff00">LTA section of the Toolkit.</span></p>]]></dynamic-content>
 	</dynamic-element>
 </root></field>
-	<field name="currentVersion">1.8</field>
+	<field name="currentVersion">3</field>
   </row>
 
   <row>
@@ -4487,7 +4721,7 @@ We must consider the different components of a society (e.g. ethnic groups, mino
 <p style="margin-bottom: 0in">If you have campaign data, <span style="background: #ffff00">click here</span> for a helpful Algorithm to help classify districts into low, medium and high risk.</p>]]></dynamic-content>
 	</dynamic-element>
 </root></field>
-	<field name="currentVersion">1.8</field>
+	<field name="currentVersion">2.2</field>
   </row>
 
   <row>
@@ -4555,7 +4789,7 @@ We must consider the different components of a society (e.g. ethnic groups, mino
 <p style="margin-bottom: 0in">2. Audience Analysis (LINK to McCann "Audience Analysis" here)</p>]]></dynamic-content>
 	</dynamic-element>
 </root></field>
-	<field name="currentVersion">2.1</field>
+	<field name="currentVersion">2.2</field>
   </row>
 
   <row>
@@ -4768,7 +5002,7 @@ We must consider the different components of a society (e.g. ethnic groups, mino
 </ul>]]></dynamic-content>
 	</dynamic-element>
 </root></field>
-	<field name="currentVersion">1.9</field>
+	<field name="currentVersion">2.3</field>
   </row>
 
   <row>
@@ -4851,7 +5085,7 @@ We must consider the different components of a society (e.g. ethnic groups, mino
 <p style="margin-bottom: 0in">Please find a helpful diagram below from the Health Compass guide at: <a href="http://www.thehealthcompass.org/how-to-guides/how-do-audience-analysis">http://www.thehealthcompass.org/how-to-guides/how-do-audience-analysis</a></p>]]></dynamic-content>
 	</dynamic-element>
 </root></field>
-	<field name="currentVersion">1.8</field>
+	<field name="currentVersion">2</field>
   </row>
 
   <row>
@@ -4894,7 +5128,7 @@ We must consider the different components of a society (e.g. ethnic groups, mino
 <p style="margin-bottom: 0in"><font size="2" style="font-size: 11pt">2. Situational vs Attitudinal Barriers</font></p>]]></dynamic-content>
 	</dynamic-element>
 </root></field>
-	<field name="currentVersion">2</field>
+	<field name="currentVersion">2.3</field>
   </row>
 
   <row>
@@ -5083,7 +5317,7 @@ We must consider the different components of a society (e.g. ethnic groups, mino
 </table>]]></dynamic-content>
 	</dynamic-element>
 </root></field>
-	<field name="currentVersion">1.8</field>
+	<field name="currentVersion">2.1</field>
   </row>
 
   <row>
@@ -5164,7 +5398,7 @@ We must consider the different components of a society (e.g. ethnic groups, mino
 <p style="margin-bottom: 0.17in; widows: 0; orphans: 0"><font face="Times New Roman, serif"><font size="2" style="font-size: 11pt">Attitudinal barriers may also stem from campaign fatigue. As campaigns progress, fatigue from repeated vaccinations becomes an increasingly likely cause of refusals, especially after the third or fourth vaccination round. The necessity of repeated vaccinations may not be apparent, especially if the outbreak is waning. To address this, the importance of communal vigilance should be stressed, with the need to protect all children continuously until the region is polio free. For more information regarding communal vigilance please refer to </font></font><font face="Times New Roman, serif"><font size="2" style="font-size: 11pt"><i>Theme One </i></font></font><font face="Times New Roman, serif"><font size="2" style="font-size: 11pt">within </font></font><font face="Times New Roman, serif"><font size="2" style="font-size: 11pt"><span style="background: #ffff00">the </span></font></font><font face="Times New Roman, serif"><font size="2" style="font-size: 11pt"><i><span style="background: #ffff00">Key Messages </span></i></font></font><font face="Times New Roman, serif"><font size="2" style="font-size: 11pt"><span style="background: #ffff00">section.</span></font></font></p>]]></dynamic-content>
 	</dynamic-element>
 </root></field>
-	<field name="currentVersion">1.9</field>
+	<field name="currentVersion">2.5</field>
   </row>
 
   <row>
@@ -5333,7 +5567,7 @@ For choosing the format of your messages, consider what tactic(s) best suit sayi
 <p style="margin-bottom: 0in"><font face="Arial, serif"><i>Remember, messages are not slogans. "Every child, every time" or "Just do It" are not messages, but they are campaign slogans around which messaging can be built. </i></font></p>]]></dynamic-content>
 	</dynamic-element>
 </root></field>
-	<field name="currentVersion">1.9</field>
+	<field name="currentVersion">2</field>
   </row>
 
   <row>
@@ -5395,7 +5629,7 @@ For choosing the format of your messages, consider what tactic(s) best suit sayi
 <p style="margin-bottom: 0in"></p>]]></dynamic-content>
 	</dynamic-element>
 </root></field>
-	<field name="currentVersion">1.6</field>
+	<field name="currentVersion">1.7</field>
   </row>
 
   <row>
@@ -5597,7 +5831,7 @@ For choosing the format of your messages, consider what tactic(s) best suit sayi
 <p style="margin-bottom: 0.17in; widows: 0; orphans: 0"><font face="Times, serif"><font size="3" style="font-size: 13pt"><b>Think in terms of advertising flights: </b></font></font><font face="Times, serif"><font size="3" style="font-size: 13pt">Think in terms of advertising flights when planning for broadcast of media spots. For example, broadcast during a 3-week flight, with radio posts six to eight times a day, 5 days a week; television spots two to three times each evening, 5 days a week in the same flight period; and full-page newspaper advertisements about three times a week. Then, leave the public alone for another 2–3 weeks and come back again with a flight of another 3 weeks. Adapt this strategic application of advertising to your prevention and control programme.</font></font></p>]]></dynamic-content>
 	</dynamic-element>
 </root></field>
-	<field name="currentVersion">1.8</field>
+	<field name="currentVersion">2</field>
   </row>
 
   <row>
@@ -5638,7 +5872,7 @@ For choosing the format of your messages, consider what tactic(s) best suit sayi
 <p style="margin-bottom: 0in; widows: 0; orphans: 0"><font face="Times New Roman, serif">The maintenance scenario comes after an outbreak is closed, or after an endemic country is declared polio-free. Continued monitoring and vigilance are necessary to prevent a resurgence of the disease or an increase in the population of unvaccinated children. The overall emphasis of the program must also transition from a singular focus on polio to an overall focus on routine immunization and child health.</font></p>]]></dynamic-content>
 	</dynamic-element>
 </root></field>
-	<field name="currentVersion">2</field>
+	<field name="currentVersion">2.2</field>
   </row>
 
   <row>
@@ -5892,7 +6126,7 @@ For choosing the format of your messages, consider what tactic(s) best suit sayi
 <p></p>]]></dynamic-content>
 	</dynamic-element>
 </root></field>
-	<field name="currentVersion">2.1</field>
+	<field name="currentVersion">2.5</field>
   </row>
 
   <row>
@@ -6099,7 +6333,7 @@ For choosing the format of your messages, consider what tactic(s) best suit sayi
 <p></p>]]></dynamic-content>
 	</dynamic-element>
 </root></field>
-	<field name="currentVersion">3.4</field>
+	<field name="currentVersion">3.6</field>
   </row>
 
   <row>
@@ -6359,7 +6593,7 @@ For choosing the format of your messages, consider what tactic(s) best suit sayi
 <p style="margin-bottom: 0in; line-height: 115%; widows: 0; orphans: 0"><font face="Times New Roman, serif">The</font><font face="Times New Roman, serif"><i>Communications Planning Worksheet</i></font><font face="Times New Roman, serif">contains the key questions necessary to plan a strategic communications campaign. By answering each of the questions, you will identify and refine your communications strategy. After completion, the worksheet serves as a point of reference for communications throughout campaign development and through coordination with partners, including creative and communications agencies and the development of new IPC messaging.</font></p>]]></dynamic-content>
 	</dynamic-element>
 </root></field>
-	<field name="currentVersion">2</field>
+	<field name="currentVersion">2.2</field>
   </row>
 
   <row>
@@ -6392,7 +6626,7 @@ For choosing the format of your messages, consider what tactic(s) best suit sayi
 <p style="margin-bottom: 0in; widows: 0; orphans: 0"><font face="Times New Roman, serif">These sections will help clarify appropriate communications priorities. Sample creative concepts tailored to specific situations provide guidance on creating targeted mass communications while segmented messaging gives direction for how to connect those concepts through a comprehensive approach, going from mass media all the way down to interpersonal communications (IPC). </font></p>]]></dynamic-content>
 	</dynamic-element>
 </root></field>
-	<field name="currentVersion">2.4</field>
+	<field name="currentVersion">2.6</field>
   </row>
 
   <row>
@@ -6537,7 +6771,7 @@ For choosing the format of your messages, consider what tactic(s) best suit sayi
 <p style="margin-bottom: 0in"><font face="Times New Roman, serif">From mass communications, to the moment of contact between the health worker and caregiver, and into social mobilization, every brand touch point builds on the next to provide a comprehensive and enduring impression.</font></p>]]></dynamic-content>
 	</dynamic-element>
 </root></field>
-	<field name="currentVersion">3.5</field>
+	<field name="currentVersion">3.7</field>
   </row>
 
   <row>
@@ -6646,7 +6880,7 @@ Humanize our health workers by emphasizing their social and emotional depth.</b>
 <p style="margin-left: 0.39in; margin-bottom: 0in"><font face="Times New Roman, serif">Audiences are dynamic, with constantly changing perceptions, attitudes, and behaviors within a complex social system. To account for this, effective communications must also be dynamic and continually adapt to variances in audience norm. </font><font face="Times New Roman, serif"><span style="background: #ffff00">Click here to learn more about the Social Ecological Model.</span></font></p>]]></dynamic-content>
 	</dynamic-element>
 </root></field>
-	<field name="currentVersion">1.9</field>
+	<field name="currentVersion">2</field>
   </row>
 
   <row>
@@ -6739,7 +6973,7 @@ Humanize our health workers by emphasizing their social and emotional depth.</b>
 <p style="margin-bottom: 0in"></p>]]></dynamic-content>
 	</dynamic-element>
 </root></field>
-	<field name="currentVersion">2.4</field>
+	<field name="currentVersion">2.6</field>
   </row>
 
   <row>
@@ -6768,7 +7002,7 @@ Humanize our health workers by emphasizing their social and emotional depth.</b>
 <p style="margin-top: 0.02in; margin-bottom: 0.07in"><font face="Times, serif"><font size="2"><font face="Cambria, serif"><font size="2" style="font-size: 11pt">Finally, if we are to truly transition to a polio-free world, increasingly the focus of communication for sustained behavior change must link with routine immunization, community based surveillance and broader child health concerns of the community.</font></font></font></font></p>]]></dynamic-content>
 	</dynamic-element>
 </root></field>
-	<field name="currentVersion">1.7</field>
+	<field name="currentVersion">1.9</field>
   </row>
 
   <row>
@@ -6824,7 +7058,7 @@ Humanize our health workers by emphasizing their social and emotional depth.</b>
 <p style="margin-bottom: 0in"></p>]]></dynamic-content>
 	</dynamic-element>
 </root></field>
-	<field name="currentVersion">1.7</field>
+	<field name="currentVersion">2</field>
   </row>
 
   <row>
@@ -6937,7 +7171,7 @@ Humanize our health workers by emphasizing their social and emotional depth.</b>
 <p style="margin-bottom: 0in">Message retention and recall with your target audience can be further confirmed through community meetings, focus group discussions and even formal KAP studies.</p>]]></dynamic-content>
 	</dynamic-element>
 </root></field>
-	<field name="currentVersion">1.9</field>
+	<field name="currentVersion">2.1</field>
   </row>
 
   <row>
@@ -6970,7 +7204,7 @@ Humanize our health workers by emphasizing their social and emotional depth.</b>
 <p style="margin-bottom: 0in">For examples of active owned media online visit the Pakistan Polio Eradication site (<a href="http://www.endpolio.com.pk">www.endpolio.com.pk</a>) , which includes Facebook, Vimeo and Twitter feeds. This site (<a href="http://endpolio.uniceflebanon.org/">http://endpolio.uniceflebanon.org/</a>) from Lebanon provides links to existing UNICEF online properties and is a reliable source of basic polio information for anyone looking.</p>]]></dynamic-content>
 	</dynamic-element>
 </root></field>
-	<field name="currentVersion">2</field>
+	<field name="currentVersion">2.2</field>
   </row>
 
   <row>
@@ -7031,7 +7265,7 @@ Humanize our health workers by emphasizing their social and emotional depth.</b>
 <p style="margin-bottom: 0in"><span lang="en-GB">Partnerships flow both ways, so think clearly about the needs of your journalists as you develop your strategic interventions. </span></p>]]></dynamic-content>
 	</dynamic-element>
 </root></field>
-	<field name="currentVersion">1.7</field>
+	<field name="currentVersion">1.9</field>
   </row>
 
   <row>
@@ -7064,7 +7298,7 @@ Humanize our health workers by emphasizing their social and emotional depth.</b>
 <p style="margin-top: 0.02in; margin-bottom: 0.07in"><font face="Times, serif"><font size="2"><font face="Cambria, serif"><font size="2" style="font-size: 11pt">In the polio programme, Advocacy responsibilities may be split between numerous partners. High-level political or financial advocacy generally lies outside the domain of C4D, and is led by WHO, Rotary or the Gates Foundation, whereas advocacy at community levels is within UNICEF's remit. </font></font></font></font></p>]]></dynamic-content>
 	</dynamic-element>
 </root></field>
-	<field name="currentVersion">1.7</field>
+	<field name="currentVersion">1.9</field>
   </row>
 
   <row>
@@ -7135,7 +7369,7 @@ Humanize our health workers by emphasizing their social and emotional depth.</b>
 <p style="margin-bottom: 0in">For more information please visit the Innovations Section of this site.</p>]]></dynamic-content>
 	</dynamic-element>
 </root></field>
-	<field name="currentVersion">1.7</field>
+	<field name="currentVersion">1.9</field>
   </row>
 
   <row>
@@ -7272,7 +7506,7 @@ Humanize our health workers by emphasizing their social and emotional depth.</b>
 </table>]]></dynamic-content>
 	</dynamic-element>
 </root></field>
-	<field name="currentVersion">1.9</field>
+	<field name="currentVersion">2.6</field>
   </row>
 
   <row>
@@ -7495,7 +7729,7 @@ Humanize our health workers by emphasizing their social and emotional depth.</b>
 <p style="margin-bottom: 0in"></p>]]></dynamic-content>
 	</dynamic-element>
 </root></field>
-	<field name="currentVersion">1.9</field>
+	<field name="currentVersion">2.4</field>
   </row>
 
   <row>
@@ -7622,7 +7856,7 @@ Humanize our health workers by emphasizing their social and emotional depth.</b>
 <p style="margin-bottom: 0in"><span style="background: #ffff00">Ref: Sample branding pretest from Pakistan</span></p>]]></dynamic-content>
 	</dynamic-element>
 </root></field>
-	<field name="currentVersion">1.5</field>
+	<field name="currentVersion">1.8</field>
   </row>
 
   <row>
@@ -7645,7 +7879,30 @@ Humanize our health workers by emphasizing their social and emotional depth.</b>
 		<dynamic-content language-id="en_US"><![CDATA[<p style="margin-bottom: 0in"><font size="2" style="font-size: 11pt">Evaluation attempts to objectively measure whether we have achieved our original programme objectives. We would use this phase to measure whether the behavior we sought to influence in our planning phase has been achieved, and what contribution our communication efforts contributed to achieving these results. Ideally this measurement is made against original baselines collected at the outset.</font></p>]]></dynamic-content>
 	</dynamic-element>
 </root></field>
-	<field name="currentVersion">2</field>
+	<field name="currentVersion">2.3</field>
+  </row>
+
+  <row>
+	<field name="createDate">2015-11-09 07:03:11</field>
+	<field name="modifiedDate">2015-11-09 07:03:11</field>
+	<field name="urlTitle">c4d_-1</field>
+	<field name="content"><?xml version="1.0"?>
+
+<root available-locales="en_US" default-locale="en_US">
+	<dynamic-element name="Title" index="0" type="text" index-type="keyword">
+		<dynamic-content language-id="en_US"><![CDATA[Global Strategy Templates]]></dynamic-content>
+	</dynamic-element>
+	<dynamic-element name="Category" index="0" type="list" index-type="keyword">
+		<dynamic-content language-id="en_US"><![CDATA[Tools]]></dynamic-content>
+	</dynamic-element>
+	<dynamic-element name="Sub-Category" index="0" type="list" index-type="keyword">
+		<dynamic-content language-id="en_US"><![CDATA[Mass Media IEC]]></dynamic-content>
+	</dynamic-element>
+	<dynamic-element name="Description" index="0" type="text_area" index-type="keyword">
+		<dynamic-content language-id="en_US"><![CDATA[<span style="color: rgb(255, 255, 255); font-family: adelle, Arial, Helvetica, sans-serif; font-size: 17px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: 18px; orphans: auto; text-align: center; text-indent: 0px; text-transform: none; white-space: normal; widows: 1; word-spacing: 0px; -webkit-text-stroke-width: 0px; display: inline !important; float: none; background-color: rgb(28, 102, 130);">Global Strategy Templates</span>]]></dynamic-content>
+	</dynamic-element>
+</root></field>
+	<field name="currentVersion">2.8</field>
   </row>
 
   <row>
@@ -7668,7 +7925,7 @@ Humanize our health workers by emphasizing their social and emotional depth.</b>
 		<dynamic-content language-id="en_US"><![CDATA[<span style="color: rgb(255, 255, 255); font-family: adelle, Arial, Helvetica, sans-serif; font-size: 17px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: 18px; orphans: auto; text-align: center; text-indent: 0px; text-transform: none; white-space: normal; widows: 1; word-spacing: 0px; -webkit-text-stroke-width: 0px; display: inline !important; float: none; background-color: rgb(28, 102, 130);">Global Strategy Scripts</span>]]></dynamic-content>
 	</dynamic-element>
 </root></field>
-	<field name="currentVersion">1.3</field>
+	<field name="currentVersion">2.4</field>
   </row>
 
   <row>
@@ -7691,30 +7948,7 @@ Humanize our health workers by emphasizing their social and emotional depth.</b>
 		<dynamic-content language-id="en_US"><![CDATA[<span style="color: rgb(255, 255, 255); font-family: adelle, Arial, Helvetica, sans-serif; font-size: 17px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: 18px; orphans: auto; text-align: center; text-indent: 0px; text-transform: none; white-space: normal; widows: 1; word-spacing: 0px; -webkit-text-stroke-width: 0px; display: inline !important; float: none; background-color: rgb(28, 102, 130);">Country Samples</span>]]></dynamic-content>
 	</dynamic-element>
 </root></field>
-	<field name="currentVersion">1.3</field>
-  </row>
-
-  <row>
-	<field name="createDate">2015-11-09 07:05:11</field>
-	<field name="modifiedDate">2015-11-09 07:05:11</field>
-	<field name="urlTitle">c4d_41</field>
-	<field name="content"><?xml version="1.0"?>
-
-<root available-locales="en_US" default-locale="en_US">
-	<dynamic-element name="Title" index="0" type="text" index-type="keyword">
-		<dynamic-content language-id="en_US"><![CDATA[Social Mobilization Curriculum]]></dynamic-content>
-	</dynamic-element>
-	<dynamic-element name="Category" index="0" type="list" index-type="keyword">
-		<dynamic-content language-id="en_US"><![CDATA[Tools]]></dynamic-content>
-	</dynamic-element>
-	<dynamic-element name="Sub-Category" index="0" type="list" index-type="keyword">
-		<dynamic-content language-id="en_US"><![CDATA[Training]]></dynamic-content>
-	</dynamic-element>
-	<dynamic-element name="Description" index="0" type="text_area" index-type="keyword">
-		<dynamic-content language-id="en_US"><![CDATA[<span style="color: rgb(255, 255, 255); font-family: adelle, Arial, Helvetica, sans-serif; font-size: 17px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: 18px; orphans: auto; text-align: center; text-indent: 0px; text-transform: none; white-space: normal; widows: 1; word-spacing: 0px; -webkit-text-stroke-width: 0px; display: inline !important; float: none; background-color: rgb(0, 157, 164);">Social Mobilization Curriculum</span>]]></dynamic-content>
-	</dynamic-element>
-</root></field>
-	<field name="currentVersion">1.3</field>
+	<field name="currentVersion">1.7</field>
   </row>
 
   <row>
@@ -7737,7 +7971,7 @@ Humanize our health workers by emphasizing their social and emotional depth.</b>
 		<dynamic-content language-id="en_US"><![CDATA[<span style="color: rgb(255, 255, 255); font-family: adelle, Arial, Helvetica, sans-serif; font-size: 17px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: 18px; orphans: auto; text-align: center; text-indent: 0px; text-transform: none; white-space: normal; widows: 1; word-spacing: 0px; -webkit-text-stroke-width: 0px; display: inline !important; float: none; background-color: rgb(0, 157, 164);">Social Mobilization Curriculum</span>]]></dynamic-content>
 	</dynamic-element>
 </root></field>
-	<field name="currentVersion">1.3</field>
+	<field name="currentVersion">2.7</field>
   </row>
 
   <row>
@@ -7760,7 +7994,7 @@ Humanize our health workers by emphasizing their social and emotional depth.</b>
 		<dynamic-content language-id="en_US"><![CDATA[<span style="color: rgb(255, 255, 255); font-family: adelle, Arial, Helvetica, sans-serif; font-size: 17px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: 18px; orphans: auto; text-align: center; text-indent: 0px; text-transform: none; white-space: normal; widows: 1; word-spacing: 0px; -webkit-text-stroke-width: 0px; display: inline !important; float: none; background-color: rgb(0, 157, 164);">Vaccinator Curriculum</span>]]></dynamic-content>
 	</dynamic-element>
 </root></field>
-	<field name="currentVersion">1.3</field>
+	<field name="currentVersion">3.2</field>
   </row>
 
   <row>
@@ -7783,30 +8017,7 @@ Humanize our health workers by emphasizing their social and emotional depth.</b>
 		<dynamic-content language-id="en_US"><![CDATA[<span style="color: rgb(255, 255, 255); font-family: adelle, Arial, Helvetica, sans-serif; font-size: 17px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: 18px; orphans: auto; text-align: center; text-indent: 0px; text-transform: none; white-space: normal; widows: 1; word-spacing: 0px; -webkit-text-stroke-width: 0px; display: inline !important; float: none; background-color: rgb(0, 157, 164);">Emergency C4D Outbreak Curriculum</span>]]></dynamic-content>
 	</dynamic-element>
 </root></field>
-	<field name="currentVersion">1.3</field>
-  </row>
-
-  <row>
-	<field name="createDate">2015-11-09 07:07:25</field>
-	<field name="modifiedDate">2015-11-09 07:07:25</field>
-	<field name="urlTitle">c4d_45</field>
-	<field name="content"><?xml version="1.0"?>
-
-<root available-locales="en_US" default-locale="en_US">
-	<dynamic-element name="Title" index="0" type="text" index-type="keyword">
-		<dynamic-content language-id="en_US"><![CDATA[Training Tools]]></dynamic-content>
-	</dynamic-element>
-	<dynamic-element name="Category" index="0" type="list" index-type="keyword">
-		<dynamic-content language-id="en_US"><![CDATA[Tools]]></dynamic-content>
-	</dynamic-element>
-	<dynamic-element name="Sub-Category" index="0" type="list" index-type="keyword">
-		<dynamic-content language-id="en_US"><![CDATA[Training]]></dynamic-content>
-	</dynamic-element>
-	<dynamic-element name="Description" index="0" type="text_area" index-type="keyword">
-		<dynamic-content language-id="en_US"><![CDATA[<span style="color: rgb(255, 255, 255); font-family: adelle, Arial, Helvetica, sans-serif; font-size: 17px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: 18px; orphans: auto; text-align: center; text-indent: 0px; text-transform: none; white-space: normal; widows: 1; word-spacing: 0px; -webkit-text-stroke-width: 0px; display: inline !important; float: none; background-color: rgb(0, 157, 164);">Training Tools</span>]]></dynamic-content>
-	</dynamic-element>
-</root></field>
-	<field name="currentVersion">1.7</field>
+	<field name="currentVersion">2.4</field>
   </row>
 
   <row>
@@ -7829,30 +8040,7 @@ Humanize our health workers by emphasizing their social and emotional depth.</b>
 		<dynamic-content language-id="en_US"><![CDATA[<span style="color: rgb(255, 255, 255); font-family: adelle, Arial, Helvetica, sans-serif; font-size: 17px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: 18px; orphans: auto; text-align: center; text-indent: 0px; text-transform: none; white-space: normal; widows: 1; word-spacing: 0px; -webkit-text-stroke-width: 0px; display: inline !important; float: none; background-color: rgb(29, 190, 190);">Sample ToRs</span>]]></dynamic-content>
 	</dynamic-element>
 </root></field>
-	<field name="currentVersion">1.3</field>
-  </row>
-
-  <row>
-	<field name="createDate">2015-11-09 07:08:46</field>
-	<field name="modifiedDate">2015-11-09 07:08:46</field>
-	<field name="urlTitle">c4d_47</field>
-	<field name="content"><?xml version="1.0"?>
-
-<root available-locales="en_US" default-locale="en_US">
-	<dynamic-element name="Title" index="0" type="text" index-type="keyword">
-		<dynamic-content language-id="en_US"><![CDATA[Communication Commitee ToRs]]></dynamic-content>
-	</dynamic-element>
-	<dynamic-element name="Category" index="0" type="list" index-type="keyword">
-		<dynamic-content language-id="en_US"><![CDATA[Tools]]></dynamic-content>
-	</dynamic-element>
-	<dynamic-element name="Sub-Category" index="0" type="list" index-type="keyword">
-		<dynamic-content language-id="en_US"><![CDATA[Management Tools]]></dynamic-content>
-	</dynamic-element>
-	<dynamic-element name="Description" index="0" type="text_area" index-type="keyword">
-		<dynamic-content language-id="en_US"><![CDATA[<span style="color: rgb(255, 255, 255); font-family: adelle, Arial, Helvetica, sans-serif; font-size: 17px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: 18px; orphans: auto; text-align: center; text-indent: 0px; text-transform: none; white-space: normal; widows: 1; word-spacing: 0px; -webkit-text-stroke-width: 0px; display: inline !important; float: none; background-color: rgb(29, 190, 190);">Communication Commitee ToRs</span>]]></dynamic-content>
-	</dynamic-element>
-</root></field>
-	<field name="currentVersion">1.3</field>
+	<field name="currentVersion">2.5</field>
   </row>
 
   <row>
@@ -7875,7 +8063,7 @@ Humanize our health workers by emphasizing their social and emotional depth.</b>
 		<dynamic-content language-id="en_US"><![CDATA[<span style="color: rgb(255, 255, 255); font-family: adelle, Arial, Helvetica, sans-serif; font-size: 17px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: 18px; orphans: auto; text-align: center; text-indent: 0px; text-transform: none; white-space: normal; widows: 1; word-spacing: 0px; -webkit-text-stroke-width: 0px; display: inline !important; float: none; background-color: rgb(29, 190, 190);">Sample Job Descriptions</span>]]></dynamic-content>
 	</dynamic-element>
 </root></field>
-	<field name="currentVersion">1.3</field>
+	<field name="currentVersion">2</field>
   </row>
 
   <row>
@@ -7898,30 +8086,7 @@ Humanize our health workers by emphasizing their social and emotional depth.</b>
 		<dynamic-content language-id="en_US"><![CDATA[<span style="color: rgb(255, 255, 255); font-family: adelle, Arial, Helvetica, sans-serif; font-size: 17px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: 18px; orphans: auto; text-align: center; text-indent: 0px; text-transform: none; white-space: normal; widows: 1; word-spacing: 0px; -webkit-text-stroke-width: 0px; display: inline !important; float: none; background-color: rgb(29, 190, 190);">LTAs for C4D Support</span>]]></dynamic-content>
 	</dynamic-element>
 </root></field>
-	<field name="currentVersion">1.3</field>
-  </row>
-
-  <row>
-	<field name="createDate">2015-11-09 07:12:12</field>
-	<field name="modifiedDate">2015-11-09 07:12:12</field>
-	<field name="urlTitle">c4d_50</field>
-	<field name="content"><?xml version="1.0"?>
-
-<root available-locales="en_US" default-locale="en_US">
-	<dynamic-element name="Title" index="0" type="text" index-type="keyword">
-		<dynamic-content language-id="en_US"><![CDATA[Multi-Media communication]]></dynamic-content>
-	</dynamic-element>
-	<dynamic-element name="Category" index="0" type="list" index-type="keyword">
-		<dynamic-content language-id="en_US"><![CDATA[Tools]]></dynamic-content>
-	</dynamic-element>
-	<dynamic-element name="Sub-Category" index="0" type="list" index-type="keyword">
-		<dynamic-content language-id="en_US"><![CDATA[Innovations]]></dynamic-content>
-	</dynamic-element>
-	<dynamic-element name="Description" index="0" type="text_area" index-type="keyword">
-		<dynamic-content language-id="en_US"><![CDATA[<span style="color: rgb(0, 0, 0); font-family: adelle, Arial, Helvetica, sans-serif; font-size: 17px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: 18px; orphans: auto; text-align: center; text-indent: 0px; text-transform: none; white-space: normal; widows: 1; word-spacing: 0px; -webkit-text-stroke-width: 0px; display: inline !important; float: none; background-color: rgb(174, 241, 223);">Multi-Media communication</span>]]></dynamic-content>
-	</dynamic-element>
-</root></field>
-	<field name="currentVersion">1.3</field>
+	<field name="currentVersion">1.7</field>
   </row>
 
   <row>
@@ -7944,53 +8109,7 @@ Humanize our health workers by emphasizing their social and emotional depth.</b>
 		<dynamic-content language-id="en_US"><![CDATA[<span style="color: rgb(0, 0, 0); font-family: adelle, Arial, Helvetica, sans-serif; font-size: 17px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: 18px; orphans: auto; text-align: center; text-indent: 0px; text-transform: none; white-space: normal; widows: 1; word-spacing: 0px; -webkit-text-stroke-width: 0px; display: inline !important; float: none; background-color: rgb(174, 241, 223);">Rapid Pro</span>]]></dynamic-content>
 	</dynamic-element>
 </root></field>
-	<field name="currentVersion">1.3</field>
-  </row>
-
-  <row>
-	<field name="createDate">2015-11-09 07:13:03</field>
-	<field name="modifiedDate">2015-11-09 07:13:03</field>
-	<field name="urlTitle">c4d_52</field>
-	<field name="content"><?xml version="1.0"?>
-
-<root available-locales="en_US" default-locale="en_US">
-	<dynamic-element name="Title" index="0" type="text" index-type="keyword">
-		<dynamic-content language-id="en_US"><![CDATA[U-Report]]></dynamic-content>
-	</dynamic-element>
-	<dynamic-element name="Category" index="0" type="list" index-type="keyword">
-		<dynamic-content language-id="en_US"><![CDATA[Tools]]></dynamic-content>
-	</dynamic-element>
-	<dynamic-element name="Sub-Category" index="0" type="list" index-type="keyword">
-		<dynamic-content language-id="en_US"><![CDATA[Innovations]]></dynamic-content>
-	</dynamic-element>
-	<dynamic-element name="Description" index="0" type="text_area" index-type="keyword">
-		<dynamic-content language-id="en_US"><![CDATA[<span style="color: rgb(0, 0, 0); font-family: adelle, Arial, Helvetica, sans-serif; font-size: 17px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: 18px; orphans: auto; text-align: center; text-indent: 0px; text-transform: none; white-space: normal; widows: 1; word-spacing: 0px; -webkit-text-stroke-width: 0px; display: inline !important; float: none; background-color: rgb(174, 241, 223);">U-Report</span>]]></dynamic-content>
-	</dynamic-element>
-</root></field>
-	<field name="currentVersion">1.3</field>
-  </row>
-
-  <row>
-	<field name="createDate">2015-11-09 07:13:29</field>
-	<field name="modifiedDate">2015-11-09 07:13:29</field>
-	<field name="urlTitle">c4d_53</field>
-	<field name="content"><?xml version="1.0"?>
-
-<root available-locales="en_US" default-locale="en_US">
-	<dynamic-element name="Title" index="0" type="text" index-type="keyword">
-		<dynamic-content language-id="en_US"><![CDATA[Social Media and Online]]></dynamic-content>
-	</dynamic-element>
-	<dynamic-element name="Category" index="0" type="list" index-type="keyword">
-		<dynamic-content language-id="en_US"><![CDATA[Tools]]></dynamic-content>
-	</dynamic-element>
-	<dynamic-element name="Sub-Category" index="0" type="list" index-type="keyword">
-		<dynamic-content language-id="en_US"><![CDATA[Innovations]]></dynamic-content>
-	</dynamic-element>
-	<dynamic-element name="Description" index="0" type="text_area" index-type="keyword">
-		<dynamic-content language-id="en_US"><![CDATA[<span style="color: rgb(0, 0, 0); font-family: adelle, Arial, Helvetica, sans-serif; font-size: 17px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: 18px; orphans: auto; text-align: center; text-indent: 0px; text-transform: none; white-space: normal; widows: 1; word-spacing: 0px; -webkit-text-stroke-width: 0px; display: inline !important; float: none; background-color: rgb(174, 241, 223);">Social Media and Online</span>]]></dynamic-content>
-	</dynamic-element>
-</root></field>
-	<field name="currentVersion">1.2</field>
+	<field name="currentVersion">1.9</field>
   </row>
 
   <row>
@@ -8013,7 +8132,7 @@ Humanize our health workers by emphasizing their social and emotional depth.</b>
 		<dynamic-content language-id="en_US"><![CDATA[<span style="color: rgb(0, 0, 0); font-family: adelle, Arial, Helvetica, sans-serif; font-size: 17px; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: 18px; orphans: auto; text-align: center; text-indent: 0px; text-transform: none; white-space: normal; widows: 1; word-spacing: 0px; -webkit-text-stroke-width: 0px; display: inline !important; float: none; background-color: rgb(174, 241, 223);">Other Channels</span>]]></dynamic-content>
 	</dynamic-element>
 </root></field>
-	<field name="currentVersion">1.3</field>
+	<field name="currentVersion">1.7</field>
   </row>
 
   <row>
@@ -8147,58 +8266,26 @@ Humanize our health workers by emphasizing their social and emotional depth.</b>
   </row>
 
   <row>
-	<field name="createDate">2016-05-04 02:51:59</field>
-	<field name="modifiedDate">2016-05-04 02:53:32</field>
-	<field name="urlTitle">testing-m</field>
+	<field name="createDate">2016-07-26 13:32:05</field>
+	<field name="modifiedDate">2016-07-26 13:32:05</field>
+	<field name="urlTitle">c4d_52-data</field>
 	<field name="content"><?xml version="1.0"?>
 
 <root available-locales="en_US" default-locale="en_US">
 	<dynamic-element name="Title" type="text" index-type="keyword" index="0">
-		<dynamic-content language-id="en_US"><![CDATA[Testing M 2]]></dynamic-content>
-	</dynamic-element>
-	<dynamic-element name="Category" type="list" index-type="keyword" index="0">
-		<dynamic-content language-id="en_US"><![CDATA[Understand]]></dynamic-content>
-	</dynamic-element>
-	<dynamic-element name="Sub-Category" type="list" index-type="keyword" index="0">
-		<dynamic-content language-id="en_US"><![CDATA[Behavioural Goal]]></dynamic-content>
-	</dynamic-element>
-	<dynamic-element name="imageArticle" type="document_library" index-type="keyword" index="0">
-		<dynamic-content language-id="en_US"><![CDATA[]]></dynamic-content>
-	</dynamic-element>
-	<dynamic-element name="Description" type="text_area" index-type="keyword" index="0">
-		<dynamic-content language-id="en_US"><![CDATA[]]></dynamic-content>
-	</dynamic-element>
-	<dynamic-element name="templateLinks" type="document_library" index-type="keyword" index="0">
-		<dynamic-content language-id="en_US"><![CDATA[]]></dynamic-content>
-	</dynamic-element>
-	<dynamic-element name="referenceLinks" type="document_library" index-type="keyword" index="0">
-		<dynamic-content language-id="en_US"><![CDATA[]]></dynamic-content>
-	</dynamic-element>
-</root></field>
-	<field name="currentVersion">1</field>
-  </row>
-
-  <row>
-	<field name="createDate">2016-06-14 19:58:41</field>
-	<field name="modifiedDate">2016-06-14 19:58:41</field>
-	<field name="urlTitle">c4d_37-vaccine-supply-and-management</field>
-	<field name="content"><?xml version="1.0"?>
-
-<root available-locales="en_US" default-locale="en_US">
-	<dynamic-element name="Title" type="text" index-type="keyword" index="0">
-		<dynamic-content language-id="en_US"><![CDATA[Vaccine Supply and Managment]]></dynamic-content>
+		<dynamic-content language-id="en_US"><![CDATA[Data]]></dynamic-content>
 	</dynamic-element>
 	<dynamic-element name="Category" type="list" index-type="keyword" index="0">
 		<dynamic-content language-id="en_US"><![CDATA[Tools]]></dynamic-content>
 	</dynamic-element>
 	<dynamic-element name="Sub-Category" type="list" index-type="keyword" index="0">
-		<dynamic-content language-id="en_US"><![CDATA[Management Tools]]></dynamic-content>
+		<dynamic-content language-id="en_US"><![CDATA[Innovations]]></dynamic-content>
 	</dynamic-element>
 	<dynamic-element name="imageArticle" type="document_library" index-type="keyword" index="0">
-		<dynamic-content language-id="en_US"><![CDATA[/documents/10184/33331/Management+Tools/0f9c076a-8d71-4295-9918-64a65729f4b3?t=1447062294000]]></dynamic-content>
+		<dynamic-content language-id="en_US"><![CDATA[]]></dynamic-content>
 	</dynamic-element>
 	<dynamic-element name="Description" type="text_area" index-type="keyword" index="0">
-		<dynamic-content language-id="en_US"><![CDATA[Here is some content about Vaccine Supply and Management]]></dynamic-content>
+		<dynamic-content language-id="en_US"><![CDATA[]]></dynamic-content>
 	</dynamic-element>
 	<dynamic-element name="templateLinks" type="document_library" index-type="keyword" index="0">
 		<dynamic-content language-id="en_US"><![CDATA[]]></dynamic-content>
@@ -8207,7 +8294,39 @@ Humanize our health workers by emphasizing their social and emotional depth.</b>
 		<dynamic-content language-id="en_US"><![CDATA[]]></dynamic-content>
 	</dynamic-element>
 </root></field>
-	<field name="currentVersion">1.1</field>
+	<field name="currentVersion">1.6</field>
+  </row>
+
+  <row>
+	<field name="createDate">2016-07-26 14:36:25</field>
+	<field name="modifiedDate">2016-07-26 14:36:25</field>
+	<field name="urlTitle">c4d_55-mhealth</field>
+	<field name="content"><?xml version="1.0"?>
+
+<root available-locales="en_US" default-locale="en_US">
+	<dynamic-element name="Title" type="text" index-type="keyword" index="0">
+		<dynamic-content language-id="en_US"><![CDATA[mHealth]]></dynamic-content>
+	</dynamic-element>
+	<dynamic-element name="Category" type="list" index-type="keyword" index="0">
+		<dynamic-content language-id="en_US"><![CDATA[Tools]]></dynamic-content>
+	</dynamic-element>
+	<dynamic-element name="Sub-Category" type="list" index-type="keyword" index="0">
+		<dynamic-content language-id="en_US"><![CDATA[Innovations]]></dynamic-content>
+	</dynamic-element>
+	<dynamic-element name="imageArticle" type="document_library" index-type="keyword" index="0">
+		<dynamic-content language-id="en_US"><![CDATA[/documents/10184/33331/Innovations/43db60a4-1890-42c6-b743-0956725221ef?t=1447062268000]]></dynamic-content>
+	</dynamic-element>
+	<dynamic-element name="Description" type="text_area" index-type="keyword" index="0">
+		<dynamic-content language-id="en_US"><![CDATA[]]></dynamic-content>
+	</dynamic-element>
+	<dynamic-element name="templateLinks" type="document_library" index-type="keyword" index="0">
+		<dynamic-content language-id="en_US"><![CDATA[]]></dynamic-content>
+	</dynamic-element>
+	<dynamic-element name="referenceLinks" type="document_library" index-type="keyword" index="0">
+		<dynamic-content language-id="en_US"><![CDATA[]]></dynamic-content>
+	</dynamic-element>
+</root></field>
+	<field name="currentVersion">1.2</field>
   </row>
 
   <row>
