@@ -92,7 +92,7 @@ $(() => {
 
       let article_title = response.article_title
       let id = response.id
-      let list_item = "<div id=\"" + id + "\" class=\"item white_text_black_bg\"><a href=\"sop_articles/" + id + "\" class=\"white_text_black_bg\">" + article_title + "</a> <i id=\"" + article_title + "\" class=\"fa fa-remove\" aria-hidden=\"true\"></i></div>"
+      let list_item = "<div id=\"" + id + "\" class=\"item\"><a href=\"sop_articles/" + id + "\" class=\"white_text_black_bg\">" + article_title + "</a> <i id=\"" + article_title + "\" class=\"fa fa-remove white_text_black_bg\" aria-hidden=\"true\"></i></div>"
       removeNoArticlesSelected('#sop_no_items_selected')
       $('#sop_checklist_list').append(list_item)
     })
