@@ -34,6 +34,7 @@ gem "paperclip", git: "git://github.com/thoughtbot/paperclip.git"
 
 gem 'sprockets-es6'
 
+gem 'fuzzy_match'
 
 group :development, :test do
   # binding.pry for code and pretty console
