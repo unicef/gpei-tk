@@ -34,6 +34,7 @@ $(() => {
     $('#CMS_index_content').empty()
     $('#CMS_index_content').append(content)
   })
+
   $('#CMS_index_content').on('submit', '#CMS_reference_link_upload_form', e => {
     e.preventDefault()
     let formData = new FormData($(e.currentTarget)[0])
@@ -45,11 +46,18 @@ $(() => {
       url: 'cms/reference_links/',
       data: formData
     }).done(response => {
-
+      showDimmerClearBrowser()
+      $('#CMS_references_link_upload').click()
     })
     return false
   })
-
+  function showDimmerClearBrowser() {
+    $('.ui.dimmer').dimmer('show')
+    _.delay(() => {
+      $('.ui.dimmer').dimmer('hide')
+    }, 3000, 'later');
+    history.pushState({}, null, 'cms');
+  }
   function getReferenceLinkField() {
     // <i class="fa fa-plus" aria-hidden="true"></i>
     return (`
@@ -122,7 +130,8 @@ $(() => {
       url: 'cms/embedded_images/',
       data: formData
     }).done(response => {
-
+      showDimmerClearBrowser()
+      $('#CMS_embedded_images_link_upload').click()
     })
     return false
   })
