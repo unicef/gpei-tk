@@ -3,6 +3,7 @@
 capybara-*.html
 .rspec
 .rbenv-vars
+/shared
 /log
 /tmp
 /db/*.sqlite3
