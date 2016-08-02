@@ -654,4 +654,19 @@ C4dArticle.where(title: 'Multi-Media and SMS', c4d_category_id: 3, c4d_subcatego
 C4dArticle.where(title: 'Social Mobilization Curriculum', c4d_category_id: 4, c4d_subcategory_id: 13, cms_title: 'c4d_42').last.destroy
 C4dArticle.where(title: 'Social Mobilization Curriculum', c4d_category_id: 4, c4d_subcategory_id: 13, cms_title: 'c4d_43').last.destroy
 C4dArticle.where(title: 'LTAs for C4D Support', c4d_category_id: 4, c4d_subcategory_id: 14, cms_title: 'c4d_52').last.destroy
+C4dArticle.where(title: 'Enduring Outbreak', c4d_category_id: 2, c4d_subcategory_id: 8, cms_title: 'c4d_44').last.destroy
+C4dArticle.where(title: 'Global Strategy Templates', cms_title: 'c4d_-1', c4d_subcategory_id: 12, c4d_category_id: 4).last.destroy
+C4dArticle.where(cms_title: 'c4d_53-design', title: 'Design', c4d_category_id: 4, c4d_subcategory_id: 15).last.destroy
+#c4d create missing article #
+C4dArticle.create(
+  cms_title: "c4d_#{}",
+  title: 'IEC Samples',
+  content: '',
+  c4d_category_id: 4,
+  c4d_subcategory_id: 13,
+  order_id: 44,
+  published: true,
+  author_id: admin_user.id
+  )
+
 puts 'done!'
