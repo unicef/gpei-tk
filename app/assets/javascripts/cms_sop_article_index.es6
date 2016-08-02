@@ -125,7 +125,7 @@ $(() => {
         <select name="article[reference_links][]" class="ui dropdown cms_dropdown_select" required multiple>
           <option value="">Select Reference Links</option>
           ${_.map(reference_links, reference_link => {
-            selected = _.includes(selected_reference_links, reference_link.id) ? "selected=\"selected\"" : ""
+            let selected = _.includes(selected_reference_links, reference_link.id) ? "selected=\"selected\"" : ""
             return `<option value="${reference_link.id}" ${selected}>${reference_link.document_file_name}</option>`
           }).join('\n')}
         </select>
@@ -145,7 +145,7 @@ $(() => {
         <select name="article[${option_name}]" class="ui dropdown cms_dropdown_select" required>
           <option value="">Select Time Period</option>
           ${_.map(sop_times, time => {
-            selected = time.id === article_sop_time_id ? 'selected' : ''
+            let selected = time.id === article_sop_time_id ? 'selected' : ''
             return `<option ${selected} value="${time.id}">${time.period}</option>`
           }).join('\n')}
         </select>
@@ -176,7 +176,7 @@ $(() => {
         <select name="article[${option_name}]" class="ui dropdown cms_dropdown_select" ${is_required ? 'required' : ''}>
           <option value="">Select Office</option>
           ${_.map(objects, object => {
-            selected = object.id === id ? 'selected' : ''
+            let selected = object.id === id ? 'selected' : ''
             return `<option ${selected} value="${object.id}">${object.title}</option>`
           }).join('\n')}
         </select>
@@ -192,11 +192,11 @@ $(() => {
   CKEDITOR.config.height = 150;
   CKEDITOR.config.width = 'auto';
 
-  var initializeCKEditor = (function() {
-    var wysiwygareaAvailable = isWysiwygareaAvailable(),
+  let initializeCKEditor = (function() {
+    let wysiwygareaAvailable = isWysiwygareaAvailable(),
       isBBCodeBuiltIn = !!CKEDITOR.plugins.get( 'bbcode' );
     return function() {
-      var editorElement = CKEDITOR.document.getById( 'editor' );
+      let editorElement = CKEDITOR.document.getById( 'editor' );
 
       // :(((
       // if ( isBBCodeBuiltIn ) {
