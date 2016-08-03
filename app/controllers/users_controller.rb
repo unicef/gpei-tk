@@ -28,6 +28,6 @@ class UsersController < ApplicationController
   end
 
   def safe_user_params
-    params.require(:user).permit(:first_name, :last_name, :country, :responsible_office_id, :organization, :email, :password)
+    params.require(:user).permit(:first_name, :last_name, :country, :responsible_office_id, :organization, :email, :password, :TOS_accepted)
   end
 end
