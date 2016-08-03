@@ -1,6 +1,7 @@
 $(function(){
   let $sopcheck_list_icons = $('#sop_article_logo_row')
-  $sopcheck_list_icons.on('click', '.grid_add', function(e){
+  $sopcheck_list_icons.on('click', '.grid_add', e => {
+    e.preventDefault()
     let article_title = e.currentTarget.parentElement.querySelector('#grid_item_article_title').innerHTML;
     let id = e.currentTarget.id
     $.ajax({
@@ -21,7 +22,8 @@ $(function(){
     });
   });
 
-  $sopcheck_list_icons.on('click', '.grid_check', function(e){
+  $sopcheck_list_icons.on('click', '.grid_check', e => {
+    e.preventDefault()
     let article_title = e.currentTarget.parentElement.querySelector('#grid_item_article_title').innerHTML;
     let id = e.currentTarget.id
     $.ajax({
