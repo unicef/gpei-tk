@@ -1,9 +1,8 @@
 $(() => {
-  $('#my_rhizome_dropdown .ui.pointing.dropdown.link.item.white_text_black_bg')
-    .dropdown({
-      on: 'hover',
-      action: 'nothing'
-    });
+  $('#select_filter_dropdown_menu').dropdown({
+    on:'hover',
+    action:'nothing'
+  })
 
   let $container = $('#isotope_container').isotope({
     itemSelector: '.grid_item'
@@ -171,10 +170,6 @@ $(() => {
   let padding = $('#nav_bar').outerHeight() + 1
   padding += "px"
   $('#sop_selection_page').css({ paddingTop: padding })
-  $('#select_filter_dropdown_menu').dropdown({
-    on:'hover',
-    action:'nothing'
-  })
   let height = $('#sop_filter_clear_all').innerHeight()
   $('#select_filter_dropdown_menu').css({ height: height })
   // stick to top if scrolled
