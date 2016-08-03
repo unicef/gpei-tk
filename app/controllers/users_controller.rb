@@ -1,8 +1,7 @@
 class UsersController < ApplicationController
   def new
     if request.xhr?
-      responsible_offices = ResponsibleOffice.all
-      render json: { responsible_offices: responsible_offices, status: 'success' }
+      render json: { status: 'success' }
     end
   end
 
@@ -28,6 +27,6 @@ class UsersController < ApplicationController
   end
 
   def safe_user_params
-    params.require(:user).permit(:first_name, :last_name, :country, :responsible_office_id, :organization, :email, :password, :TOS_accepted)
+    params.require(:user).permit(:first_name, :last_name, :country, :organization, :email, :password, :TOS_accepted)
   end
 end

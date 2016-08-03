@@ -45,8 +45,8 @@ $(() => {
     }).done(response => {
       $('#user_account_content').empty()
       $('#user_account_header').empty()
-      let form = getUserCreationForm(response.responsible_offices)
       $('#user_account_header').append('Create Account')
+      let form = getUserCreationForm()
       $('#user_account_content').append(form)
       $('#user_account_modal .ui.negative.message').transition('fade')
       $('.ui.radio.checkbox').checkbox();
@@ -114,7 +114,7 @@ $(() => {
     return verified
   }
 
-  function getUserCreationForm(responsible_offices){
+  function getUserCreationForm(){
     return (
       `<div class='row'>
       <form id="create_user_form" class="ui form">
@@ -127,13 +127,16 @@ $(() => {
             <label>Last Name</label>
             <input type="text" name="user[last_name]" placeholder="Smith" class="input_fields" value="" required>
           </div>
-          ${getCountryDropdown()}
         </div>
         <div class='col-md-4'>
-          ${getDropdown("Responsible", "responsible_office_id", responsible_offices)}
           <div class="field">
             <label>Organization</label>
             <input type="text" name="user[organization]" placeholder="UNICEF" class="input_fields" value="" required>
+          </div>
+          ${getCountryDropdown()}
+          <div class="field">
+            <label>Please click - <a class="tos_link_text" href='/terms_of_service/' target="_blank">Terms of Service</a></label>
+            <label><input type=checkbox name="user[TOS_accepted]" value="true" required> I agree to these terms.</label>
           </div>
         </div>
         <div class="col-md-3">
@@ -148,10 +151,6 @@ $(() => {
           <div class="field">
             <label>Re-enter password</label>
             <input type="password" name="user[password]" placeholder="Password" class="input_fields" value="" required>
-          </div>
-          <div class="field">
-            <label>Please click - <a class="tos_link_text" href='/terms_of_service/' target="_blank">Terms of Service</a></label>
-            <label><input type=checkbox name="user[TOS_accepted]" value="true" required> I agree to these terms.</label>
           </div>
           <button class="ui button" type="submit">Submit</button>
         </div>
