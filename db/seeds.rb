@@ -92,8 +92,7 @@ user = User.new(
   TOS_accepted: true)
 user.password = 'foobar'
 user.role = Role.find_by(title: 'root')
-user.organization = user.role.title
-user.responsible_office = ResponsibleOffice.find_by(title: 'UNICEF')
+user.organization = 'UNICEF'
 user.save
 
 user = User.new(
@@ -104,8 +103,7 @@ user = User.new(
   TOS_accepted: true)
 user.password = 'password'
 user.role = Role.find_by(title: 'Administrator')
-user.organization = user.role.title
-user.responsible_office = ResponsibleOffice.find_by(title: 'UNICEF')
+user.organization = 'UNICEF'
 user.save
 
 content_random_number_max = 40
