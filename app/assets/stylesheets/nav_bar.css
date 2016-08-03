@@ -30,8 +30,8 @@
   width: auto;
   min-width: 0;
 }
-.ui.form .input_fields {
-  width:20%;
+.field {
+  width:250px;
 }
 #user_create_form_first_column {
   margin-bottom: 30px
