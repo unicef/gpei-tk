@@ -1,5 +1,10 @@
-  $(() => {
-  $('.ui.modal').on('click', '#modal_error_message_close', e => {
+$(() => {
+  $('#CMS_index_content .ui.floating.dropdown.icon.button').dropdown({
+      action: 'hide',
+      transition: 'drop'
+  })
+
+  $('#CMS_modal').on('click', '#modal_error_message_close', e => {
     e.preventDefault()
     $(e.currentTarget).closest('.message').transition('fade')
   })
@@ -19,10 +24,6 @@
       _ .forEach(response.users, user => {
         let row = '<tr id="' + user.id + '">' + '<td>' + user.first_name + '</td>' + '<td>' + user.last_name + '</td>' + '<td>' + user.email + '</td>' + '<td>' + response.roles[user.role_id - 1].title + '</td>' + '<td>' + getUserActionDropdown(user.id) + '</td>' + '</tr>'
         $('#CMS_users_table').append(row)
-      })
-      $('#CMS_index_content .ui.floating.dropdown.icon.button').dropdown({
-          action: 'hide',
-          transition: 'drop'
       })
     })
   })
@@ -56,13 +57,9 @@
         url: '/cms/users/',
         data: $('#CMS_modal_content #cms_user_create').serialize()
       }).done(response => {
-        $('.ui.modal').modal('toggle')
+        $('#CMS_modal').modal('toggle')
         let content = '<tr id="' + response.user.id + '">' + '<td>' + response.user.first_name + '</td>' + '<td>' + response.user.last_name + '</td>' + '<td>' + response.user.email + '</td>' + '<td>' + response.role.title + '</td>' + '<td>' + getUserActionDropdown(response.user.id) + '</td>' + '</tr>'
         $('#CMS_index_content #CMS_users_table').append(content)
-        $('#CMS_index_content .ui.floating.dropdown.icon.button').dropdown({
-            action: 'hide',
-            transition: 'drop'
-        })
       })
     } else {
       $('.ui.negative.message').toggle()
@@ -72,7 +69,8 @@
     }
   })
   function verifyPasswordsMatch() {
-    let verified = $('#CMS_modal_content #cms_user_create :password')[0].value === $('#CMS_modal_content #cms_user_create :password')[1].value
+    let passwords = $('#CMS_modal_content #cms_user_create :password')
+    let verified = passwords[0].value === passwords[1].value
     return verified
   }
 
@@ -87,10 +85,10 @@
         method: 'GET',
         url: '/api/responsible_offices/'
       }).done(response => {
-        $('.ui.modal').modal('toggle')
-        $('.ui.modal .header').append('Create User')
+        $('#CMS_modal').modal('toggle')
+        $('#CMS_modal .header').append('Create User')
         let content = getUserFormEmptyForm(roles, response.responsible_offices)
-        $('.ui.modal .content').append(content)
+        $('#CMS_modal .content').append(content)
         $('.ui.radio.checkbox')
         .checkbox()
         $('.ui.negative.message').toggle()
@@ -99,11 +97,11 @@
   })
 
   $('#CMS_index_content').on('click', '#CMS_user_assign_role', e => {
-    $('.ui.modal')
+    $('#CMS_modal')
       .modal('toggle')
       // .modal('show')
 
-    $('.ui.modal .header').append('Modify User Role')
+    $('#CMS_modal .header').append('Modify User Role')
     $.ajax({
       method: 'GET',
       url: '/api/roles/'
@@ -111,21 +109,21 @@
       let element_id = '#CMS_index_content tr#' + e.currentTarget.parentElement.id + ' td'
       let user_element = $(element_id)
       let content = getUserForm(user_element, response.roles, e.currentTarget.parentElement.id)
-      $('.ui.modal .content').append(content)
+      $('#CMS_modal .content').append(content)
       $('.ui.radio.checkbox')
       .checkbox()
       $('#user_update_id_input').toggle()
     })
   })
 
-  $('.ui.modal').on('submit', '#update_user_form',e => {
+  $('#CMS_modal').on('submit', '#update_user_form',e => {
     e.preventDefault()
     $.ajax({
       method: 'PATCH',
       url: '/cms/users/' + $('#user_update_id_input input').val(),
       data: $(e.currentTarget).serialize() + "&authenticity_token=" + _.escape($('meta[name=csrf-token]').attr('content'))
     }).done(response => {
-      $('.ui.modal').modal('hide')
+      $('#CMS_modal').modal('hide')
       $('#CMS_users_table').find('#'+response.id).find('td')[$('#CMS_users_table').find('#'+response.id).find('td').length-2].innerHTML = response.role.title
     })
   })
@@ -149,7 +147,7 @@
           <label>Email</label>
           <input type="text" name="user[email]" placeholder="${user_element[2].innerHTML}" value="${user_element[2].innerHTML}">
         </div>
-        ${getRolesRadioCheckBoxWithUserRole(roles, user_element[3].innerHTML)}
+        ${getRolesRadioCheckBoxWithUserRole(roles, user_element[3].innerHTML, "inline")}
         <button class="ui button" type="submit">Submit</button>
       </form>
     `)
@@ -176,7 +174,7 @@
             <label>Organization</label>
             <input type="text" name="user[organization]" placeholder="UNICEF" class="input_fields" value="" required>
           </div>
-          ${getRolesRadioCheckBoxWithUserRole(roles, '')}
+          ${getRolesRadioCheckBoxWithUserRole(roles, '', "grouped")}
         </div>
         <div class="col-md-3">
           <div class="field">
@@ -196,18 +194,18 @@
       </form>
       </div>
       <div class='row'>
-      <div class="ui negative message">
-        <div class="header">
-          <a id='modal_error_message_close' href=''><i class="fa fa-times" aria-hidden="true"></i></a>
+        <div class="ui negative message">
+          <div class="header">
+            <a id='modal_error_message_close' href=''><i class="fa fa-times" aria-hidden="true"></i></a>
+          </div>
         </div>
-      </div>
       </div>`
     )
   }
 
-  function getRolesRadioCheckBoxWithUserRole(roles, user_role) {
+  function getRolesRadioCheckBoxWithUserRole(roles, user_role, groupedOrInline) {
     return (
-      `<div class="grouped fields">
+      `<div class="${groupedOrInline} fields">
         <label for="role">Select user role:</label>
         ${_.map(roles, role => {
             let checked = ''

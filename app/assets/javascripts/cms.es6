@@ -6,11 +6,11 @@ $(() => {
     }
   })
 
-  $('.ui.modal')
+  $('#CMS_modal')
     .modal({
       onHide: () => {
-        $('.ui.modal .content').empty()
-        $('.ui.modal .header').empty()
+        $('#CMS_modal .content').empty()
+        $('#CMS_modal .header').empty()
       }
     })
 })

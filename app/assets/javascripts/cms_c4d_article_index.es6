@@ -1,4 +1,14 @@
 $(() => {
+  $('#CMS_index_content .ui.floating.dropdown.icon.button').dropdown({
+    action: 'hide',
+    transition: 'drop'
+  })
+
+  $('select.dropdown')
+    .dropdown({
+      action: 'hide'
+    });
+
   $('#CMS_c4d_articles_link').click(e => {
     e.preventDefault();
     $.ajax({
@@ -13,10 +23,6 @@ $(() => {
         $('#CMS_index_content').empty()
         appendC4dArticleTableHeader()
         appendC4dArticleRows(c4d_articles, response.users)
-        $('#CMS_index_content .ui.floating.dropdown.icon.button').dropdown({
-          action: 'hide',
-          transition: 'drop'
-        })
       })
     })
   })
@@ -108,11 +114,6 @@ $(() => {
       </div>
       `)
   }
-
-  $('select.dropdown')
-    .dropdown({
-      action: 'hide'
-    });
 
   $('#CMS_index_content').on('click', '#CMS_c4d_toggle_published', e => {
     let id = e.currentTarget.parentElement.id

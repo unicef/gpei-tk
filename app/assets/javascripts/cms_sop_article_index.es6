@@ -1,4 +1,14 @@
 $(() => {
+  $('#CMS_index_content .ui.floating.dropdown.icon.button').dropdown({
+    action: 'hide',
+    transition: 'drop'
+  })
+
+  $('select.dropdown')
+    .dropdown({
+      action: 'hide'
+    });
+
   $('#CMS_sop_articles_link').click(e => {
     e.preventDefault();
     $.ajax({
@@ -13,10 +23,6 @@ $(() => {
         $('#CMS_index_content').empty()
         appendSopArticleTableHeader()
         appendSopArticleRows(sop_articles, response.users)
-        $('#CMS_index_content .ui.floating.dropdown.icon.button').dropdown({
-          action: 'hide',
-          transition: 'drop'
-        })
       })
     })
   })
@@ -132,11 +138,6 @@ $(() => {
       </div>
       `)
   }
-
-  $('select.dropdown')
-    .dropdown({
-      action: 'hide'
-    });
 
   function getSopTimeDropdown(label, option_name, sop_times, article_sop_time_id){
     return (`
