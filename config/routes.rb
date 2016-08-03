@@ -39,4 +39,6 @@ Rails.application.routes.draw do
 
   post '/signin/', to: 'sessions#create', as: :signin
   delete '/signout/', to: 'sessions#destroy', as: :signout
+
+  get '/terms_of_service/' => 'terms_of_service#index'
 end
