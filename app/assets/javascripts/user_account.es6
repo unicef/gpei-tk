@@ -1,9 +1,9 @@
 $(() => {
-  $('#user_account')
+  $('#user_account_modal')
     .modal({
         onHide: () => {
-          $('.ui.modal .content').empty()
-          $('.ui.modal .header').empty()
+          $('#user_account_modal .content').empty()
+          $('#user_account_modal .header').empty()
         }
       })
   $('#nav_user_sign_in').click(e => {
@@ -48,6 +48,7 @@ $(() => {
       let form = getUserCreationForm(response.responsible_offices)
       $('#user_account_header').append('Create Account')
       $('#user_account_content').append(form)
+      $('#user_account_modal .ui.negative.message').transition('fade')
       $('.ui.radio.checkbox').checkbox();
     })
     return false
@@ -81,27 +82,42 @@ $(() => {
   $('#user_account_content').on('submit', '#create_user_form', e => {
     e.preventDefault()
     let data = $(e.currentTarget).serialize() + "&authenticity_token=" + _.escape($('meta[name=csrf-token]').attr('content'))
-    $.ajax({
-      method: 'POST',
-      url: '/users/',
-      data: data
-    }).done(response => {
-    }).fail(response => {
-      let error_div = `<div id="error_div">${_.map(response.errors, error => {
-        return `<span>${error}</span>`
-      })}</div>`
-      if ($('#error_div').length === 0) {
-        $('#user_account_content').append(response.errors)
-      } else {
-        $('error_div').remove()
-        $('#user_account_content').append(response.errors)
-      }
-    })
+    if (verifyPasswordsMatch()) {
+      $.ajax({
+        method: 'POST',
+        url: '/users/',
+        data: data
+      }).done(response => {
+      }).fail(response => {
+        let error_div = `<div id="error_div">${_.map(response.errors, error => {
+          return `<span>${error}</span>`
+        })}</div>`
+        if ($('#error_div').length === 0) {
+          $('#user_account_content').append(response.errors)
+        } else {
+          $('error_div').remove()
+          $('#user_account_content').append(response.errors)
+        }
+      })
+    } else {
+      $('.ui.negative.message').transition('fade')
+      if ($('#user_account_content #wrong_password_notice').length > 0)
+        $('#user_account_content #wrong_password_notice').remove()
+      $('.ui.negative.message').append(`<p id='wrong_password_notice'>Passwords must match</p>`)
+    }
     return false
   })
+
+  function verifyPasswordsMatch() {
+    let passwords = $('#user_account_modal #create_user_form :password')
+    let verified = passwords[0].value === passwords[1].value
+    return verified
+  }
+
   function getUserCreationForm(responsible_offices){
     return (
-      `<form id="create_user_form" class="ui form">
+      `<div class='row'>
+      <form id="create_user_form" class="ui form">
         <div id="user_create_form_first_column" class='col-md-4'>
           <div class="field">
             <label>First Name</label>
@@ -129,9 +145,25 @@ $(() => {
             <label>Password</label>
             <input type="password" name="user[password]" placeholder="Password" class="input_fields" value="" required>
           </div>
+          <div class="field">
+            <label>Re-enter password</label>
+            <input type="password" name="user[password]" placeholder="Password" class="input_fields" value="" required>
+          </div>
+          <div class="field">
+            <label>Please click - <a class="tos_link_text" href='/terms_of_service/' target="_blank">Terms of Service</a></label>
+            <label><input type=checkbox name="user[TOS_accepted]" value="true" required> I agree to these terms.</label>
+          </div>
           <button class="ui button" type="submit">Submit</button>
         </div>
-      </form>`
+      </form>
+      </div>
+      <div class='row'>
+        <div class="ui negative message">
+          <div class="header">
+            <a id='modal_error_message_close' href=''><i class="fa fa-times" aria-hidden="true"></i></a>
+          </div>
+        </div>
+      </div>`
       )
   }
 
@@ -395,11 +427,16 @@ $(() => {
         <select name="user[${option_name}]" class="ui dropdown user_dropdowns" required>
           <option value="">Select Office</option>
           ${_.map(objects, object => {
-            selected = object.id === id ? 'selected' : ''
+            let selected = object.id === id ? 'selected' : ''
             return `<option ${selected} value="${object.id}">${object.title}</option>`
           }).join('\n')}
         </select>
       </div>
       `)
   }
+  $('#user_account_modal').on('click', '#modal_error_message_close', e => {
+    e.preventDefault()
+    $(e.currentTarget).closest('.message').transition('fade')
+  })
+
 })
