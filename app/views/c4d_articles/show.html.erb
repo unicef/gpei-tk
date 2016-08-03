@@ -2,9 +2,8 @@
 <% if @c4d_article %>
 <div id="c4d_article_show_page">
   <div id="c4d_article_show_header" class='row' style='background-color:<%= @c4d_article.c4d_category.color %> ;'>
-    <div id='c4d_category_and_article_title' class='col-md-6 text-right' style='background-color:<%= @c4d_article.c4d_category.color %> ;'><%= @c4d_article.c4d_category.title.upcase %>&nbsp;</div>
-    <div id='c4d_category_and_article_title' class='col-md-6 text-left' style='background-color:<%= @c4d_article.c4d_category.color %> ;'>-&nbsp;<%= @c4d_article.title.upcase %></div>
-    <div id='c4d_close_icon' class='col-md-12 text-right'><a href='/c4d/'>CLOSE&nbsp;<i class="fa fa-remove" aria-hidden="true"></i></a></div>
+    <div id='c4d_category_and_article_title' class='col-md-12 text-center' style='background-color:<%= @c4d_article.c4d_category.color %> ;'><%= @c4d_article.c4d_category.title.upcase %>&nbsp;-&nbsp;<%= @c4d_article.title.upcase %></div>
+    <div id='c4d_close_icon' class='text-right'><a href='/c4d/'>CLOSE&nbsp;<i class="fa fa-remove" aria-hidden="true"></i></a></div>
   </div>
   <div id="c4d_article_show_info_column" class='col-md-2'>
   <div id="c4d_article_show_info_column_content">
@@ -28,7 +27,7 @@
       </div>
       <ul id="related_topics_list" class='list-unstyled'>
       <% @c4d_related_topics.each do |article| %>
-        <li><i class="fa fa-angle-right fa-lg" aria-hidden="true"></i>&nbsp;<%= link_to article.title, c4d_article_path(article) %></li>
+        <li><i class="fa fa-angle-right fa-lg" aria-hidden="true"></i>&nbsp;<%= link_to article.title, c4d_article_path(article), class: "black_text" %></li>
       <% end %>
       </ul>
     </div>
@@ -41,15 +40,12 @@
         </div>
       <% end %>
     </div>
-      <!-- if table of content exists row of toc -->
-      <!-- <div id='c4d_show_table_of_contents'> -->
-      <!-- </div> -->
   </div>
   </div>
   <div id='c4d_article_show_table' class='col-md-10'>
-      <div id='c4d_article_show' style='color:black;'>
-       <%= @c4d_article.content.html_safe %>
-      </div>
+    <div id='c4d_article_show' style='color:black;'>
+     <%= @c4d_article.content.html_safe %>
+    </div>
   </div>
 </div>
 <% end %>
