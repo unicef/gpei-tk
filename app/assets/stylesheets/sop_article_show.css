@@ -25,3 +25,19 @@
   left:5px;
   color:white;
 }
+#sop_article_icon {
+  position:relative;
+  top: 20px;
+  left: 20px;
+  height:60%;
+  width:40%;
+}
+#sop_article_logo_row {
+  height: 160px;
+}
+#sop_article_logo_text_div {
+  position:absolute;
+  bottom: 10px;
+  right: 10px;
+  text-align:right;
+}
