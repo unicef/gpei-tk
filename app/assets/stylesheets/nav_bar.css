@@ -7,10 +7,14 @@
 .left.menu.white_text_black_bg,
 #sop_checklist_list,
 #my_rhizome_dropdown_items,
-.ui.pointing.dropdown.link.item.white_text_black_bg
+.ui.pointing.dropdown.link.item.white_text_black_bg,
+.ui.menu.white_text_black_bg
 {
   background-color: black;
   color: white;
+}
+.ui.menu.white_text_black_bg {
+
 }
 #sop_no_items_selected,
 #c4d_no_items_selected {
@@ -27,8 +31,8 @@
   font-size:95%;
 }
 #user_account_modal {
-  position:absolute;
-  top:1%;
+  position:relative;
+  top:1px;
 }
 .ui.dropdown.user_dropdowns {
   width: auto;
@@ -52,7 +56,7 @@
 }
 #nav_bar_logo {
   position:relative;
-  left:20%;
+  left:30px;
   top:10px;
   width:100%;
   height:100%;
@@ -63,7 +67,7 @@
   width: 100%;
   background: black;
   z-index:10;
-  padding-bottom: 50px;
+  padding-bottom: 60px;
 }
 #nav_contact_link,
 #nav_about_link,
