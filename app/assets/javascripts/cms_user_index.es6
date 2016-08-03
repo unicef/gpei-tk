@@ -97,10 +97,7 @@ $(() => {
   })
 
   $('#CMS_index_content').on('click', '#CMS_user_assign_role', e => {
-    $('#CMS_modal')
-      .modal('toggle')
-      // .modal('show')
-
+    $('#CMS_modal').modal('toggle')
     $('#CMS_modal .header').append('Modify User Role')
     $.ajax({
       method: 'GET',
@@ -131,31 +128,31 @@ $(() => {
   function getUserForm(user_element, roles, id) {
     return (
     `<form id="update_user_form" class="ui form">
-        <div id="user_update_id_input" class="disabled field">
-          <label>First Name</label>
-          <input type="text" name="user[id]" value="${id}">
-        </div>
-        <div class="disabled field">
-          <label>First Name</label>
-          <input type="text" name="user[first_name]" placeholder="${user_element[0].innerHTML}" value="${user_element[0].innerHTML}">
-        </div>
-        <div class="disabled field">
-          <label>Last Name</label>
-          <input type="text" name="user[last_name]" placeholder="${user_element[1].innerHTML}" value="${user_element[1].innerHTML}">
-        </div>
-        <div class="disabled field">
-          <label>Email</label>
-          <input type="text" name="user[email]" placeholder="${user_element[2].innerHTML}" value="${user_element[2].innerHTML}">
-        </div>
-        ${getRolesRadioCheckBoxWithUserRole(roles, user_element[3].innerHTML, "inline")}
-        <button class="ui button" type="submit">Submit</button>
-      </form>
+      <div id="user_update_id_input" class="disabled field">
+        <label>First Name</label>
+        <input type="text" name="user[id]" value="${id}">
+      </div>
+      <div class="disabled field">
+        <label>First Name</label>
+        <input type="text" name="user[first_name]" placeholder="${user_element[0].innerHTML}" value="${user_element[0].innerHTML}">
+      </div>
+      <div class="disabled field">
+        <label>Last Name</label>
+        <input type="text" name="user[last_name]" placeholder="${user_element[1].innerHTML}" value="${user_element[1].innerHTML}">
+      </div>
+      <div class="disabled field">
+        <label>Email</label>
+        <input type="text" name="user[email]" placeholder="${user_element[2].innerHTML}" value="${user_element[2].innerHTML}">
+      </div>
+      ${getRolesRadioCheckBoxWithUserRole(roles, user_element[3].innerHTML, "inline")}
+      <button class="ui button" type="submit">Submit</button>
+    </form>
     `)
   }
 
   function getUserFormEmptyForm(roles, responsible_offices) {
     return (
-      `<div class='row'>
+    `<div class='row'>
       <form id="cms_user_create" class="ui form">
         <div id="user_create_form_first_column" class='col-md-4'>
           <div class="field">
@@ -192,14 +189,14 @@ $(() => {
           <button id="cms_user_create_submit_button" class="ui button" type="submit">Submit</button>
         </div>
       </form>
-      </div>
-      <div class='row'>
-        <div class="ui negative message">
-          <div class="header">
-            <a id='modal_error_message_close' href=''><i class="fa fa-times" aria-hidden="true"></i></a>
-          </div>
+    </div>
+    <div class='row'>
+      <div class="ui negative message">
+        <div class="header">
+          <a id='modal_error_message_close' href=''><i class="fa fa-times" aria-hidden="true"></i></a>
         </div>
-      </div>`
+      </div>
+    </div>`
     )
   }
 
