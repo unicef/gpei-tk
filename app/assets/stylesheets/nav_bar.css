@@ -8,7 +8,7 @@
 #sop_checklist_list,
 #my_rhizome_dropdown_items,
 .ui.pointing.dropdown.link.item.white_text_black_bg
- {
+{
   background-color: black;
   color: white;
 }
@@ -48,7 +48,7 @@
   color:black;
 }
 #nav_user_register {
-  color:#ADD8E6;
+  color:blue;
 }
 #nav_bar_logo {
   position:relative;
