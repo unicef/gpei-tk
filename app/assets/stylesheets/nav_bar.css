@@ -8,24 +8,16 @@
 #sop_checklist_list,
 #my_rhizome_dropdown_items,
 .ui.pointing.dropdown.link.item.white_text_black_bg,
-.ui.menu.white_text_black_bg
+.ui.menu.white_text_black_bg,
+#toolkit_dropdown,
+#toolkit_dropdown .item
 {
   background-color: black;
   color: white;
 }
-.ui.menu.white_text_black_bg {
-
-}
 #sop_no_items_selected,
 #c4d_no_items_selected {
   pointer-events:none;
-}
-#my_rhizome_dropdown {
-  position: relative;
-  top:8px;
-  color: white;
-  background-color:black;
-  padding:0;
 }
 #nav_user_sign_in {
   font-size:95%;
@@ -71,7 +63,8 @@
 }
 #nav_contact_link,
 #nav_about_link,
-#nav_user_sign_in {
+#nav_user_sign_in,
+#toolkit_dropdown {
   position: relative;
   top:20px;
   font-size:14px;

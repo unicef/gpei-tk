@@ -1,67 +1,65 @@
 <div id='nav_bar' class='row'>
-  <%= link_to root_path do %>
   <div class='col-md-2'>
+  <%= link_to root_path do %>
     <%= image_tag 'home/Rhizome-V2_White.png', id: 'nav_bar_logo', alt: 'GPEI Toolkit' %>
-  </div>
   <% end %>
-  <div id="nav_contact_link" class='col-md-1 col-md-offset-6 text-right'>
+  </div>
+  <!-- beginning of dropdown -->
+  <div id="nav_contact_link" class='col-md-offset-7 col-md-1'>
     <a href='mailto:rhizometk@gmail.com'>CONTACT</a>
   </div>
-  <div id="nav_about_link" class='col-md-1 text-center'>
+  <div id="nav_about_link" class='col-md-1'>
     <a href=''>ABOUT</a>
   </div>
   <% if current_user %>
-  <div id='my_rhizome_dropdown' class='col-md-2 '>
-    <div class="ui menu white_text_black_bg">
-      <div class="ui pointing dropdown link item white_text_black_bg">
-        <span class="text">MY TOOLKIT</span>
-        <i class="dropdown icon"></i>
-        <div id="my_rhizome_dropdown_items" class="left menu">
-          <div class="item">
-            <i class="fa fa-caret-left white_text_black_bg"></i>
-            <span class="text white_text_black_bg">SOP Checklist</span>
-            <div id='sop_checklist_list' class="left menu">
-              <% if current_user.sop_checklist.sop_articles.empty? %>
-                <div class="item white_text_black_bg" id="sop_no_items_selected">No articles selected</div>
-              <% else %>
-                <% current_user.sop_checklist.sop_articles.each do |article| %>
-                  <div id="<%= article.id %>" class="item">
-                  <%= link_to sop_article_path(article),  :id => article.title, class: 'white_text_black_bg' do %>
-                    <%= article.title %>
-                  <% end %>
-                  <i id="<%= article.title %>" class="fa fa-remove white_text_black_bg" aria-hidden="true"></i>
-                  </div>
+    <div id='toolkit_dropdown' class="ui pointing dropdown right col-md-1">
+      <i class="fa fa-list" aria-hidden="true"></i>
+      <div class="text">My Toolkit</div>
+      <div id="my_rhizome_dropdown_items" class="left menu">
+        <div class="item">
+          <i class="fa fa-caret-left white_text_black_bg"></i>
+          <span class="text white_text_black_bg">SOP Checklist</span>
+          <div id='sop_checklist_list' class="left menu">
+            <% if current_user.sop_checklist.sop_articles.empty? %>
+              <div class="item white_text_black_bg" id="sop_no_items_selected">No articles selected</div>
+            <% else %>
+              <% current_user.sop_checklist.sop_articles.each do |article| %>
+                <div id="<%= article.id %>" class="item">
+                <%= link_to sop_article_path(article),  :id => article.title, class: 'white_text_black_bg' do %>
+                  <%= article.title %>
                 <% end %>
+                <i id="<%= article.title %>" class="fa fa-remove white_text_black_bg" aria-hidden="true"></i>
+                </div>
               <% end %>
-            </div>
+            <% end %>
           </div>
-          <div class="item">
-            <i class="fa fa-caret-left white_text_black_bg"></i>
-            <span class="text white_text_black_bg">C4D Toolkit</span>
-            <div id ='c4d_toolkit_list' class="left menu">
-              <% if current_user.c4d_toolkit.c4d_articles.empty? %>
-                <div id="c4d_no_items_selected" class="item white_text_black_bg">No articles selected</div>
-              <% else %>
-                <% current_user.c4d_toolkit.c4d_articles.each do |article| %>
-                  <div id="<%= article.id %>" class="item">
-                  <%= link_to c4d_article_path(article),  :id => article.title, class: 'white_text_black_bg' do %>
-                    <%= article.title %>
-                  <% end %>
-                  <i id="<%= article.title %>" class="fa fa-remove white_text_black_bg" aria-hidden="true"></i>
-                  </div>
+        </div>
+        <div class="item">
+          <i class="fa fa-caret-left white_text_black_bg"></i>
+          <span class="text white_text_black_bg">C4D Toolkit</span>
+          <div id ='c4d_toolkit_list' class="left menu">
+            <% if current_user.c4d_toolkit.c4d_articles.empty? %>
+              <div id="c4d_no_items_selected" class="item white_text_black_bg">No articles selected</div>
+            <% else %>
+              <% current_user.c4d_toolkit.c4d_articles.each do |article| %>
+                <div id="<%= article.id %>" class="item">
+                <%= link_to c4d_article_path(article),  :id => article.title, class: 'white_text_black_bg' do %>
+                  <%= article.title %>
                 <% end %>
+                <i id="<%= article.title %>" class="fa fa-remove white_text_black_bg" aria-hidden="true"></i>
+                </div>
               <% end %>
-            </div>
+            <% end %>
           </div>
-          <div class="item">
-            <a id="nav_user_sign_out" class="white_text_black_bg" href=''><i class="fa fa-sign-out" aria-hidden="true"></i>Sign out</a>
-          </div>
+        </div>
+        <div class="item">
+          <a id="nav_user_sign_out" class="white_text_black_bg" href=''><i class="fa fa-sign-out" aria-hidden="true"></i>Sign out</a>
         </div>
       </div>
     </div>
-  </div>
+  <!-- end of dropdown -->
   <% else %>
-  <a id="nav_user_sign_in" class="white_text_black_bg col-md-2" href=''><i id="sign_in_icon" class="fa fa-sign-in" aria-hidden="true"></i>&nbsp;Sign in</a>
+    <a id="nav_user_sign_in" class="white_text_black_bg col-md-1" href=''><i id="sign_in_icon" class="fa fa-sign-in" aria-hidden="true"></i>&nbsp;Sign in</a>
   <% end %>
 </div>
 <div id='user_account_modal' class="ui modal">

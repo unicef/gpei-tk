@@ -1,8 +1,8 @@
 $(() => {
-  $('#my_rhizome_dropdown .ui.pointing.dropdown.link.item.white_text_black_bg')
-  .dropdown({
+  $('#toolkit_dropdown').dropdown({
     on: 'hover',
-    action: 'nothing'
+    action: 'nothing',
+    transition: 'horizontal flip'
   })
 
   $('#nav_about_link').click(e => {
