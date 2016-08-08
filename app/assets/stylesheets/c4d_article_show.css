@@ -11,6 +11,8 @@
   left:10px;
   position:absolute;
   color:white;
+  height: 11px;
+  width: 13px;
 }
 #c4d_article_icon {
   width:45%;
@@ -20,36 +22,26 @@
   display: table-cell;
   background: #FFFFFF;
 }
-#c4d_article_show_table {
-  display: table;
-}
-#c4d_article_show_info_column.col-md-3,
-#c4d_article_show_page .col-md-9 {
+#c4d_article_show_info_column{
   margin:0;
   padding:0;
-}
-#c4d_article_show_info_column {
   background: #e5e5e5;
-  display: table;
-}
-#c4d_article_show_info_column_content {
-  display: table-cell;
+  height:100%;
 }
 #c4d_article_show_header {
   color: white;
   font-family: 'proxima-nova';
   font-weight: bold;
-  border-top:1px white solid;
-  border-bottom:2px white solid;
 }
 #c4d_category_and_article_title {
-  padding-top: 17px;
+  padding-top: 25px;
   font-size:25px;
   font-family: 'proxima-nova';
 }
 #c4d_close_icon {
+  font-size:65%;
   position: relative;
-  bottom: 17px;
+  bottom: 25px;
   right:20px;
 }
 #c4d_close_icon a {
@@ -57,12 +49,6 @@
 }
 .col-md-9 {
   padding: 0;
-}
-#c4d_add_to_toolkit_text {
-  padding-top: 5px;
-  height:30px;
-  color: white;
-  background: grey;
 }
 #related_topics_list {
   padding:5px;
@@ -73,4 +59,51 @@
   font-size:18px;
   font-weight: bold;
   color: black;
+}
+
+/*c4d article modal show*/
+#c4d_article_show_modal {
+  position:absolute;
+  top: 10px;
+}
+#c4d_article_show_modal .header,
+#c4d_article_show_modal .content {
+  padding:0;
+  margin:0;
+  border:0;
+}
+#c4d_article_content {
+  padding:10px;
+  padding-top:35px;
+}
+#related_topics_header {
+  padding-left: 25px;
+  font-size:90%;
+}
+#c4d_add_to_toolkit_text {
+  font-size:80%;
+  font-weight:bold;
+  position:absolute;
+  right:10px;
+  top:10px;
+  height:20px;
+  width:150px;
+}
+#c4d_article_show_modal #c4d_show_add,
+#c4d_article_show_modal #c4d_show_check {
+  left: auto;
+  top: 8px;
+  right: 5px;
+  color: black;
+
+}
+.c4d_email_icon {
+  position:absolute;
+  top:5px;
+  right:170px;
+}
+.c4d_print_icon {
+  position:absolute;
+  top:5px;
+  right:150px;
 }
