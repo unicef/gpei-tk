@@ -1,5 +1,5 @@
 .CMS_c4d_article_form_div {
-  width:95%;
+  width:98%;
   position: relative;
   top:10%;
   left:3%;
@@ -15,4 +15,10 @@
   right:3%;
   margin-top:1%;
   margin-bottom:2%;
+}
+#CMS_c4d_article_create_form .field {
+  width:95%;
+}
+.CMS_c4d_article_form_div .field {
+  width:95%;
 }

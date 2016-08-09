@@ -2,7 +2,7 @@
   color: black;
 }
 .CMS_sop_article_form_div {
-  width:95%;
+  width:98%;
   position: relative;
   top:10%;
   left:3%;
@@ -18,7 +18,7 @@
   font-size:90%;
 }
 #CMS_sop_articles_table {
-  width:99%;
+  width:98%;
   position: relative;
   left:1%;
   right:3%;
@@ -36,7 +36,7 @@
   margin-top:6%;
 }
 #CMS_users_table {
-  width: 96%;
+  width: 98%;
   margin-left:2%;
   margin-top:2%;
   margin-bottom:2%;
@@ -71,4 +71,9 @@
 }
 #reference_link_multi_select .ui.dropdown.cms_dropdown_select {
   height:100px;
+}
+#CMS_user_assign_role,
+#CMS_sop_toggle_published,
+#CMS_toggle_user_active {
+  color:black;
 }
