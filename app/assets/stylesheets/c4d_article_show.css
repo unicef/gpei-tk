@@ -30,6 +30,7 @@
 }
 #c4d_article_show_header {
   color: white;
+  border: 1px solid white;
   font-family: 'proxima-nova';
   font-weight: bold;
 }
