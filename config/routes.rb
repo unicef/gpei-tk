@@ -16,7 +16,8 @@ Rails.application.routes.draw do
   resources :cms, only: [:index]
 
   namespace :cms, defaults: { format: :json } do
-    resources :users, only: [:index, :update, :create, :destroy]
+    resources :users, only: [:index, :update, :create]
+    patch '/users/toggleActive/:id', to: 'users#toggleActive', as: :users_toggle_active
     resources :sop_articles, only: [:index, :update, :show, :create]
     resources :c4d_articles, only: [:index, :update, :show, :create]
     patch '/sop_articles/publish/:id', to: 'sop_articles#publish', as: :sop_article_publish

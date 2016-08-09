@@ -34,12 +34,11 @@ class Cms::UsersController < ApplicationController
     end
   end
 
-  def destroy
+  def toggleActive
     if current_user.is_admin?
       if request.xhr?
         user = User.find_by(id: params[:id])
-        user.is_deleted = true
-        if user.save
+        if user.update(is_deleted: !user.is_deleted)
           render json: { status: 200, id: params[:id] }
         end
       end
@@ -51,7 +50,7 @@ class Cms::UsersController < ApplicationController
   def getAllowedUsers
     columns = User.attribute_names - ['password_digest']
     root = Role.find_by(title: 'root')
-    users = User.all.select(columns).where.not('role_id = ? OR is_deleted = ?', root.id, true)
+    users = User.all.select(columns).where.not(role_id: root.id)
     users_hash = {}
     users.each { |user| users_hash[user.id] = user }
     return users_hash

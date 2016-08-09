@@ -1,7 +1,6 @@
 $(() => {
-  $('#CMS_index_content .ui.floating.dropdown.icon.button').dropdown({
-      action: 'hide',
-      transition: 'drop'
+  $('#CMS_index_content .ui.compact.menu').dropdown({
+      action: 'hide'
   })
 
   $('#CMS_modal').on('click', '#modal_error_message_close', e => {
@@ -19,33 +18,55 @@ $(() => {
       $('#CMS_index_content').empty()
       let table = '<table id="CMS_users_table" class="ui celled table"></table>'
       $('#CMS_index_content').append(table)
-      let header = '<thead><tr><th class="text-center"> First Name </th><th class="text-center"> Last Name </th><th class="text-center"> Email </th><th class="text-center"> Role </th><th class="text-center"></th></tr></thead>'
+      let header = `<thead><tr><th class="text-center"> First Name </th><th class="text-center"> Last Name </th><th class="text-center"> Email </th><th class="text-center"> Role </th><th class="text-center"> Active </th><th class="text-center"></th></tr></thead>`
       $('#CMS_users_table').prepend(header)
       _ .forEach(response.users, user => {
-        let row = '<tr id="' + user.id + '">' + '<td>' + user.first_name + '</td>' + '<td>' + user.last_name + '</td>' + '<td>' + user.email + '</td>' + '<td>' + response.roles[user.role_id - 1].title + '</td>' + '<td>' + getUserActionDropdown(user.id) + '</td>' + '</tr>'
+        let row = '<tr id="' + user.id + '">' + '<td>' + user.first_name + '</td>' + '<td>' + user.last_name + '</td>' + '<td>' + user.email + '</td>' + '<td>' + response.roles[user.role_id - 1].title + '</td>' + `<td>${userIsActive(user.is_deleted)}` + '<td>' + getUserActionDropdown(user.id) + '</td>' + '</tr>'
         $('#CMS_users_table').append(row)
       })
     })
   })
 
+  function userIsActive(is_deleted) {
+    let active = 'Active'
+    if (is_deleted) {
+      active = 'Deactivated'
+    }
+    return active
+  }
   function getUserActionDropdown(id){
     return (
-      '<div class="ui buttons"><div id="CMS_actions_dropdown" class="ui button">Actions</div><div class="ui floating dropdown icon button"><i class="dropdown icon"></i><div class="menu"><div id="' + id + '" class="item"><span id="CMS_user_assign_role">Assign Roles</span></div><div id="' + id + '" class="item"><span id="CMS_user_delete_user">Delete User</span></div></div></div>'
-    )
+      `<div id="cms_user_edit_dropdown" class="ui compact menu">
+        <div id="CMS_actions_dropdown" class="ui simple dropdown item">
+          Actions &nbsp;
+          <i class="fa fa-caret-down" aria-hidden="true"></i>
+          <div class="menu">
+            <div id="${id}" class="item">
+              <span id="CMS_user_assign_role">Assign Roles</span>
+            </div>
+            <div id="${id}" class="item">
+              <span id="CMS_toggle_user_active">Toggle User Active</span>
+            </div>
+          </div>
+        </div>
+      </div>`
+      )
   }
+  $('#CMS_index_content').on('click', '#CMS_user_activate_user', e => {
 
-  $('#CMS_index_content').on('click', '#CMS_user_delete_user', e => {
+  })
+  $('#CMS_index_content').on('click', '#CMS_toggle_user_active', e => {
     $.ajax({
-      method: 'DELETE',
-      url: '/cms/users/' + e.currentTarget.parentElement.id,
-      data: $(e.currentTarget).find('.ui.form').serialize() + "&authenticity_token=" + _.escape($('meta[name=csrf-token]').attr('content'))
+      method: 'PATCH',
+      url: '/cms/users/toggleActive/' + e.currentTarget.parentElement.id
     }).done(response => {
-      let element = _.filter($('#CMS_users_table tr'), tr => {
-        if (tr.id === response.id) {
-          return tr
-        }
-      })
-      $(element).empty()
+      $('#CMS_users_link').click()
+      // let element = _.filter($('#CMS_users_table tr'), tr => {
+      //   if (tr.id === response.id) {
+      //     return tr
+      //   }
+      // })
+      // $(element).empty()
     })
   })
 
@@ -129,7 +150,7 @@ $(() => {
     return (
     `<form id="update_user_form" class="ui form">
       <div id="user_update_id_input" class="disabled field">
-        <label>First Name</label>
+        <label>ID</label>
         <input type="text" name="user[id]" value="${id}">
       </div>
       <div class="disabled field">
@@ -165,8 +186,7 @@ $(() => {
           </div>
           ${getCountryDropdown()}
         </div>
-        <div class='col-md-5'>
-          ${getDropdown("Responsible", "responsible_office_id", responsible_offices)}
+        <div class='col-md-4'>
           <div class="field">
             <label>Organization</label>
             <input type="text" name="user[organization]" placeholder="UNICEF" class="input_fields" value="" required>
