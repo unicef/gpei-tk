@@ -255,6 +255,6 @@ $(() => {
   })
   $('#c4d_article_show_modal').on('click', '#c4d_email_icon_link', e => {
     e.preventDefault()
-    window.location.href=`mailto:?subject=C4D Article: ${$('#c4d_category_and_article_title').html()}&body=Click <a href='http://ec2-54-165-236-148.compute-1.amazonaws.com/c4d_articles/${$('#c4d_add_to_toolkit_text').parent().attr('id')}' target='_blank'>here</a> to view the shared article!`;
+    window.location.href=`mailto:?subject=C4D Article: ${$('#c4d_category_and_article_title').html()}&body=Click <a href='${window.location.protocol + '//' + window.location.host}/c4d_articles/${$('#c4d_add_to_toolkit_text').parent().attr('id')}' target='_blank'>here</a> to view the shared article!`;
   })
 })
