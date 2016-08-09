@@ -133,8 +133,18 @@ $(() => {
 
   function getUserActionDropdown(id){
     return (
-      '<div class="ui buttons"><div id="CMS_actions_dropdown" class="ui button">Actions</div><div class="ui floating dropdown icon button"><i class="dropdown icon"></i><div class="menu"><div id="' + id + '" class="item"><span id="CMS_c4d_toggle_published">Toggle published</span></div></div></div>'
-    );
+      `<div id="cms_user_edit_dropdown" class="ui compact menu">
+        <div id="CMS_actions_dropdown" class="ui simple dropdown item">
+          Actions &nbsp;
+          <i class="fa fa-caret-down" aria-hidden="true"></i>
+          <div class="menu">
+            <div id="${id}" class="item">
+              <span id="CMS_c4d_toggle_published">Toggle published</span>
+            </div>
+          </div>
+        </div>
+      </div>`
+      )
   }
 
   function getDropdown(label, option_name, categories, id){

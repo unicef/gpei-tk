@@ -41,10 +41,20 @@ $(() => {
       history.pushState({}, null, 'cms');
     })
   })
-  function getUserActionDropdown(id){
+  function getPublishToggleDropdown(id){
     return (
-      '<div class="ui buttons"><div id="CMS_actions_dropdown" class="ui button">Actions</div><div class="ui floating dropdown icon button"><i class="dropdown icon"></i><div class="menu"><div id="' + id + '" class="item"><span id="CMS_sop_toggle_published">Toggle published</span></div></div></div>'
-    );
+      `<div id="cms_user_edit_dropdown" class="ui compact menu">
+        <div id="CMS_actions_dropdown" class="ui simple dropdown item">
+          Actions &nbsp;
+          <i class="fa fa-caret-down" aria-hidden="true"></i>
+          <div class="menu">
+            <div id="${id}" class="item">
+              <span id="CMS_sop_toggle_published">Toggle published</span>
+            </div>
+          </div>
+        </div>
+      </div>`
+      )
   }
 
   function appendSopArticleTableHeader(){
@@ -54,7 +64,7 @@ $(() => {
 
   function appendSopArticleRows(sop_articles, users){
     _.forEach(sop_articles, article => {
-      let row = '<tr id="' + article.id + '">' + '<td>' + article.order_id + '</td>' + '<td><a id="' + article.id + '" href="">' + article.title + '</td>' + '<td>' + formatPublished(article.published) + '</td>' + '<td>' + moment(article.updated_at, "YYYY-MM-DD").format("MMM DD, YYYY") + '</td>' + '<td>' + moment(article.created_at, "YYYY-MM-DD").format("MMM DD, YYYY") + '</td>' + '<td>' + users[article.author_id].first_name + ' ' + users[article.author_id].last_name + '</td>' + '<td>' + getUserActionDropdown(article.id) + '</td>' + '</tr>'
+      let row = '<tr id="' + article.id + '">' + '<td>' + article.order_id + '</td>' + '<td><a id="' + article.id + '" href="">' + article.title + '</td>' + '<td>' + formatPublished(article.published) + '</td>' + '<td>' + moment(article.updated_at, "YYYY-MM-DD").format("MMM DD, YYYY") + '</td>' + '<td>' + moment(article.created_at, "YYYY-MM-DD").format("MMM DD, YYYY") + '</td>' + '<td>' + users[article.author_id].first_name + ' ' + users[article.author_id].last_name + '</td>' + '<td>' + getPublishToggleDropdown(article.id) + '</td>' + '</tr>'
       $('#CMS_sop_articles_table').append(row)
     })
   }
