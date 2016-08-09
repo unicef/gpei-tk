@@ -10,7 +10,6 @@ $(() => {
 
   $('#CMS_users_link').click(e => {
     e.preventDefault()
-
     $.ajax({
       method: 'GET',
       url: '/cms/users/'
@@ -34,6 +33,7 @@ $(() => {
     }
     return active
   }
+
   function getUserActionDropdown(id){
     return (
       `<div id="cms_user_edit_dropdown" class="ui compact menu">
@@ -89,6 +89,7 @@ $(() => {
       $('.ui.negative.message').append(`<p id='wrong_password_notice'>Passwords must match</p>`)
     }
   })
+
   function verifyPasswordsMatch() {
     let passwords = $('#CMS_modal_content #cms_user_create :password')
     let verified = passwords[0].value === passwords[1].value
