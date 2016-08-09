@@ -1,50 +1,61 @@
 <%= render 'dashboard/nav' %>
 <% if @c4d_article %>
-<div id="c4d_article_show_page">
-  <div id="c4d_article_show_header" class='row' style='background-color:<%= @c4d_article.c4d_category.color %> ;'>
+<div id="cgi_c4d_article_show_page">
+  <!-- row 1 -->
+  <div id="cgi_c4d_article_show_header" class='row' style='background-color:<%= @c4d_article.c4d_category.color %> ;'>
     <div id='c4d_category_and_article_title' class='col-md-12 text-center' style='background-color:<%= @c4d_article.c4d_category.color %> ;'><%= @c4d_article.c4d_category.title.upcase %>&nbsp;-&nbsp;<%= @c4d_article.title.upcase %></div>
     <div id='c4d_close_icon' class='text-right'><a href='/c4d/'>CLOSE&nbsp;<i class="fa fa-remove" aria-hidden="true"></i></a></div>
   </div>
-  <div id="c4d_article_show_info_column" class='col-md-2'>
-  <div id="c4d_article_show_info_column_content">
-    <div id="<%= @c4d_article.id %>" class='row text-center'>
-      <div id='c4d_add_to_toolkit_text'>ADD TO MY TOOLKIT</div>
-    </div>
-    <div id="<%= @c4d_article.id %>" class='row'>
-      <p class="c4d_grid_item_article_title <%= @c4d_article.title %>" style='display:none;visibility:hidden;'><%= @c4d_article.title %></p>
-      <a id='c4d_show_add' class='c4d_grid_add' href='' style="<%= c4d_style_visible('add', @user, @c4d_article) %>;"><i class="fa fa-plus" aria-hidden="true"></i></a>
-      <a id='c4d_show_check' class='c4d_grid_check' href='' style="<%= c4d_style_visible('check', @user, @c4d_article) %>;"><i class="fa fa-check" aria-hidden="true"></i></a>
-      <div class='row text-center' style='display:none;visibility:hidden;'>
-        <ul class="list-unstyled">
-          <li id="sop_article_show_subcategory_text"><%= @c4d_article.c4d_subcategory.title %></li>
-          <li id="sop_article_show_article_title_text"><%= @c4d_article.title.capitalize %></li>
-        </ul>
-      </div>
-    </div>
-    <div class='row'>
-      <div id='related_topics_header' class='row text-center'>
-        <u>Related Topics</u>
-      </div>
-      <ul id="related_topics_list" class='list-unstyled'>
-      <% @c4d_related_topics.each do |article| %>
-        <li><i class="fa fa-angle-right fa-lg" aria-hidden="true"></i>&nbsp;<%= link_to article.title, c4d_article_path(article), class: "black_text" %></li>
-      <% end %>
-      </ul>
-    </div>
-    <% if !@c4d_article.reference_links.empty? %>
-    <div id='c4d_show_references'>
-      <% @c4d_article.c4d_reference_links.each do |link| %>
+  <!-- row 2 -->
+  <div id='cgi_c4d_article_all_content' class='row'>
+    <!-- col 1 -->
+    <div class='col-md-3'>
+      <div id="cgi_c4d_article_show_info_column_content">
         <div class='row'>
-          <%= link_to link.file_name, c4d_reference_link_path(link) %>
+          <div id="<%= @c4d_article.id %>" class='row text-center'>
+            <div id='c4d_add_to_toolkit_text'>ADD TO MY TOOLKIT</div>
+          </div>
+          <div id="<%= @c4d_article.id %>" class='row'>
+            <p class="c4d_grid_item_article_title <%= @c4d_article.title %>" style='display:none;visibility:hidden;'><%= @c4d_article.title %></p>
+            <a id='c4d_show_add' class='c4d_grid_add' href='' style="<%= c4d_style_visible('add', @user, @c4d_article) %>;"><i class="fa fa-plus" aria-hidden="true"></i></a>
+            <a id='c4d_show_check' class='c4d_grid_check' href='' style="<%= c4d_style_visible('check', @user, @c4d_article) %>;"><i class="fa fa-check" aria-hidden="true"></i></a>
+            <div class='row text-center' style='display:none;visibility:hidden;'>
+              <ul class="list-unstyled">
+                <li id="c4d_article_show_subcategory_text"><%= @c4d_article.c4d_subcategory.title %></li>
+                <li id="c4d_article_show_article_title_text"><%= @c4d_article.title.capitalize %></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        <div id='cgi_show_info_column_content_links'>
+          <% if !@c4d_related_topics.empty? %>
+          <div class='row'>
+            <div id='cgi_related_topics_header' class='row'>
+              <b>JUMP TO:</b>
+            </div>
+            <ul id="related_topics_list" class='list-unstyled'>
+            <% @c4d_related_topics.each do |article| %>
+              <li><i class="fa fa-angle-right fa-lg" aria-hidden="true"></i>&nbsp;<%= link_to article.title, c4d_article_path(article), class: "black_text" %></li>
+            <% end %>
+            </ul>
+          </div>
+          <% end %>
+          <% if !@c4d_article.reference_links.empty? %>
+          <div id='c4d_show_references'>
+            <% @c4d_article.c4d_reference_links.each do |link| %>
+              <div class='row'>
+                <%= link_to link.file_name, c4d_reference_link_path(link) %>
+                <% end %>
+              </div>
+          </div>
           <% end %>
         </div>
-      <% end %>
+      </div>
     </div>
-  </div>
-  </div>
-  <div id='c4d_article_show_table' class='col-md-10'>
-    <div id='c4d_article_show' style='color:black;'>
-     <%= @c4d_article.content.html_safe %>
+    <div id='cgi_c4d_article_show_table' class='col-md-9'>
+      <div id='c4d_article_show' style='color:black;'>
+       <%= @c4d_article.content.html_safe %>
+      </div>
     </div>
   </div>
 </div>
