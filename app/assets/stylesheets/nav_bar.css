@@ -54,12 +54,11 @@
   height:100%;
 }
 #nav_bar {
-  height:8%;
+  height:60px;
   position: fixed;
   width: 100%;
   background: black;
   z-index:10;
-  padding-bottom: 60px;
 }
 #nav_contact_link,
 #nav_about_link,
