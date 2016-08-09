@@ -140,13 +140,14 @@ $(() => {
       let header = c4d_article_header({ article: response.article, c4d_categories: response.c4d_categories })
       $('#c4d_article_show_modal .header').append(header)
       $('#c4d_article_show_modal .content').append(content)
+      if ($('#c4d_article_content').outerHeight() > $('#c4d_article_show_info_column').outerHeight())
       $('#c4d_article_show_info_column').css({ height: $('#c4d_article_content').outerHeight() })
     })
   })
   function c4d_article_header(params) {
     return `
       <div id="c4d_article_show_header" class='row' style='background-color:${ params['c4d_categories'][params['article'].c4d_category_id-1].color } ;'>
-        <div id='c4d_category_and_article_title' class='col-md-12 text-center' style='background-color:${ params['c4d_categories'][params['article'].c4d_category_id-1].color } ;'>${ _.capitalize(params['c4d_categories'][params['article'].c4d_category_id-1].title) }&nbsp;-&nbsp;${ _.capitalize(params['article'].title) }</div>
+        <div id='c4d_category_and_article_title' class='col-md-12 text-center' style='background-color:${ params['c4d_categories'][params['article'].c4d_category_id-1].color } ;'>${ params['c4d_categories'][params['article'].c4d_category_id-1].title } - ${ _.map(_.words(params['article'].title), word => { return _.capitalize(word) }).join(' ') }</div>
         <div id='c4d_close_icon' class='text-right'><a href=''>CLOSE&nbsp;<i class="fa fa-remove" aria-hidden="true"></i></a></div>
       </div>`
   }
@@ -159,9 +160,11 @@ $(() => {
             ${ getReferenceLinksDiv(params['reference_links']) }
           </div>
         </div>
-        <div id='c4d_article_content' class='col-md-9' class='black_text'>
+        <div id='c4d_article_content_div' class='col-md-9' class='black_text'>
           ${ getAddToToolkitRow(params) }
-          ${ params['article'].content }
+          <div id='c4d_article_content'>
+            ${ params['article'].content }
+          </div>
         </div>
       </div>
 `
@@ -169,10 +172,10 @@ $(() => {
   function getAddToToolkitRow(params){
     return (
       `<div class='c4d_email_icon'>
-        <i class="fa fa-envelope" aria-hidden="true"></i>
+        <a id='c4d_email_icon_link' href=''><i class="fa fa-envelope" aria-hidden="true"></i></a>
       </div>
       <div class='c4d_print_icon'>
-        <i class="fa fa-print" aria-hidden="true"></i>
+        <a id='c4d_print_icon_link' href=''><i class="fa fa-print" aria-hidden="true"></i></a>
       </div>
       <div id="${ params['article'].id }" class='text-center'>
         <div id='c4d_add_to_toolkit_text'>ADD TO MY TOOLKIT</div>
@@ -241,4 +244,17 @@ $(() => {
       return visibility_style
     }
   }
+  $('#c4d_article_show_modal').on('click', '#c4d_print_icon_link', e => {
+    e.preventDefault()
+    $('#application').after($('#c4d_article_show_modal #c4d_article_content').html())
+    $('#application').after($('#c4d_article_show_modal .header').html())
+    $('#application').css({ display: 'none' })
+    window.print()
+    $('#application').nextAll().remove()
+    $('#application').css({ display: 'block' })
+  })
+  $('#c4d_article_show_modal').on('click', '#c4d_email_icon_link', e => {
+    e.preventDefault()
+    window.location.href=`mailto:?subject=C4D Article: ${$('#c4d_category_and_article_title').html()}&body=Click <a href='http://ec2-54-165-236-148.compute-1.amazonaws.com/c4d_articles/${$('#c4d_add_to_toolkit_text').parent().attr('id')}' target='_blank'>here</a> to view the shared article!`;
+  })
 })
