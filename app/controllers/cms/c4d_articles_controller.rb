@@ -61,7 +61,9 @@ class Cms::C4dArticlesController < ApplicationController
   def publish
     if current_user.is_admin? || current_user.is_editor?
       c4d_article = C4dArticle.find_by(id: params['id'])
-      c4d_article.update(published: !c4d_article.published)
+      if c4d_article.update(published: !c4d_article.published)
+        render json: { status: 200 }
+      end
     end
   end
 

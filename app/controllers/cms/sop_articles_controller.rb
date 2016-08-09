@@ -62,7 +62,9 @@ class Cms::SopArticlesController < ApplicationController
   def publish
     if current_user.is_admin? || current_user.is_editor?
       sop_article = SopArticle.find_by(id: params['id'])
-      sop_article.update(published: !sop_article.published)
+      if sop_article.update(published: !sop_article.published)
+        render json: { status: 200 }
+      end
     end
   end
 
