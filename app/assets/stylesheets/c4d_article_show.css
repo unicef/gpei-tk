@@ -112,6 +112,10 @@
 #c4d_email_icon_link {
   color: black;
 }
+#cgi_c4d_email_icon_link,
+#cgi_c4d_print_icon_link {
+  color: black;
+}
 
 /* cgi style */
 #cgi_c4d_article_show_page {
@@ -160,4 +164,12 @@
 #cgi_c4d_article_show {
   padding:10px;
   background: white;
+}
+.black_text a {
+  color:black;
+}
+#back_to_c4d_link {
+  position:absolute;
+  top:30px;
+  right: 6px;
 }
