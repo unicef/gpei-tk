@@ -12,12 +12,6 @@
     <div class='col-md-3'>
       <div id="cgi_c4d_article_show_info_column_content">
         <div class='row'>
-          <div class='c4d_email_icon'>
-            <a id='c4d_email_icon_link' href=''><i class="fa fa-envelope" aria-hidden="true"></i></a>
-          </div>
-          <div class='c4d_print_icon'>
-            <a id='c4d_print_icon_link' href=''><i class="fa fa-print" aria-hidden="true"></i></a>
-          </div>
           <div id="${ params['article'].id }" class='text-center'>
             <div id='c4d_add_to_toolkit_text'>ADD TO MY TOOLKIT</div>
           </div>
@@ -32,6 +26,9 @@
               </ul>
             </div>
           </div>
+        </div>
+        <div id='back_to_c4d_link' class='black_text'>
+          <a href='/c4d/'><i class="fa fa-angle-left" aria-hidden="true"></i> Back to C4D</a>
         </div>
         <div id='cgi_show_info_column_content_links'>
 <!--           <% if !@c4d_related_topics.empty? %>
