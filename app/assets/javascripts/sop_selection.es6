@@ -172,17 +172,149 @@ $(() => {
   $('#sop_selection_page').css({ paddingTop: padding })
   let height = $('#sop_filter_clear_all').innerHeight()
   $('#select_filter_dropdown_menu').css({ height: height })
-  // stick to top if scrolled
-  // function affixTop() {
-  //   let offset = $('#nav_bar').height()
-  //   offset += $('#sop_grid_filter_row').height()
-  //   $("#sop_grid_filter_row").affix({
-  //     offset: {
-  //       top: offset
-  //     }
-  //   })
-  // }
 
-  // if ($('#nav_bar').length > 0)
-  //   affixTop()
+  // sop article modal
+  $('#sop_article_show_modal').modal({
+    onHide: () => {
+      $('#sop_article_show_modal .content').empty()
+      $('#sop_article_show_modal .header').empty()
+    }
+  })
+
+  $('.grid_item').click(e => {
+    e.preventDefault()
+    $.ajax({
+      method: 'GET',
+      url: '/sop_articles/' + e.currentTarget.id
+    }).done(response => {
+      $('#sop_article_show_modal').modal('show')
+      let content = sop_article_content({ article: response.article,
+                                          sop_categories: response.sop_categories,
+                                          sop_times: response.sop_times,
+                                          current_user: response.current_user,
+                                          checklist_articles: response.checklist_articles,
+                                          reference_links: response.reference_links,
+                                          sop_related_topics: response.sop_related_topics })
+      let header = sop_article_header({ article: response.article, sop_categories: response.sop_categories })
+      $('#sop_article_show_modal .header').append(header)
+      $('#sop_article_show_modal .content').append(content)
+      if ($('#sop_article_content').outerHeight() > $('#sop_article_show_info_column').outerHeight())
+      $('#sop_article_show_info_column').css({ height: $('#sop_article_content').outerHeight() })
+    })
+  })
+  function sop_article_header(params) {
+    return `
+      <div id="sop_article_show_header" class='row' style='background-color:${ params['sop_categories'][params['article'].sop_category_id-1].color } ;'>
+        <div id='sop_category_and_article_title' class='col-md-12 text-center' style='background-color:${ params['sop_categories'][params['article'].sop_category_id-1].color } ;'>${ params['sop_categories'][params['article'].sop_category_id-1].title } - ${ _.map(_.words(params['article'].title), word => { return _.capitalize(word) }).join(' ') }</div>
+        <div id='sop_close_icon' class='text-right'><a href=''>CLOSE&nbsp;<i class="fa fa-remove" aria-hidden="true"></i></a></div>
+      </div>`
+  }
+  function sop_article_content(params) {
+    return `
+      <div id="sop_article_show_page">
+        <div id="sop_article_show_info_column" class='col-md-3'>
+          <div id="sop_article_show_info_column_content">
+            ${ getRelatedTopicsDiv(params['sop_related_topics']) }
+            ${ getReferenceLinksDiv(params['reference_links']) }
+          </div>
+        </div>
+        <div id='sop_article_content_div' class='col-md-9' class='black_text'>
+          ${ getAddToToolkitRow(params) }
+          <div id='sop_article_content'>
+            ${ params['article'].content }
+          </div>
+        </div>
+      </div>
+`
+  }
+  function getAddToToolkitRow(params){
+    debugger
+    return (
+      `<div class='sop_email_icon'>
+        <a id='sop_email_icon_link' href=''><i class="fa fa-envelope" aria-hidden="true"></i></a>
+      </div>
+      <div class='sop_print_icon'>
+        <a id='sop_print_icon_link' href=''><i class="fa fa-print" aria-hidden="true"></i></a>
+      </div>
+      <div id="${ params['article'].id }" class='text-center'>
+        <div id='sop_add_to_toolkit_text'>ADD TO MY TOOLKIT</div>
+      </div>
+      <div id="${ params['article'].id }" class=''>
+        <p class="sop_grid_item_article_title ${ params['article'].title }" style='display:none;visibility:hidden;'>${ params['article'].title }</p>
+        <a id='sop_show_add' class='sop_grid_add' href='' style="${ sop_style_visible('add', params['current_user'], params['article'], params['checklist_articles']) };"><i class="fa fa-plus" aria-hidden="true"></i></a>
+        <a id='sop_show_check' class='sop_grid_check' href='' style="${ sop_style_visible('check', params['current_user'], params['article'], params['checklist_articles']) };"><i class="fa fa-check" aria-hidden="true"></i></a>
+        <div class='row text-center' style='display:none;visibility:hidden;'>
+          <ul class="list-unstyled">
+            <li id="sop_article_show_subcategory_text">${ params['sop_times'][params['article'].sop_time_id].period }</li>
+            <li id="sop_article_show_article_title_text">${ _.capitalize(params['article'].title) }</li>
+          </ul>
+        </div>
+      </div>`)
+  }
+  function getRelatedTopicsDiv(related_topics){
+    let content = ''
+    if (!_.isEmpty(related_topics)) {
+      content = `
+        <div class='row'>
+          <div id='related_topics_header' class='row text-left'>
+            <strong>JUMP TO:</strong>
+          </div>
+          <ul id="related_topics_list" class='list-unstyled'> ${_.map(related_topics, article => {
+            return `<li><i class="fa fa-angle-right fa-lg" aria-hidden="true"></i>&nbsp;<a href='/sop_articles/${article.id}' class="black_text">${article.title}</a></li>`
+          }).join('\n')}
+          </ul>
+        </div>`
+    }
+    return content
+  }
+
+  function getReferenceLinksDiv(reference_links){
+    let content = ""
+    if (!_.isEmpty(reference_links)) {
+      content = "<div class='row'><div id='sop_show_references'><strong>REFERENCES:</strong>" +
+        _.map(reference_links, reference_link => {
+          return `<a href="${reference_link.url}">${reference_link.document_file_name}</a>`
+        }).join('\n')
+    }
+    content = content + "</div></div>"
+    return content
+  }
+
+  function sop_style_visible (icon, user, article, checklist_articles) {
+    let visibility_style = ''
+    if (icon === 'add') {
+      if (!_.isNull(user)){
+        visibility_style = 'visibility:visible'
+        _.forEach(checklist_articles, check_list_article => {
+          if (check_list_article.title === article.title)
+            visibility_style = 'visibility:hidden'
+        })
+      }
+      return visibility_style
+    }
+    else {
+      if (!_.isNull(user)){
+        visibility_style = 'visibility:hidden'
+        _.forEach(checklist_articles, check_list_article => {
+          if (check_list_article.title === article.title)
+            visibility_style = 'visibility:visible'
+        })
+      }
+      return visibility_style
+    }
+  }
+  $('#sop_article_show_modal').on('click', '#sop_print_icon_link', e => {
+    e.preventDefault()
+    $('#application').after($('#sop_article_show_modal #sop_article_content').html())
+    $('#application').after($('#sop_article_show_modal .header').html())
+    $('#application').css({ display: 'none' })
+    let current_url = document.URL
+    window.print()
+    $('#application').nextAll().remove()
+    $('#application').css({ display: 'block' })
+  })
+  $('#sop_article_show_modal').on('click', '#sop_email_icon_link', e => {
+    e.preventDefault()
+    window.location.href=`mailto:?subject=C4D Article: ${$('#sop_category_and_article_title').html()}&body=Click <a href='${window.location.protocol + '//' + window.location.host}/sop_articles/${$('#sop_add_to_toolkit_text').parent().attr('id')}' target='_blank'>here</a> to view the shared article!`;
+  })
 })
