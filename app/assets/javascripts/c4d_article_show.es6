@@ -23,4 +23,17 @@ $(() => {
     else
       element.css('visibility', 'hidden')
   }
+  $('#cgi_c4d_print_icon_link').click(e => {
+    e.preventDefault()
+    $('#application').after($('#cgi_c4d_article_show').html())
+    $('#application').after($('#cgi_c4d_article_show_header').html())
+    $('#application').css({ display: 'none' })
+    window.print()
+    $('#application').nextAll().remove()
+    $('#application').css({ display: 'block' })
+  })
+  $('#cgi_c4d_email_icon_link').click(e => {
+    e.preventDefault()
+    window.location.href=`mailto:?subject=C4D Article: ${$('#c4d_category_and_article_title').html()}&body=Click <a href='${window.location.protocol + '//' + window.location.host}/c4d_articles/${$('#c4d_add_to_toolkit_text').parent().attr('id')}' target='_blank'>here</a> to view the shared article!`;
+  })
 })

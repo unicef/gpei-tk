@@ -13,12 +13,12 @@
       <div id="cgi_c4d_article_show_info_column_content">
         <div class='row'>
           <div class='c4d_email_icon'>
-            <a id='c4d_email_icon_link' href=''><i class="fa fa-envelope" aria-hidden="true"></i></a>
+            <a id='cgi_c4d_email_icon_link' href=''><i class="fa fa-envelope" aria-hidden="true"></i></a>
           </div>
           <div class='c4d_print_icon'>
-            <a id='c4d_print_icon_link' href=''><i class="fa fa-print" aria-hidden="true"></i></a>
+            <a id='cgi_c4d_print_icon_link' href=''><i class="fa fa-print" aria-hidden="true"></i></a>
           </div>
-          <div id="${ params['article'].id }" class='text-center'>
+          <div id="<%= @c4d_article.id %>" class='text-center'>
             <div id='c4d_add_to_toolkit_text'>ADD TO MY TOOLKIT</div>
           </div>
           <div id="<%= @c4d_article.id %>" class='row'>
