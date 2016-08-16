@@ -195,17 +195,20 @@ $(() => {
                                           checklist_articles: response.checklist_articles,
                                           reference_links: response.reference_links,
                                           sop_related_topics: response.sop_related_topics })
-      let header = sop_article_header({ article: response.article, sop_categories: response.sop_categories })
+      let header = sop_article_header({ article: response.article,
+                                        sop_times: response.sop_times,
+                                        sop_categories: response.sop_categories })
       $('#sop_article_show_modal .header').append(header)
       $('#sop_article_show_modal .content').append(content)
-      if ($('#sop_article_content').outerHeight() > $('#sop_article_show_info_column').outerHeight())
-      $('#sop_article_show_info_column').css({ height: $('#sop_article_content').outerHeight() })
+      let outerHeight = $('#sop_article_show_modal').outerHeight()
+      outerHeight = outerHeight - $('#sop_article_show_modal .header').outerHeight()
+      $('#sop_article_show_info_column').css({ height: outerHeight })
     })
   })
   function sop_article_header(params) {
     return `
-      <div id="sop_article_show_header" class='row' style='background-color:${ params['sop_categories'][params['article'].sop_category_id-1].color } ;'>
-        <div id='sop_category_and_article_title' class='col-md-12 text-center' style='background-color:${ params['sop_categories'][params['article'].sop_category_id-1].color } ;'>${ params['sop_categories'][params['article'].sop_category_id-1].title } - ${ _.map(_.words(params['article'].title), word => { return _.capitalize(word) }).join(' ') }</div>
+      <div id="sop_article_show_header" class='row' style='color:white;background-color:${ params['sop_times'][params['article'].sop_time_id-1].color } ;'>
+        <div id='sop_category_and_article_title' class='col-md-12 text-center' style='background-color:${ params['sop_times'][params['article'].sop_time_id-1].color } ;'>${ params['sop_categories'][params['article'].sop_category_id-1].title } - ${ params['article'].title }</div>
         <div id='sop_close_icon' class='text-right'><a href=''>CLOSE&nbsp;<i class="fa fa-remove" aria-hidden="true"></i></a></div>
       </div>`
   }
@@ -228,7 +231,6 @@ $(() => {
 `
   }
   function getAddToToolkitRow(params){
-    debugger
     return (
       `<div class='sop_email_icon'>
         <a id='sop_email_icon_link' href=''><i class="fa fa-envelope" aria-hidden="true"></i></a>
@@ -283,8 +285,8 @@ $(() => {
   function sop_style_visible (icon, user, article, checklist_articles) {
     let visibility_style = ''
     if (icon === 'add') {
+      visibility_style = 'visibility:visible'
       if (!_.isNull(user)){
-        visibility_style = 'visibility:visible'
         _.forEach(checklist_articles, check_list_article => {
           if (check_list_article.title === article.title)
             visibility_style = 'visibility:hidden'
@@ -293,8 +295,8 @@ $(() => {
       return visibility_style
     }
     else {
+      visibility_style = 'visibility:hidden'
       if (!_.isNull(user)){
-        visibility_style = 'visibility:hidden'
         _.forEach(checklist_articles, check_list_article => {
           if (check_list_article.title === article.title)
             visibility_style = 'visibility:visible'
