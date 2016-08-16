@@ -21,7 +21,7 @@ $(() => {
         <div class="col-md-6">
           <div class="field">
             <label>Email</label>
-            <input type="email" name="user[email]" placeholder="john@example.com" class="input_fields" value="" required>
+            <input type="email" name="user[email]" placeholder="name@example.com" class="input_fields" value="" required>
           </div>
         </div>
         <div class="col-md-6">
