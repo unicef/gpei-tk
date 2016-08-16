@@ -147,7 +147,7 @@ $(() => {
   function c4d_article_header(params) {
     return `
       <div id="c4d_article_show_header" class='row' style='background-color:${ params['c4d_categories'][params['article'].c4d_category_id-1].color } ;'>
-        <div id='c4d_category_and_article_title' class='col-md-12 text-center' style='background-color:${ params['c4d_categories'][params['article'].c4d_category_id-1].color } ;'>${ params['c4d_categories'][params['article'].c4d_category_id-1].title } - ${ _.map(_.words(params['article'].title), word => { return _.capitalize(word) }).join(' ') }</div>
+        <div id='c4d_category_and_article_title' class='col-md-12 text-center' style='background-color:${ params['c4d_categories'][params['article'].c4d_category_id-1].color } ;'>${ params['c4d_categories'][params['article'].c4d_category_id-1].title } - ${ params['article'].title }</div>
         <div id='c4d_close_icon' class='text-right'><a href=''>CLOSE&nbsp;<i class="fa fa-remove" aria-hidden="true"></i></a></div>
       </div>`
   }
@@ -224,8 +224,8 @@ $(() => {
   function c4d_style_visible (icon, user, article, toolkit_articles) {
     let visibility_style = ''
     if (icon === 'add') {
+      visibility_style = 'visibility:visible'
       if (!_.isNull(user)){
-        visibility_style = 'visibility:visible'
         _.forEach(toolkit_articles, check_list_article => {
           if (check_list_article.title === article.title)
             visibility_style = 'visibility:hidden'
@@ -234,8 +234,8 @@ $(() => {
       return visibility_style
     }
     else {
+      visibility_style = 'visibility:hidden'
       if (!_.isNull(user)){
-        visibility_style = 'visibility:hidden'
         _.forEach(toolkit_articles, check_list_article => {
           if (check_list_article.title === article.title)
             visibility_style = 'visibility:visible'
