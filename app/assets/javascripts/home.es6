@@ -1,5 +1,6 @@
 $(() => {
   $('html').bind('mousewheel', e => {
+    $(this).unbind(e)
     if(e.originalEvent.wheelDelta /120 > 0) {
       // console.log('mwheelevent up')
     }
@@ -12,7 +13,6 @@ $(() => {
       })
       let second_container = $("#landing_page_sop_c4d_nav_container")
       $('html,body').animate({ scrollTop: second_container.offset().top },'slow')
-      $(this).unbind(e)
       return false
     }
   })
