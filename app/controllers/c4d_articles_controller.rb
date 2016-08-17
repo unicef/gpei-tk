@@ -24,6 +24,7 @@ class C4dArticlesController < ApplicationController
                      toolkit_articles: toolkit_articles,
                      reference_links: reference_links }
     else
+      @nav_bar_offset = 'col-md-offset-7'
       @user = current_user
       @img_name = 'C4D'
       if params['id'].nil?

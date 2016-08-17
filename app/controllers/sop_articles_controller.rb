@@ -24,6 +24,7 @@ class SopArticlesController < ApplicationController
                      checklist_articles: checklist_articles,
                      reference_links: reference_links }
     else
+      @nav_bar_offset = 'col-md-offset-7'
       @user = current_user
       @img_name = 'SOP'
       if params['id'].nil?
