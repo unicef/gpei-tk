@@ -4,14 +4,27 @@
     <%= image_tag 'home/Rhizome-V2_White.png', id: 'nav_bar_logo', alt: 'GPEI Toolkit' %>
   <% end %>
   </div>
-  <!-- beginning of dropdown -->
-  <div id="nav_contact_link" class='col-md-offset-7 col-md-1'>
+  <% if @is_sop %>
+  <div id='sop_nav_container' class='col-md-4 white_text'>
+    <div id='sop_nav_button' class='col-md-2 text-center'>
+      <div>SOP</div>
+    </div>
+    <div id='sop_what_to_do_nav_button' class='col-md-5 text-center'>
+      <div>WHAT TO DO, WHEN</div>
+    </div>
+    <div id='sop_overview_button' class='col-md-5 text-center'>
+      <div>OVERVIEW OF THE SOPs</div>
+    </div>
+  </div>
+  <% end %>
+  <div id="nav_contact_link" class='<%= @nav_bar_offset %> col-md-1'>
     <a href='mailto:rhizometk@gmail.com'>CONTACT</a>
   </div>
   <div id="nav_about_link" class='col-md-1'>
     <a href=''>ABOUT</a>
   </div>
   <% if current_user %>
+    <!-- beginning of dropdown -->
     <div id='toolkit_dropdown' class="ui pointing dropdown right col-md-1">
       <i class="fa fa-list" aria-hidden="true"></i>
       <div class="text">My Toolkit</div>
@@ -60,7 +73,7 @@
         </div>
       </div>
     </div>
-  <!-- end of dropdown -->
+    <!-- end of dropdown -->
   <% else %>
     <a id="nav_user_sign_in" class="white_text_black_bg col-md-1" href=''><i id="sign_in_icon" class="fa fa-sign-in" aria-hidden="true"></i>&nbsp;Sign in</a>
   <% end %>
