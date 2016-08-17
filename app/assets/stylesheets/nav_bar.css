@@ -19,9 +19,6 @@
 #c4d_no_items_selected {
   pointer-events:none;
 }
-#nav_user_sign_in {
-  font-size:95%;
-}
 #user_account_modal {
   position:relative;
   top:1px;
@@ -47,11 +44,10 @@
   color:blue;
 }
 #nav_bar_logo {
-  position:relative;
-  left:30px;
-  top:10px;
-  width:100%;
-  height:100%;
+  margin-top:10px;
+  padding-left:15px;
+  width:194px;
+  height:37px;
 }
 #nav_bar {
   height:60px;
@@ -60,25 +56,50 @@
   background: black;
   z-index:10;
 }
+
 #nav_contact_link,
 #nav_about_link,
 #nav_user_sign_in,
-#toolkit_dropdown {
+#toolkit_dropdown,
+#sop_nav_button,
+#sop_what_to_do_nav_button,
+#sop_overview_button {
   position: relative;
   top:20px;
-  font-size:14px;
+  font-family: 'proxima-nova';
+  font-weight:bold;
+  font-size:16px;
+}
+#sop_nav_container {
+  position:relative;
+  left:-50px;
+  z-index:3;
+}
+#sop_nav_button {
+  height:60px;
+  top:0px;
+  z-index:4;
+  background:#B12924;
+  border-left:1px solid white;
+  border-right:1px solid white;
+}
+#sop_what_to_do_nav_button {
+  height:60px;
+  top:0px;
+  z-index:5;
+}
+#sop_nav_button div,
+#sop_what_to_do_nav_button div,
+#sop_overview_button div{
+  position: relative;
+  top:20px;
+}
+#sop_overview_button {
+  height:60px;
+  top:0px;
+  z-index:6;
 }
 #nav_contact_link a,
 #nav_about_link a {
   color:white;
-}
-#nav_about_link {
-  padding-left:2%;
-}
-#nav_contact_link {
-  margin-right:0;
-  padding-left:4%;
-}
-#my_rhizome_dropdown_items {
-  z-index:5;
 }
