@@ -1,5 +1,7 @@
 class SopController < ApplicationController
   def index
+    @is_sop = true
+    @nav_bar_offset = 'col-md-offset-3'
     @img_name = 'SOP'
     @sop_times = SopTime.all
     @sop_categories = SopCategory.all
