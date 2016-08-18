@@ -103,3 +103,6 @@
 #nav_about_link a {
   color:white;
 }
+#nav_about_link {
+  width:7%;
+}
