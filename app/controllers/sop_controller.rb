@@ -2,7 +2,12 @@ class SopController < ApplicationController
   def index
     @is_sop = true
     @nav_bar_offset = 'col-md-offset-3'
-    @img_name = 'SOP'
+    @user = current_user
+  end
+
+  def whatToDoWhen
+    @is_sop = true
+    @nav_bar_offset = 'col-md-offset-3'
     @sop_times = SopTime.all
     @sop_categories = SopCategory.all
     @responsible_offices = ResponsibleOffice.all
