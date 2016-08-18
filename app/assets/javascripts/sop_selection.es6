@@ -37,7 +37,7 @@ $(() => {
       {
         inclusives.push(elem.value)
         let elem_value = elem.value.replace(/\./g,"").replace(/_/g," ")
-        checked_labels += `<div id="filter_output_label" class="ui label"><span id="${elem.value}">${elem_value} </span><a href=''><i style="color:black;" class="fa fa-times" aria-hidden="true"></i></a></div>`
+        checked_labels += `<div id="filter_output_label" class="ui label"><span id="${elem.value}">${elem_value} </span><a href=''><i class="fa fa-times" aria-hidden="true"></i></a></div>`
       }
     })
     $('#selected_filters_output').empty()
