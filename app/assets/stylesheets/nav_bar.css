@@ -87,9 +87,13 @@
 }
 #sop_nav_button div,
 #sop_what_to_do_nav_button div,
-#sop_overview_button div{
-  position: relative;
-  top:20px;
+#sop_overview_button div,
+#c4d_nav_div,
+#c4d_understand_div,
+#c4d_plan_div,
+#c4d_act_div,
+#c4d_tools_div {
+  line-height:60px;
 }
 #sop_overview_button {
   height:60px;
@@ -107,6 +111,48 @@
   width:7%;
 }
 .sop_active_borders {
+  border-left:1px solid white;
+  border-right:1px solid white;
+}
+#c4d_nav_container a {
+  color:white;
+}
+#c4d_nav_container {
+  margin-left:15px;
+  height:100%;
+}
+#c4d_nav_div {
+  height:100%;
+}
+#c4d_nav_button,
+#c4d_understand_button,
+#c4d_plan_button,
+#c4d_act_button,
+#c4d_tools_button {
+ text-decoration: none;
+}
+#c4d_nav_div.active {
+  background: #789002;
+  border-left:1px solid white;
+  border-right:1px solid white;
+}
+#c4d_understand_div.active {
+  background: #8DA900;
+  border-left:1px solid white;
+  border-right:1px solid white;
+}
+#c4d_plan_div.active {
+  background: #0735AC;
+  border-left:1px solid white;
+  border-right:1px solid white;
+}
+#c4d_act_div.active {
+  background: #008953;
+  border-left:1px solid white;
+  border-right:1px solid white;
+}
+#c4d_tools_div.active {
+  background: #009DA4;
   border-left:1px solid white;
   border-right:1px solid white;
 }
