@@ -262,7 +262,7 @@ $(() => {
             <strong>JUMP TO:</strong>
           </div>
           <ul id="related_topics_list" class='list-unstyled'> ${_.map(related_topics, article => {
-            return `<li><i class="fa fa-angle-right fa-lg" aria-hidden="true"></i>&nbsp;<a href='/sop_articles/${article.id}' class="black_text">${article.title}</a></li>`
+            return `<li><i class="fa fa-angle-right fa-lg" aria-hidden="true"></i>&nbsp;<a id='${article.id}' href='/sop_articles/${article.id}' class="black_text">${article.title}</a></li>`
           }).join('\n')}
           </ul>
         </div>`
@@ -325,4 +325,32 @@ $(() => {
 
   if ($('#sop_content_description_div').outerHeight() < $('#sop_overview_description_div').outerHeight())
     $('#sop_content_description_div').outerHeight($('#sop_overview_description_div').outerHeight())
+
+  $('#sop_article_show_modal').on('click', '#related_topics_list a', e => {
+    e.preventDefault()
+    $.ajax({
+      method: 'GET',
+      url: '/sop_articles/' + e.currentTarget.id
+    }).done(response => {
+      $('#sop_article_show_modal .header').empty()
+      $('#sop_article_show_modal .content').empty()
+      let content = sop_article_content({ article: response.article,
+                                          sop_categories: response.sop_categories,
+                                          sop_times: response.sop_times,
+                                          current_user: response.current_user,
+                                          checklist_articles: response.checklist_articles,
+                                          reference_links: response.reference_links,
+                                          sop_related_topics: response.sop_related_topics })
+      let header = sop_article_header({ article: response.article,
+                                        sop_times: response.sop_times,
+                                        sop_categories: response.sop_categories })
+      $('#sop_article_show_modal .header').append(header)
+      $('#sop_article_show_modal .content').append(content)
+      let outerHeight = $('#sop_article_show_modal').outerHeight()
+      outerHeight = outerHeight - $('#sop_article_show_modal .header').outerHeight()
+      $('#sop_article_show_info_column').css({ height: outerHeight })
+    })
+
+    return false
+  })
 })
