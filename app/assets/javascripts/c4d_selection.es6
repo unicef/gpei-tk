@@ -250,15 +250,19 @@ $(() => {
   // 2.0 c4d handling
   function toggleC4DBackgroundByClass(current_target, target) {
     $('#c4d_nav_div').removeClass('active')
-    $('#c4d_nav_buttons_div div').each((idx, div) => {
-      $(div).removeClass('active')
-    })
+    removeC4dButtonsActive()
     $(current_target).addClass('active')
   }
   $('#c4d_nav_div a').click(e => {
     e.preventDefault()
-    $grid.isotope({ filter: '*' })
+    $('#c4d_nav_div').addClass('active')
+    removeC4dButtonsActive()
   })
+  function removeC4dButtonsActive() {
+    $('#c4d_nav_buttons_div div').each((idx, div) => {
+      $(div).removeClass('active')
+    })
+  }
   $('#c4d_nav_buttons_div a').click(e => {
     e.preventDefault()
     let filterValue = $(e.currentTarget).attr('data-filter')
