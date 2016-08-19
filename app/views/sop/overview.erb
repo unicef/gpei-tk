@@ -1,0 +1,25 @@
+<%= render 'dashboard/nav' %>
+<div id='sop_selection_page'>
+  <div id='sop_overview_image_container' style='background:white;'>
+    AN IN-DEPTH MANUAL FOR NEW USERS AND FOR THOSE WHO NEED A REFRESHER
+  </div>
+  <div id='sop_overview_content_div'>
+    <div id='sop_content_description_div' class='col-md-3'>
+    JUMP TO:
+    <br>
+    <br>
+    <ul class='list-unstyled'>
+      <li class='sop_content_list_items'>INTRODUCTION<span><i class="fa fa-angle-right fa-lg" aria-hidden="true"></i></span></li>
+      <% @sop_categories.each do |category| %>
+      <li class='sop_content_list_items'><%= category.title %><span><i class="fa fa-angle-right fa-lg" aria-hidden="true"></i></span></li>
+      <% end %>
+      <% @sop_times.each do |time| %>
+      <li class='sop_content_list_items'><%= time.period %><span><i class="fa fa-angle-right fa-lg" aria-hidden="true"></i></span></li>
+      <% end %>
+    </ul>
+    </div>
+    <div id='sop_overview_description_div' class='col-md-9' style='background:white;'>
+    placeholder text
+    </div>
+  </div>
+</div>
