@@ -4,8 +4,9 @@ Rails.application.routes.draw do
   get '/c4d/' => 'c4d#index'
 
   get '/sop/' => 'sop#index'
-  # what-to-do-when page
+
   get '/sop/what_to_do_when/' => 'sop#whatToDoWhen'
+  get '/sop/overview/' => 'sop#overview'
 
   post '/sop/checklist/' => 'sop_checklist#create'
   delete '/sop/checklist/' => 'sop_checklist#destroy'
