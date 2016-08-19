@@ -17,6 +17,17 @@
     </div>
   </div>
   <% end %>
+  <% if @is_c4d %>
+  <div id='c4d_nav_container' class='col-md-6 white_text text-center'>
+    <div id='c4d_nav_div' class='col-md-2 active'><a id='c4d_nav_button' href='/c4d/'>C4D</a></div>
+    <div id='c4d_nav_buttons_div' class='col-md-10'>
+      <div id='c4d_understand_div' class='col-md-3'><a id='c4d_understand_button' href='' data-filter='.Understand'>UNDERSTAND</a></div>
+      <div id='c4d_plan_div' class='col-md-3'><a id='c4d_plan_button' href='' data-filter='.Plan'>PLAN</a></div>
+      <div id='c4d_act_div' class='col-md-2'><a id='c4d_act_button' href='' data-filter='.Act'>ACT</a></div>
+      <div id='c4d_tools_div' class='col-md-2'><a id='c4d_tools_button' href='' data-filter='.Tools'>TOOLS</div>
+    </div>
+  </div>
+  <% end %>
   <div id="nav_contact_link" class='<%= @nav_bar_offset %> col-md-1'>
     <a href='mailto:rhizometk@gmail.com'>CONTACT</a>
   </div>

@@ -2,22 +2,11 @@ $(() => {
   let $grid = $('#c4d_category_grid').isotope({
     itemSelector: '.c4d_grid_item'
   })
-  $('.c4d-filters-button-group').on('click', 'button', e => {
-    let filterValue = $(e.currentTarget).attr('data-filter')
-    $grid.isotope({ filter: filterValue })
-  })
+  // $('.c4d-filters-button-group').on('click', 'button', e => {
+  //   let filterValue = $(e.currentTarget).attr('data-filter')
+  //   $grid.isotope({ filter: filterValue })
+  // })
   // change is_checked class on buttons
-  $('.button-group').each((i, buttonGroup) => {
-    let $buttonGroup = $(buttonGroup)
-    $buttonGroup.on('click', 'button', e => {
-      $buttonGroup.find('.is_checked').css('background-color', 'transparent')
-      $buttonGroup.find('.is_checked').removeClass('is_checked')
-      let category_text = $(e.currentTarget).text()
-      let color = getColorClass(category_text)
-      $(e.currentTarget).addClass('is_checked')
-      $(e.currentTarget).css('background-color', color)
-    })
-  })
   function getColorClass(category_text) {
     if (category_text === 'Understand')
       return '#8DA900'
@@ -256,5 +245,24 @@ $(() => {
   $('#c4d_article_show_modal').on('click', '#c4d_email_icon_link', e => {
     e.preventDefault()
     window.location.href=`mailto:?subject=C4D Article: ${$('#c4d_category_and_article_title').html()}&body=Click <a href='${window.location.protocol + '//' + window.location.host}/c4d_articles/${$('#c4d_add_to_toolkit_text').parent().attr('id')}' target='_blank'>here</a> to view the shared article!`;
+  })
+
+  // 2.0 c4d handling
+  function toggleC4DBackgroundByClass(current_target, target) {
+    $('#c4d_nav_div').removeClass('active')
+    $('#c4d_nav_buttons_div div').each((idx, div) => {
+      $(div).removeClass('active')
+    })
+    $(current_target).addClass('active')
+  }
+  $('#c4d_nav_div a').click(e => {
+    e.preventDefault()
+    $grid.isotope({ filter: '*' })
+  })
+  $('#c4d_nav_buttons_div a').click(e => {
+    e.preventDefault()
+    let filterValue = $(e.currentTarget).attr('data-filter')
+    $grid.isotope({ filter: filterValue })
+    toggleC4DBackgroundByClass(e.currentTarget.parentElement, e.currentTarget)
   })
 })

@@ -1,12 +1,6 @@
 <%= render 'dashboard/nav' %>
 <div id="c4d_selection_page">
   <div class="button-group c4d-filters-button-group">
-  <% @c4d_categories.each_with_index do |category, idx| %>
-  <!-- set button .is-checked to background color -->
-    <div class='col-md-3'>
-      <button class="button" data-filter=".<%= category.title %>"><%= category.title %></button>
-    </div>
-  <% end %>
   </div>
   <div class='row'>
     <div id='c4d_category_grid'>
