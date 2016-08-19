@@ -24,7 +24,7 @@
 .c4d_grid_item {
   width: 20%;
   border: 1px solid white;
-  height: 220px;
+  height: 200px;
   color: white;
 }
 .c4d_grid_item_subcategory {
@@ -46,4 +46,14 @@
 #c4d_grid_tile_title {
   position: relative;
   margin-left:5%;
+}
+#c4d_selection_page {
+  padding-left:10%;
+  padding-right:10%;
+  padding-bottom:10%;
+  background: #000000; /* For browsers that do not support gradients */
+  background: -webkit-linear-gradient(#252F38, #000000); /* For Safari 5.1 to 6.0 */
+  background: -o-linear-gradient(#252F38, #000000); /* For Opera 11.1 to 12.0 */
+  background: -moz-linear-gradient(#252F38, #000000); /* For Firefox 3.6 to 15 */
+  background: linear-gradient(#252F38, #000000); /* Standard syntax */
 }
