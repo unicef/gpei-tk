@@ -79,9 +79,6 @@
   height:60px;
   top:0px;
   z-index:4;
-  background:#B12924;
-  border-left:1px solid white;
-  border-right:1px solid white;
 }
 #sop_what_to_do_nav_button {
   height:60px;
@@ -99,10 +96,17 @@
   top:0px;
   z-index:6;
 }
+#sop_nav_button a,
+#sop_what_to_do_nav_button a,
+#sop_overview_button a,
 #nav_contact_link a,
 #nav_about_link a {
   color:white;
 }
 #nav_about_link {
   width:7%;
+}
+.sop_active_borders {
+  border-left:1px solid white;
+  border-right:1px solid white;
 }

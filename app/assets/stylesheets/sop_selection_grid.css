@@ -31,6 +31,87 @@
   background: -moz-linear-gradient(#252F38, #000000); /* For Firefox 3.6 to 15 */
   background: linear-gradient(#252F38, #000000); /* Standard syntax */
 }
-#sop_landing_wrapper_div {
 
+
+#sop_landing_description_div {
+  height:200px;
+  border:1px solid white;
+}
+#sop_landing_overview_description_div,
+#sop_landing_wtdw_description_div {
+  height:100%;
+}
+#sop_landing_wtdw_description_div {
+  background-color:#B12924;
+  border-right:1px solid white;
+  color:white;
+}
+#sop_landing_overview_description_div {
+  background-color:#DF3C36;
+  color:white;
+}
+#sop_landing_wtdw_description,
+#sop_landing_wtdw_arrow,
+#sop_landing_wtdw_title {
+  height:33%;
+  font-weight: bold;
+}
+#sop_landing_wtdw_arrow {
+  font-size:400%;
+  padding-right:10px;
+}
+#sop_landing_wtdw_title {
+  font-size:250%;
+  line-height:90%;
+  padding-top:3%;
+  padding-left:10px;
+}
+#sop_landing_wtdw_description {
+  opacity:0.6;
+  padding-left:10px;
+}
+
+#sop_landing_overview_description,
+#sop_landing_overview_arrow,
+#sop_landing_overview_title {
+  height:33%;
+  font-weight: bold;
+}
+#sop_landing_overview_arrow {
+  font-size:400%;
+  padding-right:10px;
+}
+#sop_landing_overview_title {
+  font-size:250%;
+  line-height:90%;
+  padding-top:3%;
+  padding-left:10px;
+}
+#sop_landing_overview_description {
+  opacity:0.6;
+  padding-left:10px;
+}
+#sop_landing_overview_description_div a,
+#sop_landing_wtdw_description_div a {
+  color:white;
+}
+
+#sop_content_description_div{
+  padding:8px;
+  background-color:#e5e5e5;
+  height:100%;
+}
+#sop_overview_description_div {
+  height:100%;
+  padding:8px;
+}
+.sop_content_list_items {
+  border-bottom:1px solid black;
+  width:auto;
+}
+#overview_content_list_item_angle_right {
+  text-align: right;
+}
+.sop_content_list_items span {
+  float:right;
 }
