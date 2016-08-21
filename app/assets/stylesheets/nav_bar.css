@@ -136,23 +136,10 @@
   border-left:1px solid white;
   border-right:1px solid white;
 }
-#c4d_understand_div.active {
-  background: #8DA900;
-  border-left:1px solid white;
-  border-right:1px solid white;
-}
-#c4d_plan_div.active {
-  background: #0735AC;
-  border-left:1px solid white;
-  border-right:1px solid white;
-}
-#c4d_act_div.active {
-  background: #008953;
-  border-left:1px solid white;
-  border-right:1px solid white;
-}
+#c4d_understand_div.active,
+#c4d_plan_div.active,
+#c4d_act_div.active,
 #c4d_tools_div.active {
-  background: #009DA4;
   border-left:1px solid white;
   border-right:1px solid white;
 }
