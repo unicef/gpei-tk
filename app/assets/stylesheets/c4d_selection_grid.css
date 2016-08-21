@@ -76,16 +76,21 @@
   font-size:200%;
 }
 .c4d_article_item {
+  position:relative;
+  height:50px;
+  width:160px;
   border:1px solid white;
-  height:100px;
-  width:100px;
-  float:left;
+  padding:5px;
 }
 #c4d_subcategory_accordion .content.active {
-  display:inline-block;
-  overflow:hidden;
   width:100%;
 }
 #c4d_subcategory_accordion .title.transition.visible {
   width:100%;
+}
+.c4d_grid_add,
+.c4d_grid_check {
+  position:absolute;
+  top:1px;
+  right:1px;
 }

@@ -27,18 +27,17 @@ $(() => {
 
   $('#application').on('click', '.c4d_grid_add', e => {
     e.preventDefault()
-    let article_title = e.currentTarget.parentElement.querySelector('.c4d_grid_item_article_title').innerHTML
-    let article_id = e.currentTarget.parentElement.id
+    let article_id = e.currentTarget.id
     $.ajax({
       method: 'POST',
       url: '/c4d/toolkit/',
-      data: { title: article_title, id: article_id }
+      data: { id: article_id }
     }).done(response => {
       toggleVisibility(e.currentTarget)
+      let grid_check = e.currentTarget.parentElement.querySelector('.c4d_grid_check')
 
-      let grid_check = e.currentTarget.nextElementSibling
-
-      toggleVisibility(e.currentTarget.nextElementSibling)
+      toggleVisibility(grid_check)
+      let article_title = response.title
       let article_id = response.id
       let list_item = "<div id=\"" + article_id + "\" class=\"item\"><a class=\"white_text_black_bg\" href=\"/c4d_articles/" + article_id + "\">" + article_title + "</a> <i id=\"" + article_title + "\" class=\"fa fa-remove white_text_black_bg\" aria-hidden=\"true\"></i></div>"
       removeNoArticlesSelected('#c4d_no_items_selected')
@@ -53,18 +52,16 @@ $(() => {
   let $remove = $('.c4d_grid_check')
   $('#application').on('click', '.c4d_grid_check', e => {
     e.preventDefault()
-    let article_title = e.currentTarget.parentElement.querySelector('.c4d_grid_item_article_title').innerHTML
-    let article_id = e.currentTarget.parentElement.id
+    let article_id = e.currentTarget.id
     $.ajax({
       method: 'DELETE',
       url: '/c4d/toolkit/',
-      data: { title: article_title, id: article_id }
+      data: { id: article_id }
     }).done(response => {
       toggleVisibility(e.currentTarget)
 
-      let grid_check = e.currentTarget.previousElementSibling
-
-      toggleVisibility(e.currentTarget.previousElementSibling)
+      let add_icon = e.currentTarget.parentElement.querySelector('.c4d_grid_add')
+      toggleVisibility(add_icon)
       let article_list_item = '#c4d_toolkit_list #'+response.id
       $(article_list_item).remove()
       checkIfArticlesSelectedAndAppend('#c4d_toolkit_list')
@@ -80,7 +77,7 @@ $(() => {
       url: '/c4d/toolkit/',
       data: { title: article_title, id: parent_element.id }
     }).done(response => {
-      let $grid_tile = $('#c4d_category_grid #'+ parent_element.id)
+      let $grid_tile = $('#c4d_subcategory_accordion #'+ parent_element.id)
       let $check_icon = $grid_tile.find('.c4d_grid_check')
       let $add_icon = $grid_tile.find('.c4d_grid_add')
       toggleVisibility($check_icon)
@@ -114,7 +111,6 @@ $(() => {
 
   $('.c4d_grid_item_content').click(e => {
     e.preventDefault()
-    debugger
     $.ajax({
       method: 'GET',
       url: '/c4d_articles/' + e.currentTarget.parentElement.id

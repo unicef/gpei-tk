@@ -10,20 +10,19 @@
         <div id='c4d_subcategory_title_div' class='title'><i class="dropdown icon"></i><%= image_tag "c4d/icons/#{@c4d_category.title}/#{subcategory.title + '.png'}", width:'100px', height: '80px', class: '', alt: subcategory.title %><%= subcategory.title %></div>
         <div class="content">
           <div class="title">
-            <% @c4d_articles.each do |article| %>
-              <% if article.c4d_subcategory_id == subcategory.id %>
-                  <%= link_to c4d_article_path(article), id: article.id do %>
-                    <div id="<%= article.id %>" class='c4d_article_item' style="background-color: <%= article.c4d_subcategory.color %>;">
-                      <div class='c4d_grid_item_content'>
-                        <p class="c4d_grid_item_subcategory <%= article.c4d_subcategory.title %>"><strong class='text-left' style='color:<%= get_color_for_subcategory(article.c4d_subcategory.title) %>;'></strong><span id='c4d_article_id' style='visibility:hidden;'><%= article.id %></span></p>
-                        <p id='c4d_grid_tile_title' class="c4d_grid_item_article_title <%= article.title %>" style='color:<%= get_color_for_subcategory(article.c4d_subcategory.title) %>;'><%= article.title %></p>
-                      </div>
-                      <a class='c4d_grid_add' href='' style="<%= c4d_style_visible('add', @user, article) %>;"><i class="fa fa-plus" aria-hidden="true"></i></a>
-                      <a class='c4d_grid_check' href='' style="<%= c4d_style_visible('check', @user, article) %>;"><i class="fa fa-check" aria-hidden="true"></i></a>
-                    </div>
+            <table>
+              <tr>
+                <% @c4d_articles.each do |article| %>
+                  <% if article.c4d_subcategory_id == subcategory.id %>
+                    <td id="<%= article.id %>" class='c4d_article_item' style="background-color: <%= article.c4d_subcategory.color %>;">
+                        <a id='<%= article.id %>' class='c4d_grid_add' href='' style="<%= c4d_style_visible('add', @user, article) %>;"><i class="fa fa-plus" aria-hidden="true"></i></a>
+                        <a id='<%= article.id %>' class='c4d_grid_check' href='' style="<%= c4d_style_visible('check', @user, article) %>;"><i class="fa fa-check" aria-hidden="true"></i></a>
+                        <div id='c4d_grid_tile_title'><a id='<%= article.id %>' href='/c4d_articles/<%= article.id %>'><%= article.title %></a></div>
+                    </td>
                   <% end %>
-              <% end %>
-            <% end %>
+                <% end %>
+              </tr>
+            </table>
           </div>
         </div>
       </div>

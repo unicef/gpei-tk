@@ -1,8 +1,5 @@
 .c4d_grid_add,
 .c4d_grid_check {
-  top:0px;
-  right:10px;
-  position:absolute;
   color:white;
 }
 #c4d_show_add,
