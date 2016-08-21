@@ -249,10 +249,10 @@ $(() => {
       <div id="${ params['article'].id }" class='text-center'>
         <div id='sop_add_to_toolkit_text'>ADD TO MY TOOLKIT</div>
       </div>
-      <div id="${ params['article'].id }" class=''>
+      <div id="${ params['article'].id }" class='sop_modal_article_icons'>
         <p class="sop_grid_item_article_title ${ params['article'].title }" style='display:none;visibility:hidden;'>${ params['article'].title }</p>
-        <a id='sop_show_add' class='sop_grid_add' href='' style="${ sop_style_visible('add', params['current_user'], params['article'], params['checklist_articles']) };"><i class="fa fa-plus" aria-hidden="true"></i></a>
-        <a id='sop_show_check' class='sop_grid_check' href='' style="${ sop_style_visible('check', params['current_user'], params['article'], params['checklist_articles']) };"><i class="fa fa-check" aria-hidden="true"></i></a>
+        <a id='${ params['article'].id }' class='sop_grid_add' href='' style="${ sop_style_visible('add', params['current_user'], params['article'], params['checklist_articles']) };"><i class="fa fa-plus" aria-hidden="true"></i></a>
+        <a id='${ params['article'].id }' class='sop_grid_check' href='' style="${ sop_style_visible('check', params['current_user'], params['article'], params['checklist_articles']) };"><i class="fa fa-check" aria-hidden="true"></i></a>
         <div class='row text-center' style='display:none;visibility:hidden;'>
           <ul class="list-unstyled">
             <li id="sop_article_show_subcategory_text">${ params['sop_times'][params['article'].sop_time_id - 1].period }</li>

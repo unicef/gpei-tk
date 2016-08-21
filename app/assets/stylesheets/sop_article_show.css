@@ -83,8 +83,8 @@
   height:20px;
   width:140px;
 }
-#sop_article_show_modal #sop_show_add,
-#sop_article_show_modal #sop_show_check {
+#sop_article_show_modal .sop_grid_add,
+#sop_article_show_modal .sop_grid_check {
   position:absolute;
   left: auto;
   top: 7px;

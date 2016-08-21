@@ -65,4 +65,52 @@ $(function(){
   let padding = $('#nav_bar').outerHeight() + 1
   padding += "px"
   $('#sop_article_show_page').css({ paddingTop: padding })
+
+  $('#sop_article_show_modal').on('click', '.sop_grid_check', e => {
+    e.preventDefault()
+    let article_title = e.currentTarget.parentElement.querySelector('.sop_grid_item_article_title').innerHTML;
+    let id = e.currentTarget.id
+    $.ajax({
+      method: 'DELETE',
+      url: '/sop/checklist/',
+      data: { title: article_title, id: id }
+    }).done(function(response) {
+      toggleVisibility(e.currentTarget);
+
+      let grid_check = e.currentTarget.previousElementSibling
+
+      toggleVisibility(e.currentTarget.previousElementSibling);
+
+      let article_list_item = '#sop_checklist_list #'+response.id;
+      $(article_list_item).remove();
+      checkIfArticlesSelectedAndAppend('#sop_checklist_list')
+      toggleVisibility($('#isotope_container #' + e.currentTarget.id + ' .grid_add'))
+      toggleVisibility($('#isotope_container #' + e.currentTarget.id + ' .grid_check'))
+    })
+  })
+
+  $('#sop_article_show_modal').on('click', '.sop_grid_add', e => {
+    e.preventDefault()
+    let article_title = e.currentTarget.parentElement.querySelector('.sop_grid_item_article_title').innerHTML;
+    let id = e.currentTarget.id
+    $.ajax({
+      method: 'POST',
+      url: '/sop/checklist/',
+      data: { title: article_title, id: id }
+    }).done(function(response) {
+      toggleVisibility(e.currentTarget);
+
+      let grid_check = e.currentTarget.nextElementSibling
+
+      toggleVisibility(e.currentTarget.nextElementSibling)
+      let article_title = response.article_title
+      let id = response.id
+      let list_item = "<div id=\"" + id + "\" class=\"item\" style='background-color: black;color: white;'><a href=sop_articles/" + id + " style='background-color: black;color: white;'>" + article_title + "</a> <i id=\"" + article_title + "\" class=\"fa fa-remove\" aria-hidden=\"true\" style='background-color: black;color: white;'></i></div>"
+      removeNoArticlesSelected('#sop_no_items_selected')
+      $('#sop_checklist_list').append(list_item)
+
+      toggleVisibility($('#isotope_container #' + e.currentTarget.id + ' .grid_add'))
+      toggleVisibility($('#isotope_container #' + e.currentTarget.id + ' .grid_check'))
+    })
+  })
 })
