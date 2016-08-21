@@ -247,7 +247,7 @@ $(() => {
         <a id='sop_show_check' class='sop_grid_check' href='' style="${ sop_style_visible('check', params['current_user'], params['article'], params['checklist_articles']) };"><i class="fa fa-check" aria-hidden="true"></i></a>
         <div class='row text-center' style='display:none;visibility:hidden;'>
           <ul class="list-unstyled">
-            <li id="sop_article_show_subcategory_text">${ params['sop_times'][params['article'].sop_time_id].period }</li>
+            <li id="sop_article_show_subcategory_text">${ params['sop_times'][params['article'].sop_time_id - 1].period }</li>
             <li id="sop_article_show_article_title_text">${ _.capitalize(params['article'].title) }</li>
           </ul>
         </div>
