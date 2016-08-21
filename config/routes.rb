@@ -2,6 +2,10 @@ Rails.application.routes.draw do
   root 'home#index'
 
   get '/c4d/' => 'c4d#index'
+  get '/c4d/understand/' => 'c4d#understand'
+  get '/c4d/plan/' => 'c4d#plan'
+  get '/c4d/act/' => 'c4d#act'
+  get '/c4d/tools/' => 'c4d#tools'
 
   get '/sop/' => 'sop#index'
 
