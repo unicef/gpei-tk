@@ -42,6 +42,12 @@ $(() => {
       let list_item = "<div id=\"" + article_id + "\" class=\"item\"><a class=\"white_text_black_bg\" href=\"/c4d_articles/" + article_id + "\">" + article_title + "</a> <i id=\"" + article_title + "\" class=\"fa fa-remove white_text_black_bg\" aria-hidden=\"true\"></i></div>"
       removeNoArticlesSelected('#c4d_no_items_selected')
       $('#c4d_toolkit_list').append(list_item)
+
+      if (!$(e.currentTarget.parentElement).is('td')){
+        toggleVisibility($.grep($('#c4d_subcategory_accordion td .c4d_grid_check'), function(f){ return f.id == e.currentTarget.id; })[0])
+        toggleVisibility($.grep($('#c4d_subcategory_accordion td .c4d_grid_add'), function(f){ return f.id == e.currentTarget.id; })[0])
+      }
+
     })
   })
   function removeNoArticlesSelected(ele) {
@@ -64,6 +70,12 @@ $(() => {
       toggleVisibility(add_icon)
       let article_list_item = '#c4d_toolkit_list #'+response.id
       $(article_list_item).remove()
+
+      if (!$(e.currentTarget.parentElement).is('td')){
+        toggleVisibility($.grep($('#c4d_subcategory_accordion td .c4d_grid_check'), function(f){ return f.id == e.currentTarget.id; })[0])
+        toggleVisibility($.grep($('#c4d_subcategory_accordion td .c4d_grid_add'), function(f){ return f.id == e.currentTarget.id; })[0])
+      }
+
       checkIfArticlesSelectedAndAppend('#c4d_toolkit_list')
     })
   })
@@ -108,12 +120,12 @@ $(() => {
       $('#c4d_article_show_modal .header').empty()
     }
   })
-
-  $('.c4d_grid_item_content').click(e => {
+// $('#c4d_subcategory_accordion td div a')
+  $('#c4d_subcategory_accordion td div a').click(e => {
     e.preventDefault()
     $.ajax({
       method: 'GET',
-      url: '/c4d_articles/' + e.currentTarget.parentElement.id
+      url: '/c4d_articles/' + e.currentTarget.id
     }).done(response => {
       $('#c4d_article_show_modal').modal('show')
       let content = c4d_article_content({ article: response.article,
@@ -123,7 +135,7 @@ $(() => {
                                           toolkit_articles: response.toolkit_articles,
                                           reference_links: response.reference_links,
                                           c4d_related_topics: response.c4d_related_topics })
-      let header = c4d_article_header({ article: response.article, c4d_categories: response.c4d_categories })
+      let header = c4d_article_header({ c4d_subcategories: response.c4d_subcategories, article: response.article, c4d_categories: response.c4d_categories })
       $('#c4d_article_show_modal .header').append(header)
       $('#c4d_article_show_modal .content').append(content)
       if ($('#c4d_article_content').outerHeight() > $('#c4d_article_show_info_column').outerHeight())
@@ -132,11 +144,20 @@ $(() => {
   })
   function c4d_article_header(params) {
     return `
-      <div id="c4d_article_show_header" class='row' style='background-color:${ params['c4d_categories'][params['article'].c4d_category_id-1].color } ;'>
-        <div id='c4d_category_and_article_title' class='col-md-12 text-center' style='background-color:${ params['c4d_categories'][params['article'].c4d_category_id-1].color } ;'>${ params['c4d_categories'][params['article'].c4d_category_id-1].title } - ${ params['article'].title }</div>
+      <div id="c4d_article_show_header" class='row' style='background-color:${ params['c4d_subcategories'][params['article'].c4d_subcategory_id-1].color } ;'>
+        <div id='c4d_category_and_article_title' class='col-md-12 text-center' style='background-color:${ params['c4d_subcategories'][params['article'].c4d_subcategory_id-1].color } ;color:${get_color_for_subcategory(params['c4d_subcategories'][params['article'].c4d_subcategory_id-1])}'>${ params['c4d_subcategories'][params['article'].c4d_subcategory_id-1].title } - ${ params['article'].title }</div>
         <div id='c4d_close_icon' class='text-right'><a href=''>CLOSE&nbsp;<i class="fa fa-remove" aria-hidden="true"></i></a></div>
       </div>`
   }
+  function get_color_for_subcategory(article_subcategory){
+    let special_categories = ['ID Your Scenario', 'Monitor Evaluate', 'Innovations']
+    if (_.includes(article_subcategory))
+      return 'black'
+    else
+      return 'white'
+    end
+  }
+
   function c4d_article_content(params) {
     return `
       <div id="c4d_article_show_page">
@@ -166,17 +187,9 @@ $(() => {
       <div id="${ params['article'].id }" class='text-center'>
         <div id='c4d_add_to_toolkit_text'>ADD TO MY TOOLKIT</div>
       </div>
-      <div id="${ params['article'].id }" class=''>
-        <p class="c4d_grid_item_article_title ${ params['article'].title }" style='display:none;visibility:hidden;'>${ params['article'].title }</p>
-        <a id='c4d_show_add' class='c4d_grid_add' href='' style="${ c4d_style_visible('add', params['current_user'], params['article'], params['toolkit_articles']) };"><i class="fa fa-plus" aria-hidden="true"></i></a>
-        <a id='c4d_show_check' class='c4d_grid_check' href='' style="${ c4d_style_visible('check', params['current_user'], params['article'], params['toolkit_articles']) };"><i class="fa fa-check" aria-hidden="true"></i></a>
-        <div class='row text-center' style='display:none;visibility:hidden;'>
-          <ul class="list-unstyled">
-            <li id="c4d_article_show_subcategory_text">${ params['c4d_subcategories'][params['article'].c4d_subcategory_id].title }</li>
-            <li id="c4d_article_show_article_title_text">${ _.capitalize(params['article'].title) }</li>
-          </ul>
-        </div>
-      </div>`)
+      <a id='${ params['article'].id }' class='c4d_grid_add' href='' style="${ c4d_style_visible('add', params['current_user'], params['article'], params['toolkit_articles']) };color:black;right:3px;"><i class="fa fa-plus" aria-hidden="true"></i></a>
+      <a id='${ params['article'].id }' class='c4d_grid_check' href='' style="${ c4d_style_visible('check', params['current_user'], params['article'], params['toolkit_articles']) };color:black;right:3px;"><i class="fa fa-check" aria-hidden="true"></i></a>
+      `)
   }
   function getRelatedTopicsDiv(related_topics){
     let content = ''
@@ -187,7 +200,7 @@ $(() => {
             <strong>JUMP TO:</strong>
           </div>
           <ul id="related_topics_list" class='list-unstyled'> ${_.map(related_topics, article => {
-            return `<li><i class="fa fa-angle-right fa-lg" aria-hidden="true"></i>&nbsp;<a href='/c4d_articles/${article.id}' class="black_text">${article.title}</a></li>`
+            return `<li><i class="fa fa-angle-right fa-lg" aria-hidden="true"></i>&nbsp;<a id='${ article.id }' href='/c4d_articles/${article.id}' class="black_text">${article.title}</a></li>`
           }).join('\n')}
           </ul>
         </div>`
@@ -244,5 +257,28 @@ $(() => {
     window.location.href=`mailto:?subject=C4D Article: ${$('#c4d_category_and_article_title').html()}&body=Click <a href='${window.location.protocol + '//' + window.location.host}/c4d_articles/${$('#c4d_add_to_toolkit_text').parent().attr('id')}' target='_blank'>here</a> to view the shared article!`;
   })
 
+  $('#c4d_article_show_modal').on('click', '#related_topics_list a', e => {
+    e.preventDefault()
+    $.ajax({
+      method: 'GET',
+      url: '/c4d_articles/' + e.currentTarget.id
+    }).done(response => {
+      $('#c4d_article_show_modal .header').empty()
+      $('#c4d_article_show_modal .content').empty()
+      $('#c4d_article_show_modal').modal('show')
+      let content = c4d_article_content({ article: response.article,
+                                          c4d_categories: response.c4d_categories,
+                                          c4d_subcategories: response.c4d_subcategories,
+                                          current_user: response.current_user,
+                                          toolkit_articles: response.toolkit_articles,
+                                          reference_links: response.reference_links,
+                                          c4d_related_topics: response.c4d_related_topics })
+      let header = c4d_article_header({ c4d_subcategories: response.c4d_subcategories, article: response.article, c4d_categories: response.c4d_categories })
+      $('#c4d_article_show_modal .header').append(header)
+      $('#c4d_article_show_modal .content').append(content)
+      if ($('#c4d_article_content').outerHeight() > $('#c4d_article_show_info_column').outerHeight())
+      $('#c4d_article_show_info_column').css({ height: $('#c4d_article_content').outerHeight() })
+    })
+  })
   // 2.0 c4d handling
 })
