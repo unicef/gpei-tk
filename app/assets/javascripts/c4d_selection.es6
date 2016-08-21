@@ -114,9 +114,10 @@ $(() => {
 
   $('.c4d_grid_item_content').click(e => {
     e.preventDefault()
+    debugger
     $.ajax({
       method: 'GET',
-      url: '/c4d_articles/' + e.currentTarget.parentElement.parentElement.id
+      url: '/c4d_articles/' + e.currentTarget.parentElement.id
     }).done(response => {
       $('#c4d_article_show_modal').modal('show')
       let content = c4d_article_content({ article: response.article,

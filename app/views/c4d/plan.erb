@@ -12,7 +12,7 @@
           <div class="title">
             <% @c4d_articles.each do |article| %>
               <% if article.c4d_subcategory_id == subcategory.id %>
-                  <%= link_to c4d_article_path(article) do %>
+                  <%= link_to c4d_article_path(article), id: article.id do %>
                     <div id="<%= article.id %>" class='c4d_article_item' style="background-color: <%= article.c4d_subcategory.color %>;">
                       <div class='c4d_grid_item_content'>
                         <p class="c4d_grid_item_subcategory <%= article.c4d_subcategory.title %>"><strong class='text-left' style='color:<%= get_color_for_subcategory(article.c4d_subcategory.title) %>;'></strong><span id='c4d_article_id' style='visibility:hidden;'><%= article.id %></span></p>
@@ -28,5 +28,11 @@
         </div>
       </div>
     <% end %>
+  </div>
+</div>
+<div id="c4d_article_show_modal" class="ui large modal">
+  <div class="header">
+  </div>
+  <div class="content">
   </div>
 </div>
