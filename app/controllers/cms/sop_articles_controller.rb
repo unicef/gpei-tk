@@ -16,8 +16,10 @@ class Cms::SopArticlesController < ApplicationController
         sop_article.order_id = SopArticle.maximum(:order_id) + 1
         sop_article.author = current_user
         if sop_article.save
-          params[:article][:reference_links].each do |reference_id|
-            ReferenceLinkArticle.create(reference_link_id: reference_id, reference_linkable: sop_article)
+          if !params[:article][:reference_links].nil?
+            params[:article][:reference_links].each do |reference_id|
+              ReferenceLinkArticle.create(reference_link_id: reference_id, reference_linkable: sop_article)
+            end
           end
           render json: { sop_article: sop_article, status: 200 }
         end
@@ -50,11 +52,14 @@ class Cms::SopArticlesController < ApplicationController
       if request.xhr?
         sop_article = SopArticle.find_by(id: params[:id])
         ReferenceLinkArticle.where(reference_linkable_id: sop_article.id).delete_all
-        params[:article][:reference_links].each do |reference_id|
-          ReferenceLinkArticle.create(reference_link_id: reference_id, reference_linkable: sop_article)
+        if !params[:article][:reference_links].nil?
+          params[:article][:reference_links].each do |reference_id|
+            ReferenceLinkArticle.create(reference_link_id: reference_id, reference_linkable: sop_article)
+          end
         end
-        sop_article.update(safe_article_params)
-        sop_article.update(published: false)
+        if sop_article.update(safe_article_params)
+          sop_article.update(published: false)
+        end
         render json: { status: 200 }
       end
     end

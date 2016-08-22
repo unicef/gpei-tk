@@ -15,8 +15,10 @@ class Cms::C4dArticlesController < ApplicationController
         c4d_article.order_id = C4dArticle.maximum(:order_id) + 1
         c4d_article.author = current_user
         if c4d_article.save
-          params[:article][:reference_links].each do |reference_id|
-            ReferenceLinkArticle.create(reference_link_id: reference_id, reference_linkable: c4d_article)
+          if !params[:article][:reference_links].nil?
+            params[:article][:reference_links].each do |reference_id|
+              ReferenceLinkArticle.create(reference_link_id: reference_id, reference_linkable: c4d_article)
+            end
           end
           render json: { c4d_article: c4d_article, status: 200 }
         end
@@ -48,11 +50,14 @@ class Cms::C4dArticlesController < ApplicationController
         c4d_article = C4dArticle.find_by(id: params[:id])
         if c4d_article
           ReferenceLinkArticle.where(reference_linkable_id: c4d_article.id).delete_all
-          params[:article][:reference_links].each do |reference_id|
-            ReferenceLinkArticle.create(reference_link_id: reference_id, reference_linkable: c4d_article)
+          if !params[:article][:reference_links].nil?
+            params[:article][:reference_links].each do |reference_id|
+              ReferenceLinkArticle.create(reference_link_id: reference_id, reference_linkable: c4d_article)
+            end
           end
-          c4d_article.update(safe_article_params)
-          c4d_article.update(published: false)
+          if c4d_article.update(safe_article_params)
+            c4d_article.update(published: false)
+          end
           render json: { status: 200 }
         end
       end
