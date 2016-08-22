@@ -104,7 +104,7 @@ $(() => {
     return (`
       <div id='reference_link_multi_select' class="field">
         <label>Reference Links</label>
-        <select name="article[reference_links][]" class="ui dropdown cms_dropdown_select" required multiple>
+        <select name="article[reference_links][]" class="ui dropdown cms_dropdown_select" multiple>
           <option value="">Select Reference Links</option>
           ${_.map(reference_links, reference_link => {
             let selected = _.includes(selected_reference_links, reference_link.id) ? "selected=\"selected\"" : ""
