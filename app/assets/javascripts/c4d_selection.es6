@@ -89,9 +89,10 @@ $(() => {
       url: '/c4d/toolkit/',
       data: { title: article_title, id: parent_element.id }
     }).done(response => {
-      let $grid_tile = $('#c4d_subcategory_accordion #'+ parent_element.id)
+      let $grid_tile = $('#c4d_selection_page #c4d_subcategory_accordion #'+ parent_element.id)
       let $check_icon = $grid_tile.find('.c4d_grid_check')
       let $add_icon = $grid_tile.find('.c4d_grid_add')
+
       toggleVisibility($check_icon)
       toggleVisibility($add_icon)
       let c4d_toolkit_list_item = '#c4d_toolkit_list #' + parent_element.id
