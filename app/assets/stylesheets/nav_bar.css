@@ -60,10 +60,7 @@
 #nav_contact_link,
 #nav_about_link,
 #nav_user_sign_in,
-#toolkit_dropdown,
-#sop_nav_button,
-#sop_what_to_do_nav_button,
-#sop_overview_button {
+#toolkit_dropdown {
   position: relative;
   top:20px;
   font-family: 'proxima-nova';
@@ -74,16 +71,6 @@
   margin-left:15px;
   height:100%;
 }
-#sop_nav_button {
-  height:60px;
-  top:0px;
-  z-index:4;
-}
-#sop_what_to_do_nav_button {
-  height:60px;
-  top:0px;
-  z-index:5;
-}
 #sop_nav_button div,
 #sop_what_to_do_nav_button div,
 #sop_overview_button div,
@@ -93,11 +80,6 @@
 #c4d_act_div,
 #c4d_tools_div {
   line-height:60px;
-}
-#sop_overview_button {
-  height:60px;
-  top:0px;
-  z-index:6;
 }
 #sop_nav_button a,
 #sop_what_to_do_nav_button a,
