@@ -208,8 +208,8 @@ $(() => {
   function sop_article_header(params) {
     return `
       <div id="sop_article_show_header" class='row' style='color:white;background-color:${ params['sop_times'][params['article'].sop_time_id-1].color } ;'>
-        <div id='sop_category_and_article_title' class='col-md-12 text-center' style='background-color:${ params['sop_times'][params['article'].sop_time_id-1].color } ;color:${get_color_for_sop_time(params['sop_times'][params['article'].sop_time_id-1].period)}'>${ params['sop_categories'][params['article'].sop_category_id-1].title } - ${ params['article'].title }</div>
-        <div id='sop_close_icon' class='text-right'><a href=''>CLOSE&nbsp;<i class="fa fa-remove" aria-hidden="true"></i></a></div>
+        <div id='sop_category_and_article_title' class='col-md-12 text-center' style='background-color:${ params['sop_times'][params['article'].sop_time_id-1].color };color:${get_color_for_sop_time(params['sop_times'][params['article'].sop_time_id-1].period)};'>${ params['sop_categories'][params['article'].sop_category_id-1].title } - ${ params['article'].title }</div>
+        <div id='sop_close_icon' class='text-right'><a href='' style='color:${get_color_for_sop_time(params['sop_times'][params['article'].sop_time_id-1].period)};'>CLOSE&nbsp;<i class="fa fa-remove" aria-hidden="true"></i></a></div>
       </div>`
   }
   function get_color_for_sop_time(article_time) {
@@ -219,7 +219,11 @@ $(() => {
     else
       return 'white'
   }
-
+  $('#application').on('click', '#sop_close_icon a', e => {
+    e.preventDefault()
+    $('#sop_article_show_modal').modal('hide')
+    return false
+  })
   function sop_article_content(params) {
     return `
       <div id="sop_article_show_page">

@@ -145,13 +145,13 @@ $(() => {
   function c4d_article_header(params) {
     return `
       <div id="c4d_article_show_header" class='row' style='background-color:${ params['c4d_subcategories'][params['article'].c4d_subcategory_id-1].color } ;'>
-        <div id='c4d_category_and_article_title' class='col-md-12 text-center' style='background-color:${ params['c4d_subcategories'][params['article'].c4d_subcategory_id-1].color } ;color:${get_color_for_subcategory(params['c4d_subcategories'][params['article'].c4d_subcategory_id-1])}'>${ params['c4d_subcategories'][params['article'].c4d_subcategory_id-1].title } - ${ params['article'].title }</div>
-        <div id='c4d_close_icon' class='text-right'><a href=''>CLOSE&nbsp;<i class="fa fa-remove" aria-hidden="true"></i></a></div>
+        <div id='c4d_category_and_article_title' class='col-md-12 text-center' style='background-color:${ params['c4d_subcategories'][params['article'].c4d_subcategory_id-1].color };color:${get_color_for_subcategory(params['c4d_subcategories'][params['article'].c4d_subcategory_id-1].title)}'>${ params['c4d_subcategories'][params['article'].c4d_subcategory_id-1].title } - ${ params['article'].title }</div>
+        <div id='c4d_close_icon' class='text-right'><a href='' style='color:${get_color_for_subcategory(params['c4d_subcategories'][params['article'].c4d_subcategory_id-1].title)};'>CLOSE&nbsp;<i class="fa fa-remove" aria-hidden="true"></i></a></div>
       </div>`
   }
   function get_color_for_subcategory(article_subcategory){
     let special_categories = ['ID Your Scenario', 'Monitor Evaluate', 'Innovations']
-    if (_.includes(article_subcategory))
+    if (_.includes(special_categories, article_subcategory))
       return 'black'
     else
       return 'white'

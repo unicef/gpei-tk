@@ -11,7 +11,7 @@ class SopArticlesController < ApplicationController
         sop_article = SopArticle.where(id: params['id']).first
       end
       sop_categories = SopCategory.all
-      sop_related_topics = SopArticle.where("sop_category_id = ? AND id != ?", sop_article.sop_category_id, sop_article.id)
+      sop_related_topics = SopArticle.where("published = true AND sop_category_id = ? AND id != ?", sop_article.sop_category_id, sop_article.id).order(order_id: :asc)
       checklist_articles = current_user.sop_checklist.sop_articles if current_user
       sop_times = SopTime.all
       reference_links = sop_article.reference_links
@@ -38,7 +38,7 @@ class SopArticlesController < ApplicationController
       else
         @sop_article_last_index = 0
       end
-      @sop_related_topics = SopArticle.where("sop_category_id = ? AND id != ?", @sop_article.sop_category_id, @sop_article.id)
+      @sop_related_topics = SopArticle.where("published = true AND sop_category_id = ? AND id != ?", @sop_article.sop_category_id, @sop_article.id).order(order_id: :asc)
     end
   end
 end

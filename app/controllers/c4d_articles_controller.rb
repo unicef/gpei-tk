@@ -11,7 +11,7 @@ class C4dArticlesController < ApplicationController
         c4d_article = C4dArticle.where(id: params['id']).first
       end
       c4d_categories = C4dCategory.all
-      c4d_related_topics = C4dArticle.where("c4d_subcategory_id = ? AND id != ?", c4d_article.c4d_subcategory_id, c4d_article.id)
+      c4d_related_topics = C4dArticle.where("published = true AND c4d_subcategory_id = ? AND id != ?", c4d_article.c4d_subcategory_id, c4d_article.id).order(order_id: :asc)
       toolkit_articles = current_user.c4d_toolkit.c4d_articles if current_user
       c4d_subcategories = C4dSubcategory.all
       reference_links = c4d_article.reference_links
@@ -33,7 +33,7 @@ class C4dArticlesController < ApplicationController
         @c4d_article = C4dArticle.where(id: params['id']).first
       end
       @c4d_categories = C4dCategory.all
-      @c4d_related_topics = C4dArticle.where("c4d_subcategory_id = ? AND id != ?", @c4d_article.c4d_subcategory_id, @c4d_article.id)
+      @c4d_related_topics = C4dArticle.where("published = true AND c4d_subcategory_id = ? AND id != ?", @c4d_article.c4d_subcategory_id, @c4d_article.id).order(order_id: :asc)
     end
   end
 end

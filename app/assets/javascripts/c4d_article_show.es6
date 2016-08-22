@@ -1,7 +1,8 @@
 $(() => {
-  $('#c4d_article_show_modal').on('click', '#c4d_close_icon', e => {
+  $('#c4d_article_show_modal').on('click', '#c4d_close_icon a', e => {
     e.preventDefault()
     $('#c4d_article_show_modal').modal('hide')
+    return false
   })
   $('#c4d_article_show_modal').on('click', '.c4d_grid_check', e => {
     let $grid_tile = $('#c4d_category_grid').find('#'+e.currentTarget.parentElement.id)
