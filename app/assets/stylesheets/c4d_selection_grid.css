@@ -92,6 +92,6 @@
 .c4d_grid_add,
 .c4d_grid_check {
   position:absolute;
-  top:1px;
-  right:1px;
+  top:5px;
+  right:5px;
 }

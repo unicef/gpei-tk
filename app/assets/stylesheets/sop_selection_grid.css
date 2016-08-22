@@ -8,8 +8,11 @@
 }
 .grid_item {
   width: 20%;
-  height: 200px;
+  height: 180px;
   border: 1px solid white;
+}
+.grid_item a:hover {
+  color:black;
 }
 .grid_item p {
   margin: 0;
