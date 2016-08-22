@@ -1,11 +1,7 @@
-.sop_grid_content {
-  height: 100%;
-  position: absolute;
-  top:15%;
-}
 * {
   box-sizing: border-box;
 }
+
 .grid_item {
   width: 20%;
   height: 180px;
@@ -16,6 +12,42 @@
 }
 .grid_item p {
   margin: 0;
+}
+#grid_item_icon_div {
+  height:85px;
+  font-size:75%;
+}
+#sop_grid_cat_div {
+  padding-left:3px;
+}
+#sop_grid_cat_image {
+  position:relative;
+  bottom:-3px;
+}
+#sop_grid_icon_img {
+  position: absolute;
+  right:5px;
+  bottom:5px;
+}
+#sop_grid_responsible_office_image {
+  margin-left:5px;
+}
+#sop_grid_subcat_and_responsible_office_div {
+  position: absolute;
+  bottom:5px;
+}
+#grid_item_time_period img {
+  margin-right:15px;
+  margin-left:10px;
+}
+#grid_item_article_title {
+  height:70px;
+  padding-top:5px;
+  font-size:110%;
+  padding-left:5px;
+}
+#grid_item_time_period {
+  line-height: 25px
 }
 .grid_add,
 .grid_check {

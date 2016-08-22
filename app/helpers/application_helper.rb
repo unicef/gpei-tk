@@ -64,4 +64,23 @@ module ApplicationHelper
       return 'white'
     end
   end
+  def get_grid_image_by_sop_subcategory article_subcategory, image
+    special_categories = ['14 Days to Close']
+    if image == 'icon-time-white'
+      if special_categories.include?(article_subcategory)
+        image = 'icon-time-black'
+      end
+      return image
+    elsif image == 'icon-category-white'
+      if special_categories.include?(article_subcategory)
+        image = 'icon-category-black'
+      end
+      return image
+    elsif image == 'icon-resp-white'
+      if special_categories.include?(article_subcategory)
+        image = 'icon-resp-black'
+      end
+      return image
+    end
+  end
 end
