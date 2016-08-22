@@ -52,6 +52,7 @@ class Cms::C4dArticlesController < ApplicationController
             ReferenceLinkArticle.create(reference_link_id: reference_id, reference_linkable: c4d_article)
           end
           c4d_article.update(safe_article_params)
+          c4d_article.update(published: false)
           render json: { status: 200 }
         end
       end
