@@ -232,8 +232,12 @@ $(() => {
         <div id='sop_article_content_div' class='col-md-9' class='black_text'>
           ${ getAddToToolkitRow(params) }
           <div id='sop_article_content'>
-            ${ params['article'].content }
-            ${ getVideoURL(params) } }
+            <div class='col-md-12'>
+              ${ params['article'].content }
+            </div>
+            <div class='col-md-12'>
+              ${ getVideoURL(params) }
+            </div>
           </div>
         </div>
       </div>
