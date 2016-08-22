@@ -233,10 +233,20 @@ $(() => {
           ${ getAddToToolkitRow(params) }
           <div id='sop_article_content'>
             ${ params['article'].content }
+            ${ getVideoURL(params) } }
           </div>
         </div>
       </div>
 `
+  }
+  function getVideoURL(params) {
+    if (params['article'].video_url !== null) {
+      let video_content = `<iframe src="${params['article'].video_url}" width="360" height="270" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>`
+      video_content = _.replace(video_content, 'https://vimeo.com/', 'https://player.vimeo.com/video/')
+      return video_content
+    }
+    else
+      return ''
   }
   function getAddToToolkitRow(params){
     return (
