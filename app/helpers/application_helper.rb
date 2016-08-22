@@ -64,6 +64,7 @@ module ApplicationHelper
       return 'white'
     end
   end
+
   def get_grid_image_by_sop_subcategory article_subcategory, image
     special_categories = ['14 Days to Close']
     if image == 'icon-time-white' && special_categories.include?(article_subcategory)
