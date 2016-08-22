@@ -71,9 +71,8 @@
   font-size:16px;
 }
 #sop_nav_container {
-  position:relative;
-  left:-50px;
-  z-index:3;
+  margin-left:15px;
+  height:100%;
 }
 #sop_nav_button {
   height:60px;
@@ -121,6 +120,7 @@
   margin-left:15px;
   height:100%;
 }
+#sop_nav_div,
 #c4d_nav_div {
   height:100%;
 }
