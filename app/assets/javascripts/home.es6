@@ -16,4 +16,8 @@ $(() => {
       return false
     }
   })
+  $('#link_to_second_part_of_landing').click(e => {
+    e.preventDefault()
+    return false
+  })
 })
