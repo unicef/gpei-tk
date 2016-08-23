@@ -139,8 +139,11 @@ $(() => {
       let header = c4d_article_header({ c4d_subcategories: response.c4d_subcategories, article: response.article, c4d_categories: response.c4d_categories })
       $('#c4d_article_show_modal .header').append(header)
       $('#c4d_article_show_modal .content').append(content)
-      if ($('#c4d_article_content').outerHeight() > $('#c4d_article_show_info_column').outerHeight())
-      $('#c4d_article_show_info_column').css({ height: $('#c4d_article_content').outerHeight() })
+
+      if ($('#c4d_article_content_div').outerHeight() > $('#c4d_article_show_info_column').outerHeight())
+        $('#c4d_article_show_info_column').css({ height: $('#c4d_article_content_div').outerHeight() })
+      else if ($('#c4d_article_content_div').outerHeight() < $('#c4d_article_show_info_column').outerHeight())
+        $('#c4d_article_content_div').css({ height: $('#c4d_article_show_info_column').outerHeight() })
     })
   })
   function c4d_article_header(params) {
@@ -200,10 +203,10 @@ $(() => {
           <div id='related_topics_header' class='row text-left'>
             <strong>JUMP TO:</strong>
           </div>
-          <ul id="related_topics_list" class='list-unstyled'> ${_.map(related_topics, article => {
-            return `<li><i class="fa fa-angle-right fa-lg" aria-hidden="true"></i>&nbsp;<a id='${ article.id }' href='/c4d_articles/${article.id}' class="black_text">${article.title}</a></li>`
+          <div id="related_topics_list"> ${_.map(related_topics, article => {
+            return `<div id='related_topic_link_div' class='col-md-12'><div class='col-md-10'><a id='${ article.id }' href='/c4d_articles/${article.id}' class="black_text">${ article.title }</a></div><div class='col-md-2'><a id='${ article.id }' href='/c4d_articles/${article.id}' class="black_text"><i class="fa fa-angle-right" aria-hidden="true"></i></a></div></div>`
           }).join('\n')}
-          </ul>
+          </div>
         </div>`
     }
     return content
@@ -212,14 +215,14 @@ $(() => {
   function getReferenceLinksDiv(reference_links){
     let content = ""
     if (!_.isEmpty(reference_links)) {
-      content = "<div class='row'><div id='c4d_show_references'><div class='col-md-12'><strong>REFERENCES:</strong></div>" +
+      content = "<div class='row'><div id='sop_show_references'><div class='col-md-12'><strong>REFERENCES:</strong></div>" +
         _.map(reference_links, reference_link => {
           let reference_title = _.replace(reference_link.document_file_name, new RegExp("_","g")," ")
           reference_title = _.replace(reference_title, new RegExp(".pdf","g"),"")
-          return `<a href="${ reference_link.url }" target='_blank' class='col-md-12'><img src='/assets/reference_icons/icon-doc-pdf.png'>&nbsp;${ reference_title }</a>`
+          return `<div id='reference_link_row' class='row'><div class='col-md-2'><img class='reference_link_pdf_icon' src='/assets/reference_icons/icon-doc-pdf.png'></div><div id='reference_link_anchor_div' class='col-md-10'><a class='reference_link_anchor' href="${ reference_link.url }" target='_blank'>&nbsp;${ reference_title }</a></div></div>`
         }).join('\n')
+      content = content + "</div></div>"
     }
-    content = content + "</div></div>"
     return content
   }
 

@@ -61,15 +61,10 @@
 .col-md-9 {
   padding: 0;
 }
-#related_topics_list {
-  padding:5px;
-  padding-left: 25px;
-}
 #related_topics_header {
-  padding-top: 5px;
-  font-size:18px;
   font-weight: bold;
   color: black;
+  margin-bottom:5px;
 }
 
 /*c4d article modal show*/
@@ -86,10 +81,6 @@
 #c4d_article_content {
   padding:10px;
   padding-top:35px;
-}
-#related_topics_header {
-  padding-left: 25px;
-  font-size:90%;
 }
 #c4d_add_to_toolkit_text {
   font-size:80%;
@@ -186,4 +177,16 @@
 #multimedia_header {
   margin-top:5px;
   margin-bottom:5px;
+}
+#related_topic_link_div {
+  font-size:130%;
+  opacity:.6;
+  border-bottom:1px solid rgba(0,0,0, 0.2);
+}
+#related_topic_link_div i {
+  float:right;
+  font-size:120%;
+}
+#c4d_article_show_info_column_content {
+  padding:15px;
 }
