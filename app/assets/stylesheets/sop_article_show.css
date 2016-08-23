@@ -120,3 +120,16 @@
 #sop_email_icon_link {
   color: black;
 }
+#sop_article_show_info_row {
+  border-top: 1px solid black;
+  border-bottom: 1px solid black;
+  margin-bottom:8px;
+}
+#sop_info_row_icons {
+  width:10px;
+  height:10px;
+}
+#sop_article_show_info_row_icon {
+  height:15px;
+  width:auto;
+}

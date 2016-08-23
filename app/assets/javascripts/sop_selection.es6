@@ -239,15 +239,81 @@ $(() => {
             <div class='col-md-12'>
               ${ params['article'].content }
             </div>
+            <div id='multimedia_header' class='col-md-9'>
+              MULTIMEDIA:
+            </div>
             <div class='col-md-12'>
               ${ getVideoURL(params) }
             </div>
+            ${ getSopInfoRow(params) }
           </div>
         </div>
       </div>
 `
   }
-
+  function getSopInfoRow(params){
+    return `<div id='sop_article_show_info_row' class='col-md-12'>
+              <div id='sop_article_show_time_function_column' class='col-md-4'>
+                <div id='sop_article_show_time_column' class='col-md-12'>
+                  <div>
+                    <img id='sop_info_row_icons' src='/assets/sop/grid_icons/icon-time-black.png'>&nbsp;TIME
+                  </div>
+                  <div class='col-md-6' style='color:white;background-color: ${ params['sop_times'][params['article'].sop_time_id - 1].color }'>
+                    ${ params['sop_times'][params['article'].sop_time_id - 1].period }
+                  </div>
+                </div>
+                <div id='sop_article_show_function_column' class='col-md-12'>
+                  <div class='col-md-12'>
+                    <img id='sop_info_row_icons' src='/assets/sop/grid_icons/icon-category-black.png'>&nbsp;FUNCTION
+                  </div>
+                  <div class='col-md-12'>
+                    <img id='sop_article_show_info_row_icon' src='${getSopCategoryIcon(params['sop_categories'][params['article'].sop_category_id - 1].title)}'>${ params['sop_categories'][params['article'].sop_category_id - 1].title }
+                  </div>
+                </div>
+              </div>
+              <div id='sop_article_show_responsible_column' class='col-md-4'>
+                <div class='col-md-12'>
+                  <img id='sop_info_row_icons' src='/assets/sop/grid_icons/icon-resp-black.png'>&nbsp;RESPONSIBILITY
+                </div>
+                <div class='col-md-12'>
+                  ${ params['article'].responsible }
+                </div>
+              </div>
+              <div id='sop_article_show_support_column' class='col-md-4'>
+                <div class='col-md-12'>
+                  SUPPORT
+                </div>
+                <div class='col-md-12'>
+                  ${ params['article'].support }
+                </div>
+              </div>
+            </div>`
+  }
+  function getSopCategoryIcon(sop_category){
+    let image = ''
+    if (sop_category === 'Outbreak Confirmation') {
+      image = '/assets/sop/icons/24Hours_OutbreakConfir.png'
+    }
+    else if (sop_category === 'Coordination and Advocacy') {
+      image = '/assets/sop/icons/14Days_AdvoCoor.png'
+    }
+    else if (sop_category === 'Technical and Human Resources') {
+      image = '/assets/sop/icons/14Days_TechHuman.png'
+    }
+    else if (sop_category === 'Information Management') {
+      image = '/assets/sop/icons/24Hours_InfoMan.png'
+    }
+    else if (sop_category === 'Communication') {
+      image = '/assets/sop/icons/72Hours_ExCom.png'
+    }
+    else if (sop_category === 'Finances and Logistics') {
+      image = '/assets/sop/icons/24Hours_Finance.png'
+    }
+    else if (sop_category === 'Context') {
+      image = '/assets/sop/icons/72Hours_Context.png'
+    }
+    return image
+  }
   function getReferenceLinksDiv(reference_links){
     let content = ""
     if (!_.isEmpty(reference_links)) {
