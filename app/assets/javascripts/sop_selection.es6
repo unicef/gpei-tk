@@ -193,8 +193,7 @@ $(() => {
                                           sop_times: response.sop_times,
                                           current_user: response.current_user,
                                           checklist_articles: response.checklist_articles,
-                                          reference_links: response.reference_links,
-                                          sop_related_topics: response.sop_related_topics })
+                                          reference_links: response.reference_links })
       let header = sop_article_header({ article: response.article,
                                         sop_times: response.sop_times,
                                         sop_categories: response.sop_categories })
@@ -229,8 +228,8 @@ $(() => {
       <div id="sop_article_show_page">
         <div id="sop_article_show_info_column" class='col-md-3'>
           <div id="sop_article_show_info_column_content">
-            ${ getRelatedTopicsDiv(params['sop_related_topics']) }
             ${ getReferenceLinksDiv(params['reference_links']) }
+            ${ getVideoContent(params) }
           </div>
         </div>
         <div id='sop_article_content_div' class='col-md-9' class='black_text'>
@@ -238,12 +237,6 @@ $(() => {
           <div id='sop_article_content'>
             <div class='col-md-12'>
               ${ params['article'].content }
-            </div>
-            <div id='multimedia_header' class='col-md-9'>
-              MULTIMEDIA:
-            </div>
-            <div class='col-md-12'>
-              ${ getVideoURL(params) }
             </div>
             ${ getSopInfoRow(params) }
           </div>
@@ -256,24 +249,24 @@ $(() => {
               <div id='sop_article_show_time_function_column' class='col-md-4'>
                 <div id='sop_article_show_time_column' class='col-md-12'>
                   <div>
-                    <img id='sop_info_row_icons' src='/assets/sop/grid_icons/icon-time-black.png'>&nbsp;TIME
+                    <img id='sop_info_row_icons' src='/assets/sop/grid_icons/icon-time-black.png'>&nbsp;<strong>TIME</strong>
                   </div>
-                  <div class='col-md-6' style='color:white;background-color: ${ params['sop_times'][params['article'].sop_time_id - 1].color }'>
+                  <div class='col-md-12' style='padding-left:5px;color:${ get_color_for_sop_time(params['sop_times'][params['article'].sop_time_id - 1].period) };background-color: ${ params['sop_times'][params['article'].sop_time_id - 1].color }'>
                     ${ params['sop_times'][params['article'].sop_time_id - 1].period }
                   </div>
                 </div>
                 <div id='sop_article_show_function_column' class='col-md-12'>
                   <div class='col-md-12'>
-                    <img id='sop_info_row_icons' src='/assets/sop/grid_icons/icon-category-black.png'>&nbsp;FUNCTION
+                    <img id='sop_info_row_icons' src='/assets/sop/grid_icons/icon-category-black.png'>&nbsp;<strong>FUNCTION</strong>
                   </div>
                   <div class='col-md-12'>
-                    <img id='sop_article_show_info_row_icon' src='${getSopCategoryIcon(params['sop_categories'][params['article'].sop_category_id - 1].title)}'>${ params['sop_categories'][params['article'].sop_category_id - 1].title }
+                    <img id='sop_article_show_info_row_icon' src='${ getSopCategoryIcon(params['sop_categories'][params['article'].sop_category_id - 1].title) }'>&nbsp;${ params['sop_categories'][params['article'].sop_category_id - 1].title }
                   </div>
                 </div>
               </div>
               <div id='sop_article_show_responsible_column' class='col-md-4'>
                 <div class='col-md-12'>
-                  <img id='sop_info_row_icons' src='/assets/sop/grid_icons/icon-resp-black.png'>&nbsp;RESPONSIBILITY
+                  <img id='sop_info_row_icons' src='/assets/sop/grid_icons/icon-resp-black.png'>&nbsp;<strong>RESPONSIBILITY</strong>
                 </div>
                 <div class='col-md-12'>
                   ${ params['article'].responsible }
@@ -281,7 +274,7 @@ $(() => {
               </div>
               <div id='sop_article_show_support_column' class='col-md-4'>
                 <div class='col-md-12'>
-                  SUPPORT
+                  <strong>SUPPORT</strong>
                 </div>
                 <div class='col-md-12'>
                   ${ params['article'].support }
@@ -295,25 +288,26 @@ $(() => {
       image = '/assets/sop/icons/24Hours_OutbreakConfir.png'
     }
     else if (sop_category === 'Coordination and Advocacy') {
-      image = '/assets/sop/icons/14Days_AdvoCoor.png'
+      image = '/assets/sop/icons/14DaysClose_AdvoCoor.png'
     }
     else if (sop_category === 'Technical and Human Resources') {
       image = '/assets/sop/icons/14Days_TechHuman.png'
     }
     else if (sop_category === 'Information Management') {
-      image = '/assets/sop/icons/24Hours_InfoMan.png'
+      image = '/assets/sop/icons/14DaysClose_InfoMan.png'
     }
     else if (sop_category === 'Communication') {
-      image = '/assets/sop/icons/72Hours_ExCom.png'
+      image = '/assets/sop/icons/14DaysClose_ExCom.png'
     }
     else if (sop_category === 'Finances and Logistics') {
-      image = '/assets/sop/icons/24Hours_Finance.png'
+      image = '/assets/sop/icons/14DaysClose_Finance.png'
     }
     else if (sop_category === 'Context') {
-      image = '/assets/sop/icons/72Hours_Context.png'
+      image = '/assets/sop/icons/14DaysClose_Context.png'
     }
     return image
   }
+
   function getReferenceLinksDiv(reference_links){
     let content = ""
     if (!_.isEmpty(reference_links)) {
@@ -321,21 +315,20 @@ $(() => {
         _.map(reference_links, reference_link => {
           let reference_title = _.replace(reference_link.document_file_name, new RegExp("_","g")," ")
           reference_title = _.replace(reference_title, new RegExp(".pdf","g"),"")
-          return `<a href="${ reference_link.url }" target='_blank' class='col-md-12'><img src='/assets/reference_icons/icon-doc-pdf.png'>&nbsp;${ reference_title }</a>`
+          return `<div id='reference_link_row' class='row'><div class='col-md-2'><img class='reference_link_pdf_icon' src='/assets/reference_icons/icon-doc-pdf.png'></div><div id='reference_link_anchor_div' class='col-md-10'><a class='reference_link_anchor' href="${ reference_link.url }" target='_blank'>&nbsp;${ reference_title }</a></div></div>`
         }).join('\n')
+      content = content + "</div></div>"
     }
-    content = content + "</div></div>"
     return content
   }
 
-  function getVideoURL(params) {
+  function getVideoContent(params) {
+    let video_content = ''
     if (params['article'].video_url !== null) {
-      let video_content = `<iframe src="${params['article'].video_url}" width="360" height="270" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>`
+      video_content = `<div class='row'><div id='multimedia_header' class='col-md-9'><strong>MULTIMEDIA:</strong></div><div class='col-md-12'><iframe src="${ params['article'].video_url }" width="97%" height="auto" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe></div></div>`
       video_content = _.replace(video_content, 'https://vimeo.com/', 'https://player.vimeo.com/video/')
-      return video_content
     }
-    else
-      return ''
+    return video_content
   }
 
   function getAddToToolkitRow(params){
@@ -361,22 +354,6 @@ $(() => {
         </div>
       </div>`)
   }
-  function getRelatedTopicsDiv(related_topics){
-    let content = ''
-    if (!_.isEmpty(related_topics)) {
-      content = `
-        <div class='row'>
-          <div id='related_topics_header' class='row text-left'>
-            <strong>JUMP TO:</strong>
-          </div>
-          <ul id="related_topics_list" class='list-unstyled'> ${_.map(related_topics, article => {
-            return `<li><i class="fa fa-angle-right fa-lg" aria-hidden="true"></i>&nbsp;<a id='${article.id}' href='/sop_articles/${article.id}' class="black_text">${article.title}</a></li>`
-          }).join('\n')}
-          </ul>
-        </div>`
-    }
-    return content
-  }
 
   function sop_style_visible (icon, user, article, checklist_articles) {
     let visibility_style = ''
@@ -401,6 +378,7 @@ $(() => {
       return visibility_style
     }
   }
+
   $('#sop_article_show_modal').on('click', '#sop_print_icon_link', e => {
     e.preventDefault()
     $('#application').after($('#sop_article_show_modal #sop_article_content').html())
@@ -411,6 +389,7 @@ $(() => {
     $('#application').nextAll().remove()
     $('#application').css({ display: 'block' })
   })
+
   $('#sop_article_show_modal').on('click', '#sop_email_icon_link', e => {
     e.preventDefault()
     window.location.href=`mailto:?subject=C4D Article: ${$('#sop_category_and_article_title').html()}&body=Click <a href='${window.location.protocol + '//' + window.location.host}/sop_articles/${$('#sop_add_to_toolkit_text').parent().attr('id')}' target='_blank'>here</a> to view the shared article!`;
@@ -435,8 +414,7 @@ $(() => {
                                           sop_times: response.sop_times,
                                           current_user: response.current_user,
                                           checklist_articles: response.checklist_articles,
-                                          reference_links: response.reference_links,
-                                          sop_related_topics: response.sop_related_topics })
+                                          reference_links: response.reference_links })
       let header = sop_article_header({ article: response.article,
                                         sop_times: response.sop_times,
                                         sop_categories: response.sop_categories })
