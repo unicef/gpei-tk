@@ -132,23 +132,3 @@
 #sop_landing_wtdw_description_div a {
   color:white;
 }
-
-#sop_content_description_div{
-  padding:8px;
-  background-color:#e5e5e5;
-  height:100%;
-}
-#sop_overview_description_div {
-  height:100%;
-  padding:8px;
-}
-.sop_content_list_items {
-  border-bottom:1px solid black;
-  width:auto;
-}
-#overview_content_list_item_angle_right {
-  text-align: right;
-}
-.sop_content_list_items span {
-  float:right;
-}

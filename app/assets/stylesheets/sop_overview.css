@@ -1,0 +1,24 @@
+.sop_overview_content_list_items {
+  border-bottom:1px solid black;
+  width:auto;
+  opacity:.6;
+  font-size:110%;
+  margin-bottom:5px;
+}
+.sop_overview_content_list_items i {
+  font-size:115%;
+}
+.sop_overview_content_list_items span {
+  float:right;
+}
+#sop_overview_content_description_div{
+  padding:15px;
+  background-color:#e5e5e5;
+  height:100%;
+}
+#sop_overview_content_div {
+  height:100%;
+}
+#overview_content_list_item_angle_right {
+  text-align: right;
+}

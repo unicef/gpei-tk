@@ -395,11 +395,10 @@ $(() => {
     window.location.href=`mailto:?subject=C4D Article: ${$('#sop_category_and_article_title').html()}&body=Click <a href='${window.location.protocol + '//' + window.location.host}/sop_articles/${$('#sop_add_to_toolkit_text').parent().attr('id')}' target='_blank'>here</a> to view the shared article!`;
   })
 
-  if ($('#sop_content_description_div').outerHeight() > $('#sop_overview_description_div').outerHeight())
-    $('#sop_overview_description_div').outerHeight($('#sop_content_description_div').outerHeight())
-
-  if ($('#sop_content_description_div').outerHeight() < $('#sop_overview_description_div').outerHeight())
-    $('#sop_content_description_div').outerHeight($('#sop_overview_description_div').outerHeight())
+  if ($('#sop_overview_content_description_div').outerHeight() > $('#sop_overview_content_div').outerHeight())
+    $('#sop_overview_content_div').outerHeight($('#sop_overview_content_description_div').outerHeight())
+  else if ($('#sop_overview_content_description_div').outerHeight() < $('#sop_overview_content_div').outerHeight())
+    $('#sop_overview_content_description_div').outerHeight($('#sop_overview_content_div').outerHeight())
 
   $('#sop_article_show_modal').on('click', '#related_topics_list a', e => {
     e.preventDefault()
