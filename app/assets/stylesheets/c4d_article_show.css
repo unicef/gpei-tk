@@ -11,6 +11,19 @@
   height: 11px;
   width: 13px;
 }
+#c4d_show_references {
+  padding-left:20px;
+}
+#c4d_show_references a {
+  width:100%;
+  color:black;
+  text-decoration:none;
+  margin-bottom: 5px;
+}
+#c4d_show_references a img {
+  width:auto;
+  height:45px;
+}
 #c4d_article_icon {
   width:45%;
   height:45%;

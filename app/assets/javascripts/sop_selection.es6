@@ -247,6 +247,21 @@ $(() => {
       </div>
 `
   }
+
+  function getReferenceLinksDiv(reference_links){
+    let content = ""
+    if (!_.isEmpty(reference_links)) {
+      content = "<div class='row'><div id='sop_show_references'><div class='col-md-12'><strong>REFERENCES:</strong></div>" +
+        _.map(reference_links, reference_link => {
+          let reference_title = _.replace(reference_link.document_file_name, new RegExp("_","g")," ")
+          reference_title = _.replace(reference_title, new RegExp(".pdf","g"),"")
+          return `<a href="${ reference_link.url }" class='col-md-12'><img src='/assets/reference_icons/icon-doc-pdf.png'>&nbsp;${ reference_title }</a>`
+        }).join('\n')
+    }
+    content = content + "</div></div>"
+    return content
+  }
+
   function getVideoURL(params) {
     if (params['article'].video_url !== null) {
       let video_content = `<iframe src="${params['article'].video_url}" width="360" height="270" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>`
@@ -256,6 +271,7 @@ $(() => {
     else
       return ''
   }
+
   function getAddToToolkitRow(params){
     return (
       `<div class='sop_email_icon'>
@@ -293,18 +309,6 @@ $(() => {
           </ul>
         </div>`
     }
-    return content
-  }
-
-  function getReferenceLinksDiv(reference_links){
-    let content = ""
-    if (!_.isEmpty(reference_links)) {
-      content = "<div class='row'><div id='sop_show_references'><strong>REFERENCES:</strong>" +
-        _.map(reference_links, reference_link => {
-          return `<a href="${reference_link.url}">${reference_link.document_file_name}</a>`
-        }).join('\n')
-    }
-    content = content + "</div></div>"
     return content
   }
 
