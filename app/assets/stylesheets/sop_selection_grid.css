@@ -35,6 +35,7 @@
 #sop_grid_subcat_and_responsible_office_div {
   position: absolute;
   bottom:5px;
+  opacity:.6;
 }
 #grid_item_time_period img {
   margin-right:15px;
