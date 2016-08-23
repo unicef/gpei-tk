@@ -216,7 +216,7 @@ $(() => {
         _.map(reference_links, reference_link => {
           let reference_title = _.replace(reference_link.document_file_name, new RegExp("_","g")," ")
           reference_title = _.replace(reference_title, new RegExp(".pdf","g"),"")
-          return `<a href="${ reference_link.url }" class='col-md-12'><img src='/assets/reference_icons/icon-doc-pdf.png'>&nbsp;${ reference_title }</a>`
+          return `<a href="${ reference_link.url }" target='_blank' class='col-md-12'><img src='/assets/reference_icons/icon-doc-pdf.png'>&nbsp;${ reference_title }</a>`
         }).join('\n')
     }
     content = content + "</div></div>"
