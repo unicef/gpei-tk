@@ -1,7 +1,7 @@
 <%= render 'dashboard/nav' %>
 <script type="text/javascript">$('#application').css({background:'#FFFFFF'})</script>
+<% if @sop_article %>
 <div id='sop_article_show_page'>
-  <% if @sop_article %>
   <div class='col-md-3' style='border: 2px white solid'>
     <div id="sop_article_logo_row" class='row' style="background-color: <%=  @sop_article.sop_time.color %>;">
       <%= link_to sop_path do %>
@@ -35,5 +35,5 @@
       </div>
     </div>
   </div>
-  <% end %>
 </div>
+<% end %>
