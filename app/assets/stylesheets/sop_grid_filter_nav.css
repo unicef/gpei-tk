@@ -1,9 +1,24 @@
+ol, ul {
+  margin-bottom:0 !important;
+}
+#select_filter_dropdown_menu .item {
+  padding:0 !important;
+}
 #sop_filter_clear_all a {
   text-decoration: none !important;
   color:#B12924;
   padding-right:10px;
   font-style:italic;
   opacity: 0.4;
+}
+#sop_filter_category_icon {
+  height:20px;
+  width:auto;
+}
+.sop_filter_header img {
+  height:15px;
+  width:auto;
+  margin-right:5px;
 }
 #sop_filter_clear_all {
   border-left: 0;
@@ -24,15 +39,20 @@
   padding-left: 10px;
 }
 .sop_checkboxes {
-  background-color: #D9E0DE;
+  background-color: white;
 }
 .filter-item {
   margin-left: 5px;
   color: #6B7A83;
 }
 .filter-label {
-  font-size: 80%;
+  font-size: 90%;
   margin-left: 5px;
+  color:black;
+  width:70%;
+}
+.filter-label span {
+  opacity: .55;
 }
 
 #filter_list {

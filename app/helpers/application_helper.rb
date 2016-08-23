@@ -65,6 +65,26 @@ module ApplicationHelper
     end
   end
 
+  def getSopCategoryIcon sop_category
+    image = ''
+    if sop_category == 'Outbreak Confirmation'
+      image = '/assets/sop/icons/24Hours_OutbreakConfir.png'
+    elsif sop_category == 'Coordination and Advocacy'
+      image = '/assets/sop/icons/14DaysClose_AdvoCoor.png'
+    elsif sop_category == 'Technical and Human Resources'
+      image = '/assets/sop/icons/14Days_TechHuman.png'
+    elsif sop_category == 'Information Management'
+      image = '/assets/sop/icons/14DaysClose_InfoMan.png'
+    elsif sop_category == 'Communication'
+      image = '/assets/sop/icons/14DaysClose_ExCom.png'
+    elsif sop_category == 'Finances and Logistics'
+      image = '/assets/sop/icons/14DaysClose_Finance.png'
+    elsif sop_category == 'Context'
+      image = '/assets/sop/icons/14DaysClose_Context.png'
+    end
+    image
+  end
+
   def get_grid_image_by_sop_subcategory article_subcategory, image
     special_categories = ['14 Days to Close']
     if image == 'icon-time-white' && special_categories.include?(article_subcategory)
