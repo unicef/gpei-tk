@@ -18,7 +18,7 @@
                 <div class='sop_checkboxes'>
                   <ul class='list-unstyled text-uppercase'>
                     <% @sop_times.each do |time| %>
-                      <li class='filter-item'><input class='check_box' id=<%= time.period.gsub(' ', '_') %> type='checkbox' value=".<%= time.period.gsub(' ', '_') %>"><label class='filter-label' for=<%= time.period.gsub(' ', '_') %> style='color:<%= get_color_for_sop_time(time.period) %>;background-color:<%= time.color %>;'><%= time.period %></label></li>
+                      <li class='filter-item'><input class='check_box' id=<%= time.period.gsub(' ', '_') %> type='checkbox' value=".<%= time.period.gsub(' ', '_') %>"><label id='sop_filter_sop_time_label' class='filter-label' for=<%= time.period.gsub(' ', '_') %> style='color:<%= get_color_for_sop_time(time.period) %>;background-color:<%= time.color %>;'><%= time.period %></label></li>
                     <% end %>
                   </ul>
                 </div>
