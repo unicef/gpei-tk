@@ -10,13 +10,19 @@
 
 #landing_scroll_down_angle {
   color:white;
-  font-size:300%;
 }
 
 #landing_scroll_begin_text,
 #landing_logo_text {
   color:white;
-  font-size:15px;
+  font-size:24px;
+  line-height:26px;
+}
+#landing_logo_text {
+  font-family:'Adelle';
+}
+#landing_scroll_begin_text {
+  font-family: 'proxima-nova';
 }
 #landing_logo_text {
   width:30%;
@@ -42,6 +48,7 @@
 #logo_container {
   display:table-cell;
   vertical-align: middle;
+  padding-bottom:10%;
 }
 #landing_page_sop_c4d_nav_container {
   color: white;
@@ -50,15 +57,22 @@
   height:100%;
 }
 #landing_sop_container_header {
-  font-weight: bold;
   background: #E5DDDD;
   color:#904941;
-  position:relative;
+  padding-left:5px;
 }
+#landing_sop_container_header,
 #landing_c4d_container_header {
   font-weight: bold;
+}
+#sop_c4d_description_div {
+  font-family: 'Adelle' !important;
+  font-size: 37px !important;
+}
+#landing_c4d_container_header {
   background: #E5DDDD;
   color:#35A3AE;
+  padding-left:5px;
 }
 #landing_sop_container_content {
   color:white;
@@ -80,14 +94,18 @@
 #landing_sop_c4d_angle_right {
   font-size:60px;
   color:white;
-  margin-top:auto;
-  margin-bottom:auto;
-  position:relative;
-  top:20px;
-  left:400px;
+  position: relative;
+  right:5px;
+  top:10%;
 }
 #landing_sop_c4d_angle_right a {
   color: white;
+  text-decoration: none;
+}
+#sop_landing_description_span,
+#c4d_landing_description_span {
+  font-size: 16px !important;
+  font-family: 'proxima-nova' !important;
 }
 #sop_landing_description_span {
   width:60%;
@@ -106,7 +124,7 @@
   font-size:90%;
 }
 #sop_c4d_nav_content_container {
-  width:430px;
+  width:30%;
   position: relative;
   border:2px solid #E5DDDD;
   margin:0 auto;
@@ -119,5 +137,6 @@
   margin-bottom:20px;
 }
 #sop_c4d_nav_header_container span {
-  font-family: 'proxima-nova';
+  font-family: 'proxima-nova' !important;
+  font-size: 24px;
 }
