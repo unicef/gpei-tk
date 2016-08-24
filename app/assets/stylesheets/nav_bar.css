@@ -92,7 +92,6 @@
 #nav_about_link a {
   color:white;
 }
-#toolkit_dropdown,
 #nav_contact_link,
 #nav_about_link {
   width:7%;
@@ -105,7 +104,6 @@
   color:white;
 }
 #c4d_nav_container {
-  margin-left:15px;
   height:100%;
 }
 #sop_nav_div,

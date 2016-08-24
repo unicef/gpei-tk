@@ -167,11 +167,6 @@ $(() => {
       $(list_id).append(no_items)
     }
   }
-  let padding = $('#nav_bar').outerHeight()
-  padding += "px"
-  $('#sop_selection_page').css({ paddingTop: padding })
-  let height = $('#sop_filter_clear_all').innerHeight()
-  $('#select_filter_dropdown_menu').css({ height: height })
 
   // sop article modal
   $('#sop_article_show_modal').modal({

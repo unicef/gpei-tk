@@ -1,14 +1,14 @@
 class SopController < ApplicationController
   def index
     @is_sop = true
-    @nav_bar_offset = 'col-md-offset-1'
+    @nav_bar_offset = 'col-md-offset-2'
     @user = current_user
     @backgrounds = { index: '#B12924', wtdw: nil, overview: nil, borders: 'sop_active_borders' }
   end
 
   def whatToDoWhen
     @is_sop = true
-    @nav_bar_offset = 'col-md-offset-1'
+    @nav_bar_offset = 'col-md-offset-2'
     @sop_times = SopTime.all
     @sop_categories = SopCategory.all
     @responsible_offices = ResponsibleOffice.all
@@ -19,7 +19,7 @@ class SopController < ApplicationController
 
   def overview
     @is_sop = true
-    @nav_bar_offset = 'col-md-offset-1'
+    @nav_bar_offset = 'col-md-offset-2'
     @user = current_user
     @sop_times = SopTime.all
     @sop_categories = SopCategory.all

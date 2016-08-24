@@ -30,15 +30,15 @@
     </div>
   </div>
   <% end %>
-  <div id="nav_contact_link" class='<%= @nav_bar_offset %> col-md-1'>
+  <div id="nav_contact_link" class='<%= @nav_bar_offset %> col-md-1 text-center'>
     <a href='mailto:rhizometk@gmail.com'>CONTACT</a>
   </div>
-  <div id="nav_about_link" class='col-md-1'>
+  <div id="nav_about_link" class='col-md-1 text-center'>
     <a href=''>ABOUT</a>
   </div>
   <% if current_user %>
     <!-- beginning of dropdown -->
-    <div id='toolkit_dropdown' class="ui pointing dropdown right col-md-1">
+    <div id='toolkit_dropdown' class="ui pointing dropdown right col-md-1 text-center">
       <i class="fa fa-list" aria-hidden="true"></i>
       <div id='toolkit_dropdown_header_text' class="text">My Toolkit</div>
       <div id="my_rhizome_dropdown_items" class="left menu">
@@ -88,7 +88,7 @@
     </div>
     <!-- end of dropdown -->
   <% else %>
-    <a id="nav_user_sign_in" class="white_text_black_bg col-md-1" href=''><i id="sign_in_icon" class="fa fa-sign-in" aria-hidden="true"></i>&nbsp;Sign in</a>
+    <a id="nav_user_sign_in" class="white_text_black_bg col-md-1 text-center" href=''><i id="sign_in_icon" class="fa fa-sign-in" aria-hidden="true"></i>&nbsp;Sign in</a>
   <% end %>
 </div>
 <div id='user_account_modal' class="ui modal">

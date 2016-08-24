@@ -109,10 +109,6 @@ $(() => {
       $(list_id).append(no_items)
     }
   }
-  let padding = $('#nav_bar').outerHeight() + 1
-  padding += "px"
-  $('#c4d_selection_page').css({ paddingTop: padding })
-
 
   // c4d article modal show
   $('#c4d_article_show_modal').modal({
