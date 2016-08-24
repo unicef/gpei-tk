@@ -1,3 +1,4 @@
+var original_viewport_width = $(window).width()
 $(() => {
   $('#toolkit_dropdown').dropdown({
     on: 'hover',
@@ -33,4 +34,30 @@ $(() => {
         <p>The Global Polio Eradication Initiative is a public-private partnership led by national governments and spearheaded by the World Health Organization (WHO), Rotary International, the US Centers for Disease Control and Prevention (CDC), and the United Nations Children’s Fund (UNICEF). Its goal is to eradicate polio worldwide. To find out more visit: www.polioeradication.org</p>`
       )
   }
+
+  function resize_nav_bar() {
+    let nav_bar_height = $('#nav_bar').outerHeight()
+    let offset = nav_bar_height / 4
+    $('#nav_bar_logo_div').css('margin-top', offset + "px")
+    nav_bar_height = $('#nav_bar').outerHeight()
+    $('#nav_contact_link').css("line-height", nav_bar_height + "px")
+    $('#sop_nav_button').css("line-height", nav_bar_height + "px")
+    $('#c4d_nav_div').css("line-height", nav_bar_height + "px")
+    $('#c4d_understand_div').css("line-height", nav_bar_height + "px")
+    $('#c4d_plan_div').css("line-height", nav_bar_height + "px")
+    $('#c4d_act_div').css("line-height", nav_bar_height + "px")
+    $('#c4d_tools_div').css("line-height", nav_bar_height + "px")
+    $('#sop_what_to_do_nav_button').css("line-height", nav_bar_height + "px")
+    $('#sop_overview_button').css("line-height", nav_bar_height + "px")
+    $('#nav_about_link').css("line-height", nav_bar_height + "px")
+    $('#nav_user_sign_in').css("line-height", nav_bar_height + "px")
+    $('#toolkit_dropdown').css("line-height", nav_bar_height + "px")
+  }
+  resize_nav_bar()
+
+  $(window).resize(e => {
+    let padding = $('#nav_bar').outerHeight()
+    padding += "px"
+    $('#sop_selection_page').css({ paddingTop: padding })
+  })
 })

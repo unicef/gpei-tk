@@ -1,5 +1,5 @@
-<div id='nav_bar' class='row'>
-  <div class='col-md-2'>
+<div id='nav_bar' class='col-md-12'>
+  <div id='nav_bar_logo_div' class='col-md-2'>
   <%= link_to root_path do %>
     <%= image_tag 'home/Rhizome-V2_White.png', id: 'nav_bar_logo', alt: 'GPEI Toolkit' %>
   <% end %>
@@ -23,10 +23,10 @@
   <div id='c4d_nav_container' class='col-md-6 white_text text-center'>
     <div id='c4d_nav_div' class='col-md-2 <%= 'active' if @is_c4d_nav %>'><a id='c4d_nav_button' href='/c4d/'>C4D</a></div>
     <div id='c4d_nav_buttons_div' class='col-md-10'>
-      <div id='c4d_understand_div' <%= "style=background-color:#{ @c4d_category.color }" if @is_c4d_understand %> class='col-md-3 <%= ' active' if @is_c4d_understand %>'><a id='c4d_understand_button' href='/c4d/understand/' data-filter='.Understand'>UNDERSTAND</a></div>
-      <div id='c4d_plan_div' <%= "style=background-color:#{ @c4d_category.color }" if @is_c4d_plan %> class='col-md-2  <%= ' active' if @is_c4d_plan %>'><a id='c4d_plan_button' href='/c4d/plan/' data-filter='.Plan'>PLAN</a></div>
-      <div id='c4d_act_div' <%= "style=background-color:#{ @c4d_category.color }" if @is_c4d_act %> class='col-md-2  <%= ' active' if @is_c4d_act %>'><a id='c4d_act_button' href='/c4d/act/' data-filter='.Act'>ACT</a></div>
-      <div id='c4d_tools_div' <%= "style=background-color:#{ @c4d_category.color }" if @is_c4d_tools %> class='col-md-2  <%= ' active' if @is_c4d_tools %>'><a id='c4d_tools_button' href='/c4d/tools/' data-filter='.Tools'>TOOLS</div>
+      <div id='c4d_understand_div' <%= "style=background-color:#{ @c4d_category.color }" if @is_c4d_understand %> class='col-md-3 <%= ' active' if @is_c4d_understand %>'><a id='c4d_understand_button' href='/c4d/understand/'>UNDERSTAND</a></div>
+      <div id='c4d_plan_div' <%= "style=background-color:#{ @c4d_category.color }" if @is_c4d_plan %> class='col-md-2  <%= ' active' if @is_c4d_plan %>'><a id='c4d_plan_button' href='/c4d/plan/'>PLAN</a></div>
+      <div id='c4d_act_div' <%= "style=background-color:#{ @c4d_category.color }" if @is_c4d_act %> class='col-md-2  <%= ' active' if @is_c4d_act %>'><a id='c4d_act_button' href='/c4d/act/'>ACT</a></div>
+      <div id='c4d_tools_div' <%= "style=background-color:#{ @c4d_category.color }" if @is_c4d_tools %> class='col-md-2  <%= ' active' if @is_c4d_tools %>'><a id='c4d_tools_button' href='/c4d/tools/'>TOOLS</a></div>
     </div>
   </div>
   <% end %>

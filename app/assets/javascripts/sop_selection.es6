@@ -167,7 +167,7 @@ $(() => {
       $(list_id).append(no_items)
     }
   }
-  let padding = $('#nav_bar').outerHeight() + 1
+  let padding = $('#nav_bar').outerHeight()
   padding += "px"
   $('#sop_selection_page').css({ paddingTop: padding })
   let height = $('#sop_filter_clear_all').innerHeight()

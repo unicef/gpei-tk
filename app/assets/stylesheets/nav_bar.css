@@ -30,6 +30,11 @@
 .field {
   width:250px;
 }
+#nav_bar_logo_div {
+  margin-right:1%;
+  margin-left:1%;
+  margin-bottom:1%;
+}
 #user_create_form_first_column {
   margin-bottom: 30px
 }
@@ -44,31 +49,30 @@
   color:blue;
 }
 #nav_bar_logo {
-  margin-top:10px;
-  padding-left:15px;
-  width:194px;
-  height:37px;
+  width:auto;
+  max-height:100%;
+  max-width:100%;
+  height:50px;
 }
+
 #nav_bar {
-  height:60px;
   position: fixed;
-  width: 100%;
+  min-height:8%;
   background: black;
   z-index:10;
+  width:100%;
 }
 
 #nav_contact_link,
 #nav_about_link,
 #nav_user_sign_in,
 #toolkit_dropdown {
-  position: relative;
-  top:20px;
   font-family: 'proxima-nova';
   font-weight:bold;
   font-size:16px;
 }
 #sop_nav_container {
-  margin-left:15px;
+  position: relative;
   height:100%;
 }
 #sop_nav_button div,
@@ -79,7 +83,7 @@
 #c4d_plan_div,
 #c4d_act_div,
 #c4d_tools_div {
-  line-height:60px;
+  font-family: 'proxima-nova';
 }
 #sop_nav_button a,
 #sop_what_to_do_nav_button a,
@@ -88,6 +92,8 @@
 #nav_about_link a {
   color:white;
 }
+#toolkit_dropdown,
+#nav_contact_link,
 #nav_about_link {
   width:7%;
 }

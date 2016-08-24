@@ -7,7 +7,6 @@ class C4dController < ApplicationController
 
   def index
     @is_c4d = true
-    @nav_bar_offset = 'col-md-offset-1'
     @user = current_user
     @is_c4d_nav = true
     @c4d_categories = C4dCategory.all
@@ -16,7 +15,6 @@ class C4dController < ApplicationController
 
   def understand
     @is_c4d = true
-    @nav_bar_offset = 'col-md-offset-1'
     @user = current_user
     @is_c4d_understand = true
     @c4d_category = C4dCategory.find_by(title:'Understand')
@@ -26,7 +24,6 @@ class C4dController < ApplicationController
 
   def plan
     @is_c4d = true
-    @nav_bar_offset = 'col-md-offset-1'
     @user = current_user
     @is_c4d_plan = true
     @c4d_category = C4dCategory.find_by(title:'Plan')
@@ -36,7 +33,6 @@ class C4dController < ApplicationController
 
   def act
     @is_c4d = true
-    @nav_bar_offset = 'col-md-offset-1'
     @user = current_user
     @is_c4d_act = true
     @c4d_category = C4dCategory.find_by(title:'Act')
@@ -46,7 +42,6 @@ class C4dController < ApplicationController
 
   def tools
     @is_c4d = true
-    @nav_bar_offset = 'col-md-offset-1'
     @user = current_user
     @is_c4d_tools = true
     @c4d_category = C4dCategory.find_by(title:'Tools')
