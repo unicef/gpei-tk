@@ -98,3 +98,16 @@
   top:5px;
   right:5px;
 }
+#c4d_category_title_div,
+#c4d_image_title {
+  font-family:'Adelle' !important;
+  font-size: 37px !important;
+  color:white;
+  line-height: 39px;
+}
+#c4d_category_description_div,
+#c4d_image_description {
+  font-family: 'proxima-nova' !important;
+  color:white;
+  line-height: 23px;
+}
