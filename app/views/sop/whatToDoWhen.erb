@@ -1,8 +1,9 @@
 <%= render 'dashboard/nav' %>
 <div id='sop_selection_page'>
   <div id='sop_selection_wrapper_div'>
-    <div style='background:white;'>
-      YOUR GUIDE TO TIMELY OUTBREAK RESPONSE
+    <div id='sop_selection_image_container'>
+      <div id='sop_selection_image_container_title'>What to do, when</div>
+      <div id='sop_selection_image_container_description'>YOUR GUIDE TO TIMELY OUTBREAK RESPONSE</div>
     </div>
     <div id='sop_filter_container'>
       <!-- filters -->
@@ -63,15 +64,15 @@
             <div id="<%= article.id %>" class="<%= build_classes({grid_item: 'grid_item', time: article.sop_time.period.gsub(' ', '_'), offices: article.responsible_office.title.gsub(' ', '_'), category: article.sop_category.title.gsub(' ', '_')}) %>"
               style=<%='background-color:' + article.sop_time.color + ';' %>>
               <div class='sop_grid_content'>
-                <p id='grid_item_time_period' style="color:<%= get_color_for_sop_time(article.sop_time.period) %>;" class='text-left col-md-12'><%= image_tag "sop/grid_icons/#{ get_grid_image_by_sop_subcategory(article.sop_time.period, 'icon-time-white')}.png", width: '12px', height: '12px' %><%= article.sop_time.period %><span id="<%= article.id %>"></span></p>
-                <p id='grid_item_article_title' style="color:<%= get_color_for_sop_time(article.sop_time.period) %>;" class='col-md-12 text-left'><strong><%= article.title %></strong></p>
+                <p id='grid_item_time_period' style="color:<%= get_color_for_sop_time(article.sop_time.period) %>;" class='text-left col-md-12'><%= image_tag "sop/grid_icons/#{ get_grid_image_by_sop_subcategory(article.sop_time.period, 'icon-time-white')}.png", width: '17px', height: '17px' %><%= article.sop_time.period %><span id="<%= article.id %>"></span></p>
+                <p id='grid_item_article_title' style="color:<%= get_color_for_sop_time(article.sop_time.period) %>;" class='col-md-11 text-left'><strong><%= article.title %></strong></p>
                 <div id='grid_item_icon_div' class='row'>
                   <div id='sop_grid_subcat_and_responsible_office_div' style='color:<%= get_color_for_sop_time(article.sop_time.period) %>' class='text-left col-md-12'>
                     <div id='sop_grid_cat_div' class='col-md-8'>
                       <%= image_tag "sop/grid_icons/#{ get_grid_image_by_sop_subcategory(article.sop_time.period, 'icon-category-white')}.png", id:'sop_grid_cat_image', width: '8px', height: '8px', class:'col-md-2' %><div id='sop_grid_cat_div_text' class='col-md-10'>&nbsp;<%= article.sop_category.title %></div>
                     </div>
                     <div id='sop_grid_responsible_office' class='col-md-6 text-left'>
-                      <%= image_tag "sop/grid_icons/#{ get_grid_image_by_sop_subcategory(article.sop_time.period, 'icon-resp-white')}.png", id:'sop_grid_responsible_office_image', width: '13px', height: '13px', class:'col-md-2' %>  <div class='col-md-8'>&nbsp;&nbsp;<%= article.responsible_office.title %></div>
+                      <%= image_tag "sop/grid_icons/#{ get_grid_image_by_sop_subcategory(article.sop_time.period, 'icon-resp-white')}.png", id:'sop_grid_responsible_office_image', width: '13px', height: '15px', class:'col-md-2' %>  <div class='col-md-8'>&nbsp;&nbsp;<%= article.responsible_office.title %></div>
                     </div>
                   </div>
                   <%= image_tag "sop/icons/#{article.sop_icon.title}.png", id:'sop_grid_icon_img', width: 'auto', height:'35%', alt: "" %></div>

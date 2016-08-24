@@ -4,12 +4,14 @@
 
 #sop_landing_wtdw_title,
 #sop_landing_overview_title,
-#sop_landing_image_title {
+#sop_landing_image_title,
+#sop_selection_image_container_title {
   font-family:'Adelle' !important;
   font-size: 37px !important;
   color:white;
   line-height: 39px;
 }
+#sop_selection_image_container_description,
 #sop_landing_image_description {
   font-family: 'proxima-nova' !important;
   font-size: 21px !important;
@@ -19,7 +21,7 @@
 }
 .grid_item {
   width: 20%;
-  height: 180px;
+  height: 220px;
   border: 1px solid white;
 }
 .grid_item a:hover {
@@ -57,13 +59,22 @@
   margin-left:10px;
 }
 #grid_item_article_title {
+  font-family: 'Adelle' !important;
+  font-weight: bold;
+  font-size:24px !important;
   height:70px;
   padding-top:5px;
-  font-size:120%;
-  padding-left:5px;
+  margin-left:10px;
 }
+#grid_item_icon_div {
+  margin-left:10px;
+}
+#sop_grid_responsible_office,
+#sop_grid_cat_div,
 #grid_item_time_period {
-  line-height: 25px
+  font-family: 'proxima-nova' !important;
+  font-size: 19px !important;
+  padding-top:2px;
 }
 .grid_add,
 .grid_check {
