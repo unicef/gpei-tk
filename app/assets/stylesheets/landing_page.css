@@ -78,18 +78,19 @@
   color:white;
   background:#904941;
   height:150px;
+  padding-left:5px;
 }
 #landing_c4d_container_content {
   color:white;
   background:#35A3AE;
   height:150px;
+  padding-left:5px;
 }
 #sop_c4d_description_div {
   font-size:20px;
-  position: relative;
   font-weight: bold;
-  left:10px;
-  top:18px;
+  padding-top:4%;
+  padding-left:1%;
 }
 #landing_sop_c4d_angle_right {
   font-size:60px;
@@ -106,25 +107,18 @@
 #c4d_landing_description_span {
   font-size: 16px !important;
   font-family: 'proxima-nova' !important;
+  padding-left:5px;
 }
 #sop_landing_description_span {
   width:60%;
   color:#E5DDDD;
-  position: relative;
-  left: 10px;
-  bottom:-15px;
-  font-size:90%;
 }
 #c4d_landing_description_span {
   width:60%;
   color:#E5DDDD;
-  position: relative;
-  left: 10px;
-  bottom:-35px;
-  font-size:90%;
 }
 #sop_c4d_nav_content_container {
-  width:30%;
+  width:550px;
   position: relative;
   border:2px solid #E5DDDD;
   margin:0 auto;
