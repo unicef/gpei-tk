@@ -2,6 +2,21 @@
   box-sizing: border-box;
 }
 
+#sop_landing_wtdw_title,
+#sop_landing_overview_title,
+#sop_landing_image_title {
+  font-family:'Adelle' !important;
+  font-size: 37px !important;
+  color:white;
+  line-height: 39px;
+}
+#sop_landing_image_description {
+  font-family: 'proxima-nova' !important;
+  font-size: 21px !important;
+  height:100%;
+  color:white;
+  line-height: 23px;
+}
 .grid_item {
   width: 20%;
   height: 180px;
@@ -74,18 +89,21 @@
   height:200px;
   border:1px solid white;
 }
-#sop_landing_overview_description_div,
-#sop_landing_wtdw_description_div {
-  height:100%;
+#sop_landing_overview_description_div span,
+#sop_landing_wtdw_description_div span {
+  font-family: 'proxima-nova' !important;
+  font-size: 17px !important;
 }
 #sop_landing_wtdw_description_div {
   background-color:#B12924;
   border-right:1px solid white;
   color:white;
+  height:100%;
 }
 #sop_landing_overview_description_div {
   background-color:#DF3C36;
   color:white;
+  height:100%;
 }
 #sop_landing_wtdw_description,
 #sop_landing_wtdw_arrow,
@@ -94,7 +112,6 @@
   font-weight: bold;
 }
 #sop_landing_wtdw_arrow {
-  font-size:400%;
   padding-right:10px;
 }
 #sop_landing_wtdw_title {
@@ -115,7 +132,6 @@
   font-weight: bold;
 }
 #sop_landing_overview_arrow {
-  font-size:400%;
   padding-right:10px;
 }
 #sop_landing_overview_title {
