@@ -286,7 +286,7 @@ $(() => {
       matchColumnHeights()
     })
   }
-  $('#c4d_toolkit_list a').click(e => {
+  $('#c4d_toolkit_list').on('click', 'a', e => {
     e.preventDefault()
     loadC4dArticle(e.currentTarget.parentElement)
     $('#c4d_article_show_modal').modal('show')
