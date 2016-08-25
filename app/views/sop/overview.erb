@@ -1,26 +1,36 @@
 <%= render 'dashboard/nav' %>
 <div id='sop_selection_page'>
-  <div id='sop_overview_image_container' style='background:white;'>
-    AN IN-DEPTH MANUAL FOR NEW USERS AND FOR THOSE WHO NEED A REFRESHER
+  <div id='sop_overview_image_container'>
+    <div id='sop_overview_image_title'>Overview of the SOPs</div>
+    <div id='sop_overview_image_description'>AN IN-DEPTH MANUAL FOR NEW USERS AND FOR THOSE WHO NEED A REFRESHER</div>
   </div>
   <div id='sop_overview_content_div'>
     <div id='sop_overview_content_description_div' class='col-md-3'>
-    <strong>JUMP TO:</strong>
-    <br>
-    <br>
-    <div id='sop_jump_to_related' class='col-md-12'>
-      <div class='row sop_overview_content_list_items'><div id='sop_over_content_list_items_text' class='col-md-10'>INTRODUCTION</div><div id='overview_content_list_item_angle_right' class='col-md-2 text-right'><i class="fa fa-angle-right" aria-hidden="true"></i></div></div>
+      <strong>JUMP TO:</strong>
+      <br>
+      <br>
+      <div id='sop_jump_to_related' class='col-md-12'>
+        <div class='row sop_overview_content_list_items'>
+          <div id='sop_over_content_list_items_text' class='col-md-10'>INTRODUCTION</div>
+          <div id='overview_content_list_item_angle_right' class='col-md-2 text-right'><i class="fa fa-angle-right" aria-hidden="true"></i>
+          </div>
+        </div>
+        <% @sop_categories.each do |category| %>
+          <div class='row sop_overview_content_list_items'>
+            <div id='sop_over_content_list_items_text' class='col-md-10'><%= category.title.upcase %></div><div id='overview_content_list_item_angle_right' class='col-md-2 text-right'><i class="fa fa-angle-right" aria-hidden="true"></i>
+            </div>
+          </div>
+        <% end %>
 
-      <% @sop_categories.each do |category| %>
-        <div class='row sop_overview_content_list_items' class='col-md-12'><div id='sop_over_content_list_items_text' class='col-md-10'><%= category.title.upcase %></div><div id='overview_content_list_item_angle_right' class='col-md-2 text-right'><i class="fa fa-angle-right" aria-hidden="true"></i></div></div>
-      <% end %>
-
-      <% @sop_times.each do |time| %>
-        <div class='row sop_overview_content_list_items'><div id='sop_over_content_list_items_text' class='col-md-10'>WITHIN <%= time.period.upcase %></div><div id='overview_content_list_item_angle_right' class='col-md-2 text-right'><i class="fa fa-angle-right" aria-hidden="true"></i></div></div>
-      <% end %>
+        <% @sop_times.each do |time| %>
+          <div class='row sop_overview_content_list_items'>
+            <div id='sop_over_content_list_items_text' class='col-md-10'>WITHIN <%= time.period.upcase %></div><div id='overview_content_list_item_angle_right' class='col-md-2 text-right'><i class="fa fa-angle-right" aria-hidden="true"></i>
+            </div>
+          </div>
+        <% end %>
+      </div>
     </div>
-    </div>
-    <div id='sop_overview_content_div' class='col-md-9'>
+    <div id='sop_overview_content' class='col-md-9'>
       placeholder text
     </div>
   </div>
