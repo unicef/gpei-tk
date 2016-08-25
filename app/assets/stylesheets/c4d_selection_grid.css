@@ -44,10 +44,13 @@
   height:200px;
   border: 1px solid white;
 }
-#c4d_category_title_div {
+#c4d_right_angle_div {
+  right:6px;
+  top:30%;
 }
 #c4d_category_title_div,
 #c4d_right_angle_div {
+  position:absolute;
   height:33%;
   font-weight:bold;
 }
@@ -56,7 +59,8 @@
   padding-left:8px;
 }
 #c4d_category_description_div {
-  height:30%;
+  position: absolute;
+  bottom:10px;
   opacity:0.5;
 }
 #c4d_selection_page a {
