@@ -397,9 +397,13 @@ $(() => {
 
   $('#sop_article_show_modal').on('click', '#related_topics_list a', e => {
     e.preventDefault()
+    loadSopArticle(e.currentTarget)
+    return false
+  })
+  function loadSopArticle(target) {
     $.ajax({
       method: 'GET',
-      url: '/sop_articles/' + e.currentTarget.id
+      url: '/sop_articles/' + target.id
     }).done(response => {
       $('#sop_article_show_modal .header').empty()
       $('#sop_article_show_modal .content').empty()
@@ -418,7 +422,10 @@ $(() => {
       outerHeight = outerHeight - $('#sop_article_show_modal .header').outerHeight()
       $('#sop_article_show_info_column').css({ height: outerHeight })
     })
-
-    return false
+  }
+  $('#sop_checklist_list').on('click', 'a', e => {
+    e.preventDefault()
+    loadSopArticle(e.currentTarget.parentElement)
+    $('#sop_article_show_modal').modal('show')
   })
 })

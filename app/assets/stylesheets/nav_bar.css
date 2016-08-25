@@ -106,6 +106,10 @@
 #c4d_nav_container {
   height:100%;
 }
+#c4d_nav_container,
+#sop_nav_container {
+  font-size:16px;
+}
 #sop_nav_div,
 #c4d_nav_div {
   height:100%;
@@ -128,4 +132,12 @@
 #c4d_tools_div.active {
   border-left:1px solid white;
   border-right:1px solid white;
+}
+#sop_checklist_list a:hover,
+#c4d_toolkit_list a:hover,
+#sop_checklist_list a:active,
+#c4d_toolkit_list a:active,
+#sop_checklist_list a:visited,
+#c4d_toolkit_list a:visited {
+  color:white;
 }
