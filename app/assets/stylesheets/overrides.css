@@ -35,4 +35,5 @@ body, button, input, select, textarea {
 p {
   -webkit-margin-before:0px;
   -webkit-margin-after:0px;
+  margin: 0 0 0 0;
 }
