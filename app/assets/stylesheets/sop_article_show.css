@@ -167,9 +167,10 @@
 }
 #c4d_show_references,
 #related_topics_header,
-#sop_show_references {
+#sop_show_references,
+#multimedia_header {
   font-family:'proxima-nova';
-  font-size: 23px !important;
+  font-size: 17px !important;
 }
 #reference_link_anchor_div a,
 #related_topic_link_div div a,
@@ -181,9 +182,6 @@
 #sop_add_to_toolkit_text {
   font-family:'proxima-nova';
   font-size:12px;
-}
-#multimedia_header {
-  font-family:'proxima-nova';
 }
 .max-height {
   height:100%;
