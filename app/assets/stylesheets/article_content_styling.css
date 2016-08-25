@@ -6,3 +6,7 @@
 #sop_article_content ul {
     margin-bottom: 1em;
 }
+#sop_article_content ul li p,
+#c4d_article_content ul li p{
+  margin-bottom:0px;
+}
