@@ -3,7 +3,7 @@ $(() => {
     e.preventDefault()
     $(this).unbind(e)
     if(e.originalEvent.wheelDelta /120 > 0) {
-      // console.log('mwheelevent up')
+      //mwheelevent up
     }
     else{
       let nav_bar_height = $('#nav_bar').outerHeight()

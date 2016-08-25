@@ -59,7 +59,9 @@ $(() => {
     let padding = $('#nav_bar').outerHeight()
     padding += "px"
     $('#sop_selection_page').css({ paddingTop: padding })
+    $('#c4d_selection_page').css({ paddingTop: padding })
   })
+
   let padding = $('#nav_bar').outerHeight()
   padding += "px"
   $('#sop_selection_page').css({ paddingTop: padding })

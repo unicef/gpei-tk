@@ -31,9 +31,7 @@
   width:250px;
 }
 #nav_bar_logo_div {
-  margin-right:1%;
-  margin-left:1%;
-  margin-bottom:1%;
+  text-align:center;
 }
 #user_create_form_first_column {
   margin-bottom: 30px
@@ -49,10 +47,16 @@
   color:blue;
 }
 #nav_bar_logo {
-  width:auto;
-  max-height:100%;
-  max-width:100%;
-  height:50px;
+  max-height:70%;
+  max-width:70%;
+}
+#c4d_nav_container,
+#sop_nav_container,
+#nav_contact_link,
+#nav_about_link,
+#nav_user_sign_in,
+#toolkit_dropdown {
+  max-width:30%;
 }
 
 #nav_bar {
@@ -60,7 +64,6 @@
   min-height:8%;
   background: black;
   z-index:10;
-  width:100%;
   font-family:'proxima-nova' !important;
 }
 
@@ -91,6 +94,9 @@
 #nav_contact_link a,
 #nav_about_link a {
   color:white;
+}
+#nav_contact_link.col-md-offset-3 {
+  margin-left:29%;
 }
 #nav_contact_link,
 #nav_about_link {
