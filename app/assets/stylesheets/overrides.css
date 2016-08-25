@@ -32,3 +32,6 @@ body, button, input, select, textarea {
 .white_text {
   color:white;
 }
+p {
+  -webkit-margin-before:0px;
+  -webkit-margin-after:0px;
