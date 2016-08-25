@@ -83,7 +83,6 @@
   padding-top:35px;
 }
 #c4d_add_to_toolkit_text {
-  font-size:80%;
   font-weight:bold;
   position:absolute;
   right:10px;
@@ -137,9 +136,6 @@
   left: auto;
   top: 7px;
 }
-.row#cgi_related_topics_header {
-  font-size:80%;
-}
 #cgi_show_info_column_content_links {
   position:absolute;
   top:30px;
@@ -179,13 +175,11 @@
   margin-bottom:5px;
 }
 #related_topic_link_div {
-  font-size:130%;
   opacity:.6;
   border-bottom:1px solid rgba(0,0,0, 0.2);
 }
 #related_topic_link_div i {
   float:right;
-  font-size:120%;
 }
 #c4d_article_show_info_column_content {
   padding:15px;

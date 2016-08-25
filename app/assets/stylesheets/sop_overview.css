@@ -3,7 +3,6 @@
   border-bottom:1px solid black;
   width:auto;
   opacity:.6;
-  font-size:110%;
   margin-bottom:5px;
   padding-bottom:5px;
 }
@@ -11,6 +10,8 @@
   padding:15px;
   background-color:#e5e5e5;
   height:100%;
+  font-family:'proxima-nova';
+  font-size: 17px;
 }
 #sop_overview_content_div {
   height:100%;
@@ -20,5 +21,30 @@
   float: right;
   font-size:170%;
 }
+#sop_overview_image_title {
+  font-family:'Adelle' !important;
+  font-size: 37px !important;
+  color:white;
+  line-height: 39px;
+}
+#sop_overview_image_description {
+  font-family: 'proxima-nova' !important;
+  font-size: 21px !important;
+  height:100%;
+  color:white;
+  line-height: 23px;
+  opacity:0.6;
+}
+#sop_overview_content_description_div {
+  font-family: 'proxima-nova';
+  font-size: 17px;
+}
 #sop_over_content_list_items_text {
+  font-family: 'proxima-nova';
+  font-size: 19px;
+}
+#sop_overview_content {
+  padding:5px;
+  font-family: 'proxima-nova';
+  font-size: 23px;
 }
