@@ -16,9 +16,6 @@
 #sop_article_show_info_column_content {
   padding:4%;
 }
-#sop_article_show_info_column_content a {
-  font-size:140%;
-}
 #reference_link_row {
   border-bottom: 1px solid rgba(0, 0, 0, 0.12);
   padding-bottom:10px;
@@ -113,7 +110,6 @@
   padding-top:35px;
 }
 #sop_add_to_toolkit_text {
-  font-size:80%;
   font-weight:bold;
   position:absolute;
   right:10px;
@@ -157,4 +153,20 @@
 #sop_article_show_info_row_icon {
   height:45px;
   width:auto;
+}
+#sop_show_references {
+  font-family:'proxima-nova';
+  font-size: 23px !important;
+}
+#reference_link_anchor_div a {
+  font-family:'proxima-nova';
+  font-size: 19px !important;
+}
+/*#sop_article_content {
+  font-size: 23px;
+  font-family:'proxima-nova';
+}*/
+#sop_add_to_toolkit_text {
+  font-family:'proxima-nova';
+  font-size:13px;
 }

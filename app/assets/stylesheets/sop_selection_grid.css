@@ -18,6 +18,7 @@
   height:100%;
   color:white;
   line-height: 23px;
+  opacity:0.6;
 }
 .grid_item {
   width: 20%;
@@ -32,7 +33,6 @@
 }
 #grid_item_icon_div {
   height:85px;
-  font-size:95%;
 }
 #sop_grid_cat_div {
   padding-left:3px;
@@ -146,8 +146,6 @@
   padding-right:10px;
 }
 #sop_landing_overview_title {
-  font-size:250%;
-  line-height:90%;
   padding-top:3%;
   padding-left:10px;
 }
