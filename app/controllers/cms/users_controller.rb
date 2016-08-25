@@ -27,7 +27,7 @@ class Cms::UsersController < ApplicationController
         if @user.save
           SopChecklist.create(user_id: @user.id)
           C4dToolkit.create(user_id: @user.id)
-          user = { id: @user.id, first_name: @user.first_name, last_name: @user.last_name, email: @user.email }
+          user = { id: @user.id, first_name: @user.first_name, last_name: @user.last_name, email: @user.email, is_deleted: @user.is_deleted }
           render json: { status: 200, user: user, role: @user.role }
         end
       end

@@ -72,14 +72,14 @@ $(() => {
 
   $('#CMS_modal_content').on('submit', '#cms_user_create', e => {
     e.preventDefault()
-    if (verifyPasswordsMatch()){
+    if (verifyPasswordsMatch()) {
       $.ajax({
         method: 'POST',
         url: '/cms/users/',
         data: $('#CMS_modal_content #cms_user_create').serialize()
       }).done(response => {
         $('#CMS_modal').modal('toggle')
-        let content = '<tr id="' + response.user.id + '">' + '<td>' + response.user.first_name + '</td>' + '<td>' + response.user.last_name + '</td>' + '<td>' + response.user.email + '</td>' + '<td>' + response.role.title + '</td>' + '<td>' + getUserActionDropdown(response.user.id) + '</td>' + '</tr>'
+        let content = '<tr id="' + response.user.id + '">' + '<td>' + response.user.first_name + '</td>' + '<td>' + response.user.last_name + '</td>' + '<td>' + response.user.email + '</td>' + '<td>' + response.role.title + '</td>' + `<td>${userIsActive(response.user.is_deleted)}</td>` + '<td>' + getUserActionDropdown(response.user.id) + '</td>' + '</tr>'
         $('#CMS_index_content #CMS_users_table').append(content)
       })
     } else {
