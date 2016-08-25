@@ -117,6 +117,17 @@
   height:20px;
   width:140px;
 }
+
+#cgi_sop_article_show_page .sop_grid_add,
+#cgi_sop_article_show_page .sop_grid_check {
+  position:absolute;
+  left: auto;
+  top: 5px;
+  right: 5px;
+  color: black;
+  font-size:80%;
+}
+
 #sop_article_show_modal .sop_grid_add,
 #sop_article_show_modal .sop_grid_check {
   position:absolute;
@@ -170,4 +181,20 @@
 #sop_add_to_toolkit_text {
   font-family:'proxima-nova';
   font-size:12px;
+}
+#multimedia_header {
+  font-family:'proxima-nova';
+}
+.max-height {
+  height:100%;
+}
+#sop_article_show_header {
+  font-family: 'proxima-nova';
+  font-size:25px;
+}
+#cgi_sop_close_icon_div {
+  position:relative;
+  bottom:20px;
+  right:10px;
+  font-size:14px;
 }

@@ -1,37 +1,108 @@
-<%= render 'dashboard/nav' %>
 <script type="text/javascript">$('#application').css({background:'#FFFFFF'})</script>
 <% if @sop_article %>
-<div id='sop_article_show_page'>
-  <div class='col-md-3' style='border: 2px white solid'>
-    <div id="sop_article_logo_row" class='row' style="background-color: <%=  @sop_article.sop_time.color %>;">
-      <%= link_to sop_path do %>
-      <div style="position:absolute;top:5px;left:5px;color:white;z-index=20"><span>close</span><i class="fa fa-remove" aria-hidden="true"></i></div>
-      <% end %>
-      <%= image_tag "sop/icons/#{@sop_article.sop_icon.title}.png", id: 'sop_article_icon', class: '', alt: @sop_article.sop_icon.title %>
-      <p id='grid_item_article_title' style="visibility:hidden;"><%= @sop_article.title %></p>
-      <a id="<%= @sop_article.id %>" class='grid_add' href='' style="top:5px;right:5px;position:absolute;<%= style_visible('add', @user, @sop_article) %>;color:black;"><i class="fa fa-plus" aria-hidden="true"></i></a>
-      <a id="<%= @sop_article.id %>" class='grid_check' href='' style="top:5px;right:5px;position:absolute;<%= style_visible('check', @user, @sop_article) %>;color:black;"><i class="fa fa-check" aria-hidden="true"></i></a>
-      <div id='sop_article_logo_text_div'>
-        <p id='sop_article_logo_text_period'><strong style='color:<%= get_color_for_sop_time(@sop_article.sop_time.period) %>;'><%= @sop_article.sop_time.period %></strong></p>
-        <p id='sop_article_logo_text_title'><strong style='color:<%= get_color_for_sop_time(@sop_article.sop_time.period) %>;'><%= @sop_article.title.capitalize %></strong></p>
+<div id='cgi_sop_article_show_page' class='max-height'>
+  <div id="sop_article_show_header" class='row' style='color:white;background-color:<%= @sop_article.sop_time.color %>;'>
+    <div id='sop_category_and_article_title' class='col-md-12 text-center' style='background-color:<%= @sop_article.sop_time.color %>;color:<%= get_color_for_sop_time(@sop_article.sop_time.period) %>;'><%= @sop_article.sop_category.title %> - <%= @sop_article.title %></div>
+    <div id='cgi_sop_close_icon' class='text-right'>
+      <div id='cgi_sop_close_icon_div'>
+        <a href='/sop/what_to_do_when/' style='color:<%= get_color_for_sop_time(@sop_article.sop_time.period) %>;'>CLOSE&nbsp;<i class="fa fa-remove" aria-hidden="true"></i></a>
       </div>
     </div>
-    <% if !@sop_article.reference_links.empty? %>
-    <div class='row'>
-      <div id='sop_show_references'>
-        <ul class='list-unstyled' style='color: black;'>
-          <% @sop_article.sop_reference_links.each do |link| %>
-            <li><%= link_to link.file_name, sop_reference_link_path(link) %></li>
-          <% end %>
+  </div>
+  <div id="sop_article_show_info_column" class='col-md-3 max-height'>
+    <div id="sop_article_show_info_column_content">
+      <% if !@sop_article.reference_links.empty? %>
+        <div class='row'>
+          <div id='sop_show_references'>
+            <div class='col-md-12'>
+              <strong>REFERENCES:</strong>
+            </div>
+            <% @sop_article.reference_links.each do |reference_link| %>
+              <div id='reference_link_row' class='row'>
+                <div class='col-md-2'>
+                  <img class='reference_link_pdf_icon' src='/assets/reference_icons/icon-doc-pdf.png'>
+                </div>
+                <div id='reference_link_anchor_div' class='col-md-10'>
+                  <a class='reference_link_anchor' href="<%= reference_link.url %>" target='_blank'>&nbsp;<%= reference_link.document_file_name.gsub(/(.pdf|_)/," ").upcase %> </a>
+                </div>
+              </div>
+            <% end %>
+          </div>
+        </div>
+      <% end %>
+      <% if !@sop_article.video_url.nil? %>
+        <div class='row'>
+          <div id='multimedia_header' class='col-md-9'>
+            <strong>MULTIMEDIA:</strong>
+          </div>
+          <div class='col-md-12'>
+            <iframe src="<%= @sop_article.video_url.gsub('https://vimeo.com/', 'https://player.vimeo.com/video/') %>" width="97%" height="auto" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
+          </div>
+        </div>
+      <% end %>
+    </div>
+  </div>
+
+  <div id='sop_article_content_div' class='col-md-9' class='black_text'>
+    <div class='sop_email_icon'>
+      <a id='sop_email_icon_link' href=''><i class="fa fa-envelope" aria-hidden="true"></i></a>
+    </div>
+    <div class='sop_print_icon'>
+      <a id='sop_print_icon_link' href=''><i class="fa fa-print" aria-hidden="true"></i></a>
+    </div>
+    <div id="<%= @sop_article.id %>" class='text-center'>
+      <div id='sop_add_to_toolkit_text'>ADD TO MY TOOLKIT</div>
+    </div>
+<!--     <div id="<%= @sop_article.id %>" class='sop_modal_article_icons'>
+      <p class="sop_grid_item_article_title <%= @sop_article.title %>" style='display:none;visibility:hidden;'><%= @sop_article.title %></p>
+      <a id='<%= @sop_article.id %>' class='sop_grid_add' href='' style="<%= style_visible('add', @user, @sop_article) %>;"><i class="fa fa-plus" aria-hidden="true"></i></a>
+      <a id='<%= @sop_article.id %>' class='sop_grid_check' href='' style="<%= style_visible('check', @user, @sop_article) %>;"><i class="fa fa-check" aria-hidden="true"></i></a>
+      <div class='row text-center' style='display:none;visibility:hidden;'>
+        <ul class="list-unstyled">
+          <li id="sop_article_show_subcategory_text"><%= @sop_article.sop_time.period %></li>
+          <li id="sop_article_show_article_title_text"><%= @sop_article.title %></li>
         </ul>
       </div>
-    </div>
-    <% end %>
-  </div>
-  <div class='col-md-9' style='border: 2px white solid'>
-    <div class='row'>
-      <div id='sop_article_show'>
-       <%= @sop_article.content.html_safe %>
+    </div> -->
+    <div id='sop_article_content'>
+      <div class='col-md-12'>
+        <%= @sop_article.content.html_safe %>
+      </div>
+      <div id='sop_article_show_info_row' class='col-md-12'>
+        <div id='sop_article_show_time_function_column' class='col-md-4'>
+          <div id='sop_article_show_time_column' class='col-md-12'>
+            <div>
+              <img id='sop_info_row_icons' src='/assets/sop/grid_icons/icon-time-black.png'>&nbsp;<strong>TIME</strong>
+            </div>
+            <div class='col-md-12' style='padding-left:5px;color:<%= get_color_for_sop_time(@sop_article.sop_time.period) %>;background-color: <%= @sop_article.sop_time.color %>'>
+              <%= @sop_article.sop_time.period %>
+            </div>
+          </div>
+          <div id='sop_article_show_function_column' class='col-md-12'>
+            <div class='col-md-12'>
+              <img id='sop_info_row_icons' src='/assets/sop/grid_icons/icon-category-black.png'>&nbsp;<strong>FUNCTION</strong>
+            </div>
+            <div class='col-md-12'>
+              <img id='sop_article_show_info_row_icon' src='<%= getSopCategoryIcon(@sop_article.sop_category.title) %>'>&nbsp;<%= @sop_article.sop_category.title %>
+            </div>
+          </div>
+        </div>
+        <div id='sop_article_show_responsible_column' class='col-md-4'>
+          <div class='col-md-12'>
+            <img id='sop_info_row_icons' src='/assets/sop/grid_icons/icon-resp-black.png'>&nbsp;<strong>RESPONSIBILITY</strong>
+          </div>
+          <div class='col-md-12'>
+            <%= @sop_article.responsible %>
+          </div>
+        </div>
+        <div id='sop_article_show_support_column' class='col-md-4'>
+          <div class='col-md-12'>
+            <strong>SUPPORT</strong>
+          </div>
+          <div class='col-md-12'>
+            <%= @sop_article.support %>
+          </div>
+        </div>
       </div>
     </div>
   </div>
