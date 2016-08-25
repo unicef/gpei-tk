@@ -24,15 +24,12 @@ class C4dArticlesController < ApplicationController
                      toolkit_articles: toolkit_articles,
                      reference_links: reference_links }
     else
-      @nav_bar_offset = 'col-md-offset-7'
       @user = current_user
-      @img_name = 'C4D'
       if params['id'].nil?
-        @c4d_article = C4dArticle.where(title: params['title']).first
+        @c4d_article = C4dArticle.find_by(title: params['title'])
       else
-        @c4d_article = C4dArticle.where(id: params['id']).first
+        @c4d_article = C4dArticle.find_by(id: params['id'])
       end
-      @c4d_categories = C4dCategory.all
       @c4d_related_topics = C4dArticle.where("published = true AND c4d_subcategory_id = ? AND id != ?", @c4d_article.c4d_subcategory_id, @c4d_article.id).order(order_id: :asc)
     end
   end
