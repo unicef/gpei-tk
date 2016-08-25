@@ -75,7 +75,7 @@
                       <%= image_tag "sop/grid_icons/#{ get_grid_image_by_sop_subcategory(article.sop_time.period, 'icon-resp-white')}.png", id:'sop_grid_responsible_office_image', width: '13px', height: '15px', class:'col-md-2' %>  <div class='col-md-8'>&nbsp;&nbsp;<%= article.responsible_office.title %></div>
                     </div>
                   </div>
-                  <%= image_tag "sop/icons/#{article.sop_icon.title}.png", id:'sop_grid_icon_img', width: 'auto', height:'35%', alt: "" %></div>
+                  <%= image_tag "sop/icons/#{article.sop_icon.title}.png", id:'sop_grid_icon_img', alt: "", visible: 'hidden' %></div>
               </div>
               <a class='grid_add' href='' style="<%= style_visible('add', @user, article) %>;"><i class="fa fa-plus" aria-hidden="true"></i></a>
               <a class='grid_check' href='' style="<%= style_visible('check', @user, article) %>;"><i class="fa fa-check" aria-hidden="true"></i></a>

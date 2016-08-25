@@ -42,6 +42,8 @@
   bottom:-3px;
 }
 #sop_grid_icon_img {
+  max-height:30%;
+  max-width:30%;
   position: absolute;
   right:5px;
   bottom:5px;
@@ -62,6 +64,7 @@
   font-family: 'Adelle' !important;
   font-weight: bold;
   font-size:24px !important;
+  line-height: 24px;
   height:70px;
   padding-top:5px;
   margin-left:10px;
@@ -75,6 +78,7 @@
   font-family: 'proxima-nova' !important;
   font-size: 19px !important;
   padding-top:2px;
+  line-height:19px;
 }
 .grid_add,
 .grid_check {
