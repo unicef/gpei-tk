@@ -1,0 +1,8 @@
+#c4d_article_content table,
+#c4d_article_content p,
+#c4d_article_content ul,
+#sop_article_content table,
+#sop_article_content p,
+#sop_article_content ul {
+    margin-bottom: 1em;
+}
