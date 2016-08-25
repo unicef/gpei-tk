@@ -210,7 +210,7 @@ cgi_show_info_column_content_links.c4d_grid_add,
   font-family:'proxima-nova';
   font-size: 19px !important;
 }
-#related_topic_link_div_text {
-  position: relative;
-  top:12px;
+#cgi_c4d_article_show_page,
+#cgi_c4d_article_all_content {
+  height:100%;
 }

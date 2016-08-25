@@ -8,7 +8,7 @@
   <!-- row 2 -->
   <div id='cgi_c4d_article_all_content' class='row'>
     <!-- col 1 -->
-    <div class='col-md-2'>
+    <div class='col-md-3'>
       <div id="cgi_c4d_article_show_info_column_content">
         <div id='cgi_show_info_column_content_links'>
           <% if !@c4d_related_topics.empty? %>
@@ -22,7 +22,7 @@
                     <div id='related_topic_link_div_text' class='col-md-10'>
                       <a id='<%= article.id %>' href='/c4d_articles/<%= article.id %>' class="black_text"><%= article.title %></a>
                     </div>
-                    <div class='col-md-2'>
+                    <div id='related_topic_link_div_icon' class='col-md-2'>
                       <a id='<%= article.id %>' href='/c4d_articles/<%= article.id %>' class="black_text"><i class="fa fa-angle-right fa-2x" aria-hidden="true"></i></a>
                     </div>
                   </div>
@@ -48,7 +48,7 @@
         </div>
       </div>
     </div>
-    <div id='cgi_c4d_article_show_table' class='col-md-10'>
+    <div id='cgi_c4d_article_show_table' class='col-md-9'>
       <div class='row'>
         <div class='c4d_email_icon'>
           <a id='cgi_c4d_email_icon_link' href=''><i class="fa fa-envelope" aria-hidden="true"></i></a>
