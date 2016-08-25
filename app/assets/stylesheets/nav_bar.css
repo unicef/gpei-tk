@@ -62,6 +62,7 @@
 #nav_bar {
   position: fixed;
   min-height:8%;
+  width:100%;
   background: black;
   z-index:10;
   font-family:'proxima-nova' !important;
