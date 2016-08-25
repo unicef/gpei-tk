@@ -263,9 +263,14 @@ $(() => {
 
   $('#c4d_article_show_modal').on('click', '#related_topics_list a', e => {
     e.preventDefault()
+    loadC4dArticle(e.currentTarget)
+    return false
+  })
+
+  function loadC4dArticle(target) {
     $.ajax({
       method: 'GET',
-      url: '/c4d_articles/' + e.currentTarget.id
+      url: '/c4d_articles/' + target.id
     }).done(response => {
       clearC4dModalText()
       let content = c4d_article_content({ article: response.article,
@@ -278,9 +283,13 @@ $(() => {
       let header = c4d_article_header({ c4d_subcategories: response.c4d_subcategories, article: response.article, c4d_categories: response.c4d_categories })
       $('#c4d_article_show_modal .header').append(header)
       $('#c4d_article_show_modal .content').append(content)
-      $('#c4d_article_show_modal').modal('show')
       matchColumnHeights()
     })
+  }
+  $('#c4d_toolkit_list a').click(e => {
+    e.preventDefault()
+    loadC4dArticle(e.currentTarget.parentElement)
+    $('#c4d_article_show_modal').modal('show')
+    return false
   })
-  // 2.0 c4d handling
 })

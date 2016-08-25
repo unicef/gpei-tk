@@ -427,5 +427,6 @@ $(() => {
     e.preventDefault()
     loadSopArticle(e.currentTarget.parentElement)
     $('#sop_article_show_modal').modal('show')
+    return false
   })
 })
