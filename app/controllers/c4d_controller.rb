@@ -3,7 +3,7 @@ class C4dController < ApplicationController
     @is_c4d = true
     @user = current_user
     @is_c4d = true
-    @nav_bar_offset = 'col-md-offset-1'
+    @nav_bar_offset = 'col-md-offset-3'
     @c4d_categories = C4dCategory.all
   end
 
