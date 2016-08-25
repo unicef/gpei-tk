@@ -111,12 +111,7 @@ $(() => {
   }
 
   // c4d article modal show
-  $('#c4d_article_show_modal').modal({
-    onHide: () => {
-      $('#c4d_article_show_modal .content').empty()
-      $('#c4d_article_show_modal .header').empty()
-    }
-  })
+  $('#c4d_article_show_modal').modal()
 // $('#c4d_subcategory_accordion td div a')
   $('#c4d_subcategory_accordion td div a').click(e => {
     e.preventDefault()
@@ -124,7 +119,7 @@ $(() => {
       method: 'GET',
       url: '/c4d_articles/' + e.currentTarget.id
     }).done(response => {
-      $('#c4d_article_show_modal').modal('show')
+      clearC4dModalText()
       let content = c4d_article_content({ article: response.article,
                                           c4d_categories: response.c4d_categories,
                                           c4d_subcategories: response.c4d_subcategories,
@@ -135,13 +130,20 @@ $(() => {
       let header = c4d_article_header({ c4d_subcategories: response.c4d_subcategories, article: response.article, c4d_categories: response.c4d_categories })
       $('#c4d_article_show_modal .header').append(header)
       $('#c4d_article_show_modal .content').append(content)
-
-      if ($('#c4d_article_content_div').outerHeight() > $('#c4d_article_show_info_column').outerHeight())
-        $('#c4d_article_show_info_column').css({ height: $('#c4d_article_content_div').outerHeight() })
-      else if ($('#c4d_article_content_div').outerHeight() < $('#c4d_article_show_info_column').outerHeight())
-        $('#c4d_article_content_div').css({ height: $('#c4d_article_show_info_column').outerHeight() })
+      $('#c4d_article_show_modal').modal('show')
+      matchColumnHeights()
     })
   })
+  function matchColumnHeights() {
+    if ($('#c4d_article_content_div').outerHeight() > $('#c4d_article_show_info_column').outerHeight())
+      $('#c4d_article_show_info_column').css({ height: $('#c4d_article_content_div').outerHeight() })
+    else if ($('#c4d_article_content_div').outerHeight() < $('#c4d_article_show_info_column').outerHeight())
+      $('#c4d_article_content_div').css({ height: $('#c4d_article_show_info_column').outerHeight() })
+  }
+  function clearC4dModalText() {
+    $('#c4d_article_show_modal .content').empty()
+    $('#c4d_article_show_modal .header').empty()
+  }
   function c4d_article_header(params) {
     return `
       <div id="c4d_article_show_header" class='row' style='background-color:${ params['c4d_subcategories'][params['article'].c4d_subcategory_id-1].color } ;'>
@@ -200,7 +202,7 @@ $(() => {
             <strong>JUMP TO:</strong>
           </div>
           <div id="related_topics_list"> ${_.map(related_topics, article => {
-            return `<div id='related_topic_link_div' class='col-md-12'><div class='col-md-10'><a id='${ article.id }' href='/c4d_articles/${article.id}' class="black_text">${ article.title }</a></div><div class='col-md-2'><a id='${ article.id }' href='/c4d_articles/${article.id}' class="black_text"><i class="fa fa-angle-right" aria-hidden="true"></i></a></div></div>`
+            return `<div id='related_topic_link_div' class='col-md-12'><div class='col-md-10'><a id='${ article.id }' href='/c4d_articles/${article.id}' class="black_text">${ article.title }</a></div><div class='col-md-2'><a id='${ article.id }' href='/c4d_articles/${article.id}' class="black_text"><i class="fa fa-angle-right fa-2x" aria-hidden="true"></i></a></div></div>`
           }).join('\n')}
           </div>
         </div>`
@@ -211,7 +213,7 @@ $(() => {
   function getReferenceLinksDiv(reference_links){
     let content = ""
     if (!_.isEmpty(reference_links)) {
-      content = "<div class='row'><div id='sop_show_references'><div class='col-md-12'><strong>REFERENCES:</strong></div>" +
+      content = "<div class='row'><div id='c4d_show_references'><div class='col-md-12'><strong>REFERENCES:</strong></div>" +
         _.map(reference_links, reference_link => {
           let reference_title = _.replace(reference_link.document_file_name, new RegExp("_","g")," ")
           reference_title = _.replace(reference_title, new RegExp(".pdf","g"),"")
@@ -265,9 +267,7 @@ $(() => {
       method: 'GET',
       url: '/c4d_articles/' + e.currentTarget.id
     }).done(response => {
-      $('#c4d_article_show_modal .header').empty()
-      $('#c4d_article_show_modal .content').empty()
-      $('#c4d_article_show_modal').modal('show')
+      clearC4dModalText()
       let content = c4d_article_content({ article: response.article,
                                           c4d_categories: response.c4d_categories,
                                           c4d_subcategories: response.c4d_subcategories,
@@ -278,8 +278,8 @@ $(() => {
       let header = c4d_article_header({ c4d_subcategories: response.c4d_subcategories, article: response.article, c4d_categories: response.c4d_categories })
       $('#c4d_article_show_modal .header').append(header)
       $('#c4d_article_show_modal .content').append(content)
-      if ($('#c4d_article_content').outerHeight() > $('#c4d_article_show_info_column').outerHeight())
-      $('#c4d_article_show_info_column').css({ height: $('#c4d_article_content').outerHeight() })
+      $('#c4d_article_show_modal').modal('show')
+      matchColumnHeights()
     })
   })
   // 2.0 c4d handling
