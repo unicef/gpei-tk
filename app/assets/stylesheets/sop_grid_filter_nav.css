@@ -1,4 +1,5 @@
-ol, ul {
+#select_filter_dropdown_menu ol,
+#select_filter_dropdown_menu ul {
   margin-bottom:0 !important;
 }
 #select_filter_dropdown_menu .item {

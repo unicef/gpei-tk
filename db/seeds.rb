@@ -87,7 +87,7 @@ C4dSubcategory.create(title: 'Innovations', c4d_category_id: 4, color: '#AEF1DF'
 user = User.new(
   first_name: 'root',
   last_name: 'admin',
-  country: 'USA',
+  country: 'us',
   email: 'root@example.com',
   TOS_accepted: true)
 user.password = 'foobar'
@@ -98,7 +98,7 @@ user.save
 user = User.new(
   first_name: 'core',
   last_name: 'admin',
-  country: 'USA',
+  country: 'us',
   email: 'admin@example.com',
   TOS_accepted: true)
 user.password = 'password'
