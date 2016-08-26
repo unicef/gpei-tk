@@ -433,4 +433,36 @@ $(() => {
   _($('#grid_item_icon_div #sop_grid_icon_img')).forEach(img => {
     $(img).css({ visibility: 'visible' })
   })
+
+  // $(window).resize(e => {
+  //   let current_width = $('#isotope_container').outerWidth()
+
+  //   if (current_width > 1100) {
+  //     let width = current_width - 1100
+  //     adjustGridItemLeftPixels(width/2)
+  //   }
+  //   else if (current_width > 880 && current_width < 1100) {
+  //     let width = current_width - 880
+  //     adjustGridItemLeftPixels(width/2)
+  //   }
+  //   else if (current_width > 660 && current_width < 880) {
+  //     let width = current_width - 660
+  //     adjustGridItemLeftPixels(width/2)
+  //   }
+  //   else if (current_width > 440 && current_width < 660) {
+  //     let width = current_width - 440
+  //     adjustGridItemLeftPixels(width/2)
+  //   }
+  //   else if (current_width > 220  && current_width < 1100) {
+  //     let width = current_width - 220
+  //     adjustGridItemLeftPixels(width/2)
+  //   }
+  // })
+  // function adjustGridItemLeftPixels(offset) {
+  //   _.forEach($('#isotope_container .grid_item'), grid_item =>  {
+  //     let position = parseInt(_.replace($(grid_item).css('left'), 'px', ''))
+  //     position += offset
+  //     $(grid_item).css({ left: position })
+  //   })
+  // }
 })

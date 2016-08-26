@@ -58,7 +58,7 @@
       </div>
     </div>
     <div class='row text-center'>
-      <div id='isotope_container'>
+      <div id='isotope_container' class='text-center'>
         <% @sop_articles.each do |article| %>
           <%= link_to sop_article_path(article) do %>
             <div id="<%= article.id %>" class="<%= build_classes({grid_item: 'grid_item', time: article.sop_time.period.gsub(' ', '_'), offices: article.responsible_office.title.gsub(' ', '_'), category: article.sop_category.title.gsub(' ', '_')}) %>"

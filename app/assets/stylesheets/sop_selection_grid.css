@@ -20,7 +20,11 @@
   line-height: 23px;
   opacity:0.6;
 }
+#isotope_container {
+}
 .grid_item {
+  display:inline-block;
+  margin: 0 auto;
   width: 20%;
   height: 220px;
   border: 1px solid white;
