@@ -31,6 +31,7 @@
   width:250px;
 }
 #nav_bar_logo_div {
+  overflow: scroll;
   text-align:center;
 }
 #user_create_form_first_column {
@@ -50,21 +51,16 @@
   max-height:70%;
   max-width:70%;
 }
-#c4d_nav_container,
-#sop_nav_container,
-#nav_contact_link,
-#nav_about_link,
-#nav_user_sign_in,
-#toolkit_dropdown {
-  max-width:30%;
-}
 
 #nav_bar {
   position: fixed;
+  overflow: scroll;
+  min-width:100%;
   min-height:8%;
+  max-height:40%;
+  z-index:10;
   width:100%;
   background: black;
-  z-index:10;
   font-family:'proxima-nova' !important;
 }
 
@@ -75,9 +71,21 @@
   font-family: 'proxima-nova';
   font-size:16px;
 }
-#sop_nav_container {
+#c4d_nav_div div,
+#c4d_understand_div div,
+#c4d_plan_div div,
+#c4d_act_div div,
+#c4d_tools_div div,
+#nav_bar_logo_div div,
+#nav_contact_link div,
+#toolkit_dropdown_div #toolkit_dropdown,
+#nav_about_link div,
+#sop_what_to_do_nav_button div,
+#sop_overview_button div,
+#sop_nav_button div {
   position: relative;
-  height:100%;
+  top: 50%;
+  transform: translateY(-50%);
 }
 #sop_nav_button div,
 #sop_what_to_do_nav_button div,
@@ -96,13 +104,6 @@
 #nav_about_link a {
   color:white;
 }
-#nav_contact_link.col-md-offset-3 {
-  margin-left:29%;
-}
-#nav_contact_link,
-#nav_about_link {
-  width:7%;
-}
 .sop_active_borders {
   border-left:1px solid white;
   border-right:1px solid white;
@@ -113,9 +114,16 @@
 #c4d_nav_container {
   height:100%;
 }
+#nav_default_buttons_div {
+  overflow: scroll;
+}
+#c4d_nav_container {
+  max-height: 20%;
+}
 #c4d_nav_container,
 #sop_nav_container {
   font-size:16px;
+  overflow:scroll;
 }
 #sop_nav_div,
 #c4d_nav_div {
