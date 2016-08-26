@@ -45,3 +45,6 @@ p {
     font-family: "proxima-nova";
     src: url(http://www.example.org/mycustomfont.ttf) format("truetype");
 }
+.ui.modal {
+  border-radius:0 !important;
+}
