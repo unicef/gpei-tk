@@ -10,7 +10,7 @@
   color:#B12924;
   padding-right:10px;
   font-style:italic;
-  font-family: 'proxima-nova' !important;
+  font-family: 'Proxima Nova' !important;
   font-size: 17px !important;
   opacity: 0.4;
 }
@@ -32,7 +32,7 @@
   padding-left:3px;
 }
 .sop_filter_header {
-  font-family:'proxima-nova' !important;
+  font-family:'Proxima Nova' !important;
   font-size:17px;
   background-color: #B12924;
   color:white;
@@ -52,7 +52,7 @@
 
 #sop_filter_sop_time_label,
 .filter-item span {
-  font-family: 'proxima-nova' !important;
+  font-family: 'Proxima Nova' !important;
   font-size:15px !important;
   line-height:17px;
 }
@@ -101,7 +101,7 @@
   bottom:4px;
 }
 #select_filter_header span {
-  font-family: 'proxima-nova' !important;
+  font-family: 'Proxima Nova' !important;
   font-size: 19px !important;
 }
 #select_filter_header,

@@ -13,7 +13,7 @@
 }
 #sop_selection_image_container_description,
 #sop_landing_image_description {
-  font-family: 'proxima-nova' !important;
+  font-family: 'Proxima Nova' !important;
   font-size: 21px !important;
   height:100%;
   color:white;
@@ -47,6 +47,7 @@
   position: absolute;
   right:5px;
   bottom:5px;
+  visibility: hidden;
 }
 #sop_grid_responsible_office_image {
   margin-left:5px;
@@ -75,7 +76,7 @@
 #sop_grid_responsible_office,
 #sop_grid_cat_div,
 #grid_item_time_period {
-  font-family: 'proxima-nova' !important;
+  font-family: 'Proxima Nova' !important;
   font-size: 19px !important;
   padding-top:2px;
   line-height:19px;
@@ -106,7 +107,7 @@
 }
 #sop_landing_overview_description_div span,
 #sop_landing_wtdw_description_div span {
-  font-family: 'proxima-nova' !important;
+  font-family: 'Proxima Nova' !important;
   font-size: 17px !important;
 }
 #sop_landing_wtdw_description_div {

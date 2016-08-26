@@ -10,7 +10,7 @@
   padding:15px;
   background-color:#e5e5e5;
   height:100%;
-  font-family:'proxima-nova';
+  font-family:'Proxima Nova';
   font-size: 17px;
 }
 #sop_overview_content_div {
@@ -28,7 +28,7 @@
   line-height: 39px;
 }
 #sop_overview_image_description {
-  font-family: 'proxima-nova' !important;
+  font-family: 'Proxima Nova' !important;
   font-size: 21px !important;
   height:100%;
   color:white;
@@ -36,15 +36,15 @@
   opacity:0.6;
 }
 #sop_overview_content_description_div {
-  font-family: 'proxima-nova';
+  font-family: 'Proxima Nova';
   font-size: 17px;
 }
 #sop_over_content_list_items_text {
-  font-family: 'proxima-nova';
+  font-family: 'Proxima Nova';
   font-size: 19px;
 }
 #sop_overview_content {
   padding:5px;
-  font-family: 'proxima-nova';
+  font-family: 'Proxima Nova';
   font-size: 23px;
 }

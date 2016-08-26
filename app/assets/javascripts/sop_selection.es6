@@ -429,4 +429,8 @@ $(() => {
     $('#sop_article_show_modal').modal('show')
     return false
   })
+
+  _($('#grid_item_icon_div #sop_grid_icon_img')).forEach(img => {
+    $(img).css({ visibility: 'visible' })
+  })
 })

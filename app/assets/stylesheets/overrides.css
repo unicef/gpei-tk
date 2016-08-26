@@ -37,3 +37,11 @@ p {
   -webkit-margin-after:0px;
   margin: 0 0 0 0;
 }
+@font-face {
+    font-family: "proxima-nova";
+    src: url(http://www.example.org/mycustomfont.ttf) format("truetype");
+}
+@font-face {
+    font-family: "proxima-nova";
+    src: url(http://www.example.org/mycustomfont.ttf) format("truetype");
+}

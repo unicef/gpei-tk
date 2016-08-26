@@ -39,13 +39,13 @@
 #c4d_article_show_header {
   color: white;
   border: 1px solid white;
-  font-family: 'proxima-nova';
+  font-family: 'Proxima Nova';
   font-weight: bold;
 }
 #c4d_category_and_article_title {
   padding-top: 20px;
   font-size:25px;
-  font-family: 'proxima-nova';
+  font-family: 'Proxima Nova';
 }
 #c4d_close_icon {
   font-size:65%;
@@ -180,7 +180,7 @@
 }
 #c4d_article_content,
 #sop_article_content {
-  font-family: 'proxima-nova';
+  font-family: 'Proxima Nova';
 }
 #c4d_show_references {
   margin-top: 10px;
@@ -194,20 +194,20 @@
   text-decoration: none;
 }
 #cgi_related_topics_div #related_topics_header {
-  font-family:'proxima-nova';
+  font-family:'Proxima Nova';
   font-size: 17px !important;
 }
 #cgi_related_topics_div {
   margin-bottom:15px;
 }
 #cgi_references_header {
-  font-family:'proxima-nova';
+  font-family:'Proxima Nova';
   font-size: 17px !important;
   font-weight: bold;
   margin-bottom:5px;
 }
 #cgi_reference_link_div {
-  font-family:'proxima-nova';
+  font-family:'Proxima Nova';
   font-size: 19px !important;
 }
 #cgi_c4d_article_show_page,
