@@ -6,7 +6,7 @@ class SopController < ApplicationController
   end
 
   def index
-    @backgrounds = { index: '#B12924', wtdw: nil, overview: nil, borders: 'sop_active_borders' }
+    @backgrounds = { index: '#904941', wtdw: nil, overview: nil, borders: 'sop_active_borders' }
   end
 
   def whatToDoWhen
@@ -14,12 +14,12 @@ class SopController < ApplicationController
     @sop_categories = SopCategory.all
     @responsible_offices = ResponsibleOffice.all
     @sop_articles = SopArticle.where(published: true).order(order_id: :asc)
-    @backgrounds = { index: nil, wtdw: '#B12924', overview: nil, borders: 'sop_active_borders' }
+    @backgrounds = { index: nil, wtdw: '#8D3733', overview: nil, borders: 'sop_active_borders' }
   end
 
   def overview
     @sop_times = SopTime.all
     @sop_categories = SopCategory.all
-    @backgrounds = { index: nil, wtdw: nil, overview: '#B12924', borders: 'sop_active_borders' }
+    @backgrounds = { index: nil, wtdw: nil, overview: '#B74D43', borders: 'sop_active_borders' }
   end
 end
