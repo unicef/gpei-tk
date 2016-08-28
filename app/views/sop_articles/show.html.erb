@@ -51,7 +51,18 @@
       <a id='sop_print_icon_link' href=''><i class="fa fa-print" aria-hidden="true"></i></a>
     </div>
     <div id="<%= @sop_article.id %>" class='text-center'>
-      <div id='sop_add_to_toolkit_text'>ADD TO MY TOOLKIT</div>
+<!--       <div id='sop_add_to_toolkit_text'>ADD TO MY TOOLKIT</div>
+      <div id="<%= @sop_article.id %>" class='row'>
+        <p class="sop_grid_item_article_title <%= @sop_article.title %>" style='display:none;visibility:hidden;'><%= @sop_article.title %></p>
+        <a id='sop_show_add' class='sop_grid_add' href='' style="<%= style_visible('add', @user, @sop_article) %>;" title='Add to CHECKLIST' data-toggle='tooltip'><i class="fa fa-plus" aria-hidden="true"></i></a>
+        <a id='sop_show_check' class='sop_grid_check' href='' style="<%= style_visible('check', @user, @sop_article) %>;" title='Remove from CHECKLIST' data-toggle='tooltip'><i class="fa fa-check" aria-hidden="true"></i></a>
+        <div class='row text-center' style='display:none;visibility:hidden;'>
+          <ul class="list-unstyled">
+            <li id="sop_article_show_subcategory_text"><%= @sop_article.sop_category.title %></li>
+            <li id="sop_article_show_article_title_text"><%= @sop_article.title.capitalize %></li>
+          </ul>
+        </div>
+      </div> -->
     </div>
 
     <div id='sop_article_content'>

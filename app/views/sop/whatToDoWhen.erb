@@ -69,16 +69,27 @@
                 <div id='grid_item_icon_div' class='row'>
                   <div id='sop_grid_subcat_and_responsible_office_div' style='color:<%= get_color_for_sop_time(article.sop_time.period) %>' class='text-left col-md-12'>
                     <div id='sop_grid_cat_div' class='col-md-8'>
-                      <%= image_tag "sop/grid_icons/#{ get_grid_image_by_sop_subcategory(article.sop_time.period, 'icon-category-white')}.png", id:'sop_grid_cat_image', width: '8px', height: '8px', class:'col-md-2' %><div id='sop_grid_cat_div_text' class='col-md-10'>&nbsp;<%= article.sop_category.title %></div>
+                      <%= image_tag "sop/grid_icons/#{ get_grid_image_by_sop_subcategory(article.sop_time.period, 'icon-category-white')}.png", id:'sop_grid_cat_image', width: '8px', height: '8px', class:'col-md-2' %>
+                      <div id='sop_grid_cat_div_text' class='col-md-10'>
+                        &nbsp;<%= article.sop_category.title %>
+                      </div>
                     </div>
                     <div id='sop_grid_responsible_office' class='col-md-6 text-left'>
-                      <%= image_tag "sop/grid_icons/#{ get_grid_image_by_sop_subcategory(article.sop_time.period, 'icon-resp-white')}.png", id:'sop_grid_responsible_office_image', width: '13px', height: '15px', class:'col-md-2' %>  <div class='col-md-8'>&nbsp;&nbsp;<%= article.responsible_office.title %></div>
+                      <%= image_tag "sop/grid_icons/#{ get_grid_image_by_sop_subcategory(article.sop_time.period, 'icon-resp-white')}.png", id:'sop_grid_responsible_office_image', width: '13px', height: '15px', class:'col-md-2' %>
+                      <div class='col-md-8'>
+                        &nbsp;&nbsp;<%= article.responsible_office.title %>
+                      </div>
                     </div>
                   </div>
-                  <%= image_tag "sop/icons/#{article.sop_icon.title}.png", id:'sop_grid_icon_img', alt: "" %></div>
+                  <%= image_tag "sop/icons/#{article.sop_icon.title}.png", id:'sop_grid_icon_img', alt: "" %>
+                </div>
               </div>
-              <a class='grid_add' href='' style="<%= style_visible('add', @user, article) %>;"><i class="fa fa-plus" aria-hidden="true"></i></a>
-              <a class='grid_check' href='' style="<%= style_visible('check', @user, article) %>;"><i class="fa fa-check" aria-hidden="true"></i></a>
+              <a class='grid_add' href='' style="<%= style_visible('add', @user, article) %>;" title='Add to checklist' data-toggle='tooltip'>
+                <i class="fa fa-plus" aria-hidden="true"></i>
+              </a>
+              <a class='grid_check' href='' style="<%= style_visible('check', @user, article) %>;"  title='Remove from checklist' data-toggle='tooltip'>
+                <i class="fa fa-check" aria-hidden="true"></i>
+              </a>
             </div>
           <% end %>
         <% end %>

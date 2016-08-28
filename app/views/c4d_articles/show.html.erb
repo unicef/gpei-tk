@@ -56,20 +56,20 @@
         <div class='c4d_print_icon'>
           <a id='cgi_c4d_print_icon_link' href=''><i class="fa fa-print" aria-hidden="true"></i></a>
         </div>
-        <div id="<%= @c4d_article.id %>" class='text-center'>
+<!--         <div id="<%= @c4d_article.id %>" class='text-center'>
           <div id='c4d_add_to_toolkit_text'>ADD TO MY TOOLKIT</div>
         </div>
         <div id="<%= @c4d_article.id %>" class='row'>
           <p class="c4d_grid_item_article_title <%= @c4d_article.title %>" style='display:none;visibility:hidden;'><%= @c4d_article.title %></p>
-          <a id='c4d_show_add' class='c4d_grid_add' href='' style="<%= c4d_style_visible('add', @user, @c4d_article) %>;"><i class="fa fa-plus" aria-hidden="true"></i></a>
-          <a id='c4d_show_check' class='c4d_grid_check' href='' style="<%= c4d_style_visible('check', @user, @c4d_article) %>;"><i class="fa fa-check" aria-hidden="true"></i></a>
+          <a id='c4d_show_add' class='c4d_grid_add' href='' style="<%= c4d_style_visible('add', @user, @c4d_article) %>;" title='Add to toolkit' data-toggle='tooltip'><i class="fa fa-plus" aria-hidden="true"></i></a>
+          <a id='c4d_show_check' class='c4d_grid_check' href='' style="<%= c4d_style_visible('check', @user, @c4d_article) %>;" title='Remove from toolkit' data-toggle='tooltip'><i class="fa fa-check" aria-hidden="true"></i></a>
           <div class='row text-center' style='display:none;visibility:hidden;'>
             <ul class="list-unstyled">
               <li id="c4d_article_show_subcategory_text"><%= @c4d_article.c4d_subcategory.title %></li>
               <li id="c4d_article_show_article_title_text"><%= @c4d_article.title.capitalize %></li>
             </ul>
           </div>
-        </div>
+        </div> -->
       </div>
 
       <div id='cgi_c4d_article_show' style='color:black;'>

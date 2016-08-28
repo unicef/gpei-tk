@@ -148,7 +148,7 @@ $(() => {
     return `
       <div id="c4d_article_show_header" class='row' style='background-color:${ params['c4d_subcategories'][params['article'].c4d_subcategory_id-1].color } ;'>
         <div id='c4d_category_and_article_title' class='col-md-12 text-center' style='background-color:${ params['c4d_subcategories'][params['article'].c4d_subcategory_id-1].color };color:${get_color_for_subcategory(params['c4d_subcategories'][params['article'].c4d_subcategory_id-1].title)}'>${ params['c4d_subcategories'][params['article'].c4d_subcategory_id-1].title } - ${ params['article'].title }</div>
-        <div id='c4d_close_icon' class='text-right'><a href='' style='color:${get_color_for_subcategory(params['c4d_subcategories'][params['article'].c4d_subcategory_id-1].title)};'>CLOSE&nbsp;<i class="fa fa-remove" aria-hidden="true"></i></a></div>
+        <div id='c4d_close_icon' class='text-right' style='font-size:75%'><a href='' style='color:${get_color_for_subcategory(params['c4d_subcategories'][params['article'].c4d_subcategory_id-1].title)};'>CLOSE&nbsp;<i class="fa fa-remove" aria-hidden="true"></i></a></div>
       </div>`
   }
   function get_color_for_subcategory(article_subcategory){
@@ -189,8 +189,8 @@ $(() => {
       <div id="${ params['article'].id }" class='text-center'>
         <div id='c4d_add_to_toolkit_text'>ADD TO MY TOOLKIT</div>
       </div>
-      <a id='${ params['article'].id }' class='c4d_grid_add' href='' style="${ c4d_style_visible('add', params['current_user'], params['article'], params['toolkit_articles']) };color:black;right:3px;"><i class="fa fa-plus" aria-hidden="true"></i></a>
-      <a id='${ params['article'].id }' class='c4d_grid_check' href='' style="${ c4d_style_visible('check', params['current_user'], params['article'], params['toolkit_articles']) };color:black;right:3px;"><i class="fa fa-check" aria-hidden="true"></i></a>
+      <a id='${ params['article'].id }' class='c4d_grid_add' href='' style="${ c4d_style_visible('add', params['current_user'], params['article'], params['toolkit_articles']) };color:black;right:3px;" title='Add to toolkit' data-toggle='tooltip'><i class="fa fa-plus" aria-hidden="true"></i></a>
+      <a id='${ params['article'].id }' class='c4d_grid_check' href='' style="${ c4d_style_visible('check', params['current_user'], params['article'], params['toolkit_articles']) };color:black;right:3px;" title='Remove from toolkit' data-toggle='tooltip'><i class="fa fa-check" aria-hidden="true"></i></a>
       `)
   }
   function getRelatedTopicsDiv(related_topics){

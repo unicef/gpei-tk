@@ -47,8 +47,10 @@
   font-size:25px;
   font-family: 'Proxima Nova';
 }
+#c4d_modal_close_icon {
+  font-size:75%;
+}
 #c4d_close_icon {
-  font-size:65%;
   position: relative;
   bottom: 25px;
   right:20px;

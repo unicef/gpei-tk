@@ -15,8 +15,8 @@
                 <% @c4d_articles.each do |article| %>
                   <% if article.c4d_subcategory_id == subcategory.id %>
                     <td id="<%= article.id %>" class='c4d_article_item' style="background-color: <%= article.c4d_subcategory.color %>;">
-                      <a id='<%= article.id %>' class='c4d_grid_add' href='' style="<%= c4d_style_visible('add', @user, article) %>;"><i class="fa fa-plus" aria-hidden="true"></i></a>
-                      <a id='<%= article.id %>' class='c4d_grid_check' href='' style="<%= c4d_style_visible('check', @user, article) %>;"><i class="fa fa-check" aria-hidden="true"></i></a>
+                      <a id='<%= article.id %>' class='c4d_grid_add' href='' style="<%= c4d_style_visible('add', @user, article) %>;" title='Add to toolkit' data-toggle='tooltip'><i class="fa fa-plus" aria-hidden="true"></i></a>
+                      <a id='<%= article.id %>' class='c4d_grid_check' href='' style="<%= c4d_style_visible('check', @user, article) %>;" title='Remove from toolkit' data-toggle='tooltip'><i class="fa fa-check" aria-hidden="true"></i></a>
                       <div id='c4d_grid_tile_title'><a id='<%= article.id %>' href='/c4d_articles/<%= article.id %>' style='color:<%= get_color_for_subcategory(article.c4d_subcategory.title) %>;'><%= article.title %></a></div>
                     </td>
                   <% end %>

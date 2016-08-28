@@ -85,9 +85,9 @@ $(() => {
     }).done(response => {
       toggleVisibility(e.currentTarget)
 
-      let grid_check = e.currentTarget.nextElementSibling
+      let grid_check = $(e.currentTarget.parentElement).find('.grid_check')
 
-      toggleVisibility(e.currentTarget.nextElementSibling)
+      toggleVisibility(grid_check)
 
       let article_title = response.article_title
       let id = response.id
@@ -115,11 +115,12 @@ $(() => {
         authenticity_token: _.escape($('meta[name=csrf-token]').attr('content'))
       }
     }).done(response => {
-      toggleVisibility(e.currentTarget)
+      let grid_check = e.currentTarget
+      toggleVisibility(grid_check)
 
-      let grid_check = e.currentTarget.previousElementSibling
+      let grid_add = $(e.currentTarget.parentElement).find('.grid_add')
 
-      toggleVisibility(e.currentTarget.previousElementSibling)
+      toggleVisibility(grid_add)
 
       let article_list_item = '#sop_checklist_list #' + response.id
       $(article_list_item).remove()
@@ -339,8 +340,8 @@ $(() => {
       </div>
       <div id="${ params['article'].id }" class='sop_modal_article_icons'>
         <p class="sop_grid_item_article_title ${ params['article'].title }" style='display:none;visibility:hidden;'>${ params['article'].title }</p>
-        <a id='${ params['article'].id }' class='sop_grid_add' href='' style="${ sop_style_visible('add', params['current_user'], params['article'], params['checklist_articles']) };"><i class="fa fa-plus" aria-hidden="true"></i></a>
-        <a id='${ params['article'].id }' class='sop_grid_check' href='' style="${ sop_style_visible('check', params['current_user'], params['article'], params['checklist_articles']) };"><i class="fa fa-check" aria-hidden="true"></i></a>
+        <a id='${ params['article'].id }' class='sop_grid_add' href='' style="${ sop_style_visible('add', params['current_user'], params['article'], params['checklist_articles']) };"  title='Add to checklist' data-toggle='tooltip'><i class="fa fa-plus" aria-hidden="true"></i></a>
+        <a id='${ params['article'].id }' class='sop_grid_check' href='' style="${ sop_style_visible('check', params['current_user'], params['article'], params['checklist_articles']) };"  title='Remove from checklist' data-toggle='tooltip'><i class="fa fa-check" aria-hidden="true"></i></a>
         <div class='row text-center' style='display:none;visibility:hidden;'>
           <ul class="list-unstyled">
             <li id="sop_article_show_subcategory_text">${ params['sop_times'][params['article'].sop_time_id - 1].period }</li>
@@ -433,6 +434,8 @@ $(() => {
   _($('#grid_item_icon_div #sop_grid_icon_img')).forEach(img => {
     $(img).css({ visibility: 'visible' })
   })
+
+$('[data-toggle="tooltip"]').tooltip();
 
   // $(window).resize(e => {
   //   let current_width = $('#isotope_container').outerWidth()
