@@ -20,7 +20,8 @@
   line-height: 23px;
   opacity:0.6;
 }
-#isotope_container {
+#isotope_container a {
+  color:white;
 }
 .grid_item {
   display:inline-block;
