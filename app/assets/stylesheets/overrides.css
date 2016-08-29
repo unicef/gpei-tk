@@ -37,14 +37,15 @@ p {
   -webkit-margin-after:0px;
   margin: 0 0 0 0;
 }
-@font-face {
-    font-family: "proxima-nova";
-    src: url(http://www.example.org/mycustomfont.ttf) format("truetype");
-}
-@font-face {
-    font-family: "proxima-nova";
-    src: url(http://www.example.org/mycustomfont.ttf) format("truetype");
-}
 .ui.modal {
   border-radius:0 !important;
+}
+#landing_scroll_begin_text,
+#landing_scroll_down_angle,
+#landing_logo_text,
+#nav_default_buttons_div,
+#sop_landing_description_span,
+#c4d_landing_description_span,
+#c4d_image_description {
+  opacity: 0.85;
 }
