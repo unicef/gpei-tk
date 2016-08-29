@@ -4,34 +4,5 @@
     <div id='c4d_image_title' class='col-md-7'>Tools</div>
     <div id='c4d_image_description' class='col-md-7'>GET TO KNOW THE PROBLEM THE RISK GROUPS AND THEIR PERCEPTIONS, AND HOW TO USE RESEARCH TO REFINE OBJECTIVES</div>
   </div>
-<div class='col-md-12'>
-    <% @c4d_subcategories.each do |subcategory| %>
-      <div id='c4d_subcategory_accordion' class='ui styled accordion col-md-12' style='background-color:<%= subcategory.color %>'>
-        <div id='c4d_subcategory_title_div' class='title'><i class="dropdown icon"></i><%= image_tag "c4d/icons/#{@c4d_category.title}/#{subcategory.title + '.png'}", width:'100px', height: '80px', class: '', alt: subcategory.title %><span style='color:<%= get_color_for_subcategory(subcategory.title) %>;'><%= subcategory.title %></span></div>
-        <div class="content">
-          <div class="title">
-            <table>
-              <tr>
-                <% @c4d_articles.each do |article| %>
-                  <% if article.c4d_subcategory_id == subcategory.id %>
-                    <td id="<%= article.id %>" class='c4d_article_item' style="background-color: <%= article.c4d_subcategory.color %>;">
-                        <a id='<%= article.id %>' class='c4d_grid_add' href='' style="<%= c4d_style_visible('add', @user, article) %>;"  title='Add to toolkit' data-toggle='tooltip'><i class="fa fa-plus" aria-hidden="true"></i></a>
-                        <a id='<%= article.id %>' class='c4d_grid_check' href='' style="<%= c4d_style_visible('check', @user, article) %>;"  title='Remove from toolkit' data-toggle='tooltip'><i class="fa fa-check" aria-hidden="true"></i></a>
-                        <div id='c4d_grid_tile_title'><a id='<%= article.id %>' href='/c4d_articles/<%= article.id %>' style='color:<%= get_color_for_subcategory(article.c4d_subcategory.title) %>;'><%= article.title %></a></div>
-                    </td>
-                  <% end %>
-                <% end %>
-              </tr>
-            </table>
-          </div>
-        </div>
-      </div>
-    <% end %>
-  </div>
-</div>
-<div id="c4d_article_show_modal" class="ui large modal">
-  <div class="header">
-  </div>
-  <div class="content">
-  </div>
+  <%= render 'c4d/category_index' %>
 </div>

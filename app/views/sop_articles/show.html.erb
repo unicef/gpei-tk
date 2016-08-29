@@ -2,10 +2,10 @@
 <% if @sop_article %>
 <div id='cgi_sop_article_show_page' class='max-height'>
   <div id="sop_article_show_header" class='row' style='color:white;background-color:<%= @sop_article.sop_time.color %>;'>
-    <div id='sop_category_and_article_title' class='col-md-12 text-center' style='background-color:<%= @sop_article.sop_time.color %>;color:<%= get_color_for_sop_time(@sop_article.sop_time.period) %>;'><%= @sop_article.sop_category.title %> - <%= @sop_article.title %></div>
+    <div id='sop_category_and_article_title' class='col-md-12 text-center' style='background-color:<%= @sop_article.sop_time.color %>;'><%= @sop_article.sop_category.title %> - <%= @sop_article.title %></div>
     <div id='cgi_sop_close_icon' class='text-right'>
       <div id='cgi_sop_close_icon_div'>
-        <a href='/sop/what_to_do_when/' style='color:<%= get_color_for_sop_time(@sop_article.sop_time.period) %>;'>CLOSE&nbsp;<i class="fa fa-remove" aria-hidden="true"></i></a>
+        <a href='/sop/what_to_do_when/'>CLOSE&nbsp;<i class="fa fa-remove" aria-hidden="true"></i></a>
       </div>
     </div>
   </div>
@@ -75,7 +75,7 @@
             <div>
               <img id='sop_info_row_icons' src='/assets/sop/grid_icons/icon-time-black.png'>&nbsp;<strong>TIME</strong>
             </div>
-            <div class='col-md-12' style='padding-left:5px;color:<%= get_color_for_sop_time(@sop_article.sop_time.period) %>;background-color: <%= @sop_article.sop_time.color %>'>
+            <div class='col-md-12' style='padding-left:5px;background-color: <%= @sop_article.sop_time.color %>'>
               <%= @sop_article.sop_time.period %>
             </div>
           </div>
