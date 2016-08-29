@@ -90,17 +90,25 @@ $(() => {
           <textarea name="article[content]" id="editor" required></textarea>
         </div>
         <div id="field">
-            ${_.map(embedded_images, embedded_image => {
-              return (`<p><strong>Embedded Image: </strong>${embedded_image.image_file_name} - <a href="${embedded_image.url}" target="_blank">${embedded_image.url}</a></p>`)
-            }).join('\n')}
+          ${getEmbeddedImagesList(embedded_images)}
         </div>
-        ${getReferenceLinkSelector(reference_links, selected_reference_links)}
+        ${ getReferenceLinkSelector(reference_links, selected_reference_links) }
+        ${ getReferenceLinksList(selected_reference_links) }
         <button class="ui button" type="submit">Submit</button>
       </form>
     </div>
     `)
   }
-
+  function getReferenceLinksList(selected_reference_links) {
+    return `${_.map(selected_reference_links, reference_link => {
+              return (`<p><strong>Reference Link: </strong>${reference_link.document_file_name} - <a href="${reference_link.url}" target="_blank">${reference_link.url}</a></p>`)
+            }).join('\n')}`
+  }
+  function getEmbeddedImagesList(embedded_images){
+    return `${_.map(embedded_images, embedded_image => {
+              return (`<p><strong>Embedded Image: </strong>${embedded_image.image_file_name} - <a href="${embedded_image.url}" target="_blank">${embedded_image.url}</a></p>`)
+            }).join('\n')}`
+  }
   function getReferenceLinkSelector(reference_links, selected_reference_links) {
     return (`
       <div id='reference_link_multi_select' class="field">

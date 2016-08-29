@@ -89,6 +89,7 @@ $(() => {
         $('#CMS_index_content').append(content)
         initializeCKEditor()
         $('#editor').val(response.sop_article.content)
+        $('#CMS_index_content .ui.dropdown.cms_dropdown_select').resizable()
       })
     })
   })
@@ -127,18 +128,18 @@ $(() => {
           <label>Video URL</label>
           <input type="text" name="article[video_url]" value="${article.video_url}">
         </div>
-        ${getReferenceLinkDropdown(reference_links, selected_reference_links)}
+        ${getReferenceLinkSelector(reference_links, selected_reference_links)}
         <button class="ui button" type="submit">Submit</button>
       </form>
     </div>
     `)
   }
 
-  function getReferenceLinkDropdown(reference_links, selected_reference_links) {
+  function getReferenceLinkSelector(reference_links, selected_reference_links) {
     return (`
       <div id='reference_link_multi_select' class="field">
         <label>Reference Links</label>
-        <select name="article[reference_links][]" class="ui dropdown cms_dropdown_select" multiple>
+        <select name="article[reference_links][]" class="ui dropdown cms_dropdown_select" size=30 multiple>
           <option value="">Select Reference Links</option>
           ${_.map(reference_links, reference_link => {
             let selected = _.includes(selected_reference_links, reference_link.id) ? "selected=\"selected\"" : ""
