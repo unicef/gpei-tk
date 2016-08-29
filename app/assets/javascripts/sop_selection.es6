@@ -435,7 +435,7 @@ $(() => {
     $(img).css({ visibility: 'visible' })
   })
 
-$('[data-toggle="tooltip"]').tooltip();
+  $('[data-toggle="tooltip"]').tooltip();
 
   // $(window).resize(e => {
   //   let current_width = $('#isotope_container').outerWidth()

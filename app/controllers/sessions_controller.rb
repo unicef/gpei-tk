@@ -9,7 +9,7 @@ class SessionsController < ApplicationController
       session[:last_seen] = current_time
       render :js => "window.location = '/'"
     else
-      render json: { status: 403, error: 'Please re-enter your email or password and try again.' }
+      render json: { status: 403, error: "The email and password you entered don't match." }
     end
   end
 

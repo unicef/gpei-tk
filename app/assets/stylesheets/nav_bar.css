@@ -31,7 +31,6 @@
   width:250px;
 }
 #nav_bar_logo_div {
-  overflow: scroll;
   text-align:center;
 }
 #user_create_form_first_column {
@@ -54,7 +53,6 @@
 
 #nav_bar {
   position: fixed;
-  overflow: scroll;
   min-width:100%;
   min-height:8%;
   max-height:40%;
@@ -63,7 +61,15 @@
   background: black;
   font-family:'Proxima Nova' !important;
 }
-
+#nav_default_buttons_div {
+  max-width: 25%;
+}
+#nav_bar_logo_div {
+  max-width:16.667%;
+}
+#c4d_nav_container {
+  max-width:83.33%;
+}
 #nav_contact_link,
 #nav_about_link,
 #nav_user_sign_in,
@@ -78,6 +84,7 @@
 #c4d_tools_div div,
 #nav_bar_logo_div div,
 #nav_contact_link div,
+#toolkit_dropdown_div #nav_user_sign_in_div,
 #toolkit_dropdown_div #toolkit_dropdown,
 #nav_about_link div,
 #sop_what_to_do_nav_button div,
@@ -115,7 +122,6 @@
   height:100%;
 }
 #nav_default_buttons_div {
-  overflow: scroll;
 }
 #c4d_nav_container {
   max-height: 20%;
@@ -123,7 +129,6 @@
 #c4d_nav_container,
 #sop_nav_container {
   font-size:16px;
-  overflow:scroll;
 }
 #sop_nav_div,
 #c4d_nav_div {

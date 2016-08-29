@@ -70,8 +70,11 @@ $(() => {
       url: '/signin/',
       data: data
     }).done(response => {
-      if (response.status === 'fail'){
-        let message = `<div id="sign_in_error_message">${response.error}</div>`
+      if (response.status === 403){
+        let message = `<div id='sign_in_error_message'>
+                          <i class="fa fa-exclamation-triangle" aria-hidden="true"></i>
+                          ${ response.error }
+                        </div>`
         if ($('#sign_in_error_message').length > 0)
           $('#sign_in_error_message').remove()
         $('#user_account_content').append(message)
