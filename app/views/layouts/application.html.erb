@@ -4,8 +4,16 @@
     <title>GPEI Toolkit</title>
     <%= stylesheet_link_tag 'application', media: 'all' %>
     <%= stylesheet_link_tag "https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" %>
-    <link href='//fonts.googleapis.com/css?family=Proxima+Nova' rel='stylesheet' type='text/css'>
-    <link href='//fonts.googleapis.com/css?family=Adelle' rel='stylesheet' type='text/css'>
+    <script src="http://ajax.googleapis.com/ajax/libs/webfont/1/webfont.js"></script>
+    <script type="text/javascript">
+      WebFont.load({
+        google: {
+          families: ['Proxima Nova', 'Adelle']
+        }
+      })
+    </script>
+    <!-- <link href='http://fonts.googleapis.com/css?family=Proxima+Nova' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Adelle' rel='stylesheet' type='text/css'> -->
     <%= javascript_include_tag src="//cdn.ckeditor.com/4.5.9/standard/ckeditor.js" %>
     <%= javascript_include_tag 'application' %>
     <%= csrf_meta_tags %>
