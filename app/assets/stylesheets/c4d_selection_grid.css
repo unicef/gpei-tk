@@ -101,8 +101,8 @@
 .c4d_grid_add,
 .c4d_grid_check {
   position:absolute;
-  top:5px;
-  right:5px;
+  top:0px;
+  right:0px;
 }
 #c4d_category_title_div,
 #c4d_image_title {

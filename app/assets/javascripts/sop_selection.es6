@@ -43,7 +43,6 @@ $(() => {
     $('#selected_filters_output').empty()
     $('#selected_filters_output').append(checked_labels)
     let filterValue = inclusives.length ? inclusives.join('') : '*'
-    console.log(filterValue)
     $container.isotope({ filter: filterValue })
     filterValue = filterValue === '*' ? '' : filterValue
     // $output.html("<li id=\"checklist_article\">" + filterValue + "</li>")
@@ -341,8 +340,8 @@ $(() => {
       </div>
       <div id="${ params['article'].id }" class='sop_modal_article_icons'>
         <p class="sop_grid_item_article_title ${ params['article'].title }" style='display:none;visibility:hidden;'>${ params['article'].title }</p>
-        <a id='${ params['article'].id }' class='sop_grid_add' href='' style="${ sop_style_visible('add', params['current_user'], params['article'], params['checklist_articles']) };"  title='Add to checklist' data-toggle='tooltip'><i class="fa fa-plus" aria-hidden="true"></i></a>
-        <a id='${ params['article'].id }' class='sop_grid_check' href='' style="${ sop_style_visible('check', params['current_user'], params['article'], params['checklist_articles']) };"  title='Remove from checklist' data-toggle='tooltip'><i class="fa fa-check" aria-hidden="true"></i></a>
+        <a id='${ params['article'].id }' class='sop_grid_add' href='' style="${ sop_style_visible('add', params['current_user'], params['article'], params['checklist_articles']) };"  title='Add to checklist' data-toggle='tooltip'><img id='add_article_image' src='/assets/icons/add-to.png'></a>
+        <a id='${ params['article'].id }' class='sop_grid_check' href='' style="${ sop_style_visible('check', params['current_user'], params['article'], params['checklist_articles']) };"  title='Remove from checklist' data-toggle='tooltip'><img id='remove_article_image' src='/assets/icons/remove-check.png'></a>
         <div class='row text-center' style='display:none;visibility:hidden;'>
           <ul class="list-unstyled">
             <li id="sop_article_show_subcategory_text">${ params['sop_times'][params['article'].sop_time_id - 1].period }</li>

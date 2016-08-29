@@ -1,3 +1,5 @@
+#sop_landing_image img{
+}
 * {
   box-sizing: border-box;
 }
@@ -88,8 +90,8 @@
 }
 .grid_add,
 .grid_check {
-  top:5px;
-  right:5px;
+  top:0px;
+  right:0px;
   position:absolute;
   color:black;
 }

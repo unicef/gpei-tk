@@ -85,10 +85,10 @@
                 </div>
               </div>
               <a class='grid_add' href='' style="<%= style_visible('add', @user, article) %>;" title='Add to checklist' data-toggle='tooltip'>
-                <i class="fa fa-plus" aria-hidden="true"></i>
+                <img id='add_article_image' src='/assets/icons/add-to.png'>
               </a>
               <a class='grid_check' href='' style="<%= style_visible('check', @user, article) %>;"  title='Remove from checklist' data-toggle='tooltip'>
-                <i class="fa fa-check" aria-hidden="true"></i>
+                <img id='remove_article_image' src='/assets/icons/remove-check.png'>
               </a>
             </div>
           <% end %>

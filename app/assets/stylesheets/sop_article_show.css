@@ -109,7 +109,7 @@
 #sop_add_to_toolkit_text {
   font-weight:bold;
   position:absolute;
-  right:10px;
+  right:20px;
   top:7px;
   height:20px;
   width:140px;
@@ -135,14 +135,16 @@
   font-size:80%;
 }
 .sop_email_icon {
+  font-size:120%;
+  position:absolute;
+  top:5px;
+  right:200px;
+}
+.sop_print_icon {
+  font-size:120%;
   position:absolute;
   top:5px;
   right:170px;
-}
-.sop_print_icon {
-  position:absolute;
-  top:5px;
-  right:150px;
 }
 #sop_print_icon_link,
 #sop_email_icon_link {
@@ -187,13 +189,21 @@
   font-family: 'Proxima Nova';
   font-size:25px;
 }
+#cgi_sop_close_icon_div a {
+  color:white;
+}
 #cgi_sop_close_icon_div {
-  position:relative;
-  bottom:20px;
+  position:absolute;
+  top:10px;
   right:10px;
   font-size:14px;
 }
 #sop_category_and_article_title {
   padding-top:8px;
   padding-bottom:8px;
+}
+.sop_modal_article_icons {
+  position:absolute;
+  top:0px;
+  right:0px;
 }

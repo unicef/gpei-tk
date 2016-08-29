@@ -50,3 +50,8 @@ p {
 #grid_item_time_period {
   opacity: 0.70;
 }
+#add_article_image,
+#remove_article_image {
+  height:25px;
+  width:25px;
+}

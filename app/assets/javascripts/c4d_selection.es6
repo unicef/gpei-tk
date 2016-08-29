@@ -189,8 +189,8 @@ $(() => {
       <div id="${ params['article'].id }" class='text-center'>
         <div id='c4d_add_to_toolkit_text'>ADD TO MY TOOLKIT</div>
       </div>
-      <a id='${ params['article'].id }' class='c4d_grid_add' href='' style="${ c4d_style_visible('add', params['current_user'], params['article'], params['toolkit_articles']) };color:black;right:3px;" title='Add to toolkit' data-toggle='tooltip'><i class="fa fa-plus" aria-hidden="true"></i></a>
-      <a id='${ params['article'].id }' class='c4d_grid_check' href='' style="${ c4d_style_visible('check', params['current_user'], params['article'], params['toolkit_articles']) };color:black;right:3px;" title='Remove from toolkit' data-toggle='tooltip'><i class="fa fa-check" aria-hidden="true"></i></a>
+      <a id='${ params['article'].id }' class='c4d_grid_add' href='' style="${ c4d_style_visible('add', params['current_user'], params['article'], params['toolkit_articles']) };color:black;right:3px;" title='Add to toolkit' data-toggle='tooltip'><img id='add_article_image' src='/assets/icons/add-to.png'></a>
+      <a id='${ params['article'].id }' class='c4d_grid_check' href='' style="${ c4d_style_visible('check', params['current_user'], params['article'], params['toolkit_articles']) };color:black;right:3px;" title='Remove from toolkit' data-toggle='tooltip'><img id='remove_article_image' src='/assets/icons/remove-check.png'></a>
       `)
   }
   function getRelatedTopicsDiv(related_topics){
