@@ -43,17 +43,18 @@
   font-weight: bold;
 }
 #c4d_category_and_article_title {
-  padding-top: 20px;
   font-size:25px;
   font-family: 'Proxima Nova';
+  padding-top:8px;
+  padding-bottom:8px;
 }
 #c4d_modal_close_icon {
   font-size:75%;
 }
 #c4d_close_icon {
-  position: relative;
-  bottom: 25px;
-  right:20px;
+  position: absolute;
+  top:10px;
+  right:25px;
 }
 #c4d_close_icon a {
   color: white;

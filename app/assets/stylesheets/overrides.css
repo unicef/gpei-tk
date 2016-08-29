@@ -46,6 +46,7 @@ p {
 #nav_default_buttons_div,
 #sop_landing_description_span,
 #c4d_landing_description_span,
-#c4d_image_description {
-  opacity: 0.85;
+#c4d_image_description,
+#grid_item_time_period {
+  opacity: 0.70;
 }

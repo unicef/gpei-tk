@@ -83,16 +83,13 @@
   border: 1px solid white;
 }
 #sop_close_icon {
-  font-size:65%;
-  position: relative;
-  bottom: 25px;
-  right:20px;
+  font-size:60%;
+  position: absolute;
+  right:25px;
+  top:10px;
 }
 #sop_close_icon a {
   color:white;
-}
-#sop_category_and_article_title {
-  padding-top:20px;
 }
 #sop_article_show_info_column {
   background-color:#e5e5e5;
@@ -195,4 +192,8 @@
   bottom:20px;
   right:10px;
   font-size:14px;
+}
+#sop_category_and_article_title {
+  padding-top:8px;
+  padding-bottom:8px;
 }
