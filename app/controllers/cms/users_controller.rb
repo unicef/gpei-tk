@@ -1,6 +1,6 @@
 class Cms::UsersController < ApplicationController
   def index
-    if current_user.is_admin?
+    if current_user.is_admin? || current_user.is_editor?
       if request.xhr?
         users = getAllowedUsers
         roles = Role.all
