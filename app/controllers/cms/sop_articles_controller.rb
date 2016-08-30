@@ -35,7 +35,7 @@ class Cms::SopArticlesController < ApplicationController
         sop_categories = SopCategory.all
         responsible_offices = ResponsibleOffice.all
         support_affiliations = SupportAffiliation.all
-        selected_reference_links = sop_article.reference_links.pluck(:id)
+        selected_reference_links = sop_article.reference_links
         render json: { sop_article: sop_article,
                        sop_times: sop_times,
                        sop_categories: sop_categories,

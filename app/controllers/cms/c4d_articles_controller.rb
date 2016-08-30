@@ -33,7 +33,7 @@ class Cms::C4dArticlesController < ApplicationController
         c4d_subcategories = C4dSubcategory.all
         c4d_categories = C4dCategory.all
         embedded_images = c4d_article.embedded_images
-        selected_reference_links = c4d_article.reference_links.pluck(:id)
+        selected_reference_links = c4d_article.reference_links
         render json: { c4d_article: c4d_article,
                        c4d_subcategories: c4d_subcategories,
                        c4d_categories: c4d_categories,
