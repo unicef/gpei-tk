@@ -1,7 +1,10 @@
 <%= render 'dashboard/nav' %>
-<div id='sop_selection_page'>
+<div id='sop_selection_page' class='col-md-12'>
   <div id='sop_selection_wrapper_div'>
-    <div id='sop_selection_image_container'>
+    <div id='sop_landing_image_container' class='col-md-12'>
+      <div id='sop_landing_image'>
+        <img class='img-responsive' src='/assets/headers/what-to-do-crop-UNI46823.jpg'>
+      </div>
       <div id='sop_selection_image_container_title'>What to do, when</div>
       <div id='sop_selection_image_container_description'>YOUR GUIDE TO TIMELY OUTBREAK RESPONSE</div>
     </div>
@@ -57,8 +60,8 @@
         </div>
       </div>
     </div>
-    <div class='row text-center'>
-      <div id='isotope_container' class='text-center'>
+    <div class='col-md-12 text-center'>
+      <div id='isotope_container' class='col-md-12 text-center'>
         <% @sop_articles.each do |article| %>
           <%= link_to sop_article_path(article) do %>
             <div id="<%= article.id %>" class="<%= build_classes({grid_item: 'grid_item', time: article.sop_time.period.gsub(' ', '_'), offices: article.responsible_office.title.gsub(' ', '_'), category: article.sop_category.title.gsub(' ', '_')}) %>"

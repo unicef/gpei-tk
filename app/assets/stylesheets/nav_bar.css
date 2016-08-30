@@ -74,8 +74,8 @@
 #nav_about_link,
 #nav_user_sign_in,
 #toolkit_dropdown {
-  font-family: 'Proxima Nova';
-  font-size:16px;
+  font-family: 'Proxima Nova' !important;
+  font-size:22px !important;
 }
 #c4d_nav_div div,
 #c4d_understand_div div,
@@ -102,7 +102,8 @@
 #c4d_plan_div,
 #c4d_act_div,
 #c4d_tools_div {
-  font-family: 'Proxima Nova';
+  font-size:22px !important;
+  font-family: 'Proxima Nova' !important;
 }
 #sop_nav_button a,
 #sop_what_to_do_nav_button a,
@@ -125,10 +126,6 @@
 }
 #c4d_nav_container {
   max-height: 20%;
-}
-#c4d_nav_container,
-#sop_nav_container {
-  font-size:16px;
 }
 #sop_nav_div,
 #c4d_nav_div {

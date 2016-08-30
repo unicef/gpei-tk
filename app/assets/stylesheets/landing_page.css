@@ -16,7 +16,7 @@
 #landing_logo_text {
   color:white;
   font-size:24px;
-  line-height:26px;
+  line-height:30px;
 }
 #landing_logo_text {
   font-family:'Adelle';
@@ -63,11 +63,15 @@
 }
 #landing_sop_container_header,
 #landing_c4d_container_header {
+  font-size:17px;
+  line-height:22px;
+  font-family: 'Proxima Nova' !important;
   font-weight: bold;
 }
 #sop_c4d_description_div {
   font-family: 'Adelle' !important;
   font-size: 37px !important;
+  line-height: 37px !important;
 }
 #landing_c4d_container_header {
   background: #E5DDDD;
@@ -87,7 +91,6 @@
   padding-left:5px;
 }
 #sop_c4d_description_div {
-  font-size:20px;
   font-weight: bold;
   padding-top:4%;
   padding-left:1%;
@@ -108,6 +111,7 @@
   font-size: 16px !important;
   font-family: 'Proxima Nova' !important;
   padding-left:5px;
+  line-height: 24px;
 }
 #sop_landing_description_span {
   width:60%;

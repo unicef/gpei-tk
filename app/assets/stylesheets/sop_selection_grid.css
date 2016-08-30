@@ -13,6 +13,23 @@
   color:white;
   line-height: 39px;
 }
+#c4d_image_title,
+#sop_overview_image_title,
+#sop_selection_image_container_title,
+#sop_landing_image_title {
+  position: absolute;
+  top:15px;
+  left:10px;
+}
+#c4d_image_description,
+#sop_overview_image_description,
+#sop_selection_image_container_description,
+#sop_landing_image_description {
+  position:absolute;
+  max-height: 1em;
+  bottom:15px;
+  left:10px;
+}
 #sop_selection_image_container_description,
 #sop_landing_image_description {
   font-family: 'Proxima Nova' !important;

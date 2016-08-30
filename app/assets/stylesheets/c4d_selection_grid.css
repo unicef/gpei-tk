@@ -120,8 +120,10 @@
 #c4d_subcategory_title_div {
   font-size:24px;
   font-family: 'Adelle' !important;
+  line-height:20pt;
 }
 #c4d_grid_tile_title {
   font-size:21px;
   font-family: 'Adelle' !important;
+  line-height: 24px;
 }
