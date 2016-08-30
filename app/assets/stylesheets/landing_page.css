@@ -95,14 +95,22 @@
   padding-top:4%;
   padding-left:1%;
 }
-#landing_sop_c4d_angle_right {
+#landing_sop_angle_right {
   font-size:60px;
   color:white;
-  position: relative;
+  position: absolute;
   right:5px;
-  top:10%;
+  top:20%;
 }
-#landing_sop_c4d_angle_right a {
+#landing_c4d_angle_right {
+  font-size:60px;
+  color:white;
+  position: absolute;
+  right:5px;
+  top:65%;
+}
+#landing_sop_angle_right a,
+#landing_c4d_angle_right a {
   color: white;
   text-decoration: none;
 }
@@ -112,6 +120,14 @@
   font-family: 'Proxima Nova' !important;
   padding-left:5px;
   line-height: 24px;
+}
+#sop_landing_description_span {
+  position: absolute;
+  bottom:50%;
+}
+#c4d_landing_description_span {
+  position: absolute;
+  bottom:5%;
 }
 #sop_landing_description_span {
   width:60%;
