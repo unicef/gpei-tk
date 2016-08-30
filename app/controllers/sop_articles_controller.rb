@@ -10,9 +10,9 @@ class SopArticlesController < ApplicationController
       else
         sop_article = SopArticle.where(id: params['id']).first
       end
-      sop_categories = SopCategory.all
+      sop_categories = SopCategory.all.order(:id)
       checklist_articles = current_user.sop_checklist.sop_articles if current_user
-      sop_times = SopTime.all
+      sop_times = SopTime.all.order(:id)
       reference_links = sop_article.reference_links
       render json: { status: 200,
                      article: sop_article,
