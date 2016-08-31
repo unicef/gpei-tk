@@ -91,9 +91,6 @@
 #c4d_subcategory_accordion .title.transition.visible {
   width:100%;
 }
-#c4d_subcategory_accordion .content.active .title.transition.visible {
-  border-top:1px solid white;
-}
 .c4d_grid_add i,
 .c4d_grid_check i{
   color:black;
