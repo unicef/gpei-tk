@@ -1,6 +1,6 @@
 class Cms::ReferenceLinksController < ApplicationController
   def index
-    reference_links = ReferenceLink.all
+    reference_links = ReferenceLink.all.order(:document_file_name)
     render json: { reference_links: reference_links, status: 200 }
   end
 

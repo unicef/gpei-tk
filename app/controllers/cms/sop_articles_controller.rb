@@ -51,7 +51,7 @@ class Cms::SopArticlesController < ApplicationController
     if current_user.is_admin? || current_user.is_editor?
       if request.xhr?
         sop_article = SopArticle.find_by(id: params[:id])
-        ReferenceLinkArticle.where(reference_linkable: sop_article).delete_all
+        ReferenceLinkArticle.where(reference_linkable: sop_article).destroy_all
         if !params[:article][:reference_links].nil?
           params[:article][:reference_links].each do |reference_id|
             reference = ReferenceLink.find_by(id: reference_id)

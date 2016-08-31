@@ -49,7 +49,7 @@ class Cms::C4dArticlesController < ApplicationController
       if request.xhr?
         c4d_article = C4dArticle.find_by(id: params[:id])
         if c4d_article
-          ReferenceLinkArticle.where(reference_linkable: c4d_article).delete_all
+          ReferenceLinkArticle.where(reference_linkable: c4d_article).destroy_all
           if !params[:article][:reference_links].nil?
             params[:article][:reference_links].each do |reference_id|
               reference = ReferenceLink.find_by(id: reference_id)
