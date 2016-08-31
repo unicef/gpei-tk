@@ -128,10 +128,16 @@ $(() => {
           <input type="text" name="article[video_url]" value="${article.video_url}">
         </div>
         ${getReferenceLinkSelector(reference_links, selected_reference_links)}
+        ${ getReferenceLinksList(selected_reference_links) }
         <button class="ui button" type="submit">Submit</button>
       </form>
     </div>
     `)
+  }
+  function getReferenceLinksList(selected_reference_links) {
+    return `${_.map(selected_reference_links, reference_link => {
+              return (`<p><strong>Reference Link: </strong>${reference_link.document_file_name} - <a href="${reference_link.url}" target="_blank">${reference_link.url}</a></p>`)
+            }).join('\n')}`
   }
 
   function getReferenceLinkSelector(reference_links, selected_reference_links) {
