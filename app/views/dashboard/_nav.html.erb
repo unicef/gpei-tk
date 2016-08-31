@@ -22,7 +22,7 @@
   </div>
   <% end %>
   <% if @is_c4d %>
-<div id='c4d_nav_container' class='col-md-6 white_text text-center'>
+<div id='c4d_nav_container' class='col-md-6  white_text text-center'>
     <div id='c4d_nav_div' class='col-md-2 <%= 'active' if @is_c4d_nav %>'>
       <div>
         <a id='c4d_nav_button' href='/c4d/'>C4D</a>
@@ -34,7 +34,7 @@
           <a id='c4d_understand_button' href='/c4d/understand/'>1. UNDERSTAND</a>
         </div>
       </div>
-      <div id='c4d_plan_div' <%= "style=background-color:#{ @c4d_category.color }" if @is_c4d_plan %> class='col-md-2  <%= ' active' if @is_c4d_plan %>'>
+      <div id='c4d_plan_div' <%= "style=background-color:#{ @c4d_category.color }" if @is_c4d_plan %> class='col-md-3  <%= ' active' if @is_c4d_plan %>'>
         <div>
           <a id='c4d_plan_button' href='/c4d/plan/'>2. PLAN</a>
         </div>
@@ -44,7 +44,7 @@
           <a id='c4d_act_button' href='/c4d/act/'>3. ACT</a>
         </div>
       </div>
-      <div id='c4d_tools_div' <%= "style=background-color:#{ @c4d_category.color }" if @is_c4d_tools %> class='col-md-2  <%= ' active' if @is_c4d_tools %>'>
+      <div id='c4d_tools_div' <%= "style=background-color:#{ @c4d_category.color }" if @is_c4d_tools %> class='col-md-3  <%= ' active' if @is_c4d_tools %>'>
         <div>
           <a id='c4d_tools_button' href='/c4d/tools/'>4. TOOLS</a>
         </div>
@@ -58,14 +58,14 @@
         <a href='mailto:rhizometk@gmail.com'>CONTACT</a>
       </div>
     </div>
-    <div id="nav_about_link" class='col-md-4 text-center'>
+    <div id="nav_about_link" class='col-md-3 text-center'>
       <div>
         <a href=''>ABOUT</a>
       </div>
     </div>
     <% if current_user %>
       <!-- beginning of dropdown -->
-      <div id='toolkit_dropdown_div' class='col-md-4 text-center'>
+      <div id='toolkit_dropdown_div' class='col-md-5 text-center'>
         <div id='toolkit_dropdown' class="ui pointing dropdown right">
           <i class="fa fa-list" aria-hidden="true"></i>
           <div id='toolkit_dropdown_header_text' class="text">My Toolkit</div>

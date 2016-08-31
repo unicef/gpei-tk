@@ -307,7 +307,7 @@ $(() => {
   function getReferenceLinksDiv(reference_links){
     let content = ""
     if (!_.isEmpty(reference_links)) {
-      content = "<div class='row'><div id='sop_show_references'><div class='col-md-12'><strong>REFERENCES:</strong></div>" +
+      content = "<div class='row'><div id='sop_show_references'><div id='reference_header_text_div' class='col-md-12'><strong>REFERENCES:</strong></div>" +
         _.map(reference_links, reference_link => {
           let reference_title = _.replace(reference_link.document_file_name, new RegExp("_","g")," ")
           reference_title = _.replace(reference_title, new RegExp(".pdf","g"),"")
