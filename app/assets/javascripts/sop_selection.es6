@@ -320,7 +320,7 @@ $(() => {
 
   function getVideoContent(params) {
     let video_content = ''
-    if (params['article'].video_url !== null) {
+    if (!_.isNull(params['article'].video_url) && params['article'].video_url !== '') {
       video_content = `<div class='row'><div id='multimedia_header' class='col-md-9'><strong>MULTIMEDIA:</strong></div><div class='col-md-12'><iframe src="${ params['article'].video_url }" width="97%" height="auto" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe></div></div>`
       video_content = _.replace(video_content, 'https://vimeo.com/', 'https://player.vimeo.com/video/')
     }
