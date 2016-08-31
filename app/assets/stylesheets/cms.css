@@ -68,8 +68,9 @@
   position:absolute;
   left:30%;
 }
-#reference_link_multi_select .ui.dropdown.cms_dropdown_select {
-  height:100px;
+
+#reference_link_multi_select select {
+  height:500px;
 }
 #CMS_user_assign_role,
 #CMS_sop_toggle_published,

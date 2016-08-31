@@ -89,7 +89,6 @@ $(() => {
         $('#CMS_index_content').append(content)
         initializeCKEditor()
         $('#editor').val(response.sop_article.content)
-        $('#CMS_index_content .ui.dropdown.cms_dropdown_select').resizable()
       })
     })
   })
