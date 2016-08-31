@@ -6,5 +6,7 @@
   height:50px;
 }
 #gpei_footer_logo_div {
-  padding-top:15px;
+  position:absolute;
+  width:80%;
+  bottom:10px;
 }
