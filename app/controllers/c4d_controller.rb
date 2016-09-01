@@ -46,7 +46,7 @@ class C4dController < ApplicationController
   private
   def get_c4d_article_color_array category
     colors = { 'Understand':
-              { 'BehaviouralGoal': ['#4B5C16', '#586E12', '#6F8D0E', '#77980F'],
+              { 'BehaviouralGoal': ['#77980F', '#586E12', '#6F8D0E', '#4B5C16'],
                 'UsingEvidence': [nil, nil, nil, nil, '#60791C', '#749115', '#80A30A', '#98B90B'],
                 'IDHighRiskGroups': [nil, nil, nil, nil, nil, nil, nil, nil, '#81A228']
               },
