@@ -195,6 +195,10 @@ $(() => {
                                         sop_categories: response.sop_categories })
       $('#sop_article_show_modal .header').append(header)
       $('#sop_article_show_modal .content').append(content)
+      _.forEach($('#sop_article_show_modal #sop_article_content img'), img => {
+        $(img).addClass('img-responsive')
+      })
+
       let outerHeight = $('#sop_article_show_modal').outerHeight()
       outerHeight = outerHeight - $('#sop_article_show_modal .header').outerHeight()
       $('#sop_article_show_info_column').css({ height: outerHeight })
@@ -388,7 +392,7 @@ $(() => {
 
   $('#sop_article_show_modal').on('click', '#sop_email_icon_link', e => {
     e.preventDefault()
-    window.location.href=`mailto:?subject=C4D Article: ${$('#sop_category_and_article_title').html()}&body=Click <a href='${window.location.protocol + '//' + window.location.host}/sop_articles/${$('#sop_add_to_toolkit_text').parent().attr('id')}' target='_blank'>here</a> to view the shared article!`;
+    window.location.href=`mailto:?subject=SOP Article: ${$('#sop_category_and_article_title').html()}&body=Click <a href='${window.location.protocol + '//' + window.location.host}/sop_articles/${$('#sop_add_to_toolkit_text').parent().attr('id')}' target='_blank'>here</a> to view the shared article!`;
   })
 
   if ($('#sop_overview_content_description_div').outerHeight() > $('#sop_overview_content_div').outerHeight())
@@ -419,6 +423,11 @@ $(() => {
                                         sop_categories: response.sop_categories })
       $('#sop_article_show_modal .header').append(header)
       $('#sop_article_show_modal .content').append(content)
+
+      _.forEach($('#sop_article_show_modal #sop_article_content img'), img => {
+        $(img).addClass('img-responsive')
+      })
+
       let outerHeight = $('#sop_article_show_modal').outerHeight()
       outerHeight = outerHeight - $('#sop_article_show_modal .header').outerHeight()
       $('#sop_article_show_info_column').css({ height: outerHeight })
