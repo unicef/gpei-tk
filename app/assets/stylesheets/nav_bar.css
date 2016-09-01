@@ -59,7 +59,7 @@
   z-index:10;
   width:100%;
   background: black;
-  font-family:'Proxima Nova' !important;
+  font-family:'proxima-nova' !important;
 }
 #nav_default_buttons_div {
   max-width: 25%;
@@ -74,7 +74,7 @@
 #nav_about_link,
 #nav_user_sign_in,
 #toolkit_dropdown {
-  font-family: 'Proxima Nova' !important;
+  font-family: 'proxima-nova' !important;
   font-size:22px !important;
 }
 #c4d_nav_div div,
@@ -103,7 +103,7 @@
 #c4d_act_div,
 #c4d_tools_div {
   font-size:22px !important;
-  font-family: 'Proxima Nova' !important;
+  font-family: 'proxima-nova' !important;
 }
 #sop_nav_button a,
 #sop_what_to_do_nav_button a,

@@ -19,10 +19,10 @@
   line-height:30px;
 }
 #landing_logo_text {
-  font-family:'Adelle';
+  font-family:'adelle';
 }
 #landing_scroll_begin_text {
-  font-family: 'Proxima Nova';
+  font-family: 'proxima-nova';
 }
 #landing_logo_text {
   width:30%;
@@ -65,11 +65,11 @@
 #landing_c4d_container_header {
   font-size:17px;
   line-height:22px;
-  font-family: 'Proxima Nova' !important;
+  font-family: 'proxima-nova' !important;
   font-weight: bold;
 }
 #sop_c4d_description_div {
-  font-family: 'Adelle' !important;
+  font-family: 'adelle' !important;
   font-size: 37px !important;
   line-height: 37px !important;
 }
@@ -117,7 +117,7 @@
 #sop_landing_description_span,
 #c4d_landing_description_span {
   font-size: 16px !important;
-  font-family: 'Proxima Nova' !important;
+  font-family: 'proxima-nova' !important;
   padding-left:5px;
   line-height: 24px;
 }
@@ -151,6 +151,6 @@
   margin-bottom:20px;
 }
 #sop_c4d_nav_header_container span {
-  font-family: 'Proxima Nova' !important;
+  font-family: 'proxima-nova' !important;
   font-size: 24px;
 }

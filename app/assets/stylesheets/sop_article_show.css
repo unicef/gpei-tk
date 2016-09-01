@@ -168,25 +168,25 @@
 #related_topics_header,
 #sop_show_references,
 #multimedia_header {
-  font-family:'Proxima Nova';
+  font-family:'proxima-nova';
   font-size: 17px !important;
 }
 #reference_link_anchor_div a,
 #related_topic_link_div div a,
 #reference_link_anchor_div a {
-  font-family:'Proxima Nova';
+  font-family:'proxima-nova';
   font-size: 19px !important;
 }
 #c4d_add_to_toolkit_text,
 #sop_add_to_toolkit_text {
-  font-family:'Proxima Nova';
+  font-family:'proxima-nova';
   font-size:12px;
 }
 .max-height {
   height:100%;
 }
 #sop_article_show_header {
-  font-family: 'Proxima Nova';
+  font-family: 'proxima-nova';
   font-size:25px;
 }
 #cgi_sop_close_icon_div a {

@@ -8,7 +8,7 @@
 #sop_landing_overview_title,
 #sop_landing_image_title,
 #sop_selection_image_container_title {
-  font-family:'Adelle' !important;
+  font-family:'adelle' !important;
   font-size: 37px !important;
   color:white;
   line-height: 39px;
@@ -32,7 +32,7 @@
 }
 #sop_selection_image_container_description,
 #sop_landing_image_description {
-  font-family: 'Proxima Nova' !important;
+  font-family: 'proxima-nova' !important;
   font-size: 21px !important;
   height:100%;
   color:white;
@@ -86,7 +86,7 @@
   margin-left:10px;
 }
 #grid_item_article_title {
-  font-family: 'Adelle' !important;
+  font-family: 'adelle' !important;
   font-weight: bold;
   font-size:24px !important;
   line-height: 24px;
@@ -100,7 +100,7 @@
 #sop_grid_responsible_office,
 #sop_grid_cat_div,
 #grid_item_time_period {
-  font-family: 'Proxima Nova' !important;
+  font-family: 'proxima-nova' !important;
   font-size: 19px !important;
   padding-top:2px;
   line-height:19px;
@@ -131,7 +131,7 @@
 }
 #sop_landing_overview_description_div span,
 #sop_landing_wtdw_description_div span {
-  font-family: 'Proxima Nova' !important;
+  font-family: 'proxima-nova' !important;
   font-size: 17px !important;
 }
 #sop_landing_wtdw_description_div {

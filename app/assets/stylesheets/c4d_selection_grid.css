@@ -103,24 +103,24 @@
 }
 #c4d_category_title_div,
 #c4d_image_title {
-  font-family:'Adelle' !important;
+  font-family:'adelle' !important;
   font-size: 37px !important;
   color:white;
   line-height: 39px;
 }
 #c4d_category_description_div,
 #c4d_image_description {
-  font-family: 'Proxima Nova' !important;
+  font-family: 'proxima-nova' !important;
   color:white;
   line-height: 23px;
 }
 #c4d_subcategory_title_div {
   font-size:24px;
-  font-family: 'Adelle' !important;
+  font-family: 'adelle' !important;
   line-height:20pt;
 }
 #c4d_grid_tile_title {
   font-size:21px;
-  font-family: 'Adelle' !important;
+  font-family: 'adelle' !important;
   line-height: 24px;
 }
