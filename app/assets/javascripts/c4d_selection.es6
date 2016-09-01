@@ -153,7 +153,7 @@ $(() => {
     return `
       <div id="c4d_article_show_header" class='row' style='background-color:${ params['c4d_subcategories'][params['article'].c4d_subcategory_id-1].color } ;'>
         <div id='c4d_category_and_article_title' class='col-md-12 text-center' style='background-color:${ params['c4d_subcategories'][params['article'].c4d_subcategory_id-1].color };'>${ params['article'].title }</div>
-        <div id='c4d_close_icon' class='text-right' style='font-size:75%'><a href=''>CLOSE&nbsp;<i class="fa fa-remove" aria-hidden="true"></i></a></div>
+        <div id='c4d_close_icon' class='text-right'><a href=''>CLOSE&nbsp;<i class="fa fa-remove" aria-hidden="true"></i></a></div>
       </div>`
   }
   function get_color_for_subcategory(article_subcategory){

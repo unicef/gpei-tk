@@ -195,9 +195,6 @@ $(() => {
                                         sop_categories: response.sop_categories })
       $('#sop_article_show_modal .header').append(header)
       $('#sop_article_show_modal .content').append(content)
-      _.forEach($('#sop_article_show_modal #sop_article_content img'), img => {
-        $(img).addClass('img-responsive')
-      })
 
       let outerHeight = $('#sop_article_show_modal').outerHeight()
       outerHeight = outerHeight - $('#sop_article_show_modal .header').outerHeight()
@@ -423,10 +420,6 @@ $(() => {
                                         sop_categories: response.sop_categories })
       $('#sop_article_show_modal .header').append(header)
       $('#sop_article_show_modal .content').append(content)
-
-      _.forEach($('#sop_article_show_modal #sop_article_content img'), img => {
-        $(img).addClass('img-responsive')
-      })
 
       let outerHeight = $('#sop_article_show_modal').outerHeight()
       outerHeight = outerHeight - $('#sop_article_show_modal .header').outerHeight()

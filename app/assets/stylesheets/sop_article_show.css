@@ -83,7 +83,7 @@
   border: 1px solid white;
 }
 #sop_close_icon {
-  font-size:60%;
+  font-size:12px;
   position: absolute;
   right:25px;
   top:10px;
@@ -169,25 +169,25 @@
 #sop_show_references,
 #multimedia_header {
   font-family:'proxima-nova';
-  font-size: 17px !important;
+  font-size: 13px !important;
 }
 #reference_link_anchor_div a,
 #related_topic_link_div div a,
 #reference_link_anchor_div a {
   font-family:'proxima-nova';
-  font-size: 19px !important;
+  font-size: 14px !important;
 }
 #c4d_add_to_toolkit_text,
 #sop_add_to_toolkit_text {
   font-family:'proxima-nova';
-  font-size:12px;
+  font-size: 10px;
 }
 .max-height {
   height:100%;
 }
 #sop_article_show_header {
   font-family: 'proxima-nova';
-  font-size:25px;
+  font-size: 15px;
 }
 #cgi_sop_close_icon_div a {
   color:white;
@@ -196,7 +196,7 @@
   position:absolute;
   top:10px;
   right:10px;
-  font-size:14px;
+  font-size:12px;
 }
 #sop_category_and_article_title {
   padding-top:8px;

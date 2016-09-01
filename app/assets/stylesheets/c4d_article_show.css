@@ -37,11 +37,11 @@
 #c4d_article_show_header {
   color: white;
   border: 1px solid white;
-  font-family: 'proxima-nova';
+  font-family: 'proxima-nova' !important;
   font-weight: bold;
 }
 #c4d_category_and_article_title {
-  font-size:25px;
+  font-size:15px !important;
   font-family: 'proxima-nova';
   padding-top:8px;
   padding-bottom:8px;
@@ -51,10 +51,11 @@
 }
 #c4d_close_icon {
   position: absolute;
-  top:10px;
+  top:8px;
   right:25px;
 }
 #c4d_close_icon a {
+  font-size:12px;
   color: white;
 }
 .col-md-9 {

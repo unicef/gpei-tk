@@ -9,7 +9,7 @@
 #sop_landing_image_title,
 #sop_selection_image_container_title {
   font-family:'adelle' !important;
-  font-size: 37px !important;
+  font-size: 28px !important;
   color:white;
   line-height: 39px;
 }
@@ -27,16 +27,16 @@
 #sop_landing_image_description {
   position:absolute;
   max-height: 1em;
-  bottom:30px;
+  bottom:2em;
   left:10px;
 }
 #sop_selection_image_container_description,
 #sop_landing_image_description {
   font-family: 'proxima-nova' !important;
-  font-size: 21px !important;
+  font-size: 15px !important;
   height:100%;
   color:white;
-  line-height: 23px;
+  line-height: 17px;
   opacity:0.6;
 }
 #isotope_container a {
@@ -101,9 +101,14 @@
 #sop_grid_cat_div,
 #grid_item_time_period {
   font-family: 'proxima-nova' !important;
-  font-size: 19px !important;
+  font-size: 14px !important;
   padding-top:2px;
-  line-height:19px;
+  line-height:15px;
+}
+#sop_grid_cat_div_text {
+  font-family: 'adelle' !important;
+  font-size: 18px !important;
+  line-height: 19px;
 }
 .grid_add,
 .grid_check {
@@ -132,7 +137,7 @@
 #sop_landing_overview_description_div span,
 #sop_landing_wtdw_description_div span {
   font-family: 'proxima-nova' !important;
-  font-size: 17px !important;
+  font-size: 15px !important;
 }
 #sop_landing_wtdw_description_div {
   background-color:#8D3733;
@@ -155,7 +160,6 @@
   padding-right:10px;
 }
 #sop_landing_wtdw_title {
-  font-size:250%;
   line-height:90%;
   padding-top:3%;
   padding-left:10px;

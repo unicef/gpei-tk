@@ -104,7 +104,7 @@
 #c4d_category_title_div,
 #c4d_image_title {
   font-family:'adelle' !important;
-  font-size: 37px !important;
+  font-size: 28px !important;
   color:white;
   line-height: 39px;
 }
@@ -112,16 +112,18 @@
 #c4d_image_description {
   font-family: 'proxima-nova' !important;
   color:white;
-  line-height: 23px;
+  font-size:15px !important;
+  line-height: 18px;
 }
 #c4d_subcategory_title_div {
-  font-size:24px;
+  font-size:18px;
+  font-weight:bold;
   font-family: 'adelle' !important;
-  line-height:20pt;
+  line-height:20px;
 }
-#c4d_grid_tile_title {
-  font-size:21px;
-  font-family: 'adelle' !important;
-  line-height: 24px;
-  font-weight:normal;
+#c4d_grid_tile_title a {
+  font-size: 15px;
+  font-family: 'proxima-nova' !important;
+  line-height: 18px;
+  font-weight: normal !important;
 }

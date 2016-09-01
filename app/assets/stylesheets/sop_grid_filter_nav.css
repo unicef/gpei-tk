@@ -11,7 +11,7 @@
   padding-right:10px;
   font-style:italic;
   font-family: 'proxima-nova' !important;
-  font-size: 17px !important;
+  font-size: 16px !important;
   opacity: 0.4;
 }
 #sop_filter_category_icon {
@@ -33,7 +33,7 @@
 }
 .sop_filter_header {
   font-family:'proxima-nova' !important;
-  font-size:17px;
+  font-size:14px;
   background-color: #B12924;
   color:white;
   font-weight: bold;
@@ -53,8 +53,8 @@
 #sop_filter_sop_time_label,
 .filter-item span {
   font-family: 'proxima-nova' !important;
-  font-size:15px !important;
-  line-height:17px;
+  font-size:14px !important;
+  line-height:15px;
 }
 #sop_filter_sop_time_label {
   padding-left:2px;
@@ -106,7 +106,7 @@
 }
 #select_filter_header span {
   font-family: 'proxima-nova' !important;
-  font-size: 19px !important;
+  font-size: 14px !important;
 }
 #select_filter_header,
 #select_filter_dropdown_menu i {

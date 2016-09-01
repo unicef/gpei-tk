@@ -23,28 +23,28 @@
 }
 #sop_overview_image_title {
   font-family:'adelle' !important;
-  font-size: 37px !important;
+  font-size: 28px !important;
   color:white;
   line-height: 39px;
 }
 #sop_overview_image_description {
   font-family: 'proxima-nova' !important;
-  font-size: 21px !important;
+  font-size: 15px !important;
   height:100%;
   color:white;
-  line-height: 23px;
+  line-height: 17px;
   opacity:0.6;
 }
-#sop_overview_content_description_div {
-  font-family: 'proxima-nova';
-  font-size: 17px;
+#sop_overview_content_description_div  strong{
+  font-family: 'proxima-nova' !important;
+  font-size: 13px !important;
 }
 #sop_over_content_list_items_text {
-  font-family: 'proxima-nova';
-  font-size: 19px;
+  font-family: 'proxima-nova' !important;
+  font-size: 14px !important;
 }
 #sop_overview_content {
   padding:5px;
-  font-family: 'proxima-nova';
-  font-size: 23px;
+  font-family: 'proxima-nova' !important;
+  font-size: 17px !important;
 }
