@@ -5,6 +5,9 @@
   width:355px;
   height:50px;
 }
+#footer_img img {
+  opacity: .5;
+}
 #gpei_footer_logo_div {
   position:absolute;
   width:80%;

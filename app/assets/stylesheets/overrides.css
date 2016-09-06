@@ -59,6 +59,9 @@ p {
   width:550px;
   margin:0 auto;
 }
+#gpei_footer_home_logo_div img {
+  opacity: .5;
+}
 #reference_header_text_div {
   margin-bottom:5px;
 }
