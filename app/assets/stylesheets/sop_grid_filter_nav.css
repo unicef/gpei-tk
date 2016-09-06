@@ -117,3 +117,7 @@
     right:0;
     position:fixed;
 }
+#sop_grid_filter_row {
+  padding-top:3px;
+  padding-bottom:3px;
+}
