@@ -1,7 +1,7 @@
 class SopController < ApplicationController
   before_action do |controller|
     @is_sop = true
-    @nav_bar_offset = 'col-md-offset-2'
+    @nav_bar_offset = 'col-md-offset-1'
     @user = current_user
   end
 

@@ -7,12 +7,12 @@
     </div>
   </div>
   <% if @is_sop %>
-  <div id='sop_nav_container' class='col-md-5 white_text'>
+  <div id='sop_nav_container' class='col-md-6 white_text'>
     <div id='sop_nav_div'>
       <div id='sop_nav_button' class='col-md-2 text-center <%= @backgrounds[:borders] if @backgrounds[:index] %>' <%= "style=background:" + @backgrounds[:index] + ";" if @backgrounds[:index] %>>
         <div><a href='/sop/'>SOP</a></div>
       </div>
-      <div id='sop_what_to_do_nav_button' class='col-md-5 text-center <%= @backgrounds[:borders] if @backgrounds[:wtdw] %>' <%= "style=background:" + @backgrounds[:wtdw] + ";" if @backgrounds[:wtdw] %>>
+      <div id='sop_what_to_do_nav_button' class='col-md-4 text-center <%= @backgrounds[:borders] if @backgrounds[:wtdw] %>' <%= "style=background:" + @backgrounds[:wtdw] + ";" if @backgrounds[:wtdw] %>>
         <div><a href='/sop/what_to_do_when/'>WHAT TO DO, WHEN</a></div>
       </div>
       <div id='sop_overview_button' class='col-md-5 text-center <%= @backgrounds[:borders] if @backgrounds[:overview] %>' <%= "style=background:" + @backgrounds[:overview] + ";" if @backgrounds[:overview] %>>
