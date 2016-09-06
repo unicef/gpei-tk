@@ -1,10 +1,11 @@
 .terms_of_service_content {
-  color: rgb(34, 34, 34);
   font-family: 'proxima-nova';
   font-size: 12.8px;
   line-height: normal;
-  color: white;
+  color: black;
+  background-color:white;
+  height:100%;
 }
-.tos_link_text {
-  color: blue;
+.terms_of_service_content a {
+  color:#6589A4 !important;
 }
