@@ -40,17 +40,82 @@ $(() => {
         checked_labels += `<div id="filter_output_label" class="ui label"><span id="${elem.value}">${elem_value} </span><a href=''><i class="fa fa-times" aria-hidden="true"></i></a></div>`
       }
     })
+
     $('#selected_filters_output').empty()
     $('#selected_filters_output').append(checked_labels)
-    let filterValue = inclusives.length ? inclusives.join('') : '*'
+    let filterValue = inclusives.length ? getInclusives().join(', ') : '*'
     $container.isotope({ filter: filterValue })
     filterValue = filterValue === '*' ? '' : filterValue
     // $output.html("<li id=\"checklist_article\">" + filterValue + "</li>")
   }
-
   function autoAdjustSopFilterHeights() {
     $('#select_filter_dropdown_menu').height($('#selected_filters_output').height())
     $('#sop_filter_clear_all').height($('#selected_filters_output').height())
+  }
+
+  function getInclusives() {
+    let time_filters = _.filter($('#sop_time_filter input'), filter => { return filter.checked })
+    let category_filters = _.filter($('#sop_category_filter input'), filter => { return filter.checked })
+    let responsible_filters = _.filter($('#sop_responsible_filter input'), filter => { return filter.checked })
+    let inclusives = []
+    if (!_.isEmpty(time_filters)) {
+      _(time_filters).forEach(time_filter => {
+        let pushed = false
+        let filter = time_filter.value
+        if(!_.isEmpty(category_filters)){
+          _(category_filters).forEach(category_filter => {
+            pushed = false
+            let temp_time_filter = filter
+            filter += category_filter.value
+            _(responsible_filters).forEach(responsible_filter => {
+              pushed = true
+              let temp_filter = filter
+              filter+=responsible_filter.value
+              inclusives.push(filter)
+              filter = temp_filter
+            })
+            if (!pushed) {
+              inclusives.push(filter)
+              pushed = true
+            }
+            filter = temp_time_filter
+          })
+        } else {
+          _(responsible_filters).forEach(responsible_filter => {
+            pushed = true
+            let temp_time_filter = filter
+            filter+=responsible_filter.value
+            inclusives.push(filter)
+            filter = temp_time_filter
+          })
+        }
+        if (!pushed) {
+          inclusives.push(filter)
+        }
+      })
+    } else if (_.isEmpty(time_filters)){
+      if (!_.isEmpty(category_filters)) {
+        _(category_filters).forEach(category_filter => {
+          filter = category_filter.value
+          let pushed = false
+          _(responsible_filters).forEach(responsible_filter => {
+            pushed = true
+            let temp_category_filter = filter
+            filter+=responsible_filter.value
+            inclusives.push(filter)
+            filter = temp_category_filter
+          })
+          if (!pushed) {
+            inclusives.push(filter)
+          }
+        })
+      } else {
+        _(responsible_filters).forEach(responsible_filter => {
+          inclusives.push(responsible_filter.value)
+        })
+      }
+    }
+    return inclusives
   }
 
   $('#selected_filters_output').on('click', 'a', e => {
