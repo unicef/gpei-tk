@@ -113,7 +113,7 @@ $(() => {
   // c4d article modal show
   $('#c4d_article_show_modal').modal()
 // $('#c4d_subcategory_accordion td div a')
-  $('#c4d_subcategory_accordion td div a').click(e => {
+  $('#c4d_subcategory_accordion td').click(e => {
     e.preventDefault()
     $.ajax({
       method: 'GET',
@@ -322,5 +322,10 @@ $(() => {
     loadC4dArticle(e.currentTarget.parentElement)
     $('#c4d_article_show_modal').modal('show')
     return false
+  })
+  $('#c4d_selection_page #c4d_subcategory_accordion').each((idx,div) => {
+    $($(div).find('#c4d_subcategory_title_div')).click(e => {
+      $(e.currentTarget).find('i').toggleClass('rotate_icon')
+    })
   })
 })
