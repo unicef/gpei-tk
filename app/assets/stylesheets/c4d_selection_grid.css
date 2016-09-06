@@ -107,6 +107,7 @@
   font-size: 28px !important;
   color:white;
   line-height: 39px;
+  font-weight: bold;
 }
 #c4d_category_description_div,
 #c4d_image_description {
@@ -126,4 +127,16 @@
   font-family: 'proxima-nova' !important;
   line-height: 18px;
   font-weight: normal !important;
+}
+.rotate_icon {
+    -webkit-transform: rotate(90deg);
+    -moz-transform: rotate(90deg);
+    -ms-transform: rotate(90deg);
+    -o-transform: rotate(90deg);
+    transform: rotate(90deg);
+}
+#c4d_subcategory_accordian_icon {
+  height:48px;
+  margin-left:35px;
+  margin-right:15px;
 }
