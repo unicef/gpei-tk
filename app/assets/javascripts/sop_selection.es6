@@ -469,4 +469,8 @@ $(() => {
   //     $(grid_item).css({ left: position })
   //   })
   // }
+  if ($('#sop_selection_page').css('visibility') === 'visible'){
+    let container_width = $('#sop_landing_image_container').outerWidth() + 'px'
+    $('#sop_grid_filter_menu_container').css('width', container_width)
+  }
 })

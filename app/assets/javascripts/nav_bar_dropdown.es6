@@ -62,6 +62,9 @@ $(() => {
     padding += "px"
     $('#sop_selection_page').css({ paddingTop: padding })
     $('#c4d_selection_page').css({ paddingTop: padding })
+
+    let container_width = $('#sop_landing_image_container').outerWidth() + 'px'
+    $('#sop_grid_filter_menu_container').css('width', container_width)
   })
 
   let padding = $('#nav_bar').outerHeight()
