@@ -23,6 +23,7 @@
 }
 #landing_scroll_begin_text {
   font-family: 'proxima-nova';
+  letter-spacing: 3px;
 }
 #landing_logo_text {
   width:30%;
@@ -151,4 +152,5 @@
 #sop_c4d_nav_header_container span {
   font-family: 'proxima-nova' !important;
   font-size: 18px;
+  letter-spacing: 3px;
 }
