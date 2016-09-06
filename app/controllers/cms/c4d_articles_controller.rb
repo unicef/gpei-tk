@@ -3,7 +3,8 @@ class Cms::C4dArticlesController < ApplicationController
     if current_user.is_admin? || current_user.is_editor?
       if request.xhr?
         c4d_articles = C4dArticle.all.order(:order_id)
-        render json: { c4d_articles: c4d_articles, status: 200 }
+        c4d_subcategories = C4dSubcategory.all.order(:id)
+        render json: { c4d_articles: c4d_articles, c4d_subcategories: c4d_subcategories, status: 200 }
       end
     end
   end
