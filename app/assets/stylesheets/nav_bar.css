@@ -54,8 +54,8 @@
 #nav_bar {
   position: fixed;
   min-width:100%;
-  min-height:8%;
-  max-height:40%;
+  min-height:48px;
+  max-height:48px;
   z-index:10;
   width:100%;
   background: black;
@@ -74,6 +74,7 @@
 #nav_about_link,
 #nav_user_sign_in,
 #toolkit_dropdown {
+  letter-spacing: 1px;
   font-family: 'proxima-nova' !important;
   font-size:13px !important;
 }
@@ -96,6 +97,7 @@
 }
 #c4d_nav_div div,
 #sop_nav_button div {
+  letter-spacing: 1px;
   font-size:20px !important;
   font-weight: bold;
   font-family: 'proxima-nova' !important;
@@ -107,6 +109,7 @@
 #c4d_plan_div,
 #c4d_act_div,
 #c4d_tools_div {
+  letter-spacing: 1px;
   font-size:13px !important;
   font-weight: bold;
   font-family: 'proxima-nova' !important;
