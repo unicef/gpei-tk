@@ -31,7 +31,7 @@
                 <div class='sop_checkboxes'>
                   <ul class='list-unstyled text-uppercase'>
                     <% @sop_categories.each do |category| %>
-                      <li class='filter-item'><input class='check_box' id=<%= category.title.gsub(' ', '_') %> type='checkbox' value=".<%= category.title.gsub(' ', '_') %>"><label class='filter-label' for=<%= category.title.gsub(' ', '_') %>><img id='sop_filter_category_icon' src='<%= getSopCategoryIcon(category.title) %>'>&nbsp;<span><%= category.title %></span></label></li>
+                      <li class='filter-item'><input class='check_box' id=<%= category.title.gsub(' ', '_') %> type='checkbox' value=".<%= category.title.gsub(' ', '_') %>"><label class='filter-label' for=<%= category.title.gsub(' ', '_') %>><img id='sop_filter_category_icon' src='<%= getSopCategoryIcon(category.title) %>'><span id='sop_filter_category_span'><%= category.title %></span></label></li>
                     <% end %>
                   </ul>
                 </div>
@@ -67,20 +67,20 @@
             <div id="<%= article.id %>" class="<%= build_classes({grid_item: 'grid_item', time: article.sop_time.period.gsub(' ', '_'), offices: article.responsible_office.title.gsub(' ', '_'), category: article.sop_category.title.gsub(' ', '_')}) %>"
               style=<%='background-color:' + article.sop_time.color + ';' %>>
               <div class='sop_grid_content'>
-                <p id='grid_item_time_period' class='text-left col-md-12'><%= image_tag "sop/grid_icons/#{ get_grid_image_by_sop_subcategory('24 Hours', 'icon-time-white')}.png", width: '17px', height: '17px' %><%= article.sop_time.period %><span id="<%= article.id %>"></span></p>
+                <p id='grid_item_time_period' class='text-left col-md-12'><%= image_tag "sop/grid_icons/#{ get_grid_image_by_sop_subcategory('24 Hours', 'icon-time-white')}.png", height: '14px' %><%= article.sop_time.period %></p>
                 <p id='grid_item_article_title' class='col-md-11 text-left'><strong><%= article.title %></strong></p>
                 <div id='grid_item_icon_div' class='row'>
                   <div id='sop_grid_subcat_and_responsible_office_div' class='text-left col-md-12'>
                     <div id='sop_grid_cat_div' class='col-md-8'>
-                      <%= image_tag "sop/grid_icons/#{ get_grid_image_by_sop_subcategory('24 Hours', 'icon-category-white')}.png", id:'sop_grid_cat_image', width: '8px', height: '8px', class:'col-md-2' %>
+                      <%= image_tag "sop/grid_icons/#{ get_grid_image_by_sop_subcategory('24 Hours', 'icon-category-white')}.png", id:'sop_grid_cat_image', height: '8px', class:'col-md-2' %>
                       <div id='sop_grid_cat_div_text' class='col-md-10'>
-                        &nbsp;<%= article.sop_category.title %>
+                        <%= article.sop_category.title %>
                       </div>
                     </div>
                     <div id='sop_grid_responsible_office' class='col-md-6 text-left'>
-                      <%= image_tag "sop/grid_icons/#{ get_grid_image_by_sop_subcategory('24 Hours', 'icon-resp-white')}.png", id:'sop_grid_responsible_office_image', width: '13px', height: '15px', class:'col-md-2' %>
-                      <div class='col-md-8'>
-                        &nbsp;&nbsp;<%= article.responsible_office.title %>
+                      <%= image_tag "sop/grid_icons/#{ get_grid_image_by_sop_subcategory('24 Hours', 'icon-resp-white')}.png", id:'sop_grid_responsible_office_image', height: '15px', class:'col-md-2' %>
+                      <div id='sop_grid_responsible_title_div' class='col-md-8'>
+                        <%= article.responsible_office.title %>
                       </div>
                     </div>
                   </div>
