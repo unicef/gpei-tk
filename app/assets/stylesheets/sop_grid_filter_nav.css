@@ -19,7 +19,7 @@
   width:auto;
 }
 .sop_filter_header img {
-  height:15px;
+  height:13px;
   width:auto;
   margin-right:5px;
 }
@@ -37,10 +37,8 @@
   background-color: #B12924;
   color:white;
   font-weight: bold;
-  border-style: double;
-  padding-top: 5px;
-  padding-bottom: 5px;
-  padding-left: 10px;
+  border: 1px solid white;
+  padding: 5px;
 }
 .sop_checkboxes {
   background-color: white;
@@ -48,6 +46,10 @@
 .filter-item {
   margin-left: 5px;
   color: #6B7A83;
+  font-weight: normal !important;
+}
+#sop_filter_category_span {
+  padding-left: 3px;
 }
 
 #sop_filter_sop_time_label,
@@ -57,13 +59,14 @@
   line-height:15px;
 }
 #sop_filter_sop_time_label {
-  padding-left:2px;
+  padding:5px;
   color:white;
 }
 .filter-label {
   margin-left: 5px;
   color:black;
   width:70%;
+  font-weight:normal !important;
 }
 .filter-label span {
   opacity: .55;
@@ -120,4 +123,7 @@
 #sop_grid_filter_row {
   padding-top:3px;
   padding-bottom:3px;
+}
+#sop_filter_checkbox_span {
+  padding-left:5px;
 }
