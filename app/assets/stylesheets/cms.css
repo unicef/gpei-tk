@@ -73,6 +73,7 @@
   max-height:500px;
   overflow: scroll;
   border:1px solid black;
+  padding:2px;
 }
 #CMS_user_assign_role,
 #CMS_sop_toggle_published,
