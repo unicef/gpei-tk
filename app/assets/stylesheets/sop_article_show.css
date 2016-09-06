@@ -171,10 +171,17 @@
   font-family:'proxima-nova';
   font-size: 13px !important;
 }
-#reference_link_anchor_div a,
+#related_topics_list a:hover {
+  color:black;
+}
+#reference_link_anchor_div a:visited,
+#related_topics_list a:visited {
+  color:black;
+  font-weight: bold;
+}
 #related_topic_link_div div a,
 #reference_link_anchor_div a {
-  font-family:'proxima-nova';
+  font-family:'adelle';
   font-size: 14px !important;
 }
 #c4d_add_to_toolkit_text,
