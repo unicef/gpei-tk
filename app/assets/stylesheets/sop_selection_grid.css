@@ -10,6 +10,7 @@
 #sop_selection_image_container_title {
   font-family:'adelle' !important;
   font-size: 28px !important;
+  font-weight: bold;
   color:white;
   line-height: 39px;
 }
@@ -34,10 +35,11 @@
 #sop_landing_image_description {
   font-family: 'proxima-nova' !important;
   font-size: 15px !important;
-  height:100%;
   color:white;
   line-height: 17px;
-  opacity:0.6;
+}
+#sop_selection_image_container_description {
+  opacity: 0.7;
 }
 #isotope_container a {
   color:white;
@@ -58,9 +60,6 @@
 #grid_item_icon_div {
   height:85px;
 }
-#sop_grid_cat_div {
-  padding-left:3px;
-}
 #sop_grid_cat_image {
   position:relative;
   bottom:-3px;
@@ -79,11 +78,16 @@
 #sop_grid_subcat_and_responsible_office_div {
   position: absolute;
   bottom:5px;
-  opacity:.6;
+  color:#CCC6C6;
+  z-index:4;
 }
 #grid_item_time_period img {
   margin-right:15px;
   margin-left:10px;
+}
+#grid_item_time_period {
+  margin-top:2px;
+  margin-bottom:2px;
 }
 #grid_item_article_title {
   font-family: 'adelle' !important;
@@ -104,16 +108,15 @@
   font-size: 14px !important;
   padding-top:2px;
   line-height:15px;
+  padding-left:3px;
 }
-#sop_grid_cat_div_text {
-  font-family: 'proxima-nova' !important;
-  font-size: 18px !important;
-  line-height: 19px;
+#sop_grid_cat_div_text{
+  padding-left:3px;
 }
 .grid_add,
 .grid_check {
-  top:0px;
-  right:0px;
+  top:1px;
+  right:1px;
   position:absolute;
   color:black;
 }
@@ -150,7 +153,6 @@
   color:white;
   height:100%;
 }
-#sop_landing_wtdw_description,
 #sop_landing_wtdw_arrow,
 #sop_landing_wtdw_title {
   height:33%;
@@ -160,8 +162,7 @@
   padding-right:10px;
 }
 #sop_landing_wtdw_title {
-  line-height:90%;
-  padding-top:3%;
+  padding-top:10px;
   padding-left:10px;
 }
 #sop_landing_wtdw_description {
@@ -169,7 +170,6 @@
   padding-left:10px;
 }
 
-#sop_landing_overview_description,
 #sop_landing_overview_arrow,
 #sop_landing_overview_title {
   height:33%;
@@ -179,7 +179,7 @@
   padding-right:10px;
 }
 #sop_landing_overview_title {
-  padding-top:3%;
+  padding-top:10px;
   padding-left:10px;
 }
 #sop_landing_overview_description {
@@ -189,4 +189,9 @@
 #sop_landing_overview_description_div a,
 #sop_landing_wtdw_description_div a {
   color:white;
+}
+#sop_grid_responsible_title_div {
+  padding-left:3px;
+  margin-top:3px;
+  margin-bottom:3px;
 }
