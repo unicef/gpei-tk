@@ -132,6 +132,7 @@ $(() => {
       $('#c4d_article_show_modal .content').append(content)
       _.forEach($('#c4d_article_show_modal #c4d_article_content img'), img => {
         $(img).addClass('img-responsive')
+        $(img).css('height', 'auto')
       })
 
       $('#c4d_article_show_modal').modal('show')
