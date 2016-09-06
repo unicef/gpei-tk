@@ -8,7 +8,7 @@ $(() => {
 
   $('#nav_about_link').click(e => {
     e.preventDefault()
-    $('#user_account_modal .header').append('About Us')
+    $('#user_account_modal .header').append(`<div class='about_header_header'>About Us</div>`)
     $('#user_account_modal .content').append(aboutUsContent())
     $('#user_account_modal').modal('toggle')
     return false
@@ -16,9 +16,9 @@ $(() => {
 
   function aboutUsContent() {
     return (
-        `<div><strong>About Rhizome:</strong></div>
+        `<div class='about_content_header'><strong>About Rhizome:</strong></div>
         <div><br></div>
-        <p>
+        <p class='about_content'>
         Rhizomes are underground plant systems that produce stems and roots. By continuously establishing new connections, the whole system grows, thrives and regenerates both above and below ground, even in the most challenging conditions.
         Inspired by this ecosystem of adaptation and innovation, this online resource is designed to support the endgame of global polio eradication by bringing together quality guidance, tools and standards for polio Communication for Development (C4D) strategies.
 
@@ -28,10 +28,11 @@ $(() => {
 
         Rhizome is an initiative of the GPEI and is managed and maintained by the polio team of the United Nations Children Fund (UNICEF).</p>
 
-        <div><strong>About the GPEI:</strong></div>
+        <div><br></div>
+        <div class='about_content_header'><strong>About the GPEI:</strong></div>
 
         <div><br></div>
-        <p>The Global Polio Eradication Initiative is a public-private partnership led by national governments and spearheaded by the World Health Organization (WHO), Rotary International, the US Centers for Disease Control and Prevention (CDC), and the United Nations Children’s Fund (UNICEF). Its goal is to eradicate polio worldwide. To find out more visit: www.polioeradication.org</p>`
+        <p class='about_content'>The Global Polio Eradication Initiative is a public-private partnership led by national governments and spearheaded by the World Health Organization (WHO), Rotary International, the US Centers for Disease Control and Prevention (CDC), and the United Nations Children’s Fund (UNICEF). Its goal is to eradicate polio worldwide. To find out more visit: www.polioeradication.org</p>`
       )
   }
 
