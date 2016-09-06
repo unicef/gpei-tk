@@ -142,15 +142,15 @@ $(() => {
 
   function getReferenceLinkSelector(reference_links, selected_reference_links) {
     return (`
-      <div id='reference_link_multi_select' class="field">
+      <div id='reference_link_checkboxes' class="field">
         <label>Reference Links</label>
-        <select name="article[reference_links][]" class="ui dropdown cms_dropdown_select" size=30 multiple>
-          <option value="">Select Reference Links</option>
+          <ul class='list-unstyled'>
           ${_.map(reference_links, reference_link => {
-            let selected = _.includes(selected_reference_links, reference_link.id) ? "selected=\"selected\"" : ""
-            return `<option value="${reference_link.id}" ${selected}>${reference_link.document_file_name}</option>`
+            let checked = !_.isEmpty(_.filter(selected_reference_links, (selected_reference) => { return selected_reference.id === reference_link.id })) ? "checked" : ""
+            return `<li><input id=${reference_link.id} ${checked} type='checkbox' name="article[reference_links][]" value="${reference_link.id}">
+                    <label id='cms_reference_link_label' class='filter-label' for=${reference_link.id}>${reference_link.document_file_name}</label></li>`
           }).join('\n')}
-        </select>
+          </ul>
       </div>
       `)
   }

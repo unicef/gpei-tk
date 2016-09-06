@@ -85,22 +85,22 @@ $(() => {
           <label>Video URL</label>
           <input type="text" name="article[video_url]" value="">
         </div>
-        ${getReferenceLinkSelect(reference_links)}
+        ${getReferenceLinkSelector(reference_links)}
         <button class="ui button" type="submit">Submit</button>
       </form>
     `)
   }
 
-  function getReferenceLinkSelect(reference_links) {
+  function getReferenceLinkSelector(reference_links) {
     return (`
-      <div id='reference_link_multi_select' class="field">
+      <div id='reference_link_checkboxes' class="field">
         <label>Reference Links</label>
-        <select name="article[reference_links][]" class="ui dropdown cms_dropdown_select" multiple>
-          <option value="">Select Reference Links</option>
+          <ul class='list-unstyled'>
           ${_.map(reference_links, reference_link => {
-            return `<option value="${reference_link.id}">${reference_link.document_file_name}</option>`
+            return `<li><input id=${reference_link.id} type='checkbox' name="article[reference_links][]" value="${reference_link.id}">
+                    <label id='cms_reference_link_label' class='filter-label' for=${reference_link.id}>${reference_link.document_file_name}</label></li>`
           }).join('\n')}
-        </select>
+          </ul>
       </div>
       `)
   }

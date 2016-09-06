@@ -16,29 +16,30 @@ $(() => {
       url: 'cms/c4d_articles/'
     }).done(response => {
       let c4d_articles = response.c4d_articles
+      let c4d_subcategories = response.c4d_subcategories
       $.ajax({
         method: 'GET',
         url: 'cms/users/'
       }).done(response => {
         $('#CMS_index_content').empty()
         appendC4dArticleTableHeader()
-        appendC4dArticleRows(c4d_articles, response.users)
+        appendC4dArticleRows(c4d_articles, response.users, c4d_subcategories)
       })
     })
   })
 
   function appendC4dArticleTableHeader(){
     $('#CMS_index_content').append('<table id="CMS_c4d_articles_table" class="ui celled table"></table>')
-    $('#CMS_c4d_articles_table').append('<thead><tr><th class="text-center"> ID </th><th class="text-center"> Title </th><th class="text-center"> Status </th><th class="text-center"> Updated </th><th class="text-center"> Created </th><th class="text-center"> Author </th><th class="text-center"></th></tr></thead>')
+    $('#CMS_c4d_articles_table').append('<thead><tr><th class="text-center"> ID </th><th class="text-center"> Subcategory </th><th class="text-center"> Title </th><th class="text-center"> Status </th><th class="text-center"> Updated </th><th class="text-center"> Created </th><th class="text-center"> Author </th><th class="text-center"></th></tr></thead>')
   }
 
   function formatPublished(published) {
     return published ? 'Published' : 'Not Published'
   }
 
-  function appendC4dArticleRows(c4d_articles, users){
+  function appendC4dArticleRows(c4d_articles, users, c4d_subcategories){
     _.forEach(c4d_articles, article => {
-      let row = '<tr id="' + article.id + '">' + '<td>' + article.order_id + '</td>' + '<td><a id="' + article.id + '" href="">' + article.title + '</td>' + '<td>' + formatPublished(article.published) + '</td>' + '<td>' + moment(article.updated_at, "YYYY-MM-DD").format("MMM DD, YYYY") + '</td>' + '<td>' + moment(article.created_at, "YYYY-MM-DD").format("MMM DD, YYYY") + '</td>' + '<td>' + users[article.author_id].first_name + ' ' + users[article.author_id].last_name + '</td>' + '<td>' + getUserActionDropdown(article.id) + '</td>' + '</tr>'
+      let row = '<tr id="' + article.id + '">' + '<td>' + article.order_id + '</td>' + '<td>' + c4d_subcategories[article.c4d_subcategory_id-1].title + '</td>' + '<td><a id="' + article.id + '" href="">' + article.title + '</td>' + '<td>' + formatPublished(article.published) + '</td>' + '<td>' + moment(article.updated_at, "YYYY-MM-DD").format("MMM DD, YYYY") + '</td>' + '<td>' + moment(article.created_at, "YYYY-MM-DD").format("MMM DD, YYYY") + '</td>' + '<td>' + users[article.author_id].first_name + ' ' + users[article.author_id].last_name + '</td>' + '<td>' + getUserActionDropdown(article.id) + '</td>' + '</tr>'
       $('#CMS_c4d_articles_table').append(row)
     })
   }
@@ -110,15 +111,15 @@ $(() => {
   }
   function getReferenceLinkSelector(reference_links, selected_reference_links) {
     return (`
-      <div id='reference_link_multi_select' class="field">
+      <div id='reference_link_checkboxes' class="field">
         <label>Reference Links</label>
-        <select name="article[reference_links][]" class="ui dropdown cms_dropdown_select" size=30 multiple>
-          <option value="">Select Reference Links</option>
+          <ul class='list-unstyled'>
           ${_.map(reference_links, reference_link => {
-            let selected = _.includes(selected_reference_links, reference_link.id) ? "selected=\"selected\"" : ""
-            return `<option value="${reference_link.id}" ${selected}>${reference_link.document_file_name}</option>`
+            let checked = !_.isEmpty(_.filter(selected_reference_links, (selected_reference) => { return selected_reference.id === reference_link.id })) ? "checked" : ""
+            return `<li><input id=${reference_link.id} ${checked} type='checkbox' name="article[reference_links][]" value="${reference_link.id}">
+                    <label id='cms_reference_link_label' class='filter-label' for=${reference_link.id}>${reference_link.document_file_name}</label></li>`
           }).join('\n')}
-        </select>
+          </ul>
       </div>
       `)
   }
