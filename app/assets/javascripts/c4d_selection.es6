@@ -166,23 +166,43 @@ $(() => {
   }
 
   function c4d_article_content(params) {
+    let category = params['c4d_categories'][params['article'].c4d_category_id - 1]
     return `
       <div id="c4d_article_show_page">
         <div id="c4d_article_show_info_column" class='col-md-3'>
           <div id="c4d_article_show_info_column_content">
             ${ getRelatedTopicsDiv(params['c4d_related_topics']) }
-            ${ getReferenceLinksDiv(params['reference_links']) }
+            ${  category.title !== 'Tools' ? getReferenceLinksDiv(params) : '' }
           </div>
         </div>
         <div id='c4d_article_content_div' class='col-md-9' class='black_text'>
           ${ getAddToToolkitRow(params) }
           <div id='c4d_article_content'>
             ${ params['article'].content }
+            ${ category.title === 'Tools' ? getC4dToolsReferenceLinks(params) : ''}
           </div>
         </div>
-      </div>
-`
+      </div>`
   }
+
+  function getC4dToolsReferenceLinks(params){
+    let reference_links = params['reference_links']
+    return `<table>
+              ${ _.map(reference_links, reference_link => {
+                let reference_title = _.replace(reference_link.document_file_name, new RegExp("_","g")," ")
+                reference_title = _.replace(reference_title, new RegExp(".pdf","g"),"")
+                return `<tr>
+                          <td>
+                            <img class='tools_reference_link_pdf_icon' src='/assets/reference_icons/icon-doc-pdf.png'>
+                          </td>
+                          <td class='tools_reference_link_description'>
+                            <a href='${ reference_link.url }' target='_blank'>${reference_title}</a>
+                          </td>
+                        </tr>`
+              }).join('\n')}
+            </table>`
+  }
+
   function getAddToToolkitRow(params){
     return (
       `<div class='c4d_email_icon'>
@@ -215,9 +235,11 @@ $(() => {
     return content
   }
 
-  function getReferenceLinksDiv(reference_links){
+  function getReferenceLinksDiv(params){
+    let reference_links = params['reference_links']
     let content = ""
-    if (!_.isEmpty(reference_links)) {
+    let hasReferenceLinks = !_.isEmpty(reference_links)
+    if (hasReferenceLinks) {
       content = "<div class='row'><div id='c4d_show_references'><div id='reference_header_text_div' class='col-md-12'><strong>REFERENCES:</strong></div>" +
         _.map(reference_links, reference_link => {
           let reference_title = _.replace(reference_link.document_file_name, new RegExp("_","g")," ")

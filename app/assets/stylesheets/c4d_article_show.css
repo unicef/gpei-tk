@@ -210,3 +210,19 @@
 #cgi_c4d_article_all_content {
   height:100%;
 }
+.tools_reference_link_pdf_icon {
+  height:50px !important;
+}
+.tools_reference_link_description {
+  padding-left: 10px;
+}
+.tools_reference_link_description a {
+  text-decoration: none !important;
+  color:black;
+}
+.tools_reference_link_description a:hover,
+.tools_reference_link_description a:visited,
+.tools_reference_link_description a:active {
+  text-decoration: none  !important;
+  color:black;
+}
