@@ -72,6 +72,7 @@
 #reference_link_checkboxes ul {
   max-height:500px;
   overflow: scroll;
+  border:1px solid black;
 }
 #CMS_user_assign_role,
 #CMS_sop_toggle_published,
