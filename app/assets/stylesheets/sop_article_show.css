@@ -106,7 +106,7 @@
   padding:10px;
   padding-top:35px;
 }
-#sop_add_to_toolkit_text {
+#sop_add_to_checklist_text {
   font-weight:bold;
   position:absolute;
   right:20px;
@@ -185,7 +185,7 @@
   font-size: 14px !important;
 }
 #c4d_add_to_toolkit_text,
-#sop_add_to_toolkit_text {
+#sop_add_to_checklist_text {
   font-family:'proxima-nova';
   font-size: 10px;
 }

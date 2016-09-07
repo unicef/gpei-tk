@@ -295,7 +295,7 @@ $(() => {
           </div>
         </div>
         <div id='sop_article_content_div' class='col-md-9' class='black_text'>
-          ${ getAddToToolkitRow(params) }
+          ${ getAddToChecklistRow(params) }
           <div id='sop_article_content'>
             <div class='col-md-12'>
               ${ params['article'].content }
@@ -387,13 +387,21 @@ $(() => {
   function getVideoContent(params) {
     let video_content = ''
     if (!_.isNull(params['article'].video_url) && params['article'].video_url !== ''  && params['article'].video_url !== "null") {
-      video_content = `<div class='row'><div id='multimedia_header' class='col-md-9'><strong>MULTIMEDIA:</strong></div><div class='col-md-12'><iframe src="${ params['article'].video_url }" width="97%" height="auto" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe></div></div>`
+      video_content = `<div class='row'>
+                        <div id='multimedia_header' class='col-md-9'>
+                          <strong>MULTIMEDIA:</strong>
+                        </div>
+                        <div class='col-md-12'>
+                          <iframe src="${ params['article'].video_url }" width="97%" height="auto" frameborder="0" webkitallowfullscreen mozallowfullscreen  allowFullScreen>
+                          </iframe>
+                        </div>
+                      </div>`
       video_content = _.replace(video_content, 'https://vimeo.com/', 'https://player.vimeo.com/video/')
     }
     return video_content
   }
 
-  function getAddToToolkitRow(params){
+  function getAddToChecklistRow(params){
     return (
       `<div class='sop_email_icon'>
         <a id='sop_email_icon_link' href=''><i class="fa fa-envelope" aria-hidden="true"></i></a>
@@ -402,7 +410,7 @@ $(() => {
         <a id='sop_print_icon_link' href=''><i class="fa fa-print" aria-hidden="true"></i></a>
       </div>
       <div id="${ params['article'].id }" class='text-center'>
-        <div id='sop_add_to_toolkit_text'>ADD TO MY TOOLKIT</div>
+        <div id='sop_add_to_checklist_text'>ADD TO MY CHECKLIST</div>
       </div>
       <div id="${ params['article'].id }" class='sop_modal_article_icons'>
         <p class="sop_grid_item_article_title ${ params['article'].title }" style='display:none;visibility:hidden;'>${ params['article'].title }</p>
@@ -454,7 +462,7 @@ $(() => {
 
   $('#sop_article_show_modal').on('click', '#sop_email_icon_link', e => {
     e.preventDefault()
-    window.location.href=`mailto:?subject=SOP Article: ${$('#sop_category_and_article_title').html()}&body=Click <a href='${window.location.protocol + '//' + window.location.host}/sop_articles/${$('#sop_add_to_toolkit_text').parent().attr('id')}' target='_blank'>here</a> to view the shared article!`;
+    window.location.href=`mailto:?subject=SOP Article: ${$('#sop_category_and_article_title').html()}&body=Click <a href='${window.location.protocol + '//' + window.location.host}/sop_articles/${$('#sop_add_to_checklist_text').parent().attr('id')}' target='_blank'>here</a> to view the shared article!`;
   })
 
   if ($('#sop_overview_content_description_div').outerHeight() > $('#sop_overview_content_div').outerHeight())

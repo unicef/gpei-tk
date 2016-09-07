@@ -108,6 +108,7 @@
   padding-left:3px;
 }
 #sop_grid_cat_div_text{
+  word-wrap: break-word;
   padding-left:3px;
 }
 .grid_add,
