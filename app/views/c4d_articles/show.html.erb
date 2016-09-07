@@ -73,7 +73,8 @@
       </div>
 
       <div id='cgi_c4d_article_show' style='color:black;'>
-       <%= @c4d_article.content.html_safe %>
+        <%= image_tag @c4d_article.reference_links.last.document.url(:thumb) %>
+        <%= @c4d_article.content.html_safe %>
       </div>
     </div>
   </div>
