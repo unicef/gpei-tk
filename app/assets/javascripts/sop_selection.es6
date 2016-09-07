@@ -286,8 +286,7 @@ $(() => {
     return false
   })
   function sop_article_content(params) {
-    // gaTrack(`/sop_articles/`, params['article'].title)
-    // ga('set', { page: `/sop/what_to_do_when/`, title: 'GPEI-TK' })
+    ga('send', { 'hitType': 'pageview', 'page': `/sop_articles/${ params['article'].title }` })
     return `
       <div id="sop_article_show_page">
         <div id="sop_article_show_info_column" class='col-md-3'>
@@ -507,10 +506,6 @@ $(() => {
     $('#sop_article_show_modal').modal('show')
     return false
   })
-  function gaTrack(path, title) {
-    ga('set', { page: path, title: title });
-    ga('send', 'pageview');
-  }
 
   _($('#grid_item_icon_div #sop_grid_icon_img')).forEach(img => {
     $(img).css({ visibility: 'visible' })

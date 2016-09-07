@@ -167,8 +167,7 @@ $(() => {
   }
 
   function c4d_article_content(params) {
-    // gaTrack(`/c4d_articles/`, params['article'].title)
-    // ga('set', { page: `/c4d/${params['c4d_categories'][params['article'].c4d_category_id-1].title}`, title: 'GPEI-TK' })
+    ga('send', { 'hitType': 'pageview', 'page': `/c4d_articles/${ params['article'].title }` })
     let category = params['c4d_categories'][params['article'].c4d_category_id - 1]
     return `
       <div id="c4d_article_show_page">
@@ -319,11 +318,6 @@ $(() => {
       })
       matchColumnHeights()
     })
-  }
-
-  function gaTrack(path, title) {
-    ga('set', { page: path, title: title });
-    ga('send', 'pageview');
   }
 
   $('#c4d_toolkit_list').on('click', 'a', e => {
