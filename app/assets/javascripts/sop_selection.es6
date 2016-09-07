@@ -286,8 +286,8 @@ $(() => {
     return false
   })
   function sop_article_content(params) {
-    gaTrack(`/sop_articles/`, params['article'].title)
-    ga('set', { page: `/sop/what_to_do_when/`, title: 'GPEI-TK' })
+    // gaTrack(`/sop_articles/`, params['article'].title)
+    // ga('set', { page: `/sop/what_to_do_when/`, title: 'GPEI-TK' })
     return `
       <div id="sop_article_show_page">
         <div id="sop_article_show_info_column" class='col-md-3'>

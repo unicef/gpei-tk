@@ -167,8 +167,8 @@ $(() => {
   }
 
   function c4d_article_content(params) {
-    gaTrack(`/c4d_articles/`, params['article'].title)
-    ga('set', { page: `/c4d/${params['c4d_categories'][params['article'].c4d_category_id-1].title}`, title: 'GPEI-TK' })
+    // gaTrack(`/c4d_articles/`, params['article'].title)
+    // ga('set', { page: `/c4d/${params['c4d_categories'][params['article'].c4d_category_id-1].title}`, title: 'GPEI-TK' })
     let category = params['c4d_categories'][params['article'].c4d_category_id - 1]
     return `
       <div id="c4d_article_show_page">
