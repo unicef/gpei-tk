@@ -136,7 +136,7 @@ $(() => {
   }
   function getReferenceLinksList(selected_reference_links) {
     return `${_.map(selected_reference_links, reference_link => {
-              return (`<p><strong>Reference Link: </strong>${reference_link.document_file_name} - <a href="${reference_link.url}" target="_blank">${reference_link.url}</a></p>`)
+              return (`<p><strong>Reference Link: </strong>${reference_link.document_file_name} - <a href="${reference_link.absolute_url}" target="_blank">${reference_link.absolute_url}</a></p>`)
             }).join('\n')}`
   }
 

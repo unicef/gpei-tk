@@ -39,7 +39,7 @@
                 <img id='cgi_reference_link_pdf_icon' src='/assets/reference_icons/icon-doc-pdf.png'/>
                 </div>
                 <div id='cgi_reference_link_div' class='col-md-10'>
-                  <a href='<%= link.url %>' target='_blank'><%= link.document_file_name.gsub(/(.PDF|_)/, ' ') %></a>
+                  <a href='<%= link.absolute_url %>' target='_blank'><%= link.document_file_name.gsub(/(.PDF|_)/, ' ') %></a>
                 </div>
               </div>
             <% end %>
@@ -73,7 +73,6 @@
       </div>
 
       <div id='cgi_c4d_article_show' style='color:black;'>
-        <%= image_tag @c4d_article.reference_links.last.document.url(:thumb) %>
         <%= @c4d_article.content.html_safe %>
       </div>
     </div>

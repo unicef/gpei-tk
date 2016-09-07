@@ -4,10 +4,12 @@ class ReferenceLink < ActiveRecord::Base
 
   has_attached_file :document,
                     :path => 'reference_links/:language/:filename',
-                    :styles => { :thumb => ["200x200>", :png] }
+                    styles: { medium: "300x300>", thumb: "100x100>" }
+
   validates_attachment :document, content_type: { content_type: "application/pdf" }
 
   Paperclip.interpolates :language do |attachment, style|
     attachment.instance.language
   end
 end
+

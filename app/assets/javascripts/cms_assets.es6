@@ -85,7 +85,7 @@ $(() => {
 
   function appendReferenceLinkRows(reference_links, users){
     _.forEach(reference_links, reference_link => {
-      let row = `<tr id="${reference_link.id}"><td><a href="${reference_link.url}" target='_blank'>${reference_link.document_file_name}</td><td>${reference_link.language}</td><td>${moment(reference_link.updated_at, "YYYY-MM-DD").format("MMM DD, YYYY")}</td><td>${moment(reference_link.created_at, "YYYY-MM-DD").format("MMM DD, YYYY")}</td><td>${users[reference_link.author_id].first_name + ' ' + users[reference_link.author_id].last_name}</td></tr>`
+      let row = `<tr id="${reference_link.id}"><td><a href="${reference_link.absolute_url}" target='_blank'>${reference_link.document_file_name}</td><td>${reference_link.language}</td><td>${moment(reference_link.updated_at, "YYYY-MM-DD").format("MMM DD, YYYY")}</td><td>${moment(reference_link.created_at, "YYYY-MM-DD").format("MMM DD, YYYY")}</td><td>${users[reference_link.author_id].first_name + ' ' + users[reference_link.author_id].last_name}</td></tr>`
       $('#CMS_reference_link_table').append(row)
     })
   }
