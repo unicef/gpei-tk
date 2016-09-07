@@ -43,7 +43,8 @@
   font-size: 14px !important;
 }
 #sop_overview_content {
-  padding:5px;
+  word-wrap: break-word;
+  padding:10px;
   font-family: 'proxima-nova' !important;
   font-size: 17px !important;
 }
