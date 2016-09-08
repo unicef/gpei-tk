@@ -20,7 +20,7 @@
         <li id='sop_overview_button' class='<%= @backgrounds[:borders] if @backgrounds[:overview] %>' <%= 'style=background:' + @backgrounds[:overview] + ';' if @backgrounds[:overview] %>><a href='/sop/overview/'>OVERVIEW OF THE SOPs</a></li>
       <% end %>
       <% if @is_c4d %>
-        <li><a id='c4d_nav_button' href='/c4d/' <%= 'class=' + "active\"" if @is_c4d_nav %>>C4D</a></li>
+        <li><a id='c4d_nav_button' href='/c4d/' <%= 'class=' + "active" if @is_c4d_nav %>>C4D</a></li>
         <li><a id='c4d_understand_button' href='/c4d/understand/' <%= "style=background-color:#{ @c4d_category.color }" if @is_c4d_understand %> class='<%= 'active' if @is_c4d_understand %>'>1. UNDERSTAND</a></li>
         <li><a id='c4d_plan_button' href='/c4d/plan/' <%= "style=background-color:#{ @c4d_category.color }" if @is_c4d_plan %> class='<%= 'active' if @is_c4d_plan %>'>2. PLAN</a></li>
         <li><a id='c4d_act_button' href='/c4d/act/' <%= "style=background-color:#{ @c4d_category.color }" if @is_c4d_act %> class='<%= 'active' if @is_c4d_act %>'>3. ACT</a></li>
