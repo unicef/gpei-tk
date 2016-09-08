@@ -72,14 +72,18 @@
                 <div id='grid_item_icon_div' class='row'>
                   <div id='sop_grid_subcat_and_responsible_office_div' class='text-left col-md-12'>
                     <div id='sop_grid_cat_div' class='col-md-8'>
-                      <%= image_tag "sop/grid_icons/#{ get_grid_image_by_sop_subcategory('24 Hours', 'icon-category-white')}.png", id:'sop_grid_cat_image', height: '8px', class:'col-md-2' %>
-                      <div id='sop_grid_cat_div_text' class='col-md-9'>
+                      <div class='col-md-1'>
+                        <%= image_tag "sop/grid_icons/#{ get_grid_image_by_sop_subcategory('24 Hours', 'icon-category-white')}.png", id:'sop_grid_cat_image' %>
+                      </div>
+                      <div id='sop_grid_cat_div_text' class='col-md-10'>
                         <%= article.sop_category.title %>
                       </div>
                     </div>
-                    <div id='sop_grid_responsible_office' class='col-md-6 text-left'>
-                      <%= image_tag "sop/grid_icons/#{ get_grid_image_by_sop_subcategory('24 Hours', 'icon-resp-white')}.png", id:'sop_grid_responsible_office_image', height: '15px', class:'col-md-2' %>
-                      <div id='sop_grid_responsible_title_div' class='col-md-8'>
+                    <div id='sop_grid_responsible_office' class='col-md-8'>
+                      <div  class='col-md-1'>
+                      <%= image_tag "sop/grid_icons/#{ get_grid_image_by_sop_subcategory('24 Hours', 'icon-resp-white')}.png", id:'sop_grid_responsible_office_image' %>
+                      </div>
+                      <div id='sop_grid_responsible_title_div' class='col-md-10'>
                         <%= article.responsible_office.title %>
                       </div>
                     </div>

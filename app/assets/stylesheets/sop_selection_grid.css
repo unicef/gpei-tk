@@ -57,9 +57,13 @@
 #grid_item_icon_div {
   height:85px;
 }
+#sop_grid_responsible_office_image {
+  height:15px;
+  width:auto;
+}
 #sop_grid_cat_image {
-  position:relative;
-  bottom:-3px;
+  height:10px;
+  width:auto;
 }
 #sop_grid_icon_img {
   max-height:30%;
@@ -68,9 +72,6 @@
   right:5px;
   bottom:5px;
   visibility: hidden;
-}
-#sop_grid_responsible_office_image {
-  margin-left:5px;
 }
 #sop_grid_subcat_and_responsible_office_div {
   position: absolute;
@@ -109,7 +110,6 @@
 }
 #sop_grid_cat_div_text{
   word-wrap: break-word;
-  padding-left:3px;
 }
 .grid_add,
 .grid_check {
@@ -188,8 +188,7 @@
 #sop_landing_wtdw_description_div a {
   color:white;
 }
-#sop_grid_responsible_title_div {
-  padding-left:3px;
-  margin-top:3px;
-  margin-bottom:3px;
+#sop_grid_responsible_title_div,
+#sop_grid_cat_div_text {
+  padding-left:10px;
 }
