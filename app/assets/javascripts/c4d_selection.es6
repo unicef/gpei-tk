@@ -113,11 +113,11 @@ $(() => {
   // c4d article modal show
   $('#c4d_article_show_modal').modal()
 
-  $('#c4d_subcategory_accordion td').click(e => {
+  $('#c4d_subcategory_accordion #c4d_grid_tile_title').click(e => {
     e.preventDefault()
     $.ajax({
       method: 'GET',
-      url: '/c4d_articles/' + e.currentTarget.id
+      url: '/c4d_articles/' + e.currentTarget.parentElement.id
     }).done(response => {
       clearC4dModalText()
       let content = c4d_article_content({ article: response.article,

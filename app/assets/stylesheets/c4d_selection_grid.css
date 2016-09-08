@@ -83,7 +83,7 @@
   height:50px;
   width:180px;
   border:1px solid white;
-  padding:5px;
+  padding:10px;
 }
 #c4d_subcategory_accordion .content.active {
   width:100%;
@@ -121,6 +121,10 @@
   font-weight:bold;
   font-family: 'adelle' !important;
   line-height:20px;
+}
+#c4d_grid_tile_title {
+  height:100%;
+  width:100%;
 }
 #c4d_grid_tile_title a {
   font-size: 15px;
