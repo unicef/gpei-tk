@@ -21,7 +21,7 @@
 }
 #user_account_modal {
   position:relative;
-  top:1px;
+  /*top:100px;*/
 }
 .ui.dropdown.user_dropdowns {
   width: auto;
@@ -46,16 +46,14 @@
 #nav_user_register {
   color:blue;
 }
-#nav_bar_logo {
-  max-height:70%;
-  max-width:70%;
-}
 
+.navbar-header {
+  background-color:black;
+}
 #nav_bar {
-  position: fixed;
+  position: relative;
   min-width:100%;
   min-height:48px;
-  max-height:48px;
   z-index:10;
   width:100%;
   background: black;
@@ -70,16 +68,13 @@
 #c4d_nav_container {
   max-width:83.33%;
 }
-#nav_contact_link,
-#nav_about_link,
-#nav_user_sign_in,
+
 #toolkit_dropdown {
   letter-spacing: 1px;
   font-family: 'proxima-nova' !important;
   font-size:13px !important;
 }
 #c4d_nav_div div,
-#c4d_understand_div div,
 #c4d_plan_div div,
 #c4d_act_div div,
 #c4d_tools_div div,
@@ -88,24 +83,19 @@
 #toolkit_dropdown_div #nav_user_sign_in_div,
 #toolkit_dropdown_div #toolkit_dropdown,
 #nav_about_link div,
-#sop_what_to_do_nav_button div,
-#sop_overview_button div,
-#sop_nav_button div {
+#sop_overview_button div {
   position: relative;
   top: 50%;
   transform: translateY(-50%);
 }
-#c4d_nav_div div,
-#sop_nav_button div {
+#c4d_nav_div div {
   letter-spacing: 1px;
   font-size:20px !important;
   font-weight: bold;
   font-family: 'proxima-nova' !important;
 }
 
-#sop_what_to_do_nav_button div,
 #sop_overview_button div,
-#c4d_understand_div,
 #c4d_plan_div,
 #c4d_act_div,
 #c4d_tools_div {
@@ -140,22 +130,20 @@
 #c4d_nav_div {
   height:100%;
 }
-#c4d_nav_button,
-#c4d_understand_button,
 #c4d_plan_button,
 #c4d_act_button,
 #c4d_tools_button {
  text-decoration: none;
 }
-#c4d_nav_div.active {
+#c4d_nav_li.active {
   background: #35848C;
   border-left:1px solid white;
   border-right:1px solid white;
 }
-#c4d_understand_div.active,
-#c4d_plan_div.active,
-#c4d_act_div.active,
-#c4d_tools_div.active {
+#c4d_understand_button.active,
+#c4d_plan_button.active,
+#c4d_act_button.active,
+#c4d_tools_button.active {
   border-left:1px solid white;
   border-right:1px solid white;
 }
@@ -166,4 +154,70 @@
 #sop_checklist_list a:visited,
 #c4d_toolkit_list a:visited {
   color:white;
+}
+/**/
+/**/
+/**/
+/**/
+nav {
+  margin-bottom:0px !important;
+  font-family:'proxima-nova' !important;
+  border:0px !important;
+}
+nav .container {
+  background-color:black;
+}
+#nav_bar_logo {
+  max-height:100%;
+}
+#nav_bar_header {
+  padding-left:30px;
+  margin-right:20px;
+}
+#nav_bar_header a {
+  padding:8px 8px;
+}
+.navbar .container {
+  width:100%;
+}
+.navbar-header {
+  height:100%;
+}
+#c4d_nav_button,
+#sop_nav_button {
+  letter-spacing: 1px;
+  font-size:20px !important;
+  font-weight: bold;
+  font-family: 'proxima-nova' !important;
+}
+#nav_contact_link,
+#nav_user_sign_in,
+#toolkit_dropdown,
+#sop_what_to_do_nav_button {
+  letter-spacing: 1px;
+  font-size:13px !important;
+  font-weight: bold;
+  font-family: 'proxima-nova' !important;
+}
+#c4d_article_show_modal,
+#sop_article_show_modal {
+  margin-top:4rem !important;
+}
+#nav_user_sign_in_li {
+  padding-right:28px;
+}
+#toolkit_dropdown {
+  opacity: 0.7;
+}
+#c4d_understand_button,
+#c4d_plan_button,
+#c4d_act_button,
+#c4d_tools_button,
+#c4d_nav_button{
+  color:white;
+}
+#toolkit_dropdown_li {
+  padding-top:15px;
+  padding-left:10px;
+  padding-right:46px;
 }

@@ -1,143 +1,110 @@
-<div id='nav_bar' class='container-fluid'>
-  <div id='nav_bar_logo_div' class='col-md-2'>
-    <div>
-    <%= link_to root_path do %>
-      <%= image_tag 'home/Rhizome-V2_White.png', id: 'nav_bar_logo', alt: 'GPEI Toolkit' %>
-    <% end %>
+<nav class='navbar navbar-default navbar-fixed-top'>
+  <!-- <div id='nav_bar' class='container'> -->
+  <div class='container'>
+    <div id='nav_bar_header' class='navbar-header'>
+      <button type='button' class='navbar-toggle' data-toggle='collapse' data-target='#navbar' aria-expanded='true' aria-controls='navbar'>
+        <span class='sr-only'>Toggle navigation</span>
+        <span class='icon-bar'></span>
+        <span class='icon-bar'></span>
+        <span class='icon-bar'></span>
+      </button>
+      <%= link_to root_path, class: 'navbar-brand' do %>
+        <%= image_tag 'home/Rhizome-V2_White.png', id: 'nav_bar_logo', class:'img-responsive', alt: 'GPEI Toolkit' %>
+      <% end %>
     </div>
-  </div>
-  <% if @is_sop %>
-  <div id='sop_nav_container' class='col-md-6 white_text'>
-    <div id='sop_nav_div'>
-      <div id='sop_nav_button' class='col-md-2 text-center <%= @backgrounds[:borders] if @backgrounds[:index] %>' <%= "style=background:" + @backgrounds[:index] + ";" if @backgrounds[:index] %>>
-        <div><a href='/sop/'>SOP</a></div>
-      </div>
-      <div id='sop_what_to_do_nav_button' class='col-md-4 text-center <%= @backgrounds[:borders] if @backgrounds[:wtdw] %>' <%= "style=background:" + @backgrounds[:wtdw] + ";" if @backgrounds[:wtdw] %>>
-        <div><a href='/sop/what_to_do_when/'>WHAT TO DO, WHEN</a></div>
-      </div>
-      <div id='sop_overview_button' class='col-md-5 text-center <%= @backgrounds[:borders] if @backgrounds[:overview] %>' <%= "style=background:" + @backgrounds[:overview] + ";" if @backgrounds[:overview] %>>
-        <div><a href='/sop/overview/'>OVERVIEW OF THE SOPs</a></div>
-      </div>
-    </div>
-  </div>
-  <% end %>
-  <% if @is_c4d %>
-<div id='c4d_nav_container' class='col-md-6  white_text text-center'>
-    <div id='c4d_nav_div' class='col-md-2 <%= 'active' if @is_c4d_nav %>'>
-      <div>
-        <a id='c4d_nav_button' href='/c4d/'>C4D</a>
-      </div>
-    </div>
-    <div id='c4d_nav_buttons_div' class='col-md-10'>
-      <div id='c4d_understand_div' <%= "style=background-color:#{ @c4d_category.color }" if @is_c4d_understand %> class='col-md-4 <%= ' active' if @is_c4d_understand %>'>
-        <div>
-          <a id='c4d_understand_button' href='/c4d/understand/'>1. UNDERSTAND</a>
-        </div>
-      </div>
-      <div id='c4d_plan_div' <%= "style=background-color:#{ @c4d_category.color }" if @is_c4d_plan %> class='col-md-3  <%= ' active' if @is_c4d_plan %>'>
-        <div>
-          <a id='c4d_plan_button' href='/c4d/plan/'>2. PLAN</a>
-        </div>
-      </div>
-      <div id='c4d_act_div' <%= "style=background-color:#{ @c4d_category.color }" if @is_c4d_act %> class='col-md-2  <%= ' active' if @is_c4d_act %>'>
-        <div>
-          <a id='c4d_act_button' href='/c4d/act/'>3. ACT</a>
-        </div>
-      </div>
-      <div id='c4d_tools_div' <%= "style=background-color:#{ @c4d_category.color }" if @is_c4d_tools %> class='col-md-3  <%= ' active' if @is_c4d_tools %>'>
-        <div>
-          <a id='c4d_tools_button' href='/c4d/tools/'>4. TOOLS</a>
-        </div>
-      </div>
-    </div>
-  </div>
-  <% end %>
-  <div id='nav_default_buttons_div' class='<%= @nav_bar_offset %> col-md-3'>
-    <div id="nav_contact_link" class='col-md-4 text-center'>
-      <div>
-        <a href='mailto:rhizometk@gmail.com'>CONTACT</a>
-      </div>
-    </div>
-    <div id="nav_about_link" class='col-md-3 text-center'>
-      <div>
-        <a href=''>ABOUT</a>
-      </div>
-    </div>
-    <% if current_user %>
-      <!-- beginning of dropdown -->
-      <div id='toolkit_dropdown_div' class='col-md-5 text-center'>
-        <div id='toolkit_dropdown' class="ui pointing dropdown right">
-          <i class="fa fa-list" aria-hidden="true"></i>
-          <div id='toolkit_dropdown_header_text' class="text">My Toolkit</div>
-          <div id="my_rhizome_dropdown_items" class="left menu">
-            <div class="item">
-              <%= current_user.first_name + " " + current_user.last_name %>
-            </div>
-            <div class="item">
-              <i class="fa fa-caret-left white_text_black_bg"></i>
-              <span class="text white_text_black_bg">SOP Checklist</span>
-              <div id='sop_checklist_list' class="left menu">
-                <% if current_user.sop_checklist.sop_articles.empty? %>
-                  <div class="item white_text_black_bg" id="sop_no_items_selected">No articles selected</div>
-                <% else %>
-                  <% current_user.sop_checklist.sop_articles.each do |article| %>
-                    <div id="<%= article.id %>" class="item">
-                    <%= link_to sop_article_path(article),  :id => article.title, class: 'white_text_black_bg' do %>
-                      <%= article.title %>
-                    <% end %>
-                    <i id="<%= article.title %>" class="fa fa-remove white_text_black_bg" aria-hidden="true"></i>
-                    </div>
-                  <% end %>
-                <% end %>
+    <div id='navbar' class='navbar-collapse collapse'>
+      <ul class='nav navbar-nav'>
+      <% if @is_sop %>
+        <li id='sop_nav_button' class='<%= @backgrounds[:borders] if @backgrounds[:index] %>' <%= 'style=background:' + @backgrounds[:index] + ";" if @backgrounds[:index] %>><a href='/sop/'>SOP</a></li>
+        <li id='sop_what_to_do_nav_button' class='<%= @backgrounds[:borders] if @backgrounds[:wtdw] %>' <%= 'style=background:' + @backgrounds[:wtdw] + ';' if @backgrounds[:wtdw] %>><a href='/sop/what_to_do_when/'>WHAT TO DO, WHEN</a></li>
+        <li id='sop_overview_button' class='<%= @backgrounds[:borders] if @backgrounds[:overview] %>' <%= 'style=background:' + @backgrounds[:overview] + ';' if @backgrounds[:overview] %>><a href='/sop/overview/'>OVERVIEW OF THE SOPs</a></li>
+      <% end %>
+      <% if @is_c4d %>
+        <li><a id='c4d_nav_button' href='/c4d/' <%= 'class=' + "active\"" if @is_c4d_nav %>>C4D</a></li>
+        <li><a id='c4d_understand_button' href='/c4d/understand/' <%= "style=background-color:#{ @c4d_category.color }" if @is_c4d_understand %> class='<%= 'active' if @is_c4d_understand %>'>1. UNDERSTAND</a></li>
+        <li><a id='c4d_plan_button' href='/c4d/plan/' <%= "style=background-color:#{ @c4d_category.color }" if @is_c4d_plan %> class='<%= 'active' if @is_c4d_plan %>'>2. PLAN</a></li>
+        <li><a id='c4d_act_button' href='/c4d/act/' <%= "style=background-color:#{ @c4d_category.color }" if @is_c4d_act %> class='<%= 'active' if @is_c4d_act %>'>3. ACT</a></li>
+        <li><a id='c4d_tools_button' href='/c4d/tools/' <%= "style=background-color:#{ @c4d_category.color }" if @is_c4d_tools %> class='<%= 'active' if @is_c4d_tools %>'>4. TOOLS</a></li>
+      <% end %>
+    </ul>
+    <ul class='nav navbar-nav navbar-right'>
+      <li><a id='nav_contact_link' href='mailto:rhizometk@gmail.com'>CONTACT</a></li>
+      <li><a id='nav_about_link' href=''>ABOUT</a></li>
+      <% if current_user %>
+        <li id='toolkit_dropdown_li'>
+          <div id='toolkit_dropdown' class="ui pointing dropdown right">
+            <i class="fa fa-list" aria-hidden="true"></i>
+            <div id='toolkit_dropdown_header_text' class="text">My Toolkit</div>
+            <div id="my_rhizome_dropdown_items" class="left menu">
+              <div class="item">
+                <%= current_user.first_name + " " + current_user.last_name %>
               </div>
-            </div>
-            <div class="item">
-              <i class="fa fa-caret-left white_text_black_bg"></i>
-              <span class="text white_text_black_bg">C4D Toolkit</span>
-              <div id ='c4d_toolkit_list' class="left menu">
-                <% if current_user.c4d_toolkit.c4d_articles.empty? %>
-                  <div id="c4d_no_items_selected" class="item white_text_black_bg">No articles selected</div>
-                <% else %>
-                  <% current_user.c4d_toolkit.c4d_articles.each do |article| %>
-                    <div id="<%= article.id %>" class="item">
-                    <%= link_to c4d_article_path(article),  :id => article.title, class: 'white_text_black_bg' do %>
-                      <%= article.title %>
+              <div class="item">
+                <i class="fa fa-caret-left white_text_black_bg"></i>
+                <span class="text white_text_black_bg">SOP Checklist</span>
+                <div id='sop_checklist_list' class="left menu">
+                  <% if current_user.sop_checklist.sop_articles.empty? %>
+                    <div class="item white_text_black_bg" id="sop_no_items_selected">No articles selected</div>
+                  <% else %>
+                    <% current_user.sop_checklist.sop_articles.each do |article| %>
+                      <div id="<%= article.id %>" class="item">
+                      <%= link_to sop_article_path(article),  :id => article.title, class: 'white_text_black_bg' do %>
+                        <%= article.title %>
+                      <% end %>
+                      <i id="<%= article.title %>" class="fa fa-remove white_text_black_bg" aria-hidden="true"></i>
+                      </div>
                     <% end %>
-                    <i id="<%= article.title %>" class="fa fa-remove white_text_black_bg" aria-hidden="true"></i>
-                    </div>
                   <% end %>
-                <% end %>
+                </div>
               </div>
-            </div>
-            <div class="item">
-              <a id="nav_user_sign_out" class="white_text_black_bg" href=''><i class="fa fa-sign-out" aria-hidden="true"></i>Sign out</a>
+              <div class="item">
+                <i class="fa fa-caret-left white_text_black_bg"></i>
+                <span class="text white_text_black_bg">C4D Toolkit</span>
+                <div id ='c4d_toolkit_list' class="left menu">
+                  <% if current_user.c4d_toolkit.c4d_articles.empty? %>
+                    <div id="c4d_no_items_selected" class="item white_text_black_bg">No articles selected</div>
+                  <% else %>
+                    <% current_user.c4d_toolkit.c4d_articles.each do |article| %>
+                      <div id="<%= article.id %>" class="item">
+                      <%= link_to c4d_article_path(article),  :id => article.title, class: 'white_text_black_bg' do %>
+                        <%= article.title %>
+                      <% end %>
+                      <i id="<%= article.title %>" class="fa fa-remove white_text_black_bg" aria-hidden="true"></i>
+                      </div>
+                    <% end %>
+                  <% end %>
+                </div>
+              </div>
+              <div class="item">
+                <a id="nav_user_sign_out" class="white_text_black_bg" href=''><i class="fa fa-sign-out" aria-hidden="true"></i>Sign out</a>
+              </div>
             </div>
           </div>
-        </div>
-        <!-- end of dropdown -->
+            <!-- end of dropdown -->
+        </li>
+      <% else %>
+        <li id='nav_user_sign_in_li'>
+          <a id="nav_user_sign_in" class="white_text_black_bg" href=''><i id="sign_in_icon" class="fa fa-sign-in" aria-hidden="true"></i>&nbsp;Sign in</a>
+        </li>
+      <% end %>
+      </ul>
+    </div>
+  </div>
+    <div id='user_account_modal' class="ui modal">
+      <div id="user_account_header" class="header"></div>
+      <div id="user_account_content" class="content"></div>
+    </div>
+    <div id="c4d_article_show_modal" class="ui large modal">
+      <div class="header">
       </div>
-    <% else %>
-      <div id='toolkit_dropdown_div' class='col-md-4 text-center'>
-        <div id='nav_user_sign_in_div'>
-          <a id="nav_user_sign_in" class="white_text_black_bg text-center" href=''><i id="sign_in_icon" class="fa fa-sign-in" aria-hidden="true"></i>&nbsp;Sign in</a>
-        </div>
+      <div class="content">
       </div>
-    <% end %>
+    </div>
+    <div id="sop_article_show_modal" class="ui large modal">
+      <div class="header">
+      </div>
+      <div class="content">
+      </div>
+    </div>
   </div>
-</div>
-<div id='user_account_modal' class="ui modal">
-  <div id="user_account_header" class="header"></div>
-  <div id="user_account_content" class="content"></div>
-</div>
-<div id="c4d_article_show_modal" class="ui large modal">
-  <div class="header">
-  </div>
-  <div class="content">
-  </div>
-</div>
-<div id="sop_article_show_modal" class="ui large modal">
-  <div class="header">
-  </div>
-  <div class="content">
-  </div>
-</div>
+</nav>

@@ -36,42 +36,14 @@ $(() => {
       )
   }
 
-  function resize_nav_bar() {
-    let nav_bar_height = $('#nav_bar').outerHeight()
-    let offset = nav_bar_height / 4
-    nav_bar_height = $('#nav_bar').outerHeight()
-    $('#sop_nav_container').css({ height: nav_bar_height + "px" })
-    $('#sop_nav_div').css({ height: nav_bar_height + "px" })
-    $('#sop_nav_button').css({ height: nav_bar_height + "px" })
-    $('#sop_what_to_do_nav_button').css({ height: nav_bar_height + "px" })
-    $('#sop_overview_button').css({ height: nav_bar_height + "px" })
-    $('#nav_default_buttons_div').css({ height: nav_bar_height + "px" })
-    $('#nav_contact_link').css({ height: nav_bar_height + "px" })
-    $('#nav_about_link').css({ height: nav_bar_height + "px" })
-    $('#toolkit_dropdown_div').css({ height: nav_bar_height + "px" })
-    $('#nav_bar_logo_div').css({ height: nav_bar_height + "px" })
-    $('#c4d_nav_div').css({ height: nav_bar_height + "px" })
-    $('#c4d_understand_div').css({ height: nav_bar_height + "px" })
-    $('#c4d_plan_div').css({ height: nav_bar_height + "px" })
-    $('#c4d_act_div').css({ height: nav_bar_height + "px" })
-    $('#c4d_tools_div').css({ height: nav_bar_height + "px" })
-  }
-  resize_nav_bar()
-
   $(window).resize(e => {
     let padding = $('#nav_bar').outerHeight()
     padding += "px"
-    $('#sop_selection_page').css({ paddingTop: padding })
-    $('#c4d_selection_page').css({ paddingTop: padding })
 
     let container_width = $('#sop_landing_image_container').outerWidth() + 'px'
     $('#sop_grid_filter_menu_container').css('width', container_width)
   })
 
-  let padding = $('#nav_bar').outerHeight()
-  padding += "px"
-  $('#sop_selection_page').css({ paddingTop: padding })
-  $('#c4d_selection_page').css({ paddingTop: padding })
   let height = $('#sop_filter_clear_all').innerHeight()
   $('#select_filter_dropdown_menu').css({ height: height })
 

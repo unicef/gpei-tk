@@ -7,6 +7,7 @@ class C4dController < ApplicationController
 
   def index
     @is_c4d_nav = true
+    @c4d_nav_background_color = '#35848C'
     @c4d_category = C4dCategory.find_by(title:'Understand')
     @c4d_categories = C4dCategory.all
   end

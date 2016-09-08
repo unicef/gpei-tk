@@ -13,7 +13,7 @@ $(() => {
     }
   })
   function transitionLandingPageToSopC4d() {
-    let nav_bar_height = $('#nav_bar').outerHeight()
+    let nav_bar_height = $('nav').outerHeight()
     $('#landing_page_sop_c4d_nav_container').css({
       paddingTop: nav_bar_height,
       display: 'block'
