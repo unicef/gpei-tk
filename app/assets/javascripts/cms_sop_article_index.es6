@@ -10,7 +10,8 @@ $(() => {
     });
 
   $('#CMS_sop_articles_link').click(e => {
-    e.preventDefault();
+    toggleProgressSpinner()
+    e.preventDefault()
     $.ajax({
       method: 'GET',
       url: 'cms/sop_articles/'
@@ -20,19 +21,28 @@ $(() => {
         method: 'GET',
         url: 'cms/users/'
       }).done(response => {
+        toggleProgressSpinner()
         $('#CMS_index_content').empty()
         appendSopArticleTableHeader()
         appendSopArticleRows(sop_articles, response.users)
       })
     })
   })
+  function toggleProgressSpinner(){
+    if ($('#progress_spinner').css('visibility') === 'hidden')
+      $('#progress_spinner').css('visibility', 'visible')
+    else
+      $('#progress_spinner').css('visibility', 'hidden')
+  }
   $('#CMS_index_content').on('click', '#CMS_sop_toggle_published', e => {
     let id = e.currentTarget.parentElement.id
+    toggleProgressSpinner()
     $.ajax({
       method: 'PATCH',
       url: 'cms/sop_articles/publish/' + id,
       data: { authenticity_token: _.escape($('meta[name=csrf-token]').attr('content')) }
     }).done(response => {
+      toggleProgressSpinner()
       $('#CMS_sop_articles_link').trigger('click')
       $('.ui.dimmer').dimmer('show')
       _.delay(() => {
@@ -75,6 +85,7 @@ $(() => {
 
   $('#CMS_index_content').on('click', '#CMS_sop_articles_table a', e => {
     e.preventDefault()
+    toggleProgressSpinner()
     $.ajax({
       method: 'GET',
       url: 'cms/reference_links'
@@ -84,6 +95,7 @@ $(() => {
         method: 'GET',
         url: 'cms/sop_articles/' + e.currentTarget.id
       }).done(response => {
+        toggleProgressSpinner()
         $('#CMS_index_content').empty()
         let content = getCMSSopArticleContent(response.sop_article, response.sop_times, response.sop_categories, response.responsible_offices, response.support_affiliations, reference_links, response.selected_reference_links)
         $('#CMS_index_content').append(content)
@@ -171,12 +183,14 @@ $(() => {
   }
 
   $('#CMS_index_content').on('submit', '#CMS_sop_article_form', e => {
+    toggleProgressSpinner()
     e.preventDefault()
     $.ajax({
       method: 'PATCH',
       url: 'cms/sop_articles/' + e.currentTarget.parentElement.id,
       data: $('#CMS_sop_article_form').serialize() + "&authenticity_token=" + _.escape($('meta[name=csrf-token]').attr('content'))
     }).done(response => {
+      toggleProgressSpinner()
       $('#CMS_sop_articles_link').trigger('click')
       $('.ui.dimmer').dimmer('show')
       _.delay(() => {

@@ -2,6 +2,9 @@
 <div>
 Welcome, <%= current_user.first_name %> <%= current_user.last_name %>!
 </div>
+<div id='progress_spinner' style='visibility:hidden;'>
+  <i class="fa fa-cog fa-spin fa-fw" style="font-size:96px;"></i>
+</div>
 <div class='col-md-3 black_text'>
   <div id="CMS_items" class="ui styled accordion">
     <div class="title">
@@ -78,7 +81,6 @@ Welcome, <%= current_user.first_name %> <%= current_user.last_name %>!
   </div>
 </div>
 <div id='CMS_index_content' class='col-md-9 black_text'>
-
 </div>
 <div id="CMS_modal" class="ui modal">
   <div id="CMS_modal_header" class="header"></div>

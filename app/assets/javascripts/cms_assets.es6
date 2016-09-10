@@ -8,10 +8,18 @@ $(() => {
   //   $(e.currentTarget.parentElement.parentElement).after(getReferenceLinkField())
   //   return false
   // })
+  function toggleProgressSpinner(){
+    if ($('#progress_spinner').css('visibility') === 'hidden')
+      $('#progress_spinner').css('visibility', 'visible')
+    else
+      $('#progress_spinner').css('visibility', 'hidden')
+  }
 
   /*   REFERENCE LINKS   */
+
   $('#CMS_references_link').click(e => {
     e.preventDefault()
+    toggleProgressSpinner()
     $.ajax({
       method: 'GET',
       url: 'cms/reference_links/'
@@ -21,6 +29,7 @@ $(() => {
         method: 'GET',
         url: 'cms/users/'
       }).done(response => {
+        toggleProgressSpinner()
         $('#CMS_index_content').empty()
         appendReferenceLinkHeader()
         appendReferenceLinkRows(reference_links, response.users)
@@ -30,14 +39,17 @@ $(() => {
 
   $('#CMS_references_link_upload').click(e => {
     e.preventDefault()
+    toggleProgressSpinner()
     let content = formForReferenceLinkUpload()
     $('#CMS_index_content').empty()
     $('#CMS_index_content').append(content)
+    toggleProgressSpinner()
   })
 
   $('#CMS_index_content').on('submit', '#CMS_reference_link_upload_form', e => {
     e.preventDefault()
     let formData = new FormData($(e.currentTarget)[0])
+    toggleProgressSpinner()
     $.ajax({
       method: 'POST',
       cache: false,
@@ -46,6 +58,7 @@ $(() => {
       url: 'cms/reference_links/',
       data: formData
     }).done(response => {
+      toggleProgressSpinner()
       showDimmerClearBrowser()
       $('#CMS_references_link_upload').click()
     })
@@ -109,10 +122,12 @@ $(() => {
 
   $('#CMS_embedded_images_link_upload').click(e => {
     e.preventDefault()
+    toggleProgressSpinner()
     $.ajax({
       method: 'GET',
       url: 'cms/c4d_articles/'
     }).done(response => {
+      toggleProgressSpinner()
       let content = formForEmbeddedImagesUpload(response.c4d_articles)
       $('#CMS_index_content').empty()
       $('#CMS_index_content').append(content)
@@ -122,6 +137,7 @@ $(() => {
   $('#CMS_index_content').on('submit', '#CMS_embedded_image_upload_form', e => {
     e.preventDefault()
     let formData = new FormData($(e.currentTarget)[0])
+    toggleProgressSpinner()
     $.ajax({
       method: 'POST',
       cache: false,
@@ -130,6 +146,7 @@ $(() => {
       url: 'cms/embedded_images/',
       data: formData
     }).done(response => {
+      toggleProgressSpinner()
       showDimmerClearBrowser()
       $('#CMS_embedded_images_link_upload').click()
     })

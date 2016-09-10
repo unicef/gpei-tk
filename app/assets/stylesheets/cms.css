@@ -80,3 +80,9 @@
 #CMS_toggle_user_active {
   color:black;
 }
+#progress_spinner {
+  position:absolute;
+  z-index:13;
+  top:50%;
+  left:50%;
+}

@@ -1,4 +1,11 @@
 $(() => {
+  function toggleProgressSpinner(){
+    if ($('#progress_spinner').css('visibility') === 'hidden')
+      $('#progress_spinner').css('visibility', 'visible')
+    else
+      $('#progress_spinner').css('visibility', 'hidden')
+  }
+
   $('#CMS_index_content .ui.compact.menu').dropdown({
       action: 'hide'
   })
@@ -10,10 +17,12 @@ $(() => {
 
   $('#CMS_users_link').click(e => {
     e.preventDefault()
+    toggleProgressSpinner()
     $.ajax({
       method: 'GET',
       url: '/cms/users/'
     }).done(response => {
+      toggleProgressSpinner()
       $('#CMS_index_content').empty()
       let table = '<table id="CMS_users_table" class="ui celled table"></table>'
       $('#CMS_index_content').append(table)
@@ -98,6 +107,7 @@ $(() => {
 
   $('#CMS_create_user_link').click(e => {
     e.preventDefault()
+    toggleProgressSpinner()
     $.ajax({
       method: 'GET',
       url: '/api/roles/'
@@ -107,6 +117,7 @@ $(() => {
         method: 'GET',
         url: '/api/responsible_offices/'
       }).done(response => {
+        toggleProgressSpinner()
         $('#CMS_modal').modal('toggle')
         $('#CMS_modal .header').append('Create User')
         let content = getUserFormEmptyForm(roles, response.responsible_offices)
@@ -137,11 +148,13 @@ $(() => {
 
   $('#CMS_modal').on('submit', '#update_user_form',e => {
     e.preventDefault()
+    toggleProgressSpinner()
     $.ajax({
       method: 'PATCH',
       url: '/cms/users/' + $('#user_update_id_input input').val(),
       data: $(e.currentTarget).serialize() + "&authenticity_token=" + _.escape($('meta[name=csrf-token]').attr('content'))
     }).done(response => {
+      toggleProgressSpinner()
       $('#CMS_modal').modal('hide')
       $('#CMS_users_table').find('#'+response.id).find('td')[$('#CMS_users_table').find('#'+response.id).find('td').length-2].innerHTML = response.role.title
     })

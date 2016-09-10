@@ -2,6 +2,7 @@ $(() => {
   $('#CMS_create_sop_article_link').click(e => {
     e.preventDefault();
     let sop_categories, sop_times, responsible_offices
+    toggleProgressSpinner()
     $.ajax({
       method: 'GET',
       url: 'api/sop_categories/'
@@ -26,6 +27,7 @@ $(() => {
               method: 'GET',
               url: 'cms/reference_links'
             }).done(response => {
+              toggleProgressSpinner()
               let reference_links = response.reference_links
               $('#CMS_index_content').empty()
               let content = getEmptySopArticleForm(sop_times, sop_categories, responsible_offices, support_affiliations, reference_links)
@@ -37,13 +39,21 @@ $(() => {
       })
     })
   })
+  function toggleProgressSpinner(){
+    if ($('#progress_spinner').css('visibility') === 'hidden')
+      $('#progress_spinner').css('visibility', 'visible')
+    else
+      $('#progress_spinner').css('visibility', 'hidden')
+  }
 
   $('#CMS_index_content').on('submit', '#CMS_sop_article_create_form', e => {
+    toggleProgressSpinner()
     $.ajax({
       method: 'POST',
       url: 'cms/sop_articles/',
       data: $('#CMS_sop_article_create_form').serialize() + "&authenticity_token=" + _.escape($('meta[name=csrf-token]').attr('content'))
     }).done(response => {
+      toggleProgressSpinner()
       $('#CMS_sop_articles_link').trigger('click')
       $('.ui.dimmer').dimmer('show')
       _.delay(() => {

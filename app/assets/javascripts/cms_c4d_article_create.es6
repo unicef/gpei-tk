@@ -1,6 +1,7 @@
 $(() => {
   $('#CMS_create_c4d_article_link').click(e => {
-    e.preventDefault();
+    e.preventDefault()
+    toggleProgressSpinner()
     let c4d_categories, c4d_subcategories
     $.ajax({
       method: 'GET',
@@ -16,6 +17,7 @@ $(() => {
           method: 'GET',
           url: 'cms/reference_links/'
         }).done(response => {
+          toggleProgressSpinner()
           let reference_links = response.reference_links
           $('#CMS_index_content').empty()
           let content = getEmptyC4dArticleForm(c4d_subcategories, c4d_categories, reference_links)
@@ -26,12 +28,21 @@ $(() => {
     })
   })
 
+  function toggleProgressSpinner(){
+    if ($('#progress_spinner').css('visibility') === 'hidden')
+      $('#progress_spinner').css('visibility', 'visible')
+    else
+      $('#progress_spinner').css('visibility', 'hidden')
+  }
+
   $('#CMS_index_content').on('submit', '#CMS_c4d_article_create_form', e => {
+    toggleProgressSpinner()
     $.ajax({
       method: 'POST',
       url: 'cms/c4d_articles/',
       data: $('#CMS_c4d_article_create_form').serialize() + "&authenticity_token=" + _.escape($('meta[name=csrf-token]').attr('content'))
     }).done(response => {
+      toggleProgressSpinner()
       $('#CMS_c4d_articles_link').trigger('click')
       $('.ui.dimmer').dimmer('show')
       _.delay(() => {

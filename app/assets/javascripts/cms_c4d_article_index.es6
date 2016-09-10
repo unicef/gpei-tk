@@ -10,7 +10,8 @@ $(() => {
     });
 
   $('#CMS_c4d_articles_link').click(e => {
-    e.preventDefault();
+    e.preventDefault()
+    toggleProgressSpinner()
     $.ajax({
       method: 'GET',
       url: 'cms/c4d_articles/'
@@ -21,12 +22,20 @@ $(() => {
         method: 'GET',
         url: 'cms/users/'
       }).done(response => {
+        toggleProgressSpinner()
         $('#CMS_index_content').empty()
         appendC4dArticleTableHeader()
         appendC4dArticleRows(c4d_articles, response.users, c4d_subcategories)
       })
     })
   })
+
+  function toggleProgressSpinner(){
+    if ($('#progress_spinner').css('visibility') === 'hidden')
+      $('#progress_spinner').css('visibility', 'visible')
+    else
+      $('#progress_spinner').css('visibility', 'hidden')
+  }
 
   function appendC4dArticleTableHeader(){
     $('#CMS_index_content').append('<table id="CMS_c4d_articles_table" class="ui celled table"></table>')
@@ -43,9 +52,9 @@ $(() => {
       $('#CMS_c4d_articles_table').append(row)
     })
   }
-
   $('#CMS_index_content').on('click', '#CMS_c4d_articles_table a', e => {
     e.preventDefault()
+    toggleProgressSpinner()
     $.ajax({
       method: 'GET',
       url: 'cms/reference_links/'
@@ -55,6 +64,7 @@ $(() => {
         method: 'GET',
         url: 'cms/c4d_articles/' + e.currentTarget.id
       }).done(response => {
+        toggleProgressSpinner()
         $('#CMS_index_content').empty()
         let content = getCMSC4dArticleContent(response.c4d_article,
                                               response.c4d_subcategories,
@@ -126,11 +136,13 @@ $(() => {
 
   $('#CMS_index_content').on('click', '#CMS_c4d_toggle_published', e => {
     let id = e.currentTarget.parentElement.id
+    toggleProgressSpinner()
     $.ajax({
       method: 'PATCH',
       url: 'cms/c4d_articles/publish/' + id,
       data: { authenticity_token: _.escape($('meta[name=csrf-token]').attr('content')) }
     }).done(response => {
+      toggleProgressSpinner()
       $('#CMS_c4d_articles_link').trigger('click')
       $('.ui.dimmer').dimmer('show')
       _.delay(() => {
@@ -173,11 +185,13 @@ $(() => {
 
   $('#CMS_index_content').on('submit', '#CMS_c4d_article_form', e => {
     e.preventDefault()
+    toggleProgressSpinner()
     $.ajax({
       method: 'PATCH',
       url: 'cms/c4d_articles/' + e.currentTarget.parentElement.id,
       data: $('#CMS_c4d_article_form').serialize() + "&authenticity_token=" + _.escape($('meta[name=csrf-token]').attr('content'))
     }).done(response => {
+      toggleProgressSpinner()
       $('#CMS_c4d_articles_link').trigger('click')
       $('.ui.dimmer').dimmer('show')
       _.delay(() => {
