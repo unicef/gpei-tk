@@ -191,3 +191,13 @@
 #sop_grid_cat_div_text {
   padding-left:10px;
 }
+#sop_grid_content_time_div {
+  margin-left:10px;
+}
+#sop_grid_cotent_time_div_text {
+  padding-left:10px;
+}
+#sop_grid_content_time_div_img {
+  height:16px;
+  width:auto;
+}

@@ -67,7 +67,14 @@
             <div id="<%= article.id %>" class="<%= build_classes({grid_item: 'grid_item', time: article.sop_time.period.gsub(' ', '_'), offices: article.responsible_office.title.gsub(' ', '_'), category: article.sop_category.title.gsub(' ', '_')}) %>"
               style=<%='background-color:' + article.sop_time.color + ';' %>>
               <div class='sop_grid_content'>
-                <p id='grid_item_time_period' class='text-left col-md-12'><%= image_tag "sop/grid_icons/#{ get_grid_image_by_sop_subcategory('24 Hours', 'icon-time-white')}.png", height: '14px' %><%= article.sop_time.period %></p>
+                <div id='sop_grid_content_time_div' class='col-md-12'>
+                  <div class='col-md-1'>
+                    <%= image_tag "sop/grid_icons/#{ get_grid_image_by_sop_subcategory('24 Hours', 'icon-time-white')}.png", id:'sop_grid_content_time_div_img' %>
+                  </div>
+                  <div id='sop_grid_cotent_time_div_text' class='col-md-10 text-left'>
+                    <%= article.sop_time.period %></p>
+                  </div>
+                </div>
                 <p id='grid_item_article_title' class='col-md-11 text-left'><strong><%= article.title %></strong></p>
                 <div id='grid_item_icon_div' class='row'>
                   <div id='sop_grid_subcat_and_responsible_office_div' class='text-left col-md-12'>
