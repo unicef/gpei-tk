@@ -81,7 +81,7 @@
 }
 .c4d_article_item {
   position:relative;
-  height:50px;
+  height:auto;
   width:180px;
   border:1px solid white;
   padding:10px;
