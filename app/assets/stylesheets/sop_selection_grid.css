@@ -141,13 +141,13 @@
 }
 #sop_landing_wtdw_description_div {
   background-color:#8D3733;
-  border-right:1px solid white;
   color:white;
   height:100%;
 }
 #sop_landing_overview_description_div {
   background-color:#B74D43;
   color:white;
+  border-right:1px solid white;
   height:100%;
 }
 #sop_landing_wtdw_arrow,
