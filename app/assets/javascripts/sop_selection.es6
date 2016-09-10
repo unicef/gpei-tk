@@ -450,6 +450,15 @@ $(() => {
     }
   }
 
+  $('#sop_article_show_modal').on('click', 'a', e => {
+    if ($(e.currentTarget).attr('href').indexOf('sop_articles') !== -1) {
+      e.preventDefault()
+      let article_id = $(e.currentTarget).attr('href').substr($(e.currentTarget).attr('href').indexOf('sop_articles')+13, $(e.currentTarget).attr('href').length)
+      let target = { id: article_id}
+      loadSOPArticle(target)
+    }
+  })
+
   $('#sop_article_show_modal').on('click', '#sop_print_icon_link', e => {
     e.preventDefault()
     $('#application').after($('#sop_article_show_modal #sop_article_content').html())
@@ -473,10 +482,10 @@ $(() => {
 
   $('#sop_article_show_modal').on('click', '#related_topics_list a', e => {
     e.preventDefault()
-    loadSopArticle(e.currentTarget)
+    loadSOPArticle(e.currentTarget)
     return false
   })
-  function loadSopArticle(target) {
+  function loadSOPArticle(target) {
     $.ajax({
       method: 'GET',
       url: '/sop_articles/' + target.id
@@ -502,7 +511,7 @@ $(() => {
   }
   $('#sop_checklist_list').on('click', 'a', e => {
     e.preventDefault()
-    loadSopArticle(e.currentTarget.parentElement)
+    loadSOPArticle(e.currentTarget.parentElement)
     $('#sop_article_show_modal').modal('show')
     return false
   })

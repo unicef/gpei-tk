@@ -276,6 +276,17 @@ $(() => {
       return visibility_style
     }
   }
+
+  $('#c4d_article_show_modal').on('click', 'a', e => {
+    if ($(e.currentTarget).attr('href').indexOf('c4d_articles') !== -1) {
+      e.preventDefault()
+      let article_id = $(e.currentTarget).attr('href').substr($(e.currentTarget).attr('href').indexOf('c4d_articles')+13, $(e.currentTarget).attr('href').length)
+      let target = { id: article_id}
+      loadC4dArticle(target)
+    }
+  })
+
+
   $('#c4d_article_show_modal').on('click', '#c4d_print_icon_link', e => {
     e.preventDefault()
     $('#application').after($('#c4d_article_show_modal #c4d_article_content').html())
