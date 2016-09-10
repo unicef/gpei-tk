@@ -53,8 +53,7 @@ p {
 #landing_logo_text,
 #nav_default_buttons_div,
 #sop_landing_description_span,
-#c4d_landing_description_span,
-#grid_item_time_period {
+#c4d_landing_description_span {
   opacity: 0.70;
 }
 #add_article_image,
