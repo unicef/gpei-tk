@@ -70,9 +70,11 @@
 }
 
 #reference_link_checkboxes ul {
-  max-height:500px;
+  max-height:150px;
+  min-height:150px;
   overflow: scroll;
   border:1px solid black;
+  width:auto;
   padding:2px;
 }
 #CMS_user_assign_role,

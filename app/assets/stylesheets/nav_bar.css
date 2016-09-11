@@ -104,7 +104,9 @@
 #nav_about_link a {
   color:white;
 }
-.sop_active_borders {
+#sop_nav_button.active,
+#sop_overview_button.active,
+#sop_what_to_do_nav_button.active {
   border-left:1px solid white;
   border-right:1px solid white;
 }
@@ -230,4 +232,36 @@ nav .container {
   padding-top:15px;
   padding-left:10px;
   padding-right:46px;
+}
+#c4d_nav_button:not(.active):hover {
+  background:#35848C !important;
+  opacity:0.9;
+}
+#sop_nav_button:not(.active):hover{
+  background:#904941 !important;
+  opacity:0.9;
+}
+#c4d_understand_button:not(.active):hover{
+  background:#9BB234 !important;
+  opacity:0.9;
+}
+#c4d_plan_button:not(.active):hover{
+  background:#4263C2 !important;
+  opacity:0.9;
+}
+#c4d_act_button:not(.active):hover{
+  background:#2C9674 !important;
+  opacity:0.9;
+}
+#c4d_tools_button:not(.active):hover{
+  background:#35A3AE !important;
+  opacity:0.9;
+}
+#sop_overview_button:not(.active):hover{
+  background:#B74D43 !important;
+  opacity:0.9;
+}
+#sop_what_to_do_nav_button:not(.active):hover {
+  background:#8D3733 !important;
+  opacity:0.9;
 }
