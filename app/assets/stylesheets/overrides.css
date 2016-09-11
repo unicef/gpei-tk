@@ -62,11 +62,12 @@ p {
   width:25px;
 }
 #gpei_footer_home_logo_div{
-  position:relative;
-  width:550px;
-  margin:0 auto;
+  position:absolute;
+  bottom:20px;
+  width:100%;
 }
 #gpei_footer_home_logo_div img {
+  margin:0 auto;
   opacity: .5;
 }
 #reference_header_text_div {

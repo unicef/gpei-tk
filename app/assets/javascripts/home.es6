@@ -20,15 +20,6 @@ $(() => {
     })
     let second_container = $("#landing_page_sop_c4d_nav_container")
     $('html,body').animate({ scrollTop: second_container.offset().top },'slow')
-    centerFooterDiv()
-  }
-  function centerFooterDiv(){
-    let container = $('#landing_page_sop_c4d_nav_container')
-    let outerpos = container.position().top + container.outerHeight(true)
-    let imgpos = $('#gpei_footer_home_logo_div').position().top + $('#gpei_footer_home_logo_div').outerHeight(true)
-
-    let offset = outerpos - imgpos
-    $('#gpei_footer_home_logo_div').css({ top: offset-25 })
   }
 
   $('#link_to_second_part_of_landing').click(e => {
