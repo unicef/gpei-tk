@@ -377,12 +377,28 @@ $(() => {
       content = "<div class='row'><div id='sop_show_references'><div id='reference_header_text_div' class='col-md-12'><strong>REFERENCES:</strong></div>" +
         _.map(reference_links, reference_link => {
           let reference_title = _.replace(reference_link.document_file_name, new RegExp("_","g")," ")
-          reference_title = _.replace(reference_title, new RegExp(".pdf","g"),"")
-          return `<div id='reference_link_row' class='row'><div class='col-md-2'><img class='reference_link_pdf_icon' src='/assets/reference_icons/icon-doc-pdf.png'></div><div id='reference_link_anchor_div' class='col-md-10'><a class='reference_link_anchor' href="${ reference_link.absolute_url }" target='_blank'>&nbsp;${ reference_title }</a></div></div>`
+          let reference_icon = getReferenceIcon(reference_title)
+          if (reference_title.indexOf('.pdf') !== -1) {
+            reference_title = _.replace(reference_title, new RegExp(".pdf","g"),"")
+          } else if (reference_title.index('.ppsx') !== -1) {
+            reference_title = _.replace(reference_title, new RegExp(".ppsx","g"),"")
+          } else if (reference_title.index('.mp3') !== -1) {
+            reference_title = _.replace(reference_title, new RegExp(".mp3","g"),"")
+          }
+          return `<div id='reference_link_row' class='row'><div class='col-md-2'><img class='reference_link_pdf_icon' src='${reference_icon}'></div><div id='reference_link_anchor_div' class='col-md-10'><a class='reference_link_anchor' href="${ reference_link.absolute_url }" target='_blank'>&nbsp;${ reference_title }</a></div></div>`
         }).join('\n')
       content = content + "</div></div>"
     }
     return content
+  }
+  function getReferenceIcon(reference_title){
+    if (reference_title.indexOf('.pdf') !== -1) {
+      return '/assets/reference_icons/icon-doc-pdf.png'
+    } else if (reference_title.index('.ppsx') !== -1) {
+      return '/assets/reference_icons/icon-doc-ppt.png'
+    } else if (reference_title.index('.mp3') !== -1) {
+      return '/assets/reference_icons/icon-doc-mp3.png'
+    }
   }
 
   function getVideoContent(params) {
@@ -556,4 +572,6 @@ $(() => {
     let container_width = $('#sop_landing_image_container').outerWidth() + 'px'
     $('#sop_grid_filter_menu_container').css('width', container_width)
   }
+
+  $('#multimedia_modal').modal('attach events', '#sop_article_show_modal .button')
 })
