@@ -110,6 +110,7 @@ $(() => {
           <option value="">Select Language</option>
           <option value="en">English</option>
           <option value="fr">French</option>
+          <option value="other">Other</option>
         </select>
       </div>
     `)
