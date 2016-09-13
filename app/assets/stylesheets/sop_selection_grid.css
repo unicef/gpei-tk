@@ -57,6 +57,10 @@
 #grid_item_icon_div {
   height:85px;
 }
+#sop_grid_responsible_office_image_div {
+  position:relative;
+  top:-1px;
+}
 #sop_grid_responsible_office_image {
   height:15px;
   width:auto;
@@ -69,13 +73,13 @@
   max-height:30%;
   max-width:30%;
   position: absolute;
-  right:5px;
-  bottom:5px;
+  right:10px;
+  bottom:10px;
   visibility: hidden;
 }
 #sop_grid_subcat_and_responsible_office_div {
   position: absolute;
-  bottom:5px;
+  bottom:10px;
   z-index:4;
 }
 #grid_item_time_period img {
@@ -92,7 +96,7 @@
   font-size:18px !important;
   line-height: 24px;
   height:70px;
-  padding-top:5px;
+  margin-top:16px;
   margin-left:10px;
 }
 #grid_item_icon_div {
@@ -112,8 +116,8 @@
 }
 .grid_add,
 .grid_check {
-  top:1px;
-  right:1px;
+  top:0px;
+  right:0px;
   position:absolute;
   color:black;
 }
@@ -193,6 +197,7 @@
 }
 #sop_grid_content_time_div {
   margin-left:10px;
+  margin-top:10px;
 }
 #sop_grid_cotent_time_div_text {
   padding-left:10px;
