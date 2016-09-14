@@ -61,5 +61,5 @@
   color:black;
 }
 #sop_overview_content_description_div strong {
-  font-size:17px;
+  font-size:17px !important;
 }
