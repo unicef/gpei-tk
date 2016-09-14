@@ -48,3 +48,12 @@
   font-family: 'proxima-nova' !important;
   font-size: 17px !important;
 }
+#sop_over_content_list_items_text {
+  font-size:19px !important;
+  font-family: 'proxima-nova' !important;
+  color:black;
+}
+#overview_content_list_item_angle_right {
+  position: relative;
+  top:0px;
+}
