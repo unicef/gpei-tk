@@ -36,7 +36,7 @@
             <% @c4d_article.reference_links.each do |link| %>
               <div class='row'>
                 <div class='col-md-2'>
-                <img id='cgi_reference_link_pdf_icon' src='/assets/reference_icons/icon-doc-pdf.png'/>
+                <img id='cgi_reference_link_pdf_icon' src='<%= link.absolute_url.gsub('.pdf', '.png') %>'/>
                 </div>
                 <div id='cgi_reference_link_div' class='col-md-10'>
                   <a href='<%= link.absolute_url %>' target='_blank'><%= link.document_file_name.gsub(/(.PDF|_)/, ' ') %></a>

@@ -20,7 +20,7 @@
             <% @sop_article.reference_links.each do |reference_link| %>
               <div id='reference_link_row' class='row'>
                 <div class='col-md-2'>
-                  <img class='reference_link_pdf_icon' src='/assets/reference_icons/icon-doc-pdf.png'>
+                  <img class='reference_link_pdf_icon' src='<%= reference_link.absolute_url.gsub('.pdf', '.png') %>'>
                 </div>
                 <div id='reference_link_anchor_div' class='col-md-10'>
                   <a class='reference_link_anchor' href="<%= reference_link.absolute_url %>" target='_blank'>&nbsp;<%= reference_link.document_file_name.gsub(/(.pdf|_)/," ") %> </a>
