@@ -105,7 +105,7 @@ $(() => {
                         <a id='cms_reference_link_icon' href="${reference_link.absolute_url}" target='_blank'><i class="fa fa-search" aria-hidden="true"></i></a>
                         <a id='cms_reference_link_edit' href='${reference_link.absolute_url}'>${reference_link.document_file_name}</a>
                       </div>
-                      <div class='col-md-12'>
+                      <div id='cms_reference_link_description' class='col-md-12'>
                         ${!_.isNull(reference_link.description) ? reference_link.description : 'Description coming soon'}
                       </div>
                     </div>
@@ -124,13 +124,14 @@ $(() => {
     $('#CMS_index_content').empty()
     let content = getReferenceLinkEditForm($(e.currentTarget).text(),
                                           $(e.currentTarget).attr('href'),
-                                            e.currentTarget.parentElement.parentElement.id)
+                                            e.currentTarget.parentElement.parentElement.id,
+                                            $(e.currentTarget.parentElement.parentElement).find('#cms_reference_link_description').text())
     $('#CMS_index_content').append(content)
     toggleProgressSpinner()
     return false
   })
 
-  function getReferenceLinkEditForm(reference_link_title, url, id){
+  function getReferenceLinkEditForm(reference_link_title, url, id, description){
     return `<div id='${id}'>
               <form id="CMS_reference_link_edit" class="ui form">
                 <div class="field">
@@ -142,7 +143,7 @@ $(() => {
                       ${reference_link_title}
                     </h4>
                   </label>
-                  <input type="text" name="reference_link[description]" placeholder="descriptive text" value="">
+                  <textarea name="reference_link[description]" placeholder="descriptive text" value="${description === '' ? '' : description }" required></textarea>
                 </div>
                 <button class="ui button" type="submit">Submit</button>
               </form>

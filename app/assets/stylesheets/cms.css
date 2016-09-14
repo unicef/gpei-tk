@@ -91,7 +91,6 @@
 #CMS_reference_link_edit {
   left:15px;
 }
-#CMS_reference_link_edit input {
+#CMS_reference_link_edit .field {
   width:90%;
-  height:150px;
 }
