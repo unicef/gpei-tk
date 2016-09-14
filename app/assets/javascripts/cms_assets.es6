@@ -100,9 +100,15 @@ $(() => {
     _.forEach(reference_links, reference_link => {
       let row = `<tr id="${reference_link.id}">
                   <td>
-                    <a id='cms_reference_link_icon' href="${reference_link.absolute_url}" target='_blank'><i class="fa fa-search" aria-hidden="true"></i></a>
-                    <a id='cms_reference_link_edit' href='${reference_link.absolute_url}'>${reference_link.document_file_name}</a>
-                    ${!_.isNull(reference_link.description) ? reference_link.description : ''}
+                    <div class='col-md-12'>
+                      <div class='col-md-12'>
+                        <a id='cms_reference_link_icon' href="${reference_link.absolute_url}" target='_blank'><i class="fa fa-search" aria-hidden="true"></i></a>
+                        <a id='cms_reference_link_edit' href='${reference_link.absolute_url}'>${reference_link.document_file_name}</a>
+                      </div>
+                      <div class='col-md-12'>
+                        ${!_.isNull(reference_link.description) ? reference_link.description : 'Description coming soon'}
+                      </div>
+                    </div>
                   </td>
                   <td>${reference_link.language}</td>
                   <td>${moment(reference_link.updated_at, "YYYY-MM-DD").format("MMM DD, YYYY")}</td>

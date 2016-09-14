@@ -203,7 +203,10 @@ $(() => {
                                 <a href='${ reference_link.absolute_url }' target='_blank'>${ reference_title }</a>
                               </div>
                               <div class='col-md-12'>
-                                ${ reference_link.description }
+                                <br>
+                              </div>
+                              <div class='col-md-12'>
+                                ${ _.isNull(reference_link.description) ? 'Description coming soon' : reference_link.description }
                               </div>
                             </div>
                           </td>
