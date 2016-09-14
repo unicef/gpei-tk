@@ -9,97 +9,82 @@
   </div>
   <div id='sop_overview_content_div' class='col-md-12'>
     <div id='sop_overview_content_description_div' class='col-md-3'>
-<!--       <strong>JUMP TO:</strong>
+      <strong>References:</strong>
       <br>
       <br>
       <div id='sop_jump_to_related' class='col-md-12'>
         <div class='row sop_overview_content_list_items'>
-          <div id='sop_over_content_list_items_text' class='col-md-10'>INTRODUCTION</div>
-          <div id='overview_content_list_item_angle_right' class='col-md-2 text-right'><i class="fa fa-angle-right" aria-hidden="true"></i>
+          <a href='<%= @reference_part_one.url %>' target='_blank'>
+            <div id='sop_over_content_list_items_text' class='col-md-10'><%= @reference_part_one.document_file_name.gsub('') %></div>
+            <div id='overview_content_list_item_angle_right' class='col-md-2 text-right'><i class="fa fa-angle-right" aria-hidden="true"></i>
+          </a>
           </div>
+          <a href='<%= @reference_part_two.url %>' target='_blank'>
+            <div id='sop_over_content_list_items_text' class='col-md-10'><%= @reference_part_two.document_file_name.gsub('') %></div>
+            <div id='overview_content_list_item_angle_right' class='col-md-2 text-right'><i class="fa fa-angle-right" aria-hidden="true"></i>
+          </div></a>
         </div>
-        <#% @sop_categories.each do |category| %>
-          <div class='row sop_overview_content_list_items'>
-            <div id='sop_over_content_list_items_text' class='col-md-10'><#%= category.title.upcase %></div><div id='overview_content_list_item_angle_right' class='col-md-2 text-right'><i class="fa fa-angle-right" aria-hidden="true"></i>
-            </div>
-          </div>
-        <#% end %>
-
-        <#% @sop_times.each do |time| %>
-          <div class='row sop_overview_content_list_items'>
-            <div id='sop_over_content_list_items_text' class='col-md-10'>WITHIN <#%= time.period.upcase %></div><div id='overview_content_list_item_angle_right' class='col-md-2 text-right'><i class="fa fa-angle-right" aria-hidden="true"></i>
-            </div>
-          </div>
-        <#% end %>
-      </div> -->
+      </div>
     </div>
     <div id='sop_overview_content' class='col-md-9'>
       <p>
         <h1>
-          <strong>Standard Operating Procedures:</strong>
+          <strong>Responding to a Poliovirus Event and Outbreak</strong>
         </h1>
       </p>
-      <p>
-        <h2>
-          <strong>Responding to a poliovirus event and outbreak</strong>
-        </h2>
-      </p>
-      <p><h3>Introduction:</h3></p>
-      <p><h4>Part 1: General SOPs</h4></p>
+      <p><h2>Part 1: General SOPs</h2></p>
 
       <p>
       The Global Polio Eradication Initiative (GPEI) seeks to ensure that future generations of children will be free from the threat of paralysis due to poliomyelitis. Critically important to successful eradication is ensuring rapid and effective response to polioviruses from any source if reintroduced or emerging in the remaining endemic and non-endemic countries. Countries and GPEI partners must aim to stop transmission of poliovirus within 120 days of confirmation of any new outbreak.
       </p>
 
+      <p><br></p>
+
       <p>
         Wild poliovirus (WPV) and vaccine-derived polioviruses 1 (VDPVs) can both cause clinical illness, including acute flaccid paralysis (AFP), and lead to outbreaks1. There are three types of WPV, but only type 1 (WPV1) continues to circulate. The last type 3 poliovirus (WPV3) was isolated in 2012. The last type 2 WPV (WPV2) was isolated in 1999 and declared eradicated in September 20152. There are only two endemic countries where WPV1 continues to paralyse children – Afghanistan and Pakistan. These countries continue on the path to eradication, strongly supported by the GPEI partners.
       </p>
-
+      <p><br></p>
       <p>
         However, VDPVs capable of causing paralysis also continue to emerge and circulate. In May 2014 and in November 2015 in conjunction with the World Health Assembly (WHA), the World Health Organization (WHO) Director - General (DG) declared the ongoing spread of polioviruses — WPV and circulating vaccine- derived polioviruses (cVDPV) — to be a public health emergency of international concern (PHEIC). In response, the Emergency Committee for polio, convened under the International Health Regulations (IHR), included cVDPVs in their remit for monitoring action and progress. In under-immunized populations, cVDPVs represent a particular risk and in recent years, most cVDPV cases and outbreaks have arisen from oral polio vaccine containing the type 2 component (OPV2).
       </p>
-
+      <p><br></p>
       <p>
         In response to the rising concern regarding VDPV2 outbreaks at the time, the May 2014 WHA endorsed a strategy to reduce the risk associated with attenuated poliovirus (Sabin strains) used in oral polio vaccine (OPV). In line with the Polio Eradication and Endgame Strategic Plan 2013-20183, all countries ceased using type 2 -containing oral polio vaccine (OPV2), in their routine immunization programmes between 17 April to 1st May 2016, thus participating in the largest globally- coordinated vaccine introduction in history, as all OPV-using countries switched from using trivalent OPV (tOPV, containing Sabin 1, 2, and 3) to a bivalent form (bOPV; containing Sabin 1 and Sabin 3). All existing stocks of tOPV are being removed from circulation, to further reduce the likelihood of cVDPV type 2 virus emergence.
       </p>
-
+      <p><br></p>
       <p>
         The GPEI is a public-private partnership, led by national governments and spear-headed by key partners . GPEI partners support countries for polio eradication activities and outbreak response.
       </p>
 
       <p><br></p>
 
-      <p><a href='https://s3.amazonaws.com/gpei-tk/reference_links/Responding_to_a_poliovirus_event_and_outbreak_SOPs_part_1-April_2016.pdf?X-Amz-Date=20160907T181958Z&X-Amz-Expires=300&X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Signature=77aef869db4dee837838f07556af53e50387c8d27e08957a07b527f069f816f6&X-Amz-Credential=ASIAIMS5ECO3QLP6DPRQ/20160907/us-east-1/s3/aws4_request&X-Amz-SignedHeaders=Host&x-amz-security-token=FQoDYXdzEPP//////////wEaDK63uekdIQYQI%2B7rmCL6AaEZicX9m0fE4dlzlxrIcWfc57WrDB8J/nLasqRRGfCgESKx9ioE0sNzNBOVWlkQH3gXu3WMbENbvf2bYqmstzjYt51utwvKxHD8VlbLNdjw%2BefKNaCF0h0Th2CuPmEK3KzwdO5t%2B7cOpJKKo63Es1QXKbUSXPQDDyqKn5Pq68SYst6G9PVipTngEXxI8F8cjguCRs23l1INecSwEx%2BtEVXK9oRR5wTM%2BksEg0fkQwoshm7SoVunUskzGj2aiDjA7bK0AtcvdxDkU1mjrxMUipgdh/CSca3R0MNGtx33NKjUGrWkTdVFhWcSG/vOj9UvmUXvr/3ikaIQFRoo7LPBvgU%3D' download='Responding_to_a_poliovirus_event_and_outbreak_SOPs_part_1-April_2016.pdf' target='_blank'>Download Part 1 General SOPs PDF</a></p>
+      <p><a href='<%= @reference_part_one.url %>' download='<%= @reference_part_one.document_file_name %>' target='_blank'>Download Part 1 General SOPs PDF</a></p>
 
       <p><br></p>
 
       <p>
-        <h4>Protocol for poliovirus type 2</h4>
+        <h2>Protocol for Poliovirus Type 2</h2>
       </p>
-
+      <p><br></p>
       <p>
         The last detected case of wild poliovirus (WPV) type 2 (WPV2) anywhere in the world occurred in 1999. On 20 September 2015, the Global Commission for the Certification of Poliomyelitis Eradication (GCC) formally declared that WPV2 has been eradicated.1 However, the continued use of oral polio vaccine (OPV) type 2 component (OPV2) remains responsible for the vast majority of circulating vaccine-derived poliovirus (cVDPV) cases and a substantial portion of vaccine associated paralytic poliomyelitis (VAPP) cases. In order to address this situation and the wider implications of OPV use after global wild poliovirus eradication, Objective 2 of the Polio Eradication and Endgame Strategic Plan 2013-20182 proposes an endgame strategy of three sequential steps: 1. Introduce at least one dose of inactivated polio vaccine (IPV) into routine immunization in all countries; 2. Cease using type 2-containing oral polio vaccine (OPV2) by a globally-coordinated switch from trivalent OPV (tOPV) to bivalent OPV (bOPV); and 3. Eventually globally-coordinate withdrawal of all OPV.3
       </p>
-
+      <p><br></p>
       <p>
         As of April 2016, all 156 countries and territories using tOPV have either already introduced or made formal commitments to introduce at least one dose of IPV into their routine immunization programs. Consequently, step 2, the globally coordinated switch from tOPV to bOPV (e.g. OPV2 cessation), is on track to proceed between 17 April and 1 May 2016.
       </p>
-
+      <p><br></p>
       <p>
         Following OPV2 cessation, population immunity and especially intestinal immunity and secondary spread of type 2 OPV-related viruses will decline, which will increase the risk of an outbreak if exposure to a type 2 poliovirus occurs.4 Three main outbreak threats following OPV2 cessation are: a relatively higher, but primarily short-term risk of the emergence of a cVDPV; a lower, long term risk of poliovirus re-introduction from a manufacturing site or laboratory; and a small, but potentially larger threat in the future posed by prolonged or chronic poliovirus infection in individuals with B-cell related primary immunodeficiencies (e.g. immunodeficiency-related vaccine-derived poliovirus [iVDPV]).5 Since WPV2 has been declared eradicated and OPV2 should no longer be in use after the tOPV to bOPV switch, the detection of any poliovirus type 2 (wild, vaccine derived, or Sabin) in any sample of any source after the switch will be considered a global public health emergency that requires a concrete strategy with rapid and high-quality coordinated action from the Global Polio Eradication Initiative (GPEI) and national and sub-national health agencies.
       </p>
-
-      <p>
-        http://www.polioeradication.org/mediaroom/newsstories/Global-eradication- of-wild-poliovirus-type- 2- decl ared/tabid/526/news/1289/Default.aspx 2 http://www.polioeradication.org/resourcelibrary/strategyandwork.aspx 3 ForadetailedanalysisfortherationaletowithdrawOPVpostWPVeradicationsee:DuintjerTebbensRJ,etal. Risksofparalyticdiseaseduetowildorvaccine-derivedpoliovirusaftereradication.RiskAnalysis2006; 26(6):1471-1505andThompsonKMetal.Therisks,costs,andbenefitsoffutureglobalpoliciesformanagingpolioviruses.AmericanJournalofPublicHealth2008;98(7):1322-1330.4 FormodelingoftherisksassociatedwithwithdrawalofOPVsee: ThompsonKM,DuintjerTebbensRJ.Modelingthedynamicsoforalpoliovirusvaccinecessation. JInfectDis.(2014)210(suppl1):S475-S484. 5 FormodelingoftherisksassociatedwithiVDPVssee: DuintjerTebbensRJ,PallanschMA,ThompsonKM. Modelingtheprevalenceofimmunodeficiency-associatedlong-termvaccine-derivedpoliovirusexcretorsandthepotentialbenefitsofantiviraldrugs.BMCInfectiousDiseases2015;15:379,doi:10.1186/s12879-015- 1115-5.
-      </p>
-
+      <p><br></p>
       <p>
         There is a high probability that at least one cVDPV2 and possibly multiple other VDPV2s will emerge within 12 months of the global switch from the use of tOPV to bOPV. The strategic actions following detection of a type 2 poliovirus isolate after OPV2 cessation have the same basic approaches and principles to those currently required for investigating and responding to any polio outbreak as outlined in the Standard Operating Procedures. However, the post-OPV2 era will require a heightened urgency, vigilant surveillance, a carefully planned risk assessment, and usually a specific vaccine response due to the world entering truly new territory with associated uncertainties surrounding the consequences of re-introducing an eradicated pathogen.
       </p>
 
       <p><br></p>
 
-      <p><a href='https://s3.amazonaws.com/gpei-tk/reference_links/Responding_to_a_poliovirus_event_and_outbreak_SOPs_part_2-April_2016.pdf?X-Amz-Date=20160907T182054Z&X-Amz-Expires=300&X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Signature=6e9cd85c93f8a7c1cd778be355b56ca4a00f8b2ae6eaebee4e4bf3ecd79e3f1c&X-Amz-Credential=ASIAIMS5ECO3QLP6DPRQ/20160907/us-east-1/s3/aws4_request&X-Amz-SignedHeaders=Host&x-amz-security-token=FQoDYXdzEPP//////////wEaDK63uekdIQYQI%2B7rmCL6AaEZicX9m0fE4dlzlxrIcWfc57WrDB8J/nLasqRRGfCgESKx9ioE0sNzNBOVWlkQH3gXu3WMbENbvf2bYqmstzjYt51utwvKxHD8VlbLNdjw%2BefKNaCF0h0Th2CuPmEK3KzwdO5t%2B7cOpJKKo63Es1QXKbUSXPQDDyqKn5Pq68SYst6G9PVipTngEXxI8F8cjguCRs23l1INecSwEx%2BtEVXK9oRR5wTM%2BksEg0fkQwoshm7SoVunUskzGj2aiDjA7bK0AtcvdxDkU1mjrxMUipgdh/CSca3R0MNGtx33NKjUGrWkTdVFhWcSG/vOj9UvmUXvr/3ikaIQFRoo7LPBvgU%3D' download='Responding_to_a_poliovirus_event_and_outbreak_SOPs_part_2-April_2016.pdf' target='_blank'>Download Part 2 Protocol for poliovirus type 2 PDF</a></p>
+      <p><a href='<%= @reference_part_two.url %>' download='<%= @reference_part_two.document_file_name %>' target='_blank'>Download Part 2 Protocol for poliovirus type 2 PDF</a></p>
     </div>
   </div>
   <%= render 'footer/index' %>

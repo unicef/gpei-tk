@@ -20,6 +20,8 @@ class SopController < ApplicationController
   def overview
     @sop_times = SopTime.all
     @sop_categories = SopCategory.all
+    @reference_part_one = ReferenceLink.where(document_file_name: 'Responding_to_a_poliovirus_event_and_outbreak_SOPs_part_1-April_2016.pdf')
+    @reference_part_two = ReferenceLink.find_by(document_file_name: 'Responding_to_a_poliovirus_event_and_outbreak_SOPs_part_2-April_2016.pdf')
     @backgrounds = { index: nil, wtdw: nil, overview: '#B74D43', borders: 'active' }
   end
 end
