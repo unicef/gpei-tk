@@ -385,7 +385,7 @@ $(() => {
           } else if (reference_title.index('.mp3') !== -1) {
             reference_title = _.replace(reference_title, new RegExp(".mp3","g"),"")
           }
-          return `<div id='reference_link_row' class='row'><div class='col-md-2'><img class='tools_reference_link_pdf_icon' src='${_.replace(reference_link.absolute_url, new RegExp(".pdf","g"),".png")}'></div><div id='reference_link_anchor_div' class='col-md-10'><a class='reference_link_anchor' href="${ reference_link.absolute_url }" target='_blank'>&nbsp;${ reference_title }</a></div></div>`
+          return `<div id='reference_link_row' class='row'><div class='col-md-2'><img class='reference_link_pdf_icon' src='${_.replace(reference_link.absolute_url, new RegExp(".pdf","g"),".png")}'></div><div id='reference_link_anchor_div' class='col-md-10'><a class='reference_link_anchor' href="${ reference_link.absolute_url }" target='_blank'>&nbsp;${ reference_title }</a></div></div>`
         }).join('\n')
       content = content + "</div></div>"
     }
