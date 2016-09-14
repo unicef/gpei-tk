@@ -61,7 +61,7 @@ class C4dController < ApplicationController
               {
                 'TheGlobalStrategy': ['#0A462F', '#0E6040', '#14714C', '#17885B'],
                 'IntegratedAction': [nil, nil, nil, nil, '#085D40', '#0C6949', '#127653', '#16805B', '#1E8E67', '#21956D', '#28A278'],
-                'MonitorEvaluate': [nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, '#579866', '#5FA870', '#69B57B', '#7CC98E'],
+                'MonitorEvaluate': [nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, '#5FA870', '#69B57B', '#7CC98E', '#579866'],
               },
               'Tools':
               {
