@@ -17,4 +17,18 @@ class Cms::ReferenceLinksController < ApplicationController
       end
     end
   end
+
+  def update
+    binding.pry
+    reference_link = ReferenceLink.find_by(params[:reference_link][:id])
+    if reference_link.update(safe_reference_link_params)
+      render json: { status: 200 }
+      else
+        render json: { status: 403 }
+      end
+  end
+
+  def safe_reference_link_params
+    params.require(:reference_link).permit(:description)
+  end
 end

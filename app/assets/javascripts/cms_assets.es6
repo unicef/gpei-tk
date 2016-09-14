@@ -98,10 +98,63 @@ $(() => {
 
   function appendReferenceLinkRows(reference_links, users){
     _.forEach(reference_links, reference_link => {
-      let row = `<tr id="${reference_link.id}"><td><a href="${reference_link.absolute_url}" target='_blank'>${reference_link.document_file_name}</td><td>${reference_link.language}</td><td>${moment(reference_link.updated_at, "YYYY-MM-DD").format("MMM DD, YYYY")}</td><td>${moment(reference_link.created_at, "YYYY-MM-DD").format("MMM DD, YYYY")}</td><td>${users[reference_link.author_id].first_name + ' ' + users[reference_link.author_id].last_name}</td></tr>`
+      let row = `<tr id="${reference_link.id}">
+                  <td>
+                    <a id='cms_reference_link_icon' href="${reference_link.absolute_url}" target='_blank'><i class="fa fa-search" aria-hidden="true"></i></a>
+                    <a id='cms_reference_link_edit' href='${reference_link.absolute_url}'>${reference_link.document_file_name}</a>
+                    ${!_.isNull(reference_link.description) ? reference_link.description : ''}
+                  </td>
+                  <td>${reference_link.language}</td>
+                  <td>${moment(reference_link.updated_at, "YYYY-MM-DD").format("MMM DD, YYYY")}</td>
+                  <td>${moment(reference_link.created_at, "YYYY-MM-DD").format("MMM DD, YYYY")}</td>
+                  <td>${users[reference_link.author_id].first_name + ' ' + users[reference_link.author_id].last_name}</td>
+                </tr>`
       $('#CMS_reference_link_table').append(row)
     })
   }
+  $('#CMS_index_content').on('click', '#cms_reference_link_edit', e => {
+    e.preventDefault()
+    toggleProgressSpinner()
+    $('#CMS_index_content').empty()
+    let content = getReferenceLinkEditForm($(e.currentTarget).text(),
+                                          $(e.currentTarget).attr('href'),
+                                            e.currentTarget.parentElement.parentElement.id)
+    $('#CMS_index_content').append(content)
+    toggleProgressSpinner()
+    return false
+  })
+
+  function getReferenceLinkEditForm(reference_link_title, url, id){
+    return `<div id='${id}'>
+              <form id="CMS_reference_link_edit" class="ui form">
+                <div class="field">
+                  <label>Edit description for:
+                    <h4>
+                      <a id='' href="${url}" target='_blank'>
+                        <i class="fa fa-search" aria-hidden="true"></i>
+                      </a>
+                      ${reference_link_title}
+                    </h4>
+                  </label>
+                  <input type="text" name="reference_link[description]" placeholder="descriptive text" value="">
+                </div>
+                <button class="ui button" type="submit">Submit</button>
+              </form>
+            </div>`
+  }
+  $('#CMS_index_content').on('submit', '#CMS_reference_link_edit', e => {
+    e.preventDefault()
+    toggleProgressSpinner()
+    $.ajax({
+      method: 'PATCH',
+      url: 'cms/reference_links/' + e.currentTarget.parentElement.id,
+      data: $(e.currentTarget).serialize()
+    }).done(response => {
+      toggleProgressSpinner()
+      showDimmerClearBrowser()
+    })
+    return false
+  })
   function getLanguageDropdown(){
     return (`
       <div class="field">

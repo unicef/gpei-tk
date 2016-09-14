@@ -30,7 +30,7 @@ Rails.application.routes.draw do
     resources :c4d_articles, only: [:index, :update, :show, :create]
     patch '/sop_articles/publish/:id', to: 'sop_articles#publish', as: :sop_article_publish
     patch '/c4d_articles/publish/:id', to: 'c4d_articles#publish', as: :c4d_article_publish
-    resources :reference_links, only: [:index, :create]
+    resources :reference_links, only: [:index, :create, :update]
     resources :embedded_images, only: [:create]
   end
 
