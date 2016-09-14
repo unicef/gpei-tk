@@ -2,7 +2,7 @@ class TermsOfServiceController < ApplicationController
   TERMS_OF_SERVICE = "
     <div class=\"terms_of_service_content\">
       <div>
-        Use of this Web site, <a href=\"http://www.Rhizome by GPEI.us/\" target=\"_blank\">www.Rhizome by GPEI.us</a> and all pages in this domain (together, the \"Rhizome by GPEI\"), constitutes acceptance of the following terms and conditions. The developers of this website reserve the right to seek all remedies available by law for any violation of these terms of use.
+        Use of this Web site, <a href=\"http://poliok.it/\" target=\"_blank\">poliok.it</a> and all pages in this domain (together, the \"Rhizome by GPEI\"), constitutes acceptance of the following terms and conditions. The developers of this website reserve the right to seek all remedies available by law for any violation of these terms of use.
       </div>
 
       <div><br></div>
