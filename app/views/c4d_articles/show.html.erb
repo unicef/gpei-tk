@@ -76,8 +76,7 @@
         <%= @c4d_article.content.html_safe %>
         <% if @c4d_article.c4d_category.title == 'Tools' %>
           <table>
-            <% @c4d_article.reference_links.each do |reference_link|
-              <% reference_title = reference_link.document_file_name.gsub('_', ' ').gsub('.pdf', '') %>
+            <% @c4d_article.reference_links.each do |reference_link| %>
                 <tr>
                   <td>
                     <img class='tools_reference_link_pdf_icon' src='<%= reference_link.absolute_url.gsub('.pdf','.png') %>'>
@@ -85,7 +84,7 @@
                   <td class='tools_reference_link_description'>
                     <div class='col-md-12'>
                       <div class='col-md-12'>
-                        <a href='<%= reference_link.absolute_url %>' target='_blank'><%= reference_title %></a>
+                        <a href='<%= reference_link.absolute_url %>' target='_blank'><%= reference_link.document_file_name.gsub('_', ' ').gsub('.pdf', '') %></a>
                       </div>
                       <div class='col-md-12'>
                         <br>
