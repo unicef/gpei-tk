@@ -15,12 +15,12 @@
       <div id='sop_jump_to_related' class='col-md-12'>
         <div class='row sop_overview_content_list_items'>
           <a href='<%= @reference_part_one.url %>' target='_blank'>
-            <div id='sop_over_content_list_items_text' class='col-md-10'><%= @reference_part_one.document_file_name.gsub('') %></div>
+            <div id='sop_over_content_list_items_text' class='col-md-10'><%= @reference_part_one.document_file_name.gsub('_',' ') %></div>
             <div id='overview_content_list_item_angle_right' class='col-md-2 text-right'><i class="fa fa-angle-right" aria-hidden="true"></i>
           </a>
           </div>
           <a href='<%= @reference_part_two.url %>' target='_blank'>
-            <div id='sop_over_content_list_items_text' class='col-md-10'><%= @reference_part_two.document_file_name.gsub('') %></div>
+            <div id='sop_over_content_list_items_text' class='col-md-10'><%= @reference_part_two.document_file_name.gsub('_',' ') %></div>
             <div id='overview_content_list_item_angle_right' class='col-md-2 text-right'><i class="fa fa-angle-right" aria-hidden="true"></i>
           </div></a>
         </div>
