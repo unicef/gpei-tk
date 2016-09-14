@@ -222,7 +222,7 @@ $(() => {
   // unless user specified own height.
   CKEDITOR.config.height = 150;
   CKEDITOR.config.width = 'auto';
-  CKEDITOR.config.allowedContent = true;
+  CKEDITOR.config.allowedContent = 'iframe[align,longdesc,frameborder,height,name,scrolling,src,title,width]';
   let initializeCKEditor = (function() {
     let wysiwygareaAvailable = isWysiwygareaAvailable(),
       isBBCodeBuiltIn = !!CKEDITOR.plugins.get( 'bbcode' );
