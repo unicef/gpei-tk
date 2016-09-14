@@ -206,7 +206,7 @@ $(() => {
   // unless user specified own height.
   CKEDITOR.config.height = 300;
   CKEDITOR.config.width = 'auto';
-
+  CKEDITOR.config.allowedContent = true;
   let initializeCKEditor = (function() {
     let wysiwygareaAvailable = isWysiwygareaAvailable(),
       isBBCodeBuiltIn = !!CKEDITOR.plugins.get( 'bbcode' );
