@@ -22,12 +22,12 @@ $(() => {
     toggleProgressSpinner()
     $.ajax({
       method: 'GET',
-      url: 'cms/reference_links/'
+      url: '/cms/reference_links/'
     }).done(response => {
       let reference_links = response.reference_links
       $.ajax({
         method: 'GET',
-        url: 'cms/users/'
+        url: '/cms/users/'
       }).done(response => {
         toggleProgressSpinner()
         $('#CMS_index_content').empty()
@@ -101,7 +101,7 @@ $(() => {
       let row = `<tr id="${reference_link.id}">
                   <td>
                     <div class='col-md-12'>
-                      <div class='col-md-12'>
+                      <div id='${reference_link.id}' class='col-md-12'>
                         <a id='cms_reference_link_icon' href="${reference_link.absolute_url}" target='_blank'><i class="fa fa-search" aria-hidden="true"></i></a>
                         <a id='cms_reference_link_edit' href='${reference_link.absolute_url}'>${reference_link.document_file_name}</a>
                       </div>
@@ -124,7 +124,7 @@ $(() => {
     $('#CMS_index_content').empty()
     let content = getReferenceLinkEditForm($(e.currentTarget).text(),
                                           $(e.currentTarget).attr('href'),
-                                            e.currentTarget.parentElement.parentElement.id,
+                                            e.currentTarget.parentElement.id,
                                             $(e.currentTarget.parentElement.parentElement).find('#cms_reference_link_description').text())
     $('#CMS_index_content').append(content)
     toggleProgressSpinner()
@@ -154,7 +154,7 @@ $(() => {
     toggleProgressSpinner()
     $.ajax({
       method: 'PATCH',
-      url: 'cms/reference_links/' + e.currentTarget.parentElement.id,
+      url: '/cms/reference_links/' + e.currentTarget.parentElement.id,
       data: $(e.currentTarget).serialize()
     }).done(response => {
       toggleProgressSpinner()
