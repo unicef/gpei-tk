@@ -211,7 +211,8 @@
   height:100%;
 }
 .tools_reference_link_pdf_icon {
-  height:50px !important;
+  height:150px !important;
+  margin:10px;
 }
 .tools_reference_link_description {
   padding-left: 10px;
