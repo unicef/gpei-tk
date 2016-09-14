@@ -30,7 +30,7 @@
               </div>
             </div>
           <% end %> -->
-          <% if !@c4d_article.reference_links.empty? %>
+          <% if !@c4d_article.reference_links.empty? && @c4d_article.c4d_category.title != 'Tools' %>
           <div id='cgi_c4d_show_references'>
               <div id='cgi_references_header' class='row'>REFERENCES:</div>
             <% @c4d_article.reference_links.each do |link| %>
@@ -74,6 +74,35 @@
 
       <div id='cgi_c4d_article_show' style='color:black;'>
         <%= @c4d_article.content.html_safe %>
+        <% if @c4d_article.c4d_category.title == 'Tools' %>
+          <table>
+            <% @c4d_article.reference_links.each do |reference_link|
+              <% reference_title = reference_link.document_file_name.gsub('_', ' ').gsub('.pdf', '') %>
+                <tr>
+                  <td>
+                    <img class='tools_reference_link_pdf_icon' src='<%= reference_link.absolute_url.gsub('.pdf','.png') %>'>
+                  </td>
+                  <td class='tools_reference_link_description'>
+                    <div class='col-md-12'>
+                      <div class='col-md-12'>
+                        <a href='<%= reference_link.absolute_url %>' target='_blank'><%= reference_title %></a>
+                      </div>
+                      <div class='col-md-12'>
+                        <br>
+                      </div>
+                      <div class='col-md-12'>
+                        <% if reference_link.description).nil? %>
+                          <%= 'Description coming soon' %>
+                        <% else %>
+                          <%= reference_link.description %>
+                        <% end %>
+                      </div>
+                    </div>
+                  </td>
+              </tr>
+            <% end %>
+          </table>
+        <% end %>
       </div>
     </div>
   </div>
