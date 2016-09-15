@@ -144,10 +144,9 @@ $(() => {
 
   // The trick to keep the editor in the sample quite small
   // unless user specified own height.
-  CKEDITOR.config.height = 150;
+  CKEDITOR.config.height = 250;
   CKEDITOR.config.width = 'auto';
-  CKEDITOR.config.allowedContent = 'iframe[*] h1[*] h2[*] h3[*] h4[*] h5[*] h6[*] p[*] a[*] div[*] i[*] img[*] select[*] br[*] select[*] input[*] strong[*] b[*] em[*] select[*] span[*] table[*] tbody[*] td[*] tr[*] form[*] textarea[*] th[*] thead[*] ul[*] li[*] video[*] ol[*] u[*]';
-
+  CKEDITOR.config.extraAllowedContent = 'iframe[*]';
   var initializeCKEditor = (function() {
     var wysiwygareaAvailable = isWysiwygareaAvailable(),
       isBBCodeBuiltIn = !!CKEDITOR.plugins.get( 'bbcode' );
