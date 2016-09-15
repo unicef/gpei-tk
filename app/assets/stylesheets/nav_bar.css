@@ -203,15 +203,19 @@ nav .container {
 #c4d_act_button,
 #c4d_tools_button,
 #sop_overview_button,
-#nav_contact_link,
-#nav_about_link,
-#nav_user_sign_in,
-#toolkit_dropdown,
 #sop_what_to_do_nav_button {
   font-size:13px !important;
   font-weight: bold;
   font-family: 'proxima-nova' !important;
 }
+#nav_contact_link,
+#nav_about_link,
+#nav_user_sign_in,
+#toolkit_dropdown {
+  font-size:13px !important;
+  font-family: 'proxima-nova' !important;
+}
+
 #c4d_article_show_modal,
 #sop_article_show_modal {
   margin-top:70px !important;
