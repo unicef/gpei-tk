@@ -159,6 +159,7 @@ $(() => {
     }).done(response => {
       toggleProgressSpinner()
       showDimmerClearBrowser()
+      $('#CMS_references_link').trigger('click')
     })
     return false
   })
