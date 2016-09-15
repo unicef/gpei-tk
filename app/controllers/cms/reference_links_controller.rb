@@ -24,7 +24,8 @@ class Cms::ReferenceLinksController < ApplicationController
     if current_user.is_admin? || current_user.is_editor?
       if request.xhr?
         reference_link = ReferenceLink.find_by(params[:reference_link][:id])
-        if reference_link.update(safe_reference_link_params)
+        reference_link.description = params[:reference_link][:description]
+        if reference_link.save
           render json: { status: 200 }
         else
           render json: { status: 403 }
