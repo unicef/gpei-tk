@@ -2,8 +2,8 @@
 #gpei_footer_logo_div #footer_img {
   position: relative;
   margin:0 auto;
-  width:355px;
-  height:50px;
+  width:250px;
+  height:auto;
 }
 #footer_img img {
   opacity: .5;
