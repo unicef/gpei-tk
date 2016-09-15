@@ -52,9 +52,6 @@ $(() => {
       let offset = $('nav').outerHeight()
       $('#c4d_selection_page').offset({ top: offset })
     }
-
-  }
-
   })
 
   let height = $('#sop_filter_clear_all').innerHeight()
