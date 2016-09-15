@@ -68,6 +68,8 @@ p {
 }
 #gpei_footer_home_logo_div img {
   margin:0 auto;
+  width:250px;
+  height:auto;
   opacity: .5;
 }
 #reference_header_text_div {

@@ -42,6 +42,19 @@ $(() => {
 
     let container_width = $('#sop_landing_image_container').outerWidth() + 'px'
     $('#sop_grid_filter_menu_container').css('width', container_width)
+
+    if ($('#sop_selection_page').css('visibility') === 'visible'){
+      let container_width = $('#sop_landing_image_container').outerWidth() + 'px'
+      $('#sop_grid_filter_menu_container').css('width', container_width)
+      let offset = $('nav').outerHeight()
+      $('#sop_selection_page').offset({ top: offset })
+    } else if ($('#c4d_selection_page').css('visibility') === 'visible'){
+      let offset = $('nav').outerHeight()
+      $('#c4d_selection_page').offset({ top: offset })
+    }
+
+  }
+
   })
 
   let height = $('#sop_filter_clear_all').innerHeight()

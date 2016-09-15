@@ -359,4 +359,10 @@ $(() => {
       $(e.currentTarget).find('i').toggleClass('rotate_icon')
     })
   })
+
+  if ($('#c4d_selection_page').css('visibility') === 'visible'){
+    let offset = $('nav').outerHeight()
+    $('#c4d_selection_page').offset({ top: offset })
+  }
+
 })
