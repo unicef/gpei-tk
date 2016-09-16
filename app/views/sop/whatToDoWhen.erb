@@ -68,34 +68,34 @@
               style=<%='background-color:' + article.sop_time.color + ';' %>>
               <div class='sop_grid_content'>
                 <div id='sop_grid_content_time_div' class='col-md-12'>
-                  <div class='col-md-1'>
-                    <%= image_tag "sop/grid_icons/#{ get_grid_image_by_sop_subcategory('24 Hours', 'icon-time-white')}.png", id:'sop_grid_content_time_div_img' %>
+                  <div id='sop_grid_content_time_img_div' class='col-md-2'>
+                    <%= image_tag "sop/grid_icons/#{ get_grid_image_by_sop_subcategory('24 Hours', 'icon-time-white')}.png", id:'sop_grid_content_time_div_img', class:'img-responsive' %>
                   </div>
                   <div id='sop_grid_cotent_time_div_text' class='col-md-10 text-left'>
                     <%= article.sop_time.period %></p>
                   </div>
                 </div>
                 <p id='grid_item_article_title' class='col-md-11 text-left'><strong><%= article.title %></strong></p>
-                <div id='grid_item_icon_div' class='row'>
+                <div id='grid_item_icon_div' class='col-md-12'>
                   <div id='sop_grid_subcat_and_responsible_office_div' class='text-left col-md-12'>
-                    <div id='sop_grid_cat_div' class='col-md-8'>
-                      <div class='col-md-1'>
-                        <%= image_tag "sop/grid_icons/#{ get_grid_image_by_sop_subcategory('24 Hours', 'icon-category-white')}.png", id:'sop_grid_cat_image' %>
+                    <div id='sop_grid_cat_div' class='col-md-12'>
+                      <div id='sop_subcategory_img_div' class='col-md-2'>
+                        <%= image_tag "sop/grid_icons/#{ get_grid_image_by_sop_subcategory('24 Hours', 'icon-category-white')}.png", id:'sop_grid_cat_image', class:'img-responsive' %>
                       </div>
-                      <div id='sop_grid_cat_div_text' class='col-md-10'>
+                      <div id='sop_grid_cat_div_text' class='col-md-8'>
                         <%= article.sop_category.title %>
                       </div>
                     </div>
-                    <div id='sop_grid_responsible_office' class='col-md-8'>
-                      <div id='sop_grid_responsible_office_image_div' class='col-md-1'>
-                      <%= image_tag "sop/grid_icons/#{ get_grid_image_by_sop_subcategory('24 Hours', 'icon-resp-white')}.png", id:'sop_grid_responsible_office_image' %>
+                    <div id='sop_grid_responsible_office' class='col-md-12'>
+                      <div id='sop_grid_responsible_office_image_div' class='col-md-2'>
+                      <%= image_tag "sop/grid_icons/#{ get_grid_image_by_sop_subcategory('24 Hours', 'icon-resp-white')}.png", id:'sop_grid_responsible_office_image', class:'img-responsive' %>
                       </div>
-                      <div id='sop_grid_responsible_title_div' class='col-md-10'>
+                      <div id='sop_grid_responsible_title_div' class='col-md-8'>
                         <%= article.responsible_office.title %>
                       </div>
                     </div>
                   </div>
-                  <%= image_tag "sop/icons/#{article.sop_icon.title}.png", id:'sop_grid_icon_img', alt: "" %>
+                  <div><%= image_tag "sop/icons/#{article.sop_icon.title}.png", id:'sop_grid_icon_img', alt: "" %></div>
                 </div>
               </div>
               <a class='grid_add' href='' style="<%= style_visible('add', @user, article) %>;" title='Add to checklist' data-toggle='tooltip'>
