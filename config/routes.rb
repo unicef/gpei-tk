@@ -10,6 +10,7 @@ Rails.application.routes.draw do
   get '/sop/' => 'sop#index'
 
   get '/sop/what_to_do_when/' => 'sop#whatToDoWhen'
+  get '/sop/what_to_do_when/:id' => 'sop#whatToDoWhen'
   get '/sop/overview/' => 'sop#overview'
 
   post '/sop/checklist/' => 'sop_checklist#create'
