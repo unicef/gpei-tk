@@ -10,6 +10,7 @@ class SopController < ApplicationController
   end
 
   def whatToDoWhen
+    @loadSopArticle = true unless params[:id].nil?
     @sop_times = SopTime.all
     @sop_categories = SopCategory.all
     @responsible_offices = ResponsibleOffice.all
