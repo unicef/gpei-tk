@@ -1,3 +1,6 @@
+#sop_overview_content table,
+#sop_overview_content p,
+#sop_overview_content ul,
 #c4d_article_content table,
 #c4d_article_content p,
 #c4d_article_content ul,
@@ -6,6 +9,7 @@
 #sop_article_content ul {
     margin-bottom: 1em;
 }
+#sop_overview_content ul li p,
 #sop_article_content ul li p,
 #c4d_article_content ul li p{
   margin-bottom:0px;
