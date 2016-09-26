@@ -63,7 +63,7 @@
     <div class='col-md-12 text-center'>
       <div id='isotope_container' class='col-md-12 text-center'>
         <% @sop_articles.each do |article| %>
-          <%= link_to sop_article_path(article) do %>
+          <a href='/sop/what_to_do_when/<%= article.id %>/'>
             <div id="<%= article.id %>" class="<%= build_classes({grid_item: 'grid_item', time: article.sop_time.period.gsub(' ', '_'), offices: article.responsible_office.title.gsub(' ', '_'), category: article.sop_category.title.gsub(' ', '_')}) %>"
               style=<%='background-color:' + article.sop_time.color + ';' %>>
               <div class='sop_grid_content'>
@@ -105,10 +105,14 @@
                 <img id='remove_article_image' src='/assets/icons/remove-check.png'>
               </a>
             </div>
-          <% end %>
+          </a>
         <% end %>
       </div>
     </div>
   </div>
+  <% if @loadSopArticle %>
+    <div id='sop_article_load_trigger_div'>
+    </div>
+  <% end %>
   <%= render 'footer/index' %>
 </div>
