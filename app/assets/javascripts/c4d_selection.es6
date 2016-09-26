@@ -365,4 +365,13 @@ $(() => {
     $('#c4d_selection_page').offset({ top: offset })
   }
 
+  if ($('#c4d_article_load_trigger_div').css('visibility') !== undefined) {
+    var parent_element = $('#c4d_subcategory_accordion')
+    var path_split = window.location.pathname.split('/')
+    var path_split_length = window.location.pathname.split('/').length
+    var article_id = path_split[path_split_length-1] === "" ? path_split[path_split_length-2] : path_split[path_split_length-1]
+    var element = '#' + article_id + ' #c4d_grid_tile_title'
+    $(element).trigger('click')
+    $(element).parents('#c4d_subcategory_accordion').trigger('click')
+  }
 })
