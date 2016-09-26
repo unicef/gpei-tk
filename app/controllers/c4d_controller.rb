@@ -3,6 +3,7 @@ class C4dController < ApplicationController
     @is_c4d = true
     @user = current_user
     @nav_bar_offset = 'col-md-offset-1'
+    @loadC4DArticle = true unless params[:id].nil?
   end
 
   def index
