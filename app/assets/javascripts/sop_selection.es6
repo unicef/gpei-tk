@@ -576,4 +576,10 @@ $(() => {
   }
 
   $('#multimedia_modal').modal('attach events', '#sop_article_show_modal .button')
+
+  if ($('#sop_article_load_trigger_div').css('visibility') !== undefined) {
+    var article_id = window.location.pathname.split('/')[window.location.pathname.split('/').length-1]
+    var element = '.grid_item#' + article_id
+    $(element).trigger('click')
+  }
 })
