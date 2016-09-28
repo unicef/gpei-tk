@@ -52,6 +52,10 @@ Rails.application.routes.draw do
 
   resources :users, only: [:new, :create, :show]
 
+  namespace :user, defaults: { format: :json } do
+    resources :forgot_passwords, only: [:create, :update]
+  end
+
   post '/signin/', to: 'sessions#create', as: :signin
   delete '/signout/', to: 'sessions#destroy', as: :signout
 

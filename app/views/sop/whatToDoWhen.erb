@@ -63,8 +63,8 @@
     <div class='col-md-12 text-center'>
       <div id='isotope_container' class='col-md-12 text-center'>
         <% @sop_articles.each do |article| %>
-          <a href='/sop/what_to_do_when/<%= article.id %>/'>
-            <div id="<%= article.id %>" class="<%= build_classes({grid_item: 'grid_item', time: article.sop_time.period.gsub(' ', '_'), offices: article.responsible_office.title.gsub(' ', '_'), category: article.sop_category.title.gsub(' ', '_')}) %>"
+          <a href='/sop/what_to_do_when/<%= article.title.gsub(' ', '_') %>/'>
+            <div id="<%= article.title.gsub(' ', '_') %>" class="<%= build_classes({grid_item: 'grid_item', time: article.sop_time.period.gsub(' ', '_'), offices: article.responsible_office.title.gsub(' ', '_'), category: article.sop_category.title.gsub(' ', '_')}) %>"
               style=<%='background-color:' + article.sop_time.color + ';' %>>
               <div class='sop_grid_content'>
                 <div id='sop_grid_content_time_div' class='col-md-12'>
