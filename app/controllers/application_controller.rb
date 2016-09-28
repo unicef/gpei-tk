@@ -6,4 +6,8 @@ class ApplicationController < ActionController::Base
   def current_user
     @current_user ||= User.find_by(id: session[:id]) if session[:uuid]
   end
+
+  def params_id_is_integer?
+    !!(params[:id] =~ /\A[-+]?[0-9]+\z/)
+  end
 end
