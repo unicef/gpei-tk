@@ -5,10 +5,10 @@ class SopArticlesController < ApplicationController
 
   def show
     if request.xhr?
-      if params['id'].nil?
-        sop_article = SopArticle.where(title: params['title']).first
-      else
-        sop_article = SopArticle.where(id: params['id']).first
+      if params[:id] && !params_id_is_integer?
+        sop_article = SopArticle.find_by(title: params[:id].gsub('_', ' '))
+      elsif params[:id]
+        sop_article = SopArticle.find_by(id: params['id'])
       end
       sop_categories = SopCategory.all.order(:id)
       checklist_articles = current_user.sop_checklist.sop_articles if current_user
@@ -25,9 +25,9 @@ class SopArticlesController < ApplicationController
       @nav_bar_offset = 'col-md-offset-7'
       @user = current_user
       @img_name = 'SOP'
-      if params['id'].nil?
-        @sop_article = SopArticle.find_by(title: params['title'])
-      else
+      if params[:id] && !params_id_is_integer?
+        @sop_article = SopArticle.find_by(title: params[:id].gsub('-', ' '))
+      elsif params[:id]
         @sop_article = SopArticle.find_by(id: params['id'])
       end
       last_article = SopArticle.order(:id).last

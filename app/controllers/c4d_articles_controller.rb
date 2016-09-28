@@ -5,10 +5,10 @@ class C4dArticlesController < ApplicationController
 
   def show
     if request.xhr?
-      if params['id'].nil?
-        c4d_article = C4dArticle.where(title: params['title']).first
-      else
-        c4d_article = C4dArticle.where(id: params['id']).first
+      if params[:id] && !params_id_is_integer?
+        c4d_article = C4dArticle.find_by(title: params[:id].gsub('_', ' '))
+      elsif params[:id]
+        c4d_article = C4dArticle.find_by(id: params['id'])
       end
       c4d_categories = C4dCategory.all.order(:id)
       c4d_related_topics = C4dArticle.where("published = true AND c4d_subcategory_id = ? AND id != ?", c4d_article.c4d_subcategory_id, c4d_article.id).order(:order_id)
@@ -25,9 +25,9 @@ class C4dArticlesController < ApplicationController
                      reference_links: reference_links }
     else
       @user = current_user
-      if params['id'].nil?
-        @c4d_article = C4dArticle.find_by(title: params['title'])
-      else
+      if params[:id] && !params_id_is_integer?
+        @c4d_article = C4dArticle.find_by(title: params[:id].gsub('-', ' '))
+      elsif params[:id]
         @c4d_article = C4dArticle.find_by(id: params['id'])
       end
       @c4d_related_topics = C4dArticle.where("published = true AND c4d_subcategory_id = ? AND id != ?", @c4d_article.c4d_subcategory_id, @c4d_article.id).order(order_id: :asc)
