@@ -128,6 +128,7 @@ $(() => {
     autoAdjustSopFilterHeights()
     return false
   })
+
   function toggleVisibility(el) {
     if ($(el).css('visibility') == 'hidden' )
       $(el).css('visibility','visible')
@@ -162,6 +163,7 @@ $(() => {
     })
     return false
   })
+
   function removeNoArticlesSelected(ele) {
     let el = "#sop_checklist_list " + ele
     $(el).remove()
@@ -239,6 +241,7 @@ $(() => {
     onHide: () => {
       $('#sop_article_show_modal .content').empty()
       $('#sop_article_show_modal .header').empty()
+      clearUrlState()
     }
   })
 
@@ -248,6 +251,8 @@ $(() => {
       method: 'GET',
       url: '/sop_articles/' + e.currentTarget.id
     }).done(response => {
+      setUrlStateForArticleShow(response.article.title)
+
       $('#sop_article_show_modal').modal('show')
       let content = sop_article_content({ article: response.article,
                                           sop_categories: response.sop_categories,
@@ -266,6 +271,14 @@ $(() => {
       $('#sop_article_show_info_column').css({ height: outerHeight })
     })
   })
+
+  function clearUrlState(){
+    history.pushState(null, null, window.location.href.split('/').slice(0, -1).join('/') + '/')
+  }
+  function setUrlStateForArticleShow(title){
+    history.pushState(null, null, title.replace(new RegExp(' ', 'g'), '_'))
+  }
+
   function sop_article_header(params) {
     return `
       <div id="sop_article_show_header" class='row' style='color:white;background-color:${ params['sop_times'][params['article'].sop_time_id-1].color } ;'>
@@ -581,6 +594,8 @@ $(() => {
     var path_split = window.location.pathname.split('/')
     var path_split_length = window.location.pathname.split('/').length
     var article_id = path_split[path_split_length-1] === "" ? path_split[path_split_length-2] : path_split[path_split_length-1]
+    // var regex = new RegExp("\\", "g")
+    article_id = article_id.replace(/([ #;&,.%+*~\':"!^$[\]()=>|\/])/g,'\\$1')
     var element = '.grid_item#' + article_id
     $(element).trigger('click')
   }

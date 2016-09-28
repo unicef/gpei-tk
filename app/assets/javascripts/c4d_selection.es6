@@ -111,7 +111,13 @@ $(() => {
   }
 
   // c4d article modal show
-  $('#c4d_article_show_modal').modal()
+  $('#c4d_article_show_modal').modal({
+    onHide: () => {
+      $('#c4d_article_show_modal .content').empty()
+      $('#c4d_article_show_modal .header').empty()
+      clearUrlState()
+    }
+  })
 
   $('#c4d_subcategory_accordion #c4d_grid_tile_title').click(e => {
     e.preventDefault()
@@ -120,6 +126,7 @@ $(() => {
       url: '/c4d_articles/' + e.currentTarget.parentElement.id
     }).done(response => {
       clearC4dModalText()
+      setUrlStateForArticleShow(response.article.title)
       let content = c4d_article_content({ article: response.article,
                                           c4d_categories: response.c4d_categories,
                                           c4d_subcategories: response.c4d_subcategories,
@@ -140,6 +147,12 @@ $(() => {
       matchColumnHeights()
     })
   })
+  function clearUrlState(){
+    history.pushState(null, null, window.location.href.split('/').slice(0, -1).join('/') + '/')
+  }
+  function setUrlStateForArticleShow(title){
+    history.pushState(null, null, title.replace(new RegExp(' ', 'g'), '_'))
+  }
   function matchColumnHeights() {
     if ($('#c4d_article_content_div').outerHeight() > $('#c4d_article_show_info_column').outerHeight())
       $('#c4d_article_show_info_column').css({ height: $('#c4d_article_content_div').outerHeight() })
@@ -330,6 +343,7 @@ $(() => {
       url: '/c4d_articles/' + target.id
     }).done(response => {
       clearC4dModalText()
+      setUrlStateForArticleShow(response.article.title)
       let content = c4d_article_content({ article: response.article,
                                           c4d_categories: response.c4d_categories,
                                           c4d_subcategories: response.c4d_subcategories,
@@ -370,7 +384,8 @@ $(() => {
     var path_split = window.location.pathname.split('/')
     var path_split_length = window.location.pathname.split('/').length
     var article_id = path_split[path_split_length-1] === "" ? path_split[path_split_length-2] : path_split[path_split_length-1]
-    var element = '#' + article_id + ' #c4d_grid_tile_title'
+    article_id = article_id.replace(/([ #;&,.%+*~\':"!^$[\]()=>|\/])/g,'\\$1')
+    var element = '#c4d_grid_tile_title ' + '#' + article_id
     $(element).trigger('click')
     $(element).parents('#c4d_subcategory_accordion').trigger('click')
   }
