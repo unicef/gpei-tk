@@ -589,12 +589,10 @@ $(() => {
   }
 
   $('#multimedia_modal').modal('attach events', '#sop_article_show_modal .button')
-
   if ($('#sop_article_load_trigger_div').css('visibility') !== undefined) {
     var path_split = window.location.pathname.split('/')
     var path_split_length = window.location.pathname.split('/').length
     var article_id = path_split[path_split_length-1] === "" ? path_split[path_split_length-2] : path_split[path_split_length-1]
-    // var regex = new RegExp("\\", "g")
     article_id = article_id.replace(/([ #;&,.%+*~\':"!^$[\]()=>|\/])/g,'\\$1')
     var element = '.grid_item#' + article_id
     $(element).trigger('click')
