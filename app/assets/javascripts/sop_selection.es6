@@ -595,6 +595,7 @@ $(() => {
     var article_id = path_split[path_split_length-1] === "" ? path_split[path_split_length-2] : path_split[path_split_length-1]
     article_id = article_id.replace(/([ #;&,.%+*~\':"!^$[\]()=>|\/])/g,'\\$1')
     var element = '.grid_item#' + article_id
+    history.pushState(null, null, '/sop/what_to_do_when/')
     $(element).trigger('click')
   }
 })
