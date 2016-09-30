@@ -16,7 +16,7 @@ class SopController < ApplicationController
     @responsible_offices = ResponsibleOffice.all
     @sop_articles = SopArticle.where(published: true).order(order_id: :asc)
     @backgrounds = { index: nil, wtdw: '#8D3733', overview: nil, borders: 'active' }
-    # render js: "window.location.pathname = '/sop/what_to_do_when/'"
+    request.env['PATH_INFO'] = '/sop/what_do_when/'
   end
 
   def overview
