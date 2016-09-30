@@ -386,7 +386,7 @@ $(() => {
     var article_id = path_split[path_split_length-1] === "" ? path_split[path_split_length-2] : path_split[path_split_length-1]
     article_id = article_id.replace(/([ #;&,.%+*~\':"!^$[\]()=>|\/])/g,'\\$1')
     var element = '#c4d_grid_tile_title ' + '#' + article_id
-    history.pushState(null, null, '/sop/what_to_do_when/')
+    history.pushState(null, null, $('#c4d_article_load_trigger_div div').attr('id'))
     $(element).trigger('click')
     $(element).parents('#c4d_subcategory_accordion').trigger('click')
   }
