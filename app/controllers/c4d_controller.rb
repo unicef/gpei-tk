@@ -18,7 +18,6 @@ class C4dController < ApplicationController
     @c4d_articles = C4dArticle.where(c4d_category_id: @c4d_category.id, published: true).order(order_id: :asc)
     @c4d_subcategories = C4dSubcategory.where(c4d_category_id: @c4d_category.id)
     @article_colors = get_c4d_article_color_array(@c4d_category.title)
-    request.env['PATH_INFO'] = "/c4d/#{@c4d_category.title.downcase}/"
   end
 
   def plan
@@ -27,7 +26,6 @@ class C4dController < ApplicationController
     @c4d_articles = C4dArticle.where(c4d_category_id: @c4d_category.id, published: true).order(order_id: :asc)
     @c4d_subcategories = C4dSubcategory.where(c4d_category_id: @c4d_category.id)
     @article_colors = get_c4d_article_color_array(@c4d_category.title)
-    request.env['PATH_INFO'] = "/c4d/#{@c4d_category.title.downcase}/"
   end
 
   def act
@@ -36,7 +34,6 @@ class C4dController < ApplicationController
     @c4d_articles = C4dArticle.where(c4d_category_id: @c4d_category.id, published: true).order(order_id: :asc)
     @c4d_subcategories = C4dSubcategory.where(c4d_category_id: @c4d_category.id)
     @article_colors = get_c4d_article_color_array(@c4d_category.title)
-    request.env['PATH_INFO'] = "/c4d/#{@c4d_category.title.downcase}/"
   end
 
   def tools
@@ -45,7 +42,6 @@ class C4dController < ApplicationController
     @c4d_articles = C4dArticle.where(c4d_category_id: @c4d_category.id, published: true).order(order_id: :asc)
     @c4d_subcategories = C4dSubcategory.where(c4d_category_id: @c4d_category.id)
     @article_colors = get_c4d_article_color_array(@c4d_category.title)
-    request.env['PATH_INFO'] = "/c4d/#{@c4d_category.title.downcase}/"
   end
 
   private
