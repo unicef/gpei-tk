@@ -179,7 +179,7 @@
   color:black;
   font-weight: bold;
 }
-
+#current_article_div,
 #related_topic_link_div div a,
 #reference_link_anchor_div a {
   font-family:'adelle';
