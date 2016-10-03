@@ -168,6 +168,7 @@
   opacity:.6;
   border-bottom:1px solid rgba(0,0,0, 0.2);
 }
+#
 #related_topic_link_div div a:visited {
   color: black !important;
   opacity: 1 !important;
@@ -230,4 +231,7 @@
 .tools_reference_link_description a:active {
   text-decoration: none  !important;
   color:black;
+}
+#current_article_div {
+  color:blue;
 }

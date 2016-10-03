@@ -14,7 +14,7 @@
                     <td id="<%= article.id %>" class='c4d_article_item' style="background-color: <%= @article_colors[article.c4d_category.title.gsub(' ','').to_sym][article.c4d_subcategory.title.gsub(' ','').to_sym][color_idx] %>;">
                         <a id='<%= article.id %>' class='c4d_grid_add' href='' style="<%= c4d_style_visible('add', @user, article) %>;" title='Add to toolkit' data-toggle='tooltip'><img id='add_article_image' src='/assets/icons/add-to.png'></a>
                         <a id='<%= article.id %>' class='c4d_grid_check' href='' style="<%= c4d_style_visible('check', @user, article) %>;" title='Remove from toolkit' data-toggle='tooltip'><img id='remove_article_image' src='/assets/icons/remove-check.png'></a>
-                        <div id='c4d_grid_tile_title'><a id='<%= article.title.gsub(' ', '_') %>' href='/c4d/<%= article.c4d_category.title.downcase %>/<%= article.title.gsub(' ', '_') %>/'><%= article.title %></a></div>
+                        <div id='c4d_grid_tile_title'><a id='<%= article.id %>' href='/c4d/<%= article.c4d_category.title.downcase %>/<%= article.id %>-<%= article.title.gsub(' ', '_') %>/'><%= article.title %></a></div>
                     </td>
                     <% color_idx += 1 %>
                   <% end %>
