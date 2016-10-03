@@ -251,7 +251,7 @@ $(() => {
       method: 'GET',
       url: '/sop_articles/' + e.currentTarget.id
     }).done(response => {
-      setUrlStateForArticleShow(response.article.title)
+      setUrlStateForArticleShow(response.article)
 
       $('#sop_article_show_modal').modal('show')
       let content = sop_article_content({ article: response.article,
@@ -275,8 +275,8 @@ $(() => {
   function clearUrlState(){
     history.pushState(null, null, window.location.href.split('/').slice(0, -1).join('/') + '/')
   }
-  function setUrlStateForArticleShow(title){
-    history.pushState(null, null, title.replace(new RegExp(' ', 'g'), '_'))
+  function setUrlStateForArticleShow(article){
+    history.pushState(null, null, (article.id + "-" + article.title.replace(new RegExp(' ', 'g'), '_')))
   }
 
   function sop_article_header(params) {
@@ -299,7 +299,7 @@ $(() => {
     return false
   })
   function sop_article_content(params) {
-    ga('send', { 'hitType': 'pageview', 'page': `/sop_articles/${ params['article'].title }` })
+    ga('send', { 'hitType': 'pageview', 'page': `/sop_articles/${params['article'].id }-${ params['article'].title }` })
     return `
       <div id="sop_article_show_page">
         <div id="sop_article_show_info_column" class='col-md-3'>
@@ -589,11 +589,13 @@ $(() => {
   }
 
   $('#multimedia_modal').modal('attach events', '#sop_article_show_modal .button')
+
   if ($('#sop_article_load_trigger_div').css('visibility') !== undefined) {
     var path_split = window.location.pathname.split('/')
     var path_split_length = window.location.pathname.split('/').length
     var article_id = path_split[path_split_length-1] === "" ? path_split[path_split_length-2] : path_split[path_split_length-1]
-    article_id = article_id.replace(/([ #;&,.%+*~\':"!^$[\]()=>|\/])/g,'\\$1')
+    // .replace(/([ #;&,.%+*~\':"!^$[\]()=>|\/])/g,'\\$1')
+    article_id = article_id.split('-')[0]
     var element = '.grid_item#' + article_id
     history.pushState(null, null, '/sop/what_to_do_when/')
     $(element).trigger('click')

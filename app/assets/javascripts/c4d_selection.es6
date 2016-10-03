@@ -126,7 +126,7 @@ $(() => {
       url: '/c4d_articles/' + e.currentTarget.parentElement.id
     }).done(response => {
       clearC4dModalText()
-      setUrlStateForArticleShow(response.article.title)
+      setUrlStateForArticleShow(response.article)
       let content = c4d_article_content({ article: response.article,
                                           c4d_categories: response.c4d_categories,
                                           c4d_subcategories: response.c4d_subcategories,
@@ -150,8 +150,9 @@ $(() => {
   function clearUrlState(){
     history.pushState(null, null, window.location.href.split('/').slice(0, -1).join('/') + '/')
   }
-  function setUrlStateForArticleShow(title){
-    history.pushState(null, null, title.replace(new RegExp(' ', 'g'), '_'))
+  function setUrlStateForArticleShow(article){
+    let title = article.id + '-' + article.title.replace(new RegExp(' ', 'g'), '_')
+    history.pushState(null, null, title)
   }
   function matchColumnHeights() {
     if ($('#c4d_article_content_div').outerHeight() > $('#c4d_article_show_info_column').outerHeight())
@@ -180,13 +181,13 @@ $(() => {
   }
 
   function c4d_article_content(params) {
-    ga('send', { 'hitType': 'pageview', 'page': `/c4d_articles/${ params['article'].title }` })
+    ga('send', { 'hitType': 'pageview', 'page': `/c4d_articles/${ params['article'].id }-${ params['article'].title }` })
     let category = params['c4d_categories'][params['article'].c4d_category_id - 1]
     return `
       <div id="c4d_article_show_page">
         <div id="c4d_article_show_info_column" class='col-md-3'>
           <div id="c4d_article_show_info_column_content">
-            ${ getRelatedTopicsDiv(params['c4d_related_topics']) }
+            ${ getRelatedTopicsDiv(params['c4d_related_topics'], params['c4d_categories'], params['article']) }
             ${  category.title !== 'Tools' ? getReferenceLinksDiv(params) : '' }
           </div>
         </div>
@@ -243,7 +244,7 @@ $(() => {
       <a id='${ params['article'].id }' class='c4d_grid_check' href='' style="${ c4d_style_visible('check', params['current_user'], params['article'], params['toolkit_articles']) };color:black;right:3px;" title='Remove from toolkit' data-toggle='tooltip'><img id='remove_article_image' src='/assets/icons/remove-check.png'></a>
       `)
   }
-  function getRelatedTopicsDiv(related_topics){
+  function getRelatedTopicsDiv(related_topics, c4d_categories, current_article){
     let content = ''
     if (!_.isEmpty(related_topics)) {
       content = `
@@ -252,7 +253,9 @@ $(() => {
             <strong>JUMP TO:</strong>
           </div>
           <div id="related_topics_list"> ${_.map(related_topics, article => {
-            return `<div id='related_topic_link_div' class='col-md-12'><div class='col-md-10'><a id='${ article.id }' href='/c4d_articles/${article.id}' class="black_text">${ article.title }</a></div><div class='col-md-2'><a id='${ article.id }' href='/c4d_articles/${article.id}' class="black_text"><i class="fa fa-angle-right fa-2x" aria-hidden="true"></i></a></div></div>`
+            return `<div id='related_topic_link_div' class='col-md-12'>
+                      ${ article.title !== current_article.title ? getRelatedTopicLink(c4d_categories, article) : getCurrentArticleLink(current_article) }
+                    </div>`
           }).join('\n')}
           </div>
         </div>`
@@ -260,6 +263,23 @@ $(() => {
     return content
   }
 
+  function getCurrentArticleLink(article){
+    return `<div class='col-md-10'>
+              <div id='current_article_div'>${ article.title }</div>
+            </div>
+            <div class='col-md-2 text-right'>
+              <i class="fa fa-angle-right fa-2x" aria-hidden="true"></i>
+            </div>`
+  }
+
+  function getRelatedTopicLink(c4d_categories, article){
+    return `<div class='col-md-10'>
+              <a id='${ article.id }' href='/c4d/${c4d_categories[article.c4d_category_id - 1].title.toLowerCase()}/${ article.id }-${article.title.replace(new RegExp(' ', 'g'), '_')}' class="black_text">${ article.title }</a>
+            </div>
+            <div class='col-md-2'>
+              <a id='${ article.id }' href='/c4d/${c4d_categories[article.c4d_category_id - 1].title.toLowerCase()}/${ article.id }-${article.title.replace(new RegExp(' ', 'g'), '_')}' class="black_text"><i class="fa fa-angle-right fa-2x" aria-hidden="true"></i></a>
+            </div>`
+  }
   function getReferenceLinksDiv(params){
     let reference_links = params['reference_links']
     let content = ""
@@ -343,7 +363,7 @@ $(() => {
       url: '/c4d_articles/' + target.id
     }).done(response => {
       clearC4dModalText()
-      setUrlStateForArticleShow(response.article.title)
+      setUrlStateForArticleShow(response.article)
       let content = c4d_article_content({ article: response.article,
                                           c4d_categories: response.c4d_categories,
                                           c4d_subcategories: response.c4d_subcategories,
@@ -384,8 +404,9 @@ $(() => {
     var path_split = window.location.pathname.split('/')
     var path_split_length = window.location.pathname.split('/').length
     var article_id = path_split[path_split_length-1] === "" ? path_split[path_split_length-2] : path_split[path_split_length-1]
-    article_id = article_id.replace(/([ #;&,.%+*~\':"!^$[\]()=>|\/])/g,'\\$1')
-    var element = '#c4d_grid_tile_title ' + '#' + article_id
+    // .replace(/([ #;&,.%+*~\':"!^$[\]()=>|\/])/g,'\\$1')
+    article_id = article_id.split('-')[0]
+    var element = '#c4d_selection_page #c4d_grid_tile_title ' + '#' + article_id
     history.pushState(null, null, $('#c4d_article_load_trigger_div div').attr('id'))
     $(element).trigger('click')
     $(element).parents('#c4d_subcategory_accordion').trigger('click')
