@@ -203,7 +203,35 @@ $(() => {
 
   function getC4dToolsReferenceLinks(params){
     let reference_links = params['reference_links']
-    return `<table>
+    console.log(params)"Mass Media IEC"
+    if (params['article'].c4d_subcategory_id === 12) {
+      return `<table>
+              <tr>
+              ${ _.map(reference_links, reference_link => {
+                let reference_title = _.replace(reference_link.document_file_name, new RegExp("_","g")," ")
+                reference_title = _.replace(reference_title, new RegExp(".pdf","g"),"")
+                return `
+                          <td>
+                            <img class='tools_reference_link_pdf_icon' src='${_.replace(reference_link.absolute_url, new RegExp(".pdf","g"),".png")}'>
+                          </td>
+                          <td class='tools_reference_link_description'>
+                            <div class='col-md-12'>
+                              <div class='col-md-12'>
+                                <a href='${ reference_link.absolute_url }' target='_blank'>${ reference_title }</a>
+                              </div>
+                              <div class='col-md-12'>
+                                <br>
+                              </div>
+                              <div class='col-md-12'>
+                                ${ _.isNull(reference_link.description) ? 'Description coming soon' : reference_link.description }
+                              </div>
+                            </div>
+                          </td>`
+              }).join('\n')}
+              </tr>
+            </table>`
+    } else {
+      return `<table>
               ${ _.map(reference_links, reference_link => {
                 let reference_title = _.replace(reference_link.document_file_name, new RegExp("_","g")," ")
                 reference_title = _.replace(reference_title, new RegExp(".pdf","g"),"")
@@ -227,6 +255,7 @@ $(() => {
                         </tr>`
               }).join('\n')}
             </table>`
+    }
   }
 
   function getAddToToolkitRow(params){
