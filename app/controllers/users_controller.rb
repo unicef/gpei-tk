@@ -26,6 +26,8 @@ class UsersController < ApplicationController
     @user = User.find_by(id: params[:id])
   end
 
+  private
+
   def safe_user_params
     params.require(:user).permit(:first_name, :last_name, :country, :organization, :email, :password, :TOS_accepted)
   end
