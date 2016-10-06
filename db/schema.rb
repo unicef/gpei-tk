@@ -73,11 +73,11 @@ ActiveRecord::Schema.define(version: 20160927160301) do
   end
 
   create_table "forgot_passwords", force: :cascade do |t|
-    t.integer  "user_id",    null: false
-    t.integer  "user_key",   null: false
-    t.integer  "secret_key", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.integer  "user_id",                    null: false
+    t.string   "user_key",                   null: false
+    t.boolean  "expired",    default: false, null: false
+    t.datetime "created_at",                 null: false
+    t.datetime "updated_at",                 null: false
   end
 
   create_table "reference_link_articles", force: :cascade do |t|
