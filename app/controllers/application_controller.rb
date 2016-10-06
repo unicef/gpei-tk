@@ -10,4 +10,10 @@ class ApplicationController < ActionController::Base
   def params_id_is_integer?
     !!(params[:id] =~ /\A[-+]?[0-9]+\z/)
   end
+
+  def user_is_admin_or_editor?
+    unless (current_user.is_admin? || current_user.is_editor?)
+      redirect_to '/'
+    end
+  end
 end
