@@ -203,7 +203,6 @@ $(() => {
 
   function getC4dToolsReferenceLinks(params){
     let reference_links = params['reference_links']
-    console.log(params)"Mass Media IEC"
     if (params['article'].c4d_subcategory_id === 12) {
       return `<table>
               <tr>
