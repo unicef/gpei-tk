@@ -1,5 +1,20 @@
+#reset_pwd_form button,
+#forgot_pwd_form button,
 #create_user_form button {
   margin-bottom:15px;
 }
-#sign_in_error_message {
+#reset_pwd_form button,
+#forgot_pwd_form button {
+  margin-top:15px;
+}
+#reset_pwd_error_div {
+  margin-bottom: 15px;
+  margin-top: 15px;
+}
+#user_register_or_forgot_pwd_div {
+  padding-bottom:20px;
+  padding-top:20px;
+}
+#forgot_password_link {
+  color: blue;
 }
