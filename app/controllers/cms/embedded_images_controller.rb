@@ -1,4 +1,6 @@
 class Cms::EmbeddedImagesController < ApplicationController
+  before_action :user_is_admin_or_editor?
+
   def create
     embedded_image = EmbeddedImage.new(
                       image: params[:embedded_image][:image],
