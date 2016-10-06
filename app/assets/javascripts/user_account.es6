@@ -31,8 +31,14 @@ $(() => {
           </div>
         </div>
         <div class="col-md-12">
-        <button id="sign_in_submit_button" class="ui button" type="submit">Submit</button>
-        <span id="register_user_text">Not a member? Register </span><a id="nav_user_register" href="">here</a>
+          <div class='col-md-2'>
+          <button id="sign_in_submit_button" class="ui button" type="submit">Submit</button>
+          </div>
+          <div id='user_register_or_forgot_pwd_div' class='col-md-6'>
+            <span id="register_user_text">Not a member? Register </span><a id="nav_user_register" href="">here</a>
+            <br>
+            <span id="forgot_pwd_span">Forgot <a id="forgot_password_link" href="">password?</a></span>
+          </div>
         </div>
       </form>
     `)
@@ -112,7 +118,7 @@ $(() => {
   })
 
   function verifyPasswordsMatch() {
-    let passwords = $('#user_account_modal #create_user_form :password')
+    let passwords = $('#user_account_modal :password')
     let verified = passwords[0].value === passwords[1].value
     return verified
   }
@@ -440,5 +446,91 @@ $(() => {
     e.preventDefault()
     $(e.currentTarget).closest('.message').transition('fade')
   })
+  $('#user_account_modal').on('click', '#forgot_password_link', e => {
+    e.preventDefault()
+    $('#user_account_modal .content').empty()
+    $('#user_account_modal .header').empty()
+    $('#user_account_header').append('Forgot Password')
+    let form = geForgotPasswordForm()
+    $('#user_account_content').append(form)
+  })
+  function geForgotPasswordForm(){
+    return `<form id="forgot_pwd_form" class="ui form">
+        <div class="col-md-6">
+          <div class="field">
+            <label>Email</label>
+            <input type="email" name="email" placeholder="name@example.com" class="input_fields" value="" required>
+          </div>
+        </div>
+        <div class="col-md-12">
+          <div class='col-md-2'>
+            <button id="forgot_pwd_submit_button" class="ui button" type="submit">Submit</button>
+          </div>
+        </div>
+      </form>`
+  }
 
+  $('#user_account_content').on('submit', '#forgot_pwd_form', e => {
+    e.preventDefault()
+    let data = $(e.currentTarget).serialize()
+    $.ajax({
+      method: 'POST',
+      url: '/forgot_passwords/',
+      data: data
+    }).done(response => {
+      console.log(response.status)
+      if (response.status === 200) {
+        $('#user_account_modal .content').empty()
+        $('#user_account_modal .content').append(`<div class='col-md-6' style='padding-bottom:20px'>An email for password recovery has been sent to you. Please follow the instructions to reset your password.</div>`)
+      } else {
+        if (_.isEmpty($('#user_account_modal #reset_pwd_error_div').css('visibility'))) {
+          $('#reset_pwd_submit_div').append(`<div id='reset_pwd_error_div'><i class="fa fa-exclamation-triangle" aria-hidden="true"></i>Email not found.</div>`)
+        }
+      }
+    })
+  })
+  if ($('#forgot_pwd_return').css('visibility') === 'visible') {
+    $('#user_account_modal').modal('toggle')
+    $('#user_account_modal .content').empty()
+    $('#user_account_modal .header').empty()
+    $('#user_account_header').append('Reset Password')
+    let form = getResetPasswordForm()
+    $('#user_account_content').append(form)
+  }
+  $('#user_account_content').on('submit', '#reset_pwd_form', e => {
+    e.preventDefault()
+    if (verifyPasswordsMatch()){
+      $.ajax({
+      method: 'PUT',
+      url: '/forgot_passwords/' + $('#forgot_pwd_return div').attr('id'),
+      data: { password: $('#user_account_modal :password')[0].value, user_key: window.location.pathname.split('/')[2] }
+      }).done(response => {
+      })
+    } else {
+      if (_.isEmpty($('#user_account_modal #reset_pwd_error_div').css('visibility'))) {
+        $('#reset_pwd_submit_div').append(`<div id='reset_pwd_error_div'><i class="fa fa-exclamation-triangle" aria-hidden="true"></i>Passwords must match</div>`)
+      }
+    }
+  })
+  function getResetPasswordForm(){
+    return `<form id="reset_pwd_form" class="ui form">
+        <div class="col-md-6">
+          <div class="field">
+            <label>Password:</label>
+            <input type="password" name="user[password]" placeholder="Password" class="input_fields" value="" required>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="field">
+            <label>Re-enter password:</label>
+            <input type="password" name="re_entered_password" placeholder="Re-enter password" class="input_fields" value="" required>
+          </div>
+        </div>
+        <div id='reset_pwd_submit_div' class="col-md-12">
+          <div class='col-md-2'>
+            <button id="reset_pwd_submit_button" class="ui button" type="submit">Submit</button>
+          </div>
+        </div>
+      </form>`
+  }
 })
