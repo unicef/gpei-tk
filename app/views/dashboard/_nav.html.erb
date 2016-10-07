@@ -15,7 +15,7 @@
     <div id='navbar' class='navbar-collapse collapse'>
       <ul class='nav navbar-nav'>
       <% if @is_sop %>
-        <li id='sop_nav_button' class='<%= @backgrounds[:borders] if @backgrounds[:index] %>'><a href='/sop/>SOP</a></li>
+        <li id='sop_nav_button' class='<%= @backgrounds[:borders] if @backgrounds[:index] %>'><a href='/sop/'>SOP</a></li>
         <li id='sop_overview_button' class='<%= @backgrounds[:borders] if @backgrounds[:overview] %>'><a href='/sop/overview/' <%= 'style=background:' + @backgrounds[:overview] + ';' if @backgrounds[:overview] %>>OVERVIEW OF THE SOPs</a></li>
         <li id='sop_what_to_do_nav_button' class='<%= @backgrounds[:borders] if @backgrounds[:wtdw] %>'><a href='/sop/what_to_do_when/' <%= 'style=background:' + @backgrounds[:wtdw] + ';' if @backgrounds[:wtdw] %>>WHAT TO DO, WHEN</a></li>
       <% end %>
