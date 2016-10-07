@@ -242,6 +242,12 @@ nav .container {
   background:#35848C !important;
   opacity:0.9;
 }
+#sop_nav_button a {
+  background: #924941;
+}
+#c4d_nav_button {
+  background: #35848C;
+}
 #sop_nav_button:not(.active):hover{
   background:#904941 !important;
   opacity:0.9;
