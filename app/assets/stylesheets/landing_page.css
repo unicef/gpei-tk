@@ -140,7 +140,9 @@
 #sop_c4d_nav_content_container {
   width:550px;
   position: relative;
-  border:2px solid #E5DDDD;
+  border-left:2px solid #E5DDDD;
+  border-right:2px solid #E5DDDD;
+  border-bottom:2px solid #E5DDDD;
   margin:0 auto;
 }
 #sop_c4d_nav_header_container {
