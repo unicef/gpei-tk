@@ -11,9 +11,7 @@ class ForgotPasswordsController < ApplicationController
   def create
     if request.xhr?
       @user = User.find_by(email: params[:email])
-      binding.pry
       render json: { status: 403, error: 'This email was not found.' } if @user.nil?
-      binding.pry
       all_active_forgot_pwds = ForgotPassword.where("user_id = ? AND expired = false", @user.id)
       all_active_forgot_pwds.each { |forgot_pwd| forgot_pwd.update(expired: true) }
       @forgot_pwd = ForgotPassword.new(user_id: @user.id)
