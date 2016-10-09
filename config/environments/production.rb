@@ -4,6 +4,13 @@ Rails.application.configure do
   # Code is not reloaded between requests.
   config.cache_classes = true
 
+
+ActionMailer::Base.add_delivery_method :ses, AWS::SES::Base,
+  access_key_id: ENV.fetch('AWS_ACCESS_KEY_ID'),
+  secret_access_key: ENV.fetch('AWS_SECRET_ACCESS_KEY')
+
+config.action_mailer.delivery_method = :ses
+
   # Eager load code on boot. This eager loads most of Rails and
   # your application in memory, allowing both threaded web servers
   # and those relying on copy on write to perform better.
