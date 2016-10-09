@@ -157,3 +157,10 @@
   font-size: 18px;
   letter-spacing: 3px;
 }
+
+#legal_terms_div {
+  opacity:0.6;
+}
+#legal_terms_div a{
+  color:white;
+}
