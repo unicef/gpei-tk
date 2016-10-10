@@ -9,8 +9,11 @@
 #footer_img img {
   opacity: .5;
 }
+#legal_terms_div,
 #footer_legal_div a {
   color:white;
+  font-family: 'proxima-nova' !important;
+  font-size:12px;
 }
 #gpei_footer_logo_div {
   position:absolute;
