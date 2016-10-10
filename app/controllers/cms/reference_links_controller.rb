@@ -8,15 +8,14 @@ class Cms::ReferenceLinksController < ApplicationController
 
   def create
     if request.xhr?
-      reference_link = ReferenceLink.new(author_id: current_user.id,
-                                        document: params[:reference_link][:document],
-                                        language: params[:reference_link][:language])
-      reference_link.absolute_url = reference_link.document.url
-      if reference_link.save
-        render json: { status: 200 }
-      else
-        render json: { status: 403 }
+      params[:documents].each do |document|
+        reference_link = ReferenceLink.new(author_id: current_user.id,
+                                          document: params[:reference_link][:document],
+                                          language: params[:reference_link][:language])
+        reference_link.absolute_url = reference_link.document.url
+        reference_link.save
       end
+      render json: { status: 200 }
     end
   end
 

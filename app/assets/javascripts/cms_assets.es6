@@ -45,10 +45,19 @@ $(() => {
     $('#CMS_index_content').append(content)
     toggleProgressSpinner()
   })
-
+  function buildFilesForAjax(){
+    var ajaxData = new FormData();
+    ajaxData.append( 'action','documents');
+    let idx = 0
+    _.forEach($("input[type=file]")[0].files, file => {
+      ajaxData.append(`documents['${idx}']`, file);
+      idx +=1
+    })
+    return ajaxData
+  }
   $('#CMS_index_content').on('submit', '#CMS_reference_link_upload_form', e => {
     e.preventDefault()
-    let formData = new FormData($(e.currentTarget)[0])
+    let formData = buildFilesForAjax()
     toggleProgressSpinner()
     $.ajax({
       method: 'POST',
@@ -76,7 +85,7 @@ $(() => {
     return (`
       <div class="field">
         <label>Reference Link<a id="add_reference_link_input"  href=''></a></label>
-        <input class="reference_link_file" type="file" name="reference_link[document]" value="">
+        <input class="reference_link_file" type="file" name="reference_link[]" value="" multiple>
       </div>
     `)
   }
