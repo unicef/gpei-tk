@@ -36,8 +36,6 @@ gem 'sprockets-es6'
 
 gem 'fuzzy_match'
 
-gem 'aws-ses'
-
 group :development, :test do
   # binding.pry for code and pretty console
   gem 'pry-rails'
