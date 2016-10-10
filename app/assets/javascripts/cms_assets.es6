@@ -64,6 +64,7 @@ $(() => {
     })
     return false
   })
+
   function showDimmerClearBrowser() {
     $('.ui.dimmer').dimmer('show')
     _.delay(() => {
