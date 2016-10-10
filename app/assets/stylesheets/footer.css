@@ -5,8 +5,12 @@
   width:250px;
   height:auto;
 }
+#footer_legal_div a,
 #footer_img img {
   opacity: .5;
+}
+#footer_legal_div a {
+  color:white;
 }
 #gpei_footer_logo_div {
   position:absolute;
