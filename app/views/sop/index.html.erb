@@ -37,3 +37,11 @@
   </div>
   <%= render 'footer/index' %>
 </div>
+<% if @backgrounds[:index] %>
+  <script type="text/javascript">
+    $(document.getElementById("sop_selection_page")).css('background',`linear-gradient(<%= @backgrounds[:index] %>,#000000)`)
+    $(document.getElementById("sop_selection_page")).css('background', `-webkit-linear-gradient(<%= @backgrounds[:index] %>,#000000)`)
+    $(document.getElementById("sop_selection_page")).css('background', `-o-linear-gradient(<%= @backgrounds[:index] %>,#000000)`)
+    $(document.getElementById("sop_selection_page")).css('background', `-moz-linear-gradient(<%= @backgrounds[:index] %>,#000000)`)
+  </script>
+<% end %>

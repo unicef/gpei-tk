@@ -118,3 +118,11 @@
   <% end %>
   <%= render 'footer/index' %>
 </div>
+<% if @backgrounds[:wtdw] %>
+  <script type="text/javascript">
+    $(document.getElementById("sop_selection_page")).css('background',`linear-gradient(<%= @backgrounds[:wtdw] %>,#000000)`)
+    $(document.getElementById("sop_selection_page")).css('background', `-webkit-linear-gradient(<%= @backgrounds[:wtdw] %>,#000000)`)
+    $(document.getElementById("sop_selection_page")).css('background', `-o-linear-gradient(<%= @backgrounds[:wtdw] %>,#000000)`)
+    $(document.getElementById("sop_selection_page")).css('background', `-moz-linear-gradient(<%= @backgrounds[:wtdw] %>,#000000)`)
+  </script>
+<% end %>

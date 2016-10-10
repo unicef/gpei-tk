@@ -89,3 +89,11 @@
   </div>
   <%= render 'footer/index' %>
 </div>
+<% if @backgrounds[:overview] %>
+  <script type="text/javascript">
+    $(document.getElementById("sop_selection_page")).css('background',`linear-gradient(<%= @backgrounds[:overview] %>,#000000)`)
+    $(document.getElementById("sop_selection_page")).css('background', `-webkit-linear-gradient(<%= @backgrounds[:overview] %>,#000000)`)
+    $(document.getElementById("sop_selection_page")).css('background', `-o-linear-gradient(<%= @backgrounds[:overview] %>,#000000)`)
+    $(document.getElementById("sop_selection_page")).css('background', `-moz-linear-gradient(<%= @backgrounds[:overview] %>,#000000)`)
+  </script>
+<% end %>

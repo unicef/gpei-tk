@@ -32,3 +32,11 @@
       </div>
     <% end %>
   </div>
+<% if @c4d_category %>
+  <script type="text/javascript">
+    $(document.getElementById("c4d_selection_page")).css('background',`linear-gradient(<%= @c4d_category.color %>,#000000)`)
+    $(document.getElementById("c4d_selection_page")).css('background', `-webkit-linear-gradient(<%= @c4d_category.color %>,#000000)`)
+    $(document.getElementById("c4d_selection_page")).css('background', `-o-linear-gradient(<%= @c4d_category.color %>,#000000)`)
+    $(document.getElementById("c4d_selection_page")).css('background', `-moz-linear-gradient(<%= @c4d_category.color %>,#000000)`)
+  </script>
+<% end %>
