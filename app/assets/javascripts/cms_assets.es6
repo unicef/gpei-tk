@@ -49,6 +49,7 @@ $(() => {
   $('#CMS_index_content').on('submit', '#CMS_reference_link_upload_form', e => {
     e.preventDefault()
     let formData = new FormData($(e.currentTarget)[0])
+    $('#CMS_reference_link_upload_form button').prop('disabled', true)
     toggleProgressSpinner()
     $.ajax({
       method: 'POST',
@@ -59,8 +60,13 @@ $(() => {
       data: formData
     }).done(response => {
       toggleProgressSpinner()
-      showDimmerClearBrowser()
-      $('#CMS_references_link_upload').click()
+      $('#CMS_reference_link_upload_form button').prop('disabled', false)
+      if (!_.isNull(response.error)){
+        alert(response.error)
+      } else {
+        $('#CMS_references_link_upload').click()
+        showDimmerClearBrowser()
+      }
     })
     return false
   })
