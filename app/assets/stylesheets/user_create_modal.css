@@ -18,3 +18,9 @@
 #forgot_password_link {
   color: blue;
 }
+#reset_pwd_spinner {
+  position: absolute;
+  top:50%;
+  left:40%;
+  visibility: hidden;
+}

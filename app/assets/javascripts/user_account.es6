@@ -467,18 +467,24 @@ $(() => {
             <button id="forgot_pwd_submit_button" class="ui button" type="submit">Submit</button>
           </div>
         </div>
-      </form>`
+      </form>
+      <div id='reset_pwd_spinner'>
+        <i class="fa fa-circle-o-notch fa-spin fa-4x"></i>
+      </div>`
   }
 
   $('#user_account_content').on('submit', '#forgot_pwd_form', e => {
     e.preventDefault()
+    $('#reset_pwd_spinner').css('visibility', 'visible')
+    $('#forgot_pwd_form button').prop('disabled', true)
     let data = $(e.currentTarget).serialize()
     $.ajax({
       method: 'POST',
       url: '/forgot_passwords/',
       data: data
     }).done(response => {
-      console.log(response.status)
+      $('#reset_pwd_spinner').css('visibility', 'hidden')
+      $('#forgot_pwd_form button').prop('disabled', false)
       if (response.status === 200) {
         $('#user_account_modal .content').empty()
         $('#user_account_modal .content').append(`<div class='col-md-6' style='padding-bottom:20px'>An email for password recovery has been sent to you. Please follow the instructions to reset your password.</div>`)
@@ -499,12 +505,16 @@ $(() => {
   }
   $('#user_account_content').on('submit', '#reset_pwd_form', e => {
     e.preventDefault()
+    $('#reset_pwd_spinner').css('visibility', 'visible')
+    $('#forgot_pwd_form button').prop('disabled', true)
     if (verifyPasswordsMatch()){
       $.ajax({
       method: 'PUT',
       url: '/forgot_passwords/' + $('#forgot_pwd_return div').attr('id'),
       data: { password: $('#user_account_modal :password')[0].value, user_key: window.location.pathname.split('/')[2] }
       }).done(response => {
+        $('#user_account_modal .content').empty()
+        $('#user_account_modal .content').append(`<div class='col-md-12'>Password changed successfully, please sign in to continue.</div>`)
       })
     } else {
       if (_.isEmpty($('#user_account_modal #reset_pwd_error_div').css('visibility'))) {
@@ -512,6 +522,7 @@ $(() => {
       }
     }
   })
+
   function getResetPasswordForm(){
     return `<form id="reset_pwd_form" class="ui form">
         <div class="col-md-6">
@@ -531,6 +542,9 @@ $(() => {
             <button id="reset_pwd_submit_button" class="ui button" type="submit">Submit</button>
           </div>
         </div>
-      </form>`
+      </form>
+      <div id='reset_pwd_spinner'>
+        <i class="fa fa-circle-o-notch fa-spin fa-4x"></i>
+      </div>`
   }
 })
