@@ -1,5 +1,15 @@
 Rails.application.configure do
   # Settings specified here will take precedence over those in config/application.rb.
+  config.action_mailer.smtp_settings = {
+    :address              => "smtp.gmail.com",
+    :port                 => 587,
+    :domain               => "gmail.com",
+    :user_name            => ENV.fetch('MAIL_LOGIN'),
+    :password             => ENV.fetch('MAIL_PWD'),
+    :authentication       => :plain,
+    :enable_starttls_auto => true
+  }
+  config.action_mailer.delivery_method = :smtp
 
   # In the development environment your application's code is reloaded on
   # every request. This slows down response time but is perfect for development
