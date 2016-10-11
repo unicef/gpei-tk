@@ -506,7 +506,7 @@ $(() => {
   $('#user_account_content').on('submit', '#reset_pwd_form', e => {
     e.preventDefault()
     $('#reset_pwd_spinner').css('visibility', 'visible')
-    $('#forgot_pwd_form button').prop('disabled', true)
+    $('#reset_pwd_form button').prop('disabled', true)
     if (verifyPasswordsMatch()){
       $.ajax({
       method: 'PUT',
