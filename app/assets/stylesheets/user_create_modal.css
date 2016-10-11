@@ -24,3 +24,6 @@
   left:40%;
   visibility: hidden;
 }
+#reset_password_success_div {
+  padding-bottom:20px;
+}

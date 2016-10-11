@@ -514,7 +514,7 @@ $(() => {
       data: { password: $('#user_account_modal :password')[0].value, user_key: window.location.pathname.split('/')[2] }
       }).done(response => {
         $('#user_account_modal .content').empty()
-        $('#user_account_modal .content').append(`<div class='col-md-12'>Password changed successfully, please sign in to continue.</div>`)
+        $('#user_account_modal .content').append(`<div id='reset_password_success_div' class='col-md-12'>Password changed successfully, please sign in to continue.</div>`)
       })
     } else {
       if (_.isEmpty($('#user_account_modal #reset_pwd_error_div').css('visibility'))) {
