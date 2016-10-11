@@ -15,9 +15,11 @@ class ForgotPasswordsController < ApplicationController
       all_active_forgot_pwds = ForgotPassword.where("user_id = ? AND expired = false", @user.id)
       all_active_forgot_pwds.each { |forgot_pwd| forgot_pwd.update(expired: true) }
       @forgot_pwd = ForgotPassword.new(user_id: @user.id)
-      chars = (('a'..'z').to_a+(0..9).to_a)
+      chars = (('a'..'z').to_a + ('0'..'9').to_a + ('A'..'Z').to_a)
       begin
-        @forgot_pwd.user_key = chars.shuffle[0,chars.length].join
+        key = ''
+        32.times { |idx| key += chars.sample }
+        @forgot_pwd.user_key = key
       end until @forgot_pwd.valid?
 
       ForgotPasswordMailer.send_user_url(@user, @forgot_pwd).deliver_now if @forgot_pwd.save
