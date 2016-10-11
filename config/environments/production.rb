@@ -13,7 +13,7 @@ Rails.application.configure do
     :authentication       => :plain,
     :enable_starttls_auto => true
   }
-  config.action_mailer.delivery_method = :ses
+  config.action_mailer.delivery_method = :smtp
 
   # Eager load code on boot. This eager loads most of Rails and
   # your application in memory, allowing both threaded web servers
