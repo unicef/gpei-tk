@@ -16,7 +16,7 @@ class C4dController < ApplicationController
     @is_c4d_understand = true
     @c4d_category = C4dCategory.find_by(title: 'Understand')
     @c4d_articles = C4dArticle.where(c4d_category_id: @c4d_category.id, published: true).order(order_id: :asc)
-    @c4d_subcategories = C4dSubcategory.where(c4d_category_id: @c4d_category.id).order(id: :asc
+    @c4d_subcategories = C4dSubcategory.where(c4d_category_id: @c4d_category.id).order(id: :asc)
     @article_colors = get_c4d_article_color_array(@c4d_category.title)
     @path = '/c4d/understand/'
   end
@@ -25,7 +25,7 @@ class C4dController < ApplicationController
     @is_c4d_plan = true
     @c4d_category = C4dCategory.find_by(title: 'Plan')
     @c4d_articles = C4dArticle.where(c4d_category_id: @c4d_category.id, published: true).order(order_id: :asc)
-    @c4d_subcategories = C4dSubcategory.where(c4d_category_id: @c4d_category.id).order(id: :asc
+    @c4d_subcategories = C4dSubcategory.where(c4d_category_id: @c4d_category.id).order(id: :asc)
     @article_colors = get_c4d_article_color_array(@c4d_category.title)
     @path = '/c4d/plan/'
   end
@@ -34,7 +34,7 @@ class C4dController < ApplicationController
     @is_c4d_act = true
     @c4d_category = C4dCategory.find_by(title: 'Act')
     @c4d_articles = C4dArticle.where(c4d_category_id: @c4d_category.id, published: true).order(order_id: :asc)
-    @c4d_subcategories = C4dSubcategory.where(c4d_category_id: @c4d_category.id).order(id: :asc
+    @c4d_subcategories = C4dSubcategory.where(c4d_category_id: @c4d_category.id).order(id: :asc)
     @article_colors = get_c4d_article_color_array(@c4d_category.title)
     @path = '/c4d/act/'
   end
@@ -70,7 +70,7 @@ class C4dController < ApplicationController
               },
               'Tools':
               {
-                'MassMediaIEC': ['#175067', '#1F6480', '#2B7896'],
+                'GlobalCommunicationStrategyandTools': ['#175067', '#1F6480', '#2B7896'],
                 'Training': ['#06868D', '#11979F', '#30AFB7'],
                 'ManagementTools': ['#29A8A8', '#2CB4B4', '#4BC6C6'],
                 'Innovations': ['#4DAFAF', '#57B7B7', '#62C4C4', '#6ECCCC']
