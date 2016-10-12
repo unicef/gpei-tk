@@ -14,7 +14,6 @@ class C4dArticlesController < ApplicationController
       c4d_related_topics = C4dArticle.where("published = true AND c4d_subcategory_id = ?", c4d_article.c4d_subcategory_id).order(:order_id)
       toolkit_articles = current_user.c4d_toolkit.c4d_articles if current_user
       c4d_subcategories = C4dSubcategory.all.order(:id)
-      binding.pry
       reference_links = c4d_article.reference_links.order(:document_file_name)
       render json: { status: 200,
                      article: c4d_article,
