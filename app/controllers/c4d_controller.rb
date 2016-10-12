@@ -73,7 +73,7 @@ class C4dController < ApplicationController
                 'GlobalCommunicationStrategyandTools': ['#175067', '#1F6480', '#2B7896'],
                 'Training': ['#06868D', '#11979F', '#30AFB7'],
                 'ManagementTools': ['#29A8A8', '#2CB4B4', '#4BC6C6'],
-                'Innovations': ['#4DAFAF', '#57B7B7', '#62C4C4', '#6ECCCC']
+                'InnovationTechandData': ['#4DAFAF', '#57B7B7', '#62C4C4', '#6ECCCC']
               }
             }
   end
