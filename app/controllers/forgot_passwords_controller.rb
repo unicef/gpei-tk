@@ -1,10 +1,12 @@
 class ForgotPasswordsController < ApplicationController
   def new
     forgot_pwd = ForgotPassword.find_by(user_key: params[:key])
-    if !forgot_pwd.expired?
-      render 'home/index', :locals => { user_id: forgot_pwd.user_id, is_forgot_pwd: true }
-    else
-      render json: { status: 403, error: 'This email was not found.' }
+    if forgot_pwd
+      if !forgot_pwd.expired?
+        render 'home/index', :locals => { user_id: forgot_pwd.user_id, is_forgot_pwd: true }
+      else
+        render json: { status: 403, error: 'This email was not found.' }
+      end
     end
   end
 
@@ -30,13 +32,15 @@ class ForgotPasswordsController < ApplicationController
   def update
     forgot_pwd = ForgotPassword.find_by(user_key: params[:user_key])
     user = User.find_by(id: params[:id])
-    if !forgot_pwd.expired?
-      user.password = params[:password]
-      if user.save
-        forgot_pwd.update(expired: true)
-        render 'home/index'
-      else
-        render json: { status: 403, message: 'something went wrong, please try again.'}
+    if forgot_pwd
+      if !forgot_pwd.expired?
+        user.password = params[:password]
+        if user.save
+          forgot_pwd.update(expired: true)
+          render 'home/index'
+        else
+          render json: { status: 403, message: 'something went wrong, please try again.'}
+        end
       end
     end
   end
