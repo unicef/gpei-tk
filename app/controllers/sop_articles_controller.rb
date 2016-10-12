@@ -13,7 +13,7 @@ class SopArticlesController < ApplicationController
       sop_categories = SopCategory.all.order(:id)
       checklist_articles = current_user.sop_checklist.sop_articles if current_user
       sop_times = SopTime.all.order(:id)
-      reference_links = sop_article.reference_links
+      reference_links = sop_article.reference_links.order(:document_file_name)
       render json: { status: 200,
                      article: sop_article,
                      sop_categories: sop_categories,
