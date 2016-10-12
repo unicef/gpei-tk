@@ -16,7 +16,7 @@ class C4dController < ApplicationController
     @is_c4d_understand = true
     @c4d_category = C4dCategory.find_by(title: 'Understand')
     @c4d_articles = C4dArticle.where(c4d_category_id: @c4d_category.id, published: true).order(order_id: :asc)
-    @c4d_subcategories = C4dSubcategory.where(c4d_category_id: @c4d_category.id)
+    @c4d_subcategories = C4dSubcategory.where(c4d_category_id: @c4d_category.id).order(id: :asc
     @article_colors = get_c4d_article_color_array(@c4d_category.title)
     @path = '/c4d/understand/'
   end
@@ -25,7 +25,7 @@ class C4dController < ApplicationController
     @is_c4d_plan = true
     @c4d_category = C4dCategory.find_by(title: 'Plan')
     @c4d_articles = C4dArticle.where(c4d_category_id: @c4d_category.id, published: true).order(order_id: :asc)
-    @c4d_subcategories = C4dSubcategory.where(c4d_category_id: @c4d_category.id)
+    @c4d_subcategories = C4dSubcategory.where(c4d_category_id: @c4d_category.id).order(id: :asc
     @article_colors = get_c4d_article_color_array(@c4d_category.title)
     @path = '/c4d/plan/'
   end
@@ -34,7 +34,7 @@ class C4dController < ApplicationController
     @is_c4d_act = true
     @c4d_category = C4dCategory.find_by(title: 'Act')
     @c4d_articles = C4dArticle.where(c4d_category_id: @c4d_category.id, published: true).order(order_id: :asc)
-    @c4d_subcategories = C4dSubcategory.where(c4d_category_id: @c4d_category.id)
+    @c4d_subcategories = C4dSubcategory.where(c4d_category_id: @c4d_category.id).order(id: :asc
     @article_colors = get_c4d_article_color_array(@c4d_category.title)
     @path = '/c4d/act/'
   end
@@ -43,7 +43,7 @@ class C4dController < ApplicationController
     @is_c4d_tools = true
     @c4d_category = C4dCategory.find_by(title: 'Tools')
     @c4d_articles = C4dArticle.where(c4d_category_id: @c4d_category.id, published: true).order(order_id: :asc)
-    @c4d_subcategories = C4dSubcategory.where(c4d_category_id: @c4d_category.id)
+    @c4d_subcategories = C4dSubcategory.where(c4d_category_id: @c4d_category.id).order(id: :asc)
     @article_colors = get_c4d_article_color_array(@c4d_category.title)
     @path = '/c4d/tools/'
   end
