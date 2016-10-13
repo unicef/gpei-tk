@@ -61,7 +61,7 @@ $(() => {
     }).done(response => {
       toggleProgressSpinner()
       $('#CMS_reference_link_upload_form button').prop('disabled', false)
-      if (!_.isNull(response.error)){
+      if (response.status === 403){
         alert(response.error)
       } else {
         $('#CMS_references_link_upload').click()
