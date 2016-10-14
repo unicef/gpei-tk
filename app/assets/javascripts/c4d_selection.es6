@@ -206,7 +206,6 @@ $(() => {
     let idx = -1
     return `<table>
             ${ _.map(reference_links, reference_link => {
-              debugger
               let reference_title = _.replace(reference_link.document_file_name, new RegExp("_","g")," ")
               reference_title = _.replace(reference_title, new RegExp(".pdf","g"),"")
               idx += 1
@@ -218,7 +217,7 @@ $(() => {
                         <td class='tools_reference_link_description'>
                           <div class='col-md-12'>
                             <div class='col-md-12'>
-                              <a href='${ reference_link.absolute_url }' target='_blank'>${ reference_title }</a>
+                              <a href="${ reference_link.absolute_url }" target='_blank'>${ reference_title }</a>
                             </div>
                             <div class='col-md-12'>
                               <br>

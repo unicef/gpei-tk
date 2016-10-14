@@ -110,7 +110,7 @@ $(() => {
                     <div class='col-md-12'>
                       <div id='${reference_link.id}' class='col-md-12'>
                         <a id='cms_reference_link_icon' href="${reference_link.absolute_url}" target='_blank'><i class="fa fa-search" aria-hidden="true"></i></a>
-                        <a id='cms_reference_link_edit' href='${reference_link.absolute_url}'>${reference_link.document_file_name}</a>
+                        <a id='cms_reference_link_edit' href="${reference_link.absolute_url}">${reference_link.document_file_name}</a>
                       </div>
                       <div id='cms_reference_link_description' class='col-md-12'>
                         ${!_.isNull(reference_link.description) ? reference_link.description : 'Description coming soon'}
@@ -129,7 +129,6 @@ $(() => {
     e.preventDefault()
     toggleProgressSpinner()
     $('#CMS_index_content').empty()
-    debugger
     let content = getReferenceLinkEditForm($(e.currentTarget).text(),
                                           $(e.currentTarget).attr('href'),
                                             e.currentTarget.parentElement.id,
