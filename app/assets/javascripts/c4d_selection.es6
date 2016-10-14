@@ -212,7 +212,7 @@ $(() => {
               return `
                       ${ idx % 2 === 0 ? `<tr>` : '' }
                         <td>
-                          <img class='tools_reference_link_pdf_icon' src='${_.replace(reference_link.absolute_url, new RegExp(".pdf","g"),".png")}'>
+                          <img class='tools_reference_link_pdf_icon' src="${_.replace(reference_link.absolute_url, new RegExp(".pdf","g"),".png")}">
                         </td>
                         <td class='tools_reference_link_description'>
                           <div class='col-md-12'>
