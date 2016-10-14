@@ -206,6 +206,7 @@ $(() => {
     let idx = -1
     return `<table>
             ${ _.map(reference_links, reference_link => {
+              debugger
               let reference_title = _.replace(reference_link.document_file_name, new RegExp("_","g")," ")
               reference_title = _.replace(reference_title, new RegExp(".pdf","g"),"")
               idx += 1

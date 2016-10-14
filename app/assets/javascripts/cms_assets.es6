@@ -129,6 +129,7 @@ $(() => {
     e.preventDefault()
     toggleProgressSpinner()
     $('#CMS_index_content').empty()
+    debugger
     let content = getReferenceLinkEditForm($(e.currentTarget).text(),
                                           $(e.currentTarget).attr('href'),
                                             e.currentTarget.parentElement.id,
