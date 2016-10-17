@@ -25,6 +25,7 @@ $(() => {
       url: '/cms/reference_links/'
     }).done(response => {
       let reference_links = response.reference_links
+      let reference_link_categories = response.reference_link_categories
       $.ajax({
         method: 'GET',
         url: '/cms/users/'
@@ -32,7 +33,7 @@ $(() => {
         toggleProgressSpinner()
         $('#CMS_index_content').empty()
         appendReferenceLinkHeader()
-        appendReferenceLinkRows(reference_links, response.users)
+        appendReferenceLinkRows(reference_links, reference_link_categories, response.users)
       })
     })
   })
@@ -103,6 +104,7 @@ $(() => {
     $('#CMS_reference_link_table').append(`<thead>
                                               <tr>
                                                 <th class="text-center"> Name </th>
+                                                <th class="text-center"> Categories </th>
                                                 <th class="text-center"> Language </th>
                                                 <th class="text-center"> Updated </th>
                                                 <th class="text-center"> Created </th>
@@ -126,12 +128,12 @@ $(() => {
     }
   })
 
-  function appendReferenceLinkRows(reference_links, users){
+  function appendReferenceLinkRows(reference_links, reference_link_categories, users){
     _.forEach(reference_links, reference_link => {
       let row = `<tr id="${reference_link.id}">
                   <td>
                     <div id='reference_link_list_name_td' class='col-md-12'>
-                      <div id='${reference_link.id}' class='col-md-12'>
+                      <div id='${ reference_link.id }' class='col-md-12'>
                         <a id='cms_reference_link_icon' href="${ reference_link.absolute_url }" target='_blank'><i class="fa fa-search" aria-hidden="true"></i> Preview</a>
                         <div>Title: <div id='cms_reference_link_title_div'>${!_.isNull(reference_link.title) ? reference_link.title : 'No title given' }</div></div>
                         <div style='height:10px' class='col-md-12'></div>
@@ -148,6 +150,7 @@ $(() => {
                       <div id='${reference_link.id}' class='col-md-3 bottom-right-position'><i class="fa fa-pencil-square-o" aria-hidden="true"></i><a id='cms_reference_link_edit' href="${ reference_link.absolute_url }">Edit</a></div>
                     </div>
                   </td>
+                  <td>${reference_link_categories[reference_link.id].join("<div style='height:2px;background:black;width:100%'></div>")}</td>
                   <td>${reference_link.language}</td>
                   <td>${moment(reference_link.updated_at, "YYYY-MM-DD").format("MMM DD, YYYY")}</td>
                   <td>${moment(reference_link.created_at, "YYYY-MM-DD").format("MMM DD, YYYY")}</td>

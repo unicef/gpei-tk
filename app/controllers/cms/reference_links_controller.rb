@@ -3,7 +3,21 @@ class Cms::ReferenceLinksController < ApplicationController
 
   def index
     reference_links = ReferenceLink.all.order(:document_file_name)
-    render json: { reference_links: reference_links, status: 200 }
+    reference_link_categories = {}
+    reference_links.each do |reference_link|
+      links = ReferenceLinkArticle.where(reference_link_id: reference_link.id)
+      if !links.empty?
+        reference_link_categories[reference_link.id] = []
+        links.each do |link|
+          if link.reference_linkable.has_attribute?(:sop_category_id)
+            reference_link_categories[reference_link.id] << link.reference_linkable.sop_category.title
+          else
+            reference_link_categories[reference_link.id] << link.reference_linkable.c4d_category.title
+          end
+        end
+      end
+    end
+    render json: { reference_links: reference_links, reference_link_categories: reference_link_categories, status: 200 }
   end
 
   def create
