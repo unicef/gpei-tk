@@ -189,7 +189,7 @@ $(() => {
                     </h4>
                   </label>
                   <label>Title:</label>
-                  <input class="reference[title]" type="text" name="reference_link[title]" value="" style='margin-bottom:5px'>
+                  <input class="reference[title]" type="text" placeholder="No title" name="reference_link[title]" value="" style='margin-bottom:5px' required>
                   <textarea name="reference_link[description]" placeholder="descriptive text" value="${description === '' ? '' : description }" required></textarea>
                 </div>
                 <button class="ui button" type="submit">Submit</button>
