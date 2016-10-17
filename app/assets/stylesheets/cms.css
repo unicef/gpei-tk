@@ -96,11 +96,17 @@
 }
 #reference_link_list_name_td {
   width:450px;
-  overflow:scroll;
 }
 #cms_author_td {
   width:100px;
 }
 #CMS_c4d_toggle_published {
   color:black;
+}
+#cms_reference_link_edit{
+  white-space: pre-wrap;      /* CSS3 */
+  white-space: -moz-pre-wrap; /* Firefox */
+  white-space: -pre-wrap;     /* Opera <7 */
+  white-space: -o-pre-wrap;   /* Opera 7 */
+  word-wrap: break-word;
 }
