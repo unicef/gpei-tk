@@ -178,7 +178,7 @@ $(() => {
     return `<div id='${id}'>
               <form id="CMS_reference_link_edit" class="ui form">
                 <div class="field">
-                  <label>Edit description for:
+                  <label>
                     <h4>
                       <a id='' href="${ url }" target='_blank'>
                         <i class="fa fa-search" aria-hidden="true"></i>
@@ -188,8 +188,8 @@ $(() => {
                       File name: ${ file_name }
                     </h4>
                   </label>
-                  <label>Title:</label>
                   <input class="reference[title]" type="text" placeholder="No title" name="reference_link[title]" value="" style='margin-bottom:5px' required>
+                  <label>Description:</label>
                   <textarea name="reference_link[description]" placeholder="descriptive text" value="${description === '' ? '' : description }" required></textarea>
                 </div>
                 <button class="ui button" type="submit">Submit</button>
