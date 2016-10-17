@@ -10,9 +10,9 @@ class Cms::ReferenceLinksController < ApplicationController
         reference_link_categories[reference_link.id] = []
         links.each do |link|
           if link.reference_linkable.has_attribute?(:sop_category_id)
-            reference_link_categories[reference_link.id] << link.reference_linkable.sop_category.title
+            reference_link_categories[reference_link.id] << link.reference_linkable.sop_time.period + ' > ' + link.reference_linkable.sop_category.title
           else
-            reference_link_categories[reference_link.id] << link.reference_linkable.c4d_category.title
+            reference_link_categories[reference_link.id] << link.reference_linkable.c4d_category.title + ' > '+ link.reference_linkable.c4d_subcategory.title
           end
         end
       end
