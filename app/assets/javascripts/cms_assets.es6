@@ -132,12 +132,20 @@ $(() => {
                   <td>
                     <div id='reference_link_list_name_td' class='col-md-12'>
                       <div id='${reference_link.id}' class='col-md-12'>
-                        <a id='cms_reference_link_icon' href="${reference_link.absolute_url}" target='_blank'><i class="fa fa-search" aria-hidden="true"></i></a>
-                        <a id='cms_reference_link_edit' href="${reference_link.absolute_url}">${reference_link.document_file_name}</a>
+                        <a id='cms_reference_link_icon' href="${ reference_link.absolute_url }" target='_blank'><i class="fa fa-search" aria-hidden="true"></i> Preview</a>
+                        <div>Title: <div id='cms_reference_link_title_div'>${!_.isNull(reference_link.title) ? reference_link.title : 'No title given' }</div></div>
+                        <div style='height:10px' class='col-md-12'></div>
+                        <div class='col-md-12'>File name: <div id='cms_reference_link_file_name_div'>${ reference_link.document_file_name }</div></div>
                       </div>
-                      <div id='cms_reference_link_description' class='col-md-12'>
-                        ${!_.isNull(reference_link.description) ? reference_link.description : 'Description coming soon'}
+                      <div style='height:10px' class='col-md-12'></div>
+                      <div class='col-md-12'>
+                        <div class='col-md-12'>Description:</div>
+                        <div id='cms_reference_link_description_div' class='col-md-12'>
+                          ${!_.isNull(reference_link.description) ? reference_link.description : 'Description coming soon'}
+                        </div>
                       </div>
+                      <div style='height:10px' class='col-md-12'></div>
+                      <div id='${reference_link.id}' class='col-md-3 bottom-right-position'><i class="fa fa-pencil-square-o" aria-hidden="true"></i><a id='cms_reference_link_edit' href="${ reference_link.absolute_url }">Edit</a></div>
                     </div>
                   </td>
                   <td>${reference_link.language}</td>
@@ -152,28 +160,36 @@ $(() => {
   $('#CMS_index_content').on('click', '#cms_reference_link_edit', e => {
     e.preventDefault()
     toggleProgressSpinner()
+    let title = $('#CMS_index_content #' + e.currentTarget.parentElement.id + ' #cms_reference_link_title_div').text()
+    let description = $('#CMS_index_content #' + e.currentTarget.parentElement.id + ' #cms_reference_link_description_div').text()
+    let file_name = $('#CMS_index_content #' + e.currentTarget.parentElement.id + ' #cms_reference_link_file_name_div').text()
     $('#CMS_index_content').empty()
-    let content = getReferenceLinkEditForm($(e.currentTarget).text(),
+    let content = getReferenceLinkEditForm(title,
                                           $(e.currentTarget).attr('href'),
                                             e.currentTarget.parentElement.id,
-                                            $(e.currentTarget.parentElement.parentElement).find('#cms_reference_link_description').text())
+                                            description,
+                                            file_name)
     $('#CMS_index_content').append(content)
     toggleProgressSpinner()
     return false
   })
 
-  function getReferenceLinkEditForm(reference_link_title, url, id, description){
+  function getReferenceLinkEditForm(reference_link_title, url, id, description, file_name){
     return `<div id='${id}'>
               <form id="CMS_reference_link_edit" class="ui form">
                 <div class="field">
                   <label>Edit description for:
                     <h4>
-                      <a id='' href="${url}" target='_blank'>
+                      <a id='' href="${ url }" target='_blank'>
                         <i class="fa fa-search" aria-hidden="true"></i>
                       </a>
-                      ${reference_link_title}
+                      Title: ${ reference_link_title }
+                      <br>
+                      File name: ${ file_name }
                     </h4>
                   </label>
+                  <label>Title:</label>
+                  <input class="reference[title]" type="text" name="reference_link[title]" value="" style='margin-bottom:5px'>
                   <textarea name="reference_link[description]" placeholder="descriptive text" value="${description === '' ? '' : description }" required></textarea>
                 </div>
                 <button class="ui button" type="submit">Submit</button>
