@@ -183,14 +183,14 @@ $(() => {
                       <a id='' href="${ url }" target='_blank'>
                         <i class="fa fa-search" aria-hidden="true"></i>
                       </a>
-                      Title: ${ reference_link_title }
-                      <br>
                       File name: ${ file_name }
+                      <br>
+                      Title:
                     </h4>
                   </label>
-                  <input class="reference[title]" type="text" placeholder="No title" name="reference_link[title]" value="" style='margin-bottom:5px' required>
+                  <input class="reference[title]" type="text" placeholder="No title" name="reference_link[title]" value=" ${ (_.isNull(reference_link_title) || reference_link_title === '') ? '' : reference_link_title }" style='margin-bottom:5px' required>
                   <label>Description:</label>
-                  <textarea name="reference_link[description]" placeholder="descriptive text" value="${description === '' ? '' : description }" required></textarea>
+                  <textarea name="reference_link[description]" placeholder="descriptive text" value="${ (_.isNull(description) || description === '') ? '' : description }" required></textarea>
                 </div>
                 <button class="ui button" type="submit">Submit</button>
               </form>
