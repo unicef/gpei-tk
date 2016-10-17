@@ -74,7 +74,7 @@ $(() => {
 
   function appendSopArticleRows(sop_articles, users){
     _.forEach(sop_articles, article => {
-      let row = '<tr id="' + article.id + '">' + '<td>' + article.order_id + '</td>' + '<td><a id="' + article.id + '" href="">' + article.title + '</td>' + '<td>' + formatPublished(article.published) + '</td>' + '<td>' + moment(article.updated_at, "YYYY-MM-DD").format("MMM DD, YYYY") + '</td>' + '<td>' + moment(article.created_at, "YYYY-MM-DD").format("MMM DD, YYYY") + '</td>' + '<td>' + users[article.author_id].first_name + ' ' + users[article.author_id].last_name + '</td>' + '<td>' + getPublishToggleDropdown(article.id) + '</td>' + '</tr>'
+      let row = '<tr id="' + article.id + '">' + '<td>' + article.order_id + '</td>' + '<td><a id="' + article.id + '" href="">' + article.title + '</td>' + '<td>' + formatPublished(article.published) + '</td>' + '<td>' + new Date(article.updated_at) + '</td>' + '<td>' + new Date(article.created_at) + '</td>' + '<td>' + users[article.author_id].first_name + ' ' + users[article.author_id].last_name + '</td>' + '<td>' + getPublishToggleDropdown(article.id) + '</td>' + '</tr>'
       $('#CMS_sop_articles_table').append(row)
     })
   }
