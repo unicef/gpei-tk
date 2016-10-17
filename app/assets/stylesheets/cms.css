@@ -110,3 +110,8 @@
   white-space: -o-pre-wrap;   /* Opera 7 */
   word-wrap: break-word;
 }
+.bottom-right-position {
+  position:absolute !important;
+  bottom:0px !important;
+  right:0px !important;
+}
