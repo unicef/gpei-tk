@@ -100,14 +100,37 @@ $(() => {
 
   function appendReferenceLinkHeader(){
     $('#CMS_index_content').append('<table id="CMS_reference_link_table" class="ui celled table"></table>')
-    $('#CMS_reference_link_table').append('<thead><tr><th class="text-center"> Name </th><th class="text-center"> Language </th><th class="text-center"> Updated </th><th class="text-center"> Created </th><th class="text-center"> Author </th></tr></thead>')
+    $('#CMS_reference_link_table').append(`<thead>
+                                              <tr>
+                                                <th class="text-center"> Name </th>
+                                                <th class="text-center"> Language </th>
+                                                <th class="text-center"> Updated </th>
+                                                <th class="text-center"> Created </th>
+                                                <th class="text-center"> Author </th>
+                                                <th class="text-center"> Action </th>
+                                              </tr>
+                                            </thead>`)
   }
+  $('#CMS_index_content').on('click', '#reference_link_delete', e => {
+    e.preventDefault()
+    let answer = confirm('This will permanently delete the reference link. Do you wish to continue?')
+    if (answer){
+      toggleProgressSpinner()
+      $.ajax({
+        method: 'DELETE',
+        url: '/cms/reference_links/' + e.currentTarget.parentElement.parentElement.id
+      }).done(response => {
+        toggleProgressSpinner()
+        $('#CMS_references_link').trigger('click')
+      })
+    }
+  })
 
   function appendReferenceLinkRows(reference_links, users){
     _.forEach(reference_links, reference_link => {
       let row = `<tr id="${reference_link.id}">
                   <td>
-                    <div class='col-md-12'>
+                    <div id='reference_link_list_name_td' class='col-md-12'>
                       <div id='${reference_link.id}' class='col-md-12'>
                         <a id='cms_reference_link_icon' href="${reference_link.absolute_url}" target='_blank'><i class="fa fa-search" aria-hidden="true"></i></a>
                         <a id='cms_reference_link_edit' href="${reference_link.absolute_url}">${reference_link.document_file_name}</a>
@@ -120,7 +143,8 @@ $(() => {
                   <td>${reference_link.language}</td>
                   <td>${moment(reference_link.updated_at, "YYYY-MM-DD").format("MMM DD, YYYY")}</td>
                   <td>${moment(reference_link.created_at, "YYYY-MM-DD").format("MMM DD, YYYY")}</td>
-                  <td>${users[reference_link.author_id].first_name + ' ' + users[reference_link.author_id].last_name}</td>
+                  <td id='cms_author_td'>${users[reference_link.author_id].first_name + ' ' + users[reference_link.author_id].last_name}</td>
+                  <td><a id='reference_link_delete' href=''><i class="fa fa-times" aria-hidden="true"></i> delete</a></td>
                 </tr>`
       $('#CMS_reference_link_table').append(row)
     })
