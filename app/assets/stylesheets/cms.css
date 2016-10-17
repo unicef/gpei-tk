@@ -94,3 +94,13 @@
 #CMS_reference_link_edit .field {
   width:90%;
 }
+#reference_link_list_name_td {
+  width:450px;
+  overflow:scroll;
+}
+#cms_author_td {
+  width:100px;
+}
+#CMS_c4d_toggle_published {
+  color:black;
+}
