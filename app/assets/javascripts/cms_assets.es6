@@ -150,7 +150,7 @@ $(() => {
                       <div id='${reference_link.id}' class='col-md-3 bottom-right-position'><i class="fa fa-pencil-square-o" aria-hidden="true"></i><a id='cms_reference_link_edit' href="${ reference_link.absolute_url }">Edit</a></div>
                     </div>
                   </td>
-                  <td>${reference_link_categories[reference_link.id].join("<div style='height:2px;background:black;width:100%'></div>")}</td>
+                  <td>${ _.isUndefined(reference_link_categories[reference_link.id]) ? '' : reference_link_categories[reference_link.id].join("<div style='height:2px;background:black;width:100%'></div>")}</td>
                   <td>${reference_link.language}</td>
                   <td>${moment(reference_link.updated_at, "YYYY-MM-DD").format("MMM DD, YYYY")}</td>
                   <td>${moment(reference_link.created_at, "YYYY-MM-DD").format("MMM DD, YYYY")}</td>
