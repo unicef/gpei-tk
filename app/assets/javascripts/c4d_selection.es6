@@ -206,8 +206,13 @@ $(() => {
     let idx = -1
     return `<table>
             ${ _.map(reference_links, reference_link => {
-              let reference_title = _.replace(reference_link.document_file_name, new RegExp("_","g")," ")
-              reference_title = _.replace(reference_title, new RegExp(".pdf","g"),"")
+              let reference_title = ''
+              if (reference_link.title === '' || _.isNull(reference_link.title)){
+                reference_title = _.replace(reference_link.document_file_name, new RegExp("_","g")," ")
+                reference_title = _.replace(reference_title, new RegExp(".pdf","g"),"")
+              } else {
+                reference_title = reference_link.title
+              }
               idx += 1
               return `
                       ${ idx % 2 === 0 ? `<tr>` : '' }
@@ -290,8 +295,13 @@ $(() => {
     if (hasReferenceLinks) {
       content = "<div class='row'><div id='c4d_show_references'><div id='reference_header_text_div' class='col-md-12'><strong>REFERENCES:</strong></div>" +
         _.map(reference_links, reference_link => {
-          let reference_title = _.replace(reference_link.document_file_name, new RegExp("_","g")," ")
-          reference_title = _.replace(reference_title, new RegExp(".pdf","g"),"")
+          let reference_title = ''
+          if (reference_link.title === '' || _.isNull(reference_link.title)){
+            reference_title = _.replace(reference_link.document_file_name, new RegExp("_","g")," ")
+            reference_title = _.replace(reference_title, new RegExp(".pdf","g"),"")
+          } else {
+            reference_title = reference_link.title
+          }
           return `<div id='reference_link_row' class='row'>
                     <div class='col-md-2'>
                       <img class='reference_link_pdf_icon' src='${_.replace(reference_link.absolute_url, new RegExp(".pdf","g"),".png")}'>
