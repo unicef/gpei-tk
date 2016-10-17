@@ -25,7 +25,6 @@ class Cms::ReferenceLinksController < ApplicationController
   def update
     if request.xhr?
       reference_link = ReferenceLink.find_by(id: params[:id])
-      binding.pry
       if reference_link.update(safe_reference_link_params)
         render json: { status: 200 }
       else
