@@ -33,6 +33,18 @@ class Cms::ReferenceLinksController < ApplicationController
     end
   end
 
+  def destroy
+    if request.xhr? && current_user.is_admin?
+      reference_link = ReferenceLink.find_by(id: params[:id])
+      if !reference_link.nil?
+        reference_link.destroy
+        render json: { status: 200 }
+      end
+    end
+  end
+
+  private
+
   def safe_reference_link_params
     params.require(:reference_link).permit(:description)
   end
