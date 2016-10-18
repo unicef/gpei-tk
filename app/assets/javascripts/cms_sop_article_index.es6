@@ -69,7 +69,7 @@ $(() => {
 
   function appendSopArticleTableHeader(){
     $('#CMS_index_content').append('<table id="CMS_sop_articles_table" class="ui celled table"></table>')
-    $('#CMS_sop_articles_table').append('<thead><tr><th class="text-center"> ID </th><th class="text-center"> Title </th><th class="text-center"> Status </th><th class="text-center"> Updated </th><th class="text-center"> Created </th><th class="text-center"> Author </th><th class="text-center"></th></tr></thead>')
+    $('#CMS_sop_articles_table').append('<thead><tr><th class="text-center"> Order id </th><th class="text-center"> Title </th><th class="text-center"> Status </th><th class="text-center"> Updated </th><th class="text-center"> Created </th><th class="text-center"> Author </th><th class="text-center"></th></tr></thead>')
   }
 
   function appendSopArticleRows(sop_articles, users){

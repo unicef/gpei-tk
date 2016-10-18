@@ -222,7 +222,7 @@ $(() => {
                         <td class='tools_reference_link_description'>
                           <div class='col-md-12'>
                             <div class='col-md-12'>
-                              <a href="${ reference_link.absolute_url }" target='_blank'>${ reference_title }</a>
+                              <strong><a href="${ reference_link.absolute_url }" target='_blank'>${ reference_title }</a></strong>
                             </div>
                             <div class='col-md-12'>
                               <br>
@@ -307,7 +307,7 @@ $(() => {
                       <img class='reference_link_pdf_icon' src='${_.replace(reference_link.absolute_url, new RegExp(".pdf","g"),".png")}'>
                     </div>
                     <div id='reference_link_anchor_div' class='col-md-10'>
-                      <a class='reference_link_anchor' href="${ reference_link.absolute_url }" target='_blank'>&nbsp;${ reference_title }</a>
+                      <strong><a class='reference_link_anchor' href="${ reference_link.absolute_url }" target='_blank'>&nbsp;${ reference_title }</a></strong>
                     </div>
                   </div>`
         }).join('\n')
