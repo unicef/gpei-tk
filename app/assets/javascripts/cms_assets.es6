@@ -104,7 +104,7 @@ $(() => {
     $('#CMS_reference_link_table').append(`<thead>
                                               <tr>
                                                 <th class="text-center"> Name </th>
-                                                <th class="text-center"> Categories </th>
+                                                <th class="text-center"> Categories + Order Id </th>
                                                 <th class="text-center"> Language </th>
                                                 <th class="text-center"> Updated </th>
                                                 <th class="text-center"> Created </th>
