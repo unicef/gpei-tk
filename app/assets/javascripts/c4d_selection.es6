@@ -215,7 +215,7 @@ $(() => {
               }
               idx += 1
               return `
-                      ${ idx % 2 === 0 ? `<tr>` : '' }
+                      ${ idx % 2 === 0 ? `<tr><div class='col-md-12'>` : '' }
                         <td>
                           <img class='tools_reference_link_pdf_icon' src="${_.replace(reference_link.absolute_url, new RegExp(".pdf","g"),".png")}">
                         </td>
@@ -232,7 +232,7 @@ $(() => {
                             </div>
                           </div>
                         </td>
-                      ${ idx % 2 === 1 ? `</tr>` : '' }`
+                      ${ idx % 2 === 1 ? `</div></tr>` : '' }`
             }).join('\n')}
           </table>`
   }
