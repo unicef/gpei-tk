@@ -69,24 +69,28 @@ class Cms::SopArticlesController < ApplicationController
   end
 
   def orderUp
-    sop_article = SopArticle.find_by(id: params[:id])
-    current_order_id = sop_article.order_id
-    sop_article_prev = SopArticle.find_by(order_id: current_order_id - 1)
-    if sop_article.update(order_id: current_order_id - 1) && sop_article_prev.update(order_id: current_order_id)
-      render json: { status: 200, order_id: sop_article.order_id }
-    else
-      render json: { status: 403 }
+    if request.xhr? && current_user.is_admin?
+      sop_article = SopArticle.find_by(id: params[:id])
+      current_order_id = sop_article.order_id
+      sop_article_prev = SopArticle.find_by(order_id: current_order_id - 1)
+      if sop_article.update(order_id: current_order_id - 1) && sop_article_prev.update(order_id: current_order_id)
+        render json: { status: 200, order_id: sop_article.order_id }
+      else
+        render json: { status: 403 }
+      end
     end
   end
 
   def orderDown
-    sop_article = SopArticle.find_by(id: params[:id])
-    current_order_id = sop_article.order_id
-    sop_article_next = SopArticle.find_by(order_id: current_order_id + 1)
-    if sop_article.update(order_id: current_order_id + 1) && sop_article_next.update(order_id: current_order_id)
-      render json: { status: 200, order_id: sop_article.order_id }
-    else
-      render json: { status: 403 }
+    if request.xhr? && current_user.is_admin?
+      sop_article = SopArticle.find_by(id: params[:id])
+      current_order_id = sop_article.order_id
+      sop_article_next = SopArticle.find_by(order_id: current_order_id + 1)
+      if sop_article.update(order_id: current_order_id + 1) && sop_article_next.update(order_id: current_order_id)
+        render json: { status: 200, order_id: sop_article.order_id }
+      else
+        render json: { status: 403 }
+      end
     end
   end
 

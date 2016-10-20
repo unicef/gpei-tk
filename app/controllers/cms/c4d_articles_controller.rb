@@ -69,24 +69,28 @@ class Cms::C4dArticlesController < ApplicationController
   end
 
   def orderUp
-    c4d_article = C4dArticle.find_by(id: params[:id])
-    current_order_id = c4d_article.order_id
-    c4d_article_prev = C4dArticle.find_by(order_id: current_order_id - 1)
-    if c4d_article.update(order_id: current_order_id - 1) && c4d_article_prev.update(order_id: current_order_id)
-      render json: { status: 200, order_id: c4d_article.order_id }
-    else
-      render json: { status: 403 }
+    if request.xhr? && current_user.is_admin?
+      c4d_article = C4dArticle.find_by(id: params[:id])
+      current_order_id = c4d_article.order_id
+      c4d_article_prev = C4dArticle.find_by(order_id: current_order_id - 1)
+      if c4d_article.update(order_id: current_order_id - 1) && c4d_article_prev.update(order_id: current_order_id)
+        render json: { status: 200, order_id: c4d_article.order_id }
+      else
+        render json: { status: 403 }
+      end
     end
   end
 
   def orderDown
-    c4d_article = C4dArticle.find_by(id: params[:id])
-    current_order_id = c4d_article.order_id
-    c4d_article_next = C4dArticle.find_by(order_id: current_order_id + 1)
-    if c4d_article.update(order_id: current_order_id + 1) && c4d_article_next.update(order_id: current_order_id)
-      render json: { status: 200, order_id: c4d_article.order_id }
-    else
-      render json: { status: 403 }
+    if request.xhr? && current_user.is_admin?
+      c4d_article = C4dArticle.find_by(id: params[:id])
+      current_order_id = c4d_article.order_id
+      c4d_article_next = C4dArticle.find_by(order_id: current_order_id + 1)
+      if c4d_article.update(order_id: current_order_id + 1) && c4d_article_next.update(order_id: current_order_id)
+        render json: { status: 200, order_id: c4d_article.order_id }
+      else
+        render json: { status: 403 }
+      end
     end
   end
 
