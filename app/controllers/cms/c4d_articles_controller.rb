@@ -68,6 +68,19 @@ class Cms::C4dArticlesController < ApplicationController
     end
   end
 
+  def orderUp
+    c4d_article = C4dArticle.find_by(id: params[:id])
+    current_order_id = c4d_article.order_id
+    c4d_article_prev = C4dArticle.find_by(order_id: current_order_id - 1)
+    if c4d_article.update(order_id: current_order_id - 1) && c4d_article_prev.update(order_id: current_order_id)
+      render json: { status: 200, order_id: c4d_article.order_id }
+    else
+      render json: { status: 403 }
+    end
+  end
+
+  private
+
   def safe_article_params
     params.require(:article).permit(:cms_title, :title, :content, :c4d_subcategory_id, :c4d_category_id)
   end

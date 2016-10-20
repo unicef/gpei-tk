@@ -49,9 +49,17 @@ $(() => {
   function appendC4dArticleRows(c4d_articles, users, c4d_subcategories){
     _.forEach(c4d_articles, article => {
       let row = `<tr id="${ article.id }">
-                  <td>${ article.order_id }</td>
+                  <td>
+                    <div class='col-md-12'>
+                      <a id='c4d_order_id_up' href=''><i class="fa fa-sort-asc fa-2x" aria-hidden="true"></i></a>
+                    </div>
+                    <div id='cms_c4d_article_order_id_div'>${ article.order_id }</div>
+                    <div class='col-md-12'>
+                      <a id='c4d_order_id_down' href=''><i class="fa fa-sort-desc fa-2x" aria-hidden="true"></i></a>
+                    </div>
+                  </td>
                   <td>${ c4d_subcategories[article.c4d_subcategory_id-1].title }</td>
-                  <td><a id="${ article.id }" href="">${ article.title }</a></td>
+                  <td><div id='cms_c4d_article_title'><a id="${ article.id }" href="">${ article.title }</a></div></td>
                   <td>${ formatPublished(article.published) }</td>
                   <td>${ new Date(article.updated_at) }</td>
                   <td>${ new Date(article.created_at) }</td>
@@ -61,7 +69,28 @@ $(() => {
       $('#CMS_c4d_articles_table').append(row)
     })
   }
-  $('#CMS_index_content').on('click', '#CMS_c4d_articles_table a', e => {
+  $('#CMS_index_content').on('click', '#c4d_order_id_up', e => {
+    e.preventDefault()
+    let id = e.currentTarget.parentElement.parentElement.parentElement.id
+    toggleProgressSpinner()
+    document.getElementById('CMS_index_content').style.pointerEvents = 'none'
+    $.ajax({
+      method: 'PATCH',
+      url: 'cms/c4d_articles/orderUp/' + id
+    }).done(response => {
+      if (response.status === 200){
+        document.getElementById('CMS_index_content').style.pointerEvents = 'auto'
+        var current_row = $('#CMS_index_content').find('tr#'+id)
+        var prev_row = current_row.prev()
+        $(current_row).after(prev_row)
+        current_row.find('#cms_c4d_article_order_id_div').text(response.order_id)
+        prev_row.find('#cms_c4d_article_order_id_div').text(response.order_id + 1)
+        toggleProgressSpinner()
+      }
+    })
+    return false
+  })
+  $('#CMS_index_content').on('click', '#CMS_c4d_articles_table #cms_c4d_article_title', e => {
     e.preventDefault()
     toggleProgressSpinner()
     $.ajax({
@@ -71,7 +100,7 @@ $(() => {
       let reference_links = response.reference_links
       $.ajax({
         method: 'GET',
-        url: 'cms/c4d_articles/' + e.currentTarget.id
+        url: 'cms/c4d_articles/' + e.currentTarget.children[0].id
       }).done(response => {
         toggleProgressSpinner()
         $('#CMS_index_content').empty()
