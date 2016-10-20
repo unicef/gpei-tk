@@ -224,8 +224,7 @@ $(() => {
                             <div class='col-md-12'>
                               <strong><a href="${ reference_link.absolute_url }" target='_blank'>${ reference_title }</a></strong>
                             </div>
-                            <div class='col-md-12'>
-                              <br>
+                            <div class='col-md-12' style='height:8px'>
                             </div>
                             <div class='col-md-12'>
                               ${ _.isNull(reference_link.description) ? 'Description coming soon' : reference_link.description }
