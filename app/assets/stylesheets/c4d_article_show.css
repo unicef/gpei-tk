@@ -223,7 +223,8 @@
   margin-bottom:10px;
 }
 .tools_reference_link_description {
-  padding-left: 10px;
+  padding-left: 8px;
+  vertical-align: top;
 }
 .tools_reference_link_description a {
   text-decoration: none !important;
