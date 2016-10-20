@@ -47,8 +47,10 @@ $(() => {
   }
 
   function appendC4dArticleRows(c4d_articles, users, c4d_subcategories){
+    let idx = 0
+    let last_idx = c4d_articles.length - 1
     _.forEach(c4d_articles, article => {
-      let row = `<tr id="${ article.id }">
+      let row = `<tr id="${ article.id }" class="${idx === 0 ? 'c4d_first_article' : ''}${ idx === last_idx ? 'c4d_last_article' : ''}">
                   <td>
                     <div class='col-md-12'>
                       <a id='c4d_order_id_up' href=''><i class="fa fa-sort-asc fa-2x" aria-hidden="true"></i></a>
@@ -67,27 +69,61 @@ $(() => {
                   <td>${ getUserActionDropdown(article.id) }</td>
                 </tr>`
       $('#CMS_c4d_articles_table').append(row)
+      idx += 1
     })
   }
   $('#CMS_index_content').on('click', '#c4d_order_id_up', e => {
     e.preventDefault()
     let id = e.currentTarget.parentElement.parentElement.parentElement.id
-    toggleProgressSpinner()
-    document.getElementById('CMS_index_content').style.pointerEvents = 'none'
-    $.ajax({
-      method: 'PATCH',
-      url: 'cms/c4d_articles/orderUp/' + id
-    }).done(response => {
-      if (response.status === 200){
-        document.getElementById('CMS_index_content').style.pointerEvents = 'auto'
-        var current_row = $('#CMS_index_content').find('tr#'+id)
-        var prev_row = current_row.prev()
-        $(current_row).after(prev_row)
-        current_row.find('#cms_c4d_article_order_id_div').text(response.order_id)
-        prev_row.find('#cms_c4d_article_order_id_div').text(response.order_id + 1)
-        toggleProgressSpinner()
-      }
-    })
+    let current_row = $('#CMS_index_content').find('tr#'+id)
+    if (!(current_row.hasClass('c4d_first_article'))) {
+      toggleProgressSpinner()
+      document.getElementById('CMS_index_content').style.pointerEvents = 'none'
+      $.ajax({
+        method: 'PATCH',
+        url: 'cms/c4d_articles/orderUp/' + id
+      }).done(response => {
+        if (response.status === 200){
+          document.getElementById('CMS_index_content').style.pointerEvents = 'auto'
+          let prev_row = current_row.prev()
+          $(current_row).after(prev_row)
+          current_row.find('#cms_c4d_article_order_id_div').text(response.order_id)
+          prev_row.find('#cms_c4d_article_order_id_div').text(response.order_id + 1)
+          if (prev_row.hasClass('c4d_first_article')) {
+            prev_row.removeClass('c4d_first_article')
+            current_row.addClass('c4d_first_article')
+          }
+          toggleProgressSpinner()
+        }
+      })
+    }
+    return false
+  })
+  $('#CMS_index_content').on('click', '#c4d_order_id_down', e => {
+    e.preventDefault()
+    let id = e.currentTarget.parentElement.parentElement.parentElement.id
+    let current_row = $('#CMS_index_content').find('tr#'+id)
+    if (!(current_row.hasClass('c4d_last_article'))) {
+      toggleProgressSpinner()
+      document.getElementById('CMS_index_content').style.pointerEvents = 'none'
+      $.ajax({
+        method: 'PATCH',
+        url: 'cms/c4d_articles/orderDown/' + id
+      }).done(response => {
+        if (response.status === 200){
+          document.getElementById('CMS_index_content').style.pointerEvents = 'auto'
+          let next_row = current_row.next()
+          $(next_row).after(current_row)
+          current_row.find('#cms_c4d_article_order_id_div').text(response.order_id)
+          next_row.find('#cms_c4d_article_order_id_div').text(response.order_id - 1)
+          if (next_row.hasClass('c4d_last_article')) {
+            next_row.removeClass('c4d_last_article')
+            current_row.addClass('c4d_last_article')
+          }
+          toggleProgressSpinner()
+        }
+      })
+    }
     return false
   })
   $('#CMS_index_content').on('click', '#CMS_c4d_articles_table #cms_c4d_article_title', e => {

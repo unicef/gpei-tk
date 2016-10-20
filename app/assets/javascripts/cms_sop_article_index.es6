@@ -73,17 +73,115 @@ $(() => {
   }
 
   function appendSopArticleRows(sop_articles, users){
+    let idx = 0
+    let last_idx = sop_articles.length - 1
     _.forEach(sop_articles, article => {
-      let row = '<tr id="' + article.id + '">' + '<td>' + article.order_id + '</td>' + '<td><a id="' + article.id + '" href="">' + article.title + '</td>' + '<td>' + formatPublished(article.published) + '</td>' + '<td>' + new Date(article.updated_at) + '</td>' + '<td>' + new Date(article.created_at) + '</td>' + '<td>' + users[article.author_id].first_name + ' ' + users[article.author_id].last_name + '</td>' + '<td>' + getPublishToggleDropdown(article.id) + '</td>' + '</tr>'
+      let row = `<tr id="${article.id}" class="${idx === 0 ? 'sop_first_article' : ''}${ idx === last_idx ? 'sop_last_article' : ''}">
+                  <td>
+                    <div class='col-md-12'>
+                      <a id='sop_order_id_up' href=''><i class="fa fa-sort-asc fa-2x" aria-hidden="true"></i></a>
+                    </div>
+                    <div id='cms_sop_article_order_id_div'>
+                      ${article.order_id}
+                    </div>
+                    <div class='col-md-12'>
+                      <a id='sop_order_id_down' href=''><i class="fa fa-sort-desc fa-2x" aria-hidden="true"></i></a>
+                    </div>
+                  </td>
+                  <td>
+                    <div id='cms_sop_article_title_div'>
+                      <a id="${article.id}" href="">${article.title}</a>
+                    </div>
+                  </td>
+                  <td>
+                    ${formatPublished(article.published)}
+                  </td>
+                  <td>
+                    ${new Date(article.updated_at)}
+                  </td>
+                  <td>
+                    ${new Date(article.created_at)}
+                  </td>
+                  <td>
+                    ${users[article.author_id].first_name + ' ' + users[article.author_id].last_name}
+                  </td>
+                  <td>
+                    ${getPublishToggleDropdown(article.id)}
+                  </td>
+                </tr>`
       $('#CMS_sop_articles_table').append(row)
+      idx += 1
     })
   }
+  $('#CMS_index_content').on('click', '#sop_order_id_up', e => {
+    e.preventDefault()
+    let id = e.currentTarget.parentElement.parentElement.parentElement.id
+    let current_row = $('#CMS_index_content').find('tr#'+id)
+    if (!(current_row.hasClass('sop_first_article'))) {
+      toggleProgressSpinner()
+      document.getElementById('CMS_index_content').style.pointerEvents = 'none'
+      $.ajax({
+        method: 'PATCH',
+        url: 'cms/sop_articles/orderUp/' + id
+      }).done(response => {
+        if (response.status === 200){
+          document.getElementById('CMS_index_content').style.pointerEvents = 'auto'
+          let prev_row = current_row.prev()
+          $(current_row).after(prev_row)
+          current_row.find('#cms_sop_article_order_id_div').text(response.order_id)
+          prev_row.find('#cms_sop_article_order_id_div').text(response.order_id + 1)
+          if (prev_row.hasClass('sop_first_article')) {
+            prev_row.removeClass('sop_first_article')
+            current_row.addClass('sop_first_article')
+          }
+          else if (current_row.hasClass('sop_last_article')) {
+            prev_row.addClass('sop_last_article')
+            current_row.removeClass('sop_last_article')
+          }
+
+          toggleProgressSpinner()
+        }
+      })
+    }
+    return false
+  })
+  $('#CMS_index_content').on('click', '#sop_order_id_down', e => {
+    e.preventDefault()
+    let id = e.currentTarget.parentElement.parentElement.parentElement.id
+    let current_row = $('#CMS_index_content').find('tr#'+id)
+    if (!(current_row.hasClass('sop_last_article'))) {
+      toggleProgressSpinner()
+      document.getElementById('CMS_index_content').style.pointerEvents = 'none'
+      $.ajax({
+        method: 'PATCH',
+        url: 'cms/sop_articles/orderDown/' + id
+      }).done(response => {
+        if (response.status === 200){
+          document.getElementById('CMS_index_content').style.pointerEvents = 'auto'
+          let next_row = current_row.next()
+          $(next_row).after(current_row)
+          current_row.find('#cms_sop_article_order_id_div').text(response.order_id)
+          next_row.find('#cms_sop_article_order_id_div').text(response.order_id - 1)
+          if (next_row.hasClass('sop_last_article')) {
+            next_row.removeClass('sop_last_article')
+            current_row.addClass('sop_last_article')
+          }
+          else if (current_row.hasClass('sop_first_article')) {
+            next_row.addClass('sop_first_article')
+            current_row.removeClass('sop_first_article')
+          }
+          toggleProgressSpinner()
+        }
+      })
+    }
+    return false
+  })
 
   function formatPublished(published) {
     return published ? 'Published' : 'Not Published'
   }
 
-  $('#CMS_index_content').on('click', '#CMS_sop_articles_table a', e => {
+  $('#CMS_index_content').on('click', '#cms_sop_article_title_div a', e => {
     e.preventDefault()
     toggleProgressSpinner()
     $.ajax({
