@@ -93,6 +93,10 @@ $(() => {
             prev_row.removeClass('c4d_first_article')
             current_row.addClass('c4d_first_article')
           }
+          else if (current_row.hasClass('c4d_last_article')) {
+            prev_row.addClass('c4d_last_article')
+            current_row.removeClass('c4d_last_article')
+          }
           toggleProgressSpinner()
         }
       })
@@ -119,6 +123,10 @@ $(() => {
           if (next_row.hasClass('c4d_last_article')) {
             next_row.removeClass('c4d_last_article')
             current_row.addClass('c4d_last_article')
+          }
+          else if (current_row.hasClass('c4d_first_article')) {
+            next_row.addClass('c4d_first_article')
+            current_row.removeClass('c4d_first_article')
           }
           toggleProgressSpinner()
         }
