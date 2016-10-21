@@ -70,7 +70,7 @@ $(() => {
             </div>
             <div id="cms_reference_link_grid" class='col-md-11'>
             ${ _.map(reference_links, reference_link => {
-                return `<div id="${reference_link.id}" class="col-md-12 reference_link_item ${_.isUndefined(reference_link_categories[reference_link.id]) ? 'Unassigned' : reference_link_categories[reference_link.id][0].category }">
+                return `<div id="${reference_link.id}" class="col-md-12 reference_link_item ${_.isUndefined(reference_link_categories[reference_link.id]) ? 'Unassigned' : _.map(reference_link_categories[reference_link.id], link => { return link.category }).join(" ") }">
                     <div class='col-md-4'>
                       <div id='reference_link_list_name_td' class='col-md-12'>
                         <div id='${ reference_link.id }' class='col-md-12'>
@@ -95,11 +95,6 @@ $(() => {
                     <div class='col-md-1'><a id='reference_link_delete' href=''><i class="fa fa-times" aria-hidden="true"></i> delete</a></div>
                     <div id='${reference_link.id}' class='col-md-3 bottom-right-position'><a id='cms_reference_link_edit' href="${ reference_link.absolute_url }"><i class="fa fa-pencil-square-o" aria-hidden="true"></i>Edit</a></div>
                   </div>`}).join('')}
-                <div class="reference_link_item Understand">Understand</div>
-                <div class="reference_link_item Plan">Plan</div>
-                <div class="reference_link_item Act">Act</div>
-                <div class="reference_link_item Tools">Tools</div>
-                <div class="reference_link_item Unassigned">Unassigned</div>
               </div>`
   }
   $('#CMS_references_link_upload').click(e => {
