@@ -32,12 +32,76 @@ $(() => {
       }).done(response => {
         toggleProgressSpinner()
         $('#CMS_index_content').empty()
-        appendReferenceLinkHeader()
-        appendReferenceLinkRows(reference_links, reference_link_categories, response.users)
+        // appendReferenceLinkHeader()
+        // appendReferenceLinkRows(reference_links, reference_link_categories, response.users)
+        $('#CMS_index_content').append(getReferenceLinkGrid(reference_links, reference_link_categories, response.users))
+        loadIsotopeHandlers()
       })
     })
   })
 
+  function loadIsotopeHandlers(){
+    $('#CMS_index_content #cms_reference_link_grid').isotope({
+      itemSelector: '.reference_link_item',
+      layoutMode: 'fitRows'
+    })
+    $('.filter-button-group').on('click', 'button', function() {
+      var filterValue = $(this).attr('data-filter')
+      // use filter function if value matches
+      $('#CMS_index_content #cms_reference_link_grid').isotope({ filter: filterValue })
+    })
+    $('.button-group').each( function( i, buttonGroup ) {
+      var $buttonGroup = $( buttonGroup )
+      $buttonGroup.on( 'click', 'button', function() {
+        $buttonGroup.find('.is-checked').removeClass('is-checked')
+        $( this ).addClass('is-checked')
+      })
+    })
+  }
+
+  function getReferenceLinkGrid(reference_links, reference_link_categories, users){
+    return `<div id='cms_reference_links_filter_menu' class="button-group filter-button-group col-md-11">
+              <button data-filter="*" class='button is-checked'>show all</button>
+              <button data-filter=".Understand" class='button'>Understand</button>
+              <button data-filter=".Plan" class='button'>Plan</button>
+              <button data-filter=".Act" class='button'>Act</button>
+              <button data-filter=".Tools" class='button'>Tools</button>
+              <button data-filter=".Unassigned" class='button'>Unassigned</button>
+            </div>
+            <div id="cms_reference_link_grid" class='col-md-11'>
+            ${ _.map(reference_links, reference_link => {
+                return `<div id="${reference_link.id}" class="col-md-12 reference_link_item ${_.isUndefined(reference_link_categories[reference_link.id]) ? 'Unassigned' : reference_link_categories[reference_link.id][0].category }">
+                    <div class='col-md-4'>
+                      <div id='reference_link_list_name_td' class='col-md-12'>
+                        <div id='${ reference_link.id }' class='col-md-12'>
+                          <a id='cms_reference_link_icon' href="${ reference_link.absolute_url }" target='_blank'><i class="fa fa-search" aria-hidden="true"></i> <strong>Preview</strong></a>
+                          <div><strong>Title:</strong> <div id='cms_reference_link_title_div'>${!_.isNull(reference_link.title) ? reference_link.title : 'No title given' }</div></div>
+                          <div style='height:10px' class='col-md-12'></div>
+                          <div class='col-md-12'><strong>File name:</strong> <div id='cms_reference_link_file_name_div'>${ reference_link.document_file_name }</div></div>
+                        </div>
+                        <div style='height:10px' class='col-md-12'></div>
+                        <div class='col-md-12'>
+                          <div class='col-md-12'>Description:</div>
+                          <div id='cms_reference_link_description_div' class='col-md-12'>${!_.isNull(reference_link.description) ? reference_link.description : 'Description coming soon'}</div>
+                        </div>
+                        <div style='height:10px' class='col-md-12'></div>
+                      </div>
+                    </div>
+                    <div class='col-md-2'><strong>Categories:</strong><br> ${ _.isUndefined(reference_link_categories[reference_link.id]) ? '' : _.map(reference_link_categories[reference_link.id], reference_link_categories => { return reference_link_categories.details }).join("<div style='height:2px;background:black;width:100%'></div>")}</div>
+                    <div class='col-md-1 text-center'><strong>Language:</strong><br> ${reference_link.language}</div>
+                    <div class='col-md-1'><strong>Updated:</strong><br> ${moment(reference_link.updated_at, "YYYY-MM-DD").format("MMM DD, YYYY")}</div>
+                    <div class='col-md-1'><strong>Created:</strong><br> ${moment(reference_link.created_at, "YYYY-MM-DD").format("MMM DD, YYYY")}</div>
+                    <div id='cms_author_div' class='col-md-2'><strong>Author:</strong><br> ${users[reference_link.author_id].first_name + ' ' + users[reference_link.author_id].last_name}</div>
+                    <div class='col-md-1'><a id='reference_link_delete' href=''><i class="fa fa-times" aria-hidden="true"></i> delete</a></div>
+                    <div id='${reference_link.id}' class='col-md-3 bottom-right-position'><a id='cms_reference_link_edit' href="${ reference_link.absolute_url }"><i class="fa fa-pencil-square-o" aria-hidden="true"></i>Edit</a></div>
+                  </div>`}).join('')}
+                <div class="reference_link_item Understand">Understand</div>
+                <div class="reference_link_item Plan">Plan</div>
+                <div class="reference_link_item Act">Act</div>
+                <div class="reference_link_item Tools">Tools</div>
+                <div class="reference_link_item Unassigned">Unassigned</div>
+              </div>`
+  }
   $('#CMS_references_link_upload').click(e => {
     e.preventDefault()
     toggleProgressSpinner()
@@ -127,7 +191,6 @@ $(() => {
       })
     }
   })
-
   function appendReferenceLinkRows(reference_links, reference_link_categories, users){
     _.forEach(reference_links, reference_link => {
       let row = `<tr id="${reference_link.id}">
@@ -142,15 +205,13 @@ $(() => {
                       <div style='height:10px' class='col-md-12'></div>
                       <div class='col-md-12'>
                         <div class='col-md-12'>Description:</div>
-                        <div id='cms_reference_link_description_div' class='col-md-12'>
-                          ${!_.isNull(reference_link.description) ? reference_link.description : 'Description coming soon'}
-                        </div>
+                        <div id='cms_reference_link_description_div' class='col-md-12'>${!_.isNull(reference_link.description) ? reference_link.description : 'Description coming soon'}</div>
                       </div>
                       <div style='height:10px' class='col-md-12'></div>
                       <div id='${reference_link.id}' class='col-md-3 bottom-right-position'><i class="fa fa-pencil-square-o" aria-hidden="true"></i><a id='cms_reference_link_edit' href="${ reference_link.absolute_url }">Edit</a></div>
                     </div>
                   </td>
-                  <td>${ _.isUndefined(reference_link_categories[reference_link.id]) ? '' : reference_link_categories[reference_link.id].join("<div style='height:2px;background:black;width:100%'></div>")}</td>
+                  <td>${ _.isUndefined(reference_link_categories[reference_link.id]) ? '' : _.map(reference_link_categories[reference_link.id], reference_link_categories => { return reference_link_categories.details }).join("<div style='height:2px;background:black;width:100%'></div>")}</td>
                   <td>${reference_link.language}</td>
                   <td>${moment(reference_link.updated_at, "YYYY-MM-DD").format("MMM DD, YYYY")}</td>
                   <td>${moment(reference_link.created_at, "YYYY-MM-DD").format("MMM DD, YYYY")}</td>
@@ -163,16 +224,19 @@ $(() => {
   $('#CMS_index_content').on('click', '#cms_reference_link_edit', e => {
     e.preventDefault()
     toggleProgressSpinner()
+    $('#CMS_modal').modal('show')
+    $('#CMS_modal #CMS_modal_header').append("<h3>Update reference link</h3>")
     let title = $('#CMS_index_content #' + e.currentTarget.parentElement.id + ' #cms_reference_link_title_div').text()
     let description = $('#CMS_index_content #' + e.currentTarget.parentElement.id + ' #cms_reference_link_description_div').text()
     let file_name = $('#CMS_index_content #' + e.currentTarget.parentElement.id + ' #cms_reference_link_file_name_div').text()
-    $('#CMS_index_content').empty()
+    // $('#CMS_index_content').empty()
     let content = getReferenceLinkEditForm(title,
                                           $(e.currentTarget).attr('href'),
                                             e.currentTarget.parentElement.id,
                                             description,
                                             file_name)
-    $('#CMS_index_content').append(content)
+    $('#CMS_modal #CMS_modal_content').append(content)
+    // $('#CMS_index_content').append(content)
     toggleProgressSpinner()
     return false
   })
@@ -191,25 +255,27 @@ $(() => {
                       Title:
                     </h4>
                   </label>
-                  <input class="reference[title]" type="text" placeholder="No title" name="reference_link[title]" value=" ${ (_.isNull(reference_link_title) || reference_link_title === '') ? '' : reference_link_title }" style='margin-bottom:5px' required>
+                  <input class="reference[title]" type="text" placeholder="No title" name="reference_link[title]" value="${ (_.isNull(reference_link_title) || reference_link_title === '' || reference_link_title === 'No title given') ? '' : reference_link_title }" style='margin-bottom:5px' required>
                   <label>Description:</label>
-                  <textarea name="reference_link[description]" placeholder="descriptive text" value="${ (_.isNull(description) || description === '') ? '' : description }" required></textarea>
+                  <textarea name="reference_link[description]" placeholder="descriptive text" required>${ (_.isNull(description) || description === '' || description === 'Description coming soon') ? '' : description }</textarea>
                 </div>
                 <button class="ui button" type="submit">Submit</button>
               </form>
             </div>`
   }
-  $('#CMS_index_content').on('submit', '#CMS_reference_link_edit', e => {
+  $('#CMS_modal').on('submit', '#CMS_reference_link_edit', e => {
     e.preventDefault()
     toggleProgressSpinner()
+    let target = e.currentTarget
     $.ajax({
       method: 'PATCH',
       url: '/cms/reference_links/' + e.currentTarget.parentElement.id,
       data: $(e.currentTarget).serialize()
     }).done(response => {
+      $('#CMS_modal').modal('hide')
       toggleProgressSpinner()
-      showDimmerClearBrowser()
-      $('#CMS_references_link').trigger('click')
+      $('#cms_reference_link_grid #'+response.id+'.reference_link_item').find('#cms_reference_link_title_div').text(response.title)
+      $('#cms_reference_link_grid #'+response.id+'.reference_link_item').find('#cms_reference_link_description_div').text(response.description)
     })
     return false
   })
