@@ -3,20 +3,7 @@ class Cms::ReferenceLinksController < ApplicationController
 
   def index
     reference_links = ReferenceLink.all.order(:document_file_name)
-    reference_link_categories = {}
-    reference_links.each do |reference_link|
-      links = ReferenceLinkArticle.where(reference_link_id: reference_link.id)
-      if !links.empty?
-        reference_link_categories[reference_link.id] = []
-        links.each do |link|
-          if link.reference_linkable.has_attribute?(:sop_category_id)
-            reference_link_categories[reference_link.id] << link.reference_linkable.sop_time.period + ' > ' + link.reference_linkable.sop_category.title + ' > ' + link.reference_linkable.order_id.to_s
-          else
-            reference_link_categories[reference_link.id] << link.reference_linkable.c4d_category.title + ' > '+ link.reference_linkable.c4d_subcategory.title + ' > ' + link.reference_linkable.order_id.to_s
-          end
-        end
-      end
-    end
+    reference_link_categories = getReferenceLinkCategories(reference_links)
     render json: { reference_links: reference_links, reference_link_categories: reference_link_categories, status: 200 }
   end
 
@@ -40,7 +27,7 @@ class Cms::ReferenceLinksController < ApplicationController
     if request.xhr?
       reference_link = ReferenceLink.find_by(id: params[:id])
       if reference_link.update(safe_reference_link_params)
-        render json: { status: 200 }
+        render json: { status: 200, id: reference_link.id, description: reference_link.description, title: reference_link.title }
       else
         render json: { status: 403 }
       end
@@ -58,6 +45,24 @@ class Cms::ReferenceLinksController < ApplicationController
   end
 
   private
+
+  def getReferenceLinkCategories(reference_links)
+    reference_link_categories = {}
+    reference_links.each do |reference_link|
+      links = ReferenceLinkArticle.where(reference_link_id: reference_link.id)
+      if !links.empty?
+        reference_link_categories[reference_link.id] = []
+        links.each do |link|
+          if link.reference_linkable.has_attribute?(:sop_category_id)
+            reference_link_categories[reference_link.id] << { details: link.reference_linkable.sop_time.period + ' > ' + link.reference_linkable.sop_category.title + ' > ' + link.reference_linkable.order_id.to_s, category: link.reference_linkable.sop_category.title }
+          else
+            reference_link_categories[reference_link.id] << { details: link.reference_linkable.c4d_category.title + ' > '+ link.reference_linkable.c4d_subcategory.title + ' > ' + link.reference_linkable.order_id.to_s, category: link.reference_linkable.c4d_category.title }
+          end
+        end
+      end
+    end
+    reference_link_categories
+  end
 
   def safe_reference_link_params
     params.require(:reference_link).permit(:description, :title)
