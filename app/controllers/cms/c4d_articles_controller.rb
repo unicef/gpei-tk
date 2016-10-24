@@ -47,6 +47,7 @@ class Cms::C4dArticlesController < ApplicationController
       if c4d_article
         ReferenceLinkArticle.where(reference_linkable: c4d_article).destroy_all
         if !params[:article][:reference_links].nil?
+          c4d_article.reference_link_order = params[:reference_link_order].join(' ')
           params[:article][:reference_links].each do |reference_id|
             reference = ReferenceLink.find_by(id: reference_id)
             ReferenceLinkArticle.create(reference_link: reference, reference_linkable: c4d_article)
