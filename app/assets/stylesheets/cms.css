@@ -182,3 +182,18 @@
 #CMS_index_contentreference_link_edit .field {
   width:100%;
 }
+#c4d_article_reference_id_up,
+#c4d_article_reference_id_down {
+  font-size:22px
+}
+#c4d_article_reference_id_up_div {
+  position:relative;
+  bottom:-4px;
+}
+#c4d_article_reference_id_down_div {
+  position:relative;
+  top:-4px;
+}
+.reference_link_row {
+  border:1px solid black;
+}
