@@ -11,23 +11,24 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161017190625) do
+ActiveRecord::Schema.define(version: 20161024152311) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
   create_table "c4d_articles", force: :cascade do |t|
     t.string   "cms_title"
-    t.string   "title",                              null: false
-    t.string   "content",                            null: false
-    t.integer  "c4d_category_id",                    null: false
-    t.integer  "c4d_subcategory_id",                 null: false
+    t.string   "title",                                null: false
+    t.string   "content",                              null: false
+    t.integer  "c4d_category_id",                      null: false
+    t.integer  "c4d_subcategory_id",                   null: false
     t.string   "video_url"
-    t.integer  "order_id",                           null: false
-    t.boolean  "published",          default: false, null: false
-    t.integer  "author_id",                          null: false
-    t.datetime "created_at",                         null: false
-    t.datetime "updated_at",                         null: false
+    t.integer  "order_id",                             null: false
+    t.boolean  "published",            default: false, null: false
+    t.integer  "author_id",                            null: false
+    t.datetime "created_at",                           null: false
+    t.datetime "updated_at",                           null: false
+    t.string   "reference_link_order"
   end
 
   add_index "c4d_articles", ["order_id"], name: "index_c4d_articles_on_order_id", using: :btree
@@ -130,6 +131,7 @@ ActiveRecord::Schema.define(version: 20161017190625) do
     t.integer  "author_id",                              null: false
     t.datetime "created_at",                             null: false
     t.datetime "updated_at",                             null: false
+    t.string   "reference_link_order"
   end
 
   add_index "sop_articles", ["order_id"], name: "index_sop_articles_on_order_id", using: :btree
