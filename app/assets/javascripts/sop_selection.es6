@@ -391,7 +391,7 @@ $(() => {
       reference_link_order = _.isNull(article.reference_link_order) ? _.map(reference_links, link => { return link.id }) : article.reference_link_order.split(' ')
       _.forEach(reference_link_order, id => {
         _.forEach(reference_links, reference_link => {
-          if (reference_link.id === id){
+          if (reference_link.id === parseInt(id)){
             let reference_title = ''
             if (reference_link.title === '' || _.isNull(reference_link.title)){
               reference_title = _.replace(reference_link.document_file_name, new RegExp("_","g")," ")
