@@ -244,7 +244,7 @@ $(() => {
     `)
   }
   function getReferenceLinksList(selected_reference_links, reference_link_order) {
-    let idx = -1
+    let idx = 0
     let last_idx = selected_reference_links.length - 1
     let rows = ''
     _.isNull(reference_link_order) ?  reference_link_order = _.map(selected_reference_links, link => { return link.id }) : reference_link_order = reference_link_order.split(' ')
@@ -274,13 +274,12 @@ $(() => {
     let parent = e.currentTarget.parentElement.parentElement.parentElement
     let id = parent.id
     let current_row = $('#CMS_index_content #cms_sop_article_reference_link_list').find('.reference_link_row#'+id)
+    let prev_row = current_row.prev()
     if (!(current_row.hasClass('first_reference_link'))) {
-      let prev_row = current_row.prev()
       if (prev_row.hasClass('first_reference_link')) {
         prev_row.removeClass('first_reference_link')
         current_row.addClass('first_reference_link')
-      }
-      else if (current_row.hasClass('last_reference_link')) {
+      } else if (current_row.hasClass('last_reference_link')) {
         prev_row.addClass('last_reference_link')
         current_row.removeClass('last_reference_link')
       }
