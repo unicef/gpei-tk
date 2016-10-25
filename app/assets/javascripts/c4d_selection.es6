@@ -205,7 +205,8 @@ $(() => {
     let reference_links = params['reference_links']
     let idx = -1
     let rows = ''
-    let reference_link_order = params['article'].reference_link_order.split(' ')
+    let reference_link_order = ''
+    reference_link_order = _.isNull(params['article'].reference_link_order) ? _.map(reference_links, link => { return link.id }) : params['article'].reference_link_order.split(' ')
     _.forEach(reference_link_order, id => {
       _.forEach(reference_links, reference_link => {
         if (reference_link.id === parseInt(id)){

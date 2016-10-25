@@ -33,8 +33,7 @@ $(() => {
     let inclusives = []
     let checked_labels = ''
     $checkboxes.each((i, elem) => {
-      if (elem.checked)
-      {
+      if (elem.checked) {
         inclusives.push(elem.value)
         let elem_value = elem.value.replace(/\./g,"").replace(/_/g," ")
         checked_labels += `<div id="filter_output_label" class="ui label"><span id="${elem.value}">${elem_value} </span><a href=''><i class="fa fa-times" aria-hidden="true"></i></a></div>`
@@ -304,7 +303,7 @@ $(() => {
       <div id="sop_article_show_page">
         <div id="sop_article_show_info_column" class='col-md-3'>
           <div id="sop_article_show_info_column_content">
-            ${ getReferenceLinksDiv(params['reference_links']) }
+            ${ getReferenceLinksDiv(params['reference_links'], params['article']) }
             ${ getVideoContent(params) }
           </div>
         </div>
@@ -384,21 +383,41 @@ $(() => {
     return image
   }
 
-  function getReferenceLinksDiv(reference_links){
+  function getReferenceLinksDiv(reference_links, article){
     let content = ""
     if (!_.isEmpty(reference_links)) {
-      content = "<div class='row'><div id='sop_show_references'><div id='reference_header_text_div' class='col-md-12'><strong>REFERENCES:</strong></div>" +
-        _.map(reference_links, reference_link => {
-          let reference_title = ''
-          if (reference_link.title === '' || _.isNull(reference_link.title)){
-            reference_title = _.replace(reference_link.document_file_name, new RegExp("_","g")," ")
-            reference_title = _.replace(reference_title, new RegExp(".pdf","g"),"")
-          } else {
-            reference_title = reference_link.title
+      let rows = ''
+      let reference_link_order = ''
+      reference_link_order = _.isNull(article.reference_link_order) ? _.map(reference_links, link => { return link.id }) : article.reference_link_order.split(' ')
+      _.forEach(reference_link_order, id => {
+        _.forEach(reference_links, reference_link => {
+          if (reference_link.id === id){
+            let reference_title = ''
+            if (reference_link.title === '' || _.isNull(reference_link.title)){
+              reference_title = _.replace(reference_link.document_file_name, new RegExp("_","g")," ")
+              reference_title = _.replace(reference_title, new RegExp(".pdf","g"),"")
+            } else {
+              reference_title = reference_link.title
+            }
+            rows += `<div id='reference_link_row' class='row'>
+                      <div class='col-md-2'>
+                        <img class='reference_link_pdf_icon' src='${_.replace(reference_link.absolute_url, new RegExp(".pdf","g"),".png")}'>
+                      </div>
+                      <div id='reference_link_anchor_div' class='col-md-10'>
+                        <a class='reference_link_anchor' href="${ reference_link.absolute_url }" target='_blank'>&nbsp;${ reference_title }</a>
+                      </div>
+                    </div>`
           }
-          return `<div id='reference_link_row' class='row'><div class='col-md-2'><img class='reference_link_pdf_icon' src='${_.replace(reference_link.absolute_url, new RegExp(".pdf","g"),".png")}'></div><div id='reference_link_anchor_div' class='col-md-10'><a class='reference_link_anchor' href="${ reference_link.absolute_url }" target='_blank'>&nbsp;${ reference_title }</a></div></div>`
-        }).join('\n')
-      content = content + "</div></div>"
+        })
+      })
+      content = `<div class='row'>
+                   <div id='sop_show_references'>
+                    <div id='reference_header_text_div' class='col-md-12'>
+                      <strong>REFERENCES:</strong>
+                    </div>
+                    ${rows}
+                   </div>
+                 </div>`
     }
     return content
   }
