@@ -32,8 +32,10 @@ Rails.application.routes.draw do
   namespace :cms, defaults: { format: :json } do
     resources :users, only: [:index, :update, :create]
     patch '/users/toggleActive/:id', to: 'users#toggleActive', as: :users_toggle_active
+
     resources :sop_articles, only: [:index, :update, :show, :create]
     resources :c4d_articles, only: [:index, :update, :show, :create]
+
     patch '/sop_articles/publish/:id', to: 'sop_articles#publish', as: :sop_article_publish
     patch '/c4d_articles/publish/:id', to: 'c4d_articles#publish', as: :c4d_article_publish
 
@@ -43,6 +45,7 @@ Rails.application.routes.draw do
     patch '/sop_articles/orderDown/:id', to: 'sop_articles#orderDown', as: :sop_article_order_down
 
     resources :reference_links, only: [:index, :create, :update, :destroy]
+
     resources :embedded_images, only: [:create]
   end
 
