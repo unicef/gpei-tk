@@ -54,8 +54,8 @@ class Cms::SopArticlesController < ApplicationController
         end
         if !(params[:reference_link_order][0] == '')
           sop_article.reference_link_order = params[:reference_link_order].join(' ')
-        elsif !c4d_article.reference_links.empty?
-          sop_article.reference_link_order = c4d.reference_links.pluck(:id).join(' ')
+        elsif !sop_article.reference_links.empty?
+          sop_article.reference_link_order = sop_article.reference_links.pluck(:id).join(' ')
         end
       end
       sop_article.update(safe_article_params)
