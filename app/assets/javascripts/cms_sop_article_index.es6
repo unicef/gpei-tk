@@ -138,7 +138,6 @@ $(() => {
             prev_row.addClass('sop_last_article')
             current_row.removeClass('sop_last_article')
           }
-
           toggleProgressSpinner()
         }
       })
@@ -238,17 +237,76 @@ $(() => {
           <input type="text" name="article[video_url]" value="${article.video_url}">
         </div>
         ${getReferenceLinkSelector(reference_links, selected_reference_links)}
-        ${ getReferenceLinksList(selected_reference_links) }
+        ${ getReferenceLinksList(selected_reference_links, article.reference_link_order) }
         <button class="ui button" type="submit">Submit</button>
       </form>
     </div>
     `)
   }
-  function getReferenceLinksList(selected_reference_links) {
-    return `${_.map(selected_reference_links, reference_link => {
-              return (`<p><strong>Reference Link: </strong>${reference_link.document_file_name} - <a href="${reference_link.absolute_url}" target="_blank">${reference_link.absolute_url}</a></p>`)
-            }).join('\n')}`
+  function getReferenceLinksList(selected_reference_links, reference_link_order) {
+    let idx = -1
+    let last_idx = selected_reference_links.length - 1
+    let rows = ''
+    _.isNull(reference_link_order) ?  reference_link_order = _.map(selected_reference_links, link => { return link.id }) : reference_link_order = reference_link_order.split(' ')
+    _.forEach(reference_link_order, id => {
+      _.forEach(selected_reference_links, reference_link =>{
+        if (reference_link.id === parseInt(id)) {
+          rows += `<div id='${reference_link.id}' class='col-md-12 reference_link_row ${idx === 0 ? 'first_reference_link' : ''} ${ idx === last_idx ? 'last_reference_link' : '' }'>
+                  <div id='${reference_link.id}' class='col-md-1' style='width:5%;'>
+                    <div id='sop_article_reference_id_up_div' class='col-md-6'><a id='sop_article_reference_id_up' href=''><i class="fa fa-sort-asc" aria-hidden="true"></i></a></div>
+                    <div id='sop_article_reference_id_down_div' class='col-md-6'><a id='sop_article_reference_id_down' href=''><i class="fa fa-sort-desc" aria-hidden="true"></i></a></div>
+                  </div>
+                  <div id='${reference_link.id}' class='col-md-11'>
+                    <strong>Reference Link: </strong>${reference_link.document_file_name} - <a href="${reference_link.absolute_url}" target="_blank">${reference_link.absolute_url}</a>
+                  </div>
+                </div>`
+        }
+      })
+      idx += 1
+    })
+    let content = `<div id='cms_sop_article_reference_link_list' class='col-md-12'>
+                    ${rows}
+                   </div>`
+    return content
   }
+  $('#CMS_index_content').on('click', '#sop_article_reference_id_up', e => {
+    e.preventDefault()
+    let parent = e.currentTarget.parentElement.parentElement.parentElement
+    let id = parent.id
+    let current_row = $('#CMS_index_content #cms_sop_article_reference_link_list').find('.reference_link_row#'+id)
+    if (!(current_row.hasClass('first_reference_link'))) {
+      let prev_row = current_row.prev()
+      if (prev_row.hasClass('first_reference_link')) {
+        prev_row.removeClass('first_reference_link')
+        current_row.addClass('first_reference_link')
+      }
+      else if (current_row.hasClass('last_reference_link')) {
+        prev_row.addClass('last_reference_link')
+        current_row.removeClass('last_reference_link')
+      }
+      $(current_row).after(prev_row)
+    }
+    return false
+  })
+  $('#CMS_index_content').on('click', '#sop_article_reference_id_down', e => {
+    e.preventDefault()
+    let parent = e.currentTarget.parentElement.parentElement.parentElement
+    let id = parent.id
+    let current_row = $('#CMS_index_content #cms_sop_article_reference_link_list').find('.reference_link_row#'+id)
+    if (!(current_row.hasClass('last_reference_link'))) {
+      let next_row = current_row.next()
+      if (next_row.hasClass('last_reference_link')) {
+        next_row.removeClass('last_reference_link')
+        current_row.addClass('last_reference_link')
+      }
+      else if (current_row.hasClass('first_reference_link')) {
+        next_row.addClass('first_reference_link')
+        current_row.removeClass('first_reference_link')
+      }
+      $(next_row).after(current_row)
+    }
+    return false
+  })
 
   function getReferenceLinkSelector(reference_links, selected_reference_links) {
     return (`
@@ -283,10 +341,11 @@ $(() => {
   $('#CMS_index_content').on('submit', '#CMS_sop_article_form', e => {
     toggleProgressSpinner()
     e.preventDefault()
+    let reference_link_order = getSOPArticleReferenceLinkOrder()
     $.ajax({
       method: 'PATCH',
       url: 'cms/sop_articles/' + e.currentTarget.parentElement.id,
-      data: $('#CMS_sop_article_form').serialize() + "&authenticity_token=" + _.escape($('meta[name=csrf-token]').attr('content'))
+      data: $('#CMS_sop_article_form').serialize() + reference_link_order  + "&authenticity_token=" + _.escape($('meta[name=csrf-token]').attr('content'))
     }).done(response => {
       toggleProgressSpinner()
       $('#CMS_sop_articles_link').trigger('click')
@@ -297,6 +356,13 @@ $(() => {
       history.pushState({}, null, 'cms');
     })
   })
+
+  function getSOPArticleReferenceLinkOrder(){
+    // "4&reference_link_order%5B%5D=6&reference_link_order%5B%5D=4"
+    return _.isEmpty($('#CMS_index_content #cms_sop_article_reference_link_list').children()) ? '&reference_link_order%5B%5D=' : _.map($('#CMS_index_content #cms_sop_article_reference_link_list').children(), div => {
+              return `&reference_link_order%5B%5D=${$(div).attr('id')}`
+           }).join('')
+  }
 
   function getDropdown(label, option_name, objects, id, is_required){
     return (`

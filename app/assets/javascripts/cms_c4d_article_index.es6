@@ -185,7 +185,7 @@ $(() => {
           ${getEmbeddedImagesList(embedded_images)}
         </div>
         ${ getReferenceLinkSelector(reference_links, selected_reference_links) }
-        ${ getReferenceLinksList(selected_reference_links, article.reference_link_order.split(' ')) }
+        ${ getReferenceLinksList(selected_reference_links, article.reference_link_order) }
         <button class="ui button" type="submit">Submit</button>
       </form>
     </div>
@@ -195,6 +195,7 @@ $(() => {
     let idx = -1
     let last_idx = selected_reference_links.length - 1
     let rows = ''
+    _.isNull(reference_link_order) ?  reference_link_order = _.map(selected_reference_links, link => { return link.id }) : reference_link_order = reference_link_order.split(' ')
     _.forEach(reference_link_order, id => {
       _.forEach(selected_reference_links, reference_link =>{
         if (reference_link.id === parseInt(id)) {
@@ -216,7 +217,7 @@ $(() => {
                    </div>`
     return content
   }
-    $('#CMS_index_content').on('click', '#c4d_article_reference_id_up', e => {
+  $('#CMS_index_content').on('click', '#c4d_article_reference_id_up', e => {
     e.preventDefault()
     let parent = e.currentTarget.parentElement.parentElement.parentElement
     let id = parent.id
@@ -342,10 +343,10 @@ $(() => {
   })
   function getC4dArticleReferenceLinkOrder(){
     // "4&reference_link_order%5B%5D=6&reference_link_order%5B%5D=4"
-    return _.map($('#CMS_index_content #cms_c4d_article_reference_link_list').children(), div => {
+    return _.isEmpty($('#CMS_index_content #cms_c4d_article_reference_link_list').children()) ? '&reference_link_order%5B%5D=' : _.map($('#CMS_index_content #cms_c4d_article_reference_link_list').children(), div => {
               return `&reference_link_order%5B%5D=${$(div).attr('id')}`
            }).join('')
-    }
+  }
 
   if ( CKEDITOR.env.ie && CKEDITOR.env.version < 9 )
     CKEDITOR.tools.enableHtml5Elements( document );
