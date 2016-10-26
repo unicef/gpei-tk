@@ -108,7 +108,12 @@ $(() => {
 
   $('#CMS_index_content').on('submit', '#CMS_reference_link_upload_form', e => {
     e.preventDefault()
-    let formData = new FormData($(e.currentTarget)[0])
+    // let formData = new FormData($(e.currentTarget)[0])
+    let formData = new FormData()
+    $.each($("input[type=file]")[0].files, (idx, file) => {
+      formData.append('reference_link['+idx+']', file);
+    })
+    formData.append('language', $('#CMS_reference_link_upload_form').find('select')[0].value)
     $('#CMS_reference_link_upload_form button').prop('disabled', true)
     toggleProgressSpinner()
     $.ajax({
@@ -143,7 +148,7 @@ $(() => {
     return (`
       <div class="field">
         <label>Reference Link<a id="add_reference_link_input"  href=''></a></label>
-        <input class="reference_link_file" type="file" name="reference_link[document]" value="">
+        <input class="reference_link_file" type="file" name="reference_link[]" value="" multiple>
       </div>
     `)
   }
