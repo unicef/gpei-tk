@@ -9,14 +9,22 @@ class Cms::ReferenceLinksController < ApplicationController
 
   def create
     if request.xhr?
-      if ReferenceLink.find_by(document_file_name: params[:reference_link][:document].original_filename).nil?
-        reference_link = ReferenceLink.new(author_id: current_user.id,
-                                          document: params[:reference_link][:document],
-                                          language: params[:reference_link][:language])
-        reference_link.absolute_url = reference_link.document.url
-        if reference_link.save
-          render json: { status: 200 }
+      errors = []
+      params[:reference_link].each do |document|
+        if ReferenceLink.find_by(document_file_name: document[1].original_filename).nil?
+          reference_link = ReferenceLink.new(author_id: current_user.id,
+                                            document: document[1],
+                                            language: params[:language])
+          reference_link.absolute_url = reference_link.document.url
+          if !reference_link.save
+            errors << document.errors
+          end
+        else
+          errors << document.errors
         end
+      end
+      if errors.empty?
+        render json: { status: 200 }
       else
         render json: { status: 403, error: 'duplicate files not allowed' }
       end
