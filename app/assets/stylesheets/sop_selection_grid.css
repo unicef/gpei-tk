@@ -212,3 +212,11 @@
 #sop_grid_responsible_title_div {
   opacity:0.6;
 }
+#no_items_in_filter_msg_div {
+  height:100px;
+  width:auto !important;
+}
+#filter_modal {
+  max-width:30%;
+  height:100px;
+}
