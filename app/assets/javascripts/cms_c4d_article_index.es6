@@ -192,7 +192,7 @@ $(() => {
     `)
   }
   function getReferenceLinksList(selected_reference_links, reference_link_order) {
-    let idx = -1
+    let idx = 0
     let last_idx = selected_reference_links.length - 1
     let rows = ''
     _.isNull(reference_link_order) ?  reference_link_order = _.map(selected_reference_links, link => { return link.id }) : reference_link_order = reference_link_order.split(' ')
