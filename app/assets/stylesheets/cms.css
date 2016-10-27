@@ -197,3 +197,9 @@
 .reference_link_row {
   border:1px solid black;
 }
+#cms_reference_link_filter_header,
+#cms_reference_links_list_header,
+#cms_sop_article_list_header,
+#cms_c4d_article_list_header {
+  margin-left:15px;
+}
