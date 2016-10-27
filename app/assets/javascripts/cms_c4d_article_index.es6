@@ -18,6 +18,7 @@ $(() => {
     }).done(response => {
       let c4d_articles = response.c4d_articles
       let c4d_subcategories = response.c4d_subcategories
+      let c4d_categories = response.c4d_categories
       $.ajax({
         method: 'GET',
         url: 'cms/users/'
@@ -26,7 +27,7 @@ $(() => {
         $('#CMS_index_content').empty()
         $('#CMS_index_content').append("<h2 id='cms_c4d_article_list_header'>C4D Article Index</h2>")
         appendC4dArticleTableHeader()
-        appendC4dArticleRows(c4d_articles, response.users, c4d_subcategories)
+        appendC4dArticleRows(c4d_articles, response.users, c4d_subcategories, c4d_categories)
       })
     })
   })
@@ -40,14 +41,14 @@ $(() => {
 
   function appendC4dArticleTableHeader(){
     $('#CMS_index_content').append('<table id="CMS_c4d_articles_table" class="ui celled table"></table>')
-    $('#CMS_c4d_articles_table').append('<thead><tr><th class="text-center"> Order id </th><th class="text-center"> Subcategory </th><th class="text-center"> Title </th><th class="text-center"> Status </th><th class="text-center"> Updated </th><th class="text-center"> Created </th><th class="text-center"> Author </th><th class="text-center"></th></tr></thead>')
+    $('#CMS_c4d_articles_table').append('<thead><tr><th class="text-center"> Order id </th><th class="text-center"> Category </th><th class="text-center"> Subcategory </th><th class="text-center"> Title </th><th class="text-center"> Status </th><th class="text-center"> Updated </th><th class="text-center"> Created </th><th class="text-center"> Author </th><th class="text-center"></th></tr></thead>')
   }
 
   function formatPublished(published) {
     return published ? 'Published' : 'Not Published'
   }
 
-  function appendC4dArticleRows(c4d_articles, users, c4d_subcategories){
+  function appendC4dArticleRows(c4d_articles, users, c4d_subcategories, c4d_categories){
     let idx = 0
     let last_idx = c4d_articles.length - 1
     _.forEach(c4d_articles, article => {
@@ -61,6 +62,7 @@ $(() => {
                       <a id='c4d_order_id_down' href=''><i class="fa fa-sort-desc fa-2x" aria-hidden="true"></i></a>
                     </div>
                   </td>
+                  <td>${ c4d_categories[article.c4d_category_id-1].title }</td>
                   <td>${ c4d_subcategories[article.c4d_subcategory_id-1].title }</td>
                   <td><div id='cms_c4d_article_title'><a id="${ article.id }" href=""><strong><u>${ article.title }</u></strong></a></div></td>
                   <td>${ formatPublished(article.published) }</td>

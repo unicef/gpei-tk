@@ -17,6 +17,8 @@ $(() => {
       url: 'cms/sop_articles/'
     }).done(response => {
       let sop_articles = response.sop_articles
+      let sop_time_periods = response.sop_time_periods
+      let sop_categories = response.sop_categories
       $.ajax({
         method: 'GET',
         url: 'cms/users/'
@@ -25,7 +27,7 @@ $(() => {
         $('#CMS_index_content').empty()
         $('#CMS_index_content').append("<h2 id='cms_sop_article_list_header'>SOP Article Index</h2>")
         appendSopArticleTableHeader()
-        appendSopArticleRows(sop_articles, response.users)
+        appendSopArticleRows(sop_articles, response.users, sop_time_periods, sop_categories)
       })
     })
   })
@@ -72,10 +74,10 @@ $(() => {
 
   function appendSopArticleTableHeader(){
     $('#CMS_index_content').append('<table id="CMS_sop_articles_table" class="ui celled table"></table>')
-    $('#CMS_sop_articles_table').append('<thead><tr><th class="text-center"> Order id </th><th class="text-center"> Title </th><th class="text-center"> Status </th><th class="text-center"> Updated </th><th class="text-center"> Created </th><th class="text-center"> Author </th><th class="text-center"></th></tr></thead>')
+    $('#CMS_sop_articles_table').append('<thead><tr><th class="text-center"> Order id </th><th class="text-center"> Time Period </th><th class="text-center"> Category </th><th class="text-center"> Title </th><th class="text-center"> Status </th><th class="text-center"> Updated </th><th class="text-center"> Created </th><th class="text-center"> Author </th><th class="text-center"></th></tr></thead>')
   }
 
-  function appendSopArticleRows(sop_articles, users){
+  function appendSopArticleRows(sop_articles, users, sop_time_periods, sop_categories){
     let idx = 0
     let last_idx = sop_articles.length - 1
     _.forEach(sop_articles, article => {
@@ -91,6 +93,8 @@ $(() => {
                       <a id='sop_order_id_down' href=''><i class="fa fa-sort-desc fa-2x" aria-hidden="true"></i></a>
                     </div>
                   </td>
+                  <td>${ sop_time_periods[article.sop_time_id-1].period }</td>
+                  <td>${ sop_categories[article.sop_category_id-1].title }</td>
                   <td>
                     <div id='cms_sop_article_title_div'>
                       <a id="${article.id}" href=""><strong><u>${article.title}</u></strong></a>
