@@ -102,6 +102,6 @@ class Cms::C4dArticlesController < ApplicationController
   private
 
   def safe_article_params
-    params.require(:article).permit(:cms_title, :title, :content, :c4d_subcategory_id, :c4d_category_id)
+    params.require(:article).permit(:title, :content, :c4d_subcategory_id, :c4d_category_id)
   end
 end

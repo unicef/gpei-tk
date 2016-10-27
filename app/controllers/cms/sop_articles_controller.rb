@@ -102,6 +102,6 @@ class Cms::SopArticlesController < ApplicationController
   private
 
   def safe_article_params
-    params.require(:article).permit(:cms_title, :title, :responsible, :support, :responsible_office_id, :support_affiliation_id, :content, :video_url, :sop_time_id, :sop_category_id)
+    params.require(:article).permit(:title, :responsible, :support, :responsible_office_id, :support_affiliation_id, :content, :video_url, :sop_time_id, :sop_category_id)
   end
 end
