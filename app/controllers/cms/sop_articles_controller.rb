@@ -4,7 +4,9 @@ class Cms::SopArticlesController < ApplicationController
   def index
     if request.xhr?
       sop_articles = SopArticle.all.order(:order_id)
-      render json: { sop_articles: sop_articles, status: 200 }
+      sop_time_periods = SopTime.all.order(:id)
+      sop_categories = SopCategory.all.order(:id)
+      render json: { sop_articles: sop_articles, sop_time_periods: sop_time_periods, sop_categories: sop_categories, status: 200 }
     end
   end
 

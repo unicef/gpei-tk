@@ -5,7 +5,8 @@ class Cms::C4dArticlesController < ApplicationController
     if request.xhr?
       c4d_articles = C4dArticle.all.order(:order_id)
       c4d_subcategories = C4dSubcategory.all.order(:id)
-      render json: { c4d_articles: c4d_articles, c4d_subcategories: c4d_subcategories, status: 200 }
+      c4d_categories = C4dCategory.all.order(:id)
+      render json: { c4d_articles: c4d_articles, c4d_subcategories: c4d_subcategories, c4d_categories: c4d_categories, status: 200 }
     end
   end
 
@@ -28,8 +29,8 @@ class Cms::C4dArticlesController < ApplicationController
   def show
     if request.xhr?
       c4d_article = C4dArticle.find_by(id: params[:id])
-      c4d_subcategories = C4dSubcategory.all
-      c4d_categories = C4dCategory.all
+      c4d_subcategories = C4dSubcategory.all.order(:id)
+      c4d_categories = C4dCategory.all.order(:id)
       embedded_images = c4d_article.embedded_images
       selected_reference_links = c4d_article.reference_links
       render json: { c4d_article: c4d_article,
