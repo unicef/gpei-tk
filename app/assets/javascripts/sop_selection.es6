@@ -29,6 +29,30 @@ $(() => {
     autoAdjustSopFilterHeights()
   })
 
+  function alertIfGridEmpty(filterValue) {
+    let grid_items = filterValue.split(', ')
+    let found = false
+    _.forEach(grid_items, filter_id => {
+      let element = $container.find(filter_id)
+      if (!_.isEmpty(element)){
+        found = true
+      }
+    })
+    if (!found){
+      $('#filter_modal').modal('show')
+      $('#filter_modal .content').empty()
+      $('#filter_modal .content').append("<div id='no_items_in_filter_msg_div'>No articles available for selected filters</div>")
+    }
+  }
+
+  $('#filter_modal').modal({
+    onHide: () => {
+      $('#filter_modal .content').empty()
+      $('#filter_modal .header').empty()
+    }
+  })
+
+
   function updateIsotope(){
     let inclusives = []
     let checked_labels = ''
@@ -46,6 +70,9 @@ $(() => {
     $container.isotope({ filter: filterValue })
     filterValue = filterValue === '*' ? '' : filterValue
     // $output.html("<li id=\"checklist_article\">" + filterValue + "</li>")
+    if (filterValue !== '') {
+      alertIfGridEmpty(filterValue)
+    }
   }
   function autoAdjustSopFilterHeights() {
     $('#select_filter_dropdown_menu').height($('#selected_filters_output').height())
@@ -57,10 +84,11 @@ $(() => {
     let category_filters = _.filter($('#sop_category_filter input'), filter => { return filter.checked })
     let responsible_filters = _.filter($('#sop_responsible_filter input'), filter => { return filter.checked })
     let inclusives = []
+    let filter = ''
     if (!_.isEmpty(time_filters)) {
       _(time_filters).forEach(time_filter => {
         let pushed = false
-        let filter = time_filter.value
+        filter = time_filter.value
         if(!_.isEmpty(category_filters)){
           _(category_filters).forEach(category_filter => {
             pushed = false
