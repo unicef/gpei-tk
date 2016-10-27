@@ -20,6 +20,7 @@ $(() => {
           toggleProgressSpinner()
           let reference_links = response.reference_links
           $('#CMS_index_content').empty()
+          $('#CMS_index_content').append("<h2 id='cms_c4d_article_list_header'>C4D Article Create</h2>")
           let content = getEmptyC4dArticleForm(c4d_subcategories, c4d_categories, reference_links)
           $('#CMS_index_content').append(content)
           initializeCKEditor();
@@ -55,10 +56,6 @@ $(() => {
   function getEmptyC4dArticleForm(c4d_subcategories, c4d_categories, reference_links){
     return (`
       <form id="CMS_c4d_article_create_form" class="ui form CMS_c4d_article_form_div">
-        <div class="field">
-          <label>CMS Title</label>
-          <input type="text" name="article[cms_title]" placeholder="CMS Title" value="">
-        </div>
         ${getDropdown("Category", "c4d_category_id", c4d_categories)}
         ${getDropdown("Subcategory", "c4d_subcategory_id", c4d_subcategories)}
         <div class="field">

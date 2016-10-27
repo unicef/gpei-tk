@@ -30,6 +30,7 @@ $(() => {
               toggleProgressSpinner()
               let reference_links = response.reference_links
               $('#CMS_index_content').empty()
+              $('#CMS_index_content').append("<h2 id='cms_c4d_article_list_header'>SOP Article Create</h2>")
               let content = getEmptySopArticleForm(sop_times, sop_categories, responsible_offices, support_affiliations, reference_links)
               $('#CMS_index_content').append(content)
               initializeCKEditor()
@@ -66,10 +67,6 @@ $(() => {
   function getEmptySopArticleForm(sop_times, sop_categories, responsible_offices, support_affiliations, reference_links){
     return (`
       <form id="CMS_sop_article_create_form" class="ui form CMS_sop_article_form_div">
-        <div class="field">
-          <label>CMS Title</label>
-          <input type="text" name="article[cms_title]" placeholder="CMS Title" value="">
-        </div>
         ${getSopTimeDropdown("Time", "sop_time_id", sop_times)}
         ${getDropdown("Category", "sop_category_id", sop_categories)}
         <div class="field">

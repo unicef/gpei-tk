@@ -24,6 +24,7 @@ $(() => {
       }).done(response => {
         toggleProgressSpinner()
         $('#CMS_index_content').empty()
+        $('#CMS_index_content').append("<h2 id='cms_c4d_article_list_header'>C4D Article Index</h2>")
         appendC4dArticleTableHeader()
         appendC4dArticleRows(c4d_articles, response.users, c4d_subcategories)
       })
@@ -61,7 +62,7 @@ $(() => {
                     </div>
                   </td>
                   <td>${ c4d_subcategories[article.c4d_subcategory_id-1].title }</td>
-                  <td><div id='cms_c4d_article_title'><a id="${ article.id }" href="">${ article.title }</a></div></td>
+                  <td><div id='cms_c4d_article_title'><a id="${ article.id }" href=""><strong><u>${ article.title }</u></strong></a></div></td>
                   <td>${ formatPublished(article.published) }</td>
                   <td>${ new Date(article.updated_at) }</td>
                   <td>${ new Date(article.created_at) }</td>
@@ -148,6 +149,7 @@ $(() => {
       }).done(response => {
         toggleProgressSpinner()
         $('#CMS_index_content').empty()
+        $('#CMS_index_content').append("<h2 id='cms_c4d_article_list_header'>C4D Article Edit</h2>")
         let content = getCMSC4dArticleContent(response.c4d_article,
                                               response.c4d_subcategories,
                                               response.c4d_categories,
@@ -167,10 +169,6 @@ $(() => {
       <span><strong>Order ID: ${article.order_id}</strong></span>
       &nbsp;
       <form id="CMS_c4d_article_form" class="ui form">
-        <div class="field">
-          <label>CMS Title</label>
-          <input type="text" name="article[cms_title]" placeholder="${article.cms_title}" value="${article.cms_title}">
-        </div>
         ${getDropdown("Category", "c4d_category_id", c4d_categories, article.c4d_category_id)}
         ${getDropdown("Subcategory", "c4d_subcategory_id", c4d_subcategories, article.c4d_subcategory_id)}
         <div class="field">

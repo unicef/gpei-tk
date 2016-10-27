@@ -34,6 +34,7 @@ $(() => {
         $('#CMS_index_content').empty()
         // appendReferenceLinkHeader()
         // appendReferenceLinkRows(reference_links, reference_link_categories, response.users)
+        $('#CMS_index_content').append("<h2 id='cms_reference_links_list_header'>Uploaded Reference Links - (.pdf's) Index</h2>")
         $('#CMS_index_content').append(getReferenceLinkGrid(reference_links, reference_link_categories, response.users))
         loadIsotopeHandlers()
       })
@@ -60,7 +61,10 @@ $(() => {
   }
 
   function getReferenceLinkGrid(reference_links, reference_link_categories, users){
-    return `<div id='cms_reference_links_filter_menu' class="button-group filter-button-group col-md-11">
+    return `<div>
+              <h4 id='cms_reference_link_filter_header'><u>Find attached reference link by category:</u></h4>
+            </div>
+            <div id='cms_reference_links_filter_menu' class="button-group filter-button-group col-md-11">
               <button data-filter="*" class='button is-checked'>show all</button>
               <button data-filter=".Understand" class='button'>Understand</button>
               <button data-filter=".Plan" class='button'>Plan</button>
@@ -74,20 +78,20 @@ $(() => {
                     <div class='col-md-4'>
                       <div id='reference_link_list_name_td' class='col-md-12'>
                         <div id='${ reference_link.id }' class='col-md-12'>
-                          <a id='cms_reference_link_icon' href="${ reference_link.absolute_url }" target='_blank'><i class="fa fa-search" aria-hidden="true"></i> <strong>Preview</strong></a>
+                          <a id='cms_reference_link_icon' href="${ reference_link.absolute_url }" target='_blank'><i class="fa fa-search" aria-hidden="true"></i> <strong><u>Preview .pdf</u></strong></a>
                           <div><strong>Title:</strong> <div id='cms_reference_link_title_div'>${!_.isNull(reference_link.title) ? reference_link.title : 'No title given' }</div></div>
                           <div style='height:10px' class='col-md-12'></div>
                           <div class='col-md-12'><strong>File name:</strong> <div id='cms_reference_link_file_name_div'>${ reference_link.document_file_name }</div></div>
                         </div>
                         <div style='height:10px' class='col-md-12'></div>
                         <div class='col-md-12'>
-                          <div class='col-md-12'>Description:</div>
+                          <div class='col-md-12'><strong>Description:</strong></div>
                           <div id='cms_reference_link_description_div' class='col-md-12'>${!_.isNull(reference_link.description) ? reference_link.description : 'Description coming soon'}</div>
                         </div>
                         <div style='height:10px' class='col-md-12'></div>
                       </div>
                     </div>
-                    <div class='col-md-2'><strong>Categories:</strong><br> ${ _.isUndefined(reference_link_categories[reference_link.id]) ? '' : _.map(reference_link_categories[reference_link.id], reference_link_categories => { return reference_link_categories.details }).join("<div style='height:2px;background:black;width:100%'></div>")}</div>
+                    <div class='col-md-2'><strong>Where pdf is attached:</strong><br> ${ _.isUndefined(reference_link_categories[reference_link.id]) ? '' : _.map(reference_link_categories[reference_link.id], reference_link_categories => { return reference_link_categories.details }).join("<div style='height:2px;background:black;width:100%'></div>")}</div>
                     <div class='col-md-1 text-center'><strong>Language:</strong><br> ${reference_link.language}</div>
                     <div class='col-md-1'><strong>Updated:</strong><br> ${moment(reference_link.updated_at, "YYYY-MM-DD").format("MMM DD, YYYY")}</div>
                     <div class='col-md-1'><strong>Created:</strong><br> ${moment(reference_link.created_at, "YYYY-MM-DD").format("MMM DD, YYYY")}</div>
@@ -225,7 +229,7 @@ $(() => {
     e.preventDefault()
     toggleProgressSpinner()
     $('#CMS_modal').modal('show')
-    $('#CMS_modal #CMS_modal_header').append("<h3>Update reference link</h3>")
+    $('#CMS_modal #CMS_modal_header').append("<h3>Reference link - (.pdf) - Edit</h3>")
     let title = $('#CMS_index_content #' + e.currentTarget.parentElement.id + ' #cms_reference_link_title_div').text()
     let description = $('#CMS_index_content #' + e.currentTarget.parentElement.id + ' #cms_reference_link_description_div').text()
     let file_name = $('#CMS_index_content #' + e.currentTarget.parentElement.id + ' #cms_reference_link_file_name_div').text()
@@ -248,11 +252,11 @@ $(() => {
                   <label>
                     <h4>
                       <a id='' href="${ url }" target='_blank'>
-                        <i class="fa fa-search" aria-hidden="true"></i>
-                      </a>
-                      File name: ${ file_name }
+                        <i class="fa fa-search" aria-hidden="true"></i> <strong><u>Preview .pdf</u></strong>
+                      </a><br>
+                      <u>File name:</u> ${ file_name }
                       <br>
-                      Title:
+                      <u>Title:</u>
                     </h4>
                   </label>
                   <input class="reference[title]" type="text" placeholder="No title" name="reference_link[title]" value="${ (_.isNull(reference_link_title) || reference_link_title === '' || reference_link_title === 'No title given') ? '' : reference_link_title }" style='margin-bottom:5px' required>

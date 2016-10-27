@@ -23,6 +23,7 @@ $(() => {
       }).done(response => {
         toggleProgressSpinner()
         $('#CMS_index_content').empty()
+        $('#CMS_index_content').append("<h2 id='cms_sop_article_list_header'>SOP Article Index</h2>")
         appendSopArticleTableHeader()
         appendSopArticleRows(sop_articles, response.users)
       })
@@ -34,6 +35,7 @@ $(() => {
     else
       $('#progress_spinner').css('visibility', 'hidden')
   }
+
   $('#CMS_index_content').on('click', '#CMS_sop_toggle_published', e => {
     let id = e.currentTarget.parentElement.id
     toggleProgressSpinner()
@@ -51,6 +53,7 @@ $(() => {
       history.pushState({}, null, 'cms');
     })
   })
+
   function getPublishToggleDropdown(id){
     return (
       `<div id="cms_user_edit_dropdown" class="ui compact menu">
@@ -90,7 +93,7 @@ $(() => {
                   </td>
                   <td>
                     <div id='cms_sop_article_title_div'>
-                      <a id="${article.id}" href="">${article.title}</a>
+                      <a id="${article.id}" href=""><strong><u>${article.title}</u></strong></a>
                     </div>
                   </td>
                   <td>
@@ -113,6 +116,7 @@ $(() => {
       idx += 1
     })
   }
+
   $('#CMS_index_content').on('click', '#sop_order_id_up', e => {
     e.preventDefault()
     let id = e.currentTarget.parentElement.parentElement.parentElement.id
@@ -144,6 +148,7 @@ $(() => {
     }
     return false
   })
+
   $('#CMS_index_content').on('click', '#sop_order_id_down', e => {
     e.preventDefault()
     let id = e.currentTarget.parentElement.parentElement.parentElement.id
@@ -194,6 +199,7 @@ $(() => {
       }).done(response => {
         toggleProgressSpinner()
         $('#CMS_index_content').empty()
+        $('#CMS_index_content').append("<h2 id='cms_sop_article_list_header'>SOP Article Edit</h2>")
         let content = getCMSSopArticleContent(response.sop_article, response.sop_times, response.sop_categories, response.responsible_offices, response.support_affiliations, reference_links, response.selected_reference_links)
         $('#CMS_index_content').append(content)
         initializeCKEditor()
@@ -208,10 +214,6 @@ $(() => {
       <span><strong>Order ID: ${article.order_id}</strong></span>
       &nbsp;
       <form id="CMS_sop_article_form" class="ui form">
-        <div class="field">
-          <label>CMS Title</label>
-          <input type="text" name="article[cms_title]" placeholder="${article.cms_title}" value="${article.cms_title}">
-        </div>
         ${getSopTimeDropdown("Time", "sop_time_id", sop_times, article.sop_time_id)}
         ${getDropdown("Category", "sop_category_id", sop_categories, article.sop_category_id, true)}
         <div class="field">
