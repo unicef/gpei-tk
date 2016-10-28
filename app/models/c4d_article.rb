@@ -11,6 +11,14 @@ class C4dArticle < ActiveRecord::Base
   has_many :reference_link_articles, as: :reference_linkable
   has_many :reference_links, through: :reference_link_articles
 
+  has_attached_file :reference_mp3
+  has_many :reference_mp3_articles, as: :reference_mp3able
+  has_many :reference_mp3s, through: :reference_mp3_articles
+
+  has_attached_file :reference_pptx
+  has_many :reference_pptx_articles, as: :reference_pptxable
+  has_many :reference_pptxes, through: :reference_pptx_articles
+
   has_many :embedded_images
 
   def to_param
