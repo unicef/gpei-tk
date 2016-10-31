@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161028173843) do
+ActiveRecord::Schema.define(version: 20161031055033) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -29,6 +29,8 @@ ActiveRecord::Schema.define(version: 20161028173843) do
     t.datetime "created_at",                           null: false
     t.datetime "updated_at",                           null: false
     t.string   "reference_link_order"
+    t.string   "reference_mp3_order"
+    t.string   "reference_pptx_order"
   end
 
   add_index "c4d_articles", ["order_id"], name: "index_c4d_articles_on_order_id", using: :btree
@@ -112,7 +114,6 @@ ActiveRecord::Schema.define(version: 20161028173843) do
   end
 
   create_table "reference_mp3s", force: :cascade do |t|
-    t.string   "url",               null: false
     t.string   "language",          null: false
     t.integer  "author_id",         null: false
     t.datetime "created_at",        null: false
@@ -121,6 +122,7 @@ ActiveRecord::Schema.define(version: 20161028173843) do
     t.string   "clip_content_type"
     t.integer  "clip_file_size"
     t.datetime "clip_updated_at"
+    t.string   "absolute_url"
   end
 
   create_table "reference_pptx_articles", force: :cascade do |t|
@@ -132,7 +134,6 @@ ActiveRecord::Schema.define(version: 20161028173843) do
   end
 
   create_table "reference_pptxes", force: :cascade do |t|
-    t.string   "url",                   null: false
     t.string   "language",              null: false
     t.integer  "author_id",             null: false
     t.datetime "created_at",            null: false
@@ -141,6 +142,7 @@ ActiveRecord::Schema.define(version: 20161028173843) do
     t.string   "document_content_type"
     t.integer  "document_file_size"
     t.datetime "document_updated_at"
+    t.string   "absolute_url"
   end
 
   create_table "responsible_offices", force: :cascade do |t|
@@ -172,6 +174,8 @@ ActiveRecord::Schema.define(version: 20161028173843) do
     t.datetime "created_at",                             null: false
     t.datetime "updated_at",                             null: false
     t.string   "reference_link_order"
+    t.string   "reference_mp3_order"
+    t.string   "reference_pptx_order"
   end
 
   add_index "sop_articles", ["order_id"], name: "index_sop_articles_on_order_id", using: :btree
