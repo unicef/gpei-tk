@@ -204,7 +204,7 @@ $(() => {
         toggleProgressSpinner()
         $('#CMS_index_content').empty()
         $('#CMS_index_content').append("<h2 id='cms_sop_article_list_header'>SOP Article Edit</h2>")
-        let content = getCMSSopArticleContent(response.sop_article, response.sop_times, response.sop_categories, response.responsible_offices, response.support_affiliations, reference_links, response.selected_reference_links)
+        let content = getCMSSopArticleContent(response.sop_article, response.sop_times, response.sop_categories, response.responsible_offices, response.support_affiliations, reference_links, response.selected_reference_links, response.selected_reference_mp3s, response.selected_reference_pptxes, response.reference_mp3s, response.reference_pptxes)
         $('#CMS_index_content').append(content)
         initializeCKEditor()
         $('#editor').val(response.sop_article.content)
@@ -212,7 +212,7 @@ $(() => {
     })
   })
 
-  function getCMSSopArticleContent(article, sop_times, sop_categories, responsible_offices, support_affiliations, reference_links, selected_reference_links) {
+  function getCMSSopArticleContent(article, sop_times, sop_categories, responsible_offices, support_affiliations, reference_links, selected_reference_links, selected_reference_mp3s, selected_reference_pptxes, reference_mp3s, reference_pptxes) {
     return (`
     <div id="${article.id}" class="CMS_sop_article_form_div">
       <span><strong>Order ID: ${article.order_id}</strong></span>
@@ -243,7 +243,11 @@ $(() => {
           <input type="text" name="article[video_url]" value="${article.video_url}">
         </div>
         ${getReferenceLinkSelector(reference_links, selected_reference_links)}
-        ${ getReferenceLinksList(selected_reference_links, article.reference_link_order) }
+        ${getReferenceLinksList(selected_reference_links, article.reference_link_order)}
+        ${getReferenceMp3Selector(reference_mp3s, selected_reference_mp3s)}
+        ${getReferenceMp3sList(selected_reference_mp3s, article.reference_mp3_order)}
+        ${getReferencePptxSelector(reference_pptxes, selected_reference_pptxes)}
+        ${getReferencePptxesList(selected_reference_pptxes, article.reference_pptx_order)}
         <button class="ui button" type="submit">Submit</button>
       </form>
     </div>
@@ -271,6 +275,70 @@ $(() => {
       idx += 1
     })
     let content = `<div id='cms_sop_article_reference_link_list' class='col-md-12'>
+                    ${rows}
+                   </div>`
+    return content
+  }
+  function getReferenceMp3sList(selected_reference_mp3s, reference_mp3_order) {
+    let idx = 0
+    let last_idx = selected_reference_mp3s.length - 1
+    let rows = ''
+    _.isNull(reference_mp3_order) ?  reference_mp3_order = _.map(selected_reference_mp3s, link => { return link.id }) : reference_mp3_order = reference_mp3_order.split(' ')
+    _.forEach(reference_mp3_order, id => {
+      _.forEach(selected_reference_mp3s, reference_mp3 =>{
+        if (reference_mp3.id === parseInt(id)) {
+          rows += `<div id='${reference_mp3.id}' class='col-md-12 reference_mp3_row ${idx === 0 ? 'first_reference_mp3' : ''} ${ idx === last_idx ? 'last_reference_mp3' : '' }'>
+                  <div id='${reference_mp3.id}' class='col-md-1' style='width:5%;'>
+                    <div id='sop_article_reference_mp3_id_up_div' class='col-md-6'><a id='sop_article_reference_mp3_id_up' href=''><i class="fa fa-sort-asc" aria-hidden="true"></i></a></div>
+                    <div id='sop_article_reference_mp3_id_down_div' class='col-md-6'><a id='sop_article_reference_mp3_id_down' href=''><i class="fa fa-sort-desc" aria-hidden="true"></i></a></div>
+                  </div>
+                  <div id='${reference_mp3.id}' class='col-md-11'>
+                    <strong>Reference Mp3: </strong>${reference_mp3.clip_file_name} - <a href="${reference_mp3.absolute_url}" target="_blank">${reference_mp3.absolute_url}</a>
+                  </div>
+                </div>`
+        }
+      })
+      idx += 1
+    })
+    let content = `<div id='cms_sop_article_reference_mp3_list' class='col-md-12'>
+                    ${rows}
+                   </div>`
+    return content
+  }
+  $('#CMS_index_content').on('click', '#sop_article_reference_pptx_id_up_div', e => {
+    e.preventDefault()
+  })
+  $('#CMS_index_content').on('click', '#sop_article_reference_pptx_id_down_div', e => {
+    e.preventDefault()
+  })
+  $('#CMS_index_content').on('click', '#sop_article_reference_mp3_id_up_div', e => {
+    e.preventDefault()
+  })
+  $('#CMS_index_content').on('click', '#sop_article_reference_mp3_id_down_div', e => {
+    e.preventDefault()
+  })
+  function getReferencePptxesList(selected_reference_pptxes, reference_pptx_order) {
+    let idx = 0
+    let last_idx = selected_reference_pptxes.length - 1
+    let rows = ''
+    _.isNull(reference_pptx_order) ?  reference_pptx_order = _.map(selected_reference_pptxes, link => { return link.id }) : reference_pptx_order = reference_pptx_order.split(' ')
+    _.forEach(reference_pptx_order, id => {
+      _.forEach(selected_reference_pptxes, reference_pptx =>{
+        if (reference_pptx.id === parseInt(id)) {
+          rows += `<div id='${reference_pptx.id}' class='col-md-12 reference_pptx_row ${idx === 0 ? 'first_reference_pptx' : ''} ${ idx === last_idx ? 'last_reference_pptx' : '' }'>
+                  <div id='${reference_pptx.id}' class='col-md-1' style='width:5%;'>
+                    <div id='sop_article_reference_pptx_id_up_div' class='col-md-6'><a id='sop_article_reference_id_up' href=''><i class="fa fa-sort-asc" aria-hidden="true"></i></a></div>
+                    <div id='sop_article_reference_pptx_id_down_div' class='col-md-6'><a id='sop_article_reference_id_down' href=''><i class="fa fa-sort-desc" aria-hidden="true"></i></a></div>
+                  </div>
+                  <div id='${reference_pptx.id}' class='col-md-11'>
+                    <strong>Reference Powerpoint: </strong>${reference_pptx.document_file_name} - <a href="${reference_pptx.absolute_url}" target="_blank">${reference_pptx.absolute_url}</a>
+                  </div>
+                </div>`
+        }
+      })
+      idx += 1
+    })
+    let content = `<div id='cms_sop_article_reference_pptx_list' class='col-md-12'>
                     ${rows}
                    </div>`
     return content
@@ -327,6 +395,34 @@ $(() => {
       </div>
       `)
   }
+  function getReferenceMp3Selector(reference_mp3s, selected_reference_mp3s) {
+    return (`
+      <div id='reference_link_checkboxes' class="field">
+        <label>Reference Mp3s</label>
+          <ul class='list-unstyled'>
+          ${_.map(reference_mp3s, reference_link => {
+            let checked = !_.isEmpty(_.filter(selected_reference_mp3s, (selected_reference) => { return selected_reference.id === reference_link.id })) ? "checked" : ""
+            return `<li><input id=${reference_link.id} ${checked} type='checkbox' name="article[reference_mp3s][]" value="${reference_link.id}">
+                    <label id='cms_reference_link_label' class='filter-label' for=${reference_link.id}>${reference_link.clip_file_name}</label></li>`
+          }).join('\n')}
+          </ul>
+      </div>
+      `)
+  }
+  function getReferencePptxSelector(reference_pptxes, selected_reference_pptxes) {
+    return (`
+      <div id='reference_link_checkboxes' class="field">
+        <label>Reference Powerpoint</label>
+          <ul class='list-unstyled'>
+          ${_.map(reference_pptxes, reference_link => {
+            let checked = !_.isEmpty(_.filter(selected_reference_pptxes, (selected_reference) => { return selected_reference.id === reference_link.id })) ? "checked" : ""
+            return `<li><input id=${reference_link.id} ${checked} type='checkbox' name="article[reference_pptxes][]" value="${reference_link.id}">
+                    <label id='cms_reference_link_label' class='filter-label' for=${reference_link.id}>${reference_link.document_file_name}</label></li>`
+          }).join('\n')}
+          </ul>
+      </div>
+      `)
+  }
 
   function getSopTimeDropdown(label, option_name, sop_times, article_sop_time_id){
     return (`
@@ -347,10 +443,12 @@ $(() => {
     toggleProgressSpinner()
     e.preventDefault()
     let reference_link_order = getSOPArticleReferenceLinkOrder()
+    let reference_mp3_order = getSOPArticleReferenceMp3Order()
+    let reference_pptx_order = getSOPArticleReferencePptxOrder()
     $.ajax({
       method: 'PATCH',
       url: 'cms/sop_articles/' + e.currentTarget.parentElement.id,
-      data: $('#CMS_sop_article_form').serialize() + reference_link_order  + "&authenticity_token=" + _.escape($('meta[name=csrf-token]').attr('content'))
+      data: $('#CMS_sop_article_form').serialize() + reference_link_order + reference_mp3_order + reference_pptx_order + "&authenticity_token=" + _.escape($('meta[name=csrf-token]').attr('content'))
     }).done(response => {
       toggleProgressSpinner()
       $('#CMS_sop_articles_link').trigger('click')
@@ -366,6 +464,18 @@ $(() => {
     // "4&reference_link_order%5B%5D=6&reference_link_order%5B%5D=4"
     return _.isEmpty($('#CMS_index_content #cms_sop_article_reference_link_list').children()) ? '&reference_link_order%5B%5D=' : _.map($('#CMS_index_content #cms_sop_article_reference_link_list').children(), div => {
               return `&reference_link_order%5B%5D=${$(div).attr('id')}`
+           }).join('')
+  }
+  function getSOPArticleReferenceMp3Order(){
+    // "4&reference_link_order%5B%5D=6&reference_link_order%5B%5D=4"
+    return _.isEmpty($('#CMS_index_content #cms_sop_article_reference_mp3_list').children()) ? '&reference_mp3_order%5B%5D=' : _.map($('#CMS_index_content #cms_sop_article_reference_mp3_list').children(), div => {
+              return `&reference_mp3_order%5B%5D=${$(div).attr('id')}`
+           }).join('')
+  }
+  function getSOPArticleReferencePptxOrder(){
+    // "4&reference_link_order%5B%5D=6&reference_link_order%5B%5D=4"
+    return _.isEmpty($('#CMS_index_content #cms_sop_article_reference_pptx_list').children()) ? '&reference_pptx_order%5B%5D=' : _.map($('#CMS_index_content #cms_sop_article_reference_pptx_list').children(), div => {
+              return `&reference_pptx_order%5B%5D=${$(div).attr('id')}`
            }).join('')
   }
 

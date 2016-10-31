@@ -52,7 +52,6 @@ $(() => {
     }
   })
 
-
   function updateIsotope(){
     let inclusives = []
     let checked_labels = ''
@@ -286,7 +285,9 @@ $(() => {
                                           sop_times: response.sop_times,
                                           current_user: response.current_user,
                                           checklist_articles: response.checklist_articles,
-                                          reference_links: response.reference_links })
+                                          reference_links: response.reference_links,
+                                          reference_mp3s: response.reference_mp3s,
+                                          reference_pptxes: response.reference_pptxes })
       let header = sop_article_header({ article: response.article,
                                         sop_times: response.sop_times,
                                         sop_categories: response.sop_categories })
@@ -331,7 +332,7 @@ $(() => {
       <div id="sop_article_show_page">
         <div id="sop_article_show_info_column" class='col-md-3'>
           <div id="sop_article_show_info_column_content">
-            ${ getReferenceLinksDiv(params['reference_links'], params['article']) }
+            ${ getReferenceLinksDiv(params['reference_links'], params['article'], params['reference_mp3s'], params['reference_pptxes']) }
             ${ getVideoContent(params) }
           </div>
         </div>
@@ -411,11 +412,13 @@ $(() => {
     return image
   }
 
-  function getReferenceLinksDiv(reference_links, article){
+  function getReferenceLinksDiv(reference_links, article, reference_mp3s, reference_pptxes){
     let content = ""
     if (!_.isEmpty(reference_links)) {
       let rows = ''
       let reference_link_order = ''
+      let reference_mp3_order = ''
+      let reference_pptx_order = ''
       reference_link_order = _.isNull(article.reference_link_order) ? _.map(reference_links, link => { return link.id }) : article.reference_link_order.split(' ')
       _.forEach(reference_link_order, id => {
         _.forEach(reference_links, reference_link => {
@@ -433,6 +436,50 @@ $(() => {
                       </div>
                       <div id='reference_link_anchor_div' class='col-md-10'>
                         <a class='reference_link_anchor' href="${ reference_link.absolute_url }" target='_blank'>&nbsp;${ reference_title }</a>
+                      </div>
+                    </div>`
+          }
+        })
+      })
+      reference_mp3_order = _.isNull(article.reference_mp3_order) ? _.map(reference_mp3s, link => { return link.id }) : article.reference_mp3_order.split(' ')
+      _.forEach(reference_mp3_order, id => {
+        _.forEach(reference_mp3s, reference_mp3 => {
+          if (reference_mp3.id === parseInt(id)){
+            let reference_title = ''
+            if (reference_mp3.title === '' || _.isNull(reference_mp3.title)){
+              reference_title = _.replace(reference_mp3.clip_file_name, new RegExp("_","g")," ")
+              reference_title = _.replace(reference_title, new RegExp(".mp3","g"),"")
+            } else {
+              reference_title = reference_mp3.title
+            }
+            rows += `<div id='reference_link_row' class='row'>
+                      <div class='col-md-2'>
+                        <img class='reference_link_pdf_icon' src='/assets/reference_icons/icon-doc-mp3.png'>
+                      </div>
+                      <div id='reference_link_anchor_div' class='col-md-10'>
+                        <a class='reference_link_anchor' href="${ reference_mp3.absolute_url }" target='_blank'>&nbsp;${ reference_title }</a>
+                      </div>
+                    </div>`
+          }
+        })
+      })
+      reference_pptx_order = _.isNull(article.reference_pptx_order) ? _.map(reference_pptxes, link => { return link.id }) : article.reference_pptx_order.split(' ')
+      _.forEach(reference_pptx_order, id => {
+        _.forEach(reference_pptxes, reference_pptx => {
+          if (reference_pptx.id === parseInt(id)){
+            let reference_title = ''
+            if (reference_pptx.title === '' || _.isNull(reference_pptx.title)){
+              reference_title = _.replace(reference_pptx.document_file_name, new RegExp("_","g")," ")
+              reference_title = _.replace(reference_title, new RegExp(".ppsx","g"),"")
+            } else {
+              reference_title = reference_pptx.title
+            }
+            rows += `<div id='reference_link_row' class='row'>
+                      <div class='col-md-2'>
+                        <img class='reference_link_pdf_icon' src='/assets/reference_icons/icon-doc-ppt.png'>
+                      </div>
+                      <div id='reference_link_anchor_div' class='col-md-10'>
+                        <a class='reference_link_anchor' href="${ reference_pptx.absolute_url }" target='_blank'>&nbsp;${ reference_title }</a>
                       </div>
                     </div>`
           }
