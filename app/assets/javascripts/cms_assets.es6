@@ -486,7 +486,7 @@ $(() => {
     // <i class="fa fa-plus" aria-hidden="true"></i>
     return (`
       <div class="field">
-        <label>Embedded Image<a id="add_embedded_images_input"  href=''></a></label>
+        <label>Attached Image:<a id="add_embedded_images_input"  href=''></a></label>
         <input class="embedded_image_file" type="file" name="embedded_image[image]" value="">
       </div>
     `)

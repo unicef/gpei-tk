@@ -257,7 +257,7 @@ $(() => {
   })
   function getEmbeddedImagesList(embedded_images){
     return `${_.map(embedded_images, embedded_image => {
-              return (`<p><strong>Embedded Image: </strong>${embedded_image.image_file_name} - <a href="${embedded_image.absolute_url}" target="_blank">${embedded_image.absolute_url}</a></p>`)
+              return (`<p><strong>Attached Image: </strong>${embedded_image.image_file_name} - <a href="${embedded_image.absolute_url}" target="_blank">${embedded_image.absolute_url}</a></p>`)
             }).join('\n')}`
   }
   function getReferenceLinkSelector(reference_links, selected_reference_links) {
