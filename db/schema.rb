@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161031055033) do
+ActiveRecord::Schema.define(version: 20161031200902) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -123,6 +123,8 @@ ActiveRecord::Schema.define(version: 20161031055033) do
     t.integer  "clip_file_size"
     t.datetime "clip_updated_at"
     t.string   "absolute_url"
+    t.string   "title"
+    t.string   "description"
   end
 
   create_table "reference_pptx_articles", force: :cascade do |t|
@@ -143,6 +145,8 @@ ActiveRecord::Schema.define(version: 20161031055033) do
     t.integer  "document_file_size"
     t.datetime "document_updated_at"
     t.string   "absolute_url"
+    t.string   "title"
+    t.string   "description"
   end
 
   create_table "responsible_offices", force: :cascade do |t|
