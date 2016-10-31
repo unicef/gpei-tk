@@ -14,13 +14,17 @@ class SopArticlesController < ApplicationController
       checklist_articles = current_user.sop_checklist.sop_articles if current_user
       sop_times = SopTime.all.order(:id)
       reference_links = sop_article.reference_links.order(:document_file_name)
+      reference_mp3s = sop_article.reference_mp3s.order(:clip_file_name)
+      reference_pptxes = sop_article.reference_pptxes.order(:document_file_name)
       render json: { status: 200,
                      article: sop_article,
                      sop_categories: sop_categories,
                      sop_times: sop_times,
                      current_user: current_user,
                      checklist_articles: checklist_articles,
-                     reference_links: reference_links }
+                     reference_links: reference_links,
+                     reference_mp3s: reference_mp3s,
+                     reference_pptxes: reference_pptxes }
     else
       @nav_bar_offset = 'col-md-offset-7'
       @user = current_user
