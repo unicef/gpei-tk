@@ -20,7 +20,7 @@ class Cms::ReferenceMp3sController < ApplicationController
             errors << clip.errors
           end
         else
-          errors << clip.errors
+          errors << "reference mp3 already exists"
         end
       end
       if errors.empty?

@@ -17,10 +17,10 @@ class Cms::ReferencePptxesController < ApplicationController
                                             language: params[:language])
           reference_pptx.absolute_url = reference_pptx.document.url
           if !reference_pptx.save
-            errors << document.errors
+            errors << reference_pptx.errors
           end
         else
-          errors << document.errors
+          errors << "reference pptx already exists"
         end
       end
       if errors.empty?

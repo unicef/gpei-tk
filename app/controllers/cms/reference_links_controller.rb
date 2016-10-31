@@ -17,10 +17,10 @@ class Cms::ReferenceLinksController < ApplicationController
                                             language: params[:language])
           reference_link.absolute_url = reference_link.document.url
           if !reference_link.save
-            errors << document.errors
+            errors << reference_link.errors
           end
         else
-          errors << document.errors
+          errors << "reference link already exists"
         end
       end
       if errors.empty?

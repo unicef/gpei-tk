@@ -35,12 +35,20 @@ class Cms::SopArticlesController < ApplicationController
       responsible_offices = ResponsibleOffice.all
       support_affiliations = SupportAffiliation.all
       selected_reference_links = sop_article.reference_links
+      selected_reference_mp3s = sop_article.reference_mp3s
+      selected_reference_pptxes = sop_article.reference_pptxes
+      reference_mp3s = ReferenceMp3.all
+      reference_pptxes = ReferencePptx.all
       render json: { sop_article: sop_article,
                      sop_times: sop_times,
                      sop_categories: sop_categories,
                      responsible_offices: responsible_offices,
                      support_affiliations: support_affiliations,
                      selected_reference_links: selected_reference_links,
+                     selected_reference_mp3s: selected_reference_mp3s,
+                     selected_reference_pptxes: selected_reference_pptxes,
+                     reference_pptxes: reference_pptxes,
+                     reference_mp3s: reference_mp3s,
                      status: 200 }
     end
   end
@@ -48,18 +56,9 @@ class Cms::SopArticlesController < ApplicationController
   def update
     if request.xhr?
       sop_article = SopArticle.find_by(id: params[:id])
-      ReferenceLinkArticle.where(reference_linkable: sop_article).destroy_all
-      if !params[:article][:reference_links].nil?
-        params[:article][:reference_links].each do |reference_id|
-          reference = ReferenceLink.find_by(id: reference_id)
-          ReferenceLinkArticle.create(reference_link: reference, reference_linkable: sop_article)
-        end
-        if !(params[:reference_link_order][0] == '')
-          sop_article.reference_link_order = params[:reference_link_order].join(' ')
-        elsif !sop_article.reference_links.empty?
-          sop_article.reference_link_order = sop_article.reference_links.pluck(:id).join(' ')
-        end
-      end
+      attachReferenceLinksToSopArticle(sop_article)
+      attachReferenceMp3sToSopArticle(sop_article)
+      attachReferencePptxesToSopArticle(sop_article)
       sop_article.update(safe_article_params)
       # if sop_article.update(safe_article_params)
       #   sop_article.update(published: false)
@@ -102,6 +101,51 @@ class Cms::SopArticlesController < ApplicationController
   end
 
   private
+
+  def attachReferenceLinksToSopArticle(sop_article)
+    ReferenceLinkArticle.where(reference_linkable: sop_article).destroy_all
+    if !params[:article][:reference_links].nil?
+      params[:article][:reference_links].each do |reference_id|
+        reference = ReferenceLink.find_by(id: reference_id)
+        ReferenceLinkArticle.create(reference_link: reference, reference_linkable: sop_article)
+      end
+      if !(params[:reference_link_order][0] == '')
+        sop_article.reference_link_order = params[:reference_link_order].join(' ')
+      elsif !sop_article.reference_links.empty?
+        sop_article.reference_link_order = sop_article.reference_links.pluck(:id).join(' ')
+      end
+    end
+  end
+
+  def attachReferenceMp3sToSopArticle(sop_article)
+    ReferenceMp3Article.where(reference_mp3able: sop_article).destroy_all
+    if !params[:article][:reference_mp3s].nil?
+      params[:article][:reference_mp3s].each do |reference_id|
+        reference = ReferenceMp3.find_by(id: reference_id)
+        ReferenceMp3Article.create(reference_mp3: reference, reference_mp3able: sop_article)
+      end
+      if !(params[:reference_mp3_order][0] == '')
+        sop_article.reference_mp3_order = params[:reference_mp3_order].join(' ')
+      elsif !sop_article.reference_mp3s.empty?
+        sop_article.reference_mp3_order = sop_article.reference_mp3s.pluck(:id).join(' ')
+      end
+    end
+  end
+
+  def attachReferencePptxesToSopArticle(sop_article)
+    ReferencePptxArticle.where(reference_pptxable: sop_article).destroy_all
+    if !params[:article][:reference_pptxes].nil?
+      params[:article][:reference_pptxes].each do |reference_id|
+        reference = ReferencePptx.find_by(id: reference_id)
+        ReferencePptxArticle.create(reference_pptx: reference, reference_pptxable: sop_article)
+      end
+      if !(params[:reference_pptx_order][0] == '')
+        sop_article.reference_pptx_order = params[:reference_pptx_order].join(' ')
+      elsif !sop_article.reference_pptxes.empty?
+        sop_article.reference_pptx_order = sop_article.reference_pptxes.pluck(:id).join(' ')
+      end
+    end
+  end
 
   def safe_article_params
     params.require(:article).permit(:title, :responsible, :support, :responsible_office_id, :support_affiliation_id, :content, :video_url, :sop_time_id, :sop_category_id)
