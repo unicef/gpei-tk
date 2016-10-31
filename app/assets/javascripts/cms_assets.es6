@@ -41,6 +41,71 @@ $(() => {
     })
   })
 
+  $('#CMS_references_mp3').click(e => {
+    e.preventDefault()
+    toggleProgressSpinner()
+    $.ajax({
+      method: 'GET',
+      url: '/cms/reference_mp3s/'
+    }).done(response => {
+      let reference_mp3s = response.reference_mp3s
+      let reference_mp3_categories = response.reference_mp3_categories
+      $.ajax({
+        method: 'GET',
+        url: '/cms/users/'
+      }).done(response => {
+        toggleProgressSpinner()
+        $('#CMS_index_content').empty()
+        // appendReferencemp3Header()
+        // appendReferencemp3Rows(reference_mp3s, reference_mp3_categories, response.users)
+        $('#CMS_index_content').append("<h2 id='cms_reference_mp3s_list_header'>Uploaded Reference mp3s - (.pdf's) Index</h2>")
+        $('#CMS_index_content').append(getReferencemp3Grid(reference_mp3s, reference_mp3_categories, response.users))
+        loadIsotopeHandlers()
+      })
+    })
+  })
+
+  $('#CMS_references_pptx').click(e => {
+    e.preventDefault()
+    toggleProgressSpinner()
+    $.ajax({
+      method: 'GET',
+      url: '/cms/reference_pptxes/'
+    }).done(response => {
+      let reference_pptxs = response.reference_pptxs
+      let reference_pptx_categories = response.reference_pptx_categories
+      $.ajax({
+        method: 'GET',
+        url: '/cms/users/'
+      }).done(response => {
+        toggleProgressSpinner()
+        $('#CMS_index_content').empty()
+        // appendReferencepptxHeader()
+        // appendReferencepptxRows(reference_pptxs, reference_pptx_categories, response.users)
+        $('#CMS_index_content').append("<h2 id='cms_reference_pptxs_list_header'>Uploaded Reference pptxs - (.pdf's) Index</h2>")
+        $('#CMS_index_content').append(getReferencepptxGrid(reference_pptxs, reference_pptx_categories, response.users))
+        loadIsotopeHandlers()
+      })
+    })
+  })
+    $('#CMS_references_pptx_upload').click(e => {
+    e.preventDefault()
+    toggleProgressSpinner()
+    let content = formForReferenceLinkUpload('pptx')
+    $('#CMS_index_content').empty()
+    $('#CMS_index_content').append(content)
+    toggleProgressSpinner()
+  })
+
+  $('#CMS_references_mp3_upload').click(e => {
+    e.preventDefault()
+    toggleProgressSpinner()
+    let content = formForReferenceLinkUpload('mp3')
+    $('#CMS_index_content').empty()
+    $('#CMS_index_content').append(content)
+    toggleProgressSpinner()
+  })
+
   function loadIsotopeHandlers(){
     $('#CMS_index_content #cms_reference_link_grid').isotope({
       itemSelector: '.reference_link_item',
@@ -104,7 +169,7 @@ $(() => {
   $('#CMS_references_link_upload').click(e => {
     e.preventDefault()
     toggleProgressSpinner()
-    let content = formForReferenceLinkUpload()
+    let content = formForReferenceLinkUpload('link')
     $('#CMS_index_content').empty()
     $('#CMS_index_content').append(content)
     toggleProgressSpinner()
@@ -139,6 +204,64 @@ $(() => {
     })
     return false
   })
+  $('#CMS_index_content').on('submit', '#CMS_reference_mp3_upload_form', e => {
+    e.preventDefault()
+    // let formData = new FormData($(e.currentTarget)[0])
+    let formData = new FormData()
+    $.each($("input[type=file]")[0].files, (idx, file) => {
+      formData.append('reference_mp3['+idx+']', file);
+    })
+    formData.append('language', $('#CMS_reference_mp3_upload_form').find('select')[0].value)
+    $('#CMS_reference_mp3_upload_form button').prop('disabled', true)
+    toggleProgressSpinner()
+    $.ajax({
+      method: 'POST',
+      cache: false,
+      contentType: false,
+      processData: false,
+      url: 'cms/reference_mp3s/',
+      data: formData
+    }).done(response => {
+      toggleProgressSpinner()
+      $('#CMS_reference_mp3_upload_form button').prop('disabled', false)
+      if (response.status === 403){
+        alert(response.error)
+      } else {
+        $('#CMS_references_mp3_upload').click()
+        showDimmerClearBrowser()
+      }
+    })
+    return false
+  })
+  $('#CMS_index_content').on('submit', '#CMS_reference_pptx_upload_form', e => {
+    e.preventDefault()
+    // let formData = new FormData($(e.currentTarget)[0])
+    let formData = new FormData()
+    $.each($("input[type=file]")[0].files, (idx, file) => {
+      formData.append('reference_pptx['+idx+']', file);
+    })
+    formData.append('language', $('#CMS_reference_pptx_upload_form').find('select')[0].value)
+    $('#CMS_reference_pptx_upload_form button').prop('disabled', true)
+    toggleProgressSpinner()
+    $.ajax({
+      method: 'POST',
+      cache: false,
+      contentType: false,
+      processData: false,
+      url: 'cms/reference_pptxes/',
+      data: formData
+    }).done(response => {
+      toggleProgressSpinner()
+      $('#CMS_reference_pptx_upload_form button').prop('disabled', false)
+      if (response.status === 403){
+        alert(response.error)
+      } else {
+        $('#CMS_references_pptx_upload').click()
+        showDimmerClearBrowser()
+      }
+    })
+    return false
+  })
 
   function showDimmerClearBrowser() {
     $('.ui.dimmer').dimmer('show')
@@ -147,21 +270,22 @@ $(() => {
     }, 3000, 'later');
     history.pushState({}, null, 'cms');
   }
-  function getReferenceLinkField() {
+  function getReferenceLinkField(type) {
     // <i class="fa fa-plus" aria-hidden="true"></i>
     return (`
       <div class="field">
-        <label>Reference Link<a id="add_reference_link_input"  href=''></a></label>
-        <input class="reference_link_file" type="file" name="reference_link[]" value="" multiple>
+        <label>Reference ${type}<a id="add_reference_${type}_input"  href=''></a></label>
+        <input class="reference_${type}_file" type="file" name="reference_${type}[]" value="" multiple>
       </div>
     `)
   }
 
-  function formForReferenceLinkUpload() {
+  function formForReferenceLinkUpload(type) {
     return (`
-      <form id="CMS_reference_link_upload_form" class="ui form CMS_c4d_article_form_div">
-        ${getLanguageDropdown()}
-        ${getReferenceLinkField()}
+      <h2 id='cms_reference_${type}_list_header'>Select reference ${type} to upload</h2>
+      <form id="CMS_reference_${type}_upload_form" class="ui form CMS_c4d_article_form_div">
+        ${getLanguageDropdown(type)}
+        ${getReferenceLinkField(type)}
         <button class="ui button" type="submit">Submit</button>
       </form>
       `)
@@ -283,11 +407,11 @@ $(() => {
     })
     return false
   })
-  function getLanguageDropdown(){
+  function getLanguageDropdown(type){
     return (`
       <div class="field">
         <label>Language</label>
-        <select name="reference_link[language]" class="ui dropdown cms_dropdown_select" required>
+        <select name="reference_${type}[language]" class="ui dropdown cms_dropdown_select" required>
           <option value="">Select Language</option>
           <option value="en">English</option>
           <option value="fr">French</option>
