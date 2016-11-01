@@ -459,8 +459,9 @@ $(() => {
       _.delay(() => {
         $('.ui.dimmer').dimmer('hide')
       }, 3000, 'later');
-      history.pushState({}, null, 'cms');
+      history.pushState(null, null, 'cms');
     })
+    return false
   })
 
   function getSOPArticleReferenceLinkOrder(){

@@ -27,13 +27,25 @@ $(() => {
               method: 'GET',
               url: 'cms/reference_links'
             }).done(response => {
-              toggleProgressSpinner()
               let reference_links = response.reference_links
-              $('#CMS_index_content').empty()
-              $('#CMS_index_content').append("<h2 id='cms_c4d_article_list_header'>SOP Article Create</h2>")
-              let content = getEmptySopArticleForm(sop_times, sop_categories, responsible_offices, support_affiliations, reference_links)
-              $('#CMS_index_content').append(content)
-              initializeCKEditor()
+              $.ajax({
+                method: 'GET',
+                url: 'cms/reference_mp3s'
+              }).done(response => {
+                let reference_mp3s = response.reference_mp3s
+                $.ajax({
+                  method: 'GET',
+                  url: 'cms/reference_pptxes'
+                }).done(response => {
+                  let reference_pptxes = response.reference_pptxes
+                  toggleProgressSpinner()
+                  $('#CMS_index_content').empty()
+                  $('#CMS_index_content').append("<h2 id='cms_c4d_article_list_header'>SOP Article Create</h2>")
+                  let content = getEmptySopArticleForm(sop_times, sop_categories, responsible_offices, support_affiliations, reference_links, reference_mp3s, reference_pptxes)
+                  $('#CMS_index_content').append(content)
+                  initializeCKEditor()
+                })
+              })
             })
           })
         })
@@ -49,10 +61,13 @@ $(() => {
 
   $('#CMS_index_content').on('submit', '#CMS_sop_article_create_form', e => {
     toggleProgressSpinner()
+    let reference_link_order = getSOPArticleReferenceLinkOrder()
+    let reference_mp3_order = getSOPArticleReferenceMp3Order()
+    let reference_pptx_order = getSOPArticleReferencePptxOrder()
     $.ajax({
       method: 'POST',
       url: 'cms/sop_articles/',
-      data: $('#CMS_sop_article_create_form').serialize() + "&authenticity_token=" + _.escape($('meta[name=csrf-token]').attr('content'))
+      data: $('#CMS_sop_article_create_form').serialize() + reference_link_order + reference_mp3_order + reference_pptx_order + "&authenticity_token=" + _.escape($('meta[name=csrf-token]').attr('content'))
     }).done(response => {
       toggleProgressSpinner()
       $('#CMS_sop_articles_link').trigger('click')
@@ -60,11 +75,31 @@ $(() => {
       _.delay(() => {
         $('.ui.dimmer').dimmer('hide')
       }, 3000, 'later');
-      history.pushState({}, null, 'cms');
+      history.pushState(null, null, 'cms')
     })
+    return false
   })
 
-  function getEmptySopArticleForm(sop_times, sop_categories, responsible_offices, support_affiliations, reference_links){
+  function getSOPArticleReferenceLinkOrder(){
+    // "4&reference_link_order%5B%5D=6&reference_link_order%5B%5D=4"
+    return _.isEmpty($('#CMS_index_content #cms_sop_article_reference_link_list').children()) ? '&reference_link_order%5B%5D=' : _.map($('#CMS_index_content #cms_sop_article_reference_link_list').children(), div => {
+              return `&reference_link_order%5B%5D=${$(div).attr('id')}`
+           }).join('')
+  }
+  function getSOPArticleReferenceMp3Order(){
+    // "4&reference_link_order%5B%5D=6&reference_link_order%5B%5D=4"
+    return _.isEmpty($('#CMS_index_content #cms_sop_article_reference_mp3_list').children()) ? '&reference_mp3_order%5B%5D=' : _.map($('#CMS_index_content #cms_sop_article_reference_mp3_list').children(), div => {
+              return `&reference_mp3_order%5B%5D=${$(div).attr('id')}`
+           }).join('')
+  }
+  function getSOPArticleReferencePptxOrder(){
+    // "4&reference_link_order%5B%5D=6&reference_link_order%5B%5D=4"
+    return _.isEmpty($('#CMS_index_content #cms_sop_article_reference_pptx_list').children()) ? '&reference_pptx_order%5B%5D=' : _.map($('#CMS_index_content #cms_sop_article_reference_pptx_list').children(), div => {
+              return `&reference_pptx_order%5B%5D=${$(div).attr('id')}`
+           }).join('')
+  }
+
+  function getEmptySopArticleForm(sop_times, sop_categories, responsible_offices, support_affiliations, reference_links, reference_mp3s, reference_pptxes){
     return (`
       <form id="CMS_sop_article_create_form" class="ui form CMS_sop_article_form_div">
         ${getSopTimeDropdown("Time", "sop_time_id", sop_times)}
@@ -93,6 +128,8 @@ $(() => {
           <input type="text" name="article[video_url]" value="">
         </div>
         ${getReferenceLinkSelector(reference_links)}
+        ${getReferenceMp3Selector(reference_mp3s)}
+        ${getReferencePptxSelector(reference_pptxes)}
         <button class="ui button" type="submit">Submit</button>
       </form>
     `)
@@ -101,11 +138,39 @@ $(() => {
   function getReferenceLinkSelector(reference_links) {
     return (`
       <div id='reference_link_checkboxes' class="field">
-        <label>Reference Links</label>
+        <label>Available reference links:</label>
           <ul class='list-unstyled'>
           ${_.map(reference_links, reference_link => {
             return `<li><input id=${reference_link.id} type='checkbox' name="article[reference_links][]" value="${reference_link.id}">
                     <label id='cms_reference_link_label' class='filter-label' for=${reference_link.id}>${reference_link.document_file_name}</label></li>`
+          }).join('\n')}
+          </ul>
+      </div>
+      `)
+  }
+
+  function getReferenceMp3Selector(reference_mp3s) {
+    return (`
+      <div id='reference_link_checkboxes' class="field">
+        <label>Available reference links:</label>
+          <ul class='list-unstyled'>
+          ${_.map(reference_mp3s, reference_mp3 => {
+            return `<li><input id=${reference_mp3.id} type='checkbox' name="article[reference_mp3s][]" value="${reference_mp3.id}">
+                    <label id='cms_reference_mp3_label' class='filter-label' for=${reference_mp3.id}>${reference_mp3.clip_file_name}</label></li>`
+          }).join('\n')}
+          </ul>
+      </div>
+      `)
+  }
+
+  function getReferencePptxSelector(reference_pptxes) {
+    return (`
+      <div id='reference_link_checkboxes' class="field">
+        <label>Available reference links:</label>
+          <ul class='list-unstyled'>
+          ${_.map(reference_pptxes, reference_pptx => {
+            return `<li><input id=${reference_pptx.id} type='checkbox' name="article[reference_pptxes][]" value="${reference_pptx.id}">
+                    <label id='cms_reference_pptx_label' class='filter-label' for=${reference_pptx.id}>${reference_pptx.document_file_name}</label></li>`
           }).join('\n')}
           </ul>
       </div>

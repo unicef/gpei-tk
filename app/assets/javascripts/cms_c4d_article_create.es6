@@ -49,8 +49,9 @@ $(() => {
       _.delay(() => {
         $('.ui.dimmer').dimmer('hide')
       }, 3000, 'later');
-      history.pushState({}, null, 'cms');
+      history.pushState(null, null, 'cms')
     })
+    return false
   })
 
   function getEmptyC4dArticleForm(c4d_subcategories, c4d_categories, reference_links){
@@ -75,7 +76,7 @@ $(() => {
   function getReferenceLinkSelector(reference_links) {
     return (`
       <div id='reference_link_checkboxes' class="field">
-        <label>Reference Links</label>
+        <label>Available reference links:</label>
           <ul class='list-unstyled'>
           ${_.map(reference_links, reference_link => {
             return `<li><input id=${reference_link.id} type='checkbox' name="article[reference_links][]" value="${reference_link.id}">

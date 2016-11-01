@@ -263,7 +263,7 @@ $(() => {
   function getReferenceLinkSelector(reference_links, selected_reference_links) {
     return (`
       <div id='reference_link_checkboxes' class="field">
-        <label>Reference Links</label>
+        <label>Available reference links:</label>
           <ul class='list-unstyled'>
           ${_.map(reference_links, reference_link => {
             let checked = !_.isEmpty(_.filter(selected_reference_links, (selected_reference) => { return selected_reference.id === reference_link.id })) ? "checked" : ""
@@ -339,7 +339,9 @@ $(() => {
       _.delay(() => {
         $('.ui.dimmer').dimmer('hide')
       }, 3000, 'later');
+      history.pushState(null, null, 'cms');
     })
+    return false
   })
   function getC4dArticleReferenceLinkOrder(){
     // "4&reference_link_order%5B%5D=6&reference_link_order%5B%5D=4"
