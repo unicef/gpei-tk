@@ -17,11 +17,9 @@ class Cms::SopArticlesController < ApplicationController
       sop_article.order_id = SopArticle.maximum(:order_id) + 1
       sop_article.author = current_user
       if sop_article.save
-        if !params[:article][:reference_links].nil?
-          params[:article][:reference_links].each do |reference_id|
-            ReferenceLinkArticle.create(reference_link_id: reference_id, reference_linkable: sop_article)
-          end
-        end
+        attachReferenceLinksToSopArticle(sop_article) unless params[:article][:reference_links].nil?
+        attachReferenceMp3sToSopArticle(sop_article) unless params[:article][:reference_mp3s].nil?
+        attachReferencePptxesToSopArticle(sop_article) unless params[:article][:reference_pptxes].nil?
         render json: { sop_article: sop_article, status: 200 }
       end
     end
@@ -109,7 +107,7 @@ class Cms::SopArticlesController < ApplicationController
         reference = ReferenceLink.find_by(id: reference_id)
         ReferenceLinkArticle.create(reference_link: reference, reference_linkable: sop_article)
       end
-      if !(params[:reference_link_order][0] == '')
+      if !(!params[:reference_link_order].nil? && params[:reference_link_order][0] == '')
         sop_article.reference_link_order = params[:reference_link_order].join(' ')
       elsif !sop_article.reference_links.empty?
         sop_article.reference_link_order = sop_article.reference_links.pluck(:id).join(' ')
@@ -124,7 +122,7 @@ class Cms::SopArticlesController < ApplicationController
         reference = ReferenceMp3.find_by(id: reference_id)
         ReferenceMp3Article.create(reference_mp3: reference, reference_mp3able: sop_article)
       end
-      if !(params[:reference_mp3_order][0] == '')
+      if !(!params[:reference_mp3_order].nil? && params[:reference_mp3_order][0] == '')
         sop_article.reference_mp3_order = params[:reference_mp3_order].join(' ')
       elsif !sop_article.reference_mp3s.empty?
         sop_article.reference_mp3_order = sop_article.reference_mp3s.pluck(:id).join(' ')
@@ -139,7 +137,7 @@ class Cms::SopArticlesController < ApplicationController
         reference = ReferencePptx.find_by(id: reference_id)
         ReferencePptxArticle.create(reference_pptx: reference, reference_pptxable: sop_article)
       end
-      if !(params[:reference_pptx_order][0] == '')
+      if !(!params[:reference_pptx_order].nil? && params[:reference_pptx_order][0] == '')
         sop_article.reference_pptx_order = params[:reference_pptx_order].join(' ')
       elsif !sop_article.reference_pptxes.empty?
         sop_article.reference_pptx_order = sop_article.reference_pptxes.pluck(:id).join(' ')
