@@ -275,6 +275,7 @@ $(() => {
       idx += 1
     })
     let content = `<div id='cms_sop_article_reference_link_list' class='col-md-12'>
+                    Attached reference link ordering:
                     ${rows}
                    </div>`
     return content
@@ -301,6 +302,7 @@ $(() => {
       idx += 1
     })
     let content = `<div id='cms_sop_article_reference_mp3_list' class='col-md-12'>
+                    Attached reference mp3 ordering:
                     ${rows}
                    </div>`
     return content
@@ -339,6 +341,7 @@ $(() => {
       idx += 1
     })
     let content = `<div id='cms_sop_article_reference_pptx_list' class='col-md-12'>
+                    Attached reference pptx ordering:
                     ${rows}
                    </div>`
     return content
@@ -384,12 +387,12 @@ $(() => {
   function getReferenceLinkSelector(reference_links, selected_reference_links) {
     return (`
       <div id='reference_link_checkboxes' class="field">
-        <label>Reference Links</label>
+        <label>Available reference links:</label>
           <ul class='list-unstyled'>
           ${_.map(reference_links, reference_link => {
             let checked = !_.isEmpty(_.filter(selected_reference_links, (selected_reference) => { return selected_reference.id === reference_link.id })) ? "checked" : ""
             return `<li><input id=${reference_link.id} ${checked} type='checkbox' name="article[reference_links][]" value="${reference_link.id}">
-                    <label id='cms_reference_link_label' class='filter-label' for=${reference_link.id}>${reference_link.document_file_name}</label></li>`
+                    <label id='cms_reference_link_label' class='filter-label' for=${reference_link.id}>${reference_link.document_file_name} -  <a href="${ reference_link.absolute_url }" target='_blank'><i class="fa fa-search" aria-hidden="true"></i></a></label></li>`
           }).join('\n')}
           </ul>
       </div>
@@ -398,12 +401,12 @@ $(() => {
   function getReferenceMp3Selector(reference_mp3s, selected_reference_mp3s) {
     return (`
       <div id='reference_link_checkboxes' class="field">
-        <label>Reference Mp3s</label>
+        <label>Available reference mp3s:</label>
           <ul class='list-unstyled'>
           ${_.map(reference_mp3s, reference_link => {
             let checked = !_.isEmpty(_.filter(selected_reference_mp3s, (selected_reference) => { return selected_reference.id === reference_link.id })) ? "checked" : ""
             return `<li><input id=${reference_link.id} ${checked} type='checkbox' name="article[reference_mp3s][]" value="${reference_link.id}">
-                    <label id='cms_reference_link_label' class='filter-label' for=${reference_link.id}>${reference_link.clip_file_name}</label></li>`
+                    <label id='cms_reference_link_label' class='filter-label' for=${reference_link.id}>${reference_link.clip_file_name} -  <a href="${ reference_link.absolute_url }" target='_blank'><i class="fa fa-search" aria-hidden="true"></i></a></label></li>`
           }).join('\n')}
           </ul>
       </div>
@@ -412,12 +415,12 @@ $(() => {
   function getReferencePptxSelector(reference_pptxes, selected_reference_pptxes) {
     return (`
       <div id='reference_link_checkboxes' class="field">
-        <label>Reference Powerpoint</label>
+        <label>Available reference powerpoints:</label>
           <ul class='list-unstyled'>
           ${_.map(reference_pptxes, reference_link => {
             let checked = !_.isEmpty(_.filter(selected_reference_pptxes, (selected_reference) => { return selected_reference.id === reference_link.id })) ? "checked" : ""
             return `<li><input id=${reference_link.id} ${checked} type='checkbox' name="article[reference_pptxes][]" value="${reference_link.id}">
-                    <label id='cms_reference_link_label' class='filter-label' for=${reference_link.id}>${reference_link.document_file_name}</label></li>`
+                    <label id='cms_reference_link_label' class='filter-label' for=${reference_link.id}>${reference_link.document_file_name} -  <a href="${ reference_link.absolute_url }" target='_blank'><i class="fa fa-search" aria-hidden="true"></i></a></label></li>`
           }).join('\n')}
           </ul>
       </div>
