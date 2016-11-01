@@ -5,8 +5,7 @@
   width:98%;
   position: relative;
   top:10%;
-  left:3%;
-  right:3%;
+  right:2px;
   margin-bottom:2%;
   margin-top:1%;
 }
@@ -16,22 +15,12 @@
 }
 .field .ui.dropdown {
 }
-#CMS_sop_articles_table {
-  width:98%;
-  position: relative;
-  left:1%;
-  right:3%;
-  margin-top:1%;
-  margin-bottom:2%;
-}
 #article_header {
   position: relative;
-  left:3%;
   right:1%;
   margin-top:1%;
 }
 #CMS_items {
-  margin-left:2%;
   margin-top:6%;
 }
 #CMS_users_table {
@@ -69,6 +58,10 @@
   left:30%;
 }
 
+#reference_link_checkboxes {
+  margin:0 !important;
+}
+
 #reference_link_checkboxes ul {
   max-height:150px;
   min-height:150px;
@@ -91,6 +84,8 @@
 #CMS_reference_link_edit {
   left:15px;
 }
+#CMS_reference_mp3_edit .field,
+#CMS_reference_pptx_edit .field,
 #CMS_reference_link_edit .field {
   width:90%;
 }
@@ -114,10 +109,11 @@
 }
 #cms_reference_link_grid,
 #cms_reference_links_filter_menu {
-  padding-left:10px;
   width:99%;
 }
-.reference_link_item {
+.reference_link_item,
+.reference_mp3_item,
+.reference_pptx_item {
   border:1px solid black;
   margin-bottom:10px !important;
   width:100%;
@@ -191,12 +187,19 @@
   position:relative;
   top:-4px;
 }
+.reference_mp3_row,
+.reference_pptx_row,
 .reference_link_row {
   border:1px solid black;
 }
-#cms_reference_link_filter_header,
-#cms_reference_links_list_header,
-#cms_sop_article_list_header,
-#cms_c4d_article_list_header {
-  margin-left:15px;
+#CMS_index_content {
+  padding-left:15px;
+}
+#CMS_c4d_article_form button {
+  margin-top:7px;
+}
+#cms_sop_article_reference_link_list,
+#cms_sop_article_reference_pptx_list,
+#cms_sop_article_reference_mp3_list {
+  margin-bottom:10px;
 }
