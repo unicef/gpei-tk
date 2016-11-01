@@ -33,8 +33,8 @@ class Cms::C4dArticlesController < ApplicationController
       c4d_categories = C4dCategory.all.order(:id)
       embedded_images = c4d_article.embedded_images
       selected_reference_links = c4d_article.reference_links
-      selected_reference_mp3s = c4d_artticle.reference_mp3s
-      selected_reference_pptxes = c4d_artticle.reference_pptxes
+      selected_reference_mp3s = c4d_article.reference_mp3s
+      selected_reference_pptxes = c4d_article.reference_pptxes
       render json: { c4d_article: c4d_article,
                      c4d_subcategories: c4d_subcategories,
                      c4d_categories: c4d_categories,
