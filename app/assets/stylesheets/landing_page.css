@@ -121,9 +121,11 @@
   padding-left:5px;
   line-height: 18px;
 }
+#sop_landing_description_span {
+  position: relative;
+  bottom:10px;
+}
 #c4d_landing_description_span {
-  position: absolute;
-  bottom:5%;
   width:60%;
   color:#E5DDDD;
 }
