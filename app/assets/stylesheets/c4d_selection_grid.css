@@ -83,8 +83,13 @@
   position:relative;
   height:auto;
   width:180px;
-  border:1px solid white;
+  border-style: solid;
+  border-color: white;
+  border-width: 1px;
   padding:10px;
+}
+#c4d_subcategory_accordion table {
+  border-collapse:separate;
 }
 #c4d_subcategory_accordion .content.active {
   width:100%;
