@@ -116,11 +116,13 @@
   min-height:2px;
   width:98%;
   margin-left:1%;
-  bottom:4px;
+}
+#filter_tiles_icon {
+  font-size: 21px !important;
 }
 #select_filter_header span {
   font-family: 'proxima-nova' !important;
-  font-size: 14px !important;
+  font-size: 21px !important;
 }
 #select_filter_header,
 #select_filter_dropdown_menu i {
