@@ -1,17 +1,20 @@
 $(() => {
-  $('html').bind('mousewheel', e => {
-    e.preventDefault()
-    $(this).unbind(e)
-    if(e.originalEvent.wheelDelta /120 > 0) {
-      //mwheelevent up
-    }
-    else{
-      if ($('#landing_page_sop_c4d_nav_container').css('visibility') === 'visible') {
-        transitionLandingPageToSopC4d()
-        return false
+  if ($('#link_to_second_part_of_landing').css('visibility') === 'visible'){
+    var mousewheelevt =(/Firefox/i.test(navigator.userAgent))? "DOMMouseScroll" : "mousewheel"
+    $('html').bind(mousewheelevt, e => {
+      e.preventDefault()
+      $(this).unbind(e)
+      if(e.originalEvent.wheelDelta /120 > 0) {
+        //mwheelevent up
       }
-    }
-  })
+      else{
+        if ($('#landing_page_sop_c4d_nav_container').css('visibility') === 'visible') {
+          transitionLandingPageToSopC4d()
+          return false
+        }
+      }
+    })
+  }
   function transitionLandingPageToSopC4d() {
     let nav_bar_height = $('nav').outerHeight()
     $('#landing_page_sop_c4d_nav_container').css({
