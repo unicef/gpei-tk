@@ -46,9 +46,8 @@
   color:white;
 }
 .grid_item {
-  display:inline-block;
-  margin: 0 auto;
   width: 20%;
+  min-width: 200px;
   height: 220px;
   border: 1px solid white;
 }
