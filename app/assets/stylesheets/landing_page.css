@@ -100,16 +100,14 @@
 #landing_sop_angle_right {
   font-size:60px;
   color:white;
-  position: absolute;
+  position: relative;
   right:5px;
-  top:65%;
 }
 #landing_c4d_angle_right {
   font-size:60px;
   color:white;
-  position: absolute;
+  position: relative;
   right:5px;
-  top:15%;
 }
 #landing_sop_angle_right a,
 #landing_c4d_angle_right a {
@@ -122,10 +120,6 @@
   font-family: 'proxima-nova' !important;
   padding-left:5px;
   line-height: 18px;
-}
-#sop_landing_description_span {
-  position: absolute;
-  bottom:55%;
 }
 #c4d_landing_description_span {
   position: absolute;
@@ -140,10 +134,18 @@
 #sop_c4d_nav_content_container {
   width:550px;
   position: relative;
-  border-left:2px solid #E5DDDD;
+/*  border-left:2px solid #E5DDDD;
   border-right:2px solid #E5DDDD;
   border-bottom:2px solid #E5DDDD;
-  margin:0 auto;
+*/  margin:0 auto;
+}
+#landing_sop_container_content,
+#landing_c4d_container_content {
+  border-left:2px solid #E5DDDD;
+  border-right:2px solid #E5DDDD;
+}
+#landing_sop_container_content {
+  border-bottom:2px solid #E5DDDD;
 }
 #sop_c4d_nav_header_container {
   font-size:15px;
