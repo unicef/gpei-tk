@@ -309,15 +309,19 @@ $(() => {
   }
   $('#CMS_index_content').on('click', '#sop_article_reference_pptx_id_up_div', e => {
     e.preventDefault()
+    return false
   })
   $('#CMS_index_content').on('click', '#sop_article_reference_pptx_id_down_div', e => {
     e.preventDefault()
+    return false
   })
   $('#CMS_index_content').on('click', '#sop_article_reference_mp3_id_up_div', e => {
     e.preventDefault()
+    return false
   })
   $('#CMS_index_content').on('click', '#sop_article_reference_mp3_id_down_div', e => {
     e.preventDefault()
+    return false
   })
   function getReferencePptxesList(selected_reference_pptxes, reference_pptx_order) {
     let idx = 0
@@ -329,8 +333,8 @@ $(() => {
         if (reference_pptx.id === parseInt(id)) {
           rows += `<div id='${reference_pptx.id}' class='col-md-12 reference_pptx_row ${idx === 0 ? 'first_reference_pptx' : ''} ${ idx === last_idx ? 'last_reference_pptx' : '' }'>
                   <div id='${reference_pptx.id}' class='col-md-1' style='width:5%;'>
-                    <div id='sop_article_reference_pptx_id_up_div' class='col-md-6'><a id='sop_article_reference_id_up' href=''><i class="fa fa-sort-asc" aria-hidden="true"></i></a></div>
-                    <div id='sop_article_reference_pptx_id_down_div' class='col-md-6'><a id='sop_article_reference_id_down' href=''><i class="fa fa-sort-desc" aria-hidden="true"></i></a></div>
+                    <div id='sop_article_reference_pptx_id_up_div' class='col-md-6'><a id='sop_article_reference_pptx_id_up' href=''><i class="fa fa-sort-asc" aria-hidden="true"></i></a></div>
+                    <div id='sop_article_reference_pptx_id_down_div' class='col-md-6'><a id='sop_article_reference_pptx_id_down' href=''><i class="fa fa-sort-desc" aria-hidden="true"></i></a></div>
                   </div>
                   <div id='${reference_pptx.id}' class='col-md-11'>
                     <strong>Reference Powerpoint: </strong>${reference_pptx.document_file_name} - <a href="${reference_pptx.absolute_url}" target="_blank">${reference_pptx.absolute_url}</a>
@@ -351,8 +355,12 @@ $(() => {
     let parent = e.currentTarget.parentElement.parentElement.parentElement
     let id = parent.id
     let current_row = $('#CMS_index_content #cms_sop_article_reference_link_list').find('.reference_link_row#'+id)
-    let prev_row = current_row.prev()
     if (!(current_row.hasClass('first_reference_link'))) {
+      let prev_row = current_row.prev()
+      if (current_row.hasClass('last_reference_link') && prev_row.hasClass('first_reference_link') ){
+        prev_row.addClass('last_reference_link')
+        current_row.removeClass('last_reference_link')
+      }
       if (prev_row.hasClass('first_reference_link')) {
         prev_row.removeClass('first_reference_link')
         current_row.addClass('first_reference_link')
@@ -371,6 +379,10 @@ $(() => {
     let current_row = $('#CMS_index_content #cms_sop_article_reference_link_list').find('.reference_link_row#'+id)
     if (!(current_row.hasClass('last_reference_link'))) {
       let next_row = current_row.next()
+      if (current_row.hasClass('first_reference_link') && next_row.hasClass('last_reference_link') ){
+        next_row.addClass('first_reference_link')
+        current_row.removeClass('first_reference_link')
+      }
       if (next_row.hasClass('last_reference_link')) {
         next_row.removeClass('last_reference_link')
         current_row.addClass('last_reference_link')
@@ -378,6 +390,97 @@ $(() => {
       else if (current_row.hasClass('first_reference_link')) {
         next_row.addClass('first_reference_link')
         current_row.removeClass('first_reference_link')
+      }
+      $(next_row).after(current_row)
+    }
+    return false
+  })
+  $('#CMS_index_content').on('click', '#sop_article_reference_pptx_id_up', e => {
+    e.preventDefault()
+    let parent = e.currentTarget.parentElement.parentElement.parentElement
+    let id = parent.id
+    let current_row = $('#CMS_index_content #cms_sop_article_reference_pptx_list').find('.reference_pptx_row#'+id)
+    let prev_row = current_row.prev()
+    if (!(current_row.hasClass('first_reference_pptx'))) {
+      if (current_row.hasClass('last_reference_pptx') && prev_row.hasClass('first_reference_pptx') ){
+        prev_row.addClass('last_reference_pptx')
+        current_row.removeClass('last_reference_pptx')
+      }
+      if (prev_row.hasClass('first_reference_pptx')) {
+        prev_row.removeClass('first_reference_pptx')
+        current_row.addClass('first_reference_pptx')
+      } else if (current_row.hasClass('last_reference_pptx')) {
+        prev_row.addClass('last_reference_pptx')
+        current_row.removeClass('last_reference_pptx')
+      }
+      $(current_row).after(prev_row)
+    }
+    return false
+  })
+  $('#CMS_index_content').on('click', '#sop_article_reference_pptx_id_down', e => {
+    e.preventDefault()
+    let parent = e.currentTarget.parentElement.parentElement.parentElement
+    let id = parent.id
+    let current_row = $('#CMS_index_content #cms_sop_article_reference_pptx_list').find('.reference_pptx_row#'+id)
+    if (!(current_row.hasClass('last_reference_pptx'))) {
+      let next_row = current_row.next()
+      if (current_row.hasClass('first_reference_pptx') && next_row.hasClass('last_reference_pptx') ){
+        next_row.addClass('first_reference_pptx')
+        current_row.removeClass('first_reference_pptx')
+      }
+      if (next_row.hasClass('last_reference_pptx')) {
+        next_row.removeClass('last_reference_pptx')
+        current_row.addClass('last_reference_pptx')
+      }
+      else if (current_row.hasClass('first_reference_pptx')) {
+        next_row.addClass('first_reference_pptx')
+        current_row.removeClass('first_reference_pptx')
+      }
+      $(next_row).after(current_row)
+    }
+    return false
+  })
+
+  $('#CMS_index_content').on('click', '#sop_article_reference_mp3_id_up', e => {
+    e.preventDefault()
+    let parent = e.currentTarget.parentElement.parentElement.parentElement
+    let id = parent.id
+    let current_row = $('#CMS_index_content #cms_sop_article_reference_mp3_list').find('.reference_mp3_row#'+id)
+    let prev_row = current_row.prev()
+    if (!(current_row.hasClass('first_reference_mp3'))) {
+      if (current_row.hasClass('last_reference_mp3') && prev_row.hasClass('first_reference_mp3') ){
+        prev_row.addClass('last_reference_mp3')
+        current_row.removeClass('last_reference_mp3')
+      }
+      if (prev_row.hasClass('first_reference_mp3')) {
+        prev_row.removeClass('first_reference_mp3')
+        current_row.addClass('first_reference_mp3')
+      } else if (current_row.hasClass('last_reference_mp3')) {
+        prev_row.addClass('last_reference_mp3')
+        current_row.removeClass('last_reference_mp3')
+      }
+      $(current_row).after(prev_row)
+    }
+    return false
+  })
+  $('#CMS_index_content').on('click', '#sop_article_reference_mp3_id_down', e => {
+    e.preventDefault()
+    let parent = e.currentTarget.parentElement.parentElement.parentElement
+    let id = parent.id
+    let current_row = $('#CMS_index_content #cms_sop_article_reference_mp3_list').find('.reference_mp3_row#'+id)
+    if (!(current_row.hasClass('last_reference_mp3'))) {
+      let next_row = current_row.next()
+      if (current_row.hasClass('first_reference_mp3') && next_row.hasClass('last_reference_mp3') ){
+        next_row.addClass('first_reference_mp3')
+        current_row.removeClass('first_reference_mp3')
+      }
+      if (next_row.hasClass('last_reference_mp3')) {
+        next_row.removeClass('last_reference_mp3')
+        current_row.addClass('last_reference_mp3')
+      }
+      else if (current_row.hasClass('first_reference_mp3')) {
+        next_row.addClass('first_reference_mp3')
+        current_row.removeClass('first_reference_mp3')
       }
       $(next_row).after(current_row)
     }

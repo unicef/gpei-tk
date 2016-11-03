@@ -224,6 +224,10 @@ $(() => {
     let current_row = $('#CMS_index_content #cms_c4d_article_reference_link_list').find('.reference_link_row#'+id)
     if (!(current_row.hasClass('first_reference_link'))) {
       let prev_row = current_row.prev()
+      if (current_row.hasClass('last_reference_link') && prev_row.hasClass('first_reference_link') ){
+        prev_row.addClass('last_reference_link')
+        current_row.removeClass('last_reference_link')
+      }
       if (prev_row.hasClass('first_reference_link')) {
         prev_row.removeClass('first_reference_link')
         current_row.addClass('first_reference_link')
@@ -243,6 +247,11 @@ $(() => {
     let current_row = $('#CMS_index_content #cms_c4d_article_reference_link_list').find('.reference_link_row#'+id)
     if (!(current_row.hasClass('last_reference_link'))) {
       let next_row = current_row.next()
+      if (current_row.hasClass('first_reference_link') && next_row.hasClass('last_reference_link') ){
+        next_row.addClass('first_reference_link')
+        current_row.removeClass('first_reference_link')
+      }
+
       if (next_row.hasClass('last_reference_link')) {
         next_row.removeClass('last_reference_link')
         current_row.addClass('last_reference_link')

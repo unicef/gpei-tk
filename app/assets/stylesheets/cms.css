@@ -203,3 +203,11 @@
 #cms_sop_article_reference_mp3_list {
   margin-bottom:10px;
 }
+#sop_article_reference_pptx_id_down i,
+#sop_article_reference_pptx_id_up i,
+#sop_article_reference_mp3_id_down i,
+#sop_article_reference_mp3_id_up i,
+#sop_article_reference_id_down i,
+#sop_article_reference_id_up i {
+  font-size:22px;
+}
