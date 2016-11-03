@@ -240,6 +240,7 @@ $(() => {
     }
     return false
   })
+
   $('#CMS_index_content').on('click', '#c4d_article_reference_id_down', e => {
     e.preventDefault()
     let parent = e.currentTarget.parentElement.parentElement.parentElement
@@ -264,6 +265,7 @@ $(() => {
     }
     return false
   })
+
   function getEmbeddedImagesList(embedded_images){
     return `${_.map(embedded_images, embedded_image => {
               return (`<p><strong>Attached Image: </strong>${embedded_image.image_file_name} - <a href="${embedded_image.absolute_url}" target="_blank">${embedded_image.absolute_url}</a></p>`)

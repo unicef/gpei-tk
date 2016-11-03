@@ -1,7 +1,8 @@
 <script type="text/javascript">$('#application').css({ background: 'none' })</script>
-<div>
-Welcome, <%= current_user.first_name %> <%= current_user.last_name %>!
+<div class='col-md-11' style='padding-left:10px'>
+  Welcome, <strong><%= current_user.first_name %> <%= current_user.last_name %></strong>!
 </div>
+<div id='cms_log_out_div' class='col-md-1'><a id="nav_user_sign_out" class="" href=''><u>Sign out</u></a></div>
 <div id='progress_spinner' style='visibility:hidden;'>
   <i class="fa fa-cog fa-spin fa-fw" style="font-size:96px;"></i>
 </div>
@@ -71,7 +72,7 @@ Welcome, <%= current_user.first_name %> <%= current_user.last_name %>!
             </div>
             <div class="content">
               <div class="title">
-                <a id='CMS_references_mp3_upload' href='' class='CMS_menu_list'>upload .mp3(s) as reference mp3(s)</a>
+                <a id='CMS_references_mp3_upload' href='' class='CMS_menu_list'>SOP only - upload .mp3(s) as reference mp3(s)</a>
               </div>
             </div>
             <div class="title">
@@ -79,7 +80,7 @@ Welcome, <%= current_user.first_name %> <%= current_user.last_name %>!
             </div>
             <div class="content">
               <div class="title">
-                <a id='CMS_references_pptx_upload' href='' class='CMS_menu_list'>upload .pptx(es) as reference pptx(es)</a>
+                <a id='CMS_references_pptx_upload' href='' class='CMS_menu_list'>SOP only - upload .pptx(es) as reference pptx(es)</a>
               </div>
             </div>
             <div class="title">
