@@ -262,6 +262,13 @@ $(() => {
     }
   }
 
+  $('.coupled.modal')
+  .modal({
+    allowMultiple: true,
+    onHide: () => {
+      $('#vimeo_modal .content').empty()
+    }
+  })
   // sop article modal
   $('#sop_article_show_modal').modal({
     onHide: () => {
@@ -270,6 +277,7 @@ $(() => {
       clearUrlState()
     }
   })
+
 
   $('.grid_item').click(e => {
     e.preventDefault()
@@ -297,7 +305,26 @@ $(() => {
       let outerHeight = $('#sop_article_show_modal').outerHeight()
       outerHeight = outerHeight - $('#sop_article_show_modal .header').outerHeight()
       $('#sop_article_show_info_column').css({ height: outerHeight })
+      multiMediaHandlerForSopArticle(response.article)
     })
+  })
+  function multiMediaHandlerForSopArticle(article){
+    var iframe = $('#sop_article_show_modal iframe')
+    var player = new Vimeo.Player(iframe);
+
+    player.on('play', () => {
+      player.pause()
+      $('#vimeo_modal').modal('show')
+      let content = `<div class='col-md-12' style='height:95%'><iframe src="${ article.video_url }" width="100%" height="100%" frameborder="0" webkitallowfullscreen mozallowfullscreen  allowFullScreen>
+                        </iframe></div>`
+      content = _.replace(content, 'https://vimeo.com/', 'https://player.vimeo.com/video/')
+      $('#vimeo_modal .content').append(content)
+    })
+  }
+  $('#vimeo_modal').on('click', '#close_multimedia_modal_icon', e => {
+    e.preventDefault()
+    $('#vimeo_modal').modal('hide')
+    return false
   })
 
   function clearUrlState(){
@@ -509,12 +536,12 @@ $(() => {
   function getVideoContent(params) {
     let video_content = ''
     if (!_.isNull(params['article'].video_url) && params['article'].video_url !== ''  && params['article'].video_url !== "null") {
-      video_content = `<div class='row'>
+      video_content = `<div id='sop_article_multimedia_container' class='row'>
                         <div id='multimedia_header' class='col-md-9'>
                           <strong>MULTIMEDIA:</strong>
                         </div>
                         <div class='col-md-12'>
-                          <iframe src="${ params['article'].video_url }" width="97%" height="auto" frameborder="0" webkitallowfullscreen mozallowfullscreen  allowFullScreen>
+                          <iframe src="${ params['article'].video_url }" width="97%" height="auto" frameborder="0">
                           </iframe>
                         </div>
                       </div>`

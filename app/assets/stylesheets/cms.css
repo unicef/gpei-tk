@@ -214,3 +214,23 @@
 #cms_log_out_div a{
   color:black;
 }
+#vimeo_modal .header {
+  background-color: grey;
+  color:white;
+  padding:0px !important;
+  border-top-left-radius:0;
+  border-top-right-radius:0;
+}
+#vimeo_modal .content{
+  height:100%;
+  background-color:grey;
+  padding:4px !important;
+  padding-bottom:5px;
+}
+#vimeo_modal {
+  top:275px;
+  bottom:20px !important;
+}
+#close_multimedia_modal_icon {
+  color:white;
+}
