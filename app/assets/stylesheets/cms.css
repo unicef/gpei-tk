@@ -234,3 +234,7 @@
 #close_multimedia_modal_icon {
   color:white;
 }
+#cms_reference_link_description_div,
+#cms_reference_link_file_name_div {
+  word-wrap: break-word;
+}

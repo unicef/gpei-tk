@@ -4,7 +4,8 @@ class Cms::ReferenceLinksController < ApplicationController
   def index
     reference_links = ReferenceLink.all.order(:document_file_name)
     reference_link_categories = getReferenceLinkCategories(reference_links)
-    render json: { reference_links: reference_links, reference_link_categories: reference_link_categories, status: 200 }
+    categories = {sop_categories: SopCategory.all, c4d_categories: C4dCategory.all}
+    render json: { reference_links: reference_links, reference_link_categories: reference_link_categories, categories: categories, status: 200 }
   end
 
   def create
