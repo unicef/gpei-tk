@@ -130,12 +130,37 @@ $(() => {
       })
     }
 
+    $('#CMS_index_content').on('submit', '#cms_reference_link_search_form', e => {
+      e.preventDefault()
+      var filterFunc =  () => {
+        let search_value = $('#cms_reference_link_search_form input').val()
+        let self = this
+        let title = $(self).find('#cms_reference_link_title').text();
+        let regex_search_value = new RegExp(search_value)
+        debugger
+        return title.match( regex_search_value );
+      }
+      $('#cms_reference_link_grid').isotope({ filter: filterFunc })
+      return false
+    })
+
+    var filterFns = {
+      numberGreaterThan50: function() {
+      }
+    }
     function getReferenceLinkGrid(reference_links, reference_link_categories, users, type, categories){
       return `<div id='cms_reference_${type}s_filter_menu' class="button-group filter-button-group col-md-12">
-                <div class='col-md-12'>
+                <div class='col-md-6'>
                   <div class='col-md-12'>Sort by:</div>
                   <button data-filter="*" class='button is-checked'>show all</button>
                   <button data-filter=".Unassigned" class='button'>unassigned</button>
+                </div>
+                <div class='col-md-6'>
+                  <form id='cms_reference_${type}_search_form'>
+                    <label>Search reference ${type}s:</label>
+                    <input class="reference_${type}_file" type="text" name="cms_reference_${type}_search" value="">
+                    <button type="submit">search</button>
+                  </form>
                 </div>
                 <div class='col-md-12'>
                   <div class='col-md-12'>Sort by SOP categories:</div>
@@ -157,7 +182,7 @@ $(() => {
                         <div id='reference_${type}_list_name_td' class='col-md-12'>
                           <div id='${ reference_link.id }' class='col-md-12'>
                             <a id='cms_reference_${type}_icon' href="${ reference_link.absolute_url }" target='_blank'><i class="fa fa-search" aria-hidden="true"></i> <strong><u>Preview .pdf</u></strong></a>
-                            <div><strong>Title:</strong> <div id='cms_reference_${type}_title_div'>${!_.isNull(reference_link.title) ? reference_link.title : 'No title given' }</div></div>
+                            <div id='cms_reference_${type}_title'>Title: <div id='cms_reference_${type}_title_div'>${!_.isNull(reference_link.title) ? reference_link.title : 'No title given' }</div></div>
                             <div style='height:10px' class='col-md-12'></div>
                             <div class='col-md-12'><strong>File name:</strong> <div id='cms_reference_${type}_file_name_div'>${ type === 'mp3' ? reference_link.clip_file_name : reference_link.document_file_name }</div></div>
                           </div>
