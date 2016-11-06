@@ -132,13 +132,14 @@ $(() => {
 
     $('#CMS_index_content').on('submit', '#cms_reference_link_search_form', e => {
       e.preventDefault()
-      var filterFunc =  () => {
+      var filterFunc =  function() {
         let search_value = $('#cms_reference_link_search_form input').val()
-        let self = this
-        let title = $(self).find('#cms_reference_link_title').text();
-        let regex_search_value = new RegExp(search_value)
-        debugger
-        return title.match( regex_search_value );
+        let title = $(this).find('#cms_reference_link_title').text();
+        let file_name = $(this).find('#cms_reference_link_file_name_div').text();
+        let regex_search_value = new RegExp(search_value, 'i')
+        let found_file_name = file_name.match(regex_search_value)
+        let found_title = title.match(regex_search_value)
+        return found_title || found_file_name;
       }
       $('#cms_reference_link_grid').isotope({ filter: filterFunc })
       return false
@@ -157,7 +158,7 @@ $(() => {
                 </div>
                 <div class='col-md-6'>
                   <form id='cms_reference_${type}_search_form'>
-                    <label>Search reference ${type}s:</label>
+                    <label>Search reference ${type}s by title or file name:</label>
                     <input class="reference_${type}_file" type="text" name="cms_reference_${type}_search" value="">
                     <button type="submit">search</button>
                   </form>
