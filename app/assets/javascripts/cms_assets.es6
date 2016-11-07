@@ -39,6 +39,11 @@ $(() => {
           // appendReferenceLinkRows(reference_links, reference_link_categories, response.users)
           $('#CMS_index_content').append("<h2 id='cms_reference_links_list_header'>Uploaded Reference Links - (.pdf's) Index</h2>")
           $('#CMS_index_content').append(getReferenceLinkGrid(reference_links, reference_link_categories, response.users, type, categories))
+          $('#CMS_index_content #cms_reference_link_dropdown').dropdown({
+            on: 'hover',
+            action: 'nothing',
+            transition: 'horizontal flip'
+          })
           loadIsotopeHandlers(type)
         })
       })
@@ -137,6 +142,7 @@ $(() => {
         })
       })
     }
+
     let updatedSortFlow = false
     $('#CMS_index_content').on('click', '#cms_reference_link_updated_column', e => {
       e.preventDefault()
@@ -146,6 +152,7 @@ $(() => {
       $('#cms_reference_link_grid').isotope({ sortBy: 'updatedSort' })
       updatedSortFlow = !updatedSortFlow
     })
+
     let createdSortFlow = false
     $('#CMS_index_content').on('click', '#cms_reference_link_created_column', e => {
       e.preventDefault()
@@ -175,31 +182,40 @@ $(() => {
       }
     }
     function getReferenceLinkGrid(reference_links, reference_link_categories, users, type, categories){
-      return `<div id='cms_reference_${type}s_filter_menu' class="button-group filter-button-group col-md-12">
-                <div class='col-md-6'>
-                  <div class='col-md-12'>Sort by:</div>
-                  <button data-filter="*" class='button is-checked'>show all</button>
-                  <button data-filter=".Unassigned" class='button'>unassigned</button>
+      return `<div id='cms_reference_link_dropdown' class="ui pointing dropdown col-md-3">
+                <div class='text'><i class="fa fa-filter fa-2x" aria-hidden="true"></i><strong>Hover to select a filter</strong></div>
+                <div id="" class="menu">
+                  <div class='item'>
+                    <div id='cms_reference_${type}s_filter_menu' class="button-group filter-button-group col-md-12">
+                      <div class='col-md-6'>
+                        <div class='col-md-12'>Filter by:</div>
+                        <button data-filter="*" class='button is-checked'>show all</button>
+                        <button data-filter=".Unassigned" class='button'>unassigned</button>
+                      </div>
+                      <div class='col-md-9'>
+                        <div class='col-md-12'>Filter by SOP categories:</div>
+                        <div class='col-md-6'>
+                          ${_.map(categories['sop_categories'], category => {
+                              return `<button data-filter=".${category.title.replace(new RegExp(' ', 'g'), '_')}" class='button'>${category.title}</button>`
+                          }).join('')}
+                        </div>
+                      </div>
+                      <div class='col-md-9'>
+                        <div class='col-md-12'>Filter by C4D categories:</div>
+                        ${_.map(categories['c4d_categories'], category => {
+                            return `<button data-filter=".${category.title}" class='button'>${category.title}</button>`
+                        }).join('')}
+                      </div>
+                    </div>
+                  </div>
                 </div>
-                <div class='col-md-6'>
-                  <form id='cms_reference_${type}_search_form'>
-                    <label>Search reference ${type}s by title or file name:</label>
-                    <input class="reference_${type}_file" type="text" name="cms_reference_${type}_search" value="">
-                    <button type="submit">search</button>
-                  </form>
-                </div>
-                <div class='col-md-12'>
-                  <div class='col-md-12'>Sort by SOP categories:</div>
-                  ${_.map(categories['sop_categories'], category => {
-                      return `<button data-filter=".${category.title.replace(new RegExp(' ', 'g'), '_')}" class='button'>${category.title}</button>`
-                  }).join('')}
-                </div>
-                <div class='col-md-12'>
-                  <div class='col-md-12'>Sort by C4D categories:</div>
-                  ${_.map(categories['c4d_categories'], category => {
-                      return `<button data-filter=".${category.title}" class='button'>${category.title}</button>`
-                  }).join('')}
-                </div>
+              </div>
+              <div class='col-md-offset-2 col-md-7'>
+                <form id='cms_reference_${type}_search_form'>
+                  <label>Search reference ${type}s by title or file name:</label>
+                  <input class="reference_${type}_file" type="text" name="cms_reference_${type}_search" value="">
+                  <button type="submit">search</button>
+                </form>
               </div>
               <div id="cms_reference_${type}_grid" class='col-md-11'>
               ${ _.map(reference_links, reference_link => {
