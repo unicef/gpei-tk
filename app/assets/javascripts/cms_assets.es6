@@ -114,7 +114,15 @@ $(() => {
     function loadIsotopeHandlers(type){
       $(`#CMS_index_content #cms_reference_${type}_grid`).isotope({
         itemSelector: `.reference_${type}_item`,
-        layoutMode: 'fitRows'
+        layoutMode: 'fitRows',
+        getSortData: {
+          updatedSort: function (ele) {
+              return Date.parse($(ele).find('#updated_at_div').text()) * (updatedSortFlow ? -1 : 1)
+          },
+          createdSort: function (ele) {
+              return (Date.parse($(ele).find('#created_at_div').text())) * (createdSortFlow ? -1 : 1)
+          }
+        }
       })
       $('.filter-button-group').on('click', 'button', function() {
         var filterValue = $(this).attr('data-filter')
@@ -129,7 +137,24 @@ $(() => {
         })
       })
     }
-
+    let updatedSortFlow = false
+    $('#CMS_index_content').on('click', '#cms_reference_link_updated_column', e => {
+      e.preventDefault()
+      $('#cms_reference_link_grid').isotope({
+        sortAscending: updatedSortFlow
+      })
+      $('#cms_reference_link_grid').isotope({ sortBy: 'updatedSort' })
+      updatedSortFlow = !updatedSortFlow
+    })
+    let createdSortFlow = false
+    $('#CMS_index_content').on('click', '#cms_reference_link_created_column', e => {
+      e.preventDefault()
+      $('#cms_reference_link_grid').isotope({
+        sortAscending: createdSortFlow
+      })
+      $('#cms_reference_link_grid').isotope({ sortBy: 'createdSort' })
+      createdSortFlow = !createdSortFlow
+    })
     $('#CMS_index_content').on('submit', '#cms_reference_link_search_form', e => {
       e.preventDefault()
       var filterFunc =  function() {
@@ -197,8 +222,8 @@ $(() => {
                       </div>
                       <div class='col-md-2'><strong>Where pdf is attached:</strong><br> ${ _.isUndefined(reference_link_categories[reference_link.id]) ? '' : _.map(reference_link_categories[reference_link.id], reference_link_categories => { return reference_link_categories.details }).join("<div style='height:2px;background:black;width:100%'></div>")}</div>
                       <div class='col-md-1 text-center'><strong>Language:</strong><br> ${reference_link.language}</div>
-                      <div class='col-md-1'><strong>Updated:</strong><br> ${moment(reference_link.updated_at, "YYYY-MM-DD").format("MMM DD, YYYY")}</div>
-                      <div class='col-md-1'><strong>Created:</strong><br> ${moment(reference_link.created_at, "YYYY-MM-DD").format("MMM DD, YYYY")}</div>
+                      <div class='col-md-1'><a id='cms_reference_link_updated_column' href=''><strong>Updated:</strong></a><br> <div id='updated_at_div'>${moment(reference_link.updated_at, "YYYY-MM-DD").format("MMM DD, YYYY")}</div></a></div>
+                      <div class='col-md-1'><a id='cms_reference_link_created_column' href=''><strong>Created:</strong></a><br><div id='created_at_div'>${moment(reference_link.created_at, "YYYY-MM-DD").format("MMM DD, YYYY")}</div></div>
                       <div id='cms_author_div' class='col-md-2'><strong>Author:</strong><br> ${users[reference_link.author_id].first_name + ' ' + users[reference_link.author_id].last_name}</div>
                       <div class='col-md-1'><a id='reference_${type}_delete' href=''><i class="fa fa-times" aria-hidden="true"></i> delete</a></div>
                       <div id='${reference_link.id}' class='col-md-3 bottom-right-position'><a id='cms_reference_${type}_edit' href="${ reference_link.absolute_url }"><i class="fa fa-pencil-square-o" aria-hidden="true"></i>Edit</a></div>
