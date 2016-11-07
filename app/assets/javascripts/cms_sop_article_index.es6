@@ -247,19 +247,21 @@ $(() => {
     e.preventDefault()
     let id = e.currentTarget.parentElement.parentElement.parentElement.id
     let current_row = $('#CMS_index_content').find('#'+id+'.cms_sop_article_row')
-    if (!(current_row.hasClass('sop_first_article'))) {
+    let visible_elements = $('#CMS_sop_articles_grid').isotope('getFilteredItemElements')
+    let idx_of_current_row = -1
+    _.find(visible_elements, el => { idx_of_current_row+=1; return $(el).attr('id') === id })
+    let prev_row = idx_of_current_row > 0 ? $(visible_elements[idx_of_current_row - 1]) : null
+    if (!(current_row.hasClass('sop_first_article')) && !_.isNull(prev_row)) {
       toggleProgressSpinner()
       document.getElementById('CMS_index_content').style.pointerEvents = 'none'
+      let prev_id = $(prev_row).attr('id')
       $.ajax({
         method: 'PATCH',
-        url: 'cms/sop_articles/orderUp/' + id
+        url: 'cms/sop_articles/orderUp/' + id + '?prev_id=' + prev_id
       }).done(response => {
         if (response.status === 200){
-          document.getElementById('CMS_index_content').style.pointerEvents = 'auto'
-          let prev_row = current_row.prev()
-          $(current_row).after(prev_row)
-          current_row.find('#cms_sop_article_order_id_div').text(response.order_id)
-          prev_row.find('#cms_sop_article_order_id_div').text(response.order_id + 1)
+          current_row.find('#cms_sop_article_order_id_div').text(response.current_sop_article_order_id)
+          prev_row.find('#cms_sop_article_order_id_div').text(response.prev_sop_article_order_id)
           if (prev_row.hasClass('sop_first_article')) {
             prev_row.removeClass('sop_first_article')
             current_row.addClass('sop_first_article')
@@ -268,11 +270,13 @@ $(() => {
             prev_row.addClass('sop_last_article')
             current_row.removeClass('sop_last_article')
           }
-          $('#CMS_sop_articles_grid').isotope('reloadItems')
-          $('#CMS_sop_articles_grid').isotope({ sortBy: 'orderIdSort' })
-          toggleProgressSpinner()
         }
       })
+      _.delay(() => {
+        $('#CMS_sop_articles_grid').isotope('reloadItems').isotope({ sortBy: 'orderIdSort' })
+        toggleProgressSpinner()
+        document.getElementById('CMS_index_content').style.pointerEvents = 'auto'
+      }, 100, 'later');
     }
     return false
   })
@@ -281,19 +285,21 @@ $(() => {
     e.preventDefault()
     let id = e.currentTarget.parentElement.parentElement.parentElement.id
     let current_row = $('#CMS_index_content').find('#'+id+'.cms_sop_article_row')
-    if (!(current_row.hasClass('sop_last_article'))) {
+    let visible_elements = $('#CMS_sop_articles_grid').isotope('getFilteredItemElements')
+    let idx_of_current_row = -1
+    _.find(visible_elements, el => { idx_of_current_row += 1; return $(el).attr('id') === id })
+    let next_row = idx_of_current_row !== visible_elements.length - 1 ? $(visible_elements[idx_of_current_row + 1]) : null
+    if (!(current_row.hasClass('sop_last_article')) && !_.isNull(next_row)) {
       toggleProgressSpinner()
       document.getElementById('CMS_index_content').style.pointerEvents = 'none'
+      let next_id = $(next_row).attr('id')
       $.ajax({
         method: 'PATCH',
-        url: 'cms/sop_articles/orderDown/' + id
+        url: 'cms/sop_articles/orderDown/' + id + '?next_id=' + next_id
       }).done(response => {
         if (response.status === 200){
-          document.getElementById('CMS_index_content').style.pointerEvents = 'auto'
-          let next_row = current_row.next()
-          $(next_row).after(current_row)
-          current_row.find('#cms_sop_article_order_id_div').text(response.order_id)
-          next_row.find('#cms_sop_article_order_id_div').text(response.order_id - 1)
+          current_row.find('#cms_sop_article_order_id_div').text(response.current_sop_article_order_id)
+          next_row.find('#cms_sop_article_order_id_div').text(response.next_sop_article_order_id)
           if (next_row.hasClass('sop_last_article')) {
             next_row.removeClass('sop_last_article')
             current_row.addClass('sop_last_article')
@@ -302,11 +308,13 @@ $(() => {
             next_row.addClass('sop_first_article')
             current_row.removeClass('sop_first_article')
           }
-          $('#CMS_sop_articles_grid').isotope('reloadItems')
-          $('#CMS_sop_articles_grid').isotope({ sortBy: 'orderIdSort' })
-          toggleProgressSpinner()
         }
       })
+      _.delay(() => {
+        $('#CMS_sop_articles_grid').isotope('reloadItems').isotope({ sortBy: 'orderIdSort' })
+        toggleProgressSpinner()
+        document.getElementById('CMS_index_content').style.pointerEvents = 'auto'
+      }, 100, 'later');
     }
     return false
   })

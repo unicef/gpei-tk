@@ -80,12 +80,13 @@ class Cms::SopArticlesController < ApplicationController
   def orderUp
     if request.xhr? && current_user.is_admin?
       sop_article = SopArticle.find_by(id: params[:id])
-      current_order_id = sop_article.order_id
-      sop_article_prev = SopArticle.find_by(order_id: current_order_id - 1)
-      if sop_article.update(order_id: current_order_id - 1) && sop_article_prev.update(order_id: current_order_id)
-        render json: { status: 200, order_id: sop_article.order_id }
+      prev_sop_article = SopArticle.find_by(id: params[:prev_id])
+      prev_sop_article_order_id = prev_sop_article.order_id
+      prev_sop_article.update(order_id: sop_article.order_id)
+      if sop_article.update(order_id: prev_sop_article_order_id)
+        render json: { status: 200, current_sop_article_order_id: sop_article.order_id, prev_sop_article_order_id: prev_sop_article.order_id }
       else
-        render json: { status: 403 }
+        render json: { status: 403, error: 'something went wrong' }
       end
     end
   end
@@ -93,12 +94,13 @@ class Cms::SopArticlesController < ApplicationController
   def orderDown
     if request.xhr? && current_user.is_admin?
       sop_article = SopArticle.find_by(id: params[:id])
-      current_order_id = sop_article.order_id
-      sop_article_next = SopArticle.find_by(order_id: current_order_id + 1)
-      if sop_article.update(order_id: current_order_id + 1) && sop_article_next.update(order_id: current_order_id)
-        render json: { status: 200, order_id: sop_article.order_id }
+      next_sop_article = SopArticle.find_by(id: params[:next_id])
+      next_sop_article_order_id = next_sop_article.order_id
+      next_sop_article.update(order_id: sop_article.order_id)
+      if sop_article.update(order_id: next_sop_article_order_id)
+        render json: { status: 200, current_sop_article_order_id: sop_article.order_id, next_sop_article_order_id: next_sop_article.order_id }
       else
-        render json: { status: 403 }
+        render json: { status: 403, error: 'something went wrong' }
       end
     end
   end
