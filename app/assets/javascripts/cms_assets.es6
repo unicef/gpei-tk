@@ -39,11 +39,6 @@ $(() => {
           // appendReferenceLinkRows(reference_links, reference_link_categories, response.users)
           $('#CMS_index_content').append("<h2 id='cms_reference_links_list_header'>Uploaded Reference Links - (.pdf's) Index</h2>")
           $('#CMS_index_content').append(getReferenceLinkGrid(reference_links, reference_link_categories, response.users, type, categories))
-          $('#CMS_index_content #cms_reference_link_dropdown').dropdown({
-            on: 'hover',
-            action: 'nothing',
-            transition: 'horizontal flip'
-          })
           loadIsotopeHandlers(type)
         })
       })
@@ -117,15 +112,21 @@ $(() => {
     })
 
     function loadIsotopeHandlers(type){
+      $('#CMS_index_content #cms_reference_link_filter_dropdown').dropdown({
+        on: 'hover',
+        action: 'nothing',
+        transition: 'horizontal flip'
+      })
+
       $(`#CMS_index_content #cms_reference_${type}_grid`).isotope({
         itemSelector: `.reference_${type}_item`,
         layoutMode: 'fitRows',
         getSortData: {
           updatedSort: function (ele) {
-              return Date.parse($(ele).find('#updated_at_div').text()) * (updatedSortFlow ? -1 : 1)
+            return Date.parse($(ele).find('#updated_at_div').text()) * (updatedSortFlow ? -1 : 1)
           },
           createdSort: function (ele) {
-              return (Date.parse($(ele).find('#created_at_div').text())) * (createdSortFlow ? -1 : 1)
+            return (Date.parse($(ele).find('#created_at_div').text())) * (createdSortFlow ? -1 : 1)
           }
         }
       })
@@ -177,12 +178,8 @@ $(() => {
       return false
     })
 
-    var filterFns = {
-      numberGreaterThan50: function() {
-      }
-    }
     function getReferenceLinkGrid(reference_links, reference_link_categories, users, type, categories){
-      return `<div id='cms_reference_link_dropdown' class="ui pointing dropdown col-md-3">
+      return `<div id='cms_reference_link_filter_dropdown' class="ui pointing dropdown col-md-3">
                 <div class='text'><i class="fa fa-filter fa-2x" aria-hidden="true"></i><strong>Hover to select a filter</strong></div>
                 <div id="" class="menu">
                   <div class='item'>
@@ -213,7 +210,7 @@ $(() => {
               <div class='col-md-offset-2 col-md-7'>
                 <form id='cms_reference_${type}_search_form'>
                   <label>Search reference ${type}s by title or file name:</label>
-                  <input class="reference_${type}_file" type="text" name="cms_reference_${type}_search" value="">
+                  <input class="reference_${type}" type="text" name="cms_reference_${type}_search" value="">
                   <button type="submit">search</button>
                 </form>
               </div>
