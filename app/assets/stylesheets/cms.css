@@ -238,3 +238,31 @@
 #cms_reference_link_file_name_div {
   word-wrap: break-word;
 }
+.cms_div_borders {
+  border-width: 1px;
+  border-style: solid;
+  border-collapse: separate;
+  height: 100;
+  text-align: center;
+  display: table-cell;
+}
+#CMS_sop_articles_grid>div{
+  margin-bottom:10px;
+}
+.cms_sop_article_row {
+  display:flex;
+  /*height:100%;*/
+}
+#CMS_actions_dropdown {
+  padding:4px;
+}
+#CMS_actions_dropdown .menu{
+  left:-65px;
+}
+#cms_sop_articles_index_header {
+  margin-bottom:5px;
+}
+.bold_underline {
+  font-weight:bold;
+  text-decoration: underline
+}

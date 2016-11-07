@@ -4,10 +4,9 @@ $(() => {
     transition: 'drop'
   })
 
-  $('select.dropdown')
-    .dropdown({
+  $('select.dropdown').dropdown({
       action: 'hide'
-    });
+  })
 
   $('#CMS_sop_articles_link').click(e => {
     toggleProgressSpinner()
@@ -26,11 +25,65 @@ $(() => {
         toggleProgressSpinner()
         $('#CMS_index_content').empty()
         $('#CMS_index_content').append("<h2 id='cms_sop_article_list_header'>SOP Article Index</h2>")
-        appendSopArticleTableHeader()
+        // appendSopArticleTableHeader()
         appendSopArticleRows(sop_articles, response.users, sop_time_periods, sop_categories)
+        loadIsotopeHandlers()
       })
     })
   })
+
+  let updatedSortFlow = false
+  let createdSortFlow = false
+  function loadIsotopeHandlers(){
+      $('#CMS_index_content #cms_sop_articles_filter_dropdown').dropdown({
+        on: 'hover',
+        action: 'nothing',
+        transition: 'horizontal flip'
+      })
+      $(`#CMS_index_content #CMS_sop_articles_grid`).isotope({
+        itemSelector: `.cms_sop_article_row`,
+        layoutMode: 'fitRows',
+        getSortData: {
+          updatedSort: function (ele) {
+            return Date.parse($(ele).find('#updated_at_div').text()) * (updatedSortFlow ? -1 : 1)
+          },
+          createdSort: function (ele) {
+            return (Date.parse($(ele).find('#created_at_div').text())) * (createdSortFlow ? -1 : 1)
+          },
+          orderIdSort: function (ele) {
+            return parseInt($(ele).find('#cms_sop_article_order_id_div').text())
+          }
+        }
+      })
+
+      $('.filter-button-group').on('click', 'button', function() {
+        var filterValue = $(this).attr('data-filter')
+        // use filter function if value matches
+        $(`#CMS_index_content #CMS_sop_articles_grid`).isotope({ filter: filterValue })
+      })
+
+      $('.button-group').each( function( i, buttonGroup ) {
+        var $buttonGroup = $( buttonGroup )
+        $buttonGroup.on( 'click', 'button', function() {
+          $buttonGroup.find('.is-checked').removeClass('is-checked')
+          $( this ).addClass('is-checked')
+        })
+      })
+  }
+
+  $('#CMS_index_content').on('submit', '#cms_sop_articles_search_form', e => {
+    e.preventDefault()
+    var filterFunc =  function() {
+      let search_value = $('#cms_sop_articles_search_form input').val()
+      let title = $(this).find('#cms_sop_article_title_div a').text();
+      let regex_search_value = new RegExp(search_value, 'i')
+      let found_title = title.match(regex_search_value)
+      return found_title
+    }
+    $('#CMS_sop_articles_grid').isotope({ filter: filterFunc })
+    return false
+  })
+
   function toggleProgressSpinner(){
     if ($('#progress_spinner').css('visibility') === 'hidden')
       $('#progress_spinner').css('visibility', 'visible')
@@ -62,7 +115,7 @@ $(() => {
         <div id="CMS_actions_dropdown" class="ui simple dropdown item">
           Actions &nbsp;
           <i class="fa fa-caret-down" aria-hidden="true"></i>
-          <div class="menu">
+          <div class="menu left">
             <div id="${id}" class="item">
               <span id="CMS_sop_toggle_published">Toggle published</span>
             </div>
@@ -80,51 +133,120 @@ $(() => {
   function appendSopArticleRows(sop_articles, users, sop_time_periods, sop_categories){
     let idx = 0
     let last_idx = sop_articles.length - 1
+    let content = `<div id='cms_sop_articles_filter_dropdown' class="ui pointing dropdown col-md-3">
+                    <div class='text'><i class="fa fa-filter fa-2x" aria-hidden="true"></i><strong>Hover to select a filter</strong></div>
+                    <div id="" class="menu">
+                      <div class='item'>
+                        <div id='cms_sop_articles_filter_menu' class="button-group filter-button-group col-md-12">
+                          <div class='col-md-6'>
+                            <div class='col-md-12'>Filter by:</div>
+                            <button data-filter="*" class='button is-checked'>show all</button>
+                          </div>
+                          <div class='col-md-9'>
+                            <div class='col-md-12'>Filter by SOP Time Periods:</div>
+                            <div class='col-md-6'>
+                              ${_.map(sop_time_periods, time => {
+                                  return `<button data-filter=".${time.period.replace(new RegExp(' ', 'g'), '_')}" class='button'>${time.period}</button>`
+                              }).join('')}
+                            </div>
+                          </div>
+                          <div class='col-md-9'>
+                            <div class='col-md-12'>Filter by SOP Categories:</div>
+                            <div class='col-md-6'>
+                            ${_.map(sop_categories, category => {
+                                return `<button data-filter=".${category.title.replace(new RegExp(' ', 'g'), '_')}" class='button'>${category.title}</button>`
+                            }).join('')}
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class='col-md-offset-2 col-md-7'>
+                    <form id='cms_sop_articles_search_form'>
+                      <label>Search sop articles by title:</label>
+                      <input class="sop_articles_input" type="text" name="cms_sop_articles_search" value="">
+                      <button type="submit">search</button>
+                    </form>
+                  </div>
+                  <div id='cms_sop_articles_index_header' class='col-md-12 cms_div_borders'>
+                    <div class="col-md-1 text-center"> Order id </div>
+                    <div class="col-md-1 text-center"> Time Period </div>
+                    <div class="col-md-2 text-center"> Category </div>
+                    <div class="col-md-3 text-center"> Title </div>
+                    <div class="col-md-1 text-center"> Status </div>
+                    <div class="col-md-1 text-center"><a id='updated_at_div' href=''> Updated </a></div>
+                    <div class="col-md-1 text-center"><a id='created_at_div' href=''> Created </a></div>
+                    <div class="col-md-1 text-center"> Author </div>
+                    <div class="col-md-1 text-center"> Actions </div>
+                  </div>
+                  <div id='CMS_sop_articles_grid' class='col-md-12'>`
+    let rows = ''
     _.forEach(sop_articles, article => {
-      let row = `<tr id="${article.id}" class="${idx === 0 ? 'sop_first_article' : ''}${ idx === last_idx ? 'sop_last_article' : ''}">
-                  <td>
-                    <div class='col-md-12'>
-                      <a id='sop_order_id_up' href=''><i class="fa fa-sort-asc fa-2x" aria-hidden="true"></i></a>
-                    </div>
-                    <div id='cms_sop_article_order_id_div'>
-                      ${article.order_id}
-                    </div>
-                    <div class='col-md-12'>
-                      <a id='sop_order_id_down' href=''><i class="fa fa-sort-desc fa-2x" aria-hidden="true"></i></a>
-                    </div>
-                  </td>
-                  <td>${ sop_time_periods[article.sop_time_id-1].period }</td>
-                  <td>${ sop_categories[article.sop_category_id-1].title }</td>
-                  <td>
-                    <div id='cms_sop_article_title_div'>
-                      <a id="${article.id}" href=""><strong><u>${article.title}</u></strong></a>
-                    </div>
-                  </td>
-                  <td>
-                    ${formatPublished(article.published)}
-                  </td>
-                  <td>
-                    ${new Date(article.updated_at)}
-                  </td>
-                  <td>
-                    ${new Date(article.created_at)}
-                  </td>
-                  <td>
-                    ${users[article.author_id].first_name + ' ' + users[article.author_id].last_name}
-                  </td>
-                  <td>
-                    ${getPublishToggleDropdown(article.id)}
-                  </td>
-                </tr>`
-      $('#CMS_sop_articles_table').append(row)
+      rows += `<div id="${article.id}" class="${idx === 0 ? 'sop_first_article' : ''}${ idx === last_idx ? 'sop_last_article' : ''} col-md-12 cms_sop_article_row  ${sop_categories[article.sop_category_id-1].title.replace(new RegExp(' ', 'g'), '_')} ${sop_time_periods[article.sop_time_id-1].period.replace(new RegExp(' ', 'g'), '_')}">
+                <div class='col-md-1 cms_div_borders'>
+                  <div class='col-md-12'>
+                    <a id='sop_order_id_up' href=''><i class="fa fa-sort-asc fa-2x" aria-hidden="true"></i></a>
+                  </div>
+                  <div id='cms_sop_article_order_id_div' class='col-md-12'>
+                    ${article.order_id}
+                  </div>
+                  <div class='col-md-12'>
+                    <a id='sop_order_id_down' href=''><i class="fa fa-sort-desc fa-2x" aria-hidden="true"></i></a>
+                  </div>
+                </div>
+                <div class='col-md-1 cms_div_borders'>${ sop_time_periods[article.sop_time_id-1].period }</div>
+                <div class='col-md-2 cms_div_borders'>${ sop_categories[article.sop_category_id-1].title }</div>
+                <div class='col-md-3 cms_div_borders'>
+                  <div id='cms_sop_article_title_div'>
+                    <a id="${article.id}" href="" class='bold_underline'>${article.title}</a>
+                  </div>
+                </div>
+                <div class='col-md-1 cms_div_borders'>
+                  ${formatPublished(article.published)}
+                </div>
+                <div id='updated_at_div' class='col-md-1 cms_div_borders'>
+                  ${new Date(article.updated_at)}
+                </div>
+                <div id='created_at_div' class='col-md-1 cms_div_borders'>
+                  ${new Date(article.created_at)}
+                </div>
+                <div class='col-md-1 cms_div_borders'>
+                  ${users[article.author_id].first_name + ' ' + users[article.author_id].last_name}
+                </div>
+                <div class='col-md-1 cms_div_borders'>
+                  ${getPublishToggleDropdown(article.id)}
+                </div>
+              </div>`
       idx += 1
     })
+    content = content + rows
+    content += `</div>`
+    $('#CMS_index_content').append(content)
   }
+
+  $('#CMS_index_content').on('click', '#updated_at_div', e => {
+    e.preventDefault()
+    $('#CMS_sop_articles_grid').isotope({
+      sortAscending: updatedSortFlow
+    })
+    $('#CMS_sop_articles_grid').isotope({ sortBy: 'updatedSort' })
+    updatedSortFlow = !updatedSortFlow
+  })
+
+  $('#CMS_index_content').on('click', '#created_at_div', e => {
+    e.preventDefault()
+    $('#CMS_sop_articles_grid').isotope({
+      sortAscending: createdSortFlow
+    })
+    $('#CMS_sop_articles_grid').isotope({ sortBy: 'createdSort' })
+    createdSortFlow = !createdSortFlow
+  })
 
   $('#CMS_index_content').on('click', '#sop_order_id_up', e => {
     e.preventDefault()
     let id = e.currentTarget.parentElement.parentElement.parentElement.id
-    let current_row = $('#CMS_index_content').find('tr#'+id)
+    let current_row = $('#CMS_index_content').find('#'+id+'.cms_sop_article_row')
     if (!(current_row.hasClass('sop_first_article'))) {
       toggleProgressSpinner()
       document.getElementById('CMS_index_content').style.pointerEvents = 'none'
@@ -146,6 +268,8 @@ $(() => {
             prev_row.addClass('sop_last_article')
             current_row.removeClass('sop_last_article')
           }
+          $('#CMS_sop_articles_grid').isotope('reloadItems')
+          $('#CMS_sop_articles_grid').isotope({ sortBy: 'orderIdSort' })
           toggleProgressSpinner()
         }
       })
@@ -156,7 +280,7 @@ $(() => {
   $('#CMS_index_content').on('click', '#sop_order_id_down', e => {
     e.preventDefault()
     let id = e.currentTarget.parentElement.parentElement.parentElement.id
-    let current_row = $('#CMS_index_content').find('tr#'+id)
+    let current_row = $('#CMS_index_content').find('#'+id+'.cms_sop_article_row')
     if (!(current_row.hasClass('sop_last_article'))) {
       toggleProgressSpinner()
       document.getElementById('CMS_index_content').style.pointerEvents = 'none'
@@ -178,6 +302,8 @@ $(() => {
             next_row.addClass('sop_first_article')
             current_row.removeClass('sop_first_article')
           }
+          $('#CMS_sop_articles_grid').isotope('reloadItems')
+          $('#CMS_sop_articles_grid').isotope({ sortBy: 'orderIdSort' })
           toggleProgressSpinner()
         }
       })
