@@ -76,7 +76,7 @@
   color:black;
 }
 #progress_spinner {
-  position:absolute;
+  position:fixed;
   z-index:13;
   top:50%;
   left:50%;
