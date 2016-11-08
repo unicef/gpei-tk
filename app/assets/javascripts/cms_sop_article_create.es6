@@ -74,7 +74,7 @@ $(() => {
       $('.ui.dimmer').dimmer('show')
       _.delay(() => {
         $('.ui.dimmer').dimmer('hide')
-      }, 3000, 'later');
+      }, 1000, 'later');
       history.pushState(null, null, 'cms')
     })
     return false

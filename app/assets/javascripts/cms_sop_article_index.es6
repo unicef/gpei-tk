@@ -105,7 +105,7 @@ $(() => {
       $('.ui.dimmer').dimmer('show')
       _.delay(() => {
         $('.ui.dimmer').dimmer('hide')
-      }, 3000, 'later');
+      }, 1000, 'later');
       history.pushState({}, null, 'cms');
     })
   })
@@ -337,10 +337,12 @@ $(() => {
         url: 'cms/sop_articles/' + e.currentTarget.id
       }).done(response => {
         toggleProgressSpinner()
-        $('#CMS_index_content').empty()
-        $('#CMS_index_content').append("<h2 id='cms_sop_article_list_header'>SOP Article Edit</h2>")
+        $('#CMS_modal').modal('show')
+        // $('#CMS_index_content').empty()
+        $('#CMS_modal #CMS_modal_header').append("<h2 id='cms_sop_article_list_header'>SOP Article Edit</h2>")
         let content = getCMSSopArticleContent(response.sop_article, response.sop_times, response.sop_categories, response.responsible_offices, response.support_affiliations, reference_links, response.selected_reference_links, response.selected_reference_mp3s, response.selected_reference_pptxes, response.reference_mp3s, response.reference_pptxes)
-        $('#CMS_index_content').append(content)
+        // $('#CMS_index_content').append(content)
+        $('#CMS_modal #CMS_modal_header').append(content)
         initializeCKEditor()
         $('#editor').val(response.sop_article.content)
       })
@@ -680,7 +682,7 @@ $(() => {
       `)
   }
 
-  $('#CMS_index_content').on('submit', '#CMS_sop_article_form', e => {
+  $('#CMS_modal').on('submit', '#CMS_sop_article_form', e => {
     toggleProgressSpinner()
     e.preventDefault()
     let reference_link_order = getSOPArticleReferenceLinkOrder()
@@ -692,11 +694,7 @@ $(() => {
       data: $('#CMS_sop_article_form').serialize() + reference_link_order + reference_mp3_order + reference_pptx_order + "&authenticity_token=" + _.escape($('meta[name=csrf-token]').attr('content'))
     }).done(response => {
       toggleProgressSpinner()
-      $('#CMS_sop_articles_link').trigger('click')
-      $('.ui.dimmer').dimmer('show')
-      _.delay(() => {
-        $('.ui.dimmer').dimmer('hide')
-      }, 3000, 'later');
+      $('#CMS_modal').modal('hide')
       history.pushState(null, null, 'cms');
     })
     return false
@@ -704,19 +702,22 @@ $(() => {
 
   function getSOPArticleReferenceLinkOrder(){
     // "4&reference_link_order%5B%5D=6&reference_link_order%5B%5D=4"
-    return _.isEmpty($('#CMS_index_content #cms_sop_article_reference_link_list').children()) ? '&reference_link_order%5B%5D=' : _.map($('#CMS_index_content #cms_sop_article_reference_link_list').children(), div => {
+    let children = $('#CMS_modal #cms_sop_article_reference_link_list').children()
+    return _.isEmpty(children) ? '&reference_link_order%5B%5D=' : _.map(children, div => {
               return `&reference_link_order%5B%5D=${$(div).attr('id')}`
            }).join('')
   }
   function getSOPArticleReferenceMp3Order(){
     // "4&reference_link_order%5B%5D=6&reference_link_order%5B%5D=4"
-    return _.isEmpty($('#CMS_index_content #cms_sop_article_reference_mp3_list').children()) ? '&reference_mp3_order%5B%5D=' : _.map($('#CMS_index_content #cms_sop_article_reference_mp3_list').children(), div => {
+    let children = $('#CMS_index_content #cms_sop_article_reference_mp3_list').children()
+    return _.isEmpty(children) ? '&reference_mp3_order%5B%5D=' : _.map(children, div => {
               return `&reference_mp3_order%5B%5D=${$(div).attr('id')}`
            }).join('')
   }
   function getSOPArticleReferencePptxOrder(){
     // "4&reference_link_order%5B%5D=6&reference_link_order%5B%5D=4"
-    return _.isEmpty($('#CMS_index_content #cms_sop_article_reference_pptx_list').children()) ? '&reference_pptx_order%5B%5D=' : _.map($('#CMS_index_content #cms_sop_article_reference_pptx_list').children(), div => {
+    let children = $('#CMS_index_content #cms_sop_article_reference_pptx_list').children()
+    return _.isEmpty(children) ? '&reference_pptx_order%5B%5D=' : _.map(children, div => {
               return `&reference_pptx_order%5B%5D=${$(div).attr('id')}`
            }).join('')
   }

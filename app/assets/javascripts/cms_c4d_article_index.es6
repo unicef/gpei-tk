@@ -287,15 +287,18 @@ $(() => {
         url: 'cms/c4d_articles/' + e.currentTarget.children[0].id
       }).done(response => {
         toggleProgressSpinner()
-        $('#CMS_index_content').empty()
-        $('#CMS_index_content').append("<h2 id='cms_c4d_article_list_header'>C4D Article Edit</h2>")
+        $('#CMS_modal').modal('show')
+        $('#CMS_modal #CMS_modal_header').append("<h2 id='cms_c4d_article_list_header'>C4D Article Edit</h2>")
+        // $('#CMS_index_content').empty()
+        // $('#CMS_index_content').append()
         let content = getCMSC4dArticleContent(response.c4d_article,
                                               response.c4d_subcategories,
                                               response.c4d_categories,
                                               response.embedded_images,
                                               response.selected_reference_links,
                                               reference_links)
-        $('#CMS_index_content').append(content)
+        $('#CMS_modal #CMS_modal_content').append(content)
+        // $('#CMS_index_content').append(content)
         initializeCKEditor()
         $('#editor').val(response.c4d_article.content)
       })
@@ -436,7 +439,7 @@ $(() => {
       $('.ui.dimmer').dimmer('show')
       _.delay(() => {
         $('.ui.dimmer').dimmer('hide')
-      }, 3000, 'later');
+      }, 1000, 'later');
       history.pushState({}, null, 'cms');
     })
   })
@@ -472,7 +475,7 @@ $(() => {
       `)
   }
 
-  $('#CMS_index_content').on('submit', '#CMS_c4d_article_form', e => {
+  $('#CMS_modal').on('submit', '#CMS_c4d_article_form', e => {
     e.preventDefault()
     toggleProgressSpinner()
     let reference_link_order = getC4dArticleReferenceLinkOrder()
@@ -481,19 +484,17 @@ $(() => {
       url: 'cms/c4d_articles/' + e.currentTarget.parentElement.id,
       data: $('#CMS_c4d_article_form').serialize() + reference_link_order + "&authenticity_token=" + _.escape($('meta[name=csrf-token]').attr('content'))
     }).done(response => {
-      toggleProgressSpinner()
-      $('#CMS_c4d_articles_link').trigger('click')
-      $('.ui.dimmer').dimmer('show')
-      _.delay(() => {
-        $('.ui.dimmer').dimmer('hide')
-      }, 3000, 'later');
+      $('#CMS_modal').modal('hide')
       history.pushState(null, null, 'cms');
+      toggleProgressSpinner()
     })
     return false
   })
+
   function getC4dArticleReferenceLinkOrder(){
     // "4&reference_link_order%5B%5D=6&reference_link_order%5B%5D=4"
-    return _.isEmpty($('#CMS_index_content #cms_c4d_article_reference_link_list').children()) ? '&reference_link_order%5B%5D=' : _.map($('#CMS_index_content #cms_c4d_article_reference_link_list').children(), div => {
+    let children = $('#CMS_modal #cms_c4d_article_reference_link_list').children()
+    return _.isEmpty(children) ? '&reference_link_order%5B%5D=' : _.map(children, div => {
               return `&reference_link_order%5B%5D=${$(div).attr('id')}`
            }).join('')
   }
