@@ -246,9 +246,11 @@
   text-align: center;
   display: table-cell;
 }
+#CMS_c4d_articles_grid>div,
 #CMS_sop_articles_grid>div{
   margin-bottom:10px;
 }
+.cms_c4d_article_row,
 .cms_sop_article_row {
   display:flex;
   /*height:100%;*/
@@ -259,6 +261,7 @@
 #CMS_actions_dropdown .menu{
   left:-65px;
 }
+#cms_c4d_articles_index_header,
 #cms_sop_articles_index_header {
   margin-bottom:5px;
 }
