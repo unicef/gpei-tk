@@ -21,7 +21,7 @@
 }
 #user_account_modal {
   position:relative;
-  /*top:100px;*/
+  top:100px;
 }
 .ui.dropdown.user_dropdowns {
   width: auto;
@@ -275,4 +275,7 @@ nav .container {
 #sop_what_to_do_nav_button:not(.active):hover {
   background:#8D3733 !important;
   opacity:0.9;
+}
+#homepage_feedback_form .field{
+  width:100%;
 }
