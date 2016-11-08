@@ -4,7 +4,8 @@ class Cms::ReferencePptxesController < ApplicationController
   def index
     reference_pptxes = ReferencePptx.all.order(:document_file_name)
     reference_pptx_categories = getReferencePptxCategories(reference_pptxes)
-    render json: { reference_pptxes: reference_pptxes, reference_pptx_categories: reference_pptx_categories, status: 200 }
+    categories = { sop_categories: SopCategory.all, c4d_categories: C4dCategory.all }
+    render json: { reference_pptxes: reference_pptxes, reference_pptx_categories: reference_pptx_categories, categories: categories, status: 200 }
   end
 
   def create

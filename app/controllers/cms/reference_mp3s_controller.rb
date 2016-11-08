@@ -4,7 +4,8 @@ class Cms::ReferenceMp3sController < ApplicationController
   def index
     reference_mp3s = ReferenceMp3.all.order(:clip_file_name)
     reference_mp3_categories = getReferenceMp3Categories(reference_mp3s)
-    render json: { reference_mp3s: reference_mp3s, reference_mp3_categories: reference_mp3_categories, status: 200 }
+    categories = { sop_categories: SopCategory.all, c4d_categories: C4dCategory.all }
+    render json: { reference_mp3s: reference_mp3s, reference_mp3_categories: reference_mp3_categories, categories: categories, status: 200 }
   end
 
   def create
