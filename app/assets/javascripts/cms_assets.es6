@@ -53,6 +53,7 @@ $(() => {
       }).done(response => {
         let reference_mp3s = response.reference_mp3s
         let reference_mp3_categories = response.reference_mp3_categories
+        let categories = response.categories
         $.ajax({
           method: 'GET',
           url: '/cms/users/'
@@ -63,7 +64,7 @@ $(() => {
           // appendReferencemp3Header()
           // appendReferencemp3Rows(reference_mp3s, reference_mp3_categories, response.users)
           $('#CMS_index_content').append("<h2 id='cms_reference_mp3s_list_header'>Uploaded Reference mp3s - (.pdf's) Index</h2>")
-          $('#CMS_index_content').append(getReferenceLinkGrid(reference_mp3s, reference_mp3_categories, response.users, type))
+          $('#CMS_index_content').append(getReferenceLinkGrid(reference_mp3s, reference_mp3_categories, response.users, type, categories))
           loadIsotopeHandlers(type)
         })
       })
@@ -78,6 +79,7 @@ $(() => {
       }).done(response => {
         let reference_pptxes = response.reference_pptxes
         let reference_pptx_categories = response.reference_pptx_categories
+        let categories = response.categories
         $.ajax({
           method: 'GET',
           url: '/cms/users/'
@@ -88,7 +90,7 @@ $(() => {
           // appendReferencepptxHeader()
           // appendReferencepptxRows(reference_pptxs, reference_pptx_categories, response.users)
           $('#CMS_index_content').append("<h2 id='cms_reference_pptxs_list_header'>Uploaded Reference pptxs - (.pdf's) Index</h2>")
-          $('#CMS_index_content').append(getReferenceLinkGrid(reference_pptxes, reference_pptx_categories, response.users, type))
+          $('#CMS_index_content').append(getReferenceLinkGrid(reference_pptxes, reference_pptx_categories, response.users, type, categories))
           loadIsotopeHandlers(type)
         })
       })
@@ -344,7 +346,7 @@ $(() => {
       $('.ui.dimmer').dimmer('show')
       _.delay(() => {
         $('.ui.dimmer').dimmer('hide')
-      }, 3000, 'later');
+      }, 1000, 'later');
       history.pushState({}, null, 'cms');
     }
     function getReferenceLinkField(type) {
