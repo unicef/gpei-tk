@@ -45,7 +45,6 @@
 }
 .sop_checkboxes ul,
 .sop_checkboxes {
-  background-color: white;
   height:100%;
 }
 .filter-item {
@@ -77,11 +76,10 @@
   opacity: .55;
 }
 #sop_grid_filter_menu_container {
-  background:white;
+  background: rgba(255,255,255, 0.95) !important;
   top:2em;
 }
 #sop_grid_filter_menu_container .item {
-  background-color:white !important;
   height:100%;
 }
 #filter_list {
