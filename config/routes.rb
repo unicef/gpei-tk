@@ -70,4 +70,6 @@ Rails.application.routes.draw do
   delete '/signout/', to: 'sessions#destroy', as: :signout
 
   get '/terms_of_service/' => 'terms_of_service#index'
+
+  post '/feedback/' => 'feedback#create'
 end
