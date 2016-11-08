@@ -114,8 +114,10 @@ class Cms::SopArticlesController < ApplicationController
         reference = ReferenceLink.find_by(id: reference_id)
         ReferenceLinkArticle.create(reference_link: reference, reference_linkable: sop_article)
       end
-      if !(!params[:reference_link_order].nil? && params[:reference_link_order][0] == '')
+      if !params[:reference_link_order].nil? && params[:reference_link_order][0] != ''
         sop_article.reference_link_order = params[:reference_link_order].join(' ')
+        ref_links = params[:article][:reference_links] - sop_article.reference_link_order.split(' ')
+        ref_links.each { |id| sop_article.reference_link_order += " #{id}" } unless ref_links.empty?
       elsif !sop_article.reference_links.empty?
         sop_article.reference_link_order = sop_article.reference_links.pluck(:id).join(' ')
       end
@@ -129,8 +131,10 @@ class Cms::SopArticlesController < ApplicationController
         reference = ReferenceMp3.find_by(id: reference_id)
         ReferenceMp3Article.create(reference_mp3: reference, reference_mp3able: sop_article)
       end
-      if !(!params[:reference_mp3_order].nil? && params[:reference_mp3_order][0] == '')
+      if !params[:reference_mp3_order].nil? && params[:reference_mp3_order][0] != ''
         sop_article.reference_mp3_order = params[:reference_mp3_order].join(' ')
+        ref_mp3s = params[:article][:reference_mp3s] - sop_article.reference_mp3_order.split(' ')
+        ref_mp3s.each { |id| sop_article.reference_mp3_order += " #{id}" } unless ref_mp3s.empty?
       elsif !sop_article.reference_mp3s.empty?
         sop_article.reference_mp3_order = sop_article.reference_mp3s.pluck(:id).join(' ')
       end
@@ -144,8 +148,10 @@ class Cms::SopArticlesController < ApplicationController
         reference = ReferencePptx.find_by(id: reference_id)
         ReferencePptxArticle.create(reference_pptx: reference, reference_pptxable: sop_article)
       end
-      if !(!params[:reference_pptx_order].nil? && params[:reference_pptx_order][0] == '')
+      if !params[:reference_pptx_order].nil? && params[:reference_pptx_order][0] != ''
         sop_article.reference_pptx_order = params[:reference_pptx_order].join(' ')
+        ref_pptxes = params[:article][:reference_pptxes] - sop_article.reference_pptx_order.split(' ')
+        ref_pptxes.each { |id| sop_article.reference_pptx_order += " #{id}" } unless ref_pptxes.empty?
       elsif !sop_article.reference_pptxes.empty?
         sop_article.reference_pptx_order = sop_article.reference_pptxes.pluck(:id).join(' ')
       end
