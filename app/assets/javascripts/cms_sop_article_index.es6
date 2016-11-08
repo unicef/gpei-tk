@@ -35,47 +35,48 @@ $(() => {
   let updatedSortFlow = false
   let createdSortFlow = false
   function loadIsotopeHandlers(){
-      $('#CMS_index_content #cms_sop_articles_filter_dropdown').dropdown({
-        on: 'hover',
-        action: 'nothing',
-        transition: 'horizontal flip'
-      })
-      $(`#CMS_index_content #CMS_sop_articles_grid`).isotope({
-        itemSelector: `.cms_sop_article_row`,
-        layoutMode: 'fitRows',
-        getSortData: {
-          updatedSort: function (ele) {
-            return Date.parse($(ele).find('#updated_at_div').text()) * (updatedSortFlow ? -1 : 1)
-          },
-          createdSort: function (ele) {
-            return (Date.parse($(ele).find('#created_at_div').text())) * (createdSortFlow ? -1 : 1)
-          },
-          orderIdSort: function (ele) {
-            return parseInt($(ele).find('#cms_sop_article_order_id_div').text())
-          }
+    $('#CMS_index_content #cms_sop_articles_filter_dropdown').dropdown({
+      on: 'hover',
+      action: 'nothing',
+      transition: 'horizontal flip'
+    })
+
+    $(`#CMS_index_content #CMS_sop_articles_grid`).isotope({
+      itemSelector: `.cms_sop_article_row`,
+      layoutMode: 'fitRows',
+      getSortData: {
+        updatedSort: function (ele) {
+          return Date.parse($(ele).find('#updated_at_div').text()) * (updatedSortFlow ? -1 : 1)
+        },
+        createdSort: function (ele) {
+          return (Date.parse($(ele).find('#created_at_div').text())) * (createdSortFlow ? -1 : 1)
+        },
+        orderIdSort: function (ele) {
+          return parseInt($(ele).find('#cms_sop_article_order_id_div').text())
         }
-      })
+      }
+    })
 
-      $('.filter-button-group').on('click', 'button', function() {
-        var filterValue = $(this).attr('data-filter')
-        // use filter function if value matches
-        $(`#CMS_index_content #CMS_sop_articles_grid`).isotope({ filter: filterValue })
-      })
+    $('.filter-button-group').on('click', 'button', function() {
+      var filterValue = $(this).attr('data-filter')
+      // use filter function if value matches
+      $(`#CMS_index_content #CMS_sop_articles_grid`).isotope({ filter: filterValue })
+    })
 
-      $('.button-group').each( function( i, buttonGroup ) {
-        var $buttonGroup = $( buttonGroup )
-        $buttonGroup.on( 'click', 'button', function() {
-          $buttonGroup.find('.is-checked').removeClass('is-checked')
-          $( this ).addClass('is-checked')
-        })
+    $('.button-group').each( function( i, buttonGroup ) {
+      var $buttonGroup = $( buttonGroup )
+      $buttonGroup.on( 'click', 'button', function() {
+        $buttonGroup.find('.is-checked').removeClass('is-checked')
+        $( this ).addClass('is-checked')
       })
+    })
   }
 
   $('#CMS_index_content').on('submit', '#cms_sop_articles_search_form', e => {
     e.preventDefault()
     var filterFunc =  function() {
       let search_value = $('#cms_sop_articles_search_form input').val()
-      let title = $(this).find('#cms_sop_article_title_div a').text();
+      let title = $(this).find('#cms_sop_article_title a').text();
       let regex_search_value = new RegExp(search_value, 'i')
       let found_title = title.match(regex_search_value)
       return found_title
@@ -183,7 +184,7 @@ $(() => {
                   <div id='CMS_sop_articles_grid' class='col-md-12'>`
     let rows = ''
     _.forEach(sop_articles, article => {
-      rows += `<div id="${article.id}" class="${idx === 0 ? 'sop_first_article' : ''}${ idx === last_idx ? 'sop_last_article' : ''} col-md-12 cms_sop_article_row  ${sop_categories[article.sop_category_id-1].title.replace(new RegExp(' ', 'g'), '_')} ${sop_time_periods[article.sop_time_id-1].period.replace(new RegExp(' ', 'g'), '_')}">
+      rows += `<div id="${article.id}" class="${idx === 0 ? 'sop_first_article' : ''}${ idx === last_idx ? 'sop_last_article' : ''} col-md-12 cms_sop_article_row ${sop_categories[article.sop_category_id-1].title.replace(new RegExp(' ', 'g'), '_')} ${sop_time_periods[article.sop_time_id-1].period.replace(new RegExp(' ', 'g'), '_')}">
                 <div class='col-md-1 cms_div_borders'>
                   <div class='col-md-12'>
                     <a id='sop_order_id_up' href=''><i class="fa fa-sort-asc fa-2x" aria-hidden="true"></i></a>
@@ -198,7 +199,7 @@ $(() => {
                 <div class='col-md-1 cms_div_borders'>${ sop_time_periods[article.sop_time_id-1].period }</div>
                 <div class='col-md-2 cms_div_borders'>${ sop_categories[article.sop_category_id-1].title }</div>
                 <div class='col-md-3 cms_div_borders'>
-                  <div id='cms_sop_article_title_div'>
+                  <div id='cms_sop_article_title'>
                     <a id="${article.id}" href="" class='bold_underline'>${article.title}</a>
                   </div>
                 </div>
@@ -323,7 +324,7 @@ $(() => {
     return published ? 'Published' : 'Not Published'
   }
 
-  $('#CMS_index_content').on('click', '#cms_sop_article_title_div a', e => {
+  $('#CMS_index_content').on('click', '#cms_sop_article_title a', e => {
     e.preventDefault()
     toggleProgressSpinner()
     $.ajax({
