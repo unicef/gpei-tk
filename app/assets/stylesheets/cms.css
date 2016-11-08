@@ -245,6 +245,7 @@
 #CMS_sop_articles_grid>div{
   margin-bottom:10px;
 }
+.cms_feedback_row,
 .cms_c4d_article_row,
 .cms_sop_article_row {
   display:flex;
@@ -263,4 +264,8 @@
 .bold_underline {
   font-weight:bold;
   text-decoration: underline
+}
+#cms_feedbacks_index_header,
+#CMS_feedbacks_grid {
+  width:98%;
 }
