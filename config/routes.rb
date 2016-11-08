@@ -49,6 +49,8 @@ Rails.application.routes.draw do
     resources :reference_pptxes, only: [:index, :create, :update, :destroy]
 
     resources :embedded_images, only: [:create]
+
+    resources :feedbacks, only: [:index]
   end
 
   namespace :api, defaults: { format: :json } do
