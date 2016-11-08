@@ -180,6 +180,26 @@ $(() => {
     return false
   })
 
+  $('#CMS_index_content').on('click', '#updated_at_div', e => {
+    e.preventDefault()
+    $('#CMS_c4d_articles_grid').isotope({
+      sortAscending: updatedSortFlow
+    })
+    $('#CMS_c4d_articles_grid').isotope({ sortBy: 'updatedSort' })
+    updatedSortFlow = !updatedSortFlow
+  })
+
+  $('#CMS_index_content').on('click', '#created_at_div', e => {
+    e.preventDefault()
+    $('#CMS_c4d_articles_grid').isotope({
+      sortAscending: createdSortFlow
+    })
+    $('#CMS_c4d_articles_grid').isotope({ sortBy: 'createdSort' })
+    createdSortFlow = !createdSortFlow
+  })
+
+
+
   $('#CMS_index_content').on('click', '#c4d_order_id_up', e => {
     e.preventDefault()
     let id = e.currentTarget.parentElement.parentElement.parentElement.id
