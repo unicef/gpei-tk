@@ -26,11 +26,51 @@ $(() => {
         toggleProgressSpinner()
         $('#CMS_index_content').empty()
         $('#CMS_index_content').append("<h2 id='cms_c4d_article_list_header'>C4D Article Index</h2>")
-        appendC4dArticleTableHeader()
+        // appendC4dArticleTableHeader()
         appendC4dArticleRows(c4d_articles, response.users, c4d_subcategories, c4d_categories)
+        loadIsotopeHandlers()
       })
     })
   })
+
+  let updatedSortFlow = false
+  let createdSortFlow = false
+  function loadIsotopeHandlers(){
+    $('#CMS_index_content #cms_c4d_articles_filter_dropdown').dropdown({
+      on: 'hover',
+      action: 'nothing',
+      transition: 'horizontal flip'
+    })
+    $(`#CMS_index_content #CMS_c4d_articles_grid`).isotope({
+      itemSelector: `.cms_c4d_article_row`,
+      layoutMode: 'fitRows',
+      getSortData: {
+        updatedSort: function (ele) {
+          return Date.parse($(ele).find('#updated_at_div').text()) * (updatedSortFlow ? -1 : 1)
+        },
+        createdSort: function (ele) {
+          return (Date.parse($(ele).find('#created_at_div').text())) * (createdSortFlow ? -1 : 1)
+        },
+        orderIdSort: function (ele) {
+          return parseInt($(ele).find('#cms_c4d_article_order_id_div').text())
+        }
+      }
+    })
+
+    $('.filter-button-group').on('click', 'button', function() {
+      var filterValue = $(this).attr('data-filter')
+      // use filter function if value matches
+      $(`#CMS_index_content #CMS_c4d_articles_grid`).isotope({ filter: filterValue })
+    })
+
+    $('.button-group').each( function( i, buttonGroup ) {
+      var $buttonGroup = $( buttonGroup )
+      $buttonGroup.on( 'click', 'button', function() {
+        $buttonGroup.find('.is-checked').removeClass('is-checked')
+        $( this ).addClass('is-checked')
+      })
+    })
+  }
 
   function toggleProgressSpinner(){
     if ($('#progress_spinner').css('visibility') === 'hidden')
@@ -41,7 +81,7 @@ $(() => {
 
   function appendC4dArticleTableHeader(){
     $('#CMS_index_content').append('<table id="CMS_c4d_articles_table" class="ui celled table"></table>')
-    $('#CMS_c4d_articles_table').append('<thead><tr><th class="text-center"> Order id </th><th class="text-center"> Category </th><th class="text-center"> Subcategory </th><th class="text-center"> Title </th><th class="text-center"> Status </th><th class="text-center"> Updated </th><th class="text-center"> Created </th><th class="text-center"> Author </th><th class="text-center"></th></tr></thead>')
+    $('#CMS_c4d_articles_grid').append('<thead><tr><th class="text-center"> Order id </th><th class="text-center"> Category </th><th class="text-center"> Subcategory </th><th class="text-center"> Title </th><th class="text-center"> Status </th><th class="text-center"> Updated </th><th class="text-center"> Created </th><th class="text-center"> Author </th><th class="text-center"></th></tr></thead>')
   }
 
   function formatPublished(published) {
@@ -51,9 +91,58 @@ $(() => {
   function appendC4dArticleRows(c4d_articles, users, c4d_subcategories, c4d_categories){
     let idx = 0
     let last_idx = c4d_articles.length - 1
+    let content = `<div id='cms_c4d_articles_filter_dropdown' class="ui pointing dropdown col-md-3">
+                <div class='text'><i class="fa fa-filter fa-2x" aria-hidden="true"></i><strong>Hover to select a filter</strong></div>
+                <div id="" class="menu">
+                  <div class='item'>
+                    <div id='cms_c4d_articles_filter_menu' class="button-group filter-button-group col-md-12">
+                      <div class='col-md-6'>
+                        <div class='col-md-12'>Filter by:</div>
+                        <button data-filter="*" class='button is-checked'>show all</button>
+                      </div>
+                      <div class='col-md-9'>
+                        <div class='col-md-12'>Filter by C4D categories:</div>
+                        <div class='col-md-6'>
+                          ${_.map(c4d_categories, category => {
+                              return `<button data-filter=".${category.title.replace(new RegExp(' ', 'g'), '_')}" class='button'>${category.title}</button>`
+                          }).join('')}
+                        </div>
+                      </div>
+                      <div class='col-md-9'>
+                        <div class='col-md-12'>Filter by C4d subcategories:</div>
+                        <div class='col-md-4'>
+                        ${_.map(c4d_subcategories, category => {
+                            return `<button data-filter=".${category.title.replace(new RegExp(' ', 'g'), '_')}" class='button'>${category.title}</button>`
+                        }).join('')}
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class='col-md-offset-2 col-md-7'>
+                <form id='cms_c4d_articles_search_form'>
+                  <label>Search sop articles by title:</label>
+                  <input class="c4d_articles_input" type="text" name="cms_c4d_articles_search" value="">
+                  <button type="submit">search</button>
+                </form>
+              </div>
+              <div id='cms_c4d_articles_index_header' class='col-md-12 cms_div_borders'>
+                <div class="col-md-1 text-center"> Order id </div>
+                <div class="col-md-1 text-center"> Category </div>
+                <div class="col-md-2 text-center"> Subcategory </div>
+                <div class="col-md-3 text-center"> Title </div>
+                <div class="col-md-1 text-center"> Status </div>
+                <div class="col-md-1 text-center"><a id='updated_at_div' href=''> Updated </a></div>
+                <div class="col-md-1 text-center"><a id='created_at_div' href=''> Created </a></div>
+                <div class="col-md-1 text-center"> Author </div>
+                <div class="col-md-1 text-center"> Actions </div>
+              </div>
+              <div id='CMS_c4d_articles_grid' class='col-md-12'>`
+    let rows = ``
     _.forEach(c4d_articles, article => {
-      let row = `<tr id="${ article.id }" class="${idx === 0 ? 'c4d_first_article' : ''}${ idx === last_idx ? 'c4d_last_article' : ''}">
-                  <td>
+      rows += `<div id="${ article.id }" class="${idx === 0 ? 'c4d_first_article' : ''}${ idx === last_idx ? 'c4d_last_article' : ''} cms_c4d_article_row col-md-12 ${c4d_categories[article.c4d_category_id-1].title.replace(new RegExp(' ', 'g'), '_')} ${c4d_subcategories[article.c4d_subcategory_id-1].title.replace(new RegExp(' ', 'g'), '_')}">
+                  <div class='col-md-1 text-center cms_div_borders'>
                     <div class='col-md-12'>
                       <a id='c4d_order_id_up' href=''><i class="fa fa-sort-asc fa-2x" aria-hidden="true"></i></a>
                     </div>
@@ -61,37 +150,55 @@ $(() => {
                     <div class='col-md-12'>
                       <a id='c4d_order_id_down' href=''><i class="fa fa-sort-desc fa-2x" aria-hidden="true"></i></a>
                     </div>
-                  </td>
-                  <td>${ c4d_categories[article.c4d_category_id-1].title }</td>
-                  <td>${ c4d_subcategories[article.c4d_subcategory_id-1].title }</td>
-                  <td><div id='cms_c4d_article_title'><a id="${ article.id }" href=""><strong><u>${ article.title }</u></strong></a></div></td>
-                  <td>${ formatPublished(article.published) }</td>
-                  <td>${ new Date(article.updated_at) }</td>
-                  <td>${ new Date(article.created_at) }</td>
-                  <td>${ users[article.author_id].first_name + ' ' + users[article.author_id].last_name }</td>
-                  <td>${ getUserActionDropdown(article.id) }</td>
-                </tr>`
-      $('#CMS_c4d_articles_table').append(row)
+                  </div>
+                  <div class='col-md-1 text-center cms_div_borders'>${ c4d_categories[article.c4d_category_id-1].title }</div>
+                  <div class='col-md-2 text-center cms_div_borders'>${ c4d_subcategories[article.c4d_subcategory_id-1].title }</div>
+                  <div class='col-md-3 text-center cms_div_borders'><div id='cms_c4d_article_title'><a id="${ article.id }" href="" class='bold_underline'>${ article.title }</a></div></div>
+                  <div class='col-md-1 text-center cms_div_borders'>${ formatPublished(article.published) }</div>
+                  <div class='col-md-1 text-center cms_div_borders'>${ new Date(article.updated_at) }</div>
+                  <div class='col-md-1 text-center cms_div_borders'>${ new Date(article.created_at) }</div>
+                  <div class='col-md-1 text-center cms_div_borders'>${ users[article.author_id].first_name + ' ' + users[article.author_id].last_name }</div>
+                  <div class='col-md-1 text-center cms_div_borders'>${ getUserActionDropdown(article.id) }</div>
+                </div>`
       idx += 1
     })
+    content += rows
+    content += '</div>'
+    $('#CMS_index_content').append(content)
   }
+
+  $('#CMS_index_content').on('submit', '#cms_c4d_articles_search_form', e => {
+    e.preventDefault()
+    var filterFunc =  function() {
+      let search_value = $('#cms_c4d_articles_search_form input').val()
+      let title = $(this).find('#cms_c4d_article_title a').text();
+      let regex_search_value = new RegExp(search_value, 'i')
+      let found_title = title.match(regex_search_value)
+      return found_title
+    }
+    $('#CMS_c4d_articles_grid').isotope({ filter: filterFunc })
+    return false
+  })
+
   $('#CMS_index_content').on('click', '#c4d_order_id_up', e => {
     e.preventDefault()
     let id = e.currentTarget.parentElement.parentElement.parentElement.id
-    let current_row = $('#CMS_index_content').find('tr#'+id)
-    if (!(current_row.hasClass('c4d_first_article'))) {
+    let current_row = $('#CMS_index_content').find('#'+id+'.cms_c4d_article_row')
+    let visible_elements = $('#CMS_c4d_articles_grid').isotope('getFilteredItemElements')
+    let idx_of_current_row = -1
+    _.find(visible_elements, el => { idx_of_current_row+=1; return $(el).attr('id') === id })
+    let prev_row = idx_of_current_row > 0 ? $(visible_elements[idx_of_current_row - 1]) : null
+    if (!(current_row.hasClass('c4d_first_article')) && !_.isNull(prev_row)) {
       toggleProgressSpinner()
       document.getElementById('CMS_index_content').style.pointerEvents = 'none'
+      let prev_id = $(prev_row).attr('id')
       $.ajax({
         method: 'PATCH',
-        url: 'cms/c4d_articles/orderUp/' + id
+        url: 'cms/c4d_articles/orderUp/' + id + '?prev_id=' + prev_id
       }).done(response => {
         if (response.status === 200){
-          document.getElementById('CMS_index_content').style.pointerEvents = 'auto'
-          let prev_row = current_row.prev()
-          $(current_row).after(prev_row)
-          current_row.find('#cms_c4d_article_order_id_div').text(response.order_id)
-          prev_row.find('#cms_c4d_article_order_id_div').text(response.order_id + 1)
+          current_row.find('#cms_c4d_article_order_id_div').text(response.current_c4d_article_order_id)
+          prev_row.find('#cms_c4d_article_order_id_div').text(response.prev_c4d_article_order_id)
           if (prev_row.hasClass('c4d_first_article')) {
             prev_row.removeClass('c4d_first_article')
             current_row.addClass('c4d_first_article')
@@ -100,29 +207,35 @@ $(() => {
             prev_row.addClass('c4d_last_article')
             current_row.removeClass('c4d_last_article')
           }
-          toggleProgressSpinner()
         }
       })
+      _.delay(() => {
+        $('#CMS_c4d_articles_grid').isotope('reloadItems').isotope({ sortBy: 'orderIdSort' })
+        toggleProgressSpinner()
+        document.getElementById('CMS_index_content').style.pointerEvents = 'auto'
+      }, 100, 'later');
     }
     return false
   })
   $('#CMS_index_content').on('click', '#c4d_order_id_down', e => {
     e.preventDefault()
     let id = e.currentTarget.parentElement.parentElement.parentElement.id
-    let current_row = $('#CMS_index_content').find('tr#'+id)
-    if (!(current_row.hasClass('c4d_last_article'))) {
+    let current_row = $('#CMS_index_content').find('#'+id+'.cms_c4d_article_row')
+    let visible_elements = $('#CMS_c4d_articles_grid').isotope('getFilteredItemElements')
+    let idx_of_current_row = -1
+    _.find(visible_elements, el => { idx_of_current_row += 1; return $(el).attr('id') === id })
+    let next_row = idx_of_current_row !== visible_elements.length - 1 ? $(visible_elements[idx_of_current_row + 1]) : null
+    if (!(current_row.hasClass('c4d_last_article')) && !_.isNull(next_row)) {
       toggleProgressSpinner()
       document.getElementById('CMS_index_content').style.pointerEvents = 'none'
+      let next_id = $(next_row).attr('id')
       $.ajax({
         method: 'PATCH',
-        url: 'cms/c4d_articles/orderDown/' + id
+        url: 'cms/c4d_articles/orderDown/' + id + '?next_id=' + next_id
       }).done(response => {
         if (response.status === 200){
-          document.getElementById('CMS_index_content').style.pointerEvents = 'auto'
-          let next_row = current_row.next()
-          $(next_row).after(current_row)
-          current_row.find('#cms_c4d_article_order_id_div').text(response.order_id)
-          next_row.find('#cms_c4d_article_order_id_div').text(response.order_id - 1)
+          current_row.find('#cms_c4d_article_order_id_div').text(response.current_c4d_article_order_id)
+          next_row.find('#cms_c4d_article_order_id_div').text(response.next_c4d_article_order_id)
           if (next_row.hasClass('c4d_last_article')) {
             next_row.removeClass('c4d_last_article')
             current_row.addClass('c4d_last_article')
@@ -131,13 +244,17 @@ $(() => {
             next_row.addClass('c4d_first_article')
             current_row.removeClass('c4d_first_article')
           }
-          toggleProgressSpinner()
         }
       })
+      _.delay(() => {
+        $('#CMS_c4d_articles_grid').isotope('reloadItems').isotope({ sortBy: 'orderIdSort' })
+        toggleProgressSpinner()
+        document.getElementById('CMS_index_content').style.pointerEvents = 'auto'
+      }, 100, 'later');
     }
     return false
   })
-  $('#CMS_index_content').on('click', '#CMS_c4d_articles_table #cms_c4d_article_title', e => {
+  $('#CMS_index_content').on('click', '#CMS_c4d_articles_grid #cms_c4d_article_title', e => {
     e.preventDefault()
     toggleProgressSpinner()
     $.ajax({
