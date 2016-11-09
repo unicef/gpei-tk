@@ -16,6 +16,8 @@ class SopArticlesController < ApplicationController
       reference_links = sop_article.reference_links.order(:document_file_name)
       reference_mp3s = sop_article.reference_mp3s.order(:clip_file_name)
       reference_pptxes = sop_article.reference_pptxes.order(:document_file_name)
+      next_article = sop_article.next
+      previous_article = sop_article.previous
       render json: { status: 200,
                      article: sop_article,
                      sop_categories: sop_categories,
@@ -24,7 +26,9 @@ class SopArticlesController < ApplicationController
                      checklist_articles: checklist_articles,
                      reference_links: reference_links,
                      reference_mp3s: reference_mp3s,
-                     reference_pptxes: reference_pptxes }
+                     reference_pptxes: reference_pptxes,
+                     next_article: next_article,
+                     previous_article: previous_article }
     else
       @nav_bar_offset = 'col-md-offset-7'
       @user = current_user

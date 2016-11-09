@@ -15,6 +15,8 @@ class C4dArticlesController < ApplicationController
       toolkit_articles = current_user.c4d_toolkit.c4d_articles if current_user
       c4d_subcategories = C4dSubcategory.all.order(:id)
       reference_links = c4d_article.reference_links.order(:document_file_name)
+      next_article = c4d_article.next
+      previous_article = c4d_article.previous
       render json: { status: 200,
                      article: c4d_article,
                      c4d_categories: c4d_categories,
@@ -22,7 +24,9 @@ class C4dArticlesController < ApplicationController
                      c4d_related_topics: c4d_related_topics,
                      current_user: current_user,
                      toolkit_articles: toolkit_articles,
-                     reference_links: reference_links }
+                     reference_links: reference_links,
+                     next_article: next_article,
+                     previous_article: previous_article }
     else
       @user = current_user
       if params[:id] && !params_id_is_integer?
