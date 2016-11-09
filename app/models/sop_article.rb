@@ -24,6 +24,14 @@ class SopArticle < ActiveRecord::Base
   has_many :reference_pptx_articles, as: :reference_pptxable
   has_many :reference_pptxes, through: :reference_pptx_articles
 
+  def next
+    self.class.where('order_id > ?', order_id).order(:order_id).first
+  end
+
+  def previous
+    self.class.where('order_id < ?', order_id).order(:order_id).last
+  end
+
   def to_param
     [id, title.parameterize].join("-")
   end

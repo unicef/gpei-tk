@@ -21,6 +21,14 @@ class C4dArticle < ActiveRecord::Base
 
   has_many :embedded_images
 
+  def next
+    self.class.where('order_id > ? AND c4d_category_id = ? AND c4d_subcategory_id = ?', order_id, c4d_category_id, c4d_subcategory_id).order(:order_id).first
+  end
+
+  def previous
+    self.class.where('order_id < ? AND c4d_category_id = ? AND c4d_subcategory_id = ?', order_id, c4d_category_id, c4d_subcategory_id).order(:order_id).last
+  end
+
   def to_param
     [id, title.parameterize].join("-")
   end
