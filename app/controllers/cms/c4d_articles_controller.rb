@@ -106,8 +106,8 @@ class Cms::C4dArticlesController < ApplicationController
       end
       if !params[:reference_link_order].nil? && params[:reference_link_order][0] != ''
         c4d_article.reference_link_order = params[:reference_link_order].join(' ')
-        ref_links = params[:article][:reference_links] - sop_article.reference_link_order.split(' ')
-        ref_links.each { |id| sop_article.reference_link_order += " #{id}" } unless ref_links.empty?
+        ref_links = params[:article][:reference_links] - c4d_article.reference_link_order.split(' ')
+        ref_links.each { |id| c4d_article.reference_link_order += " #{id}" } unless ref_links.empty?
       elsif !c4d_article.reference_links.empty?
         c4d_article.reference_link_order = c4d_article.reference_links.pluck(:id).join(' ')
       end
