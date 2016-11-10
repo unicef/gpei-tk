@@ -30,6 +30,7 @@ class SopArticlesController < ApplicationController
                      next_article: next_article,
                      previous_article: previous_article }
     else
+      redirect_to '/sop/what_to_do_when/'
       @nav_bar_offset = 'col-md-offset-7'
       @user = current_user
       @img_name = 'SOP'

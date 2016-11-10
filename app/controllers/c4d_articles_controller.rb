@@ -28,6 +28,7 @@ class C4dArticlesController < ApplicationController
                      next_article: next_article,
                      previous_article: previous_article }
     else
+      redirect_to '/c4d/'
       @user = current_user
       if params[:id] && !params_id_is_integer?
         @c4d_article = C4dArticle.find_by(title: params[:id].gsub('-', ' '))
