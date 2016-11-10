@@ -1,5 +1,11 @@
 $(() => {
   if ($('#c4d_selection_page').css('visibility') === 'visible') {
+    $('.ui.styled.accordion').accordion({
+      selector: {
+        trigger: '.title'
+      }
+    })
+
     let $grid = $('#c4d_category_grid').isotope({
       itemSelector: '.c4d_grid_item'
     })
