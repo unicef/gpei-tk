@@ -154,4 +154,7 @@
   margin-left:35px;
   margin-right:15px;
 }
-#c4d
+#c4d_article_show_page,
+#c4d_article_show_modal .content{
+  float:left;
+}

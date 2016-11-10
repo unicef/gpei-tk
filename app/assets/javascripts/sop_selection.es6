@@ -295,16 +295,15 @@ $(() => {
                                           checklist_articles: response.checklist_articles,
                                           reference_links: response.reference_links,
                                           reference_mp3s: response.reference_mp3s,
-                                          reference_pptxes: response.reference_pptxes })
+                                          reference_pptxes: response.reference_pptxes,
+                                          next_article: response.next_article,
+                                          previous_article: response.previous_article })
       let header = sop_article_header({ article: response.article,
                                         sop_times: response.sop_times,
                                         sop_categories: response.sop_categories })
       $('#sop_article_show_modal .header').append(header)
       $('#sop_article_show_modal .content').append(content)
 
-      let outerHeight = $('#sop_article_show_modal').outerHeight()
-      outerHeight = outerHeight - $('#sop_article_show_modal .header').outerHeight()
-      $('#sop_article_show_info_column').css({ height: outerHeight })
       multiMediaHandlerForSopArticle(response.article)
     })
   })
@@ -363,7 +362,7 @@ $(() => {
             ${ getVideoContent(params) }
           </div>
         </div>
-        <div id='sop_article_content_div' class='col-md-9' class='black_text'>
+        <div id='sop_article_content_div' class='col-md-9 black_text'>
           ${ getAddToChecklistRow(params) }
           <div id='sop_article_content'>
             <div class='col-md-12'>
@@ -371,10 +370,36 @@ $(() => {
             </div>
             ${ getSopInfoRow(params) }
           </div>
+          ${ getArticleCycleDiv(params) }
         </div>
-      </div>
-`
+      </div>`
   }
+
+  function getArticleCycleDiv(params){
+    return `<div id='article_cycle_div'>
+              ${ _.isNull(params['previous_article']) ? '' : getPreviousArticleDiv(params) }
+              ${ _.isNull(params['next_article']) ? '' : getNextArticleDiv(params) }
+            </div>`
+  }
+
+  function getPreviousArticleDiv(params){
+    return `<div id='prev_sop_article'>
+              <span>Previous Article:</span>
+              <div>
+                <a href='/sop_articles/${ params['previous_article'].id }'><i class="fa fa-arrow-left" aria-hidden="true"></i> ${ params['previous_article'].title }</a>
+              </div>
+            </div>`
+  }
+
+  function getNextArticleDiv(params){
+    return `<div id='next_sop_article'>
+              <span>Next Article:</span>
+              <div>
+                <a href='/sop_articles/${ params['next_article'].id }'> ${ params['next_article'].title } <i class="fa fa-arrow-right" aria-hidden="true"></i></a>
+              </div>
+            </div>`
+  }
+
   function getSopInfoRow(params){
     return `<div id='sop_article_show_info_row' class='col-md-12'>
               <div id='sop_article_show_time_function_column' class='col-md-4'>
@@ -645,18 +670,20 @@ $(() => {
                                           sop_times: response.sop_times,
                                           current_user: response.current_user,
                                           checklist_articles: response.checklist_articles,
-                                          reference_links: response.reference_links })
+                                          reference_links: response.reference_links,
+                                          next_article: response.next_article,
+                                          previous_article: response.previous_article })
       let header = sop_article_header({ article: response.article,
                                         sop_times: response.sop_times,
                                         sop_categories: response.sop_categories })
       $('#sop_article_show_modal .header').append(header)
       $('#sop_article_show_modal .content').append(content)
 
-      let outerHeight = $('#sop_article_show_modal').outerHeight()
-      outerHeight = outerHeight - $('#sop_article_show_modal .header').outerHeight()
-      $('#sop_article_show_info_column').css({ height: outerHeight })
+      multiMediaHandlerForSopArticle(response.article)
     })
   }
+
+
   $('#sop_checklist_list').on('click', 'a', e => {
     e.preventDefault()
     loadSOPArticle(e.currentTarget.parentElement)

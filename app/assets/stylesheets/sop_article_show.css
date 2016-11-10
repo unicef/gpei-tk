@@ -94,10 +94,6 @@
 #sop_article_show_info_column {
   background-color:#e5e5e5;
 }
-#sop_article_show_info_column {
-  height:100%;
-  min-height:100%;
-}
 #sop_article_show_modal {
   position:absolute;
   top:10px;

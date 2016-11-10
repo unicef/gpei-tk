@@ -133,18 +133,18 @@ $(() => {
                                           current_user: response.current_user,
                                           toolkit_articles: response.toolkit_articles,
                                           reference_links: response.reference_links,
-                                          c4d_related_topics: response.c4d_related_topics })
+                                          c4d_related_topics: response.c4d_related_topics,
+                                          next_article: response.next_article,
+                                          previous_article: response.previous_article })
       let header = c4d_article_header({ c4d_subcategories: response.c4d_subcategories, article: response.article, c4d_categories: response.c4d_categories })
       $('#c4d_article_show_modal .header').append(header)
       $('#c4d_article_show_modal .content').append(content)
+      $('#c4d_article_show_modal').modal('show')
       _.forEach($('#c4d_article_show_modal #c4d_article_content img'), img => {
         $(img).addClass('img-responsive')
         $(img).css('height', 'auto')
       })
 
-      $('#c4d_article_show_modal').modal('show')
-
-      matchColumnHeights()
     })
   })
   function clearUrlState(){
@@ -153,12 +153,6 @@ $(() => {
   function setUrlStateForArticleShow(article){
     let title = article.id + '-' + article.title.replace(new RegExp(' ', 'g'), '_')
     history.pushState(null, null, title)
-  }
-  function matchColumnHeights() {
-    if ($('#c4d_article_content_div').outerHeight() > $('#c4d_article_show_info_column').outerHeight())
-      $('#c4d_article_show_info_column').css({ height: $('#c4d_article_content_div').outerHeight() })
-    else if ($('#c4d_article_content_div').outerHeight() < $('#c4d_article_show_info_column').outerHeight())
-      $('#c4d_article_content_div').css({ height: $('#c4d_article_show_info_column').outerHeight() })
   }
   function clearC4dModalText() {
     $('#c4d_article_show_modal .content').empty()
@@ -197,8 +191,34 @@ $(() => {
             ${ params['article'].content }
             ${ category.title === 'Tools' ? getC4dToolsReferenceLinks(params) : ''}
           </div>
+          ${ getArticleCycleDiv(params) }
         </div>
       </div>`
+  }
+
+  function getArticleCycleDiv(params){
+    return `<div id='article_cycle_div'>
+              ${ _.isNull(params['previous_article']) ? '' : getPreviousArticleDiv(params) }
+              ${ _.isNull(params['next_article']) ? '' : getNextArticleDiv(params) }
+            </div>`
+  }
+
+  function getPreviousArticleDiv(params){
+    return `<div id='prev_c4d_article'>
+              <span>Previous Article:</span>
+              <div>
+                <a href='/c4d_articles/${ params['previous_article'].id }' class='black_text'><i class="fa fa-arrow-left" aria-hidden="true"></i> ${ params['previous_article'].title }</a>
+              </div>
+            </div>`
+  }
+
+  function getNextArticleDiv(params){
+    return `<div id='next_c4d_article'>
+              <span>Next Article:</span>
+              <div>
+                <a href='/c4d_articles/${ params['next_article'].id }' class='black_text'> ${ params['next_article'].title } <i class="fa fa-arrow-right" aria-hidden="true"></i></a>
+              </div>
+            </div>`
   }
 
   function getC4dToolsReferenceLinks(params){
@@ -402,7 +422,9 @@ $(() => {
                                           current_user: response.current_user,
                                           toolkit_articles: response.toolkit_articles,
                                           reference_links: response.reference_links,
-                                          c4d_related_topics: response.c4d_related_topics })
+                                          c4d_related_topics: response.c4d_related_topics,
+                                          next_article: response.next_article,
+                                          previous_article: response.previous_article })
       let header = c4d_article_header({ c4d_subcategories: response.c4d_subcategories, article: response.article, c4d_categories: response.c4d_categories })
       $('#c4d_article_show_modal .header').append(header)
       $('#c4d_article_show_modal .content').append(content)
@@ -410,7 +432,6 @@ $(() => {
         $(img).addClass('img-responsive')
         $(img).css('height', 'auto')
       })
-      matchColumnHeights()
     })
   }
 
