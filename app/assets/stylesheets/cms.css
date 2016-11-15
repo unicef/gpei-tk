@@ -269,3 +269,6 @@
 #CMS_feedbacks_grid {
   width:98%;
 }
+#cms_notification_form .field {
+  width:100%;
+}
