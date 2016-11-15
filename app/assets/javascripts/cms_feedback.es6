@@ -44,7 +44,10 @@ $(() => {
     }
 
     function getFeedbackContentGrid(feedbacks, users){
-      let content = `<div id='cms_feedbacks_index_header' class='col-md-12 cms_div_borders'>
+      let content = `<div>
+                      <h2>Feedback Index</h2>
+                    </div>
+                    <div id='cms_feedbacks_index_header' class='col-md-12 cms_div_borders'>
                       <div class="col-md-9 text-center"> Content </div>
                       <div class="col-md-1 text-center"><a id='updated_at_div' href=''> Updated </a></div>
                       <div class="col-md-1 text-center"><a id='created_at_div' href=''> Created </a></div>
