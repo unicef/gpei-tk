@@ -36,6 +36,8 @@ gem 'sprockets-es6'
 
 gem 'fuzzy_match'
 
+gem 'pg_search'
+
 group :development, :test do
   # binding.pry for code and pretty console
   gem 'pry-rails'
