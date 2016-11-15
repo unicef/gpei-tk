@@ -1,10 +1,19 @@
 class ApplicationController < ActionController::Base
   # For APIs, you may want to use :null_session instead.
-  helper_method :current_user
+  helper_method :current_user, :latest_notification
   protect_from_forgery with: :exception
 
   def current_user
     @current_user ||= User.find_by(id: session[:id]) if session[:uuid]
+  end
+
+  def latest_notification
+    @notification = Notification.all.where('created_at > ?', (Time.now - 15.days)).order(created_at: :desc).first
+    if !@notification
+      return false
+    else
+      @notification
+    end
   end
 
   def params_id_is_integer?

@@ -279,3 +279,6 @@ nav .container {
 #homepage_feedback_form .field{
   width:100%;
 }
+#notification_item div {
+  opacity:1.0 !important;
+}

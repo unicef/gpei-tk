@@ -39,6 +39,15 @@
               <div class="item">
                 <%= current_user.first_name + " " + current_user.last_name %>
               </div>
+              <% if latest_notification %>
+              <div class="item">
+                <i class="fa fa-bell-o" aria-hidden="true"></i>
+                <span class="text white_text_black_bg">Latest update</span>
+                <div id='notification_item' class="left menu">
+                  <div class="item white_text_black_bg" id="sop_no_items_selected"><%= latest_notification.content %></div>
+                </div>
+              </div>
+              <% end %>
               <div class="item">
                 <i class="fa fa-caret-left white_text_black_bg"></i>
                 <span class="text white_text_black_bg">SOP Checklist</span>
