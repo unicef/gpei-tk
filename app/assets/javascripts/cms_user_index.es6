@@ -25,7 +25,7 @@ $(() => {
       }).done(response => {
         toggleProgressSpinner()
         $('#CMS_index_content').empty()
-        let table = '<table id="CMS_users_table" class="ui celled table"></table>'
+        let table = '<div><h2>Users Index</h2></div><table id="CMS_users_table" class="ui celled table"></table>'
         $('#CMS_index_content').append(table)
         let header = `<thead><tr><th class="text-center"> First Name </th><th class="text-center"> Last Name </th><th class="text-center"> Email </th><th class="text-center"> Role </th><th class="text-center"> Active </th><th class="text-center"></th></tr></thead>`
         $('#CMS_users_table').prepend(header)
