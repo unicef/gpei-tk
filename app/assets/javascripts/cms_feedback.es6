@@ -2,6 +2,7 @@ $(() => {
   if ($('#CMS_items').css('visibility') === 'visible'){
     $('#CMS_user_feedback_index').click(e => {
       e.preventDefault()
+      toggleProgressSpinner()
       $.ajax({
         method: 'GET',
         url: 'cms/users/'
@@ -13,9 +14,17 @@ $(() => {
         }).done(response => {
           $('#CMS_index_content').empty()
           $('#CMS_index_content').append(getFeedbackContentGrid(response.feedbacks, users))
+          toggleProgressSpinner()
         })
       })
     })
+
+    function toggleProgressSpinner(){
+      if ($('#progress_spinner').css('visibility') === 'hidden')
+        $('#progress_spinner').css('visibility', 'visible')
+      else
+        $('#progress_spinner').css('visibility', 'hidden')
+    }
 
     let updatedSortFlow = false
     let createdSortFlow = false
