@@ -58,7 +58,6 @@ $(() => {
       let idx = 0
       let last_idx = notifications.length - 1
       _.forEach(notifications, notification => {
-        debugger
         rows += `<div id="${notification.id}" class="${idx === 0 ? 'first_feedback' : ''}${ idx === last_idx ? 'last_feedback' : ''} col-md-12 cms_feedback_row">
                   <div id='feedback_content_div' class='col-md-9 text-center cms_div_borders'>${notification.content}</div>
                   <div id='updated_at_div' class='col-md-1 cms_div_borders'>
