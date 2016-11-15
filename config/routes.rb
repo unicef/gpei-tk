@@ -50,7 +50,8 @@ Rails.application.routes.draw do
 
     resources :embedded_images, only: [:create]
 
-    resources :feedbacks, only: [:index]
+    resources :feedbacks, only: [:index, :create]
+    resources :notifications, only: [:index, :create]
   end
 
   namespace :api, defaults: { format: :json } do
