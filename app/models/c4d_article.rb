@@ -1,8 +1,10 @@
 class C4dArticle < ActiveRecord::Base
   include PgSearch
 
-  multisearchable :against => [:title, :content],
-                  :if => :published?
+  pg_search_scope :search_articles, :against => {:title => 'A', :content => 'B'},
+                                    :using => {
+                                      :tsearch => {:dictionary => "english"}
+                                    }
 
   belongs_to :c4d_category
   belongs_to :c4d_subcategory
@@ -32,10 +34,6 @@ class C4dArticle < ActiveRecord::Base
 
   def previous
     self.class.where('order_id < ? AND c4d_category_id = ? AND c4d_subcategory_id = ?', order_id, c4d_category_id, c4d_subcategory_id).order(:order_id).last
-  end
-
-  def published?
-    self.published
   end
 
   def to_param
