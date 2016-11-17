@@ -1,4 +1,6 @@
 class ReferenceMp3 < ActiveRecord::Base
+  include PgSearch
+
   belongs_to :reference_mp3able, :polymorphic => true
   belongs_to :author, class_name: 'User', foreign_key: 'author_id'
 

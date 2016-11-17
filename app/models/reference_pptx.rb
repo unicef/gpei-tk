@@ -1,4 +1,6 @@
 class ReferencePptx < ActiveRecord::Base
+  include PgSearch
+
   belongs_to :reference_pptxable, :polymorphic => true
   belongs_to :author, class_name: 'User', foreign_key: 'author_id'
 
