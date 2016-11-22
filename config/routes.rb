@@ -75,4 +75,6 @@ Rails.application.routes.draw do
   get '/terms_of_service/' => 'terms_of_service#index'
 
   post '/feedback/' => 'feedback#create'
+
+  get '/library/' => 'library#index'
 end
