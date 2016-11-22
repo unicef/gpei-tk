@@ -4,20 +4,23 @@ class CreateLikesAndDownloads < ActiveRecord::Migration
       t.integer :author_id, null: false
       t.timestamps null: false
     end
+
     create_table :downloads do |t|
       t.integer :author_id, null: false
       t.timestamps null: false
     end
 
-    create_table :article_downloads do |t|
+    create_table :reference_downloads do |t|
       t.integer :download_id
-      t.references :downloadable, polymorphic: true
+      t.references :reference_downloadable, polymorphic: true
+      t.string :type, null: false
       t.timestamps null: false
     end
 
     create_table :article_likes do |t|
       t.integer :like_id
-      t.references :likeable, polymorphic: true
+      t.references :article_likeable, polymorphic: true
+      t.string :type, null: false
       t.timestamps null: false
     end
 

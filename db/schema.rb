@@ -11,10 +11,19 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161117161738) do
+ActiveRecord::Schema.define(version: 20161122035319) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "article_likes", force: :cascade do |t|
+    t.integer  "like_id"
+    t.integer  "article_likeable_id"
+    t.string   "article_likeable_type"
+    t.string   "type",                  null: false
+    t.datetime "created_at",            null: false
+    t.datetime "updated_at",            null: false
+  end
 
   create_table "c4d_articles", force: :cascade do |t|
     t.string   "cms_title"
@@ -64,6 +73,12 @@ ActiveRecord::Schema.define(version: 20161117161738) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "downloads", force: :cascade do |t|
+    t.integer  "author_id",  null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "embedded_images", force: :cascade do |t|
     t.string   "absolute_url",       null: false
     t.integer  "c4d_article_id",     null: false
@@ -90,6 +105,12 @@ ActiveRecord::Schema.define(version: 20161117161738) do
     t.datetime "updated_at",                 null: false
   end
 
+  create_table "likes", force: :cascade do |t|
+    t.integer  "author_id",  null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "notifications", force: :cascade do |t|
     t.string   "content",    null: false
     t.integer  "author_id"
@@ -106,6 +127,15 @@ ActiveRecord::Schema.define(version: 20161117161738) do
   end
 
   add_index "pg_search_documents", ["searchable_type", "searchable_id"], name: "index_pg_search_documents_on_searchable_type_and_searchable_id", using: :btree
+
+  create_table "reference_downloads", force: :cascade do |t|
+    t.integer  "download_id"
+    t.integer  "reference_downloadable_id"
+    t.string   "reference_downloadable_type"
+    t.string   "type",                        null: false
+    t.datetime "created_at",                  null: false
+    t.datetime "updated_at",                  null: false
+  end
 
   create_table "reference_link_articles", force: :cascade do |t|
     t.integer  "reference_link_id"
