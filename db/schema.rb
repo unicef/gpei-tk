@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161122035319) do
+ActiveRecord::Schema.define(version: 20161122191001) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -26,7 +26,6 @@ ActiveRecord::Schema.define(version: 20161122035319) do
   end
 
   create_table "c4d_articles", force: :cascade do |t|
-    t.string   "cms_title"
     t.string   "title",                                null: false
     t.string   "content",                              null: false
     t.integer  "c4d_category_id",                      null: false
@@ -216,7 +215,6 @@ ActiveRecord::Schema.define(version: 20161122035319) do
   end
 
   create_table "sop_articles", force: :cascade do |t|
-    t.string   "cms_title"
     t.string   "content",                                null: false
     t.string   "title",                                  null: false
     t.integer  "sop_category_id",                        null: false
@@ -260,7 +258,6 @@ ActiveRecord::Schema.define(version: 20161122035319) do
   create_table "sop_icons", force: :cascade do |t|
     t.integer  "sop_time_id"
     t.integer  "sop_category_id"
-    t.integer  "sop_article_id"
     t.string   "title"
     t.datetime "created_at",      null: false
     t.datetime "updated_at",      null: false
