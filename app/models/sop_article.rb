@@ -17,8 +17,6 @@ class SopArticle < ActiveRecord::Base
   has_many :sop_checklist_sop_articles
   has_many :sop_checklists, :through => :sop_checklist_sop_articles
 
-  has_one :sop_icon
-
   has_attached_file :reference_link
   has_many :reference_link_articles, as: :reference_linkable
   has_many :reference_links, through: :reference_link_articles
@@ -33,6 +31,10 @@ class SopArticle < ActiveRecord::Base
 
   has_many :article_likes, as: :article_likeable
   alias_attribute :likes, :article_likes
+
+  def sop_icon
+    SopIcon.find_by('sop_category_id = ? AND sop_time_id = ?', self.sop_category_id, self.sop_time_id)
+  end
 
   def next
     self.class.where('order_id > ?', order_id).order(:order_id).first
