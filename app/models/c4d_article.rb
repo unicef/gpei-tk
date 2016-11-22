@@ -5,7 +5,6 @@ class C4dArticle < ActiveRecord::Base
                                     :using => {
                                       :tsearch => {:dictionary => "english"}
                                     }
-
   belongs_to :c4d_category
   belongs_to :c4d_subcategory
   belongs_to :author, class_name: 'User', foreign_key: 'author_id'
@@ -25,6 +24,12 @@ class C4dArticle < ActiveRecord::Base
   has_attached_file :reference_pptx
   has_many :reference_pptx_articles, as: :reference_pptxable
   has_many :reference_pptxes, through: :reference_pptx_articles
+
+  has_many :article_likes, as: :likeable
+  has_many :likes, through: :article_likes
+
+  has_many :article_downloads, as: :downloadable
+  has_many :downloads, through: :article_downloads
 
   has_many :embedded_images
 
