@@ -16,9 +16,6 @@ class Cms::SopArticlesController < ApplicationController
       sop_article.order_id = SopArticle.maximum(:order_id) + 1
       sop_article.author = current_user
       if sop_article.save
-        icon_title = SopIcon.find_by(sop_time_id: sop_article.sop_time_id, sop_category_id: sop_article.sop_category_id).title
-        SopIcon.where(sop_article_id: sop_article.id).destroy_all
-        SopIcon.create(sop_time_id: sop_article.sop_time_id, sop_category_id: sop_article.sop_category_id, sop_article_id: sop_article.id, title: icon_title)
         attachReferenceLinksToSopArticle(sop_article) unless params[:article][:reference_links].nil?
         attachReferenceMp3sToSopArticle(sop_article) unless params[:article][:reference_mp3s].nil?
         attachReferencePptxesToSopArticle(sop_article) unless params[:article][:reference_pptxes].nil?
@@ -60,9 +57,6 @@ class Cms::SopArticlesController < ApplicationController
       attachReferenceMp3sToSopArticle(sop_article)
       attachReferencePptxesToSopArticle(sop_article)
       sop_article.update(safe_article_params)
-      icon_title = SopIcon.find_by(sop_time_id: sop_article.sop_time_id, sop_category_id: sop_article.sop_category_id).title
-      SopIcon.where(sop_article_id: sop_article.id).destroy_all
-      SopIcon.create(sop_time_id: sop_article.sop_time_id, sop_category_id: sop_article.sop_category_id, sop_article_id: sop_article.id, title: icon_title)
       # if sop_article.update(safe_article_params)
       #   sop_article.update(published: false)
       # end
