@@ -31,11 +31,8 @@ class SopArticle < ActiveRecord::Base
   has_many :reference_pptx_articles, as: :reference_pptxable
   has_many :reference_pptxes, through: :reference_pptx_articles
 
-  has_many :article_likes, as: :likeable
-  has_many :likes, through: :article_likes
-
-  has_many :article_downloads, as: :downloadable
-  has_many :downloads, through: :article_downloads
+  has_many :article_likes, as: :article_likeable
+  alias_attribute :likes, :article_likes
 
   def next
     self.class.where('order_id > ?', order_id).order(:order_id).first
