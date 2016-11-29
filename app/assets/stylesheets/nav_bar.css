@@ -292,3 +292,13 @@ nav .container {
 #nav_library_link img:not(.active):hover {
   opacity:.3;
 }
+#article_search_modal{
+  position:relative !important;
+  top:200px !important;
+}
+#article_search_modal .header{
+  font-family: 'Adelle' !important;
+}
+#article_search_modal .content {
+  font-family: 'proxima-nova' !important;
+}
