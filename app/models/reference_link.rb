@@ -1,10 +1,8 @@
 class ReferenceLink < ActiveRecord::Base
   include PgSearch
 
-  pg_search_scope :search_references, :against => {:document_file_name => 'C', :title => 'A', :description => 'B'},
-                                      :using => {
-                                        :tsearch => {:dictionary => "english"}
-                                      }
+  multisearchable :against => [:document_file_name, :title, :description],
+                  :if => :utilized?
 
   belongs_to :reference_linkable, :polymorphic => true
   belongs_to :author, class_name: 'User', foreign_key: 'author_id'
@@ -21,5 +19,9 @@ class ReferenceLink < ActiveRecord::Base
 
   Paperclip.interpolates :language do |attachment, style|
     attachment.instance.language
+  end
+
+  def utilized?
+    !ReferenceLinkArticle.where(reference_link_id: self.id).empty?
   end
 end

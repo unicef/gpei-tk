@@ -1,10 +1,8 @@
 class ReferencePptx < ActiveRecord::Base
   include PgSearch
 
-  pg_search_scope :search_references, :against => {:document_file_name => 'C', :title => 'A', :description => 'B'},
-                                      :using => {
-                                        :tsearch => {:dictionary => "english"}
-                                      }
+  multisearchable :against => [:document_file_name, :title, :description],
+                  :if => :utilized?
 
   belongs_to :reference_pptxable, :polymorphic => true
   belongs_to :author, class_name: 'User', foreign_key: 'author_id'
@@ -20,5 +18,9 @@ class ReferencePptx < ActiveRecord::Base
 
   Paperclip.interpolates :language do |attachment, style|
     attachment.instance.language
+  end
+
+  def utilized?
+    !ReferencePptxArticle.where(reference_pptx_id: self.id).empty?
   end
 end

@@ -1,10 +1,8 @@
 class ReferenceMp3 < ActiveRecord::Base
   include PgSearch
 
-  pg_search_scope :search_references, :against => {:clip_file_name => 'C', :title => 'A', :description => 'B'},
-                                      :using => {
-                                        :tsearch => {:dictionary => "english"}
-                                      }
+  multisearchable :against => [:clip_file_name, :title, :description],
+                  :if => :utilized?
 
   belongs_to :reference_mp3able, :polymorphic => true
   belongs_to :author, class_name: 'User', foreign_key: 'author_id'
@@ -21,4 +19,10 @@ class ReferenceMp3 < ActiveRecord::Base
   Paperclip.interpolates :language do |attachment, style|
     attachment.instance.language
   end
+
+
+  def utilized?
+    !ReferenceMp3Article.where(reference_mp3_id: self.id).empty?
+  end
+
 end

@@ -1,10 +1,8 @@
 class SopArticle < ActiveRecord::Base
   include PgSearch
 
-  pg_search_scope :search_articles, :against => {:title => 'A', :content => 'B', :support => 'C', :responsible => 'D'},
-                                    :using => {
-                                      :tsearch => {:dictionary => "english"}
-                                    }
+  multisearchable :against => [:title, :content, :support, :responsible],
+                  :if => :published?
 
   belongs_to :sop_time
   belongs_to :sop_category
@@ -42,6 +40,10 @@ class SopArticle < ActiveRecord::Base
 
   def previous
     self.class.where('order_id < ?', order_id).order(:order_id).last
+  end
+
+  def published?
+    self.published
   end
 
   def to_param
