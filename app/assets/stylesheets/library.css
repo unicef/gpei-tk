@@ -1,5 +1,32 @@
 #library {
   padding-left:10%;
   padding-right:10%;
+  min-height:100%;
+}
+#library_logo {
   color:white;
+  background-color:#CC9555;
+}
+#library_logo_text {
+  line-height:55px;
+}
+#library_content_search_input {
+  width:100%;
+}
+#library_content_search_input{
+  background: url(/assets/icons/Icon-search.png) no-repeat;
+  background-position:right 5px center;
+  background-color:white;
+  color:black;
+}
+#library_logo_text {
+  font-family: 'Adelle' !important;
+  font-size:48px;
+}
+#library_content_search_form input {
+  padding:5px !important;
+}
+#library_content_search_results {
+  border-top:2px black solid;
+  background-color:white;
 }
