@@ -1,7 +1,23 @@
 <%= render 'dashboard/nav' %>
 <div id='library' class='col-md-12'>
   <div id='library_logo' class='col-md-12'>
+    <div id='library_logo_image'>
+      <!-- <img class='img-responsive' src='/assets/'> -->
+    </div>
+    <div id='library_logo_text' class='col-md-12'>
+      Library
+    </div>
+    <div id='library_content_search' class='col-md-12'>
+      <div id='library_content_search_header_text' class='col-md-12'>
+        SEARCH THE DOCUMENT LIBRARY
+      </div>
+      <div id='library_content_search_input_wrapper' class='col-md-6'>
+        <form id="library_content_search_form" class="ui form">
+          <input id='library_content_search_input' placeholder='Search' name='search[text]' type='text' alt='Search'>
+        </form>
+      </div>
+    </div>
   </div>
-  <div id='library_content' class='col-md-12'>
+  <div id='library_content_search_results' class='col-md-12'>
   </div>
 </div>
