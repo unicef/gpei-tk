@@ -1,6 +1,6 @@
 class LibraryController < ApplicationController
   def index
-
+    @is_library = true
   end
 
   def search
