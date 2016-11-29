@@ -2,22 +2,22 @@
   padding-left:10%;
   padding-right:10%;
   min-height:100%;
+  font-family:'proxima-nova' !important;
 }
 #library_logo {
   color:white;
   background-color:#CC9555;
+  padding:10px;
 }
 #library_logo_text {
   line-height:55px;
-}
-#library_content_search_input {
-  width:100%;
 }
 #library_content_search_input{
   background: url(/assets/icons/Icon-search.png) no-repeat;
   background-position:right 5px center;
   background-color:white;
   color:black;
+  font-family:'proxima-nova' !important;
 }
 #library_logo_text {
   font-family: 'Adelle' !important;
@@ -29,4 +29,10 @@
 #library_content_search_results {
   border-top:2px black solid;
   background-color:white;
+}
+#nav_library_link.active{
+  background-color:#CC9555;
+  border-left:1px white solid;
+  border-right:1px white solid;
+  opacity:1;
 }
