@@ -288,3 +288,7 @@ nav .container {
 #nav_library_link img{
   opacity:.6;
 }
+#nav_search_link img:not(.active):hover,
+#nav_library_link img:not(.active):hover {
+  opacity:.3;
+}
