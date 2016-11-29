@@ -4,10 +4,8 @@ class LibraryController < ApplicationController
   end
 
   def search
-    ReferenceLink.search(safe_search_params)
-    SopArticle.search(safe_search_params)
-    C4dArticle.search(safe_search_params)
-    render json: { status: 200 }
+    found_search_results = PgSearch.multisearch(safe_search_params).collect{ |obj| [obj.searchable_type, obj.searchable] }
+    render json: { status: 200, found_search_results: found_search_results }
   end
 
   private
