@@ -1,8 +1,5 @@
 #library {
-  display:flex;
   padding-left:10%;
   padding-right:10%;
-}
-#library_logo_wrapper {
-  width:100%;
+  color:white;
 }
