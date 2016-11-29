@@ -282,3 +282,9 @@ nav .container {
 #notification_item div {
   opacity:1.0 !important;
 }
+#nav_search_link img {
+  opacity: .7
+}
+#nav_library_link img{
+  opacity:.6;
+}
