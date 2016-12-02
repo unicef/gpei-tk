@@ -199,8 +199,6 @@ $(() => {
       createdSortFlow = !createdSortFlow
     })
 
-
-
     $('#CMS_index_content').on('click', '#c4d_order_id_up', e => {
       e.preventDefault()
       let id = e.currentTarget.parentElement.parentElement.parentElement.id
@@ -358,11 +356,11 @@ $(() => {
                      </div>`
       return content
     }
-    $('#CMS_index_content').on('click', '#c4d_article_reference_id_up', e => {
+    $('#CMS_modal').on('click', '#c4d_article_reference_id_up', e => {
       e.preventDefault()
       let parent = e.currentTarget.parentElement.parentElement.parentElement
       let id = parent.id
-      let current_row = $('#CMS_index_content #cms_c4d_article_reference_link_list').find('.reference_link_row#'+id)
+      let current_row = $('#CMS_modal #cms_c4d_article_reference_link_list').find('.reference_link_row#'+id)
       if (!(current_row.hasClass('first_reference_link'))) {
         let prev_row = current_row.prev()
         if (current_row.hasClass('last_reference_link') && prev_row.hasClass('first_reference_link') ){
@@ -382,11 +380,11 @@ $(() => {
       return false
     })
 
-    $('#CMS_index_content').on('click', '#c4d_article_reference_id_down', e => {
+    $('#CMS_modal').on('click', '#c4d_article_reference_id_down', e => {
       e.preventDefault()
       let parent = e.currentTarget.parentElement.parentElement.parentElement
       let id = parent.id
-      let current_row = $('#CMS_index_content #cms_c4d_article_reference_link_list').find('.reference_link_row#'+id)
+      let current_row = $('#CMS_modal #cms_c4d_article_reference_link_list').find('.reference_link_row#'+id)
       if (!(current_row.hasClass('last_reference_link'))) {
         let next_row = current_row.next()
         if (current_row.hasClass('first_reference_link') && next_row.hasClass('last_reference_link') ){
