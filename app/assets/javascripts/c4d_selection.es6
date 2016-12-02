@@ -195,12 +195,20 @@ $(() => {
           <div id='c4d_article_content_div' class='col-md-9' class='black_text'>
             ${ getAddToToolkitRow(params) }
             <div id='c4d_article_content'>
-              ${ params['article'].content }
-              ${ category.title === 'Tools' ? getC4dToolsReferenceLinks(params) : ''}
+              ${ enduringOutbreakFlipContent(params, category) }
             </div>
             ${ getArticleCycleDiv(params) }
           </div>
         </div>`
+    }
+    function enduringOutbreakFlipContent(params, category){
+      if (params['article'].title === 'Enduring Outbreak'){
+        return `${ category.title === 'Tools' ? getC4dToolsReferenceLinks(params) : ''}
+                ${ params['article'].content }`
+      } else {
+        return `${ params['article'].content }
+                ${ category.title === 'Tools' ? getC4dToolsReferenceLinks(params) : ''}`
+      }
     }
 
     function getArticleCycleDiv(params){
