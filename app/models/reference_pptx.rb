@@ -1,7 +1,7 @@
 class ReferencePptx < ActiveRecord::Base
   include PgSearch
 
-  pg_search_scope :search_refs, :against => [:document_file_name, :title, :description]
+  pg_search_scope :search_refs, :against => { :document_file_name => 'C', :title => 'A', :description => 'B' }
 
   belongs_to :reference_pptxable, :polymorphic => true
   belongs_to :author, class_name: 'User', foreign_key: 'author_id'
