@@ -4,8 +4,11 @@ class LibraryController < ApplicationController
   end
 
   def search
-    found_search_results = PgSearch.multisearch(safe_search_params).collect{ |obj| [obj.searchable_type, obj.searchable] }
-    render json: { status: 200, found_search_results: found_search_results }
+    articles = PgSearch.multisearch(safe_search_params).collect{ |obj| [obj.searchable_type, obj.searchable] }
+    links = ReferenceLink.search_refs(safe_search_params).collect{ |obj| obj.searchable }
+    mp3s = ReferenceMp3.search_refs(safe_search_params).collect{ |obj| obj.searchable }
+    pptxes = ReferencePptx.search_refs(safe_search_params).collect{ |obj| obj.searchable }
+    render json: { status: 200, articles: articles, links: links, mp3s: mp3s, pptxes: pptxes }
   end
 
   private
