@@ -1,8 +1,7 @@
 class ReferenceLink < ActiveRecord::Base
   include PgSearch
 
-  multisearchable :against => [:document_file_name, :title, :description],
-                  :if => :utilized?
+  pg_search_scope :search_refs, :against => [:document_file_name, :title, :description]
 
   belongs_to :reference_linkable, :polymorphic => true
   belongs_to :author, class_name: 'User', foreign_key: 'author_id'
