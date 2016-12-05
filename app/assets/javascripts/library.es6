@@ -10,7 +10,9 @@ $(() => {
         url: '/library/search/',
         data: $(e.currentTarget).serialize()
       }).done(response => {
-        $('#library_content_search_results').append(getSearchResultContent(response.found_search_results))
+        if (response.status === 200){
+          $('#library_content_search_results').append(getSearchResultContent(response))
+        }
       })
       return false
     })
@@ -19,6 +21,7 @@ $(() => {
       return `<div id='library_content_search_results_grid'>${getSearchResultRows(search_results)}</div>`
     }
     function getSearchResultRows(search_results){
+      // need to break up interpolate by type
       return `${search_results.map(search_result => {
         return `<div class='col-md-12'>
         </div>`
