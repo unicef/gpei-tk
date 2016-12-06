@@ -1,6 +1,6 @@
 class ApplicationController < ActionController::Base
   # For APIs, you may want to use :null_session instead.
-  after_action :allow_iframe
+  before_action :allow_iframe
   helper_method :current_user, :latest_notification
   protect_from_forgery with: :exception
 
