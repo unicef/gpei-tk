@@ -7,10 +7,17 @@
 #library_logo {
   color:white;
   background-color:#CC9555;
-  padding:10px;
 }
 #library_logo_text {
   line-height:55px;
+  position:absolute;
+  left:15px;
+  top:15px;
+}
+#library_content_search {
+  position: absolute;
+  bottom:15px;
+  left:15px;
 }
 #library_content_search_input{
   background: url(/assets/icons/icon-search-grey-sml.png) no-repeat;
