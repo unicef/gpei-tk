@@ -1,6 +1,5 @@
 class ApplicationController < ActionController::Base
   # For APIs, you may want to use :null_session instead.
-  # before_action :allow_iframe
   helper_method :current_user, :latest_notification
   protect_from_forgery with: :exception
 
@@ -26,8 +25,4 @@ class ApplicationController < ActionController::Base
       redirect_to '/'
     end
   end
-
-  # def allow_iframe
-  #   response.headers["X-FRAME-OPTIONS"] = "ALLOW-FROM http://poliok.it"
-  # end
 end
