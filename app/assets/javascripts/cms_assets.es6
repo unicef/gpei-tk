@@ -169,8 +169,9 @@ $(() => {
       e.preventDefault()
       var filterFunc =  function() {
         let search_value = $('#cms_reference_link_search_form input').val()
-        let title = $(this).find('#cms_reference_link_title').text().replace(new RegExp(' ', 'g'), '_');
-        let file_name = $(this).find('#cms_reference_link_file_name_div').text().replace(new RegExp(' ', 'g'), '_');
+        debugger
+        let title = $(this).find('#cms_reference_link_title').text().replace(new RegExp('_', 'g'), ' ');
+        let file_name = $(this).find('#cms_reference_link_file_name_div').text().replace(new RegExp('_', 'g'), ' ');
         let regex_search_value = new RegExp(search_value, 'i')
         let found_file_name = file_name.match(regex_search_value)
         let found_title = title.match(regex_search_value)
