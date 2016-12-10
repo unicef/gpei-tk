@@ -6,8 +6,8 @@ $(() => {
     $('#library_content_search_form').submit(e => {
       e.preventDefault()
       $.ajax({
-        method: 'GET',
-        url: '/library/search/',
+        method: 'POST',
+        url: '/library/referenceSearch/',
         data: $(e.currentTarget).serialize()
       }).done(response => {
         if (response.status === 200){
