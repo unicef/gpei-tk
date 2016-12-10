@@ -1,7 +1,9 @@
 class ReferenceLink < ActiveRecord::Base
   include PgSearch
 
-  pg_search_scope :search_refs, :against => { :document_file_name => 'C', :title => 'A', :description => 'B' }
+  multisearchable :against => [:title, :description, :document_file_name]
+
+  # pg_search_scope :search_refs, :against => [:title, :description,:document_file_name]
 
   belongs_to :reference_linkable, :polymorphic => true
   belongs_to :author, class_name: 'User', foreign_key: 'author_id'
@@ -11,7 +13,7 @@ class ReferenceLink < ActiveRecord::Base
 
   has_attached_file :document,
                     :path => 'reference_links/:language/:filename',
-                    :styles => { thumb: ["200x200#", :png]}
+                    :styles => { thumb: ["200x200#", :png] }
 
   validates_attachment :document, content_type: { content_type: 'application/pdf' }
   validates_uniqueness_of :document_file_name

@@ -1,7 +1,9 @@
 class ReferenceMp3 < ActiveRecord::Base
   include PgSearch
 
-  pg_search_scope :search_refs, :against => { :clip_file_name => 'C', :title => 'A', :description => 'B' }
+  multisearchable :against => [:title, :description, :clip_file_name]
+
+  # pg_search_scope :search_refs, :against => { :title => 'A', :description => 'B', :clip_file_name => 'C' }
 
   belongs_to :reference_mp3able, :polymorphic => true
   belongs_to :author, class_name: 'User', foreign_key: 'author_id'
