@@ -36,7 +36,12 @@ class Cms::ReferencePptxesController < ApplicationController
     if request.xhr?
       reference_pptx = ReferencePptx.find_by(id: params[:id])
       if reference_pptx.update(safe_reference_pptx_params)
-        render json: { status: 200, id: reference_pptx.id, description: reference_pptx.description, title: reference_pptx.title }
+        render json: { status: 200,
+                       id: reference_pptx.id,
+                       description: reference_pptx.description,
+                       title: reference_pptx.title,
+                       common_languages: reference_pptx.common_languages,
+                       places: reference_pptx.places }
       else
         render json: { status: 403 }
       end
@@ -74,6 +79,6 @@ class Cms::ReferencePptxesController < ApplicationController
   end
 
   def safe_reference_pptx_params
-    params.require(:reference_pptx).permit(:description, :title)
+    params.require(:reference_pptx).permit(:description, :title, :common_languages, :places)
   end
 end

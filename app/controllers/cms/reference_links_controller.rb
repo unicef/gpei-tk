@@ -36,7 +36,12 @@ class Cms::ReferenceLinksController < ApplicationController
     if request.xhr?
       reference_link = ReferenceLink.find_by(id: params[:id])
       if reference_link.update(safe_reference_link_params)
-        render json: { status: 200, id: reference_link.id, description: reference_link.description, title: reference_link.title }
+        render json: { status: 200,
+                       id: reference_link.id,
+                       description: reference_link.description,
+                       title: reference_link.title,
+                       common_languages: reference_link.common_languages,
+                       places: reference_link.places }
       else
         render json: { status: 403 }
       end
@@ -74,6 +79,6 @@ class Cms::ReferenceLinksController < ApplicationController
   end
 
   def safe_reference_link_params
-    params.require(:reference_link).permit(:description, :title)
+    params.require(:reference_link).permit(:description, :title, :common_languages, :places)
   end
 end

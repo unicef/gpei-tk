@@ -36,7 +36,12 @@ class Cms::ReferenceMp3sController < ApplicationController
     if request.xhr?
       reference_mp3 = ReferenceMp3.find_by(id: params[:id])
       if reference_mp3.update(safe_reference_mp3_params)
-        render json: { status: 200, id: reference_mp3.id, description: reference_mp3.description, title: reference_mp3.title }
+        render json: { status: 200,
+                       id: reference_mp3.id,
+                       description: reference_mp3.description,
+                       title: reference_mp3.title,
+                       common_languages: reference_mp3.common_languages,
+                       places: reference_mp3.places }
       else
         render json: { status: 403 }
       end
@@ -74,6 +79,6 @@ class Cms::ReferenceMp3sController < ApplicationController
   end
 
   def safe_reference_mp3_params
-    params.require(:reference_mp3).permit(:description, :title)
+    params.require(:reference_mp3).permit(:description, :title, :common_languages, :places)
   end
 end
