@@ -15,19 +15,21 @@ class Cms::ReferencePptxesController < ApplicationController
         if ReferencePptx.find_by(document_file_name: document[1].original_filename).nil?
           reference_pptx = ReferencePptx.new(author_id: current_user.id,
                                             document: document[1],
-                                            language: params[:language])
+                                            language: params[:language],
+                                            document_language: params[:document_language],
+                                            places: params[:places])
           reference_pptx.absolute_url = reference_pptx.document.url
           if !reference_pptx.save
             errors << reference_pptx.errors
           end
         else
-          errors << "reference pptx already exists"
+          errors << "duplicate files not allowed"
         end
       end
       if errors.empty?
         render json: { status: 200 }
       else
-        render json: { status: 403, error: 'duplicate files not allowed' }
+        render json: { status: 403, error: errors.join('\n') }
       end
     end
   end
@@ -40,7 +42,7 @@ class Cms::ReferencePptxesController < ApplicationController
                        id: reference_pptx.id,
                        description: reference_pptx.description,
                        title: reference_pptx.title,
-                       common_languages: reference_pptx.common_languages,
+                       document_language: reference_pptx.document_language,
                        places: reference_pptx.places }
       else
         render json: { status: 403 }
@@ -79,6 +81,6 @@ class Cms::ReferencePptxesController < ApplicationController
   end
 
   def safe_reference_pptx_params
-    params.require(:reference_pptx).permit(:description, :title, :common_languages, :places)
+    params.require(:reference_pptx).permit(:description, :title, :document_language, :places)
   end
 end

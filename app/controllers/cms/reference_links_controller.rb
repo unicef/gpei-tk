@@ -15,19 +15,21 @@ class Cms::ReferenceLinksController < ApplicationController
         if ReferenceLink.find_by(document_file_name: document[1].original_filename).nil?
           reference_link = ReferenceLink.new(author_id: current_user.id,
                                             document: document[1],
-                                            language: params[:language])
+                                            language: params[:language],
+                                            document_language: params[:document_language],
+                                            places: params[:places])
           reference_link.absolute_url = reference_link.document.url
           if !reference_link.save
             errors << reference_link.errors
           end
         else
-          errors << "reference link already exists"
+          errors << "duplicate files not allowed"
         end
       end
       if errors.empty?
         render json: { status: 200 }
       else
-        render json: { status: 403, error: 'duplicate files not allowed' }
+        render json: { status: 403, error: errors.join('\n') }
       end
     end
   end
@@ -40,7 +42,7 @@ class Cms::ReferenceLinksController < ApplicationController
                        id: reference_link.id,
                        description: reference_link.description,
                        title: reference_link.title,
-                       common_languages: reference_link.common_languages,
+                       document_language: reference_link.document_language,
                        places: reference_link.places }
       else
         render json: { status: 403 }
@@ -79,6 +81,6 @@ class Cms::ReferenceLinksController < ApplicationController
   end
 
   def safe_reference_link_params
-    params.require(:reference_link).permit(:description, :title, :common_languages, :places)
+    params.require(:reference_link).permit(:description, :title, :document_language, :places)
   end
 end

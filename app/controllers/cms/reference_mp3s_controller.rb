@@ -15,19 +15,21 @@ class Cms::ReferenceMp3sController < ApplicationController
         if ReferenceMp3.find_by(clip_file_name: clip[1].original_filename).nil?
           reference_mp3 = ReferenceMp3.new(author_id: current_user.id,
                                             clip: clip[1],
-                                            language: params[:language])
+                                            language: params[:language],
+                                            document_language: params[:document_language],
+                                            places: params[:places])
           reference_mp3.absolute_url = reference_mp3.clip.url
           if !reference_mp3.save
             errors << clip.errors
           end
         else
-          errors << "reference mp3 already exists"
+          errors << "duplicate files not allowed"
         end
       end
       if errors.empty?
         render json: { status: 200 }
       else
-        render json: { status: 403, error: 'duplicate files not allowed' }
+        render json: { status: 403, error: errors.join('\n') }
       end
     end
   end
@@ -40,7 +42,7 @@ class Cms::ReferenceMp3sController < ApplicationController
                        id: reference_mp3.id,
                        description: reference_mp3.description,
                        title: reference_mp3.title,
-                       common_languages: reference_mp3.common_languages,
+                       document_language: reference_mp3.document_language,
                        places: reference_mp3.places }
       else
         render json: { status: 403 }
@@ -79,6 +81,6 @@ class Cms::ReferenceMp3sController < ApplicationController
   end
 
   def safe_reference_mp3_params
-    params.require(:reference_mp3).permit(:description, :title, :common_languages, :places)
+    params.require(:reference_mp3).permit(:description, :title, :document_language, :places)
   end
 end
