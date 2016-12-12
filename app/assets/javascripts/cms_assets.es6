@@ -95,7 +95,8 @@ $(() => {
         })
       })
     })
-      $('#CMS_references_pptx_upload').click(e => {
+
+    $('#CMS_references_pptx_upload').click(e => {
       e.preventDefault()
       toggleProgressSpinner()
       let content = formForReferenceLinkUpload('pptx')
@@ -234,6 +235,16 @@ $(() => {
                             <div id='cms_reference_${type}_description_div' class='col-md-12'>${!_.isNull(reference_link.description) ? reference_link.description : 'Description coming soon'}</div>
                           </div>
                           <div style='height:10px' class='col-md-12'></div>
+                          <div class='col-md-12'>
+                            <div class='col-md-12'><strong>Common Languages:</strong></div>
+                            <div id='cms_reference_${type}_common_languages_div' class='col-md-12'>${!_.isNull(reference_link.common_languages) ? reference_link.common_languages : 'No common languages input'}</div>
+                          </div>
+                          <div style='height:10px' class='col-md-12'></div>
+                          <div class='col-md-12'>
+                            <div class='col-md-12'><strong>Places:</strong></div>
+                            <div id='cms_reference_${type}_places_div' class='col-md-12'>${!_.isNull(reference_link.places) ? reference_link.places : 'No places input'}</div>
+                          </div>
+                          <div style='height:10px' class='col-md-12'></div>
                         </div>
                       </div>
                       <div class='col-md-2'><strong>Where pdf is attached:</strong><br> ${ _.isUndefined(reference_link_categories[reference_link.id]) ? '' : _.map(reference_link_categories[reference_link.id], reference_link_categories => { return reference_link_categories.details }).join("<div style='height:2px;background:black;width:100%'></div>")}</div>
@@ -284,6 +295,7 @@ $(() => {
       })
       return false
     })
+
     $('#CMS_index_content').on('submit', '#CMS_reference_mp3_upload_form', e => {
       e.preventDefault()
       // let formData = new FormData($(e.currentTarget)[0])
@@ -462,15 +474,20 @@ $(() => {
       toggleProgressSpinner()
       $('#CMS_modal').modal('show')
       $('#CMS_modal #CMS_modal_header').append("<h3>Reference link - (.pdf) - Edit</h3>")
+      let type = 'link'
       let title = $('#CMS_index_content #' + e.currentTarget.parentElement.id + ' #cms_reference_link_title_div').text()
       let description = $('#CMS_index_content #' + e.currentTarget.parentElement.id + ' #cms_reference_link_description_div').text()
       let file_name = $('#CMS_index_content #' + e.currentTarget.parentElement.id + ' #cms_reference_link_file_name_div').text()
+      let common_languages = $('#CMS_index_content #' + e.currentTarget.parentElement.id + ` #cms_reference_${type}_common_languages_div`).text()
+      common_languages = common_languages === 'No common languages input' ? '' : common_languages
+      let places = $('#CMS_index_content #' + e.currentTarget.parentElement.id + ` #cms_reference_${type}_places_div`).text()
+      places = places === 'No places input' ? '' : places
       // $('#CMS_index_content').empty()
       let content = getReferenceLinkEditForm(title,
                                             $(e.currentTarget).attr('href'),
                                               e.currentTarget.parentElement.id,
                                               description,
-                                              file_name, 'link')
+                                              file_name, type, common_languages, places)
       $('#CMS_modal #CMS_modal_content').append(content)
       // $('#CMS_index_content').append(content)
       toggleProgressSpinner()
@@ -484,12 +501,17 @@ $(() => {
       let title = $('#CMS_index_content #' + e.currentTarget.parentElement.id + ' #cms_reference_mp3_title_div').text()
       let description = $('#CMS_index_content #' + e.currentTarget.parentElement.id + ' #cms_reference_mp3_description_div').text()
       let file_name = $('#CMS_index_content #' + e.currentTarget.parentElement.id + ' #cms_reference_mp3_file_name_div').text()
+      let type = 'mp3'
+      let common_languages = $('#CMS_index_content #' + e.currentTarget.parentElement.id + ` #cms_reference_${type}_common_languages_div`).text()
+      common_languages = common_languages === 'No common languages input' ? '' : common_languages
+      let places = $('#CMS_index_content #' + e.currentTarget.parentElement.id + ` #cms_reference_${type}_places_div`).text()
+      places = places === 'No places input' ? '' : places
       // $('#CMS_index_content').empty()
       let content = getReferenceLinkEditForm(title,
                                             $(e.currentTarget).attr('href'),
                                               e.currentTarget.parentElement.id,
                                               description,
-                                              file_name, 'mp3')
+                                              file_name, type, common_languages, places)
       $('#CMS_modal #CMS_modal_content').append(content)
       // $('#CMS_index_content').append(content)
       toggleProgressSpinner()
@@ -503,19 +525,24 @@ $(() => {
       let title = $('#CMS_index_content #' + e.currentTarget.parentElement.id + ' #cms_reference_pptx_title_div').text()
       let description = $('#CMS_index_content #' + e.currentTarget.parentElement.id + ' #cms_reference_pptx_description_div').text()
       let file_name = $('#CMS_index_content #' + e.currentTarget.parentElement.id + ' #cms_reference_pptx_file_name_div').text()
+      let type = 'pptx'
+      let common_languages = $('#CMS_index_content #' + e.currentTarget.parentElement.id + ` #cms_reference_${type}_common_languages_div`).text()
+      common_languages = common_languages === 'No common languages input' ? '' : common_languages
+      let places = $('#CMS_index_content #' + e.currentTarget.parentElement.id + ` #cms_reference_${type}_places_div`).text()
+      places = places === 'No places input' ? '' : places
       // $('#CMS_index_content').empty()
       let content = getReferenceLinkEditForm(title,
                                             $(e.currentTarget).attr('href'),
                                               e.currentTarget.parentElement.id,
                                               description,
-                                              file_name, 'pptx')
+                                              file_name, type, common_languages, places)
       $('#CMS_modal #CMS_modal_content').append(content)
       // $('#CMS_index_content').append(content)
       toggleProgressSpinner()
       return false
     })
 
-    function getReferenceLinkEditForm(reference_link_title, url, id, description, file_name, type){
+    function getReferenceLinkEditForm(reference_link_title, url, id, description, file_name, type, reference_link_common_languages, reference_link_places){
       return `<div id='${id}'>
                 <form id="CMS_reference_${type}_edit" class="ui form">
                   <div class="field">
@@ -529,9 +556,13 @@ $(() => {
                         <u>Title:</u>
                       </h4>
                     </label>
-                    <input class="reference[title]" type="text" placeholder="No title" name="reference_${type}[title]" value="${(_.isNull(reference_link_title) || reference_link_title === '' || reference_link_title === 'No title given') ? '' : reference_link_title}" style='margin-bottom:5px' required>
+                    <input type="text" placeholder="No title" name="reference_${type}[title]" value="${(_.isNull(reference_link_title) || reference_link_title === '' || reference_link_title === 'No title given') ? '' : reference_link_title}" style='margin-bottom:5px' required>
                     <label>Description:</label>
                     <textarea name="reference_${type}[description]" placeholder="descriptive text" required>${(_.isNull(description) || description === '' || description === 'Description coming soon') ? '' : description}</textarea>
+                    <label>Common Languages(seperate each with a space):</label>
+                    <input type="text" placeholder="Example: EN FR" name="reference_${type}[common_languages]" value="${(_.isNull(reference_link_common_languages) || reference_link_common_languages === '' || reference_link_common_languages === 'No title given') ? '' : reference_link_common_languages}" style='margin-bottom:5px'>
+                    <label>Places(seperate each with a space):</label>
+                    <input type="text" placeholder="Example: Nigeria Afghanistan Pakistan" name="reference_${type}[places]" value="${(_.isNull(reference_link_places) || reference_link_places === '' || reference_link_places === 'No title given') ? '' : reference_link_places}" style='margin-bottom:5px'>
                   </div>
                   <button class="ui button" type="submit">Submit</button>
                 </form>
@@ -550,6 +581,8 @@ $(() => {
         toggleProgressSpinner()
         $('#cms_reference_link_grid #'+response.id+'.reference_link_item').find('#cms_reference_link_title_div').text(response.title)
         $('#cms_reference_link_grid #'+response.id+'.reference_link_item').find('#cms_reference_link_description_div').text(response.description)
+        $('#cms_reference_link_grid #'+response.id+'.reference_link_item').find('#cms_reference_link_common_languages_div').text(response.common_languages)
+        $('#cms_reference_link_grid #'+response.id+'.reference_link_item').find('#cms_reference_link_places_div').text(response.places)
       })
       return false
     })
@@ -567,6 +600,8 @@ $(() => {
         toggleProgressSpinner()
         $('#cms_reference_mp3_grid #'+response.id+'.reference_mp3_item').find('#cms_reference_mp3_title_div').text(response.title)
         $('#cms_reference_mp3_grid #'+response.id+'.reference_mp3_item').find('#cms_reference_mp3_description_div').text(response.description)
+        $('#cms_reference_mp3_grid #'+response.id+'.reference_mp3_item').find('#cms_reference_mp3_common_languages_div').text(response.common_languages)
+        $('#cms_reference_mp3_grid #'+response.id+'.reference_mp3_item').find('#cms_reference_mp3_places_div').text(response.places)
       })
       return false
     })
@@ -584,6 +619,8 @@ $(() => {
         toggleProgressSpinner()
         $('#cms_reference_pptx_grid #'+response.id+'.reference_pptx_item').find('#cms_reference_pptx_title_div').text(response.title)
         $('#cms_reference_pptx_grid #'+response.id+'.reference_pptx_item').find('#cms_reference_pptx_description_div').text(response.description)
+        $('#cms_reference_pptx_grid #'+response.id+'.reference_pptx_item').find('#cms_reference_pptx_common_languages_div').text(response.common_languages)
+        $('#cms_reference_pptx_grid #'+response.id+'.reference_pptx_item').find('#cms_reference_pptx_places_div').text(response.places)
       })
       return false
     })
