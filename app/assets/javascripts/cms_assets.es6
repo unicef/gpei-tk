@@ -170,7 +170,6 @@ $(() => {
       e.preventDefault()
       var filterFunc =  function() {
         let search_value = $('#cms_reference_link_search_form input').val()
-        debugger
         let title = $(this).find('#cms_reference_link_title').text().replace(new RegExp('_', 'g'), ' ');
         let file_name = $(this).find('#cms_reference_link_file_name_div').text().replace(new RegExp('_', 'g'), ' ');
         let regex_search_value = new RegExp(search_value, 'i')
@@ -236,8 +235,8 @@ $(() => {
                           </div>
                           <div style='height:10px' class='col-md-12'></div>
                           <div class='col-md-12'>
-                            <div class='col-md-12'><strong>Common Languages:</strong></div>
-                            <div id='cms_reference_${type}_common_languages_div' class='col-md-12'>${!_.isNull(reference_link.common_languages) ? reference_link.common_languages : 'No common languages input'}</div>
+                            <div class='col-md-12'><strong>Document Language:</strong></div>
+                            <div id='cms_reference_${type}_document_language_div' class='col-md-12'>${!_.isNull(reference_link.document_language) ? reference_link.document_language : 'No document language input'}</div>
                           </div>
                           <div style='height:10px' class='col-md-12'></div>
                           <div class='col-md-12'>
@@ -274,6 +273,8 @@ $(() => {
         formData.append('reference_link['+idx+']', file);
       })
       formData.append('language', $('#CMS_reference_link_upload_form').find('select')[0].value)
+      formData.append('document_language', $("#CMS_reference_link_upload_form [name='reference_link[document_language]']").val())
+      formData.append('places', $("#CMS_reference_link_upload_form [name='reference_link[places]']").val())
       $('#CMS_reference_link_upload_form button').prop('disabled', true)
       toggleProgressSpinner()
       $.ajax({
@@ -378,6 +379,8 @@ $(() => {
         <form id="CMS_reference_${type}_upload_form" class="ui form CMS_c4d_article_form_div">
           ${getLanguageDropdown(type)}
           ${getReferenceLinkField(type)}
+          ${getReferenceDocumentLanguageInput(type, null)}
+          ${getReferencePlacesInput(type, null)}
           <button class="ui button" type="submit">Submit</button>
         </form>
         `)
@@ -478,8 +481,8 @@ $(() => {
       let title = $('#CMS_index_content #' + e.currentTarget.parentElement.id + ' #cms_reference_link_title_div').text()
       let description = $('#CMS_index_content #' + e.currentTarget.parentElement.id + ' #cms_reference_link_description_div').text()
       let file_name = $('#CMS_index_content #' + e.currentTarget.parentElement.id + ' #cms_reference_link_file_name_div').text()
-      let common_languages = $('#CMS_index_content #' + e.currentTarget.parentElement.id + ` #cms_reference_${type}_common_languages_div`).text()
-      common_languages = common_languages === 'No common languages input' ? '' : common_languages
+      let document_language = $('#CMS_index_content #' + e.currentTarget.parentElement.id + ` #cms_reference_${type}_document_language_div`).text()
+      document_language = document_language === 'No document language input' ? '' : document_language
       let places = $('#CMS_index_content #' + e.currentTarget.parentElement.id + ` #cms_reference_${type}_places_div`).text()
       places = places === 'No places input' ? '' : places
       // $('#CMS_index_content').empty()
@@ -487,7 +490,7 @@ $(() => {
                                             $(e.currentTarget).attr('href'),
                                               e.currentTarget.parentElement.id,
                                               description,
-                                              file_name, type, common_languages, places)
+                                              file_name, type, document_language, places)
       $('#CMS_modal #CMS_modal_content').append(content)
       // $('#CMS_index_content').append(content)
       toggleProgressSpinner()
@@ -502,8 +505,8 @@ $(() => {
       let description = $('#CMS_index_content #' + e.currentTarget.parentElement.id + ' #cms_reference_mp3_description_div').text()
       let file_name = $('#CMS_index_content #' + e.currentTarget.parentElement.id + ' #cms_reference_mp3_file_name_div').text()
       let type = 'mp3'
-      let common_languages = $('#CMS_index_content #' + e.currentTarget.parentElement.id + ` #cms_reference_${type}_common_languages_div`).text()
-      common_languages = common_languages === 'No common languages input' ? '' : common_languages
+      let document_language = $('#CMS_index_content #' + e.currentTarget.parentElement.id + ` #cms_reference_${type}_document_language_div`).text()
+      document_language = document_language === 'No document language input' ? '' : document_language
       let places = $('#CMS_index_content #' + e.currentTarget.parentElement.id + ` #cms_reference_${type}_places_div`).text()
       places = places === 'No places input' ? '' : places
       // $('#CMS_index_content').empty()
@@ -511,7 +514,7 @@ $(() => {
                                             $(e.currentTarget).attr('href'),
                                               e.currentTarget.parentElement.id,
                                               description,
-                                              file_name, type, common_languages, places)
+                                              file_name, type, document_language, places)
       $('#CMS_modal #CMS_modal_content').append(content)
       // $('#CMS_index_content').append(content)
       toggleProgressSpinner()
@@ -526,8 +529,8 @@ $(() => {
       let description = $('#CMS_index_content #' + e.currentTarget.parentElement.id + ' #cms_reference_pptx_description_div').text()
       let file_name = $('#CMS_index_content #' + e.currentTarget.parentElement.id + ' #cms_reference_pptx_file_name_div').text()
       let type = 'pptx'
-      let common_languages = $('#CMS_index_content #' + e.currentTarget.parentElement.id + ` #cms_reference_${type}_common_languages_div`).text()
-      common_languages = common_languages === 'No common languages input' ? '' : common_languages
+      let document_language = $('#CMS_index_content #' + e.currentTarget.parentElement.id + ` #cms_reference_${type}_document_language_div`).text()
+      document_language = document_language === 'No document language input' ? '' : document_language
       let places = $('#CMS_index_content #' + e.currentTarget.parentElement.id + ` #cms_reference_${type}_places_div`).text()
       places = places === 'No places input' ? '' : places
       // $('#CMS_index_content').empty()
@@ -535,14 +538,14 @@ $(() => {
                                             $(e.currentTarget).attr('href'),
                                               e.currentTarget.parentElement.id,
                                               description,
-                                              file_name, type, common_languages, places)
+                                              file_name, type, document_language, places)
       $('#CMS_modal #CMS_modal_content').append(content)
       // $('#CMS_index_content').append(content)
       toggleProgressSpinner()
       return false
     })
 
-    function getReferenceLinkEditForm(reference_link_title, url, id, description, file_name, type, reference_link_common_languages, reference_link_places){
+    function getReferenceLinkEditForm(reference_link_title, url, id, description, file_name, type, reference_link_document_language, reference_link_places){
       return `<div id='${id}'>
                 <form id="CMS_reference_${type}_edit" class="ui form">
                   <div class="field">
@@ -559,14 +562,20 @@ $(() => {
                     <input type="text" placeholder="No title" name="reference_${type}[title]" value="${(_.isNull(reference_link_title) || reference_link_title === '' || reference_link_title === 'No title given') ? '' : reference_link_title}" style='margin-bottom:5px' required>
                     <label>Description:</label>
                     <textarea name="reference_${type}[description]" placeholder="descriptive text" required>${(_.isNull(description) || description === '' || description === 'Description coming soon') ? '' : description}</textarea>
-                    <label>Common Languages(seperate each with a space):</label>
-                    <input type="text" placeholder="Example: EN FR" name="reference_${type}[common_languages]" value="${(_.isNull(reference_link_common_languages) || reference_link_common_languages === '' || reference_link_common_languages === 'No title given') ? '' : reference_link_common_languages}" style='margin-bottom:5px'>
-                    <label>Places(seperate each with a space):</label>
-                    <input type="text" placeholder="Example: Nigeria Afghanistan Pakistan" name="reference_${type}[places]" value="${(_.isNull(reference_link_places) || reference_link_places === '' || reference_link_places === 'No title given') ? '' : reference_link_places}" style='margin-bottom:5px'>
+                    ${getReferenceDocumentLanguageInput(type, reference_link_document_language)}
+                    ${getReferencePlacesInput(type, reference_link_places)}
                   </div>
                   <button class="ui button" type="submit">Submit</button>
                 </form>
               </div>`
+    }
+    function getReferenceDocumentLanguageInput(type, reference_link_document_language){
+      return `<label>Document Language:</label>
+              <input type="text" placeholder="Example: EN FR" name="reference_${type}[document_language]" value="${(_.isNull(reference_link_document_language) || reference_link_document_language === '' || reference_link_document_language === 'No title given') ? '' : reference_link_document_language}" style='margin-bottom:5px'>`
+    }
+    function getReferencePlacesInput(type, reference_link_places){
+      return `<label>Places(seperate each with a space):</label>
+              <input type="text" placeholder="Example: Nigeria Afghanistan Pakistan" name="reference_${type}[places]" value="${(_.isNull(reference_link_places) || reference_link_places === '' || reference_link_places === 'No title given') ? '' : reference_link_places}" style='margin-bottom:5px'>`
     }
     $('#CMS_modal').on('submit', '#CMS_reference_link_edit', e => {
       e.preventDefault()
@@ -581,7 +590,7 @@ $(() => {
         toggleProgressSpinner()
         $('#cms_reference_link_grid #'+response.id+'.reference_link_item').find('#cms_reference_link_title_div').text(response.title)
         $('#cms_reference_link_grid #'+response.id+'.reference_link_item').find('#cms_reference_link_description_div').text(response.description)
-        $('#cms_reference_link_grid #'+response.id+'.reference_link_item').find('#cms_reference_link_common_languages_div').text(response.common_languages)
+        $('#cms_reference_link_grid #'+response.id+'.reference_link_item').find('#cms_reference_link_document_language_div').text(response.document_language)
         $('#cms_reference_link_grid #'+response.id+'.reference_link_item').find('#cms_reference_link_places_div').text(response.places)
       })
       return false
@@ -600,7 +609,7 @@ $(() => {
         toggleProgressSpinner()
         $('#cms_reference_mp3_grid #'+response.id+'.reference_mp3_item').find('#cms_reference_mp3_title_div').text(response.title)
         $('#cms_reference_mp3_grid #'+response.id+'.reference_mp3_item').find('#cms_reference_mp3_description_div').text(response.description)
-        $('#cms_reference_mp3_grid #'+response.id+'.reference_mp3_item').find('#cms_reference_mp3_common_languages_div').text(response.common_languages)
+        $('#cms_reference_mp3_grid #'+response.id+'.reference_mp3_item').find('#cms_reference_mp3_document_language_div').text(response.document_language)
         $('#cms_reference_mp3_grid #'+response.id+'.reference_mp3_item').find('#cms_reference_mp3_places_div').text(response.places)
       })
       return false
@@ -619,7 +628,7 @@ $(() => {
         toggleProgressSpinner()
         $('#cms_reference_pptx_grid #'+response.id+'.reference_pptx_item').find('#cms_reference_pptx_title_div').text(response.title)
         $('#cms_reference_pptx_grid #'+response.id+'.reference_pptx_item').find('#cms_reference_pptx_description_div').text(response.description)
-        $('#cms_reference_pptx_grid #'+response.id+'.reference_pptx_item').find('#cms_reference_pptx_common_languages_div').text(response.common_languages)
+        $('#cms_reference_pptx_grid #'+response.id+'.reference_pptx_item').find('#cms_reference_pptx_document_language_div').text(response.document_language)
         $('#cms_reference_pptx_grid #'+response.id+'.reference_pptx_item').find('#cms_reference_pptx_places_div').text(response.places)
       })
       return false
