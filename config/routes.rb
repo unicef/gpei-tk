@@ -77,5 +77,5 @@ Rails.application.routes.draw do
   post '/feedback/' => 'feedback#create'
 
   get '/library/' => 'library#index'
-  post '/library/referenceSearch/' => 'library#referenceSearch', as: :reference_search
+  get '/library/referenceSearch/' => 'library#referenceSearch'
 end
