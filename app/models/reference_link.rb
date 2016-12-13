@@ -4,7 +4,14 @@ class ReferenceLink < ActiveRecord::Base
   pg_search_scope :search_refs, :against => [:title, :description, :document_file_name],
                   :using => { tsearch: { prefix: true } }
 
+  has_many :reference_links, class_name: "RelatedReference",
+                             foreign_key: "reference_link_id"
+
+  belongs_to :related_referenceable, :polymorphic => true
+  has_many :related_references, as: :reference_linkable
+
   belongs_to :reference_linkable, :polymorphic => true
+
   belongs_to :author, class_name: 'User', foreign_key: 'author_id'
 
   has_many :reference_downloads, as: :reference_downloadable

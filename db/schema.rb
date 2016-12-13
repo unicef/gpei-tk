@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161212211904) do
+ActiveRecord::Schema.define(version: 20161213173132) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -206,6 +206,14 @@ ActiveRecord::Schema.define(version: 20161212211904) do
     t.string   "description"
     t.string   "document_language"
     t.string   "places"
+  end
+
+  create_table "related_references", force: :cascade do |t|
+    t.integer  "reference_link_id"
+    t.integer  "related_referenceable_id"
+    t.string   "related_referenceable_type"
+    t.datetime "created_at",                 null: false
+    t.datetime "updated_at",                 null: false
   end
 
   create_table "responsible_offices", force: :cascade do |t|
