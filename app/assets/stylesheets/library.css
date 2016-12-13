@@ -43,3 +43,40 @@
   border-right:1px white solid;
   opacity:1;
 }
+#library_content_search_results_grid {
+  padding-left:15px;
+  padding-top:10px;
+  padding-bottom:10px;
+  padding-right:15px;
+}
+.reference_search_result_item {
+  margin-bottom:5px !important;
+}
+.reference_search_result_item_title a {
+  color:black;
+}
+.reference_search_result_item_title {
+  font-weight:bold;
+}
+.reference_search_result_item_description {
+  opacity:0.5;
+}
+#reference_search_result_title_description_wrapper {
+  padding-left:5px !important;
+}
+.reference_search_result_info_language {
+  border-radius:25px;
+  min-width:25px;
+  text-align:center;
+  padding-left:2px;
+  padding-right:2px;
+  background:black;
+  color:white;
+  display:inline-block;
+}
+.reference_search_result_is_c4d {
+  color:#35848C;
+}
+.inline_block {
+  display:inline-block;
+}
