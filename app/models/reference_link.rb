@@ -4,11 +4,10 @@ class ReferenceLink < ActiveRecord::Base
   pg_search_scope :search_refs, :against => [:title, :description, :document_file_name],
                   :using => { tsearch: { prefix: true } }
 
-  has_many :reference_links, class_name: "RelatedReference",
+  has_many :related_references, class_name: "RelatedReference",
                              foreign_key: "reference_link_id"
 
   belongs_to :related_referenceable, :polymorphic => true
-  has_many :related_references, as: :reference_linkable
 
   belongs_to :reference_linkable, :polymorphic => true
 
@@ -26,6 +25,10 @@ class ReferenceLink < ActiveRecord::Base
 
   Paperclip.interpolates :language do |attachment, style|
     attachment.instance.language
+  end
+
+  def related_topics
+    ReferenceLink.where(id: self.related_references)
   end
 
   def utilized?
