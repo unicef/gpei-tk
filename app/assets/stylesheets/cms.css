@@ -62,6 +62,7 @@
   overflow: scroll;
   border:1px solid black;
   width:auto;
+  height:1000px;
   padding:2px;
 }
 #CMS_user_assign_role,
@@ -270,4 +271,11 @@
 }
 #cms_notification_form .field {
   width:100%;
+}
+#CMS_reference_link_feature_select_form .field{
+  width:95%;
+}
+.featured_ul_select{
+  max-height:500px !important;
+  height:70%;
 }
