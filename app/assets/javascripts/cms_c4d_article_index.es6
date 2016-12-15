@@ -418,7 +418,7 @@ $(() => {
             ${_.map(reference_links, reference_link => {
               let checked = !_.isEmpty(_.filter(selected_reference_links, (selected_reference) => { return selected_reference.id === reference_link.id })) ? "checked" : ""
               return `<li><input id=${reference_link.id} ${checked} type='checkbox' name="article[reference_links][]" value="${reference_link.id}">
-                      <label id='cms_reference_link_label' class='filter-label' for=${reference_link.id}>${reference_link.document_file_name}</label></li>`
+                      <label id='cms_reference_link_label' class='filter-label' for=${reference_link.id}>${reference_link.document_file_name} -  <a href="${ reference_link.absolute_url }" target='_blank'><i class="fa fa-search" aria-hidden="true"></i></a></label></li>`
             }).join('\n')}
             </ul>
         </div>
