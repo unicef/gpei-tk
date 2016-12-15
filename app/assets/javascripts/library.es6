@@ -3,6 +3,11 @@ $(() => {
     let offset = $('nav').outerHeight()
     $('#library').offset({ top: offset })
 
+    $(`#library_index_content_featured_content_grid`).isotope({
+      itemSelector: `.featured_content_item`,
+      layoutMode: 'fitRows'
+    })
+
     $('#library_content_search_form').submit(e => {
       e.preventDefault()
       $.ajax({
@@ -12,7 +17,7 @@ $(() => {
       }).done(response => {
         if (response.status === 200){
           $('#library_content_search_results').append(getSearchResultContent(response.references))
-          // $('#library_content_search_results_grid').grid()
+
         }
       })
       return false
@@ -21,6 +26,41 @@ $(() => {
     function getSearchResultContent(references){
       return `<div id='library_content_search_results_grid'>${getSearchResultRows(references)}</div>`
     }
+
+    function loadIsotopeHandlers(type){
+      // $('#CMS_index_content #cms_reference_link_filter_dropdown').dropdown({
+      //   on: 'hover',
+      //   action: 'nothing',
+      //   transition: 'horizontal flip'
+      // })
+      $(`#library_content_search_results #library_content_search_results_grid`).isotope({
+        itemSelector: `.reference_search_result_item`,
+        layoutMode: 'fitRows'
+      })
+      // ,
+      //   getSortData: {
+      //     updatedSort: function (ele) {
+      //       return Date.parse($(ele).find('#updated_at_div').text()) * (updatedSortFlow ? -1 : 1)
+      //     },
+      //     createdSort: function (ele) {
+      //       return (Date.parse($(ele).find('#created_at_div').text())) * (createdSortFlow ? -1 : 1)
+      //     }
+      //   }
+
+      // $('.filter-button-group').on('click', 'button', function() {
+      //   var filterValue = $(this).attr('data-filter')
+      //   // use filter function if value matches
+      //   $(`#CMS_index_content #cms_reference_grid`).isotope({ filter: filterValue })
+      // })
+      // $('.button-group').each( function( i, buttonGroup ) {
+      //   var $buttonGroup = $( buttonGroup )
+      //   $buttonGroup.on( 'click', 'button', function() {
+      //     $buttonGroup.find('.is-checked').removeClass('is-checked')
+      //     $( this ).addClass('is-checked')
+      //   })
+      // })
+    }
+
     function getSearchResultRows(references){
       // need to break up interpolate by type
       return `${references.map(reference_obj => {
@@ -52,6 +92,7 @@ $(() => {
           }).join('')
         }`
     }
+
     function getSearchReferenceIcon(reference_obj){
       let img_url = ''
       if (reference_obj.type === 'Reference link'){
@@ -65,6 +106,18 @@ $(() => {
       }
       return img_url
     }
+    $('.library_featured_pagination_indicators a').click(e => {
+      e.preventDefault()
+      return false
+    })
+    $('#featured_pagination_left_angle_div a').click(e => {
+      e.preventDefault()
+      return false
+    })
+    $('#featured_pagination_right_angle_div a').click(e => {
+      e.preventDefault()
+      return false
+    })
   }
 
 })
