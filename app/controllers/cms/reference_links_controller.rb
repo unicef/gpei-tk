@@ -8,6 +8,18 @@ class Cms::ReferenceLinksController < ApplicationController
     render json: { reference_links: reference_links, reference_link_categories: reference_link_categories, categories: categories, status: 200 }
   end
 
+  def show
+    if request.xhr?
+      reference_link = ReferenceLink.find_by(id: params[:id])
+      reference_links = ReferenceLink.where('id <> ?', reference_link.id).order(:document_file_name)
+      related_reference_links = reference_link.related_topics
+      render json: { status: 200,
+                     related_reference_links: related_reference_links,
+                     reference_links: reference_links,
+                     reference_link: reference_link }
+    end
+  end
+
   def create
     if request.xhr?
       errors = []
@@ -38,6 +50,12 @@ class Cms::ReferenceLinksController < ApplicationController
     if request.xhr?
       reference_link = ReferenceLink.find_by(id: params[:id])
       if reference_link.update(safe_reference_link_params)
+        RelatedReference.where(reference_link_id: reference_link.id).destroy_all
+        if params[:reference_link][:related_topics]
+          params[:reference_link][:related_topics].each do |id|
+            RelatedReference.create(reference_link_id: reference_link.id, related_referenceable_id: id, related_referenceable_type: 'ReferenceLink')
+          end
+        end
         render json: { status: 200,
                        id: reference_link.id,
                        description: reference_link.description,

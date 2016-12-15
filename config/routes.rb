@@ -44,7 +44,7 @@ Rails.application.routes.draw do
     patch '/sop_articles/orderUp/:id' => 'sop_articles#orderUp', as: :sop_article_order_up
     patch '/sop_articles/orderDown/:id' => 'sop_articles#orderDown', as: :sop_article_order_down
 
-    resources :reference_links, only: [:index, :create, :update, :destroy]
+    resources :reference_links, only: [:index, :show, :create, :update, :destroy]
     resources :reference_mp3s, only: [:index, :create, :update, :destroy]
     resources :reference_pptxes, only: [:index, :create, :update, :destroy]
 
