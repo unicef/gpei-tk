@@ -181,7 +181,7 @@ $(() => {
       return false
     })
 
-    function getReferenceLinkGrid(reference_links, reference_link_categories, users, type, categories){
+    function getReferenceLinkGrid(reference_links, reference_link_categories, users, type, categories, isNotEditable, isNotDeletable, featured){
       return `<div id='cms_reference_link_filter_dropdown' class="ui pointing dropdown col-md-3">
                 <div class='text'><i class="fa fa-filter fa-2x" aria-hidden="true"></i><strong>Hover to select a filter</strong></div>
                 <div id="" class="menu">
@@ -250,9 +250,9 @@ $(() => {
                       <div class='col-md-1 text-center'><strong>Language:</strong><br> ${reference_link.language}</div>
                       <div class='col-md-1'><a id='cms_reference_link_updated_column' href=''><strong>Updated:</strong></a><br> <div id='updated_at_div'>${moment(reference_link.updated_at, "YYYY-MM-DD").format("MMM DD, YYYY")}</div></a></div>
                       <div class='col-md-1'><a id='cms_reference_link_created_column' href=''><strong>Created:</strong></a><br><div id='created_at_div'>${moment(reference_link.created_at, "YYYY-MM-DD").format("MMM DD, YYYY")}</div></div>
-                      <div id='cms_author_div' class='col-md-2'><strong>Author:</strong><br> ${users[reference_link.author_id].first_name + ' ' + users[reference_link.author_id].last_name}</div>
-                      <div class='col-md-1'><a id='reference_${type}_delete' href=''><i class="fa fa-times" aria-hidden="true"></i> delete</a></div>
-                      <div id='${reference_link.id}' class='col-md-3 bottom-right-position'><a id='cms_reference_${type}_edit' href="${ reference_link.absolute_url }"><i class="fa fa-pencil-square-o" aria-hidden="true"></i>Edit</a></div>
+                      ${ _.isNull(users) ? `<div id='cms_author_div' class='col-md-2'><strong>Author:</strong><br></div>` : `<div id='cms_author_div' class='col-md-2'><strong>Author:</strong><br> ${users[reference_link.author_id].first_name + ' ' + users[reference_link.author_id].last_name}</div>`}
+                      ${ isNotDeletable === true ? `<div class='col-md-1'><a id='reference_link_${featured}_delete' href=''><i class="fa fa-times" aria-hidden="true"></i> delete</a></div>` : `<div class='col-md-1'><a id='reference_${type}_delete' href=''><i class="fa fa-times" aria-hidden="true"></i> delete</a></div>` }
+                      ${ isNotEditable === true ? `<div id='${reference_link.id}' class='col-md-3 bottom-right-position'></div>` : `<div id='${reference_link.id}' class='col-md-3 bottom-right-position'><a id='cms_reference_${type}_edit' href="${ reference_link.absolute_url }"><i class="fa fa-pencil-square-o" aria-hidden="true"></i>Edit</a></div>` }
                     </div>`}).join('')}
                 </div>`
     }
@@ -578,7 +578,7 @@ $(() => {
                     <textarea name="reference_${type}[description]" placeholder="descriptive text" required>${(_.isNull(description) || description === '' || description === 'Description coming soon') ? '' : description}</textarea>
                     ${getReferenceDocumentLanguageInput(type, reference_link_document_language)}
                     ${getReferencePlacesInput(type, reference_link_places)}
-                    ${type === 'link' ? getReferenceLinkSelector(reference_links, related_reference_links, reference_link.id) : ''}
+                    ${type === 'link' ? getReferenceLinkSelector(reference_links, related_reference_links, reference_link.id, 'Related reference links:', 'related_topics') : ''}
                   </div>
                   <button class="ui button" type="submit">Submit</button>
                 </form>
@@ -723,16 +723,16 @@ $(() => {
         </div>
       `)
     }
-    function getReferenceLinkSelector(reference_links, selected_reference_links, current_reference_link_id) {
+    function getReferenceLinkSelector(reference_links, selected_reference_links, current_reference_link_id, caption, param) {
       return (`
         <div id='reference_link_checkboxes' class="field">
-          <label>Related reference links:</label>
-            <ul class='list-unstyled'>
+          <label>${caption}</label>
+            <ul class='${ param === 'featured_links' ? 'featured_ul_select' : '' } list-unstyled'>
             ${_.map(reference_links, reference_link => {
               if (reference_link.id !== current_reference_link_id){
                 let checked = !_.isEmpty(_.filter(selected_reference_links, (selected_reference) => { return selected_reference.id === reference_link.id })) ? "checked" : ""
-                return `<li><input id=${reference_link.id} ${checked} type='checkbox' name="reference_link[related_topics][]" value="${reference_link.id}">
-                      <label id='cms_reference_link_label' class='filter-label' for=${reference_link.id}>${reference_link.document_file_name} -  <a href="${ reference_link.absolute_url }" target='_blank'><i class="fa fa-search" aria-hidden="true"></i></a></label></li>`
+                return `<li><input id=${reference_link.id} ${checked} type='checkbox' name="reference_link[${param}][]" value="${reference_link.id}">
+                      <label id='cms_reference_link_label' class='filter-label' for=${ reference_link.id }>${reference_link.document_file_name} -  <a href="${ reference_link.absolute_url }" target='_blank'><i class="fa fa-search" aria-hidden="true"></i></a></label></li>`
               } else {
                 return ''
               }
@@ -751,5 +751,69 @@ $(() => {
         </div>
       `)
     }
+    $('#CMS_featured_reference_links').click(e => {
+      e.preventDefault()
+      $.ajax({
+        method: 'GET',
+        url: '/cms/featured_references/'
+      }).done(response => {
+        $('#CMS_index_content').empty()
+        $('#CMS_index_content').append("<h2 id='cms_reference_links_list_header'>Selected Featured Reference Links - (.pdf's) Index</h2>")
+        $('#CMS_index_content').append(getReferenceLinkGrid(response.reference_links, response.reference_link_categories, null, 'link', response.categories, true, true, 'featured'))
+        loadIsotopeHandlers('link')
+      })
+      return false
+    })
+    $('#CMS_index_content').on('click', '#reference_link_featured_delete', e => {
+      e.preventDefault()
+      $.ajax({
+        method: 'DELETE',
+        url: '/cms/featured_references/' + e.currentTarget.parentElement.parentElement.id
+      }).done(response => {
+        $('#CMS_featured_reference_links').trigger('click')
+      })
+      return false
+    })
+    $('#CMS_featured_reference_links_select').click(e => {
+      e.preventDefault()
+      toggleProgressSpinner()
+      $.ajax({
+        method: 'GET',
+        url: '/cms/reference_links/'
+      }).done(response => {
+        let reference_links = response.reference_links
+        $.ajax({
+          method: 'GET',
+          url: '/cms/featured_references/'
+        }).done(response => {
+          toggleProgressSpinner()
+          let type = 'link'
+          $('#CMS_index_content').empty()
+          let content = getFeaturedReferenceSelectorForm(reference_links, response.reference_links)
+          $('#CMS_index_content').append("<h2 id='cms_reference_links_list_header'>Select Reference Links To Feature</h2>")
+          $('#CMS_index_content').append(content)
+        })
+      })
+      return false
+    })
+    function getFeaturedReferenceSelectorForm(reference_links, related_reference_links){
+      return `<form id="CMS_reference_link_feature_select_form" class="ui form">
+                <div class="field">
+                  ${getReferenceLinkSelector(reference_links, related_reference_links, null, 'Reference Link List', 'featured_links')}
+                </div>
+                <button class="ui button" type="submit">Submit</button>
+              </form>`
+    }
+    $('#CMS_index_content').on('submit', '#CMS_reference_link_feature_select_form', e => {
+      e.preventDefault()
+      $.ajax({
+        method: 'POST',
+        url: '/cms/featured_references/',
+        data: $(e.currentTarget).serialize()
+      }).done(response => {
+        $('#CMS_featured_reference_links').trigger('click')
+      })
+      return false
+    })
   }
 })
