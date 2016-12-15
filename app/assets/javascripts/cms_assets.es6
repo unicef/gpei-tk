@@ -475,25 +475,36 @@ $(() => {
     $('#CMS_index_content').on('click', '#cms_reference_link_edit', e => {
       e.preventDefault()
       toggleProgressSpinner()
-      $('#CMS_modal').modal('show')
-      $('#CMS_modal #CMS_modal_header').append("<h3>Reference link - (.pdf) - Edit</h3>")
-      let type = 'link'
-      let title = $('#CMS_index_content #' + e.currentTarget.parentElement.id + ' #cms_reference_link_title_div').text()
-      let description = $('#CMS_index_content #' + e.currentTarget.parentElement.id + ' #cms_reference_link_description_div').text()
-      let file_name = $('#CMS_index_content #' + e.currentTarget.parentElement.id + ' #cms_reference_link_file_name_div').text()
-      let document_language = $('#CMS_index_content #' + e.currentTarget.parentElement.id + ` #cms_reference_${type}_document_language_div`).text()
-      document_language = document_language === 'No document language input' ? '' : document_language
-      let places = $('#CMS_index_content #' + e.currentTarget.parentElement.id + ` #cms_reference_${type}_places_div`).text()
-      places = places === 'No places input' ? '' : places
-      // $('#CMS_index_content').empty()
-      let content = getReferenceLinkEditForm(title,
-                                            $(e.currentTarget).attr('href'),
-                                              e.currentTarget.parentElement.id,
-                                              description,
-                                              file_name, type, document_language, places)
-      $('#CMS_modal #CMS_modal_content').append(content)
-      // $('#CMS_index_content').append(content)
-      toggleProgressSpinner()
+      $.ajax({
+        method: 'GET',
+        url: '/cms/reference_links/' + e.currentTarget.parentElement.id
+      }).done(response => {
+        $('#CMS_modal').modal('show')
+        $('#CMS_modal #CMS_modal_header').append("<h3>Reference link - (.pdf) - Edit</h3>")
+        let type = 'link'
+        let title = $('#CMS_index_content #' + e.currentTarget.parentElement.id + ' #cms_reference_link_title_div').text()
+        let description = $('#CMS_index_content #' + e.currentTarget.parentElement.id + ' #cms_reference_link_description_div').text()
+        let file_name = $('#CMS_index_content #' + e.currentTarget.parentElement.id + ' #cms_reference_link_file_name_div').text()
+        let document_language = $('#CMS_index_content #' + e.currentTarget.parentElement.id + ` #cms_reference_${type}_document_language_div`).text()
+        document_language = document_language === 'No document language input' ? '' : document_language
+        let places = $('#CMS_index_content #' + e.currentTarget.parentElement.id + ` #cms_reference_${type}_places_div`).text()
+        places = places === 'No places input' ? '' : places
+        // $('#CMS_index_content').empty()
+        let content = getReferenceLinkEditForm(title,
+                                              $(e.currentTarget).attr('href'),
+                                                e.currentTarget.parentElement.id,
+                                                description,
+                                                file_name,
+                                                type,
+                                                document_language,
+                                                places,
+                                                response.related_reference_links,
+                                                response.reference_links,
+                                                response.reference_link)
+        $('#CMS_modal #CMS_modal_content').append(content)
+        // $('#CMS_index_content').append(content)
+        toggleProgressSpinner()
+      })
       return false
     })
     $('#CMS_index_content').on('click', '#cms_reference_mp3_edit', e => {
@@ -514,7 +525,10 @@ $(() => {
                                             $(e.currentTarget).attr('href'),
                                               e.currentTarget.parentElement.id,
                                               description,
-                                              file_name, type, document_language, places)
+                                              file_name,
+                                              type,
+                                              document_language,
+                                              places)
       $('#CMS_modal #CMS_modal_content').append(content)
       // $('#CMS_index_content').append(content)
       toggleProgressSpinner()
@@ -545,7 +559,7 @@ $(() => {
       return false
     })
 
-    function getReferenceLinkEditForm(reference_link_title, url, id, description, file_name, type, reference_link_document_language, reference_link_places){
+    function getReferenceLinkEditForm(reference_link_title, url, id, description, file_name, type, reference_link_document_language, reference_link_places, related_reference_links, reference_links, reference_link){
       return `<div id='${id}'>
                 <form id="CMS_reference_${type}_edit" class="ui form">
                   <div class="field">
@@ -564,6 +578,7 @@ $(() => {
                     <textarea name="reference_${type}[description]" placeholder="descriptive text" required>${(_.isNull(description) || description === '' || description === 'Description coming soon') ? '' : description}</textarea>
                     ${getReferenceDocumentLanguageInput(type, reference_link_document_language)}
                     ${getReferencePlacesInput(type, reference_link_places)}
+                    ${type === 'link' ? getReferenceLinkSelector(reference_links, related_reference_links, reference_link.id) : ''}
                   </div>
                   <button class="ui button" type="submit">Submit</button>
                 </form>
@@ -707,6 +722,24 @@ $(() => {
           </select>
         </div>
       `)
+    }
+    function getReferenceLinkSelector(reference_links, selected_reference_links, current_reference_link_id) {
+      return (`
+        <div id='reference_link_checkboxes' class="field">
+          <label>Related reference links:</label>
+            <ul class='list-unstyled'>
+            ${_.map(reference_links, reference_link => {
+              if (reference_link.id !== current_reference_link_id){
+                let checked = !_.isEmpty(_.filter(selected_reference_links, (selected_reference) => { return selected_reference.id === reference_link.id })) ? "checked" : ""
+                return `<li><input id=${reference_link.id} ${checked} type='checkbox' name="reference_link[related_topics][]" value="${reference_link.id}">
+                      <label id='cms_reference_link_label' class='filter-label' for=${reference_link.id}>${reference_link.document_file_name} -  <a href="${ reference_link.absolute_url }" target='_blank'><i class="fa fa-search" aria-hidden="true"></i></a></label></li>`
+              } else {
+                return ''
+              }
+            }).join('\n')}
+            </ul>
+        </div>
+        `)
     }
 
     function getEmbeddedImageField(){
