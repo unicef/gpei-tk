@@ -1,6 +1,7 @@
 class LibraryController < ApplicationController
   def index
     @is_library = true
+    @featured_references = ReferenceLink.joins(:featured_references).all.order(document_file_name: :asc)
   end
 
   def referenceSearch
