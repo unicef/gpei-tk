@@ -48,6 +48,8 @@ Rails.application.routes.draw do
     resources :reference_mp3s, only: [:index, :create, :update, :destroy]
     resources :reference_pptxes, only: [:index, :create, :update, :destroy]
 
+    resources :featured_references, only: [:index, :destroy, :create]
+
     resources :embedded_images, only: [:create]
 
     resources :feedbacks, only: [:index, :create]
