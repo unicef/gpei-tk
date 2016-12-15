@@ -22,6 +22,8 @@ class ReferenceLink < ActiveRecord::Base
                     :path => 'reference_links/:language/:filename',
                     :styles => { thumb: ["200x200#", :png] }
 
+  has_many :featured_references
+
   validates_attachment :document, content_type: { content_type: 'application/pdf' }
   validates_uniqueness_of :document_file_name
 
@@ -31,6 +33,10 @@ class ReferenceLink < ActiveRecord::Base
 
   def related_topics
     ReferenceLink.where(id: self.related_references.pluck(:related_referenceable_id))
+  end
+
+  def featured_references
+    ReferenceLink.joins(:featured_references).all
   end
 
   def utilized?
