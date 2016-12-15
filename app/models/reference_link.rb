@@ -4,6 +4,8 @@ class ReferenceLink < ActiveRecord::Base
   pg_search_scope :search_refs, :against => [:title, :description, :document_file_name],
                   :using => { tsearch: { prefix: true } }
 
+  has_many :reference_link_articles
+
   has_many :related_references, class_name: "RelatedReference",
                              foreign_key: "reference_link_id"
 
@@ -28,7 +30,7 @@ class ReferenceLink < ActiveRecord::Base
   end
 
   def related_topics
-    ReferenceLink.where(id: self.related_references)
+    ReferenceLink.where(id: self.related_references.pluck(:related_referenceable_id))
   end
 
   def utilized?

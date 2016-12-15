@@ -6,6 +6,8 @@ class ReferenceMp3 < ActiveRecord::Base
   belongs_to :reference_mp3able, :polymorphic => true
   belongs_to :author, class_name: 'User', foreign_key: 'author_id'
 
+  has_many :reference_mp3_articles
+
   has_many :reference_downloads, as: :reference_downloadable
   alias_attribute :downloads, :reference_downloads
 
