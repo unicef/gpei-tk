@@ -2,8 +2,8 @@ $(() => {
   if ($('#library').css('visibility') === 'visible'){
     let offset = $('nav').outerHeight()
     $('#library').offset({ top: offset })
-    let $grid = $(`#library_index_content_featured_content_grid`)
-    $grid.isotope({
+    let $featured_grid = $(`#library_index_content_featured_content_grid`)
+    $featured_grid.isotope({
       itemSelector: `.featured_content_item`,
       layoutMode: 'fitRows'
     })
@@ -107,17 +107,44 @@ $(() => {
     }
     $('.library_featured_pagination_indicators a').click(e => {
       e.preventDefault()
+      let id = e.currentTarget.id
+      $('.library_featured_pagination_indicators.active').removeClass('active')
+      $(e.currentTarget.parentElement).addClass('active')
+      $featured_grid.isotope({ filter: `.featured_content_item_${id}`})
       return false
     })
+
+    $('.library_featured_pagination_indicators').click(e => {
+      e.preventDefault()
+      let id = $(e.currentTarget).find('a').attr('id')
+      $('.library_featured_pagination_indicators.active').removeClass('active')
+      $(e.currentTarget).addClass('active')
+      $featured_grid.isotope({ filter: `.featured_content_item_${id}`})
+      return false
+    })
+
     $('#featured_pagination_left_angle_div a').click(e => {
       e.preventDefault()
+      let id = parseInt($('.library_featured_pagination_indicators.active a').attr('id'))
+      if (id !== 1){
+        $('.library_featured_pagination_indicators.active').removeClass('active')
+        $(`.library_featured_pagination_indicators #${id-1}`).parent().addClass('active')
+        $featured_grid.isotope({ filter: `.featured_content_item_${id-1}`})
+      }
       return false
     })
     $('#featured_pagination_right_angle_div a').click(e => {
       e.preventDefault()
+      let id = parseInt($('.library_featured_pagination_indicators.active a').attr('id'))
+      let max_id = parseInt($('#featured_pagination_right_angle_div a i').attr('id'))
+      if (id !== max_id){
+        $('.library_featured_pagination_indicators.active').removeClass('active')
+        $(`.library_featured_pagination_indicators #${id+1}`).parent().addClass('active')
+        $featured_grid.isotope({ filter: `.featured_content_item_${id+1}`})
+      }
       return false
     })
-    $grid.isotope({ filter: '.active' })
+    $featured_grid.isotope({ filter: '.active' })
   }
 
 })
