@@ -41,20 +41,21 @@
         <% end %>
       </div>
       <div id='library_index_content_featured_divider' class='div_border_underline col-md-12'>
-
       </div>
-      <div id='library_index_content_featured_content_grid' class='col-md-12'>
-        <% @featured_references.each_with_index do |reference, idx| %>
-          <div class='col-md-12 featured_content_item featured_content_item_<%= idx+1 %> <%= 'hidden' if idx > 0 %>'>
-            <div class='col-md-3'>
-              <img src='<%= reference.absolute_url.gsub('pdf', 'png') %>' class='img-responsive'>
+      <div id='library_index_content_featured_content_grid_wrapper' class='col-md-12'>
+        <div id='library_index_content_featured_content_grid' class='col-md-12'>
+          <% @featured_references.each_with_index do |reference, idx| %>
+            <div class='col-md-12 featured_content_item featured_content_item_<%= idx+1 %> <%= 'active' if idx == 0 %>'>
+              <div class='col-md-3'>
+                <img id='featured_content_item_image' src='<%= reference.absolute_url.gsub('pdf', 'png') %>' class='img-responsive'>
+              </div>
+              <div class='col-md-3'>
+              <%= reference.title if reference.title %>
+              <%= reference.description if reference.description %>
+              </div>
             </div>
-            <div class='col-md-3'>
-            <%= reference.title if reference.title %>
-            <%= reference.description if reference.description %>
-            </div>
-          </div>
-        <% end %>
+          <% end %>
+        </div>
       </div>
     </div>
     <div id='library_index_content_popular_downloads' class='col-md-12'>

@@ -148,9 +148,13 @@
 #featured_pagination_right_angle_div a {
   color:black;
 }
-.featured_content_item.hidden{
-  display:none;
+#library_index_content_featured_content_grid {
+  min-height:100%;
 }
 #library_index_content_featured_content_grid {
+  margin-bottom: 15px;
+  margin-top: 15px;
+}
+#featured_content_item_image {
   height:100%;
 }

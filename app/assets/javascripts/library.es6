@@ -2,8 +2,8 @@ $(() => {
   if ($('#library').css('visibility') === 'visible'){
     let offset = $('nav').outerHeight()
     $('#library').offset({ top: offset })
-
-    $(`#library_index_content_featured_content_grid`).isotope({
+    let $grid = $(`#library_index_content_featured_content_grid`)
+    $grid.isotope({
       itemSelector: `.featured_content_item`,
       layoutMode: 'fitRows'
     })
@@ -34,8 +34,7 @@ $(() => {
       //   transition: 'horizontal flip'
       // })
       $(`#library_content_search_results #library_content_search_results_grid`).isotope({
-        itemSelector: `.reference_search_result_item`,
-        layoutMode: 'fitRows'
+        itemSelector: `.reference_search_result_item`
       })
       // ,
       //   getSortData: {
@@ -118,6 +117,7 @@ $(() => {
       e.preventDefault()
       return false
     })
+    $grid.isotope({ filter: '.active' })
   }
 
 })
