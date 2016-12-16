@@ -144,7 +144,9 @@ $(() => {
       }
       return false
     })
-    $featured_grid.isotope({ filter: '.active' })
+    $(window).load(() => {
+      $featured_grid.isotope({ filter: '.active' })
+    })
   }
 
 })
