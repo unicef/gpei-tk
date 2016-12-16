@@ -49,18 +49,39 @@
               <div id='featured_content_title_text' class='col-md-12'>
                 <%= reference.title ? reference.title : reference.document_file_name.gsub('_', ' ').gsub('.pdf', '') %>
               </div>
-              <div class='col-md-3'>
-                <img id='featured_content_item_image' src='<%= reference.absolute_url.gsub('pdf', 'png') %>' class='img-responsive'>
+              <div class='col-md-2'>
+                <a href='<%= reference.absolute_url %>' target='_blank'><img id='featured_content_item_image' src='<%= reference.absolute_url.gsub('pdf', 'png') %>' class='img-responsive'></a>
               </div>
-              <div class='col-md-7'>
-              Download: <%= reference.document_language ? reference.document_language.upcase : reference.language.upcase %> PDF <%= reference.document_file_size/1024 %>KB
-              </div>
-              <div class='col-md-2 text-right'>
-              Catalogue: SOP
-              </div>
-              <div class='col-md-offset-3 col-md-9'>
-                <%= reference.title if reference.title %>
-                <%= reference.description if reference.description %>
+              <div class='col-md-10'>
+                <div class='col-md-1'>
+                  <div class='inline_block'>
+                    <%= @reference_link_info[reference.id][:like_count] == 0 ? '' : @reference_link_info[reference.id][:like_count] %><a id='<%= reference.id %>' href='' class='library_like_img'><img src='/assets/icons/icon-like-grey2x.png' class='library_grid_icon'></a>
+                  </div>
+                  <div id='library_download_div' class='inline_block'>
+                    <%= @reference_link_info[reference.id][:download_count] == 0 ? '' : @reference_link_info[reference.id][:download_count] %><a id='<%= reference.id %>' href='' class='library_download_img'><img src='/assets/icons/icon-download2x.png' class='library_grid_icon'></a>
+                  </div>
+                </div>
+                <div class='col-md-7'>
+                  <div class='bold_text col-md-3'>DOWNLOAD</div><div class='col-md-5'>
+                    <a href='<%= reference.absolute_url %>' target='_blank'><div class='reference_search_result_info_language'><%= reference.document_language ? reference.document_language.upcase : reference.language.upcase %></div></a> PDF <%= reference.document_file_size/1024 %>KB
+                    <% @reference_link_info[reference.id][:related_topics].each do |related_topic| %>
+                      <a href='<%= related_topic.absolute_url %>' target='_blank'><div class='reference_search_result_info_language'><%= related_topic.document_language ? related_topic.document_language.upcase : related_topic.language.upcase %></div></a> PDF <%= related_topic.document_file_size/1024 %>KB
+                    <% end %>
+                  </div>
+                </div>
+                <div class='col-md-offset-1 col-md-2 text-right'>
+                  CATALOGUE:
+                  <% if @reference_link_info[reference.id][:isC4D] %>
+                    <div class='inline_block reference_search_result_is_c4d bold_text'>C4D</div>
+                  <% end %>
+                  <% if @reference_link_info[reference.id][:isSOP] %>
+                    <div class='inline_block reference_search_result_is_sop bold_text'>SOP</div>
+                  <% end %>
+                </div>
+                <div id='library_reference_link_description' class='col-md-9'>
+                  <%= reference.title if reference.title %>
+                  <%= reference.description if reference.description %>
+                </div>
               </div>
             </div>
           <% end %>
