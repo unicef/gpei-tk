@@ -18,6 +18,9 @@ class ReferenceLink < ActiveRecord::Base
   has_many :reference_downloads, as: :reference_downloadable
   alias_attribute :downloads, :reference_downloads
 
+  has_many :reference_likes, as: :reference_likeable
+  alias_attribute :likes, :reference_likes
+
   has_attached_file :document,
                     :path => 'reference_links/:language/:filename',
                     :styles => { thumb: ["200x200#", :png] }

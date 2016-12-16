@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161215150929) do
+ActiveRecord::Schema.define(version: 20161216192619) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -140,6 +140,15 @@ ActiveRecord::Schema.define(version: 20161215150929) do
     t.string   "type",                        null: false
     t.datetime "created_at",                  null: false
     t.datetime "updated_at",                  null: false
+  end
+
+  create_table "reference_likes", force: :cascade do |t|
+    t.integer  "like_id"
+    t.integer  "reference_likeable_id"
+    t.string   "reference_likeable_type"
+    t.string   "type",                    null: false
+    t.datetime "created_at",              null: false
+    t.datetime "updated_at",              null: false
   end
 
   create_table "reference_link_articles", force: :cascade do |t|
