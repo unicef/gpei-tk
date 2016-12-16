@@ -779,7 +779,7 @@ $(() => {
       toggleProgressSpinner()
       $.ajax({
         method: 'GET',
-        url: '/cms/reference_links/'
+        url: '/cms/reference_links/utilized'
       }).done(response => {
         let reference_links = response.reference_links
         $.ajax({

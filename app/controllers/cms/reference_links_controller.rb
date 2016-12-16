@@ -78,6 +78,16 @@ class Cms::ReferenceLinksController < ApplicationController
     end
   end
 
+  def utilized
+    reference_links = ReferenceLink.joins(:reference_link_articles).all.order(:document_file_name)
+    reference_link_categories = getReferenceLinkCategories(reference_links)
+    categories = { sop_categories: SopCategory.all, c4d_categories: C4dCategory.all }
+    render json: { reference_links: reference_links,
+                   reference_link_categories: reference_link_categories,
+                   categories: categories,
+                   status: 200 }
+  end
+
   private
 
   def getReferenceLinkCategories(reference_links)
