@@ -31,12 +31,12 @@
         <% end %>
         <% @featured_references.each_with_index do |reference, idx| %>
           <div class='library_featured_pagination_indicators <%= 'active' if idx == 0 %>'>
-            <a id="<%= idx %>" href=''><%= idx + 1 %></a>
+            <a id="<%= idx+1 %>" href=''><%= idx + 1 %></a>
           </div>
         <% end %>
         <% unless @featured_references.empty? %>
           <div id='featured_pagination_right_angle_div'>
-            <a href=''><i class='fa fa-angle-right fa-2x' aria-hidden='true'></i></a>
+            <a href=''><i id='<%= @featured_references.count %>' class='fa fa-angle-right fa-2x' aria-hidden='true'></i></a>
           </div>
         <% end %>
       </div>
@@ -46,12 +46,21 @@
         <div id='library_index_content_featured_content_grid' class='col-md-12'>
           <% @featured_references.each_with_index do |reference, idx| %>
             <div class='col-md-12 featured_content_item featured_content_item_<%= idx+1 %> <%= 'active' if idx == 0 %>'>
+              <div id='featured_content_title_text' class='col-md-12'>
+                <%= reference.title ? reference.title : reference.document_file_name.gsub('_', ' ').gsub('.pdf', '') %>
+              </div>
               <div class='col-md-3'>
                 <img id='featured_content_item_image' src='<%= reference.absolute_url.gsub('pdf', 'png') %>' class='img-responsive'>
               </div>
-              <div class='col-md-3'>
-              <%= reference.title if reference.title %>
-              <%= reference.description if reference.description %>
+              <div class='col-md-7'>
+              Download: <%= reference.document_language ? reference.document_language.upcase : reference.language.upcase %> PDF <%= reference.document_file_size/1024 %>KB
+              </div>
+              <div class='col-md-2 text-right'>
+              Catalogue: SOP
+              </div>
+              <div class='col-md-offset-3 col-md-9'>
+                <%= reference.title if reference.title %>
+                <%= reference.description if reference.description %>
               </div>
             </div>
           <% end %>
