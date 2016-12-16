@@ -70,8 +70,8 @@
   text-align:center;
   padding-left:2px;
   padding-right:2px;
-  background:black;
-  color:white;
+  background:black !important;
+  color:white !important;
   display:inline-block;
 }
 .reference_search_result_is_c4d {
@@ -90,6 +90,7 @@
   margin-top:5px !important;
   margin-bottom:5px !important;
   height:2px;
+  opacity: 0.3;
   background-color: black !important;
 }
 #library_index_content_featured_header_text {
@@ -147,6 +148,7 @@
 #featured_pagination_left_angle_div a,
 #featured_pagination_right_angle_div a {
   color:black;
+  opacity:0.3;
 }
 #library_index_content_featured_content_grid {
   min-height:100%;
@@ -164,4 +166,16 @@
   font-size:20px;
   font-weight:bold;
   margin-bottom:10px;
+}
+.bold_text {
+  font-weight:bold;
+}
+#library_reference_link_description {
+  margin-top:10px;
+}
+.library_grid_icon{
+  height:15px;
+}
+#library_download_div {
+  margin-left:5px;
 }
