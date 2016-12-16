@@ -52,7 +52,7 @@
               <div class='col-md-2'>
                 <a href='<%= reference.absolute_url %>' target='_blank'><img id='featured_content_item_image' src='<%= reference.absolute_url.gsub('pdf', 'png') %>' class='img-responsive'></a>
               </div>
-              <div class='col-md-10'>
+              <div id='featured_content_item_info_wrapper' class='col-md-10'>
                 <div class='col-md-1'>
                   <div class='inline_block'>
                     <%= @reference_link_info[reference.id][:like_count] == 0 ? '' : @reference_link_info[reference.id][:like_count] %><a id='<%= reference.id %>' href='' class='library_like_img'><img src='/assets/icons/icon-like-grey2x.png' class='library_grid_icon'></a>
