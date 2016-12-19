@@ -182,3 +182,11 @@
 #featured_content_item_info_wrapper {
   padding-left: 10px
 }
+.library_like_img,
+.library_download_img {
+  position: relative;
+  top:-2px;
+}
+#download_related_topics_div {
+  padding-left:25px;
+}
