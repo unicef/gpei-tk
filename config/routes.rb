@@ -59,6 +59,8 @@ Rails.application.routes.draw do
   end
 
   namespace :api, defaults: { format: :json } do
+    resources :reference_downloads, only: [:create]
+    resources :reference_likes, only: [:create]
     resources :sop_times, only: [:index]
     resources :sop_categories, only: [:index]
     resources :responsible_offices, only: [:index]
