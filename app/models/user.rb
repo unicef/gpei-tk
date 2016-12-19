@@ -1,6 +1,8 @@
 class User < ActiveRecord::Base
   has_secure_password
 
+  has_many :downloads
+
   has_many :forgot_passwords
   has_many :c4d_articles
   has_many :sop_articles
@@ -20,5 +22,4 @@ class User < ActiveRecord::Base
   def is_editor?
     self.role.title == 'Editor'
   end
-
 end
