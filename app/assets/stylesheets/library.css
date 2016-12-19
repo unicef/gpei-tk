@@ -93,6 +93,7 @@
   opacity: 0.3;
   background-color: black !important;
 }
+#library_index_content_popular_header_text,
 #library_index_content_featured_header_text {
   font-family: 'Adelle' !important;
   font-weight:bold;
@@ -160,12 +161,17 @@
 #featured_content_item_image {
   height:100%;
 }
+#popular_content_title_text,
 #featured_content_title_text {
   padding-left:25px;
   font-family: 'proxima-nova' !important;
   font-size:20px;
   font-weight:bold;
   margin-bottom:10px;
+}
+#popular_content_title_text {
+  padding-left: 0px !important;
+  font-size:15px !important;
 }
 .bold_text {
   font-weight:bold;
@@ -182,11 +188,35 @@
 #featured_content_item_info_wrapper {
   padding-left: 10px
 }
-.library_like_img,
+.library_like_img {
+  position: relative;
+  top:-3px;
+}
 .library_download_img {
   position: relative;
   top:-2px;
 }
 #download_related_topics_div {
   padding-left:25px;
+}
+.counter_indicator_text_div {
+  opacity: 0.3;
+}
+#library_index_content_popular_downloads {
+  margin-top:30px;
+}
+.popular_content_item {
+  margin-top:15px !important;
+}
+.margin_top {
+  margin-top:15px !important;
+}
+.margin_bottom {
+  margin-bottom:10px !important;
+}
+.opacity_light {
+  opacity: 0.05;
+}
+#popular_content_item_info_wrapper {
+  padding-left:10px !important;
 }
