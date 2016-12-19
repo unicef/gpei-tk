@@ -259,7 +259,7 @@ $(() => {
                       <td class='tools_reference_link_description'>
                         <div class='col-md-12'>
                           <div class='col-md-12'>
-                            <strong><a href="${ reference_link.absolute_url }" target='_blank'>${ reference_title }</a></strong>
+                            <strong><a id='${reference_link.id}' href="${ reference_link.absolute_url }" target='_blank' class='reference_download_tracker'>${ reference_title }</a></strong>
                           </div>
                           <div class='col-md-12' style='height:8px'>
                           </div>
@@ -351,7 +351,7 @@ $(() => {
                           <img class='reference_link_pdf_icon' src='${_.replace(reference_link.absolute_url, new RegExp(".pdf","g"),".png")}'>
                         </div>
                         <div id='reference_link_anchor_div' class='col-md-10'>
-                          <strong><a class='reference_link_anchor' href="${ reference_link.absolute_url }" target='_blank'>&nbsp;${ reference_title }</a></strong>
+                          <strong><a id='${reference_link.id}' class='reference_download_tracker reference_link_anchor' href="${ reference_link.absolute_url }" target='_blank'>&nbsp;${ reference_title }</a></strong>
                         </div>
                       </div>`
             }
