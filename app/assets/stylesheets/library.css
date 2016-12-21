@@ -34,7 +34,6 @@
   padding:5px !important;
 }
 #library_content_search_results {
-  border-top:2px black solid;
   background-color:white;
 }
 #nav_library_link.active{
@@ -161,6 +160,8 @@
 #featured_content_item_image {
   height:100%;
 }
+
+#search_content_title_text,
 #popular_content_title_text,
 #featured_content_title_text {
   padding-left:25px;
@@ -169,6 +170,10 @@
   font-weight:bold;
   margin-bottom:10px;
 }
+#search_content_title_text {
+  font-size:24px !important;
+}
+#search_content_title_text,
 #popular_content_title_text {
   padding-left: 0px !important;
   font-size:15px !important;
@@ -185,6 +190,10 @@
 #library_download_div {
   margin-left:5px;
 }
+#search_content_title_text {
+  padding-left:10px !important;
+}
+#search_content_item_info_wrapper,
 #featured_content_item_info_wrapper {
   padding-left: 10px
 }
@@ -205,6 +214,7 @@
 #library_index_content_popular_downloads {
   margin-top:30px;
 }
+.search_content_item,
 .popular_content_item {
   margin-top:15px !important;
 }
