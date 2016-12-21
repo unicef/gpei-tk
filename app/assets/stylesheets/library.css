@@ -92,6 +92,7 @@
   opacity: 0.3;
   background-color: black !important;
 }
+#library_index_content_search_results_header_text,
 #library_index_content_popular_header_text,
 #library_index_content_featured_header_text {
   font-family: 'Adelle' !important;
