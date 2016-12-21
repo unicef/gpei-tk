@@ -65,7 +65,7 @@ $(() => {
       return `${references.map(reference_obj => {
         idx += 1
         return `<div class='col-md-12 search_content_item search_content_item_${ idx+1 } ${ idx == 0 ? 'active' : '' }'>
-                  <div id='featured_content_title_text' class='col-md-12'>
+                  <div id='search_content_title_text' class='col-md-offset-2 col-md-10'>
                     ${ reference_obj.title ? reference_obj.title : _.replace(_.replace(reference_obj.document_file_name, new RegExp("_","g"), " "), new RegExp(".pdf","g"), "") }
                   </div>
                   <div class='col-md-2'>
@@ -89,9 +89,9 @@ $(() => {
                     <div class='col-md-7'>
                       <div id='download_related_topics_div' class='bold_text col-md-3'>DOWNLOAD</div>
                       <div class='col-md-5'>
-                        <a id='${ reference_obj.id }' href='${ reference_obj.absolute_url }' target='_blank' class='reference_download_tracker'><div class='reference_search_result_info_language '>${ reference_obj.document_language ? reference_obj.document_language.upcase : reference_obj.language.upcase }</div></a> PDF ${ reference_obj.document_file_size/1024 }KB
+                        <a id='${ reference_obj.id }' href='${ reference_obj.absolute_url }' target='_blank' class='reference_download_tracker'><div class='reference_search_result_info_language '>${ _.upperCase(!_.isNull(reference_obj.document_language) ? reference_obj.document_language : reference_obj.language) }</div></a> PDF ${ (reference_obj.document_file_size/1024).toFixed(0) }KB
                         ${ reference_link_info[reference_obj.id]['related_topics'].map(related_topic => {
-                                return `<a id='${ related_topic.id }' href='${ related_topic.absolute_url }' target='_blank' class='reference_search_result_info_language reference_download_tracker'><div>${ related_topic.document_language ? related_topic.document_language.upcase : related_topic.language.upcase }</div></a> PDF ${ related_topic.document_file_size/1024 }KB`
+                                return `<a id='${ related_topic.id }' href='${ related_topic.absolute_url }' target='_blank' class='reference_search_result_info_language reference_download_tracker'><div>${ _.upperCase(!_.isNull(related_topic.document_language) ? related_topic.document_language : related_topic.language) }</div></a> PDF ${ (related_topic.document_file_size/1024).toFixed(0) }KB`
                               }).join('')
                             }
                       </div>
@@ -129,7 +129,7 @@ $(() => {
       let id = e.currentTarget.id
       $('.library_featured_pagination_indicators.active').removeClass('active')
       $(e.currentTarget.parentElement).addClass('active')
-      $featured_grid.isotope({ filter: `.featured_content_item_${id}`})
+      $featured_grid.isotope({ filter: `.search_content_item_${id}`})
       return false
     })
 
