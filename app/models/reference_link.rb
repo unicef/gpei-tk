@@ -1,7 +1,7 @@
 class ReferenceLink < ActiveRecord::Base
   include PgSearch
 
-  pg_search_scope :search_refs, :against => [:title, :description, :document_file_name],
+  pg_search_scope :search_refs, :against => { :title => 'A', :description => 'B', :document_file_name => 'C' },
                   :using => { tsearch: { prefix: true } }
 
   has_many :reference_link_articles
