@@ -16,15 +16,23 @@ $(() => {
         data: $(e.currentTarget).serialize()
       }).done(response => {
         if (response.status === 200){
+          // $('#library_index_content_popular_downloads').empty()
+          $('#library_index_content_wrapper').empty()
+          // $('#library_index_content_featured').empty()
           $('#library_content_search_results').append(getSearchResultContent(response.references, response.reference_link_info))
-
         }
       })
       return false
     })
 
     function getSearchResultContent(references, reference_link_info){
-      return `<div id='library_content_search_results_grid'>${getSearchResultRows(references, reference_link_info)}</div>`
+      return `<div id='library_content_search_results_grid'>
+                <div id='library_index_content_search_results_header_text' class='col-md-4'>
+                  Search Results
+                </div>
+                <div id='' class='div_border_underline col-md-12'></div>
+                ${getSearchResultRows(references, reference_link_info)}
+              </div>`
     }
 
     function loadIsotopeHandlers(type){
