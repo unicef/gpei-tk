@@ -16,15 +16,15 @@ $(() => {
         data: $(e.currentTarget).serialize()
       }).done(response => {
         if (response.status === 200){
-          $('#library_content_search_results').append(getSearchResultContent(response.references))
+          $('#library_content_search_results').append(getSearchResultContent(response.references, response.reference_link_info))
 
         }
       })
       return false
     })
 
-    function getSearchResultContent(references){
-      return `<div id='library_content_search_results_grid'>${getSearchResultRows(references)}</div>`
+    function getSearchResultContent(references, reference_link_info){
+      return `<div id='library_content_search_results_grid'>${getSearchResultRows(references, reference_link_info)}</div>`
     }
 
     function loadIsotopeHandlers(type){
@@ -60,34 +60,53 @@ $(() => {
       // })
     }
 
-    function getSearchResultRows(references){
-      // need to break up interpolate by type
+    function getSearchResultRows(references, reference_link_info){
+      let idx = -1
       return `${references.map(reference_obj => {
-          return `<div class='reference_search_result_item col-md-12'>
-                    <div class='reference_search_result_item_thumbnail col-md-1'>
-                      ${getSearchReferenceIcon(reference_obj)}
+        idx += 1
+        return `<div class='col-md-12 search_content_item search_content_item_${ idx+1 } ${ idx == 0 ? 'active' : '' }'>
+                  <div id='featured_content_title_text' class='col-md-12'>
+                    ${ reference_obj.title ? reference_obj.title : _.replace(_.replace(reference_obj.document_file_name, new RegExp("_","g"), " "), new RegExp(".pdf","g"), "") }
+                  </div>
+                  <div class='col-md-2'>
+                    <a id='${ reference_obj.id }' href='${ reference_obj.absolute_url }' target='_blank' class='reference_download_tracker'><img id='search_content_item_image' src='${ _.replace(reference_obj.absolute_url, new RegExp("pdf","g"), "png") }' class='img-responsive'></a>
+                  </div>
+                  <div id='search_content_item_info_wrapper' class='col-md-10'>
+                    <div class='col-md-1'>
+                      <div class='inline_block'>
+                        <div class='counter_indicator_text_div inline_block'>${ reference_link_info[reference_obj.id]['like_count'] }   </div>
+                        <a id='${ reference_obj.id }' href='' class='library_like_img reference_like_tracker'>
+                          <img src='/assets/icons/icon-like-grey2x.png' class='library_grid_icon'>
+                        </a>
+                      </div>
+                      <div id='library_download_div' class='inline_block'>
+                        <div class='counter_indicator_text_div inline_block'>${ reference_link_info[reference_obj.id]['download_count'] }   </div>
+                        <a id='${ reference_obj.id }' href='${ reference_obj.absolute_url }' target='_blank' class='library_download_img reference_download_tracker'>
+                          <img src='/assets/icons/icon-download2x.png' class='library_grid_icon'>
+                        </a>
+                      </div>
                     </div>
-                    <div id='reference_search_result_title_description_wrapper' class='col-md-11'>
-                      <div class='reference_search_result_item_title col-md-10'>
-                        <a id='${reference_obj.reference.id}' href='${reference_obj.reference.absolute_url}' class='${reference_obj.type}' target='_blank'>${reference_obj.reference.title}</a>
-                      </div>
-                      <div class='reference_search_result_item_catalogue col-md-2'>
-                        CATALOGUE: ${reference_obj.isC4D === true ? "<div class='inline_block reference_search_result_is_c4d'>C4D</div>" : ''}${reference_obj.isSOP === true ? "<div class='inline_block reference_search_result_is_sop'>SOP</div>" : ''}
-                      </div>
-                      <div class='reference_search_result_like_downloads_info_wrapper col-md-12'>
-                        <div class='reference_search_result_like col-md-2'>
-                        </div>
-                        <div class='reference_search_result_downloads col-md-2'>
-                        </div>
-                        <div class='reference_search_result_info col-md-6'>
-                          DOWNLOAD: <div class='reference_search_result_info_language'>${_.toUpper(reference_obj.reference.language)}</div>
-                        </div>
-                      </div>
-                      <div class='reference_search_result_item_description col-md-12'>
-                        ${reference_obj.reference.description}
+                    <div class='col-md-7'>
+                      <div id='download_related_topics_div' class='bold_text col-md-3'>DOWNLOAD</div>
+                      <div class='col-md-5'>
+                        <a id='${ reference_obj.id }' href='${ reference_obj.absolute_url }' target='_blank' class='reference_download_tracker'><div class='reference_search_result_info_language '>${ reference_obj.document_language ? reference_obj.document_language.upcase : reference_obj.language.upcase }</div></a> PDF ${ reference_obj.document_file_size/1024 }KB
+                        ${ reference_link_info[reference_obj.id]['related_topics'].map(related_topic => {
+                                return `<a id='${ related_topic.id }' href='${ related_topic.absolute_url }' target='_blank' class='reference_search_result_info_language reference_download_tracker'><div>${ related_topic.document_language ? related_topic.document_language.upcase : related_topic.language.upcase }</div></a> PDF ${ related_topic.document_file_size/1024 }KB`
+                              }).join('')
+                            }
                       </div>
                     </div>
-                  </div>`
+                    <div class='col-md-offset-1 col-md-2 text-right'>
+                      CATALOGUE:
+                      ${ reference_link_info[reference_obj.id]['isC4D'] ? "<div class='inline_block reference_search_result_is_c4d bold_text'>C4D</div>" : '' }
+                      ${ reference_link_info[reference_obj.id]['isSOP'] ? "<div class='inline_block reference_search_result_is_sop bold_text'>SOP</div>" : '' }
+                    </div>
+                    <div id='library_reference_link_description' class='col-md-9'>
+                      ${ !_.isNull(reference_obj.title) ? reference_obj.title : _.replace(_.replace(reference_obj.document_file_name, new RegExp("_","g"), " "), new RegExp(".pdf","g"), "") }
+                      ${ !_.isNull(reference_obj.description) ? reference_obj.description : '' }
+                    </div>
+                  </div>
+                </div>`
           }).join('')
         }`
     }
