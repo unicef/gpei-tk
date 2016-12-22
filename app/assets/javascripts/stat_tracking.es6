@@ -6,7 +6,7 @@ $(() => {
       data: { id: $(e.currentTarget).attr('id') }
     }).done(response => {
       let $text_div = $(e.currentTarget.parentElement).find('.counter_indicator_text_div')
-      if (_.isEmpty($text_div)) {
+      if (!_.isEmpty($text_div)) {
         $text_div.text(response.download_count)
       }
     })
