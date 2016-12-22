@@ -16,7 +16,7 @@ $(() => {
         data: $(e.currentTarget).serialize()
       }).done(response => {
         if (response.status === 200){
-          $('#library_index_content_wrapper').empty()
+          $('#library_index_content_wrapper').css('display', 'none')
           $('#library_content_search_results').empty()
           $('#library_content_search_results').append(getSearchResultContent(response.references, response.reference_link_info))
         }
