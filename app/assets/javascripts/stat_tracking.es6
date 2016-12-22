@@ -1,5 +1,5 @@
 $(() => {
-  $('html .reference_download_tracker').click(e => {
+  $('#application').on('click', '.reference_download_tracker', e => {
     $.ajax({
       method: 'POST',
       url: '/api/reference_downloads/',
@@ -8,7 +8,8 @@ $(() => {
 
     })
   })
-  $('html .reference_like_tracker').click(e => {
+  $('#application').on('click', '.reference_like_tracker', e => {
+    e.preventDefault()
     $.ajax({
       method: 'POST',
       url: '/api/reference_likes/',
@@ -16,5 +17,6 @@ $(() => {
     }).done(response => {
 
     })
+    return false
   })
 })
