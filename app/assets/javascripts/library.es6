@@ -81,14 +81,14 @@ $(() => {
                   <div id='search_content_item_info_wrapper' class='col-md-10'>
                     <div class='col-md-1'>
                       <div class='inline_block'>
-                        <div class='counter_indicator_text_div inline_block'>${ reference_link_info[reference_obj.id]['like_count'] }   </div>
-                        <a id='${ reference_obj.id }' href='' class='library_like_img reference_like_tracker'>
+                        <div class='counter_indicator_text_div inline_block'>${ reference_link_info[reference_obj.id]['like_count'] }</div>
+                        <a id='${ reference_obj.id }' href='' class='inline_block library_like_img reference_like_tracker'>
                           <img src='/assets/icons/icon-like-grey2x.png' class='library_grid_icon'>
                         </a>
                       </div>
                       <div id='library_download_div' class='inline_block'>
-                        <div class='counter_indicator_text_div inline_block'>${ reference_link_info[reference_obj.id]['download_count'] }   </div>
-                        <a id='${ reference_obj.id }' href='${ reference_obj.absolute_url }' target='_blank' class='library_download_img reference_download_tracker'>
+                        <div class='counter_indicator_text_div inline_block'>${ reference_link_info[reference_obj.id]['download_count'] }</div>
+                        <a id='${ reference_obj.id }' href='${ reference_obj.absolute_url }' target='_blank' class='inline_block library_download_img reference_download_tracker'>
                           <img src='/assets/icons/icon-download2x.png' class='library_grid_icon'>
                         </a>
                       </div>
