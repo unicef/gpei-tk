@@ -231,3 +231,7 @@
 #popular_content_item_info_wrapper {
   padding-left:10px !important;
 }
+.library_like_img,
+.library_download_img {
+  padding-left:2px;
+}
