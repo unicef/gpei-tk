@@ -173,10 +173,6 @@ $(() => {
     $(window).load(() => {
       $featured_grid.isotope({ filter: '.active' })
     })
-    $('.library_like_img').click(e => {
-      e.preventDefault()
-      return false
-    })
   }
 
 })
