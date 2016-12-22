@@ -52,7 +52,7 @@
                 <a id='<%= reference.id %>' href='<%= reference.absolute_url %>' target='_blank' class='reference_download_tracker'><img id='featured_content_item_image' src='<%= reference.absolute_url.gsub('pdf', 'png') %>' class='img-responsive'></a>
               </div>
               <div id='featured_content_item_info_wrapper' class='col-md-10'>
-                <div class='col-md-1'>
+                <div class='col-md-2'>
                   <div class='inline_block'>
                     <div class='counter_indicator_text_div inline_block'><%= @reference_link_info[reference.id][:like_count] %>   </div>
                     <a id='<%= reference.id %>' href='' class='library_like_img reference_like_tracker'>
@@ -110,7 +110,7 @@
                 <div id='popular_content_title_text' class='col-md-12'>
                   <%= reference.title ? reference.title : reference.document_file_name.gsub('_', ' ').gsub('.pdf', '') %>
                 </div>
-                <div class='col-md-1'>
+                <div class='col-md-2'>
                   <div class='inline_block'>
                     <div class='counter_indicator_text_div inline_block'><%= @reference_link_info[reference.id][:like_count] %>   </div>
                     <a id='<%= reference.id %>' href='' class='library_like_img reference_like_tracker'>
