@@ -123,7 +123,7 @@ $(() => {
                 </div>
                 <div class='col-md-offset-2 col-md-7'>
                   <form id='cms_c4d_articles_search_form'>
-                    <label>Search sop articles by title:</label>
+                    <label>Search C4D articles by title:</label>
                     <input class="c4d_articles_input" type="text" name="cms_c4d_articles_search" value="">
                     <button type="submit">search</button>
                   </form>
