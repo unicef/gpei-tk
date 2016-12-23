@@ -150,7 +150,7 @@ $(() => {
       let id = e.currentTarget.id
       $('.library_featured_pagination_indicators.active').removeClass('active')
       $(e.currentTarget.parentElement).addClass('active')
-      $featured_grid.isotope({ filter: `.search_content_item_${id}`})
+      $featured_grid.isotope({ filter: `.featured_content_item_${id}`})
       return false
     })
 
