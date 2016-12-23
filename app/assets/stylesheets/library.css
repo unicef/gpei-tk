@@ -9,7 +9,6 @@
   background-color:#CC9555;
 }
 #library_logo_text {
-  line-height:55px;
   position:absolute;
   left:15px;
   top:15px;
@@ -25,10 +24,6 @@
   background-color:white;
   color:black;
   font-family:'proxima-nova' !important;
-}
-#library_logo_text {
-  font-family: 'Adelle' !important;
-  font-size:48px;
 }
 #library_content_search_form input {
   padding:5px !important;
@@ -65,7 +60,7 @@
 }
 .reference_search_result_info_language {
   border-radius:25px;
-  min-width:25px;
+  min-width:36px;
   text-align:center;
   padding-left:2px;
   padding-right:2px;
@@ -101,6 +96,9 @@
   line-height:32px;
   padding-left:5px;
 }
+#library_index_content_featured_header_text {
+  width:14%;
+}
 #library_index_content_wrapper,
 #library_index_content_wrapper *{
   background-color: white;
@@ -119,7 +117,7 @@
   opacity:0.3;
   font-family: 'proxima-nova' !important;
   position:relative;
-  bottom:5px;
+  bottom:4px;
   line-height:18px;
   margin-left:3px;
 }
@@ -172,7 +170,7 @@
   margin-bottom:10px;
 }
 #search_content_title_text {
-  font-size:24px !important;
+  font-size:16px !important;
 }
 #search_content_title_text,
 #popular_content_title_text {
@@ -182,19 +180,20 @@
 .bold_text {
   font-weight:bold;
 }
+#library_reference_link_description,
+#library_search_reference_link_description {
+  font-size:16px !important;
+  color:#999999;
+}
 #library_reference_link_description {
   margin-top:10px;
 }
 .library_grid_icon{
   height:15px;
 }
-#library_download_div {
+#library_like_div {
   margin-left:5px;
 }
-#search_content_title_text {
-  padding-left:10px !important;
-}
-#search_content_item_info_wrapper,
 #featured_content_item_info_wrapper {
   padding-left: 10px
 }
@@ -205,9 +204,6 @@
 .library_download_img {
   position: relative;
   top:-2px;
-}
-#download_related_topics_div {
-  padding-left:25px;
 }
 .counter_indicator_text_div {
   opacity: 0.3;
@@ -228,10 +224,32 @@
 .opacity_light {
   opacity: 0.05;
 }
+#search_content_title_text,
+#search_content_item_info_wrapper,
 #popular_content_item_info_wrapper {
-  padding-left:10px !important;
+  padding-left:16px !important;
 }
-.library_like_img,
-.library_download_img {
+.library_like_img {
   padding-left:2px;
+}
+#search_result_index {
+  font-size:16px;
+}
+.one_px_border_bottom {
+  min-height:1px !important;
+  margin-top:25px !important;
+  background-color: #CCCCCC;
+}
+#search_content_item_image,
+#featured_content_item_image,
+#popular_content_item_image {
+  border:1px solid #CCCCCC;
+}
+#popular_content_item_image {
+  width:100px;
+  height:125px;
+}
+#search_content_item_image {
+  width:80px;
+  height:100px;
 }
