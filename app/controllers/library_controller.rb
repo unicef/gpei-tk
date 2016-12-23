@@ -26,10 +26,23 @@ class LibraryController < ApplicationController
       ref_join.each do |join|
         reference_link_info[reference_link.id] = { isSOP: join.reference_linkable.has_attribute?(:sop_category_id), isC4D: join.reference_linkable.has_attribute?(:c4d_category_id) }
       end
+      liked_by_user = false
+      if current_user
+        liked_by_user = !Like.joins(:reference_likes).where('likes.author_id = ? AND reference_likes.reference_likeable_id = ?', current_user.id, reference_link.id).empty?
+      end
       reference_link_info[reference_link.id].merge!({ related_topics: reference_link.related_topics,
-                                                      download_count: ReferenceDownload.where(reference_downloadable_id: reference_link.id).count,
-                                                      like_count: ReferenceLike.where(reference_likeable_id: reference_link.id).count })
+                                                      download_count: roundStatsToView(ReferenceDownload.where(reference_downloadable_id: reference_link.id).count),
+                                                      like_count: roundStatsToView(ReferenceLike.where(reference_likeable_id: reference_link.id).count),
+                                                      liked_by_user: liked_by_user })
     end
     reference_link_info
+  end
+
+  def roundStatsToView(count)
+    rounded = count
+    if count > 999
+      rounded = (count / 1000).to_s + '.' + ((count%1000)/100).to_s + 'k'
+    end
+    rounded
   end
 end
