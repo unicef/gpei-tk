@@ -1,4 +1,6 @@
 module ApplicationHelper
+  include ActionView::Helpers::NumberHelper
+
   def build_classes args
     return args.values.join(' ')
   end
