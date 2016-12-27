@@ -5,7 +5,8 @@ $(() => {
     let $featured_grid = $(`#library_index_content_featured_content_grid`)
     $featured_grid.isotope({
       itemSelector: `.featured_content_item`,
-      layoutMode: 'fitRows'
+      layoutMode: 'fitRows',
+      filter: '.active'
     })
 
     $('#library_content_search_form').submit(e => {
@@ -71,7 +72,7 @@ $(() => {
       let idx = -1
       return `${references.map(reference_obj => {
         idx += 1
-        return `<div id='${idx}' class='col-md-12 search_content_item search_content_item_${ idx+1 } ${ idx == 0 ? 'active' : '' }'>
+        return `<div id='${idx}' class='col-md-12 search_content_item search_content_item_${ idx+1 } ${ idx === 0 ? 'active' : '' }'>
                   <div id='search_result_index' class='col-md-1'>
                     ${idx+1}
                   </div>
@@ -192,9 +193,6 @@ $(() => {
         $featured_grid.isotope({ filter: `.featured_content_item_1`})
       }
       return false
-    })
-    $(window).load(() => {
-      $featured_grid.isotope({ filter: '.active' })
     })
   }
 })
