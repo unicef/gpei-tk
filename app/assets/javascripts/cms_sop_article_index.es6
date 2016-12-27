@@ -166,7 +166,7 @@ $(() => {
                     </div>
                     <div class='col-md-offset-2 col-md-7'>
                       <form id='cms_sop_articles_search_form'>
-                        <label>Search sop articles by title:</label>
+                        <label>Search SOP articles by title:</label>
                         <input class="sop_articles_input" type="text" name="cms_sop_articles_search" value="">
                         <button type="submit">search</button>
                       </form>
