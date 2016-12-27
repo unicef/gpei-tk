@@ -166,10 +166,15 @@ $(() => {
     $('#featured_pagination_left_angle_div a').click(e => {
       e.preventDefault()
       let id = parseInt($('.library_featured_pagination_indicators.active a').attr('id'))
+      let max_id = parseInt($('#featured_pagination_right_angle_div a i').attr('id'))
       if (id !== 1){
         $('.library_featured_pagination_indicators.active').removeClass('active')
         $(`.library_featured_pagination_indicators #${id-1}`).parent().addClass('active')
         $featured_grid.isotope({ filter: `.featured_content_item_${id-1}`})
+      } else if (id === 1){
+        $('.library_featured_pagination_indicators.active').removeClass('active')
+        $(`.library_featured_pagination_indicators #${max_id}`).parent().addClass('active')
+        $featured_grid.isotope({ filter: `.featured_content_item_${max_id}`})
       }
       return false
     })
@@ -181,6 +186,10 @@ $(() => {
         $('.library_featured_pagination_indicators.active').removeClass('active')
         $(`.library_featured_pagination_indicators #${id+1}`).parent().addClass('active')
         $featured_grid.isotope({ filter: `.featured_content_item_${id+1}`})
+      } else if (id === max_id){
+        $('.library_featured_pagination_indicators.active').removeClass('active')
+        $(`.library_featured_pagination_indicators #1`).parent().addClass('active')
+        $featured_grid.isotope({ filter: `.featured_content_item_1`})
       }
       return false
     })
@@ -188,5 +197,4 @@ $(() => {
       $featured_grid.isotope({ filter: '.active' })
     })
   }
-
 })
