@@ -136,7 +136,7 @@ $(() => {
                       </div>
                       <div id='library_like_div' class='inline_block'>
                         <a id='${ reference_obj.id }' href='' class='inline_block library_like_img reference_like_tracker'>
-                          <img src='/assets/icons/icon-like-grey2x.png' class='library_grid_icon'>
+                          <img src='${ reference_link_info[reference_obj.id]['liked_by_user'] ? '' : '/assets/icons/icon-like-grey2x.png' }' class='library_grid_icon'>
                         </a>
                         <div class='counter_indicator_text_div inline_block'>${ reference_link_info[reference_obj.id]['like_count'] }</div>
                       </div>
@@ -300,5 +300,16 @@ $(() => {
       }
       return false
     })
+
+    // $('#library_content_search_input').change(e => {
+    //   e.preventDefault()
+    //   if ($('#library_content_search_input').val() === '') {
+    //     $('#library_content_search_input').addClass('library_content_search_input_no_text')
+    //     $('#library_content_search_input').removeClass('library_content_search_input_has_text')
+    //   } else {
+    //     $('#library_content_search_input').removeClass('library_content_search_input_no_text')
+    //     $('#library_content_search_input').addClass('library_content_search_input_has_text')
+    //   }
+    // })
   }
 })
