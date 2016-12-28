@@ -6,8 +6,7 @@ $(() => {
 
     $featured_grid.isotope({
       itemSelector: `.featured_content_item`,
-      layoutMode: 'fitRows',
-      filter: '.active'
+      layoutMode: 'fitRows'
     })
 
     $('#library_content_search_form').submit(e => {
@@ -301,15 +300,8 @@ $(() => {
       return false
     })
 
-    // $('#library_content_search_input').change(e => {
-    //   e.preventDefault()
-    //   if ($('#library_content_search_input').val() === '') {
-    //     $('#library_content_search_input').addClass('library_content_search_input_no_text')
-    //     $('#library_content_search_input').removeClass('library_content_search_input_has_text')
-    //   } else {
-    //     $('#library_content_search_input').removeClass('library_content_search_input_no_text')
-    //     $('#library_content_search_input').addClass('library_content_search_input_has_text')
-    //   }
-    // })
+    $(window).load(() => {
+      $featured_grid.isotope({filter: '.active'})
+    })
   }
 })
