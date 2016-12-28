@@ -134,7 +134,7 @@ $(() => {
                         </a>
                         <div class='counter_indicator_text_div inline_block'>${ reference_link_info[reference_obj.id]['download_count'] }</div>
                       </div>
-                      <div id='library_like_div' class='inline_block'>
+                      <div id='library_like_div' class='inline_block ${ reference_link_info[reference_obj.id]['liked_by_user'] ? 'like_by_user_div' : '' }'>
                         <a id='${ reference_obj.id }' href='' class='inline_block library_like_img reference_like_tracker'>
                           <img src='${ reference_link_info[reference_obj.id]['liked_by_user'] ? '' : '/assets/icons/icon-like-grey2x.png' }' class='library_grid_icon'>
                         </a>
