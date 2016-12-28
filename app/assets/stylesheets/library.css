@@ -81,6 +81,19 @@
 #reference_search_result_title_description_wrapper {
   padding-left:5px !important;
 }
+.like_by_user_div {
+  border-radius:25px;
+  min-width:36px;
+  text-align:center;
+  padding-left:2px;
+  padding-right:2px;
+  background:#CDAF95 !important;
+  color:white !important;
+}
+.like_by_user_div  * {
+  background:#CDAF95 !important;
+}
+
 .reference_search_result_info_language {
   border-radius:25px;
   min-width:36px;
