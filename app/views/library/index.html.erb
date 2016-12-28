@@ -45,13 +45,13 @@
         <div id='library_index_content_featured_content_grid' class='col-md-12'>
           <% @featured_references.each_with_index do |reference, idx| %>
             <div class='col-md-12 featured_content_item featured_content_item_<%= idx+1 %> <%= 'active' if idx == 0 %>'>
-              <div id='featured_content_title_text' class='col-md-12'>
-                <%= reference.title ? reference.title : reference.document_file_name.gsub('_', ' ').gsub('.pdf', '') %>
-              </div>
               <div class='col-md-2'>
                 <a id='<%= reference.id %>' href='<%= reference.absolute_url %>' target='_blank' class='reference_download_tracker'><img id='featured_content_item_image' src='<%= reference.absolute_url.gsub('pdf', 'png') %>' class='img-responsive'></a>
               </div>
               <div id='featured_content_item_info_wrapper' class='col-md-10'>
+                <div id='featured_content_title_text' class='col-md-12'>
+                  <a id='<%= reference.id %>' href='<%= reference.absolute_url %>' target='_blank' class='reference_download_tracker'><%= reference.title ? reference.title : reference.document_file_name.gsub('_', ' ').gsub('.pdf', '') %></a>
+                </div>
                 <div class='col-md-2'>
                   <div id='library_download_div' class='inline_block'>
                     <a id='<%= reference.id %>' href='<%= reference.absolute_url %>' target='_blank' class='inline_block library_download_img reference_download_tracker'>
