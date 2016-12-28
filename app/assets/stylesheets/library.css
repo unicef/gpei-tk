@@ -30,6 +30,23 @@
   color:black;
   font-family:'proxima-nova' !important;
 }
+
+.library_content_search_input_no_text {
+  background: url(/assets/icons/icon-search-grey-sml.png) no-repeat !important;
+  background-position:right 5px center !important;
+  background-color:white !important;
+  color:black !important;
+  font-family:'proxima-nova' !important;
+}
+
+.library_content_search_input_has_text {
+  background: url(/assets/icons/remove-check.png) no-repeat !important;
+  background-position:right 5px center !important;
+  background-color:white !important;
+  color:black !important;
+  font-family:'proxima-nova' !important;
+}
+
 #library_content_search_form input {
   padding:5px !important;
 }
@@ -242,6 +259,10 @@
 }
 #library_index_content_popular_downloads {
   margin-top:30px;
+}
+.popular_content_item,
+.search_content_item {
+  padding-right:30px !important;
 }
 .search_content_item,
 .popular_content_item {
