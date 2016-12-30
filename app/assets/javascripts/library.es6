@@ -17,7 +17,8 @@ $(() => {
         data: $(e.currentTarget).serialize()
       }).done(response => {
         if (response.status === 200){
-          $('#library_index_content_wrapper').css('display', 'none')
+          $('#library_index_content_featured').css('display', 'none')
+          $('#library_index_content_popular_downloads').css('display', 'none')
           $('#library_content_search_results').empty()
           $('#library_content_search_results').append(getSearchResultContent(response.references, response.reference_link_info))
           loadSearchGrid()
@@ -302,6 +303,13 @@ $(() => {
 
     $(window).load(() => {
       $featured_grid.isotope({filter: '.active'})
+    })
+    $('#library_logo_text_link').click(e => {
+      e.preventDefault()
+      $('#library_index_content_featured').css('display', 'block')
+      $('#library_index_content_popular_downloads').css('display', 'block')
+      $('#library_content_search_results').empty()
+      return false
     })
   }
 })
