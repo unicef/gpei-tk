@@ -106,7 +106,7 @@
               </div>
               <div id='popular_content_item_info_wrapper' class='col-md-11'>
                 <div id='popular_content_title_text' class='col-md-12'>
-                  <%= reference.title ? reference.title : reference.document_file_name.gsub('_', ' ').gsub('.pdf', '') %>
+                  <a id='<%= reference.id %>' href='<%= reference.absolute_url %>' target='_blank' class='reference_download_tracker'><%= reference.title ? reference.title : reference.document_file_name.gsub('_', ' ').gsub('.pdf', '') %></a>
                 </div>
                 <div id='like_and_download_wrapper' class='col-md-2'>
                   <div id='library_download_div' class='inline_block'>
