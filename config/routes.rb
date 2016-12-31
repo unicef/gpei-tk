@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
   root 'home#index'
+  get '/navigation/' => 'home#navigation'
 
   get '/c4d/' => 'c4d#index'
   get '/c4d/understand/' => 'c4d#understand'
