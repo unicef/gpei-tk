@@ -1,4 +1,13 @@
 $(() => {
+  if ($('#landing_page_sop_c4d_nav_container').css('visibility') === 'visible'){
+    let nav_bar_height = $('nav').outerHeight()
+    let $container = $("#landing_page_sop_c4d_nav_container")
+    $container.css({
+      paddingTop: nav_bar_height,
+      display: 'block'
+    })
+  }
+
   if ($('#link_to_second_part_of_landing').css('visibility') === 'visible'){
     var mousewheelevt =(/Firefox/i.test(navigator.userAgent))? "DOMMouseScroll" : "mousewheel"
     $('html').bind(mousewheelevt, e => {
@@ -18,12 +27,12 @@ $(() => {
 
   function transitionLandingPageToSopC4d() {
     let nav_bar_height = $('nav').outerHeight()
-    $('#landing_page_sop_c4d_nav_container').css({
+    let $second_container = $("#landing_page_sop_c4d_nav_container")
+    $second_container.css({
       paddingTop: nav_bar_height,
       display: 'block'
     })
-    let second_container = $("#landing_page_sop_c4d_nav_container")
-    $('html,body').animate({ scrollTop: second_container.offset().top },'slow')
+    $('html,body').animate({ scrollTop: $second_container.offset().top },'slow')
   }
 
   $('#link_to_second_part_of_landing').click(e => {
