@@ -356,3 +356,9 @@ a.max_width {
   margin-right:12px;
   color: black;
 }
+#popular_content_title_text a {
+  color: black;
+}
+#search_content_title_text a {
+  color:black;
+}
