@@ -28,7 +28,7 @@ $(() => {
     let title = _.trim((!_.isNull(reference_link.title) || reference_link.title !== '' ? reference_link.title : reference_link.document_file_name.replace(new RegExp('_', 'g'), ' ').replace(new RegExp('.pdf', 'g'), '')))
     let user_friendly_url = `https://poliok.it/library/${title.replace(new RegExp(' ', 'g'), '_')}`
     $('#reference_link_show_modal .header').append(`<h2>${title}</h2><h5><a id='user_friendly_reference_link_anchor' href='${user_friendly_url}'>Copy document link</a></h5>`)
-    let iframe = `<iframe src="http://docs.google.com/gview?url=${reference_link.absolute_url}&embedded=true" style="width:100%; min-height:800px;" frameborder="0"></iframe>`
+    let iframe = `<iframe src="https://docs.google.com/gview?url=${reference_link.absolute_url}&embedded=true" style="width:100%; min-height:800px;" frameborder="0"></iframe>`
     $('#reference_link_show_modal .content').append(iframe)
     $('#reference_link_show_modal').modal('show')
   }
