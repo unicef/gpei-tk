@@ -18,15 +18,15 @@ Rails.application.routes.draw do
 
   resources :c4d_articles, only: [:show]
 
-  # get '/sop/' => 'sop#index'
+  get '/sop/' => 'sop#index'
 
-  # get '/sop/what_to_do_when/' => 'sop#whatToDoWhen'
-  # get '/sop/what_to_do_when/:id' => 'sop#whatToDoWhen'
-  # get '/sop/overview/' => 'sop#overview'
+  get '/sop/what_to_do_when/' => 'sop#whatToDoWhen'
+  get '/sop/what_to_do_when/:id' => 'sop#whatToDoWhen'
+  get '/sop/overview/' => 'sop#overview'
 
-  # post '/sop/checklist/' => 'sop_checklist#create'
-  # delete '/sop/checklist/' => 'sop_checklist#destroy'
-  # resources :sop_articles, only: [:show]
+  post '/sop/checklist/' => 'sop_checklist#create'
+  delete '/sop/checklist/' => 'sop_checklist#destroy'
+  resources :sop_articles, only: [:show]
 
   resources :cms, only: [:index]
 
