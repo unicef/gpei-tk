@@ -286,6 +286,7 @@
   top:-2px;
   padding-left:2px;
   line-height:0.75em!important;
+  border-radius:25px;
 }
 .library_download_img {
   position: relative;
