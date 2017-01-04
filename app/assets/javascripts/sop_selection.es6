@@ -561,7 +561,9 @@ $(() => {
 
     function getVideoContent(params) {
       let video_content = ''
-      if (!_.isNull(params['article'].video_url) && params['article'].video_url !== ''  && params['article'].video_url !== "null") {
+      if (!_.isNull(params['article'].video_url) &&
+          params['article'].video_url !== ''  &&
+          params['article'].video_url !== "null") {
         video_content = `<div id='sop_article_multimedia_container' class='row'>
                           <div id='multimedia_header' class='col-md-9'>
                             <strong>MULTIMEDIA:</strong>
