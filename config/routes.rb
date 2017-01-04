@@ -86,4 +86,5 @@ Rails.application.routes.draw do
 
   get '/library/' => 'library#index'
   get '/library/referenceSearch/' => 'library#referenceSearch'
+  get '/library/:title' => 'library#referenceShow'
 end
