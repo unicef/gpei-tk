@@ -1,0 +1,40 @@
+<div id="landing_page_sop_c4d_nav_container" class='container' style='display: <%= @display %>'>
+  <div id='sop_c4d_nav_header_container'><span>WHAT DO YOU NEED TO DO?</span></div>
+  <div id='sop_c4d_nav_content_container' class='center-block'>
+    <a href='/c4d/'>
+      <div id="landing_c4d_container_header" class='col-md-12'>
+        C4D
+      </div>
+      <div id="landing_c4d_container_content" class='col-md-12'>
+        <div id='sop_c4d_description_div'>Communicate effectively</div>
+        <div id="landing_c4d_angle_right" class='text-right'>
+          <i class="fa fa-angle-right fa-1x" aria-hidden="true"></i>
+        </div>
+        <div id='c4d_landing_description_span' class='col-md-12'>COMMUNICATION FOR DEVELOPMENT GUIDE</div>
+      </div>
+    </a>
+<!--     <a href='/sop/'>
+      <div id="landing_sop_container_header" class='col-md-12'>
+        SOP
+      </div>
+      <div id="landing_sop_container_content" class='col-md-12'>
+        <div id='sop_c4d_description_div'>Respond to an outbreak</div>
+        <div id="landing_sop_angle_right" class='text-right'>
+          <i class="fa fa-angle-right fa-1x" aria-hidden="true"></i>
+        </div>
+        <div id='sop_landing_description_span' class='col-md-6'>OUTBREAK RESPONSE STANDARD OPERATING PROCEDURES</div>
+      </div>
+    </a> -->
+  </div>
+  <% if defined? is_forgot_pwd %>
+    <div id='forgot_pwd_return'>
+      <div id='<%= user_id %>'>
+
+      </div>
+    </div>
+  <% end %>
+  <div id='gpei_footer_home_logo_div' class='text-center'>
+    <a href='http://polioeradication.org' target='_blank'><img src='/assets/home/GPEI-text-footer-logo.png'></a>
+    <div id='legal_terms_div' class='col-md-12'><a href='http://www.unicef.org/about/legal.html' target='_blank'>Legal Terms</a></div>
+  </div>
+</div>
