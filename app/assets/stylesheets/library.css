@@ -266,6 +266,9 @@
 #library_reference_link_description {
   margin-top:10px;
 }
+.library_like_icon{
+  height:12px;
+}
 .library_grid_icon{
   height:15px;
 }
@@ -280,7 +283,9 @@
 }
 .library_like_img {
   position: relative;
-  top:-3px;
+  top:-2px;
+  padding-left:2px;
+  line-height:0.75em!important;
 }
 .library_download_img {
   position: relative;
@@ -307,9 +312,6 @@
 .opacity_light {
   opacity: 0.05;
 }
-.library_like_img {
-  padding-left:2px;
-}
 #search_result_index {
   font-size:16px;
 }
@@ -324,7 +326,7 @@
   border:1px solid #CCCCCC;
 }
 #popular_content_item_image {
-  width:100px;
+  width:125px;
   height:125px;
 }
 #search_content_item_image {
