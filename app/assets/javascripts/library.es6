@@ -304,6 +304,7 @@ $(() => {
     $(window).load(() => {
       $featured_grid.isotope({filter: '.active'})
     })
+
     $('#library_logo_text_link').click(e => {
       e.preventDefault()
       $('#library_index_content_featured').css('display', 'block')

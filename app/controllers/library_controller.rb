@@ -1,10 +1,6 @@
 class LibraryController < ApplicationController
   def index
-    @is_library = true
-    @reference_links = ReferenceLink.joins(:reference_link_articles).order(id: :asc).all
-    @reference_link_info = getReferenceLinkInfo(@reference_links)
-    @featured_references = ReferenceLink.joins(:featured_references).all.order(document_file_name: :asc)
-    @popular_downloads = ReferenceDownload.group(:reference_downloadable_id).order('count_id desc').count('id')
+    initializeVars
   end
 
   def referenceSearch
@@ -17,7 +13,21 @@ class LibraryController < ApplicationController
     render json: { status: 200, references: references, reference_link_info: reference_link_info }
   end
 
+  def referenceShow
+    @reference_link = ReferenceLink.find_by('title LIKE ?',  "%#{params[:title].gsub('_', ' ')}%")
+    initializeVars
+    render 'library/index'
+  end
+
   private
+
+  def initializeVars
+    @is_library = true
+    @reference_links = ReferenceLink.joins(:reference_link_articles).order(id: :asc).all
+    @reference_link_info = getReferenceLinkInfo(@reference_links)
+    @featured_references = ReferenceLink.joins(:featured_references).all.order(document_file_name: :asc)
+    @popular_downloads = ReferenceDownload.group(:reference_downloadable_id).order('count_id desc').count('id')
+  end
 
   def getReferenceLinkInfo(reference_links)
     reference_link_info = {}
