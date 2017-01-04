@@ -80,6 +80,7 @@ class Cms::SopArticlesController < ApplicationController
       if sop_article.update(order_id: prev_sop_article_order_id)
         render json: { status: 200, current_sop_article_order_id: sop_article.order_id, prev_sop_article_order_id: prev_sop_article.order_id }
       else
+        prev_sop_article.update(order_id: prev_sop_article_order_id)
         render json: { status: 403, error: 'something went wrong' }
       end
     end
@@ -94,6 +95,7 @@ class Cms::SopArticlesController < ApplicationController
       if sop_article.update(order_id: next_sop_article_order_id)
         render json: { status: 200, current_sop_article_order_id: sop_article.order_id, next_sop_article_order_id: next_sop_article.order_id }
       else
+        next_sop_article.update(order_id: next_sop_article_order_id)
         render json: { status: 403, error: 'something went wrong' }
       end
     end

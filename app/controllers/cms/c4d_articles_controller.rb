@@ -76,6 +76,7 @@ class Cms::C4dArticlesController < ApplicationController
       if c4d_article.update(order_id: prev_c4d_article_order_id)
         render json: { status: 200, current_c4d_article_order_id: c4d_article.order_id, prev_c4d_article_order_id: prev_c4d_article.order_id }
       else
+        prev_c4d_article.update(order_id: prev_c4d_article_order_id)
         render json: { status: 403, error: 'something went wrong' }
       end
     end
@@ -90,6 +91,7 @@ class Cms::C4dArticlesController < ApplicationController
       if c4d_article.update(order_id: next_c4d_article_order_id)
         render json: { status: 200, current_c4d_article_order_id: c4d_article.order_id, next_c4d_article_order_id: next_c4d_article.order_id }
       else
+        next_c4d_article.update(order_id: next_c4d_article_order_id)
         render json: { status: 403, error: 'something went wrong' }
       end
     end
