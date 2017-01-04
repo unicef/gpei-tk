@@ -312,4 +312,10 @@ $(() => {
       return false
     })
   }
+  $('#reference_link_show_modal').modal({
+    onHide: () => {
+      $('#reference_link_show_modal .content').empty()
+      $('#reference_link_show_modal .header').empty()
+    }
+  })
 })
