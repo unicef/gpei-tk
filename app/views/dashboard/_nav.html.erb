@@ -30,7 +30,7 @@
       <ul class='nav navbar-nav navbar-right'>
         <li><a id='nav_contact_link' href=''>CONTACT</a></li>
         <li><a id='nav_about_link' href=''>ABOUT</a></li>
-        <!-- <li><a id='nav_library_link' href='/library/' class='<#%= 'active' if @is_library %>'><img src='/assets/icons/Icon-Library.png'/></a></li> -->
+        <li><a id='nav_library_link' href='/library/' class='<%= 'active' if @is_library %>'><img src='/assets/icons/Icon-Library.png'/></a></li>
         <!-- <li><a id='nav_search_link' href=''><img src='/assets/icons/Icon-search.png'/></a></li> -->
         <% if current_user %>
           <li id='toolkit_dropdown_li'>
@@ -49,6 +49,7 @@
                   </div>
                 </div>
                 <% end %>
+                <!-- uncomment below when SOP returns -->
 <!--                 <div class="item">
                   <i class="fa fa-caret-left white_text_black_bg"></i>
                   <span class="text white_text_black_bg">SOP Checklist</span>
