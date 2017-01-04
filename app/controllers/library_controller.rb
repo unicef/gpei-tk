@@ -14,7 +14,7 @@ class LibraryController < ApplicationController
   end
 
   def referenceShow
-    @reference_link = ReferenceLink.find_by('title LIKE ?',  "%#{params[:title].gsub('_', ' ')}%")
+    @reference_link = ReferenceLink.find_by('title LIKE ? OR document_file_name LIKE ?',  "%#{params[:title].gsub('_', ' ')}%", "%#{params[:title]}%")
     initializeVars
     render 'library/index'
   end
