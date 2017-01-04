@@ -49,24 +49,24 @@
                   </div>
                 </div>
                 <% end %>
-                <div class="item">
+<!--                 <div class="item">
                   <i class="fa fa-caret-left white_text_black_bg"></i>
                   <span class="text white_text_black_bg">SOP Checklist</span>
                   <div id='sop_checklist_list' class="left menu">
-                    <% if current_user.sop_checklist.sop_articles.empty? %>
+                    <#% if current_user.sop_checklist.sop_articles.empty? %>
                       <div class="item white_text_black_bg" id="sop_no_items_selected">No articles selected</div>
-                    <% else %>
-                      <% current_user.sop_checklist.sop_articles.each do |article| %>
-                        <div id="<%= article.id %>" class="item">
-                        <%= link_to sop_article_path(article),  :id => article.title, class: 'white_text_black_bg' do %>
-                          <%= article.title %>
-                        <% end %>
-                        <i id="<%= article.title %>" class="fa fa-remove white_text_black_bg" aria-hidden="true"></i>
+                    <#% else %>
+                      <#% current_user.sop_checklist.sop_articles.each do |article| %>
+                        <div id="<#%= article.id %>" class="item">
+                        <#%= link_to sop_article_path(article),  :id => article.title, class: 'white_text_black_bg' do %>
+                          <#%= article.title %>
+                        <#% end %>
+                        <i id="<#%= article.title %>" class="fa fa-remove white_text_black_bg" aria-hidden="true"></i>
                         </div>
-                      <% end %>
-                    <% end %>
+                      <#% end %>
+                    <#% end %>
                   </div>
-                </div>
+                </div> -->
                 <div class="item">
                   <i class="fa fa-caret-left white_text_black_bg"></i>
                   <span class="text white_text_black_bg">C4D Toolkit</span>

@@ -13,20 +13,20 @@ Rails.application.routes.draw do
   get '/c4d/act/:id' => 'c4d#act'
   get '/c4d/tools/:id' => 'c4d#tools'
 
-  get '/sop/' => 'sop#index'
-
-  get '/sop/what_to_do_when/' => 'sop#whatToDoWhen'
-  get '/sop/what_to_do_when/:id' => 'sop#whatToDoWhen'
-  get '/sop/overview/' => 'sop#overview'
-
-  post '/sop/checklist/' => 'sop_checklist#create'
-  delete '/sop/checklist/' => 'sop_checklist#destroy'
-
   post '/c4d/toolkit/' => 'c4d_toolkit#create'
   delete '/c4d/toolkit/' => 'c4d_toolkit#destroy'
 
-  resources :sop_articles, only: [:show]
   resources :c4d_articles, only: [:show]
+
+  # get '/sop/' => 'sop#index'
+
+  # get '/sop/what_to_do_when/' => 'sop#whatToDoWhen'
+  # get '/sop/what_to_do_when/:id' => 'sop#whatToDoWhen'
+  # get '/sop/overview/' => 'sop#overview'
+
+  # post '/sop/checklist/' => 'sop_checklist#create'
+  # delete '/sop/checklist/' => 'sop_checklist#destroy'
+  # resources :sop_articles, only: [:show]
 
   resources :cms, only: [:index]
 
