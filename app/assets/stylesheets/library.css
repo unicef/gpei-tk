@@ -362,3 +362,13 @@ a.max_width {
 #search_content_title_text a {
   color:black;
 }
+
+
+/*reference link show modal*/
+#reference_link_show_modal {
+  /*position: absolute;*/
+  top:10px;
+  width:90% !important;
+}
+
+/**/
