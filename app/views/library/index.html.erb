@@ -152,4 +152,9 @@
   </div>
   <div id='library_content_search_results' class='col-md-12'>
   </div>
+  <% if @reference_link %>
+    <div id='library_reference_link_show'>
+      <%= @reference_link.id %>
+    </div>
+  <% end %>
 </div>
