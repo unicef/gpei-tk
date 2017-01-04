@@ -63,7 +63,7 @@ $(() => {
           $('#CMS_index_content').empty()
           // appendReferencemp3Header()
           // appendReferencemp3Rows(reference_mp3s, reference_mp3_categories, response.users)
-          $('#CMS_index_content').append("<h2 id='cms_reference_mp3s_list_header'>Uploaded Reference mp3s - (.pdf's) Index</h2>")
+          $('#CMS_index_content').append("<h2 id='cms_reference_mp3s_list_header'>Uploaded Reference mp3s - (.mp3's) Index</h2>")
           $('#CMS_index_content').append(getReferenceLinkGrid(reference_mp3s, reference_mp3_categories, response.users, type, categories))
           loadIsotopeHandlers(type)
         })
@@ -89,7 +89,7 @@ $(() => {
           $('#CMS_index_content').empty()
           // appendReferencepptxHeader()
           // appendReferencepptxRows(reference_pptxs, reference_pptx_categories, response.users)
-          $('#CMS_index_content').append("<h2 id='cms_reference_pptxs_list_header'>Uploaded Reference pptxs - (.pdf's) Index</h2>")
+          $('#CMS_index_content').append("<h2 id='cms_reference_pptxs_list_header'>Uploaded Reference Pptxes - (powerpoint) Index</h2>")
           $('#CMS_index_content').append(getReferenceLinkGrid(reference_pptxes, reference_pptx_categories, response.users, type, categories))
           loadIsotopeHandlers(type)
         })
@@ -223,7 +223,7 @@ $(() => {
                       <div class='col-md-4'>
                         <div id='reference_${type}_list_name_td' class='col-md-12'>
                           <div id='${ reference_link.id }' class='col-md-12'>
-                            <a id='cms_reference_${type}_icon' href="${ reference_link.absolute_url }" target='_blank'><i class="fa fa-search" aria-hidden="true"></i> <strong><u>Preview .pdf</u></strong></a>
+                            <a id='cms_reference_${type}_icon' href="${ reference_link.absolute_url }" target='_blank'><i class="fa fa-search" aria-hidden="true"></i> <strong><u>Preview .${type === 'link' ? 'pdf' : type}</u></strong></a>
                             <div id='cms_reference_${type}_title'>Title: <div id='cms_reference_${type}_title_div'>${!_.isNull(reference_link.title) ? reference_link.title : 'No title given' }</div></div>
                             <div style='height:10px' class='col-md-12'></div>
                             <div class='col-md-12'><strong>File name:</strong> <div id='cms_reference_${type}_file_name_div'>${ type === 'mp3' ? reference_link.clip_file_name : reference_link.document_file_name }</div></div>
@@ -235,7 +235,7 @@ $(() => {
                           </div>
                           <div style='height:10px' class='col-md-12'></div>
                           <div class='col-md-12'>
-                            <div class='col-md-12'><strong>Document Language:</strong></div>
+                            <div class='col-md-12'><strong>${type === 'mp3' ? 'Clip' : 'Document'} Language:</strong></div>
                             <div id='cms_reference_${type}_document_language_div' class='col-md-12'>${!_.isNull(reference_link.document_language) ? reference_link.document_language : 'No document language input'}</div>
                           </div>
                           <div style='height:10px' class='col-md-12'></div>
@@ -246,7 +246,7 @@ $(() => {
                           <div style='height:10px' class='col-md-12'></div>
                         </div>
                       </div>
-                      <div class='col-md-2'><strong>Where pdf is attached:</strong><br> ${ _.isUndefined(reference_link_categories[reference_link.id]) ? '' : _.map(reference_link_categories[reference_link.id], reference_link_categories => { return reference_link_categories.details }).join("<div style='height:2px;background:black;width:100%'></div>")}</div>
+                      <div class='col-md-2'><strong>Where ${type === 'link' ? 'pdf' : type} is attached:</strong><br> ${ _.isUndefined(reference_link_categories[reference_link.id]) ? '' : _.map(reference_link_categories[reference_link.id], reference_link_categories => { return reference_link_categories.details }).join("<div style='height:2px;background:black;width:100%'></div>")}</div>
                       <div class='col-md-1 text-center'><strong>Language:</strong><br> ${reference_link.language}</div>
                       <div class='col-md-1'><a id='cms_reference_link_updated_column' href=''><strong>Updated:</strong></a><br> <div id='updated_at_div'>${moment(reference_link.updated_at, "YYYY-MM-DD").format("MMM DD, YYYY")}</div></a></div>
                       <div class='col-md-1'><a id='cms_reference_link_created_column' href=''><strong>Created:</strong></a><br><div id='created_at_div'>${moment(reference_link.created_at, "YYYY-MM-DD").format("MMM DD, YYYY")}</div></div>
