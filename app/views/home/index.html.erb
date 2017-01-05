@@ -19,3 +19,10 @@
   </div>
 </div>
 <%= render 'home/navigation' %>
+<% if defined? is_forgot_pwd %>
+  <div id='forgot_pwd_return'>
+    <div id='<%= user_id %>'>
+
+    </div>
+  </div>
+<% end %>
