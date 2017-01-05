@@ -72,6 +72,7 @@ class Cms::ReferenceLinksController < ApplicationController
     if request.xhr? && current_user.is_admin?
       reference_link = ReferenceLink.find_by(id: params[:id])
       if !reference_link.nil?
+        ReferenceLinkArticle.where(reference_link_id: reference_link.id).destroy_all
         reference_link.destroy
         render json: { status: 200 }
       end
