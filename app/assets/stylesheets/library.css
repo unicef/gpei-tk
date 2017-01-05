@@ -373,5 +373,12 @@ a.max_width {
   top:10px;
   width:90% !important;
 }
-
+#reference_link_show_close_div {
+  position:absolute;
+  right:20px;
+}
+#reference_link_show_close_div a {
+  cursor: pointer;
+  color: black;
+}
 /**/
