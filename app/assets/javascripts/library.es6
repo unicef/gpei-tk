@@ -314,6 +314,7 @@ $(() => {
     })
   }
   $('#reference_link_show_modal').modal({
+    allowMultiple: true,
     onHide: () => {
       $('#reference_link_show_modal .content').empty()
       $('#reference_link_show_modal .header').empty()

@@ -117,8 +117,15 @@ $(() => {
       }
     }
 
+    $('.coupled.modal')
+    .modal({
+      allowMultiple: true
+    })
+
+
     // c4d article modal show
     $('#c4d_article_show_modal').modal({
+      allowMultiple: true,
       onHide: () => {
         $('#c4d_article_show_modal .content').empty()
         $('#c4d_article_show_modal .header').empty()
