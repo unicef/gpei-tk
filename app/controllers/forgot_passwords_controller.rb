@@ -37,9 +37,9 @@ class ForgotPasswordsController < ApplicationController
         user.password = params[:password]
         if user.save
           forgot_pwd.update(expired: true)
-          render 'home/index'
+          render json: { status: 200 }
         else
-          render json: { status: 403, message: 'something went wrong, please try again.'}
+          render json: { status: 200, errors: buildErrorMsg(user.errors.messages)}
         end
       end
     end

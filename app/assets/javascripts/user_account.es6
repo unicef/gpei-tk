@@ -97,15 +97,18 @@ $(() => {
         url: '/users/',
         data: data
       }).done(response => {
-      }).fail(response => {
-        let error_div = `<div id="error_div">${_.map(response.errors, error => {
-          return `<span>${error}</span>`
-        })}</div>`
-        if ($('#error_div').length === 0) {
-          $('#user_account_content').append(response.errors)
-        } else {
-          $('error_div').remove()
-          $('#user_account_content').append(response.errors)
+        if (response.status === 403) {
+          let error_div = `<div id="error_div">`
+          _.forEach(response.errors, error_text => {
+            error_div += `<span><i class="fa fa-exclamation-triangle" aria-hidden="true"></i> ${error_text}</span>`
+          })
+          error_div += `</div>`
+          if ($('#error_div').length === 0) {
+            $('#user_account_content').append(error_div)
+          } else {
+            $('#error_div').remove()
+            $('#user_account_content').append(error_div)
+          }
         }
       })
     } else {
@@ -513,11 +516,32 @@ $(() => {
       url: '/forgot_passwords/' + $('#forgot_pwd_return div').attr('id'),
       data: { password: $('#user_account_modal :password')[0].value, user_key: window.location.pathname.split('/')[2] }
       }).done(response => {
-        $('#user_account_modal .content').empty()
-        $('#user_account_modal .content').append(`<div id='reset_password_success_div' class='col-md-12'>Password changed successfully, please sign in to continue.</div>`)
+        if (response.status === 200) {
+          if (!_.isUndefined(response.errors)) {
+            $('#reset_pwd_spinner').css('visibility', 'hidden')
+            $('#reset_pwd_form button').prop('disabled', false)
+            if (_.isEmpty($('#user_account_modal #error_div'))){
+              $('#user_account_modal #error_div').remove()
+              let error_div = `<div id="error_div">`
+              _.forEach(response.errors, error_text => {
+                error_div += `<span><i class="fa fa-exclamation-triangle" aria-hidden="true"></i> ${error_text}</span>`
+              })
+              error_div += `</div>`
+              $('#user_account_content').append(error_div)
+            }
+          } else {
+            $('#user_account_modal .content').empty()
+            $('#user_account_modal .content').append(`<div id='reset_password_success_div' class='col-md-12'>Password changed successfully, please sign in to continue.</div>`)
+            _.delay(() => {
+              $('#user_account_modal').modal('hide')
+              window.location.href = '/'
+            }, 2000, 'later')
+
+          }
+        }
       })
     } else {
-      if (_.isEmpty($('#user_account_modal #reset_pwd_error_div').css('visibility'))) {
+      if (_.isEmpty($('#user_account_modal #error_div').css('visibility'))) {
         $('#reset_pwd_submit_div').append(`<div id='reset_pwd_error_div'><i class="fa fa-exclamation-triangle" aria-hidden="true"></i>Passwords must match</div>`)
       }
     }

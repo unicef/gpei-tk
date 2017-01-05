@@ -25,4 +25,15 @@ class ApplicationController < ActionController::Base
       redirect_to '/'
     end
   end
+
+  def buildErrorMsg(messages)
+    error_text = []
+    messages.each do |key, value|
+      messages[key].each do |value|
+        error_text << "#{key} #{value}"
+      end
+    end
+    error_text
+  end
+
 end
