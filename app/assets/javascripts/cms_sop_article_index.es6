@@ -35,6 +35,7 @@ $(() => {
 
     let updatedSortFlow = false
     let createdSortFlow = false
+    let alphaSortFlow = false
     function loadIsotopeHandlers(){
       $('#CMS_index_content #cms_sop_articles_filter_dropdown').dropdown({
         on: 'hover',
@@ -52,10 +53,20 @@ $(() => {
           createdSort: function (ele) {
             return (Date.parse($(ele).find('#created_at_div').text())) * (createdSortFlow ? -1 : 1)
           },
+          alphaSort: '#cms_sop_article_title',
           orderIdSort: function (ele) {
             return parseInt($(ele).find('#cms_sop_article_order_id_div').text())
           }
         }
+      })
+
+      $('#CMS_index_content').on('click', '#title_div', e => {
+        e.preventDefault()
+        $('#CMS_sop_articles_grid').isotope({
+          sortAscending: alphaSortFlow
+        })
+        $('#CMS_sop_articles_grid').isotope({ sortBy: 'alphaSort' })
+        alphaSortFlow = !alphaSortFlow
       })
 
       $('.filter-button-group').on('click', 'button', function() {
@@ -175,7 +186,7 @@ $(() => {
                       <div class="col-md-1 text-center"> Order id </div>
                       <div class="col-md-1 text-center"> Time Period </div>
                       <div class="col-md-2 text-center"> Category </div>
-                      <div class="col-md-3 text-center"> Title </div>
+                      <div class="col-md-3 text-center"><a id='title_div' href=''> Title </a></div>
                       <div class="col-md-1 text-center"> Status </div>
                       <div class="col-md-1 text-center"><a id='updated_at_div' href=''> Updated </a></div>
                       <div class="col-md-1 text-center"><a id='created_at_div' href=''> Created </a></div>
