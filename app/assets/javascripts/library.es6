@@ -120,11 +120,11 @@ $(() => {
                   <div class='col-md-1'>
                     <a id='${ reference_obj.id }' href='${ reference_obj.absolute_url }' target='_blank' class='reference_download_tracker'><img id='search_content_item_image' src='${ _.replace(reference_obj.absolute_url, new RegExp("pdf","g"), "png") }' class='img-responsive'></a>
                   </div>
-                  <div id='search_content_item_info_wrapper' class='col-md-10'>
+                  <div id='search_content_item_info_wrapper' class='col-md-11'>
                     <div id='search_content_title_text' class='col-md-12'>
                       <a id='${ reference_obj.id }' href='${ reference_obj.absolute_url }' target='_blank' class='reference_download_tracker'>${ reference_obj.title ? reference_obj.title : _.replace(_.replace(reference_obj.document_file_name, new RegExp("_","g"), " "), new RegExp(".pdf","g"), "") }</a>
                     </div>
-                    <div class='col-md-2'>
+                    <div id='like_and_download_wrapper' class='col-md-2'>
                       <div id='library_download_div' class='inline_block'>
                         <a id='${ reference_obj.id }' href='${ reference_obj.absolute_url }' target='_blank' class='inline_block library_download_img reference_download_tracker'>
                           <img src='/assets/icons/icon-download2x.png' class='library_grid_icon'>
@@ -133,22 +133,22 @@ $(() => {
                       </div>
                       <div id='library_like_div' class='inline_block ${ reference_link_info[reference_obj.id]['liked_by_user'] ? 'like_by_user_div' : '' }'>
                         <a id='${ reference_obj.id }' href='' class='inline_block library_like_img reference_like_tracker'>
-                          <img src='${ reference_link_info[reference_obj.id]['liked_by_user'] ? '' : '/assets/icons/icon-like-grey2x.png' }' class='library_grid_icon'>
+                          <img src='${ reference_link_info[reference_obj.id]['liked_by_user'] ? '/assets/icons/icon-like-white-2x.png' : '/assets/icons/icon-like-grey2x.png' }' class='library_grid_icon'>
                         </a>
-                        <div class='counter_indicator_text_div inline_block'>${ reference_link_info[reference_obj.id]['like_count'] }</div>
+                        <div class='counter_indicator_text_div inline_block ${reference_link_info[reference_obj.id]['liked_by_user'] ? 'liked_by_user_white_text' : ''}'>${ reference_link_info[reference_obj.id]['like_count'] }</div>
                       </div>
                     </div>
                     <div class='col-md-7'>
                       <div id='download_related_topics_div' class='bold_text col-md-3'>DOWNLOAD</div>
-                      <div class='col-md-8'>
-                        <a id='${ reference_obj.id }' href='${ reference_obj.absolute_url }' target='_blank' class='reference_download_tracker'><div class='reference_search_result_info_language '>${ _.upperCase(!_.isNull(reference_obj.document_language) ? reference_obj.document_language : reference_obj.language) }</div></a> PDF ${ convertBytesToKbOrMb(reference_obj.document_file_size) }
+                      <div class='col-md-8 langauage_indicator_wrapper'>
+                        <a id='${ reference_obj.id }' href='${ reference_obj.absolute_url }' target='_blank' class='reference_download_tracker'><div class='reference_search_result_info_language '>${ _.upperCase(!_.isNull(reference_obj.document_language) ? reference_obj.document_language : reference_obj.language) }</div> PDF ${ convertBytesToKbOrMb(reference_obj.document_file_size) }</a>
                         ${ reference_link_info[reference_obj.id]['related_topics'].map(related_topic => {
-                                return `<a id='${ related_topic.id }' href='${ related_topic.absolute_url }' target='_blank' class='reference_download_tracker'><div class='reference_search_result_info_language'>${ _.upperCase(!_.isNull(related_topic.document_language) ? related_topic.document_language : related_topic.language) }</div></a> PDF ${ convertBytesToKbOrMb(related_topic.document_file_size) }`
+                                return `<a id='${ related_topic.id }' href='${ related_topic.absolute_url }' target='_blank' class='reference_download_tracker'><div class='reference_search_result_info_language'>${ _.upperCase(!_.isNull(related_topic.document_language) ? related_topic.document_language : related_topic.language) }</div> PDF ${ convertBytesToKbOrMb(related_topic.document_file_size) }</a>`
                               }).join('')
                           }
                       </div>
                     </div>
-                    <div class='col-md-offset-1 col-md-2 text-right'>
+                    <div id='catalogue_wrapper' class='col-md-offset-1 col-md-2 text-right'>
                       ${ reference_link_info[reference_obj.id]['isC4D'] ? "<div class='inline_block reference_search_result_is_c4d bold_text'>C4D </div>" : '' }
                       ${ reference_link_info[reference_obj.id]['isSOP'] ? "<div class='inline_block reference_search_result_is_sop bold_text'>SOP</div>" : '' }
                     </div>
@@ -173,9 +173,9 @@ $(() => {
     function convertBytesToKbOrMb(bytes){
       let conversion = 0
       if (bytes > 1048576) {
-        conversion = (bytes / 1048576).toFixed(1) + 'MB'
+        conversion = (bytes / 1048576).toFixed(1) + ' MB'
       } else {
-        conversion = (bytes / 1024).toFixed(1) + 'KB'
+        conversion = (bytes / 1024).toFixed(1) + ' KB'
       }
       return conversion
     }
