@@ -15,8 +15,8 @@ class C4dArticlesController < ApplicationController
       toolkit_articles = current_user.c4d_toolkit.c4d_articles if current_user
       c4d_subcategories = C4dSubcategory.all.order(:id)
       reference_links = c4d_article.reference_links.order(:document_file_name)
-      next_article = c4d_article.next
-      previous_article = c4d_article.previous
+      next_article = C4dArticle.order(order_id: :asc).where("published = true AND order_id > ? AND c4d_subcategory_id = ?", c4d_article.order_id, c4d_article.c4d_subcategory_id).first
+      previous_article = C4dArticle.order(order_id: :asc).where("published = true AND order_id < ? AND c4d_subcategory_id = ?", c4d_article.order_id, c4d_article.c4d_subcategory_id).last
       render json: { status: 200,
                      article: c4d_article,
                      c4d_categories: c4d_categories,

@@ -16,8 +16,8 @@ class SopArticlesController < ApplicationController
       reference_links = sop_article.reference_links.order(:document_file_name)
       reference_mp3s = sop_article.reference_mp3s.order(:clip_file_name)
       reference_pptxes = sop_article.reference_pptxes.order(:document_file_name)
-      next_article = sop_article.next
-      previous_article = sop_article.previous
+      next_article = SopArticle.where("published = true AND order_id > ?", sop_article.order_id).order(order_id: :asc).first
+      previous_article = SopArticle.where("published = true AND order_id < ?", sop_article.order_id).order(order_id: :asc).last
       render json: { status: 200,
                      article: sop_article,
                      sop_categories: sop_categories,
