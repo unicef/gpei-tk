@@ -117,16 +117,13 @@ $(() => {
       return `${references.map(reference_obj => {
         idx += 1
         return `<div id='${idx + 1}' class='col-md-12 search_content_item search_content_item_${ getSearchResultFilter(idx, last_idx) } ${ idx === 0 ? 'active' : '' }'>
-                  <div id='search_result_index' class='col-md-1'>
-                    ${idx+1}
-                  </div>
-                  <div id='search_content_title_text' class='col-md-11'>
-                    <a id='${ reference_obj.id }' href='${ reference_obj.absolute_url }' target='_blank' class='reference_download_tracker'>${ reference_obj.title ? reference_obj.title : _.replace(_.replace(reference_obj.document_file_name, new RegExp("_","g"), " "), new RegExp(".pdf","g"), "") }</a>
-                  </div>
                   <div class='col-md-1'>
                     <a id='${ reference_obj.id }' href='${ reference_obj.absolute_url }' target='_blank' class='reference_download_tracker'><img id='search_content_item_image' src='${ _.replace(reference_obj.absolute_url, new RegExp("pdf","g"), "png") }' class='img-responsive'></a>
                   </div>
                   <div id='search_content_item_info_wrapper' class='col-md-10'>
+                    <div id='search_content_title_text' class='col-md-12'>
+                      <a id='${ reference_obj.id }' href='${ reference_obj.absolute_url }' target='_blank' class='reference_download_tracker'>${ reference_obj.title ? reference_obj.title : _.replace(_.replace(reference_obj.document_file_name, new RegExp("_","g"), " "), new RegExp(".pdf","g"), "") }</a>
+                    </div>
                     <div class='col-md-2'>
                       <div id='library_download_div' class='inline_block'>
                         <a id='${ reference_obj.id }' href='${ reference_obj.absolute_url }' target='_blank' class='inline_block library_download_img reference_download_tracker'>
@@ -152,8 +149,7 @@ $(() => {
                       </div>
                     </div>
                     <div class='col-md-offset-1 col-md-2 text-right'>
-                      CATALOGUE:
-                      ${ reference_link_info[reference_obj.id]['isC4D'] ? "<div class='inline_block reference_search_result_is_c4d bold_text'>C4D</div>" : '' }
+                      ${ reference_link_info[reference_obj.id]['isC4D'] ? "<div class='inline_block reference_search_result_is_c4d bold_text'>C4D </div>" : '' }
                       ${ reference_link_info[reference_obj.id]['isSOP'] ? "<div class='inline_block reference_search_result_is_sop bold_text'>SOP</div>" : '' }
                     </div>
                     <div id='library_search_reference_link_description' class='col-md-9'>
