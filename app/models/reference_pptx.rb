@@ -8,6 +8,8 @@ class ReferencePptx < ActiveRecord::Base
 
   has_many :reference_pptx_articles
 
+  # has_many :tags
+
   has_many :reference_downloads, as: :reference_downloadable
   alias_attribute :downloads, :reference_downloads
 
