@@ -223,8 +223,8 @@
   min-height:100%;
 }
 #library_index_content_featured_content_grid {
-  margin-bottom: 15px;
-  margin-top: 15px;
+  /*margin-bottom: 15px;*/
+  margin-top: 16px;
 }
 #featured_content_item_image {
   height:65%;
@@ -294,7 +294,7 @@
   opacity: 0.3;
 }
 #library_index_content_popular_downloads {
-  margin-top:10px;
+  margin-top:16px;
 }
 .search_content_item {
   padding-right:30px !important;
@@ -339,7 +339,7 @@ a.max_width {
   padding-right:15px;
 }
 #library_index_content_popular_content_grid_wrapper {
-  padding-top:11px;
+  padding-top:16px;
 }
 #download_related_topics_div {
   padding-left:36px;
