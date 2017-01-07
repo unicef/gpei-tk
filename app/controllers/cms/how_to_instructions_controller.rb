@@ -2,16 +2,18 @@ class Cms::HowToInstructionsController < ApplicationController
   before_action :user_is_admin_or_editor?
 
   def index
-    instruction = HowToInstruction.all
-    render json: { status: 200, instruction: instruction }
+    cms_instructions = HowToInstruction.first
+    render json: { status: 200, cms_instructions: cms_instructions }
   end
 
   def create
-    instruction = HowToInstruction.new(content: params[:content])
-    if instruction.save
+    cms_instructions = HowToInstruction.first
+    if cms_instructions
+      cms_instructions.update(content: params[:how_to_instructions][:content])
       render json: { status: 200 }
     else
-      render json: { status: 403 }
+      HowToInstruction.create(content: params[:how_to_instructions][:content])
+      render json: { status: 200 }
     end
   end
 end

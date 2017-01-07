@@ -1,6 +1,16 @@
 .black_text {
   color: black;
 }
+#CMS_how_to_instructions_form .field {
+  width:90%;
+}
+#cms_cms_link {
+  padding-top:10px;
+  padding-left:15px;
+}
+#cms_cms_link a {
+  font-weight:bold;
+}
 .CMS_sop_article_form_div {
   width:98%;
   position: relative;
