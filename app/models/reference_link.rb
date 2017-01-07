@@ -15,7 +15,6 @@ class ReferenceLink < ActiveRecord::Base
 
   belongs_to :author, class_name: 'User', foreign_key: 'author_id'
 
-  # has_many :tags
 
   has_many :reference_downloads, as: :reference_downloadable
   alias_attribute :downloads, :reference_downloads
@@ -23,8 +22,8 @@ class ReferenceLink < ActiveRecord::Base
   has_many :reference_likes, as: :reference_likeable
   alias_attribute :likes, :reference_likes
 
+  has_many :tags, through: :tag_references
   has_many :tag_references, as: :reference_tagable
-  alias_attribute :tags, :tag_references
 
   has_attached_file :document,
                     :path => 'reference_links/:language/:filename',
