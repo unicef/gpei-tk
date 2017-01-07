@@ -6,37 +6,37 @@ $(() => {
       toggleProgressSpinner()
       $.ajax({
         method: 'GET',
-        url: 'api/sop_categories/'
+        url: '/api/sop_categories/'
       }).done(response => {
         let sop_categories = response.sop_categories
         $.ajax({
           method: 'GET',
-          url: 'api/sop_times/'
+          url: '/api/sop_times/'
         }).done(response => {
           let sop_times = response.sop_times
           $.ajax({
             method: 'GET',
-            url: 'api/responsible_offices/'
+            url: '/api/responsible_offices/'
           }).done(response => {
             let responsible_offices = response.responsible_offices
             $.ajax({
               method: 'GET',
-              url: 'api/support_affiliations/'
+              url: '/api/support_affiliations/'
             }).done(response => {
               let support_affiliations = response.support_affiliations
               $.ajax({
                 method: 'GET',
-                url: 'cms/reference_links'
+                url: '/cms/reference_links'
               }).done(response => {
                 let reference_links = response.reference_links
                 $.ajax({
                   method: 'GET',
-                  url: 'cms/reference_mp3s'
+                  url: '/cms/reference_mp3s'
                 }).done(response => {
                   let reference_mp3s = response.reference_mp3s
                   $.ajax({
                     method: 'GET',
-                    url: 'cms/reference_pptxes'
+                    url: '/cms/reference_pptxes'
                   }).done(response => {
                     let reference_pptxes = response.reference_pptxes
                     toggleProgressSpinner()
@@ -67,7 +67,7 @@ $(() => {
       let reference_pptx_order = getSOPArticleReferencePptxOrder()
       $.ajax({
         method: 'POST',
-        url: 'cms/sop_articles/',
+        url: '/cms/sop_articles/',
         data: $('#CMS_sop_article_create_form').serialize() + reference_link_order + reference_mp3_order + reference_pptx_order + "&authenticity_token=" + _.escape($('meta[name=csrf-token]').attr('content'))
       }).done(response => {
         toggleProgressSpinner()

@@ -287,7 +287,7 @@ $(() => {
         cache: false,
         contentType: false,
         processData: false,
-        url: 'cms/reference_links/',
+        url: '/cms/reference_links/',
         data: formData
       }).done(response => {
         toggleProgressSpinner()
@@ -317,7 +317,7 @@ $(() => {
         cache: false,
         contentType: false,
         processData: false,
-        url: 'cms/reference_mp3s/',
+        url: '/cms/reference_mp3s/',
         data: formData
       }).done(response => {
         toggleProgressSpinner()
@@ -346,7 +346,7 @@ $(() => {
         cache: false,
         contentType: false,
         processData: false,
-        url: 'cms/reference_pptxes/',
+        url: '/cms/reference_pptxes/',
         data: formData
       }).done(response => {
         toggleProgressSpinner()
@@ -702,7 +702,7 @@ $(() => {
       toggleProgressSpinner()
       $.ajax({
         method: 'GET',
-        url: 'cms/c4d_articles/'
+        url: '/cms/c4d_articles/'
       }).done(response => {
         toggleProgressSpinner()
         let content = formForEmbeddedImagesUpload(response.c4d_articles)
@@ -720,7 +720,7 @@ $(() => {
         cache: false,
         contentType: false,
         processData: false,
-        url: 'cms/embedded_images/',
+        url: '/cms/embedded_images/',
         data: formData
       }).done(response => {
         toggleProgressSpinner()

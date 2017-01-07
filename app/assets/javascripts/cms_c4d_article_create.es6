@@ -6,17 +6,17 @@ $(() => {
       let c4d_categories, c4d_subcategories
       $.ajax({
         method: 'GET',
-        url: 'api/c4d_categories/'
+        url: '/api/c4d_categories/'
       }).done(response => {
         c4d_categories = response.c4d_categories
         $.ajax({
           method: 'GET',
-          url: 'api/c4d_subcategories/'
+          url: '/api/c4d_subcategories/'
         }).done(response => {
           c4d_subcategories = response.c4d_subcategories
           $.ajax({
             method: 'GET',
-            url: 'cms/reference_links/'
+            url: '/cms/reference_links/'
           }).done(response => {
             toggleProgressSpinner()
             let reference_links = response.reference_links
@@ -41,7 +41,7 @@ $(() => {
       toggleProgressSpinner()
       $.ajax({
         method: 'POST',
-        url: 'cms/c4d_articles/',
+        url: '/cms/c4d_articles/',
         data: $('#CMS_c4d_article_create_form').serialize() + "&authenticity_token=" + _.escape($('meta[name=csrf-token]').attr('content'))
       }).done(response => {
         toggleProgressSpinner()

@@ -5,7 +5,7 @@ $(() => {
       toggleProgressSpinner()
       $.ajax({
         method: 'GET',
-        url: 'cms/users/'
+        url: '/cms/users/'
       }).done(response => {
         let users = response.users
         $.ajax({
@@ -99,7 +99,7 @@ $(() => {
       let data = $(e.currentTarget).serialize()
       $.ajax({
         method: 'POST',
-        url: 'cms/notifications/',
+        url: '/cms/notifications/',
         data: data
       }).done(response => {
         toggleProgressSpinner()

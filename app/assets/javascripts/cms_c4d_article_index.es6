@@ -15,14 +15,14 @@ $(() => {
       toggleProgressSpinner()
       $.ajax({
         method: 'GET',
-        url: 'cms/c4d_articles/'
+        url: '/cms/c4d_articles/'
       }).done(response => {
         let c4d_articles = response.c4d_articles
         let c4d_subcategories = response.c4d_subcategories
         let c4d_categories = response.c4d_categories
         $.ajax({
           method: 'GET',
-          url: 'cms/users/'
+          url: '/cms/users/'
         }).done(response => {
           toggleProgressSpinner()
           $('#CMS_index_content').empty()
@@ -224,7 +224,7 @@ $(() => {
         let prev_id = $(prev_row).attr('id')
         $.ajax({
           method: 'PATCH',
-          url: 'cms/c4d_articles/orderUp/' + id + '?prev_id=' + prev_id
+          url: '/cms/c4d_articles/orderUp/' + id + '?prev_id=' + prev_id
         }).done(response => {
           if (response.status === 200){
             current_row.find('#cms_c4d_article_order_id_div').text(response.current_c4d_article_order_id)
@@ -261,7 +261,7 @@ $(() => {
         let next_id = $(next_row).attr('id')
         $.ajax({
           method: 'PATCH',
-          url: 'cms/c4d_articles/orderDown/' + id + '?next_id=' + next_id
+          url: '/cms/c4d_articles/orderDown/' + id + '?next_id=' + next_id
         }).done(response => {
           if (response.status === 200){
             current_row.find('#cms_c4d_article_order_id_div').text(response.current_c4d_article_order_id)
@@ -289,12 +289,12 @@ $(() => {
       toggleProgressSpinner()
       $.ajax({
         method: 'GET',
-        url: 'cms/reference_links/'
+        url: '/cms/reference_links/'
       }).done(response => {
         let reference_links = response.reference_links
         $.ajax({
           method: 'GET',
-          url: 'cms/c4d_articles/' + e.currentTarget.children[0].id
+          url: '/cms/c4d_articles/' + e.currentTarget.children[0].id
         }).done(response => {
           toggleProgressSpinner()
           $('#CMS_modal').modal('show')
@@ -441,7 +441,7 @@ $(() => {
       toggleProgressSpinner()
       $.ajax({
         method: 'PATCH',
-        url: 'cms/c4d_articles/publish/' + id,
+        url: '/cms/c4d_articles/publish/' + id,
         data: { authenticity_token: _.escape($('meta[name=csrf-token]').attr('content')) }
       }).done(response => {
         toggleProgressSpinner()
@@ -491,7 +491,7 @@ $(() => {
       let reference_link_order = getC4dArticleReferenceLinkOrder()
       $.ajax({
         method: 'PATCH',
-        url: 'cms/c4d_articles/' + e.currentTarget.parentElement.id,
+        url: '/cms/c4d_articles/' + e.currentTarget.parentElement.id,
         data: $('#CMS_c4d_article_form').serialize() + reference_link_order
       }).done(response => {
         toggleProgressSpinner()

@@ -14,14 +14,14 @@ $(() => {
       e.preventDefault()
       $.ajax({
         method: 'GET',
-        url: 'cms/sop_articles/'
+        url: '/cms/sop_articles/'
       }).done(response => {
         let sop_articles = response.sop_articles
         let sop_time_periods = response.sop_time_periods
         let sop_categories = response.sop_categories
         $.ajax({
           method: 'GET',
-          url: 'cms/users/'
+          url: '/cms/users/'
         }).done(response => {
           toggleProgressSpinner()
           $('#CMS_index_content').empty()
@@ -109,7 +109,7 @@ $(() => {
       toggleProgressSpinner()
       $.ajax({
         method: 'PATCH',
-        url: 'cms/sop_articles/publish/' + id,
+        url: '/cms/sop_articles/publish/' + id,
         data: { authenticity_token: _.escape($('meta[name=csrf-token]').attr('content')) }
       }).done(response => {
         toggleProgressSpinner()
@@ -270,7 +270,7 @@ $(() => {
         let prev_id = $(prev_row).attr('id')
         $.ajax({
           method: 'PATCH',
-          url: 'cms/sop_articles/orderUp/' + id + '?prev_id=' + prev_id
+          url: '/cms/sop_articles/orderUp/' + id + '?prev_id=' + prev_id
         }).done(response => {
           if (response.status === 200){
             current_row.find('#cms_sop_article_order_id_div').text(response.current_sop_article_order_id)
@@ -308,7 +308,7 @@ $(() => {
         let next_id = $(next_row).attr('id')
         $.ajax({
           method: 'PATCH',
-          url: 'cms/sop_articles/orderDown/' + id + '?next_id=' + next_id
+          url: '/cms/sop_articles/orderDown/' + id + '?next_id=' + next_id
         }).done(response => {
           if (response.status === 200){
             current_row.find('#cms_sop_article_order_id_div').text(response.current_sop_article_order_id)
@@ -341,12 +341,12 @@ $(() => {
       toggleProgressSpinner()
       $.ajax({
         method: 'GET',
-        url: 'cms/reference_links'
+        url: '/cms/reference_links'
       }).done(response => {
         let reference_links = response.reference_links
         $.ajax({
           method: 'GET',
-          url: 'cms/sop_articles/' + e.currentTarget.id
+          url: '/cms/sop_articles/' + e.currentTarget.id
         }).done(response => {
           toggleProgressSpinner()
           $('#CMS_modal').modal('show')
@@ -702,7 +702,7 @@ $(() => {
       let reference_pptx_order = getSOPArticleReferencePptxOrder()
       $.ajax({
         method: 'PATCH',
-        url: 'cms/sop_articles/' + e.currentTarget.parentElement.id,
+        url: '/cms/sop_articles/' + e.currentTarget.parentElement.id,
         data: $('#CMS_sop_article_form').serialize() + reference_link_order + reference_mp3_order + reference_pptx_order
       }).done(response => {
         toggleProgressSpinner()

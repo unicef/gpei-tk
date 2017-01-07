@@ -5,7 +5,7 @@ $(() => {
       toggleProgressSpinner()
       $.ajax({
         method: 'GET',
-        url: 'cms/users/'
+        url: '/cms/users/'
       }).done(response => {
         let users = response.users
         $.ajax({
