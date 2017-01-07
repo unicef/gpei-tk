@@ -53,10 +53,14 @@ Rails.application.routes.draw do
 
     resources :featured_references, only: [:index, :destroy, :create]
 
+    resources :tags, only: [:index, :destroy, :create]
+
     resources :embedded_images, only: [:create]
 
     resources :feedbacks, only: [:index, :create]
     resources :notifications, only: [:index, :create]
+
+    resources :how_to_instructions, only: [:index, :create]
   end
 
   namespace :api, defaults: { format: :json } do
