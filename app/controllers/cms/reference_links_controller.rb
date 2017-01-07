@@ -5,7 +5,10 @@ class Cms::ReferenceLinksController < ApplicationController
     reference_links = ReferenceLink.all.order(:document_file_name)
     reference_link_categories = getReferenceLinkCategories(reference_links)
     categories = { sop_categories: SopCategory.all, c4d_categories: C4dCategory.all }
-    render json: { reference_links: reference_links, reference_link_categories: reference_link_categories, categories: categories, status: 200 }
+    render json: { reference_links: reference_links,
+                   reference_link_categories: reference_link_categories,
+                   categories: categories,
+                   status: 200 }
   end
 
   def show
@@ -13,10 +16,12 @@ class Cms::ReferenceLinksController < ApplicationController
       reference_link = ReferenceLink.find_by(id: params[:id])
       reference_links = ReferenceLink.where('id <> ?', reference_link.id).order(:document_file_name)
       related_reference_links = reference_link.related_topics
+      tags = Tag.all
       render json: { status: 200,
                      related_reference_links: related_reference_links,
                      reference_links: reference_links,
-                     reference_link: reference_link }
+                     reference_link: reference_link,
+                     tags: tags }
     end
   end
 
@@ -50,6 +55,10 @@ class Cms::ReferenceLinksController < ApplicationController
     if request.xhr?
       reference_link = ReferenceLink.find_by(id: params[:id])
       if reference_link.update(safe_reference_link_params)
+        TagReference.where(reference_tagable: reference_link).destroy_all
+        params[:tags].each do |tag_id|
+          TagReference.create(tag_id: tag_id, reference_tagable: reference_link)
+        end
         RelatedReference.where(reference_link_id: reference_link.id).destroy_all
         if params[:reference_link][:related_topics]
           params[:reference_link][:related_topics].each do |id|
@@ -99,9 +108,9 @@ class Cms::ReferenceLinksController < ApplicationController
         reference_link_categories[reference_link.id] = []
         links.each do |link|
           if link.reference_linkable.has_attribute?(:sop_category_id)
-            reference_link_categories[reference_link.id] << { details: link.reference_linkable.sop_time.period + ' > ' + link.reference_linkable.sop_category.title + ' > ' + link.reference_linkable.order_id.to_s, category: link.reference_linkable.sop_category.title }
+            reference_link_categories[reference_link.id] << { details: link.reference_linkable.sop_time.period + ' > ' + link.reference_linkable.sop_category.title + ' > ' + link.reference_linkable.order_id.to_s, category: link.reference_linkable.sop_category.title, tags: reference_link.tags }
           else
-            reference_link_categories[reference_link.id] << { details: link.reference_linkable.c4d_category.title + ' > '+ link.reference_linkable.c4d_subcategory.title + ' > ' + link.reference_linkable.order_id.to_s, category: link.reference_linkable.c4d_category.title }
+            reference_link_categories[reference_link.id] << { details: link.reference_linkable.c4d_category.title + ' > '+ link.reference_linkable.c4d_subcategory.title + ' > ' + link.reference_linkable.order_id.to_s, category: link.reference_linkable.c4d_category.title, tags: reference_link.tags }
           end
         end
       end
