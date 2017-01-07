@@ -55,7 +55,13 @@
 #reference_link_checkboxes {
   margin:0 !important;
 }
-
+#tags_checkboxes ul {
+  overflow: scroll;
+  border:1px solid black;
+  width:30%;
+  padding:2px;
+  min-height:100px;
+}
 #reference_link_checkboxes ul {
   max-height:150px;
   min-height:150px;
