@@ -1,8 +1,15 @@
 <script type="text/javascript">$('#application').css({ background: 'none' })</script>
-<div class='col-md-11' style='padding-left:10px'>
+<div class='col-md-9' style='padding-left:10px'>
   Welcome, <strong><%= current_user.first_name %> <%= current_user.last_name %></strong>!
 </div>
-<div id='cms_log_out_div' class='col-md-1'><a id="nav_user_sign_out" class="" href=''><u>Sign out</u></a></div>
+<div id='cms_log_out_div' class='col-md-3 text-right'>
+  <div class='col-md-6 text-left'>
+    <a href='/'><u>return to poliok.it</u></a>
+  </div>
+  <div id='cms_user_sign_out_div' class='col-md-6 text-right'>
+    <a id="nav_user_sign_out" class="" href=''><u>Sign out</u></a>
+  </div>
+</div>
 <div id='progress_spinner' style='visibility:hidden;'>
   <i class="fa fa-cog fa-spin fa-fw" style="font-size:96px;"></i>
 </div>
