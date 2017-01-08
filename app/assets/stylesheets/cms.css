@@ -295,3 +295,6 @@
   max-height:500px !important;
   height:70%;
 }
+#cms_user_sign_out_div {
+  padding-right:10px;
+}
