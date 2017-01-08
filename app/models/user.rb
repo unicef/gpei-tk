@@ -14,7 +14,7 @@ class User < ActiveRecord::Base
   belongs_to :role
 
   validates_uniqueness_of :email
-  validates :password, length: { in: 8..36 }
+  validates :password, length: { minimum: 8 }
 
   def is_admin?
     self.role.title == 'Administrator' || self.role.title == 'root'
