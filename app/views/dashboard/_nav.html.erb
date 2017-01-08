@@ -86,7 +86,7 @@
                     <% end %>
                   </div>
                 </div>
-                <% if current_user.is_admin? %>
+                <% if current_user.is_admin? || current_user.is_editor? %>
                   <div class="item">
                     <a id="nav_cms_link" class="white_text_black_bg" href='/cms/'><i class="fa fa-cogs" aria-hidden="true"></i>CMS</a>
                   </div>
