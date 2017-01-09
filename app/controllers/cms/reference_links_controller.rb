@@ -36,6 +36,7 @@ class Cms::ReferenceLinksController < ApplicationController
                                             document_language: params[:document_language],
                                             places: params[:places])
           reference_link.absolute_url = reference_link.document.url
+          reference_link.absolute_url.gsub!('http', 'https')
           if !reference_link.save
             errors << reference_link.errors
           end
