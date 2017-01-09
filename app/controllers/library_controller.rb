@@ -25,8 +25,7 @@ class LibraryController < ApplicationController
     @is_library = true
     @reference_links = ReferenceLink.joins(:reference_link_articles).order(id: :asc).all
     @reference_link_info = getReferenceLinkInfo(@reference_links)
-    @featured_references = ReferenceLink.joins(:featured_references).all.order(document_file_name: :asc)
-    @popular_downloads = ReferenceDownload.group(:reference_downloadable_id).order('count_id desc').count('id')
+    @featured_references = ReferenceLink.joins(:featured_references).all
   end
 
   def getReferenceLinkInfo(reference_links)
