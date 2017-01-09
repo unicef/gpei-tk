@@ -138,7 +138,7 @@
   font-family: 'Adelle' !important;
   font-weight:bold;
   font-size:24px;
-  line-height:32px;
+  line-height:24px;
   padding-left:5px;
 }
 #library_index_content_search_results_pagination_wrapper {
@@ -299,7 +299,7 @@
   opacity: 0.3;
 }
 #library_index_content_popular_downloads {
-  margin-top:16px;
+  margin-top:40px;
 }
 .search_content_item {
   padding-right:30px !important;
