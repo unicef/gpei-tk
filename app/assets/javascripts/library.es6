@@ -118,7 +118,7 @@ $(() => {
         idx += 1
         return `<div id='${idx + 1}' class='col-md-12 search_content_item search_content_item_${ getSearchResultFilter(idx, last_idx) } ${ idx === 0 ? 'active' : '' }'>
                   <div class='col-md-1'>
-                    <a id='${ reference_obj.id }' href='${ reference_obj.absolute_url }' target='_blank' class='reference_download_tracker'><img id='search_content_item_image' src='${ _.replace(reference_obj.absolute_url, new RegExp("pdf","g"), "png") }' class='img-responsive'></a>
+                    <a id='${ reference_obj.id }' href='${ reference_obj.absolute_url }' target='_blank' class='reference_download_tracker'><img id='search_content_item_image' src="${ _.replace(reference_obj.absolute_url, new RegExp("pdf","g"), "png") }" class='img-responsive'></a>
                   </div>
                   <div id='search_content_item_info_wrapper' class='col-md-11'>
                     <div id='search_content_title_text' class='col-md-12'>
