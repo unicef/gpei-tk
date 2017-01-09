@@ -89,8 +89,8 @@
   border-radius:25px;
   min-width:36px;
   text-align:center;
-  padding-left:2px;
-  padding-right:2px;
+  padding-left:3px;
+  padding-right:3px;
   background:#CDAF95 !important;
   color:white !important;
 }
@@ -182,6 +182,10 @@
 .library_featured_pagination_indicators a {
   color: black;
 }
+.library_featured_pagination_indicators a {
+  line-height:12px;
+  display:inline-block;
+}
 .library_search_pagination_indicators.active,
 .library_featured_pagination_indicators.active {
   background-color: black !important;
@@ -233,7 +237,7 @@
 #popular_content_title_text{
   font-family: 'proxima-nova' !important;
   font-weight:bold;
-  margin-bottom:10px;
+  margin-bottom:4px;
   color:black;
 }
 #featured_content_title_text a{
@@ -251,7 +255,7 @@
 #search_content_title_text,
 #popular_content_title_text {
   padding-left: 0px !important;
-  font-size:15px !important;
+  font-size:16px !important;
 }
 .bold_text {
   font-weight:bold;
@@ -263,7 +267,7 @@
 }
 #library_search_reference_link_description,
 #library_reference_link_description {
-  margin-top:10px;
+  margin-top:4px;
 }
 .library_like_icon{
   height:12px;
@@ -281,7 +285,7 @@
 }
 .library_like_img {
   position: relative;
-  top:-2px;
+  top:-1.5px;
   padding-left:2px;
   line-height:0.75em!important;
   border-radius:25px;
@@ -346,6 +350,10 @@ a.max_width {
   display: inline-block;
   width: auto;
   padding-right: 12px;
+}
+#download_related_topics_div,
+.langauage_indicator_wrapper {
+  font-size:13px !important;
 }
 #like_and_download_wrapper {
   display: inline-block;
