@@ -53,6 +53,16 @@ $(() => {
       url: '/api/reference_likes/',
       data: { id: $(e.currentTarget).attr('id') }
     }).done(response => {
+      if(!_.isNull(response.user) && !response.like_deleted){
+        $(e.currentTarget.parentElement).find('img').attr('src', '/assets/icons/icon-like-white-2x.png')
+        $(e.currentTarget.parentElement).addClass('like_by_user_div')
+        $(e.currentTarget.parentElement).find('.counter_indicator_text_div').addClass('liked_by_user_white_text')
+      }
+      else {
+        $(e.currentTarget.parentElement).removeClass('like_by_user_div')
+        $(e.currentTarget.parentElement).find('.counter_indicator_text_div').removeClass('liked_by_user_white_text')
+        $(e.currentTarget.parentElement).find('img').attr('src', '/assets/icons/icon-like-grey2x.png')
+      }
       $(e.currentTarget.parentElement).find('.counter_indicator_text_div').text(response.like_count)
     })
     return false
