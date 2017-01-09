@@ -114,6 +114,9 @@ $(() => {
     function getSearchResultRows(references, reference_link_info){
       let idx = -1
       let last_idx = references.length - 1
+      if (references.length === 0){
+        return `<div class='col-md-12 search_content_item search_content_item_1' style='padding-left:5px'><h3>No Results</h3></div>`
+      }
       return `${references.map(reference_obj => {
         idx += 1
         return `<div id='${idx + 1}' class='col-md-12 search_content_item search_content_item_${ getSearchResultFilter(idx, last_idx) } ${ idx === 0 ? 'active' : '' }'>
