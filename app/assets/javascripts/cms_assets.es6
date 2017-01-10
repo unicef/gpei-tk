@@ -496,7 +496,7 @@ $(() => {
         document_language = document_language === 'No document language input' ? '' : document_language
         let places = $('#CMS_index_content #' + e.currentTarget.parentElement.id + ` #cms_reference_${type}_places_div`).text()
         places = places === 'No places input' ? '' : places
-        let selected_tags = $('#CMS_index_content #' + e.currentTarget.parentElement.id + ` #cms_reference_${type}_tags_div`).text().split(' ')
+        let selected_tags = response.selected_tags
         // $('#CMS_index_content').empty()
         let content = getReferenceLinkEditForm(title,
                                               $(e.currentTarget).attr('href'),
@@ -602,7 +602,7 @@ $(() => {
           <label>All selectable tags:</label>
             <ul class='list-unstyled'>
             ${_.map(tags, tag => {
-                let checked = !_.isEmpty(_.filter(selected_tags, (selected_tag) => { return selected_tag === tag.title })) ? "checked" : ""
+                let checked = !_.isEmpty(_.filter(selected_tags, (selected_tag) => { return selected_tag.id === tag.id })) ? "checked" : ""
                 return `<li>
                             <input id=${tag.id} ${checked} type='checkbox' name="tags[]" value="${tag.id}">
                             <label id='cms_reference_tag_label' class='filter-label' for=${ tag.id }>${tag.title}</label>
@@ -635,6 +635,7 @@ $(() => {
         $('#cms_reference_link_grid #'+response.id+'.reference_link_item').find('#cms_reference_link_description_div').text(response.description)
         $('#cms_reference_link_grid #'+response.id+'.reference_link_item').find('#cms_reference_link_document_language_div').text(response.document_language)
         $('#cms_reference_link_grid #'+response.id+'.reference_link_item').find('#cms_reference_link_places_div').text(response.places)
+        $('#cms_reference_link_grid #'+response.id+'.reference_link_item').find('#cms_reference_link_tags_div').text(_.map(response.tags, tag => { return tag.title}).join(' '))
       })
       return false
     })
