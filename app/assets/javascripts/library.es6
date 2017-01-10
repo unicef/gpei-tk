@@ -121,7 +121,6 @@ $(() => {
                   ${references.length > 10 ? getSearchResultsPaginator({ references: references, reference_link_info: reference_link_info }) : ''}
                 </div>
               </div>
-
               <div id='search_selected_filters_display' class='col-md-4'>
               </div>
               <div id='search_sort_wrapper' class='col-md-offset-6 col-md-2'>
@@ -140,12 +139,6 @@ $(() => {
                         <div class="ui radio checkbox">
                           <input type="radio" name="sort_search" data-filter='title'>
                           <label>Title</label>
-                        </div>
-                      </div>
-                      <div class="field item">
-                        <div class="ui radio checkbox">
-                          <input type="radio" name="sort_search" data-filter='author'>
-                          <label>Author</label>
                         </div>
                       </div>
                       <div class="field item">
