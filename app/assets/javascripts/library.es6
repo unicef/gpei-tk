@@ -119,7 +119,7 @@ $(() => {
       }
       return `${references.map(reference_obj => {
         idx += 1
-        return `<div id='${idx + 1}' class='col-md-12 search_content_item search_content_item_${ getSearchResultFilter(idx, last_idx) } ${ idx === 0 ? 'active' : '' }'>
+        return `<div id='${idx + 1}' class='col-md-12 search_content_item search_content_item_${ getSearchResultFilter(idx+1) } ${ idx === 0 ? 'active' : '' }'>
                   <div class='col-md-1'>
                     <a id='${ reference_obj.id }' href='${ reference_obj.absolute_url }' target='_blank' class='reference_download_tracker'><img id='search_content_item_image' src="${ _.replace(reference_obj.absolute_url, new RegExp("pdf","g"), "png") }" class='img-responsive'></a>
                   </div>
@@ -166,9 +166,11 @@ $(() => {
         }`
     }
 
-    function getSearchResultFilter(idx, last_idx){
-      if (idx < 10) {
+    function getSearchResultFilter(idx){
+      if (idx <= 10) {
         return 1
+      } else if (idx % 10 === 0) {
+        return (idx / 10)
       } else {
         return (idx / 10 + 1).toFixed(0)
       }
@@ -302,7 +304,15 @@ $(() => {
 
     $(window).load(() => {
       $featured_grid.isotope({filter: '.active'})
+      loadBrowseGrid()
     })
+    function loadBrowseGrid(){
+      browse_grid.isotope({
+        itemSelector: `.browse_content_item`,
+        layoutMode: 'fitRows',
+        filter: '.browse_content_item_1'
+      })
+    }
 
     $('#library_logo_text_link').click(e => {
       e.preventDefault()
@@ -319,4 +329,57 @@ $(() => {
       $('#reference_link_show_modal .header').empty()
     }
   })
+
+  // browse paginator clicks
+  let browse_grid = $(`#library_index_content_popular_content_grid`)
+  $('#library').on('click', '.library_browse_pagination_indicators a', e => {
+    e.preventDefault()
+    let id = e.currentTarget.id
+    $('.library_browse_pagination_indicators.active').removeClass('active')
+    $(e.currentTarget.parentElement).addClass('active')
+    browse_grid.isotope({ filter: `.browse_content_item_${id}`})
+    return false
+  })
+
+  $('#library').on('click', '.library_browse_pagination_indicators', e => {
+    e.preventDefault()
+    let id = $(e.currentTarget).find('a').attr('id')
+    $('.library_browse_pagination_indicators.active').removeClass('active')
+    $(e.currentTarget).addClass('active')
+    browse_grid.isotope({ filter: `.browse_content_item_${id}`})
+    return false
+  })
+
+  $('#library').on('click', '#browse_paginator_left_angle a', e => {
+    e.preventDefault()
+    let id = parseInt($('.library_browse_pagination_indicators.active a').attr('id'))
+    let max_id = parseInt($('#browse_paginator_right_angle a i').attr('id'))
+    if (id !== 1){
+      $('#library .library_browse_pagination_indicators.active').removeClass('active')
+      $(`#library .library_browse_pagination_indicators #${id-1}`).parent().addClass('active')
+      browse_grid.isotope({ filter: `.browse_content_item_${id-1}`})
+    } else if (id === 1){
+      $('#library .library_browse_pagination_indicators.active').removeClass('active')
+      $(`#library .library_browse_pagination_indicators #${max_id}`).parent().addClass('active')
+      browse_grid.isotope({ filter: `.browse_content_item_${max_id}`})
+    }
+    return false
+  })
+
+  $('#library').on('click', '#browse_paginator_right_angle a', e => {
+    e.preventDefault()
+    let id = parseInt($('.library_browse_pagination_indicators.active a').attr('id'))
+    let max_id = parseInt($('#browse_paginator_right_angle a i').attr('id'))
+    if (id !== max_id){
+      $('#library .library_browse_pagination_indicators.active').removeClass('active')
+      $(`#library .library_browse_pagination_indicators #${id+1}`).parent().addClass('active')
+      browse_grid.isotope({ filter: `.browse_content_item_${id+1}`})
+    } else if (id === max_id){
+      $('#library .library_browse_pagination_indicators.active').removeClass('active')
+      $(`#library .library_browse_pagination_indicators #1`).parent().addClass('active')
+      browse_grid.isotope({ filter: `.browse_content_item_1`})
+    }
+    return false
+  })
+  //
 })
