@@ -473,6 +473,7 @@ $(() => {
       $('#library_index_content_featured').css('display', 'block')
       $('#library_index_content_popular_downloads').css('display', 'block')
       $('#library_content_search_results').empty()
+      $('#library_content_search_input').val('')
       return false
     })
   }
