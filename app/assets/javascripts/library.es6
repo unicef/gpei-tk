@@ -33,6 +33,11 @@ $(() => {
           $('#library_content_search_results').append(getSearchResultContent(response.references, response.reference_link_info, response.users))
           $('#application .ui.simple.dropdown.item').dropdown()
           $('#application .ui.radio.checkbox').checkbox()
+          $('#application .ui.checkbox').checkbox()
+          $('#application .ui.dropdown').dropdown({
+            on:'hover',
+            action:'nothing'
+          })
           loadSearchGrid()
         }
       })
@@ -69,7 +74,46 @@ $(() => {
     }
 
     function getSearchResultContent(references, reference_link_info, users){
-      return `<div id='search_results_header_wrapper' class='col-md-10'>
+              //       <div id="search_filter_dropdown_wrapper" class='col-md-2'>
+              //   <div class="ui compact menu">
+              //     <div class="ui simple dropdown item">
+              //       <i class="fa fa-angle-down fa-2x" aria-hidden="true">&nbsp;&nbsp;</i>
+              //       <div id="search_filter_header"> SELECT FILTERS</div>
+              //       <div id='search_sort_radio_div' class="menu col-md-12">
+              //         <div class='col-md-12'>
+              //           <div class="ui checkbox col-md-3">
+              //             <div class='col-md-3'>
+              //               THEME
+              //             </div>
+              //             <div class="field item col-md-12">
+              //               <input type="checkbox" name="sort_filter" data-filter='relevance'>
+              //               <label>Relevance</label>
+              //             </div>
+              //           </div>
+              //           <div class="ui checkbox col-md-3">
+              //             <div class='col-md-3'>
+              //               PLACE
+              //             </div>
+              //             <div class="field item col-md-12">
+              //               <input type="checkbox" name="sort_filter" data-filter='relevance'>
+              //               <label>Relevance</label>
+              //             </div>
+              //           </div>
+              //           <div class="ui checkbox col-md-3">
+              //             <div class='col-md-3'>
+              //               LANGUAGE
+              //             </div>
+              //             <div class="field item col-md-12">
+              //               <input type="checkbox" name="sort_filter" data-filter='relevance'>
+              //               <label>Relevance</label>
+              //             </div>
+              //           </div>
+              //         </div>
+              //       </div>
+              //     </div>
+              //   </div>
+              // </div>
+      return `<div id='search_results_header_wrapper' class='col-md-12'>
                 <div id='library_index_content_search_results_header_text' class='col-md-3'>
                   Search Results
                 </div>
@@ -77,7 +121,10 @@ $(() => {
                   ${references.length > 10 ? getSearchResultsPaginator({ references: references, reference_link_info: reference_link_info }) : ''}
                 </div>
               </div>
-              <div id='search_sort_wrapper' class='col-md-2'>
+
+              <div id='search_selected_filters_display' class='col-md-4'>
+              </div>
+              <div id='search_sort_wrapper' class='col-md-offset-6 col-md-2'>
                 <div class="ui compact menu">
                   <div class="ui simple dropdown item">
                     <span id='sort_search_dropdown_header'>SORT RESULTS</span>
