@@ -175,7 +175,7 @@ $(() => {
         let regex_search_value = new RegExp(search_value, 'i')
         let found_file_name = file_name.match(regex_search_value)
         let found_title = title.match(regex_search_value)
-        return found_title || found_file_name;
+        return found_title || found_file_name || !_.isNull(_.lowerCase(_.trim($(this).find('#cms_reference_link_file_name_div').text())).match(_.lowerCase(_.trim(search_value))))
       }
       $('#cms_reference_link_grid').isotope({ filter: filterFunc })
       return false
