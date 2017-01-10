@@ -4,7 +4,7 @@ class LibraryController < ApplicationController
   end
 
   def referenceSearch
-    reference_links = ReferenceLink.joins(:reference_link_articles).search_refs(params[:search][:query])
+    reference_links = ReferenceLink.joins(:reference_link_articles).search_refs(params[:search][:query]).uniq
     reference_mp3s = ReferenceMp3.joins(:reference_mp3_articles).search_refs(params[:search][:query])
     reference_pptxes = ReferencePptx.joins(:reference_pptx_articles).search_refs(params[:search][:query])
     references = (reference_links + reference_mp3s + reference_pptxes).compact
@@ -24,7 +24,8 @@ class LibraryController < ApplicationController
   def initializeVars
     @is_library = true
     # @reference_links = ReferenceLink.joins(:reference_link_articles).order(download_count: :desc, like_count: :desc, created_at: :desc).all
-    @reference_links = ReferenceLink.joins(:reference_link_articles).order(download_count: :desc, like_count: :desc, created_at: :desc).includes(:author).all
+    @reference_links = ReferenceLink.joins(:reference_link_articles).order(download_count: :desc, like_count: :desc, created_at: :desc).includes(:author).all.uniq
+    binding.pry
     @reference_link_info = getReferenceLinkInfo(@reference_links)
     @featured_references = ReferenceLink.joins(:featured_references).all
   end
