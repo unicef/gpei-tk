@@ -25,7 +25,6 @@ class LibraryController < ApplicationController
     @is_library = true
     # @reference_links = ReferenceLink.joins(:reference_link_articles).order(download_count: :desc, like_count: :desc, created_at: :desc).all
     @reference_links = ReferenceLink.joins(:reference_link_articles).order(download_count: :desc, like_count: :desc, created_at: :desc).includes(:author).all.uniq
-    binding.pry
     @reference_link_info = getReferenceLinkInfo(@reference_links)
     @featured_references = ReferenceLink.joins(:featured_references).all
   end
