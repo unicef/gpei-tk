@@ -27,6 +27,10 @@
   bottom:20px;
   left:15px;
 }
+.browse_paginator_page_numbers {
+  padding-left:5px;
+  padding-right:5px;
+}
 #library_content_search_input {
   background: url(/assets/icons/icon-search-grey-sml.png) no-repeat;
   background-position:right 5px center;
@@ -152,6 +156,7 @@
   padding-left:5px;
   margin-top:10px;
 }
+#library_index_content_popular_header_text,
 #library_index_content_featured_header_text {
   width:14%;
 }
@@ -165,6 +170,7 @@
   padding-right:15px;
   padding-top:10px;
 }
+.library_browse_pagination_indicators,
 .library_search_pagination_indicators,
 .library_featured_pagination_indicators {
   display:inline-block;
@@ -179,19 +185,23 @@
   line-height:18px;
   margin-left:3px;
 }
+.library_browse_pagination_indicators a,
 .library_search_pagination_indicators a,
 .library_featured_pagination_indicators a {
   color: black;
 }
+.library_browse_pagination_indicators a,
 .library_featured_pagination_indicators a {
   line-height:12px;
   display:inline-block;
 }
+.library_browse_pagination_indicators.active,
 .library_search_pagination_indicators.active,
 .library_featured_pagination_indicators.active {
   background-color: black !important;
   opacity:1 !important;
 }
+.library_browse_pagination_indicators.active a,
 .library_search_pagination_indicators.active a,
 .library_featured_pagination_indicators.active a {
   background-color: black !important;
@@ -203,20 +213,33 @@
 #featured_pagination_left_angle_div {
   display: inline-block;
   position: relative;
-  /*top:5px;*/
 }
 #search_results_paginator_left_angle{
   right:-1px;
 }
+#browse_paginator_right_angle,
+#browse_paginator_left_angle,
+#featured_pagination_right_angle_div,
+#featured_pagination_left_angle_div {
+  top:1px;
+}
+#browse_paginator_right_angle,
+#browse_paginator_left_angle {
+  position: relative;
+}
+
 #featured_pagination_left_angle_div {
   right:5px;
 }
 #search_results_paginator_right_angle{
   left:5px;
 }
+
 #featured_pagination_right_angle_div {
   left:7px;
 }
+#browse_paginator_left_angle a,
+#browse_paginator_right_angle a,
 #search_results_paginator_left_angle a,
 #search_results_paginator_right_angle a,
 #featured_pagination_left_angle_div a,
@@ -397,4 +420,8 @@ a.max_width {
 #catalogue_wrapper {
   position:absolute;
   right:5px;
+}
+#library_index_content_featured_pagination *,
+#browse_paginator_div *{
+  display: inline-block;
 }
