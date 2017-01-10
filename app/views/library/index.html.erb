@@ -201,8 +201,14 @@
             </div>
           <% end %>
         </div>
+        <% if @reference_links.count > 20 %>
+          <div id='browse_bottom_pagination_control' class='col-md-12'>
+            <%= render 'library/paginator' %>
+          </div>
+        <% end %>
       </div>
     </div>
+
   </div>
   <div id='library_content_search_results' class='col-md-12'>
   </div>

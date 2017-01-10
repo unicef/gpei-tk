@@ -72,6 +72,11 @@ $(() => {
         }
       })
     }
+    function getSearchPaginator(references, reference_link_info){
+      return `<div id='library_index_content_search_results_pagination_wrapper' class='col-md-5'>
+                ${references.length > 10 ? getSearchResultsPaginator({ references: references, reference_link_info: reference_link_info }) : ''}
+              </div>`
+    }
 
     function getSearchResultContent(references, reference_link_info, users){
               //       <div id="search_filter_dropdown_wrapper" class='col-md-2'>
@@ -117,9 +122,7 @@ $(() => {
                 <div id='library_index_content_search_results_header_text' class='col-md-3'>
                   Search Results
                 </div>
-                <div id='library_index_content_search_results_pagination_wrapper' class='col-md-5'>
-                  ${references.length > 10 ? getSearchResultsPaginator({ references: references, reference_link_info: reference_link_info }) : ''}
-                </div>
+                ${references.length > 10 ? getSearchPaginator(references, reference_link_info) : ''}
               </div>
               <div id='search_selected_filters_display' class='col-md-4'>
               </div>
@@ -169,6 +172,9 @@ $(() => {
                 <div id='library_content_search_results_grid'>
                   ${getSearchResultRows(references, reference_link_info, users)}
                 </div>
+              </div>
+              <div id='search_pagination_controls_wrapper' class='col-md-12'>
+                ${references.length > 10 ? getSearchPaginator(references, reference_link_info) : ''}
               </div>`
     }
 

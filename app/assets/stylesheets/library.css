@@ -495,6 +495,10 @@ a.max_width {
   font-size:16px;
   font-family: 'proxima-nova';
 }
-.sixteen_px {
-  font-size:16px;
+#search_pagination_controls_wrapper {
+  padding-left:15px;
+  padding-bottom:15px;
+}
+#browse_bottom_pagination_control {
+  padding-bottom:15px;
 }
