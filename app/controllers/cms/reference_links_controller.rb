@@ -16,12 +16,14 @@ class Cms::ReferenceLinksController < ApplicationController
       reference_link = ReferenceLink.find_by(id: params[:id])
       reference_links = ReferenceLink.where('id <> ?', reference_link.id).order(:document_file_name)
       related_reference_links = reference_link.related_topics
+      selected_tags = reference_link.tags
       tags = Tag.all
       render json: { status: 200,
                      related_reference_links: related_reference_links,
                      reference_links: reference_links,
                      reference_link: reference_link,
-                     tags: tags }
+                     tags: tags,
+                     selected_tags: selected_tags }
     end
   end
 
@@ -57,8 +59,10 @@ class Cms::ReferenceLinksController < ApplicationController
       reference_link = ReferenceLink.find_by(id: params[:id])
       if reference_link.update(safe_reference_link_params)
         TagReference.where(reference_tagable: reference_link).destroy_all
-        params[:tags].each do |tag_id|
-          TagReference.create(tag_id: tag_id, reference_tagable: reference_link)
+        if params[:tags]
+          params[:tags].each do |tag_id|
+            TagReference.create(tag_id: tag_id, reference_tagable: reference_link)
+          end
         end
         RelatedReference.where(reference_link_id: reference_link.id).destroy_all
         if params[:reference_link][:related_topics]
@@ -71,7 +75,8 @@ class Cms::ReferenceLinksController < ApplicationController
                        description: reference_link.description,
                        title: reference_link.title,
                        document_language: reference_link.document_language,
-                       places: reference_link.places }
+                       places: reference_link.places,
+                       tags: reference_link.tags }
       else
         render json: { status: 403 }
       end
