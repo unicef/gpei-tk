@@ -40,6 +40,7 @@ class Api::ReferenceLikesController < ApplicationController
       end
       reference_like_count = ReferenceLike.where(reference_likeable_id: reference.id,
                                                  reference_likeable_type: reference.class.model_name.name).count
+      reference.update(like_count: reference.likes.count)
       render json: { status: 200,
                     like_count: reference_like_count,
                     user: (user.email != 'guest_not_signed_in@unicef.org' ? user : nil),

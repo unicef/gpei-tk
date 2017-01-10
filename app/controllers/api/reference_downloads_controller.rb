@@ -8,6 +8,7 @@ class Api::ReferenceDownloadsController < ApplicationController
                                                   reference_downloadable_type: reference.class.model_name.name)
     reference_download_count = ReferenceDownload.where(reference_downloadable_id: reference.id,
                                                        reference_downloadable_type: reference.class.model_name.name).count
+    reference.update(download_count: reference.downloads.count)
     render json: { status: 200, download_count: reference_download_count }
   end
 end
