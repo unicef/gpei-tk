@@ -258,7 +258,6 @@ $(() => {
                       ${ isNotDeletable === true ? `<div class='col-md-1'><a id='reference_link_${featured}_delete' href=''><i class="fa fa-times" aria-hidden="true"></i> delete</a></div>` : `<div class='col-md-1'><a id='reference_${type}_delete' href=''><i class="fa fa-times" aria-hidden="true"></i> delete</a></div>` }
                       ${ isNotEditable === true ? `<div id='${reference_link.id}' class='col-md-3 bottom-right-position'></div>` : `<div id='${reference_link.id}' class='col-md-3 bottom-right-position'><a id='cms_reference_${type}_edit' href="${ reference_link.absolute_url }"><i class="fa fa-pencil-square-o" aria-hidden="true"></i>Edit</a></div>` }
                     </div>`}).join('')}
-                }
                 </div>`
     }
     $('#CMS_references_link_upload').click(e => {
