@@ -9,7 +9,8 @@ class LibraryController < ApplicationController
     reference_pptxes = ReferencePptx.joins(:reference_pptx_articles).search_refs(params[:search][:query])
     references = (reference_links + reference_mp3s + reference_pptxes).compact
     reference_link_info = getReferenceLinkInfo(references)
-    render json: { status: 200, references: references, reference_link_info: reference_link_info }
+    users = Hash[User.all.pluck(:id, :first_name)]
+    render json: { status: 200, references: references, reference_link_info: reference_link_info, users: users }
   end
 
   def referenceShow
@@ -22,7 +23,8 @@ class LibraryController < ApplicationController
 
   def initializeVars
     @is_library = true
-    @reference_links = ReferenceLink.joins(:reference_link_articles).order(download_count: :desc, like_count: :desc, created_at: :desc).all
+    # @reference_links = ReferenceLink.joins(:reference_link_articles).order(download_count: :desc, like_count: :desc, created_at: :desc).all
+    @reference_links = ReferenceLink.joins(:reference_link_articles).order(download_count: :desc, like_count: :desc, created_at: :desc).includes(:author).all
     @reference_link_info = getReferenceLinkInfo(@reference_links)
     @featured_references = ReferenceLink.joins(:featured_references).all
   end
