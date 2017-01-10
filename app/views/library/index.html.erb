@@ -46,15 +46,15 @@
           <% @featured_references.each_with_index do |reference, idx| %>
             <div class='col-md-12 featured_content_item featured_content_item_<%= idx+1 %> <%= 'active' if idx == 0 %>'>
               <div class='col-md-2'>
-                <a id='<%= reference.id %>' href='<%= reference.absolute_url %>' target='_blank' class='reference_download_tracker'><img id='featured_content_item_image' src='<%= reference.absolute_url.gsub('pdf', 'png') %>' class='img-responsive'></a>
+                <a id='<%= reference.id %>' href="<%= reference.absolute_url %>" target='_blank' class='reference_download_tracker'><img id='featured_content_item_image' src="<%= reference.absolute_url.gsub('pdf', 'png') %>" class='img-responsive'></a>
               </div>
               <div id='featured_content_item_info_wrapper' class='col-md-10'>
                 <div id='featured_content_title_text' class='col-md-12'>
-                  <a id='<%= reference.id %>' href='<%= reference.absolute_url %>' target='_blank' class='reference_download_tracker'><%= reference.title ? reference.title : reference.document_file_name.gsub('_', ' ').gsub('.pdf', '') %></a>
+                  <a id='<%= reference.id %>' href="<%= reference.absolute_url %>" target='_blank' class='reference_download_tracker'><%= reference.title ? reference.title : reference.document_file_name.gsub('_', ' ').gsub('.pdf', '') %></a>
                 </div>
                 <div id='like_and_download_wrapper' class='col-md-2'>
                   <div id='library_download_div' class='inline_block'>
-                    <a id='<%= reference.id %>' href='<%= reference.absolute_url %>' target='_blank' class='inline_block library_download_img reference_download_tracker'>
+                    <a id='<%= reference.id %>' href="<%= reference.absolute_url %>" target='_blank' class='inline_block library_download_img reference_download_tracker'>
                       <img src='/assets/icons/icon-download2x.png' class='library_grid_icon'>
                     </a>
                     <div class='counter_indicator_text_div inline_block'><%= @reference_link_info[reference.id][:download_count] %></div>
@@ -69,9 +69,9 @@
                 <div class='col-md-7'>
                   <div id='download_related_topics_div' class='bold_text col-md-3'>DOWNLOAD</div>
                   <div class='col-md-8 langauage_indicator_wrapper'>
-                    <a id='<%= reference.id %>' href='<%= reference.absolute_url %>' target='_blank' class='reference_download_tracker'><div class='reference_search_result_info_language '><%= reference.document_language ? reference.document_language.upcase : reference.language.upcase %></div> PDF <%= number_to_human_size(reference.document_file_size) %></a>
+                    <a id='<%= reference.id %>' href="<%= reference.absolute_url %>" target='_blank' class='reference_download_tracker'><div class='reference_search_result_info_language '><%= reference.document_language ? reference.document_language.upcase : reference.language.upcase %></div> PDF <%= number_to_human_size(reference.document_file_size) %></a>
                     <% @reference_link_info[reference.id][:related_topics].each do |related_topic| %>
-                      <a id='<%= related_topic.id %>' href='<%= related_topic.absolute_url %>' target='_blank' class=' reference_download_tracker'><div class='reference_search_result_info_language'><%= related_topic.document_language ? related_topic.document_language.upcase : related_topic.language.upcase %></div> PDF <%= number_to_human_size(related_topic.document_file_size) %></a>
+                      <a id='<%= related_topic.id %>' href="<%= related_topic.absolute_url %>" target='_blank' class=' reference_download_tracker'><div class='reference_search_result_info_language'><%= related_topic.document_language ? related_topic.document_language.upcase : related_topic.language.upcase %></div> PDF <%= number_to_human_size(related_topic.document_file_size) %></a>
                     <% end %>
                   </div>
                 </div>
@@ -93,24 +93,27 @@
       </div>
     </div>
     <div id='library_index_content_popular_downloads' class='col-md-12'>
-      <div id='library_index_content_popular_header_text' class='col-md-4'>
+      <div id='library_index_content_popular_header_text' class='col-md-2'>
         Browse
       </div>
+      <% if @reference_links.count > 10 %>
+        <%= render 'library/paginator' %>
+      <% end %>
       <div id='library_index_content_popular_divider' class='div_border_underline col-md-12'></div>
       <div id='library_index_content_popular_content_grid_wrapper' class='col-md-12'>
         <div id='library_index_content_popular_content_grid' class='col-md-12'>
-          <% @featured_references.each_with_index do |reference, idx| %>
-            <div class='col-md-12 popular_content_item popular_content_item_<%= idx+1 %> active'>
+          <% @reference_links.each_with_index do |reference, idx| %>
+            <div class='col-md-12 browse_content_item browse_content_item_<%= getSearchResultFilter(idx+1) %> active'>
               <div class='col-md-1'>
-                <a id='<%= reference.id %>' href='<%= reference.absolute_url %>' target='_blank' class='reference_download_tracker'><img id='popular_content_item_image' src='<%= reference.absolute_url.gsub('pdf', 'png') %>' class='img-responsive'></a>
+                <a id='<%= reference.id %>' href="<%= reference.absolute_url %>" target='_blank' class='reference_download_tracker'><img id='popular_content_item_image' src="<%= reference.absolute_url.gsub('pdf', 'png') %>" class='img-responsive'></a>
               </div>
               <div id='popular_content_item_info_wrapper' class='col-md-11'>
                 <div id='popular_content_title_text' class='col-md-12'>
-                  <a id='<%= reference.id %>' href='<%= reference.absolute_url %>' target='_blank' class='reference_download_tracker'><%= reference.title ? reference.title : reference.document_file_name.gsub('_', ' ').gsub('.pdf', '') %></a>
+                  <a id='<%= reference.id %>' href="<%= reference.absolute_url %>" target='_blank' class='reference_download_tracker'><%= reference.title ? reference.title : reference.document_file_name.gsub('_', ' ').gsub('.pdf', '') %></a>
                 </div>
                 <div id='like_and_download_wrapper' class='col-md-2'>
                   <div id='library_download_div' class='inline_block'>
-                    <a id='<%= reference.id %>' href='<%= reference.absolute_url %>' target='_blank' class='inline_block library_download_img reference_download_tracker'>
+                    <a id='<%= reference.id %>' href="<%= reference.absolute_url %>" target='_blank' class='inline_block library_download_img reference_download_tracker'>
                       <img src='/assets/icons/icon-download2x.png' class='library_grid_icon'>
                     </a>
                     <div class='counter_indicator_text_div inline_block'><%= @reference_link_info[reference.id][:download_count] %></div>
@@ -125,9 +128,9 @@
                 <div class='col-md-7'>
                   <div id='download_related_topics_div' class='bold_text col-md-3'>DOWNLOAD</div>
                   <div class='col-md-8 langauage_indicator_wrapper'>
-                    <a id='<%= reference.id %>' href='<%= reference.absolute_url %>' target='_blank' class='reference_download_tracker'><div class='reference_search_result_info_language'><%= reference.document_language ? reference.document_language.upcase : reference.language.upcase %></div> PDF <%= number_to_human_size(reference.document_file_size) %></a>
+                    <a id='<%= reference.id %>' href="<%= reference.absolute_url %>" target='_blank' class='reference_download_tracker'><div class='reference_search_result_info_language'><%= reference.document_language ? reference.document_language.upcase : reference.language.upcase %></div> PDF <%= number_to_human_size(reference.document_file_size) %></a>
                     <% @reference_link_info[reference.id][:related_topics].each do |related_topic| %>
-                      <a id='<%= related_topic.id %>' href='<%= related_topic.absolute_url %>' target='_blank' class='reference_download_tracker'><div class='reference_search_result_info_language'><%= related_topic.document_language ? related_topic.document_language.upcase : related_topic.language.upcase %></div> PDF <%= number_to_human_size(related_topic.document_file_size) %></a>
+                      <a id='<%= related_topic.id %>' href="<%= related_topic.absolute_url %>" target='_blank' class='reference_download_tracker'><div class='reference_search_result_info_language'><%= related_topic.document_language ? related_topic.document_language.upcase : related_topic.language.upcase %></div> PDF <%= number_to_human_size(related_topic.document_file_size) %></a>
                     <% end %>
                   </div>
                 </div>

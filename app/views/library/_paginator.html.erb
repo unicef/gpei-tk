@@ -1,0 +1,24 @@
+<div id='browse_paginator_div' class='col-md-10'>
+  <div id='browse_paginator_left_angle' class=''>
+    <a href=''><i class='fa fa-angle-left fa-2x' aria-hidden='true'></i></a>
+  </div>
+  <div id='' class='inline_block browse_paginator_page_numbers'>
+    <% item_idx = 0 %>
+    <% last_idx = @reference_links.length - 1 %>
+    <% last_idx.times do |idx| %>
+      <% item_idx += 1 %>
+      <% if item_idx % 10 === 0 || item_idx === last_idx %>
+        <div class='library_browse_pagination_indicators <%= item_idx === 10 ? 'active' : '' %>'>
+          <a id="<%= getPaginatorIdNumber(item_idx, last_idx) %>" href='' class='max_width'>
+            <%= getPaginatorIdNumber(item_idx, last_idx) %>
+          </a>
+        </div>
+      <% end %>
+    <% end %>
+  </div>
+  <div id='browse_paginator_right_angle' class=''>
+    <a href=''>
+      <i id='<%= getPaginatorLastPageNumber(@reference_links.count - 1) %>' class='fa fa-angle-right fa-2x' aria-hidden='true'></i>
+    </a>
+  </div>
+</div>
