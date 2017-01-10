@@ -1,5 +1,15 @@
 $(() => {
+  let sortFlags = {
+    relevance: false,
+    created: false,
+    title: false,
+    author: false,
+    download: false,
+    like: false
+  }
+  let search_grid = $(`#library #library_content_search_results_grid`)
   if ($('#library').css('visibility') === 'visible'){
+
     let offset = $('nav').outerHeight()
     $('#library').offset({ top: offset })
     let $featured_grid = $(`#library_index_content_featured_content_grid`)
@@ -20,7 +30,9 @@ $(() => {
           $('#library_index_content_featured').css('display', 'none')
           $('#library_index_content_popular_downloads').css('display', 'none')
           $('#library_content_search_results').empty()
-          $('#library_content_search_results').append(getSearchResultContent(response.references, response.reference_link_info))
+          $('#library_content_search_results').append(getSearchResultContent(response.references, response.reference_link_info, response.users))
+          $('#application .ui.simple.dropdown.item').dropdown()
+          $('#application .ui.radio.checkbox').checkbox()
           loadSearchGrid()
         }
       })
@@ -28,27 +40,94 @@ $(() => {
     })
 
     function loadSearchGrid() {
-      let $search_grid = $(`#library #library_content_search_results_grid`)
-      $search_grid.isotope({
+      search_grid = $(`#library #library_content_search_results_grid`)
+      search_grid.isotope({
         itemSelector: `.search_content_item`,
         layoutMode: 'fitRows',
-        filter: '.search_content_item_1'
+        filter: '.search_content_item_1',
+        getSortData: {
+          relevance: function (ele) {
+            return parseInt($(ele).find('#search_content_relevance').text())
+          },
+          created: function (ele) {
+            return (Date.parse(_.trim($(ele).find('#search_content_created_at').text())))
+          },
+          title: function (ele) {
+            return _.lowerCase(_.trim($(ele).find('#search_content_title_text a').text()))
+          },
+          author: function (ele) {
+            return _.trim($(ele).find('#search_content_author').text())
+          },
+          download: function (ele) {
+            return parseInt($(ele).find('#library_download_div .counter_indicator_text_div').text())
+          },
+          like: function (ele) {
+            return parseInt($(ele).find('#library_like_div .counter_indicator_text_div').text())
+          }
+        }
       })
     }
 
-    function getSearchResultContent(references, reference_link_info){
-      return `<div id='search_results_header_wrapper' class='col-md-12'>
+    function getSearchResultContent(references, reference_link_info, users){
+      return `<div id='search_results_header_wrapper' class='col-md-10'>
                 <div id='library_index_content_search_results_header_text' class='col-md-3'>
                   Search Results
                 </div>
                 <div id='library_index_content_search_results_pagination_wrapper' class='col-md-5'>
                   ${references.length > 10 ? getSearchResultsPaginator({ references: references, reference_link_info: reference_link_info }) : ''}
                 </div>
-                <div id='search_results_border' class='div_border_underline col-md-12'></div>
+              </div>
+              <div id='search_sort_wrapper' class='col-md-2'>
+                <div class="ui compact menu">
+                  <div class="ui simple dropdown item">
+                    <span id='sort_search_dropdown_header'>SORT RESULTS</span>
+                    <i class="dropdown icon"></i>
+                    <div id='search_sort_radio_div' class="menu">
+                      <div class="field item">
+                        <div class="ui radio checkbox">
+                          <input type="radio" name="sort_search" checked="checked" data-filter='relevance'>
+                          <label>Relevance</label>
+                        </div>
+                      </div>
+                      <div class="field item">
+                        <div class="ui radio checkbox">
+                          <input type="radio" name="sort_search" data-filter='title'>
+                          <label>Title</label>
+                        </div>
+                      </div>
+                      <div class="field item">
+                        <div class="ui radio checkbox">
+                          <input type="radio" name="sort_search" data-filter='author'>
+                          <label>Author</label>
+                        </div>
+                      </div>
+                      <div class="field item">
+                        <div class="ui radio checkbox">
+                          <input type="radio" name="sort_search" data-filter='download'>
+                          <label>Downloads</label>
+                        </div>
+                      </div>
+                      <div class="field item">
+                        <div class="ui radio checkbox">
+                          <input type="radio" name="sort_search" data-filter='like'>
+                          <label>Most liked</label>
+                        </div>
+                      </div>
+                      <div class="field item">
+                        <div class="ui radio checkbox">
+                          <input type="radio" name="sort_search" data-filter='created'>
+                          <label>Date uploaded</label>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div id='search_results_border' class='div_border_underline col-md-12'></div>
               </div>
               <div class='col-md-12'>
                 <div id='library_content_search_results_grid'>
-                  ${getSearchResultRows(references, reference_link_info)}
+                  ${getSearchResultRows(references, reference_link_info, users)}
                 </div>
               </div>`
     }
@@ -62,7 +141,7 @@ $(() => {
     function getPaginatorLastPageNumber(item_count) {
       let divided_idx = item_count / 10
       let modulus_idx = item_count % 10
-      return (divided_idx >= 1 ? (parseInt(divided_idx.toFixed(0)) + (modulus_idx === 0 ? 0 : 1 )) :  1)
+      return (divided_idx >= 1 ? (parseInt(Math.floor(divided_idx)) + (modulus_idx === 0 ? 0 : 1 )) :  1)
     }
 
     function getPaginatorPageNumbers(items) {
@@ -75,7 +154,7 @@ $(() => {
     }
 
     function getPaginatorIdNumber(item_idx, last_idx){
-      return `${item_idx === last_idx && item_idx % 10 !== 0 ? ((item_idx / 10 + 1).toFixed(0)) : (item_idx / 10).toFixed(0)}`
+      return `${item_idx === last_idx && item_idx % 10 !== 0 ? Math.floor(item_idx / 10 + 1) : Math.floor(item_idx / 10)}`
     }
 
     function loadIsotopeHandlers(type){
@@ -111,7 +190,7 @@ $(() => {
       // })
     }
 
-    function getSearchResultRows(references, reference_link_info){
+    function getSearchResultRows(references, reference_link_info, users){
       let idx = -1
       let last_idx = references.length - 1
       if (references.length === 0){
@@ -122,6 +201,17 @@ $(() => {
         return `<div id='${idx + 1}' class='col-md-12 search_content_item search_content_item_${ getSearchResultFilter(idx+1) } ${ idx === 0 ? 'active' : '' }'>
                   <div class='col-md-1'>
                     <a id='${ reference_obj.id }' href='${ reference_obj.absolute_url }' target='_blank' class='reference_download_tracker'><img id='search_content_item_image' src="${ _.replace(reference_obj.absolute_url, new RegExp("pdf","g"), "png") }" class='img-responsive'></a>
+                  </div>
+                  <div id='search_content_filter_div' class='display_none'>
+                    <div id='search_content_relevance'>
+                      ${ idx }
+                    </div>
+                    <div id='search_content_author'>
+                      ${ users[reference_obj.author_id].first_name }
+                    </div>
+                    <div id='search_content_created_at'>
+                      ${ reference_obj.created_at }
+                    </div>
                   </div>
                   <div id='search_content_item_info_wrapper' class='col-md-11'>
                     <div id='search_content_title_text' class='col-md-12'>
@@ -172,7 +262,7 @@ $(() => {
       } else if (idx % 10 === 0) {
         return (idx / 10)
       } else {
-        return (idx / 10 + 1).toFixed(0)
+        return Math.floor(idx / 10 + 1)
       }
     }
     function convertBytesToKbOrMb(bytes){
@@ -221,8 +311,7 @@ $(() => {
       let id = e.currentTarget.id
       $('.library_search_pagination_indicators.active').removeClass('active')
       $(e.currentTarget.parentElement).addClass('active')
-      let $search_grid = $(`#library #library_content_search_results_grid`)
-      $search_grid.isotope({ filter: `.search_content_item_${id}`})
+      search_grid.isotope({ filter: `.search_content_item_${id}`})
       return false
     })
 
@@ -231,8 +320,7 @@ $(() => {
       let id = $(e.currentTarget).find('a').attr('id')
       $('.library_search_pagination_indicators.active').removeClass('active')
       $(e.currentTarget).addClass('active')
-      let $search_grid = $(`#library #library_content_search_results_grid`)
-      $search_grid.isotope({ filter: `.search_content_item_${id}`})
+      search_grid.isotope({ filter: `.search_content_item_${id}`})
       return false
     })
 
@@ -272,15 +360,14 @@ $(() => {
       e.preventDefault()
       let id = parseInt($('.library_search_pagination_indicators.active a').attr('id'))
       let max_id = parseInt($('#search_results_paginator_right_angle a i').attr('id'))
-      let $search_grid = $(`#library #library_content_search_results_grid`)
       if (id !== 1){
         $('#library .library_search_pagination_indicators.active').removeClass('active')
         $(`#library .library_search_pagination_indicators #${id-1}`).parent().addClass('active')
-        $search_grid.isotope({ filter: `.search_content_item_${id-1}`})
+        search_grid.isotope({ filter: `.search_content_item_${id-1}`})
       } else if (id === 1){
         $('#library .library_search_pagination_indicators.active').removeClass('active')
         $(`#library .library_search_pagination_indicators #${max_id}`).parent().addClass('active')
-        $search_grid.isotope({ filter: `.search_content_item_${max_id}`})
+        search_grid.isotope({ filter: `.search_content_item_${max_id}`})
       }
       return false
     })
@@ -289,15 +376,14 @@ $(() => {
       e.preventDefault()
       let id = parseInt($('.library_search_pagination_indicators.active a').attr('id'))
       let max_id = parseInt($('#search_results_paginator_right_angle a i').attr('id'))
-      let $search_grid = $(`#library #library_content_search_results_grid`)
       if (id !== max_id){
         $('#library .library_search_pagination_indicators.active').removeClass('active')
         $(`#library .library_search_pagination_indicators #${id+1}`).parent().addClass('active')
-        $search_grid.isotope({ filter: `.search_content_item_${id+1}`})
+        search_grid.isotope({ filter: `.search_content_item_${id+1}`})
       } else if (id === max_id){
         $('#library .library_search_pagination_indicators.active').removeClass('active')
         $(`#library .library_search_pagination_indicators #1`).parent().addClass('active')
-        $search_grid.isotope({ filter: `.search_content_item_1`})
+        search_grid.isotope({ filter: `.search_content_item_1`})
       }
       return false
     })
@@ -305,12 +391,34 @@ $(() => {
     $(window).load(() => {
       $featured_grid.isotope({filter: '.active'})
       loadBrowseGrid()
+      $('.ui.simple.dropdown.item').dropdown()
+      $('.ui.radio.checkbox').checkbox()
     })
     function loadBrowseGrid(){
       browse_grid.isotope({
         itemSelector: `.browse_content_item`,
         layoutMode: 'fitRows',
-        filter: '.browse_content_item_1'
+        filter: '.browse_content_item_1',
+        getSortData: {
+          relevance: function (ele) {
+            return parseInt($(ele).find('#browse_content_relevance').text())
+          },
+          created: function (ele) {
+            return (Date.parse(_.trim($(ele).find('#browse_content_created_at').text())))
+          },
+          title: function (ele) {
+            return _.lowerCase(_.trim($(ele).find('#popular_content_title_text a').text()))
+          },
+          author: function (ele) {
+            return _.trim($(ele).find('#browse_content_author').text())
+          },
+          download: function (ele) {
+            return parseInt($(ele).find('#library_download_div .counter_indicator_text_div').text())
+          },
+          like: function (ele) {
+            return parseInt($(ele).find('#library_like_div .counter_indicator_text_div').text())
+          }
+        }
       })
     }
 
@@ -379,6 +487,24 @@ $(() => {
       $(`#library .library_browse_pagination_indicators #1`).parent().addClass('active')
       browse_grid.isotope({ filter: `.browse_content_item_1`})
     }
+    return false
+  })
+  $('#browse_sort_radio_div .ui.radio.checkbox').click(e => {
+    let sortBy = $(e.currentTarget).find('input').attr('data-filter')
+    browse_grid.isotope({
+      sortAscending: sortFlags[sortBy]
+    })
+    browse_grid.isotope({ sortBy: sortBy })
+    sortFlags[sortBy] = !sortFlags[sortBy]
+    return false
+  })
+  $('#library').on('click', '#search_sort_radio_div .ui.radio.checkbox', e => {
+    let sortBy = $(e.currentTarget).find('input').attr('data-filter')
+    search_grid.isotope({
+      sortAscending: sortFlags[sortBy]
+    })
+    search_grid.isotope({ sortBy: sortBy })
+    sortFlags[sortBy] = !sortFlags[sortBy]
     return false
   })
   //
