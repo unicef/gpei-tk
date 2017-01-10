@@ -425,3 +425,45 @@ a.max_width {
 #browse_paginator_div *{
   display: inline-block;
 }
+.display_none {
+  display: none !important;
+}
+#search_sort_wrapper .ui.compact.menu,
+#browse_sort_wrapper .ui.compact.menu {
+  border-radius:0 !important;
+  border:0 !important;
+}
+#search_sort_wrapper .ui.menu,
+#browse_sort_wrapper .ui.menu{
+  box-shadow: none !important;
+}
+#browse_sort_radio_div,
+#search_sort_radio_div {
+  width:150px;
+}
+#browse_sort_radio_div .ui.radio.checkbox,
+#search_sort_radio_div .ui.radio.checkbox {
+  margin-top:2px;
+  margin-bottom:2px;
+}
+#browse_sort_radio_div .field,
+#search_sort_radio_div .field {
+  display:block;
+  padding-left:10px;
+  width:auto;
+}
+#sort_browsing_dropdown_header,
+#browse_sort_radio_div,
+#search_sort_radio_div {
+  font-family:'proxima-nova' !important;
+}
+#search_sort_wrapper .ui.radio.checkbox label,
+#browse_sort_wrapper .ui.radio.checkbox label{
+  opacity:0.5 !important;
+}
+#browse_sort_radio_div:hover,
+#search_sort_radio_div:hover,
+#browse_sort_wrapper .ui.simple.dropdown.item:hover,
+#search_sort_wrapper .ui.simple.dropdown.item:hover {
+  border:1px solid grey;
+}
