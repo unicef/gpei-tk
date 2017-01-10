@@ -28,7 +28,6 @@ $(() => {
         let reference_links = response.reference_links
         let reference_link_categories = response.reference_link_categories
         let categories = response.categories
-        let tags = response.tags
         $.ajax({
           method: 'GET',
           url: '/cms/users/'
@@ -39,7 +38,7 @@ $(() => {
           // appendReferenceLinkHeader()
           // appendReferenceLinkRows(reference_links, reference_link_categories, response.users)
           $('#CMS_index_content').append("<h2 id='cms_reference_links_list_header'>Uploaded Reference Links - (.pdf's) Index</h2>")
-          $('#CMS_index_content').append(getReferenceLinkGrid(reference_links, reference_link_categories, response.users, type, categories, false, false, null, tags))
+          $('#CMS_index_content').append(getReferenceLinkGrid(reference_links, reference_link_categories, response.users, type, categories, false, false, null))
           loadIsotopeHandlers(type)
         })
       })
@@ -182,7 +181,7 @@ $(() => {
       return false
     })
 
-    function getReferenceLinkGrid(reference_links, reference_link_categories, users, type, categories, isNotEditable, isNotDeletable, featured, tags){
+    function getReferenceLinkGrid(reference_links, reference_link_categories, users, type, categories, isNotEditable, isNotDeletable, featured){
       return `<div id='cms_reference_link_filter_dropdown' class="ui pointing dropdown col-md-3">
                 <div class='text'><i class="fa fa-filter fa-2x" aria-hidden="true"></i><strong>Hover to select a filter</strong></div>
                 <div id="" class="menu">
@@ -259,6 +258,7 @@ $(() => {
                       ${ isNotDeletable === true ? `<div class='col-md-1'><a id='reference_link_${featured}_delete' href=''><i class="fa fa-times" aria-hidden="true"></i> delete</a></div>` : `<div class='col-md-1'><a id='reference_${type}_delete' href=''><i class="fa fa-times" aria-hidden="true"></i> delete</a></div>` }
                       ${ isNotEditable === true ? `<div id='${reference_link.id}' class='col-md-3 bottom-right-position'></div>` : `<div id='${reference_link.id}' class='col-md-3 bottom-right-position'><a id='cms_reference_${type}_edit' href="${ reference_link.absolute_url }"><i class="fa fa-pencil-square-o" aria-hidden="true"></i>Edit</a></div>` }
                     </div>`}).join('')}
+                }
                 </div>`
     }
     $('#CMS_references_link_upload').click(e => {
