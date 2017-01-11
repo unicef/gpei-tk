@@ -1,0 +1,59 @@
+<div id='browse_filter_row' class='col-md-12'>
+  <div id="browse_filter_dropdown" class="ui dropdown col-md-12">
+    <div id="" class="">
+      <span class=''>SELECT FILTERS</span>
+    </div>
+    <div id='browse_filter_dropdown_menu' class="menu">
+      <div id='' class="item col-md-12">
+        <div id='' class='col-md-4'>
+          <div class='browse_filter_header'>
+            THEME
+          </div>
+          <div id='theme_checkboxes' class=''>
+            <ul class='list-unstyled'>
+                <li>
+                  <input class='check_box' id='C4D' type='checkbox' value=".C4D">
+                  <label for='C4D'>C4D</label>
+                </li>
+                <li>
+                  <input class='check_box' id='SOP' type='checkbox' value=".SOP">
+                  <label for='SOP'>SOP</label>
+                </li>
+            </ul>
+          </div>
+        </div>
+        <div id='' class='col-md-4' style=''>
+          <div class='browse_filter_header'>
+            PLACE
+          </div>
+          <div id='place_checkboxes' class=''>
+            <ul class='list-unstyled'>
+              <% @places.each do |place| %>
+                <li>
+                  <input class='check_box' id='<%= place %>' type='checkbox' value=".<%= place %>">
+                  <label for='<%= place %>'><%= place %></label>
+                </li>
+              <% end %>
+            </ul>
+          </div>
+        </div>
+        <div id='' class='col-md-4'>
+          <div class='browse_filter_header'>
+            LANGUAGE
+          </div>
+          <div id='language_checkboxes' class=''>
+            <ul class='list-unstyled'>
+              <% @languages.each do |language| %>
+                <li>
+                  <input class='check_box' id='<%= language %>' type='checkbox' value=".<%= language %>">
+                  <label for='<%= language %>'><%= language %></label>
+                </li>
+              <% end %>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <%= render 'library/browse_sort' %>
+</div>
