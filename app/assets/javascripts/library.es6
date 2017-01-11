@@ -26,7 +26,8 @@ $(() => {
 
     $featured_grid.isotope({
       itemSelector: `.featured_content_item`,
-      layoutMode: 'fitRows'
+      layoutMode: 'fitRows',
+      filter: '.featured_content_item_1'
     })
 
     $('#library_content_search_form').submit(e => {
@@ -591,7 +592,11 @@ $(() => {
     // let filter_value = _.map($('#browse_filter_dropdown_menu .check_box:checked'), input => { return $(input).val() }).join(', ')
     // [[],[],[]]
     let filter_value = ''
-
+    if(e.currentTarget.checked){
+      $('#browse_filter_display_div').append(`<div id="${e.currentTarget.id}" class='inline_block'>${e.currentTarget.id}</div`)
+    } else {
+      $('#browse_filter_display_div').find(`#${e.currentTarget.id}`).remove()
+    }
     let theme_values = _.map($('#browse_filter_dropdown_menu #theme_checkboxes .check_box:checked'), input => { return $(input).val() })
     let place_values = _.map($('#browse_filter_dropdown_menu #place_checkboxes .check_box:checked'), input => { return $(input).val() })
     let language_values = _.map($('#browse_filter_dropdown_menu #language_checkboxes .check_box:checked'), input => { return $(input).val() })
@@ -625,4 +630,13 @@ $(() => {
     })
     return `${values.join(' ')} `
   }
+  $('#browse_filter_clear_all a').click(e => {
+    e.preventDefault()
+    _.forEach($('#browse_filter_dropdown_menu .check_box'), check_box => {
+      check_box.checked = false
+    })
+    $(browse_grid).isotope({ filter: '.browse_content_item_1' })
+    $('#browse_filter_display_div').empty()
+    return false
+  })
 })
