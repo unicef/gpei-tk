@@ -170,6 +170,9 @@
   padding-right:15px;
   padding-top:10px;
 }
+#browse_filter_row * {
+  color: black;
+}
 .library_browse_pagination_indicators,
 .library_search_pagination_indicators,
 .library_featured_pagination_indicators {
@@ -317,6 +320,11 @@
 .library_download_img {
   position: relative;
   top:-2px;
+}
+#browse_filter_row {
+  margin-bottom:7px;
+  margin-top:10px;
+  padding-left:3px;
 }
 .counter_indicator_text_div {
   opacity: 0.3;
@@ -501,4 +509,22 @@ a.max_width {
 }
 #browse_bottom_pagination_control {
   padding-bottom:15px;
+}
+#browse_filter_dropdown_menu,
+#browse_filter_dropdown_menu_item {
+  width:100%;
+}
+.browse_filter_header {
+  margin-bottom:5px;
+}
+#browse_sort_wrapper {
+  position:absolute;
+  right:0px;
+  top:-13px;
+}
+#browse_sort_wrapper * {
+  line-height:16px;
+}
+#browse_sort_wrapper .ui.compact.menu .ui.simple.dropdown.item {
+  padding:0px;
 }
