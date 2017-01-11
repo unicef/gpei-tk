@@ -8,9 +8,9 @@ class LibraryController < ApplicationController
     reference_mp3s = ReferenceMp3.joins(:reference_mp3_articles).search_refs(params[:search][:query])
     reference_pptxes = ReferencePptx.joins(:reference_pptx_articles).search_refs(params[:search][:query])
     references = (reference_links + reference_mp3s + reference_pptxes).compact
-    reference_link_info = getReferenceLinkInfo(references)
+    reference_link_info, places, languages = getReferenceLinkInfo(references)
     users = Hash[User.all.pluck(:id, :first_name)]
-    render json: { status: 200, references: references, reference_link_info: reference_link_info, users: users }
+    render json: { status: 200, references: references, reference_link_info: reference_link_info, users: users, places: places, languages: languages }
   end
 
   def referenceShow
@@ -23,18 +23,43 @@ class LibraryController < ApplicationController
 
   def initializeVars
     @is_library = true
-    # @reference_links = ReferenceLink.joins(:reference_link_articles).order(download_count: :desc, like_count: :desc, created_at: :desc).all
     @reference_links = ReferenceLink.joins(:reference_link_articles).order(download_count: :desc, like_count: :desc, created_at: :desc).includes(:author).all.uniq
-    @reference_link_info = getReferenceLinkInfo(@reference_links)
+    @reference_link_info, @places, @languages = getReferenceLinkInfo(@reference_links)
     @featured_references = ReferenceLink.joins(:featured_references).all
   end
 
   def getReferenceLinkInfo(reference_links)
     reference_link_info = {}
+    places = []
+    languages = []
     reference_links.each do |reference_link|
+      if reference_link_info[reference_link.id].nil?
+        reference_link_info[reference_link.id] = { places: [], languages: [], isSOP: false, isC4D: false }
+      else
+        reference_link_info[reference_link.id][:places].nil? ? reference_link_info[reference_link.id][:places] = [] : nil
+        reference_link_info[reference_link.id][:languages].nil? ? reference_link_info[reference_link.id][:languages] = [] : nil
+      end
       ref_join = ReferenceLinkArticle.where(reference_link_id: reference_link.id)
+      sopCount = 0
+      c4dCount = 0
       ref_join.each do |join|
-        reference_link_info[reference_link.id] = { isSOP: join.reference_linkable.has_attribute?(:sop_category_id), isC4D: join.reference_linkable.has_attribute?(:c4d_category_id) }
+        isSOP = join.reference_linkable.has_attribute?(:sop_category_id)
+        sopCount += 1 if isSOP
+        isC4D = join.reference_linkable.has_attribute?(:c4d_category_id)
+        c4dCount += 1 if isC4D
+
+        reference_link_info[reference_link.id][:places] << reference_link.places if reference_link.places
+        reference_link_info[reference_link.id][:languages] << (reference_link.language.to_s + ' ' + reference_link.document_language.to_s).upcase.strip
+        places << reference_link_info[reference_link.id][:places]
+        languages << reference_link_info[reference_link.id][:languages]
+        if !reference_link_info[reference_link.id][:isSOP] && isSOP
+          reference_link_info[reference_link.id][:isSOP] = isSOP
+        end
+        if !reference_link_info[reference_link.id][:isC4D] && isC4D
+          reference_link_info[reference_link.id][:isC4D] = isC4D
+        end
+       reference_link_info[reference_link.id][:sopCount] ? reference_link_info[reference_link.id][:sopCount] += sopCount : reference_link_info[reference_link.id][:sopCount] = sopCount
+       reference_link_info[reference_link.id][:c4dCount] ? reference_link_info[reference_link.id][:c4dCount] += c4dCount : reference_link_info[reference_link.id][:c4dCount] = c4dCount
       end
       liked_by_user = false
       if current_user
@@ -45,7 +70,7 @@ class LibraryController < ApplicationController
                                                       like_count: roundStatsToView(ReferenceLike.where(reference_likeable_id: reference_link.id).count),
                                                       liked_by_user: liked_by_user })
     end
-    reference_link_info
+    [reference_link_info, places.flatten.uniq.reject { |place| place.empty? }, languages.join(' ').split(' ').uniq.reject { |language| language.empty? }]
   end
 
   def roundStatsToView(count)
