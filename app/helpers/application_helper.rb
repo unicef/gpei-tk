@@ -118,4 +118,10 @@ module ApplicationHelper
       return (idx / 20 + 1)
     end
   end
+
+  def buildClassesWithDot args
+    if args
+      return args.map{ |arg| "#{arg}" }.join(' ')
+    end
+  end
 end
