@@ -445,6 +445,9 @@ $(() => {
         on:'hover',
         action:'nothing'
       })
+      _.forEach($('.featured_content_item'), content_item => {
+        $(content_item).css('visibility', 'visible')
+      })
     })
 
     function loadBrowseGrid(){
