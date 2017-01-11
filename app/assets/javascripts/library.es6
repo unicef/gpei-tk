@@ -440,7 +440,12 @@ $(() => {
       loadBrowseGrid()
       $('.ui.simple.dropdown.item').dropdown()
       $('.ui.radio.checkbox').checkbox()
+      $('#browse_filter_dropdown').dropdown({
+        on:'hover',
+        action:'nothing'
+      })
     })
+
     function loadBrowseGrid(){
       browse_grid.isotope({
         itemSelector: `.browse_content_item`,
@@ -581,4 +586,43 @@ $(() => {
     search_grid.isotope({ filter: filter_value })
     return false
   })
+
+  $('#browse_filter_dropdown_menu input').change(e => {
+    // let filter_value = _.map($('#browse_filter_dropdown_menu .check_box:checked'), input => { return $(input).val() }).join(', ')
+    // [[],[],[]]
+    let filter_value = ''
+
+    let theme_values = _.map($('#browse_filter_dropdown_menu #theme_checkboxes .check_box:checked'), input => { return $(input).val() })
+    let place_values = _.map($('#browse_filter_dropdown_menu #place_checkboxes .check_box:checked'), input => { return $(input).val() })
+    let language_values = _.map($('#browse_filter_dropdown_menu #language_checkboxes .check_box:checked'), input => { return $(input).val() })
+    filter_value += buildFilterValue(theme_values, place_values, language_values)
+    filter_value += buildFilterValue(theme_values, language_values, place_values)
+
+    filter_value += buildFilterValue(place_values, theme_values, language_values)
+    filter_value += buildFilterValue(place_values, language_values, theme_values)
+
+    filter_value += buildFilterValue(language_values, theme_values, place_values)
+    filter_value += buildFilterValue(language_values, place_values, theme_values)
+    filter_value = _.uniq(_.trim(filter_value).split(' ')).join(', ')
+
+    if (_.isEmpty(filter_value)) {
+      $(browse_grid).isotope({ filter: `.browse_content_item_${$('.library_browse_pagination_indicators.active a').attr('id')}` })
+    } else {
+      $(browse_grid).isotope({ filter: filter_value })
+    }
+  })
+  function buildFilterValue(arr1, arr2, arr3) {
+    let values = []
+    _.forEach(arr1, value1 => {
+      let value = value1
+      _.forEach(arr2, value2 => {
+        value += value2
+        _.forEach(arr3, value3 => {
+          value += value3
+        })
+      })
+      values.push(value)
+    })
+    return `${values.join(' ')} `
+  }
 })
