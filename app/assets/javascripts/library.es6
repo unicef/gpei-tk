@@ -1,4 +1,14 @@
 $(() => {
+  function getSearchResultFilter(idx){
+    if (idx <= 10) {
+      return 1
+    } else if (idx % 10 === 0) {
+      return (idx / 10)
+    } else {
+      return Math.floor(idx / 10 + 1)
+    }
+  }
+
   let sortFlags = {
     relevance: false,
     created: false,
@@ -49,7 +59,7 @@ $(() => {
       search_grid.isotope({
         itemSelector: `.search_content_item`,
         layoutMode: 'fitRows',
-        filter: '.search_content_item_1',
+        filter: '.pagination_search_content_item_1',
         getSortData: {
           relevance: function (ele) {
             return parseInt($(ele).find('#search_content_relevance').text())
@@ -244,7 +254,7 @@ $(() => {
       }
       return `${references.map(reference_obj => {
         idx += 1
-        return `<div id='${idx + 1}' class='col-md-12 search_content_item search_content_item_${ getSearchResultFilter(idx+1) } ${ idx === 0 ? 'active' : '' }'>
+        return `<div id='${idx + 1}' class='col-md-12 search_content_item pagination_search_content_item_${ getSearchResultFilter(idx+1) } ${ idx === 0 ? 'active' : '' }'>
                   <div class='col-md-1'>
                     <a id='${ reference_obj.id }' href='${ reference_obj.absolute_url }' target='_blank' class='reference_download_tracker'><img id='search_content_item_image' src="${ _.replace(reference_obj.absolute_url, new RegExp("pdf","g"), "png") }" class='img-responsive'></a>
                   </div>
@@ -302,15 +312,6 @@ $(() => {
         }`
     }
 
-    function getSearchResultFilter(idx){
-      if (idx <= 10) {
-        return 1
-      } else if (idx % 10 === 0) {
-        return (idx / 10)
-      } else {
-        return Math.floor(idx / 10 + 1)
-      }
-    }
     function convertBytesToKbOrMb(bytes){
       let conversion = 0
       if (bytes > 1048576) {
@@ -357,7 +358,7 @@ $(() => {
       let id = e.currentTarget.id
       $('.library_search_pagination_indicators.active').removeClass('active')
       $(e.currentTarget.parentElement).addClass('active')
-      search_grid.isotope({ filter: `.search_content_item_${id}`})
+      search_grid.isotope({ filter: `.pagination_search_content_item_${id}`})
       return false
     })
 
@@ -366,7 +367,7 @@ $(() => {
       let id = $(e.currentTarget).find('a').attr('id')
       $('.library_search_pagination_indicators.active').removeClass('active')
       $(e.currentTarget).addClass('active')
-      search_grid.isotope({ filter: `.search_content_item_${id}`})
+      search_grid.isotope({ filter: `.pagination_search_content_item_${id}`})
       return false
     })
 
@@ -409,11 +410,11 @@ $(() => {
       if (id !== 1){
         $('#library .library_search_pagination_indicators.active').removeClass('active')
         $(`#library .library_search_pagination_indicators #${id-1}`).parent().addClass('active')
-        search_grid.isotope({ filter: `.search_content_item_${id-1}`})
+        search_grid.isotope({ filter: `.pagination_search_content_item_${id-1}`})
       } else if (id === 1){
         $('#library .library_search_pagination_indicators.active').removeClass('active')
         $(`#library .library_search_pagination_indicators #${max_id}`).parent().addClass('active')
-        search_grid.isotope({ filter: `.search_content_item_${max_id}`})
+        search_grid.isotope({ filter: `.pagination_search_content_item_${max_id}`})
       }
       return false
     })
@@ -425,11 +426,11 @@ $(() => {
       if (id !== max_id){
         $('#library .library_search_pagination_indicators.active').removeClass('active')
         $(`#library .library_search_pagination_indicators #${id+1}`).parent().addClass('active')
-        search_grid.isotope({ filter: `.search_content_item_${id+1}`})
+        search_grid.isotope({ filter: `.pagination_search_content_item_${id+1}`})
       } else if (id === max_id){
         $('#library .library_search_pagination_indicators.active').removeClass('active')
         $(`#library .library_search_pagination_indicators #1`).parent().addClass('active')
-        search_grid.isotope({ filter: `.search_content_item_1`})
+        search_grid.isotope({ filter: `.pagination_search_content_item_1`})
       }
       return false
     })
@@ -538,21 +539,46 @@ $(() => {
   })
   $('#browse_sort_radio_div .ui.radio.checkbox').click(e => {
     let sortBy = $(e.currentTarget).find('input').attr('data-filter')
+
+    browse_grid.isotope({ filter: '*' })
     browse_grid.isotope({
       sortAscending: sortFlags[sortBy]
     })
     browse_grid.isotope({ sortBy: sortBy })
     sortFlags[sortBy] = !sortFlags[sortBy]
+    let idx = 0
+    let sorted_grid_items = $(browse_grid).data('isotope').filteredItems
+    _.forEach(sorted_grid_items, grid_item => {
+      $(grid_item.element).removeClass (function (index, css) {
+        return (css.match(/browse_content_item_\d+/) || []).join(' ')
+      })
+      $(grid_item.element).addClass(`browse_content_item_${getSearchResultFilter(idx+1)}`)
+      idx +=1
+    })
+    let filter_value = '.browse_content_item_' + $('.library_browse_pagination_indicators.active a').attr('id')
+    browse_grid.isotope({ filter: filter_value })
     return false
   })
   $('#library').on('click', '#search_sort_radio_div .ui.radio.checkbox', e => {
     let sortBy = $(e.currentTarget).find('input').attr('data-filter')
+
+    search_grid.isotope({ filter: '*' })
     search_grid.isotope({
       sortAscending: sortFlags[sortBy]
     })
     search_grid.isotope({ sortBy: sortBy })
     sortFlags[sortBy] = !sortFlags[sortBy]
+    let idx = 0
+    let sorted_grid_items = $(search_grid).data('isotope').filteredItems
+    _.forEach(sorted_grid_items, grid_item => {
+      $(grid_item.element).removeClass (function (index, css) {
+        return (css.match(/pagination_search_content_item_\d+/) || []).join(' ')
+      })
+      $(grid_item.element).addClass(`pagination_search_content_item_${getSearchResultFilter(idx+1)}`)
+      idx +=1
+    })
+    let filter_value = '.pagination_search_content_item_' + $('.library_search_pagination_indicators.active a').attr('id')
+    search_grid.isotope({ filter: filter_value })
     return false
   })
-  //
 })
