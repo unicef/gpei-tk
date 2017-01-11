@@ -1,7 +1,7 @@
 <div id='browse_filter_row' class='col-md-12'>
   <div id="browse_filter_dropdown" class="ui dropdown col-md-12">
     <div id="" class="">
-      <span class=''>SELECT FILTERS</span>
+      <span class='browse_header_text'>SELECT FILTERS</span>
     </div>
     <div id='browse_filter_dropdown_menu' class="menu">
       <div id='' class="item col-md-12">
@@ -22,11 +22,11 @@
             </ul>
           </div>
         </div>
-        <div id='' class='col-md-4' style=''>
-          <div class='browse_filter_header'>
+        <div id='' class='col-md-4'>
+          <div class='border_left_and_right browse_filter_header'>
             PLACE
           </div>
-          <div id='place_checkboxes' class=''>
+          <div id='place_checkboxes' class='border_left_and_right_gold'>
             <ul class='list-unstyled'>
               <% @places.each do |place| %>
                 <li>
@@ -54,6 +54,12 @@
         </div>
       </div>
     </div>
+  </div>
+  <div id='browse_filter_clear_all' class='col-md-offset-2 col-md-2'>
+    <a href=''>Clear All</a>
+  </div>
+  <div id='browse_filter_display_div' class='col-md-offset-4 col-md-6'>
+
   </div>
   <%= render 'library/browse_sort' %>
 </div>
