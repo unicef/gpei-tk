@@ -255,6 +255,7 @@ $(() => {
       }
       return `${references.map(reference_obj => {
         idx += 1
+        debugger
         return `<div id='${idx + 1}' class='col-md-12 search_content_item pagination_search_content_item_${ getSearchResultFilter(idx+1) } ${ idx === 0 ? 'active' : '' }'>
                   <div class='col-md-1'>
                     <a id='${ reference_obj.id }' href="${ reference_obj.absolute_url }" target='_blank' class='reference_download_tracker'><img id='search_content_item_image' src="${ _.replace(reference_obj.absolute_url, new RegExp("pdf","g"), "png") }" class='img-responsive'></a>
@@ -291,7 +292,7 @@ $(() => {
                     <div class='col-md-7'>
                       <div id='download_related_topics_div' class='bold_text col-md-3'>DOWNLOAD</div>
                       <div class='col-md-8 langauage_indicator_wrapper'>
-                        <a id='${ reference_obj.id }' href="${ reference_obj.absolute_url }" target='_blank' class='reference_download_tracker'><div class='reference_search_result_info_language '>${ _.upperCase(!_.isNull(reference_obj.document_language) ? reference_obj.document_language : reference_obj.language) }</div> PDF ${ convertBytesToKbOrMb(reference_obj.document_file_size) }</a>
+                        <a id='${ reference_obj.id }' href="${ reference_obj.absolute_url }" target='_blank' class='reference_download_tracker'><div class='reference_search_result_info_language '>${ _.upperCase(!_.isEmpty(reference_obj.document_language) ? reference_obj.document_language : reference_obj.language) }</div> PDF ${ convertBytesToKbOrMb(reference_obj.document_file_size) }</a>
                         ${ reference_link_info[reference_obj.id]['related_topics'].map(related_topic => {
                                 return `<a id='${ related_topic.id }' href="${ related_topic.absolute_url }" target='_blank' class='reference_download_tracker'><div class='reference_search_result_info_language'>${ _.upperCase(!_.isNull(related_topic.document_language) ? related_topic.document_language : related_topic.language) }</div> PDF ${ convertBytesToKbOrMb(related_topic.document_file_size) }</a>`
                               }).join('')
