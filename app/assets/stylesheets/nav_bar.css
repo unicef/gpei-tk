@@ -138,9 +138,13 @@
 #c4d_understand_button.active,
 #c4d_plan_button.active,
 #c4d_act_button.active,
-#c4d_tools_button.active {
+#c4d_tools_button.active,
+#c4d_tools_button.library_active {
   border-left:1px solid white;
   border-right:1px solid white;
+}
+#c4d_tools_button.library_active {
+  background-color:#A37743;
 }
 #sop_checklist_list a:hover,
 #c4d_toolkit_list a:hover,
@@ -245,7 +249,7 @@ nav .container {
 #sop_nav_button a {
   background: #924941;
 }
-#c4d_nav_button {
+#c4d_nav_button.show_color {
   background: #35848C;
 }
 #sop_nav_button:not(.active):hover{
@@ -264,10 +268,15 @@ nav .container {
   background:#2C9674 !important;
   opacity:0.9;
 }
-#c4d_tools_button:not(.active):hover{
+/*#c4d_tools_button:not(.active):hover{
   background:#35A3AE !important;
   opacity:0.9;
+}*/
+#c4d_tools_button:not(.library_active):hover{
+  background:#A37743 !important;
+  opacity:0.9;
 }
+
 #sop_overview_button:not(.active):hover{
   background:#B74D43 !important;
   opacity:0.9;

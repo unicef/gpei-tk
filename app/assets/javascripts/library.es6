@@ -255,7 +255,6 @@ $(() => {
       }
       return `${references.map(reference_obj => {
         idx += 1
-        debugger
         return `<div id='${idx + 1}' class='col-md-12 search_content_item pagination_search_content_item_${ getSearchResultFilter(idx+1) } ${ idx === 0 ? 'active' : '' }'>
                   <div class='col-md-1'>
                     <a id='${ reference_obj.id }' href="${ reference_obj.absolute_url }" target='_blank' class='reference_download_tracker'><img id='search_content_item_image' src="${ _.replace(reference_obj.absolute_url, new RegExp("pdf","g"), "png") }" class='img-responsive'></a>
