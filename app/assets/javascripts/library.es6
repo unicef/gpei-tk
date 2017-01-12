@@ -10,12 +10,12 @@ $(() => {
   }
 
   let sortFlags = {
-    relevance: false,
-    created: false,
-    title: false,
-    author: false,
-    download: false,
-    like: false
+    relevance: true,
+    created: true,
+    title: true,
+    author: true,
+    download: true,
+    like: true
   }
   let search_grid = $(`#library #library_content_search_results_grid`)
   if ($('#library').css('visibility') === 'visible'){
