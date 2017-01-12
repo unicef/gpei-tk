@@ -554,7 +554,9 @@ $(() => {
       sortAscending: sortFlags[sortBy]
     })
     browse_grid.isotope({ sortBy: sortBy })
-    sortFlags[sortBy] = !sortFlags[sortBy]
+    if ($(e.currentTarget).find('input').attr('data-filter') !== 'relevance'){
+      sortFlags[sortBy] = !sortFlags[sortBy]
+    }
     let idx = 0
     let sorted_grid_items = $(browse_grid).data('isotope').filteredItems
     _.forEach(sorted_grid_items, grid_item => {
@@ -638,7 +640,8 @@ $(() => {
     _.forEach($('#browse_filter_dropdown_menu .check_box'), check_box => {
       check_box.checked = false
     })
-    $(browse_grid).isotope({ filter: '.browse_content_item_1' })
+    // $(browse_grid).isotope({ filter: '.browse_content_item_1' })
+    $('#browse_sort_radio_div input[data-filter=relevance]').trigger('click')
     $('#browse_filter_display_div').empty()
     return false
   })
