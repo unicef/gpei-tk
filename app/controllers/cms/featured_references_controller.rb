@@ -3,7 +3,7 @@ class Cms::FeaturedReferencesController < ApplicationController
 
   def index
     if request.xhr?
-      reference_links = ReferenceLink.joins(:featured_references).all.order(:document_file_name)
+      reference_links = ReferenceLink.joins(:featured_references).all.order(:document_file_name).uniq
       reference_link_categories = getReferenceLinkCategories(reference_links)
       categories = { sop_categories: SopCategory.all, c4d_categories: C4dCategory.all }
       render json: { reference_links: reference_links,
@@ -43,9 +43,9 @@ class Cms::FeaturedReferencesController < ApplicationController
         reference_link_categories[reference_link.id] = []
         links.each do |link|
           if link.reference_linkable.has_attribute?(:sop_category_id)
-            reference_link_categories[reference_link.id] << { details: link.reference_linkable.sop_time.period + ' > ' + link.reference_linkable.sop_category.title + ' > ' + link.reference_linkable.order_id.to_s, category: link.reference_linkable.sop_category.title }
+            reference_link_categories[reference_link.id] << { details: link.reference_linkable.sop_time.period + ' > ' + link.reference_linkable.sop_category.title + ' > ' + link.reference_linkable.order_id.to_s, category: link.reference_linkable.sop_category.title, isSOP: true }
           else
-            reference_link_categories[reference_link.id] << { details: link.reference_linkable.c4d_category.title + ' > '+ link.reference_linkable.c4d_subcategory.title + ' > ' + link.reference_linkable.order_id.to_s, category: link.reference_linkable.c4d_category.title }
+            reference_link_categories[reference_link.id] << { details: link.reference_linkable.c4d_category.title + ' > '+ link.reference_linkable.c4d_subcategory.title + ' > ' + link.reference_linkable.order_id.to_s, category: link.reference_linkable.c4d_category.title, isC4D: true }
           end
         end
       end

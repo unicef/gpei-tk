@@ -90,45 +90,6 @@ $(() => {
     }
 
     function getSearchResultContent(references, reference_link_info, users){
-              //       <div id="search_filter_dropdown_wrapper" class='col-md-2'>
-              //   <div class="ui compact menu">
-              //     <div class="ui simple dropdown item">
-              //       <i class="fa fa-angle-down fa-2x" aria-hidden="true">&nbsp;&nbsp;</i>
-              //       <div id="search_filter_header"> SELECT FILTERS</div>
-              //       <div id='search_sort_radio_div' class="menu col-md-12">
-              //         <div class='col-md-12'>
-              //           <div class="ui checkbox col-md-3">
-              //             <div class='col-md-3'>
-              //               THEME
-              //             </div>
-              //             <div class="field item col-md-12">
-              //               <input type="checkbox" name="sort_filter" data-filter='relevance'>
-              //               <label>Relevance</label>
-              //             </div>
-              //           </div>
-              //           <div class="ui checkbox col-md-3">
-              //             <div class='col-md-3'>
-              //               PLACE
-              //             </div>
-              //             <div class="field item col-md-12">
-              //               <input type="checkbox" name="sort_filter" data-filter='relevance'>
-              //               <label>Relevance</label>
-              //             </div>
-              //           </div>
-              //           <div class="ui checkbox col-md-3">
-              //             <div class='col-md-3'>
-              //               LANGUAGE
-              //             </div>
-              //             <div class="field item col-md-12">
-              //               <input type="checkbox" name="sort_filter" data-filter='relevance'>
-              //               <label>Relevance</label>
-              //             </div>
-              //           </div>
-              //         </div>
-              //       </div>
-              //     </div>
-              //   </div>
-              // </div>
       return `<div id='search_results_header_wrapper' class='col-md-12'>
                 <div id='library_index_content_search_results_header_text' class='col-md-3'>
                   Search Results
