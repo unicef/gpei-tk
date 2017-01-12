@@ -169,3 +169,7 @@
 #legal_terms_div a{
   color:white;
 }
+.display_none_ow {
+  padding-top:0px !important;
+  display:none;
+}

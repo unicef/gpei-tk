@@ -13,18 +13,28 @@
       <% end %>
     </div>
     <div id='navbar' class='navbar-collapse collapse'>
-      <ul class='nav navbar-nav'>
+      <ul id='sop_c4d_nav_list_items' class="nav navbar-nav <%= 'display_none_ow' if @display %>">
       <% if @is_sop %>
         <li id='sop_nav_button' class='<%= @backgrounds[:borders] if @backgrounds[:index] %>'><a href='/sop/'>SOP</a></li>
         <li id='sop_overview_button' class='<%= @backgrounds[:borders] if @backgrounds[:overview] %>'><a href='/sop/overview/' <%= 'style=background:' + @backgrounds[:overview] + ';' if @backgrounds[:overview] %>>OVERVIEW OF THE SOPs</a></li>
         <li id='sop_what_to_do_nav_button' class='<%= @backgrounds[:borders] if @backgrounds[:wtdw] %>'><a href='/sop/what_to_do_when/' <%= 'style=background:' + @backgrounds[:wtdw] + ';' if @backgrounds[:wtdw] %>>WHAT TO DO, WHEN</a></li>
       <% end %>
       <% if @is_library || @is_c4d %>
-        <li><a id='c4d_nav_button' href='/c4d/' class="<%= "active" if (@is_c4d_nav && !@is_library) %> <%= "show_color" if @is_c4d%>">C4D</a></li>
-        <li><a id='c4d_understand_button' href='/c4d/understand/' <%= "style=background-color:#{ @c4d_category.color }" if @is_c4d_understand %> class='<%= 'active' if @is_c4d_understand %>'>1. UNDERSTAND</a></li>
-        <li><a id='c4d_plan_button' href='/c4d/plan/' <%= "style=background-color:#{ @c4d_category.color }" if @is_c4d_plan %> class='<%= 'active' if @is_c4d_plan %>'>2. PLAN</a></li>
-        <li><a id='c4d_act_button' href='/c4d/act/' <%= "style=background-color:#{ @c4d_category.color }" if @is_c4d_act %> class='<%= 'active' if @is_c4d_act %>'>3. ACT</a></li>
-        <li><a id='c4d_tools_button' href='/library/' <%= "style=background-color:#{ @c4d_category.color }" if @is_c4d_tools %> class='<%= 'active' if @is_c4d_tools %> <%= 'library_active' if @is_library %>'>4. Library</a></li>
+        <li>
+          <a id='c4d_nav_button' href='/c4d/' class="<%= "active" if (@is_c4d_nav && !@is_library) %> <%= "show_color" if @is_c4d%>">C4D</a>
+        </li>
+        <li>
+          <a id='c4d_understand_button' href='/c4d/understand/' <%= "style=background-color:#{ @c4d_category.color }" if @is_c4d_understand %> class='<%= 'active' if @is_c4d_understand %>'>1. UNDERSTAND</a>
+        </li>
+        <li>
+          <a id='c4d_plan_button' href='/c4d/plan/' <%= "style=background-color:#{ @c4d_category.color }" if @is_c4d_plan %> class='<%= 'active' if @is_c4d_plan %>'>2. PLAN</a>
+        </li>
+        <li>
+          <a id='c4d_act_button' href='/c4d/act/' <%= "style=background-color:#{ @c4d_category.color }" if @is_c4d_act %> class='<%= 'active' if @is_c4d_act %>'>3. ACT</a>
+        </li>
+        <li>
+          <a id='c4d_tools_button' href='/library/' <%= "style=background-color:#{ @c4d_category.color }" if @is_c4d_tools %> class='<%= 'active' if @is_c4d_tools %> <%= 'library_active' if @is_library %>'>4. Library</a>
+        </li>
       <% end %>
       </ul>
       <ul class='nav navbar-nav navbar-right'>
