@@ -119,9 +119,9 @@ module ApplicationHelper
     end
   end
 
-  def buildClassesWithDot args
-    if args
-      return args.map{ |arg| "#{arg}" }.join(' ')
+  def buildClassesFromArray arr
+    if arr
+      return arr.map{ |el| "#{el}" }.join(' ')
     end
   end
 end

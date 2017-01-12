@@ -19,6 +19,12 @@
                   <input class='check_box' id='SOP' type='checkbox' value=".SOP">
                   <label for='SOP'>SOP</label>
                 </li>
+              <% @tags.each do |tag| %>
+                <li>
+                  <input class='check_box' id='<%= tag.title %>' type='checkbox' value=".<%= tag.title %>">
+                  <label for='<%= tag.title %>'><%= tag.title %></label>
+                </li>
+              <% end %>
             </ul>
           </div>
         </div>

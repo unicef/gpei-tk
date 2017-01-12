@@ -8,7 +8,7 @@ class LibraryController < ApplicationController
     reference_mp3s = ReferenceMp3.joins(:reference_mp3_articles).search_refs(params[:search][:query])
     reference_pptxes = ReferencePptx.joins(:reference_pptx_articles).search_refs(params[:search][:query])
     references = (reference_links + reference_mp3s + reference_pptxes).compact
-    reference_link_info, places, languages = getReferenceLinkInfo(references)
+    reference_link_info, places, languages, tags = getReferenceLinkInfo(references)
     users = Hash[User.all.pluck(:id, :first_name)]
     render json: { status: 200, references: references, reference_link_info: reference_link_info, users: users, places: places, languages: languages }
   end
@@ -24,7 +24,7 @@ class LibraryController < ApplicationController
   def initializeVars
     @is_library = true
     @reference_links = ReferenceLink.joins(:reference_link_articles).order(download_count: :desc, like_count: :desc, created_at: :desc).includes(:author).all.uniq
-    @reference_link_info, @places, @languages = getReferenceLinkInfo(@reference_links)
+    @reference_link_info, @places, @languages, @tags = getReferenceLinkInfo(@reference_links)
     @featured_references = ReferenceLink.joins(:featured_references).all
   end
 
@@ -32,12 +32,14 @@ class LibraryController < ApplicationController
     reference_link_info = {}
     places = []
     languages = []
+    tags = []
     reference_links.each do |reference_link|
       if reference_link_info[reference_link.id].nil?
-        reference_link_info[reference_link.id] = { places: [], languages: [], isSOP: false, isC4D: false }
+        reference_link_info[reference_link.id] = { places: [], languages: [], isSOP: false, isC4D: false, tags: [] }
       else
         reference_link_info[reference_link.id][:places].nil? ? reference_link_info[reference_link.id][:places] = [] : nil
         reference_link_info[reference_link.id][:languages].nil? ? reference_link_info[reference_link.id][:languages] = [] : nil
+        reference_link_info[reference_link.id][:tags].nil? ? reference_link_info[reference_link.id][:tags] = [] : nil
       end
       ref_join = ReferenceLinkArticle.where(reference_link_id: reference_link.id)
       sopCount = 0
@@ -50,8 +52,10 @@ class LibraryController < ApplicationController
 
         reference_link_info[reference_link.id][:places] << reference_link.places if reference_link.places
         reference_link_info[reference_link.id][:languages] << (reference_link.language.to_s + ' ' + reference_link.document_language.to_s).upcase.strip
+        (reference_link_info[reference_link.id][:tags] << reference_link.tags).flatten! if reference_link.tags
         places << reference_link_info[reference_link.id][:places]
         languages << reference_link_info[reference_link.id][:languages]
+        tags << reference_link_info[reference_link.id][:tags]
         if !reference_link_info[reference_link.id][:isSOP] && isSOP
           reference_link_info[reference_link.id][:isSOP] = isSOP
         end
@@ -70,7 +74,7 @@ class LibraryController < ApplicationController
                                                       like_count: roundStatsToView(ReferenceLike.where(reference_likeable_id: reference_link.id).count),
                                                       liked_by_user: liked_by_user })
     end
-    [reference_link_info, places.flatten.uniq.reject { |place| place.empty? }, languages.join(' ').split(' ').uniq.reject { |language| language.empty? }]
+    [reference_link_info, places.flatten.uniq.reject { |place| place.empty? }, languages.join(' ').split(' ').uniq.reject { |language| language.empty? }, tags.flatten.uniq]
   end
 
   def roundStatsToView(count)

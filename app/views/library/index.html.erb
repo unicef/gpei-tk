@@ -104,7 +104,7 @@
       <div id='library_index_content_popular_content_grid_wrapper' class='col-md-12'>
         <div id='library_index_content_popular_content_grid' class='col-md-12'>
           <% @reference_links.each_with_index do |reference, idx| %>
-            <div class='col-md-12 <%= buildClassesWithDot(@reference_link_info[reference.id][:places]) %> <%= buildClassesWithDot(@reference_link_info[reference.id][:languages]) %> <%= @reference_link_info[reference.id][:isSOP] ? 'SOP' : '' %> <%= @reference_link_info[reference.id][:isC4D] ? 'C4D' : '' %> browse_content_item browse_content_item_<%= getSearchResultFilter(idx+1) %> active'>
+            <div class='col-md-12 <%= @reference_link_info[reference.id][:tags].map(&:title).join(' ') %> <%= buildClassesFromArray(@reference_link_info[reference.id][:places]) %> <%= buildClassesFromArray(@reference_link_info[reference.id][:languages]) %> <%= @reference_link_info[reference.id][:isSOP] ? 'SOP' : '' %> <%= @reference_link_info[reference.id][:isC4D] ? 'C4D' : '' %> browse_content_item browse_content_item_<%= getSearchResultFilter(idx+1) %> active'>
               <div id='browse_content_filter_div' class='display_none'>
                 <div id='browse_content_relevance'>
                   <%= idx+1 %>
