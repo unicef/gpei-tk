@@ -53,7 +53,7 @@ class LibraryController < ApplicationController
         reference_link_info[reference_link.id][:places] << reference_link.places if reference_link.places
         reference_link_info[reference_link.id][:languages] << (reference_link.language.to_s + ' ' + reference_link.document_language.to_s).upcase.strip
         (reference_link_info[reference_link.id][:tags] << reference_link.tags).flatten! if reference_link.tags
-        places << reference_link_info[reference_link.id][:places]
+        places << reference_link_info[reference_link.id][:places].strip
         languages << reference_link_info[reference_link.id][:languages]
         tags << reference_link_info[reference_link.id][:tags]
         if !reference_link_info[reference_link.id][:isSOP] && isSOP
