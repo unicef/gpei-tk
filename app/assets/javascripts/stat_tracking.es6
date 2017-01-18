@@ -31,6 +31,7 @@ $(() => {
     let pdf_obj = `<object data="${reference_link.absolute_url}" style="width:100%; min-height:800px;" frameborder="0"></object>`
     $('#reference_link_show_modal .content').append(pdf_obj)
     $('#reference_link_show_modal').modal('show')
+    ga('send', { 'hitType': 'pageview', 'page': `/reference_link/${title}` })
   }
 
   $('#application').on('click', '#reference_link_show_close_div a', e => {
