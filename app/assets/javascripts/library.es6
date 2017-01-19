@@ -529,7 +529,9 @@ $(() => {
       idx +=1
     })
     let filter_value = '.browse_content_item_' + $('.library_browse_pagination_indicators.active a').attr('id')
-    browse_grid.isotope({ filter: filter_value })
+    _.delay(() => {
+      browse_grid.isotope({ filter: filter_value })
+    }, 1000, 'later')
     return false
   })
   $('#library').on('click', '#search_sort_radio_div .ui.radio.checkbox', e => {
@@ -602,7 +604,6 @@ $(() => {
     _.forEach($('#browse_filter_dropdown_menu .check_box'), check_box => {
       check_box.checked = false
     })
-    // $(browse_grid).isotope({ filter: '.browse_content_item_1' })
     $('#browse_sort_radio_div input[data-filter=relevance]').trigger('click')
     $('#browse_filter_display_div').empty()
     return false
