@@ -552,7 +552,9 @@ $(() => {
       idx +=1
     })
     let filter_value = '.pagination_search_content_item_' + $('.library_search_pagination_indicators.active a').attr('id')
-    search_grid.isotope({ filter: filter_value })
+    _.delay(() => {
+      search_grid.isotope({ filter: filter_value })
+    }, 1000, 'later')
     return false
   })
 
