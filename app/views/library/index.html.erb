@@ -96,9 +96,6 @@
       <div id='library_index_content_popular_header_text' class='col-md-2'>
         Browse
       </div>
-      <% if @reference_links.count > 20 %>
-        <%= render 'library/paginator' %>
-      <% end %>
       <%= render 'library/browse_filter' %>
       <div id='library_index_content_popular_divider' class='div_border_underline col-md-12'></div>
       <div id='library_index_content_popular_content_grid_wrapper' class='col-md-12'>
@@ -162,7 +159,7 @@
             </div>
           <% end %>
         </div>
-        <% if @reference_links.count > 20 %>
+        <% if @reference_links.count > 10 %>
           <div id='browse_bottom_pagination_control' class='col-md-12'>
             <%= render 'library/paginator' %>
           </div>

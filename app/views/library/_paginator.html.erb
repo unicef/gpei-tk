@@ -7,8 +7,8 @@
     <% last_idx = @reference_links.length - 1 %>
     <% last_idx.times do |idx| %>
       <% item_idx += 1 %>
-      <% if item_idx % 20 === 0 || item_idx === last_idx %>
-        <div class='library_browse_pagination_indicators <%= item_idx === 20 ? 'active' : '' %>'>
+      <% if item_idx % 10 === 0 || item_idx === last_idx %>
+        <div class='library_browse_pagination_indicators <%= item_idx === 10 ? 'active' : '' %>'>
           <a id="<%= getPaginatorIdNumber(item_idx, last_idx) %>" href='' class='max_width'>
             <%= getPaginatorIdNumber(item_idx, last_idx) %>
           </a>

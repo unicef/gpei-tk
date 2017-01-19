@@ -100,22 +100,25 @@ module ApplicationHelper
   end
 
   def getPaginatorLastPageNumber(item_count)
-    divided_idx = item_count / 20
-    modulus_idx = item_count % 20
+    page_break_point = 10
+    divided_idx = item_count / page_break_point
+    modulus_idx = item_count % page_break_point
     (modulus_idx >= 1 ? divided_idx + 1 :  divided_idx)
   end
 
   def getPaginatorIdNumber(item_idx, last_idx)
-    "#{item_idx == last_idx && item_idx % 20 != 0 ? (item_idx / 20 + 1) : (item_idx / 20)}"
+    page_break_point = 10
+    "#{item_idx == last_idx && item_idx % page_break_point != 0 ? (item_idx / page_break_point + 1) : (item_idx / page_break_point)}"
   end
 
   def getSearchResultFilter(idx)
-    if (idx <= 20)
+    page_break_point = 10
+    if (idx <= page_break_point)
       return 1
-    elsif (idx % 20 == 0)
-      return (idx / 20)
+    elsif (idx % page_break_point == 0)
+      return (idx / page_break_point)
     else
-      return (idx / 20 + 1)
+      return (idx / page_break_point + 1)
     end
   end
 
