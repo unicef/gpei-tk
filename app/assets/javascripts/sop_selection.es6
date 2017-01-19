@@ -328,7 +328,8 @@ $(() => {
     })
 
     function clearUrlState(){
-      history.pushState(null, null, window.location.href.split('/').slice(0, -1).join('/') + '/')
+      history.back()
+      // history.pushState(null, null, window.location.href.split('/').slice(0, -1).join('/') + '/')
     }
     function setUrlStateForArticleShow(article){
       history.pushState(null, null, (article.id + "-" + article.title.replace(new RegExp(' ', 'g'), '_')))

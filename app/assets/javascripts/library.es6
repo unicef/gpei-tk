@@ -451,6 +451,7 @@ $(() => {
   $('#reference_link_show_modal').modal({
     allowMultiple: true,
     onHide: () => {
+      history.back()
       $('#reference_link_show_modal .content').empty()
       $('#reference_link_show_modal .header').empty()
     }
