@@ -121,6 +121,9 @@ class Cms::ReferenceLinksController < ApplicationController
             reference_link_categories[reference_link.id] << { details: link.reference_linkable.c4d_category.title + ' > '+ link.reference_linkable.c4d_subcategory.title + ' > ' + link.reference_linkable.order_id.to_s, category: link.reference_linkable.c4d_category.title, tags: reference_link.tags }
           end
         end
+      else
+        reference_link_categories[reference_link.id] = []
+        reference_link_categories[reference_link.id] << { details: '', category: '', tags: reference_link.tags }
       end
     end
     reference_link_categories
