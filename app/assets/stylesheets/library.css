@@ -177,6 +177,7 @@
 #browse_filter_row * {
   color: black;
 }
+.library_search_pagination_indicators,
 .library_browse_pagination_indicators {
   display:inline-block;
   /*border:2px black solid;*/
@@ -190,7 +191,7 @@
   line-height:18px;
   margin-left:3px;
 }
-.library_search_pagination_indicators,
+
 .library_featured_pagination_indicators {
   display:inline-block;
   border:2px black solid;

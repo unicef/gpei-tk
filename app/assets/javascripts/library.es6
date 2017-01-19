@@ -94,7 +94,6 @@ $(() => {
                 <div id='library_index_content_search_results_header_text' class='col-md-3'>
                   Search Results
                 </div>
-                ${references.length > 10 ? getSearchPaginator(references, reference_link_info) : ''}
               </div>
               <div id='search_selected_filters_display' class='col-md-4'>
               </div>
