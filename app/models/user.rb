@@ -14,7 +14,8 @@ class User < ActiveRecord::Base
   belongs_to :role
 
   validates_uniqueness_of :email
-  validates :password, length: { minimum: 8 }
+  # validates :password, length: {minimum: 8}, confirmation: true, presence: true,:on => [:create, :update]
+  # validates :password, length: { minimum: 8 }
 
   def is_admin?
     self.role.title == 'Administrator' || self.role.title == 'root'

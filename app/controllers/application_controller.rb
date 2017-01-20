@@ -1,6 +1,6 @@
 class ApplicationController < ActionController::Base
   # For APIs, you may want to use :null_session instead.
-  helper_method :current_user, :latest_notification
+  helper_method :current_user, :latest_notification, :length_greater_than_eight
   protect_from_forgery with: :exception
 
   def current_user
@@ -34,5 +34,9 @@ class ApplicationController < ActionController::Base
       end
     end
     error_text
+  end
+
+  def length_greater_than_eight(password)
+    password.length > 7
   end
 end

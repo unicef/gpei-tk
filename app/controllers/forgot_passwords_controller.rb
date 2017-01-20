@@ -36,11 +36,13 @@ class ForgotPasswordsController < ApplicationController
     if forgot_pwd
       if !forgot_pwd.expired?
         user.password = params[:password]
-        if user.save
-          forgot_pwd.update(expired: true)
-          render json: { status: 200 }
-        else
-          render json: { status: 200, errors: buildErrorMsg(user.errors.messages)}
+        if length_greater_than_eight(params[:password])
+          if user.save
+            forgot_pwd.update(expired: true)
+            render json: { status: 200 }
+          else
+            render json: { status: 200, errors: buildErrorMsg(user.errors.messages)}
+          end
         end
       end
     end

@@ -14,7 +14,9 @@ class Cms::UsersController < ApplicationController
     if current_user.is_admin?
       if request.xhr?
         user = User.find_by(id: params['id'])
-        if user.update(safe_update_params)
+        has_valid_password = true
+        has_valid_password = length_greater_than_eight(params[:user][:password]) if params[:user][:password]
+        if user.update(safe_update_params) && has_valid_password
           render json: { status: 200, role: user.role, id: params['id'] }
         end
       end
@@ -25,11 +27,13 @@ class Cms::UsersController < ApplicationController
     if current_user.is_admin?
       if request.xhr?
         @user = User.new(safe_create_params)
-        if @user.save
-          SopChecklist.create(user_id: @user.id)
-          C4dToolkit.create(user_id: @user.id)
-          user = { id: @user.id, first_name: @user.first_name, last_name: @user.last_name, email: @user.email, is_deleted: @user.is_deleted }
-          render json: { status: 200, user: user, role: @user.role }
+        if length_greater_than_eight(params[:user][:password])
+          if @user.save
+            SopChecklist.create(user_id: @user.id)
+            C4dToolkit.create(user_id: @user.id)
+            user = { id: @user.id, first_name: @user.first_name, last_name: @user.last_name, email: @user.email, is_deleted: @user.is_deleted }
+            render json: { status: 200, user: user, role: @user.role }
+          end
         end
       end
     end
