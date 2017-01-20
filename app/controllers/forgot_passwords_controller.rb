@@ -3,7 +3,8 @@ class ForgotPasswordsController < ApplicationController
     forgot_pwd = ForgotPassword.find_by(user_key: params[:key])
     if forgot_pwd
       if !forgot_pwd.expired?
-        render 'home/index', :locals => { user_id: forgot_pwd.user_id, is_forgot_pwd: true }
+        @display = 'none'
+        render '/home/index', :locals => { user_id: forgot_pwd.user_id, is_forgot_pwd: true }
       else
         render json: { status: 403, error: 'This email was not found.' }
       end

@@ -35,5 +35,4 @@ class ApplicationController < ActionController::Base
     end
     error_text
   end
-
 end
