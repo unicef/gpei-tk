@@ -11,14 +11,14 @@
           </div>
           <div id='theme_checkboxes' class=''>
             <ul class='list-unstyled'>
-                <li>
-                  <input class='check_box' id='C4D' type='checkbox' value=".C4D">
-                  <label for='C4D'>C4D</label>
-                </li>
-                <li>
-                  <input class='check_box' id='SOP' type='checkbox' value=".SOP">
-                  <label for='SOP'>SOP</label>
-                </li>
+              <li>
+                <input class='check_box' id='C4D' type='checkbox' value=".C4D">
+                <label for='C4D'>C4D</label>
+              </li>
+              <li>
+                <input class='check_box' id='SOP' type='checkbox' value=".SOP">
+                <label for='SOP'>SOP</label>
+              </li>
               <% @tags.each do |tag| %>
                 <li>
                   <input class='check_box' id='<%= tag.title %>' type='checkbox' value=".<%= tag.title %>">
