@@ -89,15 +89,101 @@ $(() => {
               </div>`
     }
 
+    function getSearchResultsFilter(args){
+      return `<div id='search_filter_row' class='col-md-12'>
+                <div id="search_filter_dropdown" class="ui dropdown col-md-12">
+                  <div id="" class="">
+                    <span class='filter_header_text'>SELECT FILTERS</span>
+                  </div>
+                  <div id='search_filter_dropdown_menu' class="menu">
+                    <div id='' class="item col-md-12">
+                      <div id='' class='col-md-4'>
+                        <div class='search_filter_header'>
+                          THEME
+                        </div>
+                        <div id='theme_checkboxes' class=''>
+                          <ul class='list-unstyled'>
+                            <li>
+                              <input class='check_box' id='C4D' type='checkbox' value=".C4D">
+                              <label for='C4D'>C4D</label>
+                            </li>
+                            <li>
+                              <input class='check_box' id='SOP' type='checkbox' value=".SOP">
+                              <label for='SOP'>SOP</label>
+                            </li>
+                            ${ args['tags'].map(tag => {
+                                return `<li>
+                                          <input class='check_box' id='${ tag.title }' type='checkbox' value=".${ tag.title }">
+                                          <label for='${ tag.title }'>${ tag.title }</label>
+                                        </li>`
+                              }).join(' ')}
+                          </ul>
+                        </div>
+                      </div>
+                      <div id='' class='col-md-4'>
+                        <div class='border_left_and_right search_filter_header'>
+                          PLACE
+                        </div>
+                        <div id='place_checkboxes' class='border_left_and_right_gold'>
+                          <ul class='list-unstyled'>
+                            ${ args['places'].map(place => {
+                              return `<li>
+                                        <input class='check_box' id='${ place }' type='checkbox' value=".${ place }">
+                                        <label for='${ place }'>${ place }</label>
+                                      </li>`
+                            }).join(' ')}
+                          </ul>
+                        </div>
+                      </div>
+                      <div id='' class='col-md-4'>
+                        <div class='search_filter_header'>
+                          LANGUAGE
+                        </div>
+                        <div id='language_checkboxes' class=''>
+                          <ul class='list-unstyled'>
+                            ${ args['languages'].map(language => {
+                              return `<li>
+                                        <input class='check_box' id='${ language }' type='checkbox' value=".${ language }">
+                                        <label for='${ language }'>${ language }</label>
+                                      </li>`
+                            }).join(' ')}
+                          </ul>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div id='search_filter_clear_all' class='col-md-offset-2 col-md-2'>
+                  <a href=''>Clear All</a>
+                </div>
+                <div id='search_filter_display_div' class='col-md-offset-4 col-md-6'>
+
+                </div>
+                ${getSearchResultsSort()}
+              </div>`
+    }
+
     function getSearchResultContent(references, reference_link_info, users){
       return `<div id='search_results_header_wrapper' class='col-md-12'>
                 <div id='library_index_content_search_results_header_text' class='col-md-3'>
                   Search Results
                 </div>
               </div>
-              <div id='search_selected_filters_display' class='col-md-4'>
+              ${getSearchResultsFilter()}
+              <div id='search_results_border' class='div_border_underline col-md-12'></div>
               </div>
-              <div id='search_sort_wrapper' class='col-md-offset-6 col-md-2'>
+              <div class='col-md-12'>
+                <div id='library_content_search_results_grid'>
+                  ${getSearchResultRows(references, reference_link_info, users)}
+                </div>
+              </div>
+              <div id='search_pagination_controls_wrapper' class='col-md-12'>
+                ${references.length > 10 ? getSearchPaginator(references, reference_link_info) : ''}
+              </div>`
+    }
+
+    function getSearchResultsSort(){
+      return `<div id='search_sort_wrapper' class='col-md-offset-6 col-md-2'>
                 <div class="ui compact menu">
                   <div class="ui simple dropdown item">
                     <span id='sort_search_dropdown_header'>SORT RESULTS</span>
@@ -136,16 +222,6 @@ $(() => {
                     </div>
                   </div>
                 </div>
-              </div>
-              <div id='search_results_border' class='div_border_underline col-md-12'></div>
-              </div>
-              <div class='col-md-12'>
-                <div id='library_content_search_results_grid'>
-                  ${getSearchResultRows(references, reference_link_info, users)}
-                </div>
-              </div>
-              <div id='search_pagination_controls_wrapper' class='col-md-12'>
-                ${references.length > 10 ? getSearchPaginator(references, reference_link_info) : ''}
               </div>`
     }
 
