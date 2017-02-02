@@ -41,7 +41,7 @@ $(() => {
           $('#library_index_content_featured').css('display', 'none')
           $('#library_index_content_popular_downloads').css('display', 'none')
           $('#library_content_search_results').empty()
-          $('#library_content_search_results').append(getSearchResultContent(response.references, response.reference_link_info, response.users))
+          $('#library_content_search_results').append(getSearchResultContent(response.references, response.reference_link_info, response.users, response.places, response.tags))
           $('#application .ui.simple.dropdown.item').dropdown()
           $('#application .ui.radio.checkbox').checkbox()
           $('#application .ui.checkbox').checkbox()
@@ -163,13 +163,13 @@ $(() => {
               </div>`
     }
 
-    function getSearchResultContent(references, reference_link_info, users){
+    function getSearchResultContent(references, reference_link_info, users, places, tags){
       return `<div id='search_results_header_wrapper' class='col-md-12'>
                 <div id='library_index_content_search_results_header_text' class='col-md-3'>
                   Search Results
                 </div>
               </div>
-              ${getSearchResultsFilter()}
+              ${getSearchResultsFilter({ places: places, tags: tags, languages: languages })}
               <div id='search_results_border' class='div_border_underline col-md-12'></div>
               </div>
               <div class='col-md-12'>
