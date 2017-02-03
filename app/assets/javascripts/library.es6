@@ -713,4 +713,13 @@ $(() => {
       $(browse_grid).isotope({ filter: filter_value })
     }
   })
+  $('#search_filter_clear_all a').click(e => {
+    e.preventDefault()
+    _.forEach($('#search_filter_dropdown_menu .check_box'), check_box => {
+      check_box.checked = false
+    })
+    $('#browse_sort_radio_div input[data-filter=relevance]').trigger('click')
+    $('#search_filter_display_div').empty()
+    return false
+  })
 })
