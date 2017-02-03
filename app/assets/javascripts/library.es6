@@ -157,7 +157,6 @@ $(() => {
                   <a href=''>Clear All</a>
                 </div>
                 <div id='search_filter_display_div' class='col-md-offset-4 col-md-6'>
-
                 </div>
                 ${getSearchResultsSort()}
               </div>`
@@ -684,5 +683,34 @@ $(() => {
     $('#browse_sort_radio_div input[data-filter=relevance]').trigger('click')
     $('#browse_filter_display_div').empty()
     return false
+  })
+
+  $('#search_filter_dropdown_menu input').change(e => {
+    // let filter_value = _.map($('#search_filter_dropdown_menu .check_box:checked'), input => { return $(input).val() }).join(', ')
+    // [[],[],[]]
+    let filter_value = ''
+    if(e.currentTarget.checked){
+      $('#search_filter_display_div').append(`<div id="${e.currentTarget.id}" class='inline_block'>${e.currentTarget.id}</div`)
+    } else {
+      $('#search_filter_display_div').find(`#${e.currentTarget.id}`).remove()
+    }
+    let theme_values = _.map($('#search_filter_dropdown_menu #theme_checkboxes .check_box:checked'), input => { return $(input).val() })
+    let place_values = _.map($('#search_filter_dropdown_menu #place_checkboxes .check_box:checked'), input => { return $(input).val() })
+    let language_values = _.map($('#search_filter_dropdown_menu #language_checkboxes .check_box:checked'), input => { return $(input).val() })
+    filter_value += buildFilterValue(theme_values, place_values, language_values)
+    filter_value += buildFilterValue(theme_values, language_values, place_values)
+
+    filter_value += buildFilterValue(place_values, theme_values, language_values)
+    filter_value += buildFilterValue(place_values, language_values, theme_values)
+
+    filter_value += buildFilterValue(language_values, theme_values, place_values)
+    filter_value += buildFilterValue(language_values, place_values, theme_values)
+    filter_value = _.uniq(_.trim(filter_value).split(' ')).join(', ')
+
+    if (_.isEmpty(filter_value)) {
+      $(browse_grid).isotope({ filter: `.browse_content_item_${$('.library_browse_pagination_indicators.active a').attr('id')}` })
+    } else {
+      $(browse_grid).isotope({ filter: filter_value })
+    }
   })
 })
