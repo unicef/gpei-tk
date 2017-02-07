@@ -10,7 +10,7 @@ class LibraryController < ApplicationController
     references = (reference_links + reference_mp3s + reference_pptxes).compact
     reference_link_info, places, languages, tags = getReferenceLinkInfo(references)
     users = Hash[User.all.pluck(:id, :first_name)]
-    render json: { status: 200, references: references, reference_link_info: reference_link_info, users: users, places: places, languages: languages }
+    render json: { status: 200, references: references, reference_link_info: reference_link_info, users: users, places: places, languages: languages, tags: tags }
   end
 
   def referenceShow
