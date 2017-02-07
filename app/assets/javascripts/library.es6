@@ -41,7 +41,7 @@ $(() => {
           $('#library_index_content_featured').css('display', 'none')
           $('#library_index_content_popular_downloads').css('display', 'none')
           $('#library_content_search_results').empty()
-          $('#library_content_search_results').append(getSearchResultContent(response.references, response.reference_link_info, response.users, response.places, response.tags))
+          $('#library_content_search_results').append(getSearchResultContent(response.references, response.reference_link_info, response.users, response.places, response.languages, response.tags))
           $('#application .ui.simple.dropdown.item').dropdown()
           $('#application .ui.radio.checkbox').checkbox()
           $('#application .ui.checkbox').checkbox()
@@ -90,6 +90,7 @@ $(() => {
     }
 
     function getSearchResultsFilter(args){
+      debugger
       return `<div id='search_filter_row' class='col-md-12'>
                 <div id="search_filter_dropdown" class="ui dropdown col-md-12">
                   <div id="" class="">
@@ -162,7 +163,7 @@ $(() => {
               </div>`
     }
 
-    function getSearchResultContent(references, reference_link_info, users, places, tags){
+    function getSearchResultContent(references, reference_link_info, users, places, languages, tags){
       return `<div id='search_results_header_wrapper' class='col-md-12'>
                 <div id='library_index_content_search_results_header_text' class='col-md-3'>
                   Search Results
