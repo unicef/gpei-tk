@@ -639,7 +639,7 @@ $(() => {
     // [[],[],[]]
     let filter_value = ''
     if(e.currentTarget.checked){
-      $('#browse_filter_display_div').append(`<div id="${e.currentTarget.id}" class='inline_block'>${e.currentTarget.id}</div`)
+      $('#browse_filter_display_div').append(`<div id="${e.currentTarget.id}" class='inline_block'>${e.currentTarget.id.replace(new RegExp('_', 'g'), ' ')}</div`)
     } else {
       $('#browse_filter_display_div').find(`#${e.currentTarget.id}`).remove()
     }
@@ -691,7 +691,7 @@ $(() => {
     // [[],[],[]]
     let filter_value = ''
     if(e.currentTarget.checked){
-      $('#search_filter_display_div').append(`<div id="${e.currentTarget.id}" class='inline_block'>${e.currentTarget.id}</div`)
+      $('#search_filter_display_div').append(`<div id="${e.currentTarget.id}" class='inline_block'>${e.currentTarget.id.replace(new RegExp('_', 'g'), ' ')}</div`)
     } else {
       $('#search_filter_display_div').find(`#${e.currentTarget.id}`).remove()
     }
