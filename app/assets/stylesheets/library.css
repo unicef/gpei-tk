@@ -536,14 +536,21 @@ a.max_width {
 #browse_filter_dropdown_menu_item {
   width:100%;
 }
+#search_sort_wrapper {
+  position:absolute;
+  right:0px;
+  top:-26px;
+}
 #browse_sort_wrapper {
   position:absolute;
   right:0px;
   top:-13px;
 }
+#search_sort_wrapper *,
 #browse_sort_wrapper * {
   line-height:16px;
 }
+#search_sort_wrapper .ui.compact.menu .ui.simple.dropdown.item,
 #browse_sort_wrapper .ui.compact.menu .ui.simple.dropdown.item {
   padding:0px;
 }
