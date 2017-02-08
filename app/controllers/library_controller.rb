@@ -4,9 +4,9 @@ class LibraryController < ApplicationController
   end
 
   def referenceSearch
-    reference_links = ReferenceLink.joins(:reference_link_articles).search_refs(params[:search][:query])
-    reference_mp3s = ReferenceMp3.joins(:reference_mp3_articles).search_refs(params[:search][:query])
-    reference_pptxes = ReferencePptx.joins(:reference_pptx_articles).search_refs(params[:search][:query])
+    reference_links = ReferenceLink.joins(:reference_link_articles).search_refs(params[:search][:query]).to_a.uniq
+    reference_mp3s = ReferenceMp3.joins(:reference_mp3_articles).search_refs(params[:search][:query]).to_a.uniq
+    reference_pptxes = ReferencePptx.joins(:reference_pptx_articles).search_refs(params[:search][:query]).to_a.uniq
     references = (reference_links + reference_mp3s + reference_pptxes).compact
     reference_link_info, places, languages, tags = getReferenceLinkInfo(references)
     users = Hash[User.all.pluck(:id, :first_name)]
