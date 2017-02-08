@@ -21,7 +21,7 @@
               </li>
               <% @tags.each do |tag| %>
                 <li>
-                  <input class='check_box' id='<%= tag.title %>' type='checkbox' value=".<%= tag.title %>">
+                  <input class='check_box' id='<%= tag.title.gsub(' ', '_') %>' type='checkbox' value=".<%= tag.title %>">
                   <label for='<%= tag.title %>'><%= tag.title %></label>
                 </li>
               <% end %>
@@ -36,7 +36,7 @@
             <ul class='list-unstyled'>
               <% @places.each do |place| %>
                 <li>
-                  <input class='check_box' id='<%= place %>' type='checkbox' value=".<%= place %>">
+                  <input class='check_box' id='<%= place.gsub(' ', '_') %>' type='checkbox' value=".<%= place %>">
                   <label for='<%= place %>'><%= place %></label>
                 </li>
               <% end %>
@@ -51,7 +51,7 @@
             <ul class='list-unstyled'>
               <% @languages.each do |language| %>
                 <li>
-                  <input class='check_box' id='<%= language %>' type='checkbox' value=".<%= language %>">
+                  <input class='check_box' id='<%= language.gsub(' ', '_') %>' type='checkbox' value=".<%= language %>">
                   <label for='<%= language %>'><%= language %></label>
                 </li>
               <% end %>
@@ -64,7 +64,7 @@
   <div id='browse_filter_clear_all' class='col-md-offset-2 col-md-2'>
     <a href=''>Clear All</a>
   </div>
-  <div id='browse_filter_display_div' class='col-md-offset-4 col-md-6'>
+  <div id='browse_filter_display_div' class='col-md-10'>
 
   </div>
   <%= render 'library/browse_sort' %>
