@@ -90,7 +90,6 @@ $(() => {
     }
 
     function getSearchResultsFilter(args){
-      debugger
       return `<div id='search_filter_row' class='col-md-12'>
                 <div id="search_filter_dropdown" class="ui dropdown col-md-12">
                   <div id="" class="">
@@ -164,12 +163,12 @@ $(() => {
     }
 
     function getSearchResultContent(references, reference_link_info, users, places, languages, tags){
-      return `<div id='search_results_header_wrapper' class='col-md-12'>
+      return `${references.length > 10  ? `<div id='search_results_header_wrapper' class='col-md-12'>
                 <div id='library_index_content_search_results_header_text' class='col-md-3'>
                   Search Results
                 </div>
-              </div>
-              ${getSearchResultsFilter({ places: places, tags: tags, languages: languages })}
+              </div>` : ''}
+              ${references.length > 0 ? getSearchResultsFilter({ places: places, tags: tags, languages: languages }) : ''}
               <div id='search_results_border' class='div_border_underline col-md-12'></div>
               </div>
               <div class='col-md-12'>
@@ -287,7 +286,7 @@ $(() => {
       let idx = -1
       let last_idx = references.length - 1
       if (references.length === 0){
-        return `<div class='col-md-12 search_content_item search_content_item_1' style='padding-left:5px'><h3>No Results</h3></div>`
+        return `<div class='col-md-12 search_content_item pagination_search_content_item_1' style='padding-left:5px;'><h3>No Results</h3></div>`
       }
       return `${references.map(reference_obj => {
         idx += 1
