@@ -41,7 +41,7 @@ $(() => {
     } else {
       history.pushState(null, null, `/library/${title}`)
     }
-    ga('send', { 'hitType': 'pageview', 'page': `/reference_link/${title}` })
+    ga('send', { 'hitType': 'pageview', 'page': `/library/${title}` })
   }
 
   $('#application').on('click', '#reference_link_show_close_div a', e => {
