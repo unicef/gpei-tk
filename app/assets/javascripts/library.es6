@@ -290,7 +290,7 @@ $(() => {
       }
       return `${references.map(reference_obj => {
         idx += 1
-        return `<div id='${idx + 1}' class='col-md-12 search_content_item pagination_search_content_item_${ getSearchResultFilter(idx+1) } ${ idx === 0 ? 'active' : '' }'>
+        return `<div id='${idx + 1}' class='col-md-12 ${reference_link_info[reference_obj.id].isSOP ? 'SOP' : ''} ${reference_link_info[reference_obj.id].isC4D ? 'C4D' : ''} ${reference_link_info[reference_obj.id]['tags'].map(tag => { return tag.title }).join(' ')} ${reference_link_info[reference_obj.id]['places'].map(place => { return place }).join(' ')} ${reference_link_info[reference_obj.id]['languages'][0]} search_content_item pagination_search_content_item_${ getSearchResultFilter(idx+1) } ${ idx === 0 ? 'active' : '' }'>
                   <div class='col-md-1'>
                     <a id='${ reference_obj.id }' href="${ reference_obj.absolute_url }" target='_blank' class='reference_download_tracker'><img id='search_content_item_image' src="${ _.replace(reference_obj.absolute_url, new RegExp("pdf","g"), "png") }" class='img-responsive'></a>
                   </div>
@@ -626,7 +626,7 @@ $(() => {
       $(grid_item.element).addClass(`pagination_search_content_item_${getSearchResultFilter(idx+1)}`)
       idx +=1
     })
-    let filter_value = '.pagination_search_content_item_' + $('.library_search_pagination_indicators.active a').attr('id')
+    let filter_value = '.pagination_search_content_item_' + $('.library_search_pagination_indicators.active a').attr('id') === undefined ? '1' : $('.library_search_pagination_indicators.active a').attr('id')
     _.delay(() => {
       search_grid.isotope({ filter: filter_value })
     }, 1000, 'later')
@@ -656,7 +656,7 @@ $(() => {
     filter_value = _.uniq(_.trim(filter_value).split(' ')).join(', ')
 
     if (_.isEmpty(filter_value)) {
-      $(browse_grid).isotope({ filter: `.browse_content_item_${$('.library_browse_pagination_indicators.active a').attr('id')}` })
+      $(browse_grid).isotope({ filter: `.browse_content_item_${ $('.library_browse_pagination_indicators.active a').attr('id') === undefined ? '1' : $('.library_browse_pagination_indicators.active a').attr('id') }` })
     } else {
       $(browse_grid).isotope({ filter: filter_value })
     }
@@ -685,18 +685,18 @@ $(() => {
     return false
   })
 
-  $('#search_filter_dropdown_menu input').change(e => {
+  $('#library_content_search_results').on('change', '#search_filter_dropdown_menu input', e => {
     // let filter_value = _.map($('#search_filter_dropdown_menu .check_box:checked'), input => { return $(input).val() }).join(', ')
     // [[],[],[]]
     let filter_value = ''
     if(e.currentTarget.checked){
-      $('#search_filter_display_div').append(`<div id="${e.currentTarget.id}" class='inline_block'>${e.currentTarget.id.replace(new RegExp('_', 'g'), ' ')}</div`)
+      $('#library_content_search_results #search_filter_display_div').append(`<div id="${e.currentTarget.id}" class='inline_block'>${e.currentTarget.id.replace(new RegExp('_', 'g'), ' ')}</div`)
     } else {
-      $('#search_filter_display_div').find(`#${e.currentTarget.id}`).remove()
+      $('#library_content_search_results #search_filter_display_div').find(`#${e.currentTarget.id}`).remove()
     }
-    let theme_values = _.map($('#search_filter_dropdown_menu #theme_checkboxes .check_box:checked'), input => { return $(input).val() })
-    let place_values = _.map($('#search_filter_dropdown_menu #place_checkboxes .check_box:checked'), input => { return $(input).val() })
-    let language_values = _.map($('#search_filter_dropdown_menu #language_checkboxes .check_box:checked'), input => { return $(input).val() })
+    let theme_values = _.map($('#library_content_search_results #search_filter_dropdown_menu #theme_checkboxes .check_box:checked'), input => { return $(input).val() })
+    let place_values = _.map($('#library_content_search_results #search_filter_dropdown_menu #place_checkboxes .check_box:checked'), input => { return $(input).val() })
+    let language_values = _.map($('#library_content_search_results #search_filter_dropdown_menu #language_checkboxes .check_box:checked'), input => { return $(input).val() })
     filter_value += buildFilterValue(theme_values, place_values, language_values)
     filter_value += buildFilterValue(theme_values, language_values, place_values)
 
@@ -708,18 +708,18 @@ $(() => {
     filter_value = _.uniq(_.trim(filter_value).split(' ')).join(', ')
 
     if (_.isEmpty(filter_value)) {
-      $(browse_grid).isotope({ filter: `.browse_content_item_${$('.library_browse_pagination_indicators.active a').attr('id')}` })
+      $(search_grid).isotope({ filter: `${ $('.library_search_pagination_indicators.active a').attr('id') === undefined ? '*' : `.search_content_item_${$('.library_search_pagination_indicators.active a').attr('id')}` }` })
     } else {
-      $(browse_grid).isotope({ filter: filter_value })
+      $(search_grid).isotope({ filter: filter_value })
     }
   })
-  $('#search_filter_clear_all a').click(e => {
+  $('#library_content_search_results').on('click', '#search_filter_clear_all a', e => {
     e.preventDefault()
-    _.forEach($('#search_filter_dropdown_menu .check_box'), check_box => {
+    _.forEach($('#library_content_search_results #search_filter_dropdown_menu .check_box'), check_box => {
       check_box.checked = false
     })
-    $('#browse_sort_radio_div input[data-filter=relevance]').trigger('click')
-    $('#search_filter_display_div').empty()
+    $('#library_content_search_results #search_sort_radio_div input[data-filter=relevance]').trigger('click')
+    $('#library_content_search_results #search_filter_display_div').empty()
     return false
   })
 })
