@@ -626,7 +626,8 @@ $(() => {
       $(grid_item.element).addClass(`pagination_search_content_item_${getSearchResultFilter(idx+1)}`)
       idx +=1
     })
-    let filter_value = '.pagination_search_content_item_' + $('.library_search_pagination_indicators.active a').attr('id') === undefined ? '1' : $('.library_search_pagination_indicators.active a').attr('id')
+    let filter_value = `.pagination_search_content_item_${$('.library_search_pagination_indicators.active a').attr('id') === undefined ? '1' : $('.library_search_pagination_indicators.active a').attr('id')}`
+    console.log(filter_value)
     _.delay(() => {
       search_grid.isotope({ filter: filter_value })
     }, 1000, 'later')
@@ -680,7 +681,7 @@ $(() => {
     _.forEach($('#browse_filter_dropdown_menu .check_box'), check_box => {
       check_box.checked = false
     })
-    $('#browse_sort_radio_div input[data-filter=relevance]').trigger('click')
+    $('#browse_sort_radio_div input[data-filter=download]').trigger('click')
     $('#browse_filter_display_div').empty()
     return false
   })
@@ -708,7 +709,7 @@ $(() => {
     filter_value = _.uniq(_.trim(filter_value).split(' ')).join(', ')
 
     if (_.isEmpty(filter_value)) {
-      $(search_grid).isotope({ filter: `${ $('.library_search_pagination_indicators.active a').attr('id') === undefined ? '*' : `.search_content_item_${$('.library_search_pagination_indicators.active a').attr('id')}` }` })
+      $(search_grid).isotope({ filter: `${ $('.library_search_pagination_indicators.active a').attr('id') === undefined ? '.pagination_search_content_item_1' : `.pagination_search_content_item_${$('.library_search_pagination_indicators.active a').attr('id')}` }` })
     } else {
       $(search_grid).isotope({ filter: filter_value })
     }
