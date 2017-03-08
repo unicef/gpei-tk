@@ -113,7 +113,7 @@ $(() => {
                             </li>
                             ${ args['tags'].map(tag => {
                                 return `<li>
-                                          <input class='check_box' id='${ tag.title }' type='checkbox' value=".${ tag.title }">
+                                          <input class='check_box' id='${ _.replace(tag.title, new RegExp(" ","g"),"_") }' type='checkbox' value=".${ tag.title }">
                                           <label for='${ tag.title }'>${ tag.title }</label>
                                         </li>`
                               }).join(' ')}
@@ -128,7 +128,7 @@ $(() => {
                           <ul class='list-unstyled'>
                             ${ args['places'].map(place => {
                               return `<li>
-                                        <input class='check_box' id='${ place }' type='checkbox' value=".${ place }">
+                                        <input class='check_box' id='${ _.replace(place, new RegExp(" ","g"),"_") }' type='checkbox' value=".${ place }">
                                         <label for='${ place }'>${ place }</label>
                                       </li>`
                             }).join(' ')}
@@ -143,7 +143,7 @@ $(() => {
                           <ul class='list-unstyled'>
                             ${ args['languages'].map(language => {
                               return `<li>
-                                        <input class='check_box' id='${ language }' type='checkbox' value=".${ language }">
+                                        <input class='check_box' id='${ _.replace(language, new RegExp(" ","g"),"_") }' type='checkbox' value=".${ language }">
                                         <label for='${ language }'>${ language }</label>
                                       </li>`
                             }).join(' ')}
