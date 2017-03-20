@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170110014618) do
+ActiveRecord::Schema.define(version: 20170317032314) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -115,6 +115,20 @@ ActiveRecord::Schema.define(version: 20170110014618) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "language_references", force: :cascade do |t|
+    t.integer  "language_id"
+    t.integer  "reference_languageable_id"
+    t.string   "reference_languageable_type"
+    t.datetime "created_at",                  null: false
+    t.datetime "updated_at",                  null: false
+  end
+
+  create_table "languages", force: :cascade do |t|
+    t.text     "title"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "likes", force: :cascade do |t|
     t.integer  "author_id",  null: false
     t.datetime "created_at", null: false
@@ -137,6 +151,20 @@ ActiveRecord::Schema.define(version: 20170110014618) do
   end
 
   add_index "pg_search_documents", ["searchable_type", "searchable_id"], name: "index_pg_search_documents_on_searchable_type_and_searchable_id", using: :btree
+
+  create_table "place_references", force: :cascade do |t|
+    t.integer  "place_id"
+    t.integer  "reference_placeable_id"
+    t.string   "reference_placeable_type"
+    t.datetime "created_at",               null: false
+    t.datetime "updated_at",               null: false
+  end
+
+  create_table "places", force: :cascade do |t|
+    t.text     "title"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
 
   create_table "reference_downloads", force: :cascade do |t|
     t.integer  "download_id"
