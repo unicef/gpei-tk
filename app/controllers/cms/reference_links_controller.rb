@@ -66,6 +66,18 @@ class Cms::ReferenceLinksController < ApplicationController
             TagReference.create(tag_id: tag_id, reference_tagable: reference_link)
           end
         end
+        PlaceReference.where(reference_placeable: reference_link).destroy_all
+        if params[:places]
+          params[:places].each do |place_id|
+            PlaceReference.create(place_id: place_id, reference_placeable: reference_link)
+          end
+        end
+        LanguageReference.where(reference_languageable: reference_link).destroy_all
+        if params[:languages]
+          params[:languages].each do |language_id|
+            LanguageReference.create(language_id: language_id, reference_languageable: reference_link)
+          end
+        end
         RelatedReference.where(reference_link_id: reference_link.id).destroy_all
         if params[:reference_link][:related_topics]
           params[:reference_link][:related_topics].each do |id|
