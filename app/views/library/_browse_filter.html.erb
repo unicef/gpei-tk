@@ -21,8 +21,8 @@
               </li>
               <% @tags.each do |tag| %>
                 <li>
-                  <input class='check_box' id='<%= tag.title.gsub(' ', '_') %>' type='checkbox' value=".<%= tag.title %>">
-                  <label for='<%= tag.title %>'><%= tag.title %></label>
+                  <input class='check_box' id='<%= tag['title'].gsub(' ', '_') %>' type='checkbox' value=".<%= tag['title'] %>">
+                  <label for='<%= tag['title'] %>'><%= tag['title'] %></label>
                 </li>
               <% end %>
             </ul>
@@ -36,8 +36,8 @@
             <ul class='list-unstyled'>
               <% @places.each do |place| %>
                 <li>
-                  <input class='check_box' id='<%= place.gsub(' ', '_') %>' type='checkbox' value=".<%= place %>">
-                  <label for='<%= place %>'><%= place %></label>
+                  <input class='check_box' id='<%= place['title'].gsub(' ', '_') %>' type='checkbox' value=".<%= place['title'] %>">
+                  <label for='<%= place['title'] %>'><%= place['title'] %></label>
                 </li>
               <% end %>
             </ul>
@@ -51,8 +51,8 @@
             <ul class='list-unstyled'>
               <% @languages.each do |language| %>
                 <li>
-                  <input class='check_box' id='<%= language.gsub(' ', '_') %>' type='checkbox' value=".<%= language %>">
-                  <label for='<%= language %>'><%= language %></label>
+                  <input class='check_box' id='<%= language['title'].gsub(' ', '_') %>' type='checkbox' value=".<%= language['title'] %>">
+                  <label for='<%= language['title'] %>'><%= language['title'] %></label>
                 </li>
               <% end %>
             </ul>

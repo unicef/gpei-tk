@@ -46,40 +46,42 @@
           <% @featured_references.each_with_index do |reference, idx| %>
             <div class='col-md-12 featured_content_item featured_content_item_<%= idx+1 %> <%= 'active' if idx == 0 %>' style="<%= "visibility: hidden;" if idx > 0 %>">
               <div class='col-md-2'>
-                <a id='<%= reference.id %>' href="<%= reference.absolute_url %>" target='_blank' class='reference_download_tracker'><img id='featured_content_item_image' src="<%= reference.absolute_url.gsub('pdf', 'png') %>" class='img-responsive'></a>
+                <a id='<%= reference['id'] %>' href="<%= reference.absolute_url %>" target='_blank' class='reference_download_tracker'><img id='featured_content_item_image' src="<%= reference.absolute_url.gsub('pdf', 'png') %>" class='img-responsive'></a>
               </div>
               <div id='featured_content_item_info_wrapper' class='col-md-10'>
                 <div id='featured_content_title_text' class='col-md-12'>
-                  <a id='<%= reference.id %>' href="<%= reference.absolute_url %>" target='_blank' class='reference_download_tracker'><%= reference.title ? reference.title : reference.document_file_name.gsub('_', ' ').gsub('.pdf', '') %></a>
+                  <a id='<%= reference['id'] %>' href="<%= reference.absolute_url %>" target='_blank' class='reference_download_tracker'><%= reference.title ? reference.title : reference.document_file_name.gsub('_', ' ').gsub('.pdf', '') %></a>
                 </div>
                 <div id='like_and_download_wrapper' class='col-md-2'>
                   <div id='library_download_div' class='inline_block'>
-                    <a id='<%= reference.id %>' href="<%= reference.absolute_url %>" target='_blank' class='inline_block library_download_img reference_download_tracker'>
+                    <a id='<%= reference['id'] %>' href="<%= reference.absolute_url %>" target='_blank' class='inline_block library_download_img reference_download_tracker'>
                       <img src='/assets/icons/icon-download2x.png' class='library_grid_icon'>
                     </a>
-                    <div class='counter_indicator_text_div inline_block'><%= @reference_link_info[reference.id][:download_count] %></div>
+                    <div class='counter_indicator_text_div inline_block'><%= @reference_links_data[reference['id']][:download_count] %></div>
                   </div>
-                  <div id='library_like_div' class='inline_block <%= @reference_link_info[reference.id][:liked_by_user] ? 'like_by_user_div' : '' %>'>
-                    <a id='<%= reference.id %>' href='' class='inline_block library_like_img reference_like_tracker'>
-                      <img src='<%= @reference_link_info[reference.id][:liked_by_user] ? '/assets/icons/icon-like-white-2x.png' : '/assets/icons/icon-like-grey2x.png' %>' class='library_grid_icon'>
+                  <div id='library_like_div' class='inline_block <%= @reference_links_data[reference['id']][:liked_by_user] ? 'like_by_user_div' : '' %>'>
+                    <a id='<%= reference['id'] %>' href='' class='inline_block library_like_img reference_like_tracker'>
+                      <img src='<%= @reference_links_data[reference['id']][:liked_by_user] ? '/assets/icons/icon-like-white-2x.png' : '/assets/icons/icon-like-grey2x.png' %>' class='library_grid_icon'>
                     </a>
-                    <div class='counter_indicator_text_div inline_block <%= @reference_link_info[reference.id][:liked_by_user] ? 'liked_by_user_white_text' : '' %>'><%= @reference_link_info[reference.id][:like_count] %></div>
+                    <div class='counter_indicator_text_div inline_block <%= @reference_links_data[reference['id']][:liked_by_user] ? 'liked_by_user_white_text' : '' %>'><%= @reference_links_data[reference['id']][:like_count] %></div>
                   </div>
                 </div>
                 <div class='col-md-7'>
                   <div id='download_related_topics_div' class='bold_text col-md-3'>DOWNLOAD</div>
                   <div class='col-md-8 langauage_indicator_wrapper'>
-                    <a id='<%= reference.id %>' href="<%= reference.absolute_url %>" target='_blank' class='reference_download_tracker'><div class='reference_search_result_info_language '><%= reference.document_language ? reference.document_language.upcase : reference.language.upcase %></div> PDF <%= number_to_human_size(reference.document_file_size) %></a>
-                    <% @reference_link_info[reference.id][:related_topics].each do |related_topic| %>
-                      <a id='<%= related_topic.id %>' href="<%= related_topic.absolute_url %>" target='_blank' class=' reference_download_tracker'><div class='reference_search_result_info_language'><%= related_topic.document_language ? related_topic.document_language.upcase : related_topic.language.upcase %></div> PDF <%= number_to_human_size(related_topic.document_file_size) %></a>
+                    <a id='<%= reference['id'] %>' href="<%= reference.absolute_url %>" target='_blank' class='reference_download_tracker'><div class='reference_search_result_info_language '><%= reference.document_language ? reference.document_language.upcase : reference.language.upcase %></div> PDF <%= number_to_human_size(reference.document_file_size) %></a>
+                    <% if @reference_links_data[reference['id']][:related_topics] %>
+                      <% @reference_links_data[reference['id']][:related_topics].each do |reference_link| %>
+                        <a id='<%= reference_link.id %>' href="<%= reference_link.absolute_url %>" target='_blank' class=' reference_download_tracker'><div class='reference_search_result_info_language'><%= reference_link.document_language ? reference_link.document_language.upcase : reference_link.language.upcase %></div> PDF <%= number_to_human_size(reference_link.document_file_size) %></a>
+                      <% end %>
                     <% end %>
                   </div>
                 </div>
                 <div id='catalogue_wrapper' class='col-md-offset-1 col-md-2 text-right'>
-                  <% if @reference_link_info[reference.id][:isC4D] %>
+                  <% if @reference_links_data[reference['id']][:isC4D] %>
                     <div class='inline_block reference_search_result_is_c4d bold_text'>C4D</div>
                   <% end %>
-                  <% if @reference_link_info[reference.id][:isSOP] %>
+                  <% if @reference_links_data[reference['id']][:isSOP] %>
                     <div class='inline_block reference_search_result_is_sop bold_text'>SOP</div>
                   <% end %>
                 </div>
@@ -101,58 +103,60 @@
       <div id='library_index_content_popular_content_grid_wrapper' class='col-md-12'>
         <div id='library_index_content_popular_content_grid' class='col-md-12'>
           <% @reference_links.each_with_index do |reference, idx| %>
-            <div class='col-md-12 <%= @reference_link_info[reference.id][:tags].map(&:title).join(' ') %> <%= buildClassesFromArray(@reference_link_info[reference.id][:places]) %> <%= buildClassesFromArray(@reference_link_info[reference.id][:languages]) %> <%= @reference_link_info[reference.id][:isSOP] ? 'SOP' : '' %> <%= @reference_link_info[reference.id][:isC4D] ? 'C4D' : '' %> browse_content_item browse_content_item_<%= getSearchResultFilter(idx+1) %> active'>
+            <div class='col-md-12 <%= @reference_links_data[reference['id']][:tags].map{ |tag| tag.title.gsub(' ', '_') }.join(' ') if @reference_links_data[reference['id']][:tags] %> <%= @reference_links_data[reference['id']][:places].map{ |place| place.title.gsub(' ', '_') }.join(' ') if @reference_links_data[reference['id']][:places] %> <%= @reference_links_data[reference['id']][:languages].map{ |language| language.title.gsub(' ', '_') }.join(' ') if @reference_links_data[reference['id']][:languages] %> <%= @reference_links_data[reference['id']][:isSOP] ? 'SOP' : '' %> <%= @reference_links_data[reference['id']][:isC4D] ? 'C4D' : '' %> browse_content_item browse_content_item_<%= getSearchResultFilter(idx+1) %> active'>
               <div id='browse_content_filter_div' class='display_none'>
                 <div id='browse_content_relevance'>
                   <%= idx+1 %>
                 </div>
                 <div id='browse_content_author'>
-                  <%= reference.author.first_name %> <%= reference.author.last_name %>
+                  <%= @reference_links_data[reference['id']][:reference_link]['author']['first_name'] %> <%= @reference_links_data[reference['id']][:reference_link]['author']['last_name'] %>
                 </div>
                 <div id='browse_content_created_at'>
-                  <%= reference.created_at %>
+                  <%= @reference_links_data[reference['id']][:reference_link]['author']['created_at'] %>
                 </div>
               </div>
               <div class='col-md-1'>
-                <a id='<%= reference.id %>' href="<%= reference.absolute_url %>" target='_blank' class='reference_download_tracker'><img id='popular_content_item_image' src="<%= reference.absolute_url.gsub('pdf', 'png') %>" class='img-responsive'></a>
+                <a id='<%= reference['id'] %>' href="<%= @reference_links_data[reference['id']][:reference_link]['absolute_url'] %>" target='_blank' class='reference_download_tracker'><img id='popular_content_item_image' src="<%= @reference_links_data[reference['id']][:reference_link]['absolute_url'].gsub('pdf', 'png') %>" class='img-responsive'></a>
               </div>
               <div id='popular_content_item_info_wrapper' class='col-md-11'>
                 <div id='popular_content_title_text' class='col-md-12'>
-                  <a id='<%= reference.id %>' href="<%= reference.absolute_url %>" target='_blank' class='reference_download_tracker'><%= reference.title ? reference.title : reference.document_file_name.gsub('_', ' ').gsub('.pdf', '') %></a>
+                  <a id='<%= reference['id'] %>' href="<%= @reference_links_data[reference['id']][:reference_link]['absolute_url'] %>" target='_blank' class='reference_download_tracker'><%= @reference_links_data[reference['id']][:reference_link]['title'] ? @reference_links_data[reference['id']][:reference_link]['title'] : @reference_links_data[reference['id']][:reference_link]['document_file_name'].gsub('_', ' ').gsub('.pdf', '') %></a>
                 </div>
                 <div id='like_and_download_wrapper' class='col-md-2'>
                   <div id='library_download_div' class='inline_block'>
-                    <a id='<%= reference.id %>' href="<%= reference.absolute_url %>" target='_blank' class='inline_block library_download_img reference_download_tracker'>
+                    <a id='<%= reference['id'] %>' href="<%= @reference_links_data[reference['id']][:reference_link]['absolute_url'] %>" target='_blank' class='inline_block library_download_img reference_download_tracker'>
                       <img src='/assets/icons/icon-download2x.png' class='library_grid_icon'>
                     </a>
-                    <div class='counter_indicator_text_div inline_block'><%= @reference_link_info[reference.id][:download_count] %></div>
+                    <div class='counter_indicator_text_div inline_block'><%= @reference_links_data[reference['id']][:download_count] %></div>
                   </div>
-                  <div id='library_like_div' class='inline_block <%= @reference_link_info[reference.id][:liked_by_user] ? 'like_by_user_div' : '' %>''>
-                    <a id='<%= reference.id %>' href='' class='inline_block library_like_img reference_like_tracker'>
-                      <img src='<%= @reference_link_info[reference.id][:liked_by_user] ? '/assets/icons/icon-like-white-2x.png' : '/assets/icons/icon-like-grey2x.png' %>' class='library_like_icon'>
+                  <div id='library_like_div' class='inline_block <%= @reference_links_data[reference['id']][:liked_by_user] ? 'like_by_user_div' : '' %>''>
+                    <a id='<%= reference['id'] %>' href='' class='inline_block library_like_img reference_like_tracker'>
+                      <img src='<%= @reference_links_data[reference['id']][:liked_by_user] ? '/assets/icons/icon-like-white-2x.png' : '/assets/icons/icon-like-grey2x.png' %>' class='library_like_icon'>
                     </a>
-                    <div class='counter_indicator_text_div inline_block <%= @reference_link_info[reference.id][:liked_by_user] ? 'liked_by_user_white_text' : '' %>'><%= @reference_link_info[reference.id][:like_count] %></div>
+                    <div class='counter_indicator_text_div inline_block <%= @reference_links_data[reference['id']][:liked_by_user] ? 'liked_by_user_white_text' : '' %>'><%= @reference_links_data[reference['id']][:like_count] %></div>
                   </div>
                 </div>
                 <div class='col-md-7'>
                   <div id='download_related_topics_div' class='bold_text col-md-3'>DOWNLOAD</div>
                   <div class='col-md-8 langauage_indicator_wrapper'>
-                    <a id='<%= reference.id %>' href="<%= reference.absolute_url %>" target='_blank' class='reference_download_tracker'><div class='reference_search_result_info_language'><%= reference.document_language ? reference.document_language.upcase : reference.language.upcase %></div> PDF <%= number_to_human_size(reference.document_file_size) %></a>
-                    <% @reference_link_info[reference.id][:related_topics].each do |related_topic| %>
-                      <a id='<%= related_topic.id %>' href="<%= related_topic.absolute_url %>" target='_blank' class='reference_download_tracker'><div class='reference_search_result_info_language'><%= related_topic.document_language ? related_topic.document_language.upcase : related_topic.language.upcase %></div> PDF <%= number_to_human_size(related_topic.document_file_size) %></a>
+                    <a id='<%= reference['id'] %>' href="<%= @reference_links_data[reference['id']][:reference_link]['absolute_url'] %>" target='_blank' class='reference_download_tracker'><div class='reference_search_result_info_language'><%= @reference_links_data[reference['id']][:reference_link]['document_language'] ? @reference_links_data[reference['id']][:reference_link]['document_language'].upcase : @reference_links_data[reference['id']][:reference_link]['language'].upcase %></div> PDF <%= number_to_human_size(@reference_links_data[reference['id']][:reference_link]['document_file_size']) %></a>
+                    <% if @reference_links_data[reference['id']][:reference_link]['related_topics'] %>
+                      <% @reference_links_data[reference['id']][:reference_link]['related_topics'].each do |reference_link| %>
+                        <a id='<%= reference_link['id'] %>' href="<%= reference_link['absolute_url'] %>" target='_blank' class='reference_download_tracker'><div class='reference_search_result_info_language'><%= reference_link['document_language'] ? reference_link['document_language'].upcase : reference_link['language'].upcase %></div> PDF <%= number_to_human_size(reference_link['document_file_size']) %></a>
+                      <% end %>
                     <% end %>
                   </div>
                 </div>
                 <div id='catalogue_wrapper' class='col-md-offset-1 col-md-2 text-right'>
-                  <% if @reference_link_info[reference.id][:isC4D] %>
+                  <% if @reference_links_data[reference['id']][:isC4D] %>
                     <div class='inline_block reference_search_result_is_c4d bold_text'>C4D</div>
                   <% end %>
-                  <% if @reference_link_info[reference.id][:isSOP] %>
+                  <% if @reference_links_data[reference['id']][:isSOP] %>
                     <div class='inline_block reference_search_result_is_sop bold_text'>SOP</div>
                   <% end %>
                 </div>
                 <div id='library_reference_link_description' class='col-md-9'>
-                  <%= reference.description if reference.description %>
+                  <%= @reference_links_data[reference['id']][:reference_link]['description'] if @reference_links_data[reference['id']][:reference_link]['description'] %>
                 </div>
               </div>
               <div id='library_index_content_popular_divider' class='div_border_underline col-md-12 opacity_light margin_top margin_bottom'></div>
