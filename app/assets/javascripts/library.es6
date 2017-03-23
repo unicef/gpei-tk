@@ -700,15 +700,7 @@ $(() => {
     let theme_values = _.map($('#library_content_search_results #search_filter_dropdown_menu #theme_checkboxes .check_box:checked'), input => { return $(input).val() })
     let place_values = _.map($('#library_content_search_results #search_filter_dropdown_menu #place_checkboxes .check_box:checked'), input => { return $(input).val() })
     let language_values = _.map($('#library_content_search_results #search_filter_dropdown_menu #language_checkboxes .check_box:checked'), input => { return $(input).val() })
-    filter_value += buildFilterValue(theme_values, place_values, language_values)
-    filter_value += buildFilterValue(theme_values, language_values, place_values)
-
-    filter_value += buildFilterValue(place_values, theme_values, language_values)
-    filter_value += buildFilterValue(place_values, language_values, theme_values)
-
-    filter_value += buildFilterValue(language_values, theme_values, place_values)
-    filter_value += buildFilterValue(language_values, place_values, theme_values)
-    filter_value = _.uniq(_.trim(filter_value).split(' ')).join(', ')
+    filter_value = _.trim(theme_values.join('') + place_values.join('') + language_values.join(''))
 
     if (_.isEmpty(filter_value)) {
       $(search_grid).isotope({ filter: `${ $('.library_search_pagination_indicators.active a').attr('id') === undefined ? '.pagination_search_content_item_1' : `.pagination_search_content_item_${$('.library_search_pagination_indicators.active a').attr('id')}` }` })
