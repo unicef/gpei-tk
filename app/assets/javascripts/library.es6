@@ -681,6 +681,8 @@ $(() => {
     _.forEach($('#browse_filter_dropdown_menu .check_box'), check_box => {
       check_box.checked = false
     })
+    sortFlags['download'] = false
+
     $('#browse_sort_radio_div input[data-filter=download]').trigger('click')
     $('#browse_filter_display_div').empty()
     return false
