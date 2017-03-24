@@ -128,20 +128,20 @@ class Cms::ReferenceLinksController < ApplicationController
         reference_link_categories[reference_link.id] = []
         links.each do |link|
           if link.reference_linkable.has_attribute?(:sop_category_id)
-            reference_link_categories[reference_link.id] << { details: link.reference_linkable.sop_time.period + ' > ' + link.reference_linkable.sop_category.title + ' > ' + link.reference_linkable.order_id.to_s, category: link.reference_linkable.sop_category.title, tags: reference_link.tags }
+            reference_link_categories[reference_link.id] << { details: link.reference_linkable.sop_time.period + ' > ' + link.reference_linkable.sop_category.title + ' > ' + link.reference_linkable.order_id.to_s, category: link.reference_linkable.sop_category.title, tags: reference_link.tags, places: reference_link.places, languages: reference_link.languages }
           else
-            reference_link_categories[reference_link.id] << { details: link.reference_linkable.c4d_category.title + ' > '+ link.reference_linkable.c4d_subcategory.title + ' > ' + link.reference_linkable.order_id.to_s, category: link.reference_linkable.c4d_category.title, tags: reference_link.tags }
+            reference_link_categories[reference_link.id] << { details: link.reference_linkable.c4d_category.title + ' > '+ link.reference_linkable.c4d_subcategory.title + ' > ' + link.reference_linkable.order_id.to_s, category: link.reference_linkable.c4d_category.title, tags: reference_link.tags, places: reference_link.places, languages: reference_link.languages }
           end
         end
       else
         reference_link_categories[reference_link.id] = []
-        reference_link_categories[reference_link.id] << { details: '', category: '', tags: reference_link.tags }
+        reference_link_categories[reference_link.id] << { details: '', category: '', tags: reference_link.tags, places: reference_links.places, languages: reference_link.languages }
       end
     end
     reference_link_categories
   end
 
   def safe_reference_link_params
-    params.require(:reference_link).permit(:description, :title, :document_language, :places)
+    params.require(:reference_link).permit(:description, :title, :document_language,)
   end
 end
