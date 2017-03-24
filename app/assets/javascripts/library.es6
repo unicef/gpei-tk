@@ -128,8 +128,8 @@ $(() => {
                           <ul class='list-unstyled'>
                             ${ args['places'].map(place => {
                               return `<li>
-                                        <input class='check_box' id='${ _.replace(place, new RegExp(" ","g"),"_") }' type='checkbox' value=".${ place }">
-                                        <label for='${ place }'>${ place }</label>
+                                        <input class='check_box' id='${ _.replace(place.title, new RegExp(" ","g"),"_") }' type='checkbox' value=".${ place.title }">
+                                        <label for='${ place.title }'>${ place.title }</label>
                                       </li>`
                             }).join(' ')}
                           </ul>
@@ -143,8 +143,8 @@ $(() => {
                           <ul class='list-unstyled'>
                             ${ args['languages'].map(language => {
                               return `<li>
-                                        <input class='check_box' id='${ _.replace(language, new RegExp(" ","g"),"_") }' type='checkbox' value=".${ language }">
-                                        <label for='${ language }'>${ language }</label>
+                                        <input class='check_box' id='${ _.replace(language.title, new RegExp(" ","g"),"_") }' type='checkbox' value=".${ language.title }">
+                                        <label for='${ language.title }'>${ language.title }</label>
                                       </li>`
                             }).join(' ')}
                           </ul>
@@ -289,6 +289,7 @@ $(() => {
         return `<div class='col-md-12 search_content_item pagination_search_content_item_1' style='padding-left:5px;'><h3>No Results</h3></div>`
       }
       return `${references.map(reference_obj => {
+        debugger
         idx += 1
         return `<div id='${idx + 1}' class='col-md-12 ${reference_link_info[reference_obj.id].isSOP ? 'SOP' : ''} ${reference_link_info[reference_obj.id].isC4D ? 'C4D' : ''} ${reference_link_info[reference_obj.id]['tags'].map(tag => { return tag.title }).join(' ')} ${reference_link_info[reference_obj.id]['places'].map(place => { return place }).join(' ')} ${reference_link_info[reference_obj.id]['languages'][0]} search_content_item pagination_search_content_item_${ getSearchResultFilter(idx+1) } ${ idx === 0 ? 'active' : '' }'>
                   <div class='col-md-1'>
