@@ -634,7 +634,7 @@ $(() => {
         $('#cms_reference_link_grid #'+response.id+'.reference_link_item').find('#cms_reference_link_title_div').text(response.title)
         $('#cms_reference_link_grid #'+response.id+'.reference_link_item').find('#cms_reference_link_description_div').text(response.description)
         $('#cms_reference_link_grid #'+response.id+'.reference_link_item').find('#cms_reference_link_document_language_div').text(response.document_language)
-        $('#cms_reference_link_grid #'+response.id+'.reference_link_item').find('#cms_reference_link_places_div').text(response.places)
+        $('#cms_reference_link_grid #'+response.id+'.reference_link_item').find('#cms_reference_link_places_div').text(_.map(response.places, place => { return tag.title }).join(' '))
         $('#cms_reference_link_grid #'+response.id+'.reference_link_item').find('#cms_reference_link_tags_div').text(_.map(response.tags, tag => { return tag.title}).join(' '))
       })
       return false
