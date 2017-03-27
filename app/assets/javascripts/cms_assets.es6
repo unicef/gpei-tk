@@ -245,7 +245,12 @@ $(() => {
                           <div style='height:10px' class='col-md-12'></div>
                           <div class='col-md-12'>
                             <div class='col-md-12'><strong>Places:</strong></div>
-                            <div id='cms_reference_${type}_places_div' class='col-md-12'>${!_.isNull(reference_link.places) ? reference_link.places : 'No places input'}</div>
+                            <div id='cms_reference_${type}_places_div' class='col-md-12'>${!_.isEmpty(reference_link.places) ? _.map(reference_link.places, place => { return place.title }).join(' ') : 'No places selected'}</div>
+                          </div>
+                          <div style='height:10px' class='col-md-12'></div>
+                          <div class='col-md-12'>
+                            <div class='col-md-12'><strong>Languages:</strong></div>
+                            <div id='cms_reference_${type}_languages_div' class='col-md-12'>${!_.isEmpty(reference_link.languages) ? _.map(reference_link.languages, language => { return language.title }).join(' ') : 'No languages selected'}</div>
                           </div>
                           <div style='height:10px' class='col-md-12'></div>
                         </div>
@@ -505,12 +510,14 @@ $(() => {
                                                 file_name,
                                                 type,
                                                 document_language,
-                                                places,
+                                                response.places,
                                                 response.related_reference_links,
                                                 response.reference_links,
                                                 response.reference_link,
                                                 selected_tags,
-                                                response.tags)
+                                                response.tags,
+                                                response.languages,
+                                                response.places)
         $('#CMS_modal #CMS_modal_content').append(content)
         // $('#CMS_index_content').append(content)
         toggleProgressSpinner()
@@ -569,7 +576,7 @@ $(() => {
       return false
     })
 
-    function getReferenceLinkEditForm(reference_link_title, url, id, description, file_name, type, reference_link_document_language, reference_link_places, related_reference_links, reference_links, reference_link, selected_tags, tags){
+    function getReferenceLinkEditForm(reference_link_title, url, id, description, file_name, type, reference_link_document_language, reference_link_places, related_reference_links, reference_links, reference_link, selected_tags, tags, languages, places){
       return `<div id='${id}'>
                 <form id="CMS_reference_${type}_edit" class="ui form">
                   <div class="field">
@@ -587,7 +594,10 @@ $(() => {
                     <label>Description:</label>
                     <textarea name="reference_${type}[description]" placeholder="descriptive text" required>${(_.isNull(description) || description === '' || description === 'Description coming soon') ? '' : description}</textarea>
                     ${getReferenceDocumentLanguageInput(type, reference_link_document_language)}
-                    ${getReferencePlacesInput(type, reference_link_places)}
+                    <label>Languages:</label>
+                    ${getLanguagesSelector(reference_link['languages'], languages)}
+                    <label>Places:</label>
+                    ${getPlacesSelector(reference_link['places'], places)}
                     <label>Tags:</label>
                     ${getTagsSelector(selected_tags, tags)}
                     ${type === 'link' ? getReferenceLinkSelector(reference_links, related_reference_links, reference_link.id, 'Related reference links:', 'related_topics') : ''}
@@ -595,6 +605,38 @@ $(() => {
                   <button class="ui button" type="submit">Submit</button>
                 </form>
               </div>`
+    }
+    function getPlacesSelector(selected_places, places){
+      return (`
+        <div id='places_checkboxes' class="field">
+          <label>All selectable places:</label>
+            <ul class='list-unstyled'>
+            ${_.map(places, place => {
+                let checked = !_.isEmpty(_.filter(selected_places, (selected_tag) => { return selected_tag.id === place.id })) ? "checked" : ""
+                return `<li>
+                            <input id=${place.id} ${checked} type='checkbox' name="places[]" value="${place.id}">
+                            <label id='cms_reference_tag_label' class='filter-label' for=${ place.id }>${place.title}</label>
+                        </li>`
+            }).join('\n')}
+            </ul>
+        </div>
+        `)
+    }
+    function getLanguagesSelector(selected_languages, languages){
+      return (`
+        <div id='languages_checkboxes' class="field">
+          <label>All selectable languages:</label>
+            <ul class='list-unstyled'>
+            ${_.map(languages, language => {
+                let checked = !_.isEmpty(_.filter(selected_languages, (selected_tag) => { return selected_tag.id === language.id })) ? "checked" : ""
+                return `<li>
+                            <input id=${language.id} ${checked} type='checkbox' name="languages[]" value="${language.id}">
+                            <label id='cms_reference_tag_label' class='filter-label' for=${ language.id }>${language.title}</label>
+                        </li>`
+            }).join('\n')}
+            </ul>
+        </div>
+        `)
     }
     function getTagsSelector(selected_tags, tags){
       return (`
@@ -634,7 +676,8 @@ $(() => {
         $('#cms_reference_link_grid #'+response.id+'.reference_link_item').find('#cms_reference_link_title_div').text(response.title)
         $('#cms_reference_link_grid #'+response.id+'.reference_link_item').find('#cms_reference_link_description_div').text(response.description)
         $('#cms_reference_link_grid #'+response.id+'.reference_link_item').find('#cms_reference_link_document_language_div').text(response.document_language)
-        $('#cms_reference_link_grid #'+response.id+'.reference_link_item').find('#cms_reference_link_places_div').text(_.map(response.places, place => { return tag.title }).join(' '))
+        $('#cms_reference_link_grid #'+response.id+'.reference_link_item').find('#cms_reference_link_places_div').text(_.map(response.places, place => { return place.title }).join(' '))
+        $('#cms_reference_link_grid #'+response.id+'.reference_link_item').find('#cms_reference_link_languages_div').text(_.map(response.languages, language => { return language.title }).join(' '))
         $('#cms_reference_link_grid #'+response.id+'.reference_link_item').find('#cms_reference_link_tags_div').text(_.map(response.tags, tag => { return tag.title}).join(' '))
       })
       return false
