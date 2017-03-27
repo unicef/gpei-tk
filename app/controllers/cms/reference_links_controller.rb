@@ -2,7 +2,7 @@ class Cms::ReferenceLinksController < ApplicationController
   before_action :user_is_admin_or_editor?
 
   def index
-    reference_links = ReferenceLink.all.order(:document_file_name)
+    reference_links = ReferenceLink.all.order(:document_file_name).as_json(:include => [:author, :tags, :places, :languages, :related_topics]).uniq
     reference_link_categories = getReferenceLinkCategories(reference_links)
     categories = { sop_categories: SopCategory.all, c4d_categories: C4dCategory.all }
     render json: { reference_links: reference_links,
@@ -13,12 +13,16 @@ class Cms::ReferenceLinksController < ApplicationController
 
   def show
     if request.xhr?
-      reference_link = ReferenceLink.find_by(id: params[:id])
-      reference_links = ReferenceLink.where('id <> ?', reference_link.id).order(:document_file_name)
-      related_reference_links = reference_link.related_topics
-      selected_tags = reference_link.tags
+      reference_link = ReferenceLink.find_by(id: params[:id]).as_json(:include => [:author, :tags, :places, :languages, :related_topics])
+      reference_links = ReferenceLink.where('id <> ?', reference_link['id']).order(:document_file_name)
+      related_reference_links = reference_link['related_topics']
+      selected_tags = reference_link['tags']
       tags = Tag.all
+      places = Place.all
+      languages = Language.all
       render json: { status: 200,
+                     places: places,
+                     languages: languages,
                      related_reference_links: related_reference_links,
                      reference_links: reference_links,
                      reference_link: reference_link,
@@ -57,7 +61,6 @@ class Cms::ReferenceLinksController < ApplicationController
   def update
     if request.xhr?
       reference_link = ReferenceLink.find_by(id: params[:id])
-      params[:reference_link][:places].strip!
       params[:reference_link][:document_language].strip!
       if reference_link.update(safe_reference_link_params)
         TagReference.where(reference_tagable: reference_link).destroy_all
@@ -90,7 +93,8 @@ class Cms::ReferenceLinksController < ApplicationController
                        title: reference_link.title,
                        document_language: reference_link.document_language,
                        places: reference_link.places,
-                       tags: reference_link.tags }
+                       tags: reference_link.tags,
+                       languages: reference_link.languages }
       else
         render json: { status: 403 }
       end
@@ -123,19 +127,18 @@ class Cms::ReferenceLinksController < ApplicationController
   def getReferenceLinkCategories(reference_links)
     reference_link_categories = {}
     reference_links.each do |reference_link|
-      links = ReferenceLinkArticle.where(reference_link_id: reference_link.id)
+      links = ReferenceLinkArticle.where(reference_link_id: reference_link['id'])
+      reference_link_categories[reference_link['id']] = []
       if !links.empty?
-        reference_link_categories[reference_link.id] = []
         links.each do |link|
           if link.reference_linkable.has_attribute?(:sop_category_id)
-            reference_link_categories[reference_link.id] << { details: link.reference_linkable.sop_time.period + ' > ' + link.reference_linkable.sop_category.title + ' > ' + link.reference_linkable.order_id.to_s, category: link.reference_linkable.sop_category.title, tags: reference_link.tags, places: reference_link.places, languages: reference_link.languages }
+            reference_link_categories[reference_link['id']] << { details: link.reference_linkable.sop_time.period + ' > ' + link.reference_linkable.sop_category.title + ' > ' + link.reference_linkable.order_id.to_s, category: link.reference_linkable.sop_category.title, tags: reference_link['tags'], places: reference_link['places'], languages: reference_link['languages'] }
           else
-            reference_link_categories[reference_link.id] << { details: link.reference_linkable.c4d_category.title + ' > '+ link.reference_linkable.c4d_subcategory.title + ' > ' + link.reference_linkable.order_id.to_s, category: link.reference_linkable.c4d_category.title, tags: reference_link.tags, places: reference_link.places, languages: reference_link.languages }
+            reference_link_categories[reference_link['id']] << { details: link.reference_linkable.c4d_category.title + ' > '+ link.reference_linkable.c4d_subcategory.title + ' > ' + link.reference_linkable.order_id.to_s, category: link.reference_linkable.c4d_category.title, tags: reference_link['tags'], places: reference_link['places'], languages: reference_link['languages'] }
           end
         end
       else
-        reference_link_categories[reference_link.id] = []
-        reference_link_categories[reference_link.id] << { details: '', category: '', tags: reference_link.tags, places: reference_links.places, languages: reference_link.languages }
+        reference_link_categories[reference_link['id']] << { details: '', category: '', tags: reference_link['tags'], places: reference_link['places'], languages: reference_link['languages'] }
       end
     end
     reference_link_categories
