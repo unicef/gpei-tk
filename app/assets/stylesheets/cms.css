@@ -72,6 +72,8 @@
   padding:2px;
   min-height:100px;
 }
+#languages_checkboxes ul,
+#places_checkboxes ul,
 #reference_link_checkboxes ul {
   max-height:150px;
   min-height:150px;
@@ -81,6 +83,11 @@
   height:1000px;
   padding:2px;
 }
+#languages_checkboxes ul,
+#places_checkboxes ul {
+  width:30% !important;
+}
+
 #CMS_user_assign_role,
 #CMS_sop_toggle_published,
 #CMS_toggle_user_active {
