@@ -656,7 +656,7 @@ $(() => {
     }
     function getReferenceDocumentLanguageInput(type, reference_link_document_language){
       return `<label>Document Language:</label>
-              <input type="text" placeholder="Example: EN FR" name="reference_${type}[document_language]" value="${(_.isNull(reference_link_document_language) || reference_link_document_language === '' || reference_link_document_language === 'No title given') ? '' : reference_link_document_language}" style='margin-bottom:5px'>`
+              <input type="text" placeholder="Example: EN FR" name="reference_${type}[document_language]" value="${(_.isNull(reference_link_document_language) || reference_link_document_language === '' || reference_link_document_language === 'No title given') ? '' : reference_link_document_language}" style='margin-bottom:5px' required>`
     }
     function getReferencePlacesInput(type, reference_link_places){
       return `<label>Places(seperate each with a space):</label>
