@@ -35,8 +35,6 @@ $(() => {
           toggleProgressSpinner()
           let type = 'link'
           $('#CMS_index_content').empty()
-          // appendReferenceLinkHeader()
-          // appendReferenceLinkRows(reference_links, reference_link_categories, response.users)
           $('#CMS_index_content').append("<h2 id='cms_reference_links_list_header'>Uploaded Reference Links - (.pdf's) Index</h2>")
           $('#CMS_index_content').append(getReferenceLinkGrid(reference_links, reference_link_categories, response.users, type, categories, false, false, null))
           loadIsotopeHandlers(type)
@@ -61,8 +59,6 @@ $(() => {
           toggleProgressSpinner()
           let type = 'mp3'
           $('#CMS_index_content').empty()
-          // appendReferencemp3Header()
-          // appendReferencemp3Rows(reference_mp3s, reference_mp3_categories, response.users)
           $('#CMS_index_content').append("<h2 id='cms_reference_mp3s_list_header'>Uploaded Reference mp3s - (.mp3's) Index</h2>")
           $('#CMS_index_content').append(getReferenceLinkGrid(reference_mp3s, reference_mp3_categories, response.users, type, categories))
           loadIsotopeHandlers(type)
@@ -87,8 +83,6 @@ $(() => {
           toggleProgressSpinner()
           let type = 'pptx'
           $('#CMS_index_content').empty()
-          // appendReferencepptxHeader()
-          // appendReferencepptxRows(reference_pptxs, reference_pptx_categories, response.users)
           $('#CMS_index_content').append("<h2 id='cms_reference_pptxs_list_header'>Uploaded Reference Pptxes - (powerpoint) Index</h2>")
           $('#CMS_index_content').append(getReferenceLinkGrid(reference_pptxes, reference_pptx_categories, response.users, type, categories))
           loadIsotopeHandlers(type)
@@ -395,20 +389,6 @@ $(() => {
         `)
     }
 
-    function appendReferenceLinkHeader(){
-      $('#CMS_index_content').append('<table id="CMS_reference_link_table" class="ui celled table"></table>')
-      $('#CMS_reference_link_table').append(`<thead>
-                                                <tr>
-                                                  <th class="text-center"> Name </th>
-                                                  <th class="text-center"> Categories + Order Id </th>
-                                                  <th class="text-center"> Language </th>
-                                                  <th class="text-center"> Updated </th>
-                                                  <th class="text-center"> Created </th>
-                                                  <th class="text-center"> Author </th>
-                                                  <th class="text-center"> Action </th>
-                                                </tr>
-                                              </thead>`)
-    }
     $('#CMS_index_content').on('click', '#reference_link_delete', e => {
       e.preventDefault()
       let answer = confirm('This will permanently delete the reference link. Do you wish to continue?')
@@ -451,39 +431,6 @@ $(() => {
         })
       }
     })
-    function appendReferenceLinkRows(reference_links, reference_link_categories, users){
-      _.forEach(reference_links, reference_link => {
-        let row = `<tr id="${reference_link.id}">
-                    <td>
-                      <div id='reference_link_list_name_td' class='col-md-12'>
-                        <div id='${ reference_link.id }' class='col-md-12'>
-                          <a id='cms_reference_link_icon' href="${ reference_link.absolute_url }" target='_blank'><i class="fa fa-search" aria-hidden="true"></i> Preview</a>
-                          <div>Title: <div id='cms_reference_link_title_div'>${!_.isNull(reference_link.title) ? reference_link.title : 'No title given' }</div></div>
-                          <div style='height:10px' class='col-md-12'></div>
-                          <div class='col-md-12'>File name: <div id='cms_reference_link_file_name_div'>${ reference_link.document_file_name }</div></div>
-                        </div>
-                        <div style='height:10px' class='col-md-12'></div>
-                        <div class='col-md-12'>
-                          <div class='col-md-12'>Description:</div>
-                          <div id='cms_reference_link_description_div' class='col-md-12'>${!_.isNull(reference_link.description) ? reference_link.description : 'Description coming soon'}</div>
-                        </div>
-                        <div class='col-md-12'>
-                          <div class='col-md-12'>Tags:</div>
-                          <div id='cms_reference_link_tags_div' class='col-md-12'>${!_.isNull(reference_link_categories[reference_link.id]['tags']) ? reference_link_categories[reference_link.id]['tags'] : ''}</div>
-                        <div style='height:10px' class='col-md-12'></div>
-                        <div id='${reference_link.id}' class='col-md-3 bottom-right-position'><i class="fa fa-pencil-square-o" aria-hidden="true"></i><a id='cms_reference_link_edit' href="${ reference_link.absolute_url }">Edit</a></div>
-                      </div>
-                    </td>
-                    <td>${ _.isUndefined(reference_link_categories[reference_link.id]) ? '' : _.map(reference_link_categories[reference_link.id], reference_link_categories => { return reference_link_categories.details }).join("<div style='height:2px;background:black;width:100%'></div>")}</td>
-                    <td>${reference_link.language}</td>
-                    <td>${moment(reference_link.updated_at, "YYYY-MM-DD").format("MMM DD, YYYY")}</td>
-                    <td>${moment(reference_link.created_at, "YYYY-MM-DD").format("MMM DD, YYYY")}</td>
-                    <td id='cms_author_td'>${users[reference_link.author_id].first_name + ' ' + users[reference_link.author_id].last_name}</td>
-                    <td><a id='reference_link_delete' href=''><i class="fa fa-times" aria-hidden="true"></i> delete</a></td>
-                  </tr>`
-        $('#CMS_reference_link_table').append(row)
-      })
-    }
     $('#CMS_index_content').on('click', '#cms_reference_link_edit', e => {
       e.preventDefault()
       toggleProgressSpinner()
@@ -492,34 +439,15 @@ $(() => {
         url: '/cms/reference_links/' + e.currentTarget.parentElement.id
       }).done(response => {
         $('#CMS_modal').modal('show')
-        $('#CMS_modal #CMS_modal_header').append("<h3>Reference link - (.pdf) - Edit</h3>")
         let type = 'link'
-        let title = $('#CMS_index_content #' + e.currentTarget.parentElement.id + ' #cms_reference_link_title_div').text()
-        let description = $('#CMS_index_content #' + e.currentTarget.parentElement.id + ' #cms_reference_link_description_div').text()
-        let file_name = $('#CMS_index_content #' + e.currentTarget.parentElement.id + ' #cms_reference_link_file_name_div').text()
-        let document_language = $('#CMS_index_content #' + e.currentTarget.parentElement.id + ` #cms_reference_${type}_document_language_div`).text()
-        document_language = document_language === 'No document language input' ? '' : document_language
-        let places = $('#CMS_index_content #' + e.currentTarget.parentElement.id + ` #cms_reference_${type}_places_div`).text()
-        places = places === 'No places input' ? '' : places
-        let selected_tags = response.selected_tags
-        // $('#CMS_index_content').empty()
-        let content = getReferenceLinkEditForm(title,
-                                              $(e.currentTarget).attr('href'),
-                                                e.currentTarget.parentElement.id,
-                                                description,
-                                                file_name,
-                                                type,
-                                                document_language,
-                                                response.places,
-                                                response.related_reference_links,
-                                                response.reference_links,
-                                                response.reference_link,
-                                                selected_tags,
-                                                response.tags,
-                                                response.languages,
-                                                response.places)
+        $('#CMS_modal #CMS_modal_header').append(`<h3>Reference ${type} - (.pdf) - Edit</h3>`)
+        let content = getReferenceEditForm({ reference_type: type,
+                                             reference: response.reference_link,
+                                             all_other_reference_links: response.reference_links,
+                                             tags: response.tags,
+                                             languages: response.languages,
+                                             places: response.places })
         $('#CMS_modal #CMS_modal_content').append(content)
-        // $('#CMS_index_content').append(content)
         toggleProgressSpinner()
       })
       return false
@@ -527,127 +455,77 @@ $(() => {
     $('#CMS_index_content').on('click', '#cms_reference_mp3_edit', e => {
       e.preventDefault()
       toggleProgressSpinner()
-      $('#CMS_modal').modal('show')
-      $('#CMS_modal #CMS_modal_header').append("<h3>Reference mp3 - (.mp3) - Edit</h3>")
-      let title = $('#CMS_index_content #' + e.currentTarget.parentElement.id + ' #cms_reference_mp3_title_div').text()
-      let description = $('#CMS_index_content #' + e.currentTarget.parentElement.id + ' #cms_reference_mp3_description_div').text()
-      let file_name = $('#CMS_index_content #' + e.currentTarget.parentElement.id + ' #cms_reference_mp3_file_name_div').text()
-      let type = 'mp3'
-      let document_language = $('#CMS_index_content #' + e.currentTarget.parentElement.id + ` #cms_reference_${type}_document_language_div`).text()
-      document_language = document_language === 'No document language input' ? '' : document_language
-      let places = $('#CMS_index_content #' + e.currentTarget.parentElement.id + ` #cms_reference_${type}_places_div`).text()
-      places = places === 'No places input' ? '' : places
-      // $('#CMS_index_content').empty()
-      let content = getReferenceLinkEditForm(title,
-                                            $(e.currentTarget).attr('href'),
-                                              e.currentTarget.parentElement.id,
-                                              description,
-                                              file_name,
-                                              type,
-                                              document_language,
-                                              places)
-      $('#CMS_modal #CMS_modal_content').append(content)
-      // $('#CMS_index_content').append(content)
+      // insert ajax to reference show
+      // $('#CMS_modal').modal('show')
+      // let type = 'mp3'
+      // $('#CMS_modal #CMS_modal_header').append(`<h3>Reference ${type} - (.${type}) - Edit</h3>`)
+      // let content = getReferenceEditForm({ reference_type: type,
+      //                                      reference: response.reference_mp3,
+      //                                      all_other_reference_links: response.reference_links,
+      //                                      tags: response.tags,
+      //                                      languages: response.languages,
+      //                                      places: response.places })
+      // $('#CMS_modal #CMS_modal_content').append(content)
       toggleProgressSpinner()
       return false
     })
     $('#CMS_index_content').on('click', '#cms_reference_pptx_edit', e => {
       e.preventDefault()
       toggleProgressSpinner()
-      $('#CMS_modal').modal('show')
-      $('#CMS_modal #CMS_modal_header').append("<h3>Reference pptx - (.pptx) - Edit</h3>")
-      let title = $('#CMS_index_content #' + e.currentTarget.parentElement.id + ' #cms_reference_pptx_title_div').text()
-      let description = $('#CMS_index_content #' + e.currentTarget.parentElement.id + ' #cms_reference_pptx_description_div').text()
-      let file_name = $('#CMS_index_content #' + e.currentTarget.parentElement.id + ' #cms_reference_pptx_file_name_div').text()
-      let type = 'pptx'
-      let document_language = $('#CMS_index_content #' + e.currentTarget.parentElement.id + ` #cms_reference_${type}_document_language_div`).text()
-      document_language = document_language === 'No document language input' ? '' : document_language
-      let places = $('#CMS_index_content #' + e.currentTarget.parentElement.id + ` #cms_reference_${type}_places_div`).text()
-      places = places === 'No places input' ? '' : places
-      // $('#CMS_index_content').empty()
-      let content = getReferenceLinkEditForm(title,
-                                            $(e.currentTarget).attr('href'),
-                                              e.currentTarget.parentElement.id,
-                                              description,
-                                              file_name, type, document_language, places)
-      $('#CMS_modal #CMS_modal_content').append(content)
+      // insert ajax to reference show
+      // $('#CMS_modal').modal('show')
+      // let type = 'pptx'
+      // $('#CMS_modal #CMS_modal_header').append(`<h3>Reference ${type} - (.${type}) - Edit</h3>`)
+      // let content = getReferenceEditForm({ reference_type: type,
+      //                                      reference: response.reference_pptx,
+      //                                      all_other_reference_links: response.reference_links,
+      //                                      tags: response.tags,
+      //                                      languages: response.languages,
+      //                                      places: response.places })
+      // $('#CMS_modal #CMS_modal_content').append(content)
       // $('#CMS_index_content').append(content)
       toggleProgressSpinner()
       return false
     })
-
-    function getReferenceLinkEditForm(reference_link_title, url, id, description, file_name, type, reference_link_document_language, reference_link_places, related_reference_links, reference_links, reference_link, selected_tags, tags, languages, places){
-      return `<div id='${id}'>
-                <form id="CMS_reference_${type}_edit" class="ui form">
+    function getReferenceEditForm(args){
+      return `<div id='${ args['reference'].id }'>
+                <form id="CMS_reference_${ args['reference_type'] }_edit" class="ui form">
                   <div class="field">
                     <label>
                       <h4>
-                        <a id='' href="${url}" target='_blank'>
+                        <a id='' href="${ args['reference'].absolute_url }" target='_blank'>
                           <i class="fa fa-search" aria-hidden="true"></i> <strong><u>Preview .pdf</u></strong>
                         </a><br>
-                        <u>File name:</u> ${file_name}
+                        <u>File name:</u> ${ args['reference'].document_file_name }
                         <br>
                         <u>Title:</u>
                       </h4>
                     </label>
-                    <input type="text" placeholder="No title" name="reference_${type}[title]" value="${(_.isNull(reference_link_title) || reference_link_title === '' || reference_link_title === 'No title given') ? '' : reference_link_title}" style='margin-bottom:5px' required>
+                    <input type="text" placeholder="No title" name="reference_${ args['reference_type'] }[title]" value="${ (_.isNull(args['reference'].title) || args['reference'].title === '' || args['reference'].title === 'No title given') ? '' : args['reference'].title }" style='margin-bottom:5px' required>
                     <label>Description:</label>
-                    <textarea name="reference_${type}[description]" placeholder="descriptive text" required>${(_.isNull(description) || description === '' || description === 'Description coming soon') ? '' : description}</textarea>
-                    ${getReferenceDocumentLanguageInput(type, reference_link_document_language)}
+                    <textarea name="reference_${ args['reference_type'] }[description]" placeholder="descriptive text" required>${(_.isNull(args['reference'].description) || args['reference'].description === '' || args['reference'].description === 'Description coming soon') ? '' : args['reference'].description }</textarea>
+                    ${ getReferenceDocumentLanguageInput(args['reference_type'], args['reference'].document_language) }
                     <label>Languages:</label>
-                    ${getLanguagesSelector(reference_link['languages'], languages)}
+                    ${ getSelectorWithoutPreview({ object_type: 'languages', selected_objects: args['reference']['languages'], objects: args['languages'] }) }
                     <label>Places:</label>
-                    ${getPlacesSelector(reference_link['places'], places)}
+                    ${ getSelectorWithoutPreview({ object_type: 'places', selected_objects: args['reference']['places'], objects: args['places'] }) }
                     <label>Tags:</label>
-                    ${getTagsSelector(selected_tags, tags)}
-                    ${type === 'link' ? getReferenceLinkSelector(reference_links, related_reference_links, reference_link.id, 'Related reference links:', 'related_topics') : ''}
+                    ${ getSelectorWithoutPreview({ object_type: 'tags', selected_objects: args['reference']['tags'], objects: args['tags'] }) }
+                    ${ args['reference_type'] === 'link' ? getReferenceLinkSelector({ all_other_reference_links: args['all_other_reference_links'], related_topics: args['reference']['related_topics'], reference_link_id: args['reference'].id, selector_header_label: 'Related reference links:', object_type: 'related_topics' }) : '' }
                   </div>
                   <button class="ui button" type="submit">Submit</button>
                 </form>
               </div>`
     }
-    function getPlacesSelector(selected_places, places){
+    function getSelectorWithoutPreview(args){
       return (`
-        <div id='places_checkboxes' class="field">
-          <label>All selectable places:</label>
+        <div id='${args['object_type']}_checkboxes' class="field">
             <ul class='list-unstyled'>
-            ${_.map(places, place => {
-                let checked = !_.isEmpty(_.filter(selected_places, (selected_tag) => { return selected_tag.id === place.id })) ? "checked" : ""
+            ${_.map(args['objects'], object => {
+                let checked = !_.isEmpty(_.filter(args['selected_objects'], (selected_object) => { return selected_object.id === object.id })) ? "checked" : ""
                 return `<li>
-                            <input id=${place.id} ${checked} type='checkbox' name="places[]" value="${place.id}">
-                            <label id='cms_reference_tag_label' class='filter-label' for=${ place.id }>${place.title}</label>
-                        </li>`
-            }).join('\n')}
-            </ul>
-        </div>
-        `)
-    }
-    function getLanguagesSelector(selected_languages, languages){
-      return (`
-        <div id='languages_checkboxes' class="field">
-          <label>All selectable languages:</label>
-            <ul class='list-unstyled'>
-            ${_.map(languages, language => {
-                let checked = !_.isEmpty(_.filter(selected_languages, (selected_tag) => { return selected_tag.id === language.id })) ? "checked" : ""
-                return `<li>
-                            <input id=${language.id} ${checked} type='checkbox' name="languages[]" value="${language.id}">
-                            <label id='cms_reference_tag_label' class='filter-label' for=${ language.id }>${language.title}</label>
-                        </li>`
-            }).join('\n')}
-            </ul>
-        </div>
-        `)
-    }
-    function getTagsSelector(selected_tags, tags){
-      return (`
-        <div id='tags_checkboxes' class="field">
-          <label>All selectable tags:</label>
-            <ul class='list-unstyled'>
-            ${_.map(tags, tag => {
-                let checked = !_.isEmpty(_.filter(selected_tags, (selected_tag) => { return selected_tag.id === tag.id })) ? "checked" : ""
-                return `<li>
-                            <input id=${tag.id} ${checked} type='checkbox' name="tags[]" value="${tag.id}">
-                            <label id='cms_reference_tag_label' class='filter-label' for=${ tag.id }>${tag.title}</label>
+                          <input id=${object.id} ${checked} type='checkbox' name="reference_link[${args['object_type']}][]" value="${object.id}">
+                          <label id='cms_reference_${args['object_type']}_label' class='filter-label' for=${ object.id }>${object.title}</label>
                         </li>`
             }).join('\n')}
             </ul>
@@ -795,16 +673,17 @@ $(() => {
         </div>
       `)
     }
-    function getReferenceLinkSelector(reference_links, selected_reference_links, current_reference_link_id, caption, param) {
+    function getReferenceLinkSelector(args) {
       return (`
         <div id='reference_link_checkboxes' class="field">
-          <label>${caption}</label>
-            <ul class='${ param === 'featured_links' ? 'featured_ul_select' : '' } list-unstyled'>
-            ${_.map(reference_links, reference_link => {
-              if (reference_link.id !== current_reference_link_id){
-                let checked = !_.isEmpty(_.filter(selected_reference_links, (selected_reference) => { return selected_reference.id === reference_link.id })) ? "checked" : ""
-                return `<li><input id=${reference_link.id} ${checked} type='checkbox' name="reference_link[${param}][]" value="${reference_link.id}">
-                      <label id='cms_reference_link_label' class='filter-label' for=${ reference_link.id }>${reference_link.document_file_name} -  <a href="${ reference_link.absolute_url }" target='_blank'><i class="fa fa-search" aria-hidden="true"></i></a></label></li>`
+          <label>${args['selector_header_label']}</label>
+            <ul class='${ args['object_type'] === 'featured_links' ? 'featured_ul_select' : '' } list-unstyled'>
+            ${_.map(args['all_other_reference_links'], reference_link => {
+              if (reference_link.id !== args['current_reference_link_id']){
+                let checked = !_.isEmpty(_.filter(args['related_topics'], (selected_reference) => { return selected_reference.id === reference_link.id })) ? "checked" : ""
+                return `<li><input id=${ reference_link.id } ${ checked } type='checkbox' name="reference_link[${ args['object_type'] }][]" value="${ reference_link.id }">
+                          <label id='cms_reference_link_label' class='filter-label' for=${ reference_link.id }>${ reference_link.document_file_name } -  <a href="${ reference_link.absolute_url }" target='_blank'><i class="fa fa-search" aria-hidden="true"></i></a></label>
+                        </li>`
               } else {
                 return ''
               }
@@ -871,7 +750,7 @@ $(() => {
     function getFeaturedReferenceSelectorForm(reference_links, related_reference_links){
       return `<form id="CMS_reference_link_feature_select_form" class="ui form">
                 <div class="field">
-                  ${getReferenceLinkSelector(reference_links, related_reference_links, null, 'Reference Link List', 'featured_links')}
+                  ${getReferenceLinkSelector({ reference_links: reference_links, related_topics: null, reference_link_id: null, selector_header_label: 'Reference Link List', object_type: 'featured_links' })}
                 </div>
                 <button class="ui button" type="submit">Submit</button>
               </form>`
