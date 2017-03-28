@@ -15,7 +15,6 @@ class Cms::ReferenceLinksController < ApplicationController
     if request.xhr?
       reference_link = ReferenceLink.find_by(id: params[:id]).as_json(:include => [:author, :tags, :places, :languages, :related_topics])
       reference_links = ReferenceLink.where('id <> ?', reference_link['id']).order(:document_file_name)
-      related_reference_links = reference_link['related_topics']
       selected_tags = reference_link['tags']
       tags = Tag.all
       places = Place.all
@@ -23,7 +22,6 @@ class Cms::ReferenceLinksController < ApplicationController
       render json: { status: 200,
                      places: places,
                      languages: languages,
-                     related_reference_links: related_reference_links,
                      reference_links: reference_links,
                      reference_link: reference_link,
                      tags: tags,
@@ -64,20 +62,20 @@ class Cms::ReferenceLinksController < ApplicationController
       params[:reference_link][:document_language].strip!
       if reference_link.update(safe_reference_link_params)
         TagReference.where(reference_tagable: reference_link).destroy_all
-        if params[:tags]
-          params[:tags].each do |tag_id|
+        if params[:reference_link][:tags]
+          params[:reference_link][:tags].each do |tag_id|
             TagReference.create(tag_id: tag_id, reference_tagable: reference_link)
           end
         end
         PlaceReference.where(reference_placeable: reference_link).destroy_all
-        if params[:places]
-          params[:places].each do |place_id|
+        if params[:reference_link][:places]
+          params[:reference_link][:places].each do |place_id|
             PlaceReference.create(place_id: place_id, reference_placeable: reference_link)
           end
         end
         LanguageReference.where(reference_languageable: reference_link).destroy_all
-        if params[:languages]
-          params[:languages].each do |language_id|
+        if params[:reference_link][:languages]
+          params[:reference_link][:languages].each do |language_id|
             LanguageReference.create(language_id: language_id, reference_languageable: reference_link)
           end
         end
