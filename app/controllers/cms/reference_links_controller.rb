@@ -37,10 +37,8 @@ class Cms::ReferenceLinksController < ApplicationController
           reference_link = ReferenceLink.new(author_id: current_user.id,
                                             document: document[1],
                                             language: params[:language],
-                                            document_language: params[:document_language],
-                                            places: params[:places])
-          reference_link.absolute_url = reference_link.document.url
-          reference_link.absolute_url.gsub!('http', 'https')
+                                            document_language: params[:document_language])
+          reference_link.absolute_url = normalizeURI(reference_link.document.url)
           if !reference_link.save
             errors << reference_link.errors
           end
@@ -140,6 +138,17 @@ class Cms::ReferenceLinksController < ApplicationController
       end
     end
     reference_link_categories
+  end
+
+  def normalizeURI(url)
+    uri = URI.parse(url)
+    if uri.kind_of?(URI::HTTPS)
+      return url
+    elsif uri.kind_of?(URI::HTTP)
+      return url.gsub('http', 'https')
+    else
+      return "https:#{url}"
+    end
   end
 
   def safe_reference_link_params
