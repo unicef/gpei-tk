@@ -269,8 +269,7 @@ $(() => {
     })
 
     $('#CMS_index_content').on('submit', '#CMS_reference_link_upload_form', e => {
-      e.preventDefault()
-      // let formData = new FormData($(e.currentTarget)[0])
+      e.preventDefaua = new FormData($(e.currentTarget)[0])
       let formData = new FormData()
       $.each($("input[type=file]")[0].files, (idx, file) => {
         formData.append('reference_link['+idx+']', file);
@@ -383,7 +382,6 @@ $(() => {
           ${getLanguageDropdown(type)}
           ${getReferenceLinkField(type)}
           ${getReferenceDocumentLanguageInput(type, null)}
-          ${getReferencePlacesInput(type, null)}
           <button class="ui button" type="submit">Submit</button>
         </form>
         `)
