@@ -196,7 +196,7 @@
 
 .library_featured_pagination_indicators {
   display:inline-block;
-  border:2px black solid;
+  border:1px black solid;
   border-radius:50px;
   min-width:21px;
   text-align: center;
