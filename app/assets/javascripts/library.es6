@@ -515,12 +515,12 @@ $(() => {
     }
 
     $('#library_logo_text_link').click(e => {
-      e.preventDefault()
-      $('#library_index_content_featured').css('display', 'block')
-      $('#library_index_content_popular_downloads').css('display', 'block')
-      $('#library_content_search_results').empty()
-      $('#library_content_search_input').val('')
-      return false
+      // e.preventDefault()
+      // $('#library_index_content_featured').css('display', 'block')
+      // $('#library_index_content_popular_downloads').css('display', 'block')
+      // $('#library_content_search_results').empty()
+      // $('#library_content_search_input').val('')
+      // return false
     })
   }
   $('#reference_link_show_modal').modal({
