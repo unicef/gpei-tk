@@ -8,6 +8,11 @@ You will need Ruby 2.3.0, and PostgreSQL installed prior. I would recommend inst
 rbenv install 2.3.0
 rbenv global 2.3.0
 ```
+After having install ruby you will need to install a gem "bundle" to install all dependencies in the application.
+```
+cd gpei-tk
+gem install bundle
+```
 
 To install postgreSQL this is the method used by the developers to do so:
 ```
