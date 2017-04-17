@@ -640,7 +640,7 @@ $(() => {
     // [[],[],[]]
     let filter_value = ''
     if(e.currentTarget.checked){
-      $('#browse_filter_display_div').append(`<div id="${e.currentTarget.id}" class='inline_block'>${e.currentTarget.id.replace(new RegExp('_', 'g'), ' ')}</div`)
+      $('#browse_filter_display_div').append(`<div id="${e.currentTarget.id}" class='inline_block padding_left_2px'>${e.currentTarget.id.replace(new RegExp('_', 'g'), ' ')}</div`)
     } else {
       $('#browse_filter_display_div').find(`#${e.currentTarget.id}`).remove()
     }
@@ -673,7 +673,7 @@ $(() => {
     // [[],[],[]]
     let filter_value = ''
     if(e.currentTarget.checked){
-      $('#library_content_search_results #search_filter_display_div').append(`<div id="${e.currentTarget.id}" class='inline_block'>${e.currentTarget.id.replace(new RegExp('_', 'g'), ' ')}</div`)
+      $('#library_content_search_results #search_filter_display_div').append(`<div id="${e.currentTarget.id}" class='inline_block padding_left_2px'>${e.currentTarget.id.replace(new RegExp('_', 'g'), ' ')}</div`)
     } else {
       $('#library_content_search_results #search_filter_display_div').find(`#${e.currentTarget.id}`).remove()
     }
