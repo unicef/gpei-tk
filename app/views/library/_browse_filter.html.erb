@@ -19,10 +19,10 @@
                 <input class='check_box' id='SOP' type='checkbox' value=".SOP">
                 <label for='SOP'>SOP</label>
               </li>
-              <% @tags.each do |tag| %>
+              <% @tags.each do |title, value| %>
                 <li>
-                  <input class='check_box' id='<%= tag['title'].gsub(' ', '_') %>' type='checkbox' value=".<%= tag['title'] %>">
-                  <label for='<%= tag['title'] %>'><%= tag['title'] %></label>
+                  <input class='check_box' id='<%= title.gsub(' ', '_') %>' type='checkbox' value=".<%= title %>">
+                  <label for='<%= title %>'><%= title %></label>
                 </li>
               <% end %>
             </ul>
@@ -34,10 +34,10 @@
           </div>
           <div id='place_checkboxes' class='border_left_and_right_gold'>
             <ul class='list-unstyled'>
-              <% @places.each do |place| %>
+              <% @places.each do |title, value| %>
                 <li>
-                  <input class='check_box' id='<%= place['title'].gsub(' ', '_') %>' type='checkbox' value=".<%= place['title'] %>">
-                  <label for='<%= place['title'] %>'><%= place['title'] %></label>
+                  <input class='check_box' id='<%= title.gsub(' ', '_') %>' type='checkbox' value=".<%= title %>">
+                  <label for='<%= title %>'><%= title %></label>
                 </li>
               <% end %>
             </ul>
@@ -49,10 +49,10 @@
           </div>
           <div id='language_checkboxes' class=''>
             <ul class='list-unstyled'>
-              <% @languages.each do |language| %>
+              <% @languages.each do |title, value| %>
                 <li>
-                  <input class='check_box' id='<%= language['title'].gsub(' ', '_') %>' type='checkbox' value=".<%= language['title'] %>">
-                  <label for='<%= language['title'] %>'><%= language['title'] %></label>
+                  <input class='check_box' id='<%= title.gsub(' ', '_') %>' type='checkbox' value=".<%= title %>">
+                  <label for='<%= title %>'><%= title %></label>
                 </li>
               <% end %>
             </ul>

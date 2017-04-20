@@ -33,13 +33,13 @@ class LibraryController < ApplicationController
     reference_links_data = {}
     sopCount = 0
     c4dCount = 0
-    places = []
-    languages = []
-    tags = []
+    places = {}
+    languages = {}
+    tags = {}
     reference_links.each do |reference_link|
-      places << reference_link['places']
-      languages << reference_link['languages']
-      tags << reference_link['tags']
+      places.merge!(mapFilters(reference_link['places'], places))
+      languages.merge!(mapFilters(reference_link['languages'], languages))
+      tags.merge!(mapFilters(reference_link['tags'], tags))
       ref_join = ReferenceLinkArticle.where(reference_link_id: reference_link['id'])
       reference_links_data[reference_link['id']] = { reference_link: reference_link,
                                                      isSOP: false,
@@ -61,7 +61,14 @@ class LibraryController < ApplicationController
                                                          like_count: roundStatsToView(ReferenceLike.where(reference_likeable_id: reference_link['id']).count),
                                                          liked_by_user: liked_by_user })
     end
-    return reference_links_data, sopCount, c4dCount, places.flatten.uniq, languages.flatten.uniq, tags.flatten.uniq
+    return reference_links_data, sopCount, c4dCount, places.sort_by{|k, v| v[:count] * -1 }, languages.sort_by{|k, v| v[:count] * -1 }, tags.sort_by{|k, v| v[:count] * -1 }
+  end
+
+  def mapFilters(filters, existing_filters)
+    filters.each do |filter|
+      existing_filters[filter['title']] ? existing_filters[filter['title']][:count] += 1 : existing_filters[filter['title']] = { count: 1 }
+    end
+    existing_filters
   end
 
   def roundStatsToView(count)
