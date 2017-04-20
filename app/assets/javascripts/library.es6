@@ -647,13 +647,21 @@ $(() => {
     let place_values = _.map($('#browse_filter_dropdown_menu #place_checkboxes .check_box:checked'), input => { return _.trim($(input).val()).replace(new RegExp(' ', 'g'), '_') })
     let language_values = _.map($('#browse_filter_dropdown_menu #language_checkboxes .check_box:checked'), input => { return _.trim($(input).val()).replace(new RegExp(' ', 'g'), '_') })
     filter_value = _.trim(theme_values.join('') + place_values.join('') + language_values.join(''))
-
+    buildAndAppendUrlFilters({ themes: theme_values, places: place_values, languages: language_values })
     if (_.isEmpty(filter_value)) {
       $(browse_grid).isotope({ filter: `.browse_content_item_${ $('.library_browse_pagination_indicators.active a').attr('id') === undefined ? '1' : $('.library_browse_pagination_indicators.active a').attr('id') }` })
     } else {
       $(browse_grid).isotope({ filter: filter_value })
     }
   })
+
+  function buildAndAppendUrlFilters(args){
+    let filter_url = '/library/'
+    if ((!_.isEmpty(args['themes']) || !_.isEmpty(args['places']) || !_.isEmpty(args['languages']))){
+      filter_url = '?' + _.concat(args['themes'], args['places'], args['languages']).map(filter => { return `filters[]=${filter}`}).join('&')
+    }
+    history.replaceState(null, null, filter_url)
+  }
 
   $('#browse_filter_clear_all a').click(e => {
     e.preventDefault()

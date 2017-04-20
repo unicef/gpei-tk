@@ -26,6 +26,7 @@ class LibraryController < ApplicationController
     @is_library = true
     @reference_links = ReferenceLink.all.order('download_count DESC NULLS LAST, like_count DESC NULLS LAST, created_at DESC').as_json(:include => [:author, :tags, :places, :languages, :related_topics]).uniq
     @reference_links_data, @sopCount, @c4dCount, @places, @languages, @tags = getReferenceLinkInfo(@reference_links)
+    @filters = params[:filters] if params[:filters]
     @featured_references = ReferenceLink.joins(:featured_references).all.uniq
   end
 
