@@ -289,7 +289,6 @@ $(() => {
         return `<div class='col-md-12 search_content_item pagination_search_content_item_1' style='padding-left:5px;'><h3>No Results</h3></div>`
       }
       return `${references.map(reference_obj => {
-        debugger
         idx += 1
         return `<div id='${idx + 1}' class='col-md-12 ${reference_link_info[reference_obj.id].isSOP ? 'SOP' : ''} ${reference_link_info[reference_obj.id].isC4D ? 'C4D' : ''} ${reference_link_info[reference_obj.id]['tags'].map(tag => { return tag.title }).join(' ')} ${reference_link_info[reference_obj.id]['places'].map(place => { return place }).join(' ')} ${reference_link_info[reference_obj.id]['languages'][0]} search_content_item pagination_search_content_item_${ getSearchResultFilter(idx+1) } ${ idx === 0 ? 'active' : '' }'>
                   <div class='col-md-1'>
@@ -696,5 +695,25 @@ $(() => {
     $('#library_content_search_results #search_sort_radio_div input[data-filter=relevance]').trigger('click')
     $('#library_content_search_results #search_filter_display_div').empty()
     return false
+  })
+
+  // check if filter is overflowed
+  function isOverflowed(element){
+    // element.clientHeight
+    // only checking for vertical overflow
+    return element.scrollHeight > 350;
+  }
+
+  $('#overflow_filter_arrows #filter_down_arrows').click(e => {
+    $('#overflow_filter_arrows #filter_up_arrows').removeClass('display_none')
+    $('#overflow_filter_arrows #filter_down_arrows').addClass('display_none')
+    $('#browse_filter_dropdown_parent').css('maxHeight', 'none')
+    $('#browse_filter_dropdown_parent').css('overflow', 'visible')
+  })
+  $('#overflow_filter_arrows #filter_up_arrows').click(e => {
+    $('#overflow_filter_arrows #filter_down_arrows').removeClass('display_none')
+    $('#overflow_filter_arrows #filter_up_arrows').addClass('display_none')
+    $('#browse_filter_dropdown_parent').css('maxHeight', '350px')
+    $('#browse_filter_dropdown_parent').css('overflow', 'hidden')
   })
 })

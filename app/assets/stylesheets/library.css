@@ -602,3 +602,13 @@ a.max_width {
 .padding_left_2px {
   margin-left:3px;
 }
+#browse_filter_dropdown_parent {
+  max-height:350px;
+  overflow:hidden;
+}
+
+#filter_down_arrows,
+#filter_up_arrows {
+  font-size:24px;
+  cursor: pointer;
+}
