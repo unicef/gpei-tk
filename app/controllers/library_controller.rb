@@ -46,10 +46,10 @@ class LibraryController < ApplicationController
                                                      isC4D: false }
       ref_join.each do |join|
         if join.reference_linkable.has_attribute?(:sop_category_id)
-          reference_links_data[reference_link['id']]['isSOP'] = true
+          reference_links_data[reference_link['id']][:isSOP] = true
           sopCount += 1
         elsif join.reference_linkable.has_attribute?(:c4d_category_id)
-          reference_links_data[reference_link['id']]['isC4D'] = true
+          reference_links_data[reference_link['id']][:isC4D] = true
           c4dCount += 1
         end
       end
