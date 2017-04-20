@@ -612,3 +612,6 @@ a.max_width {
   font-size:24px;
   cursor: pointer;
 }
+.filter_label_count {
+  opacity:0.3;
+}
