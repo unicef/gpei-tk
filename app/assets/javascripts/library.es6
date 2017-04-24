@@ -41,7 +41,7 @@ $(() => {
           $('#library_index_content_featured').css('display', 'none')
           $('#library_index_content_popular_downloads').css('display', 'none')
           $('#library_content_search_results').empty()
-          $('#library_content_search_results').append(getSearchResultContent(response.references, response.reference_link_info, response.users, response.places, response.languages, response.tags))
+          $('#library_content_search_results').append(getSearchResultContent({ references: response.references, reference_links_data: response.reference_links_data, users: response.users, places: response.places, languages: response.languages, tags: response.tags, sopCount: response.sopCount, c4dCount: response.c4dCount }))
           $('#application .ui.simple.dropdown.item').dropdown()
           $('#application .ui.radio.checkbox').checkbox()
           $('#application .ui.checkbox').checkbox()
@@ -83,9 +83,9 @@ $(() => {
         }
       })
     }
-    function getSearchPaginator(references, reference_link_info){
+    function getSearchPaginator(references, reference_links_data){
       return `<div id='library_index_content_search_results_pagination_wrapper' class='col-md-5'>
-                ${references.length > 10 ? getSearchResultsPaginator({ references: references, reference_link_info: reference_link_info }) : ''}
+                ${references.length > 10 ? getSearchResultsPaginator({ references: references, reference_links_data: reference_links_data }) : ''}
               </div>`
     }
 
@@ -103,18 +103,22 @@ $(() => {
                         </div>
                         <div id='theme_checkboxes' class=''>
                           <ul class='list-unstyled'>
-                            <li>
+                            ${ args['c4dCount'] > 0 ?
+                            `<li>
                               <input class='check_box' id='C4D' type='checkbox' value=".C4D">
-                              <label for='C4D'>C4D</label>
-                            </li>
-                            <li>
+                              <label for='C4D'>C4D <span class='filter_label_count'>[${ args['c4dCount'] }]</span></label>
+                            </li>` : ''
+                            }
+                            ${ args['sopCount'] > 0 ?
+                            `<li>
                               <input class='check_box' id='SOP' type='checkbox' value=".SOP">
-                              <label for='SOP'>SOP</label>
-                            </li>
+                              <label for='SOP'>SOP <span class='filter_label_count'>[${ args['sopCount'] }]</span></label>
+                            </li>` : ''
+                            }
                             ${ args['tags'].map(tag => {
                                 return `<li>
-                                          <input class='check_box' id='${ _.replace(tag.title, new RegExp(" ","g"),"_") }' type='checkbox' value=".${ tag.title }">
-                                          <label for='${ tag.title }'>${ tag.title }</label>
+                                          <input class='check_box' id='${ _.replace(tag[0], new RegExp(" ","g"),"_") }' type='checkbox' value=".${ tag[0] }">
+                                          <label for='${ tag[0] }'>${ tag[0] } <span class='filter_label_count'>[${ tag[1]['count'] }]</span></label>
                                         </li>`
                               }).join(' ')}
                           </ul>
@@ -128,8 +132,8 @@ $(() => {
                           <ul class='list-unstyled'>
                             ${ args['places'].map(place => {
                               return `<li>
-                                        <input class='check_box' id='${ _.replace(place.title, new RegExp(" ","g"),"_") }' type='checkbox' value=".${ place.title }">
-                                        <label for='${ place.title }'>${ place.title }</label>
+                                        <input class='check_box' id='${ _.replace(place[0], new RegExp(" ","g"),"_") }' type='checkbox' value=".${ place[0] }">
+                                        <label for='${ place[0] }'>${ place[0] } <span class='filter_label_count'>[${ place[1]['count'] }]</span></label>
                                       </li>`
                             }).join(' ')}
                           </ul>
@@ -143,8 +147,8 @@ $(() => {
                           <ul class='list-unstyled'>
                             ${ args['languages'].map(language => {
                               return `<li>
-                                        <input class='check_box' id='${ _.replace(language.title, new RegExp(" ","g"),"_") }' type='checkbox' value=".${ language.title }">
-                                        <label for='${ language.title }'>${ language.title }</label>
+                                        <input class='check_box' id='${ _.replace(language[0], new RegExp(" ","g"),"_") }' type='checkbox' value=".${ language[0] }">
+                                        <label for='${ language[0] }'>${ language[0] } <span class='filter_label_count'>[${ language[1]['count'] }]</span></label>
                                       </li>`
                             }).join(' ')}
                           </ul>
@@ -156,28 +160,28 @@ $(() => {
                 <div id='search_filter_clear_all' class='col-md-offset-2 col-md-2'>
                   <a href=''>Clear All</a>
                 </div>
-                <div id='search_filter_display_div' class='col-md-offset-4 col-md-6'>
+                <div id='search_filter_display_div' class='col-md-6'>
                 </div>
                 ${getSearchResultsSort()}
               </div>`
     }
 
-    function getSearchResultContent(references, reference_link_info, users, places, languages, tags){
-      return `${references.length > 10  ? `<div id='search_results_header_wrapper' class='col-md-12'>
+    function getSearchResultContent(args){
+      return `${args['references'].length > 10  ? `<div id='search_results_header_wrapper' class='col-md-12'>
                 <div id='library_index_content_search_results_header_text' class='col-md-3'>
                   Search Results
                 </div>
               </div>` : ''}
-              ${references.length > 0 ? getSearchResultsFilter({ places: places, tags: tags, languages: languages }) : ''}
+              ${args['references'].length > 0 ? getSearchResultsFilter({ places: args['places'], tags: args['tags'], languages: args['languages'], sopCount: args['sopCount'], c4dCount: args['c4dCount'] }) : ''}
               <div id='search_results_border' class='div_border_underline col-md-12'></div>
               </div>
               <div class='col-md-12'>
                 <div id='library_content_search_results_grid'>
-                  ${getSearchResultRows(references, reference_link_info, users)}
+                  ${getSearchResultRows(args['references'], args['reference_links_data'], args['users'])}
                 </div>
               </div>
               <div id='search_pagination_controls_wrapper' class='col-md-12'>
-                ${references.length > 10 ? getSearchPaginator(references, reference_link_info) : ''}
+                ${args['references'].length > 10 ? getSearchPaginator(args['references'], args['reference_links_data']) : ''}
               </div>`
     }
 
@@ -282,7 +286,7 @@ $(() => {
       // })
     }
 
-    function getSearchResultRows(references, reference_link_info, users){
+    function getSearchResultRows(references, reference_links_data, users){
       let idx = -1
       let last_idx = references.length - 1
       if (references.length === 0){
@@ -290,7 +294,7 @@ $(() => {
       }
       return `${references.map(reference_obj => {
         idx += 1
-        return `<div id='${idx + 1}' class='col-md-12 ${reference_link_info[reference_obj.id].isSOP ? 'SOP' : ''} ${reference_link_info[reference_obj.id].isC4D ? 'C4D' : ''} ${reference_link_info[reference_obj.id]['tags'].map(tag => { return tag.title }).join(' ')} ${reference_link_info[reference_obj.id]['places'].map(place => { return place }).join(' ')} ${reference_link_info[reference_obj.id]['languages'][0]} search_content_item pagination_search_content_item_${ getSearchResultFilter(idx+1) } ${ idx === 0 ? 'active' : '' }'>
+        return `<div id='${idx + 1}' class='col-md-12 ${reference_links_data[reference_obj.id].isSOP ? 'SOP' : ''} ${reference_links_data[reference_obj.id].isC4D ? 'C4D' : ''} ${ reference_obj['tags'].map(tag => { return tag.title }).join(' ') } ${ reference_obj['places'].map(place => { return place }).join(' ') } ${ reference_obj['languages'].map(place => { return place }).join(' ') } search_content_item pagination_search_content_item_${ getSearchResultFilter(idx+1) } ${ idx === 0 ? 'active' : '' }'>
                   <div class='col-md-1'>
                     <a id='${ reference_obj.id }' href="${ reference_obj.absolute_url }" target='_blank' class='reference_download_tracker'><img id='search_content_item_image' src="${ _.replace(reference_obj.absolute_url, new RegExp("pdf","g"), "png") }" class='img-responsive'></a>
                   </div>
@@ -314,28 +318,28 @@ $(() => {
                         <a id='${ reference_obj.id }' href="${ reference_obj.absolute_url }" target='_blank' class='inline_block library_download_img reference_download_tracker'>
                           <img src='/assets/icons/icon-download2x.png' class='library_grid_icon'>
                         </a>
-                        <div class='counter_indicator_text_div inline_block'>${ reference_link_info[reference_obj.id]['download_count'] }</div>
+                        <div class='counter_indicator_text_div inline_block'>${ reference_obj['download_count'] }</div>
                       </div>
-                      <div id='library_like_div' class='inline_block ${ reference_link_info[reference_obj.id]['liked_by_user'] ? 'like_by_user_div' : '' }'>
+                      <div id='library_like_div' class='inline_block ${ reference_links_data[reference_obj.id]['liked_by_user'] ? 'like_by_user_div' : '' }'>
                         <a id='${ reference_obj.id }' href='' class='inline_block library_like_img reference_like_tracker'>
-                          <img src='${ reference_link_info[reference_obj.id]['liked_by_user'] ? '/assets/icons/icon-like-white-2x.png' : '/assets/icons/icon-like-grey2x.png' }' class='library_grid_icon'>
+                          <img src='${ reference_links_data[reference_obj.id]['liked_by_user'] ? '/assets/icons/icon-like-white-2x.png' : '/assets/icons/icon-like-grey2x.png' }' class='library_grid_icon'>
                         </a>
-                        <div class='counter_indicator_text_div inline_block ${reference_link_info[reference_obj.id]['liked_by_user'] ? 'liked_by_user_white_text' : ''}'>${ reference_link_info[reference_obj.id]['like_count'] }</div>
+                        <div class='counter_indicator_text_div inline_block ${reference_links_data[reference_obj.id]['liked_by_user'] ? 'liked_by_user_white_text' : ''}'>${ reference_obj['like_count'] }</div>
                       </div>
                     </div>
                     <div class='col-md-7'>
                       <div id='download_related_topics_div' class='bold_text col-md-3'>DOWNLOAD</div>
                       <div class='col-md-8 langauage_indicator_wrapper'>
                         <a id='${ reference_obj.id }' href="${ reference_obj.absolute_url }" target='_blank' class='reference_download_tracker'><div class='reference_search_result_info_language '>${ _.upperCase(!_.isEmpty(reference_obj.document_language) ? reference_obj.document_language : reference_obj.language) }</div> PDF ${ convertBytesToKbOrMb(reference_obj.document_file_size) }</a>
-                        ${ reference_link_info[reference_obj.id]['related_topics'].map(related_topic => {
+                        ${ reference_obj['related_topics'].map(related_topic => {
                                 return `<a id='${ related_topic.id }' href="${ related_topic.absolute_url }" target='_blank' class='reference_download_tracker'><div class='reference_search_result_info_language'>${ _.upperCase(!_.isNull(related_topic.document_language) ? related_topic.document_language : related_topic.language) }</div> PDF ${ convertBytesToKbOrMb(related_topic.document_file_size) }</a>`
                               }).join('')
                           }
                       </div>
                     </div>
                     <div id='catalogue_wrapper' class='col-md-offset-1 col-md-2 text-right'>
-                      ${ reference_link_info[reference_obj.id]['isC4D'] ? "<div class='inline_block reference_search_result_is_c4d bold_text'>C4D </div>" : '' }
-                      ${ reference_link_info[reference_obj.id]['isSOP'] ? "<div class='inline_block reference_search_result_is_sop bold_text'>SOP</div>" : '' }
+                      ${ reference_links_data[reference_obj.id]['isC4D'] ? "<div class='inline_block reference_search_result_is_c4d bold_text'>C4D </div>" : '' }
+                      ${ reference_links_data[reference_obj.id]['isSOP'] ? "<div class='inline_block reference_search_result_is_sop bold_text'>SOP</div>" : '' }
                     </div>
                     <div id='library_search_reference_link_description' class='col-md-9'>
                       ${ !_.isNull(reference_obj.description) ? reference_obj.description : '' }

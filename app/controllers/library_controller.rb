@@ -4,13 +4,21 @@ class LibraryController < ApplicationController
   end
 
   def referenceSearch
-    reference_links = ReferenceLink.joins(:reference_link_articles).search_refs(params[:search][:query]).as_json.uniq
-    reference_mp3s = ReferenceMp3.joins(:reference_mp3_articles).search_refs(params[:search][:query]).as_json.uniq
-    reference_pptxes = ReferencePptx.joins(:reference_pptx_articles).search_refs(params[:search][:query]).as_json.uniq
-    references = (reference_links + reference_mp3s + reference_pptxes).compact
-    reference_links_data, sopCount, c4dCount, sopCount, c4dCount, places, languages, tags = getReferenceLinkInfo(references)
+    reference_links = ReferenceLink.all.order('download_count DESC NULLS LAST, like_count DESC NULLS LAST, created_at DESC')
+                      .search_refs(params[:search][:query])
+                      .as_json(:include => [:author, :tags, :places, :languages, :related_topics]).uniq
+    references = reference_links
+    reference_links_data, sopCount, c4dCount, places, languages, tags = getReferenceLinkData(references)
     users = Hash[User.all.pluck(:id, :first_name)]
-    render json: { status: 200, references: references, reference_links_data: reference_links_data, users: users, places: places, languages: languages, tags: tags }
+    render json: { status: 200,
+                   references: references,
+                   reference_links_data: reference_links_data,
+                   users: users,
+                   places: places,
+                   languages: languages,
+                   sopCount: sopCount,
+                   c4dCount: c4dCount,
+                   tags: tags }
   end
 
   def referenceShow
@@ -25,18 +33,14 @@ class LibraryController < ApplicationController
   def initializeVars
     @is_library = true
     @reference_links = ReferenceLink.all.order('download_count DESC NULLS LAST, like_count DESC NULLS LAST, created_at DESC').as_json(:include => [:author, :tags, :places, :languages, :related_topics]).uniq
-    @reference_links_data, @sopCount, @c4dCount, @places, @languages, @tags = getReferenceLinkInfo(@reference_links)
+    @reference_links_data, @sopCount, @c4dCount, @places, @languages, @tags = getReferenceLinkData(@reference_links)
     @filters = params[:filters] if params[:filters]
     @featured_references = ReferenceLink.joins(:featured_references).all.uniq
   end
 
-  def getReferenceLinkInfo(reference_links)
-    reference_links_data = {}
-    sopCount = 0
-    c4dCount = 0
-    places = {}
-    languages = {}
-    tags = {}
+  def getReferenceLinkData(reference_links)
+    reference_links_data, places, languages, tags = {}, {}, {}, {}
+    sopCount, c4dCount = 0, 0
     reference_links.each do |reference_link|
       places.merge!(mapFilters(reference_link['places'], places))
       languages.merge!(mapFilters(reference_link['languages'], languages))
