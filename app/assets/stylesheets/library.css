@@ -61,6 +61,8 @@
 #library_content_search_results {
   background-color:white;
   margin-bottom:30px;
+  padding-left:15px;
+  padding-right:15px;
 }
 #nav_library_link.active{
   background-color:#CC9555;
@@ -69,10 +71,8 @@
   opacity:1;
 }
 #library_content_search_results_grid {
-  padding-left:15px;
   padding-top:10px;
   padding-bottom:10px;
-  padding-right:15px;
 }
 .reference_search_result_item {
   margin-bottom:5px !important;
@@ -340,7 +340,8 @@
 #browse_filter_row {
   margin-bottom:7px;
   margin-top:10px;
-  padding-left:3px;
+  padding-left:15px;
+  padding-right:15px;
 }
 .counter_indicator_text_div {
   opacity: 0.3;

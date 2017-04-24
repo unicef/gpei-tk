@@ -83,9 +83,9 @@ $(() => {
         }
       })
     }
-    function getSearchPaginator(references, reference_links_data){
-      return `<div id='library_index_content_search_results_pagination_wrapper' class='col-md-5'>
-                ${references.length > 10 ? getSearchResultsPaginator({ references: references, reference_links_data: reference_links_data }) : ''}
+    function getPaginator(references, reference_links_data, type_name){
+      return `<div id='library_index_content_${type_name}_results_pagination_wrapper' class='col-md-5'>
+                ${references.length > 10 ? getResultsPaginator({ references: references, reference_links_data: reference_links_data, type_name: type_name }) : ''}
               </div>`
     }
 
@@ -181,7 +181,7 @@ $(() => {
                 </div>
               </div>
               <div id='search_pagination_controls_wrapper' class='col-md-12'>
-                ${args['references'].length > 10 ? getSearchPaginator(args['references'], args['reference_links_data']) : ''}
+                ${args['references'].length > 10 ? getPaginator(args['references'], args['reference_links_data'], 'search') : ''}
               </div>`
     }
 
@@ -228,10 +228,10 @@ $(() => {
               </div>`
     }
 
-    function getSearchResultsPaginator(args) {
-      return `<div id='search_results_paginator_left_angle' class=''><a href=''><i class='fa fa-angle-left fa-2x' aria-hidden='true'></i></a></div>
-              <div id='' class='inline_block search_results_paginator_page_numbers'>${getPaginatorPageNumbers(args['references'])}</div>
-              <div id='search_results_paginator_right_angle' class=''><a href=''><i id='${ getPaginatorLastPageNumber(args['references'].length) }' class='fa fa-angle-right fa-2x' aria-hidden='true'></i></a></div>`
+    function getResultsPaginator(args) {
+      return `<div id='${args['type_name']}_results_paginator_left_angle' class=''><a href=''><i class='fa fa-angle-left fa-2x' aria-hidden='true'></i></a></div>
+              <div id='' class='inline_block ${args['type_name']}_results_paginator_page_numbers'>${getPaginatorPageNumbers(args['references'], args['type_name'])}</div>
+              <div id='${args['type_name']}_results_paginator_right_angle' class=''><a href=''><i id='${ getPaginatorLastPageNumber(args['references'].length) }' class='fa fa-angle-right fa-2x' aria-hidden='true'></i></a></div>`
     }
 
     function getPaginatorLastPageNumber(item_count) {
@@ -240,12 +240,12 @@ $(() => {
       return (divided_idx >= 1 ? (parseInt(Math.floor(divided_idx)) + (modulus_idx === 0 ? 0 : 1 )) :  1)
     }
 
-    function getPaginatorPageNumbers(items) {
+    function getPaginatorPageNumbers(items, type_name) {
       let item_idx = 0
       let last_idx = items.length - 1
       return `${items.map(item => {
                   item_idx += 1
-                  return `${item_idx % 10 === 0 || item_idx === last_idx ? `<div class='library_search_pagination_indicators ${item_idx === 10 ? 'active' : ''}'>${`<a id='${ getPaginatorIdNumber(item_idx, last_idx) }' href='' class='max_width'>${getPaginatorIdNumber(item_idx, last_idx)}</a>`}</div>` : ''}`
+                  return `${item_idx % 10 === 0 || item_idx === last_idx ? `<div class='library_${type_name}_pagination_indicators ${item_idx === 10 ? 'active' : ''}'>${`<a id='${ getPaginatorIdNumber(item_idx, last_idx) }' href='' class='max_width'>${getPaginatorIdNumber(item_idx, last_idx)}</a>`}</div>` : ''}`
                 }).join('')}`
     }
 
@@ -294,7 +294,7 @@ $(() => {
       }
       return `${references.map(reference_obj => {
         idx += 1
-        return `<div id='${idx + 1}' class='col-md-12 ${reference_links_data[reference_obj.id].isSOP ? 'SOP' : ''} ${reference_links_data[reference_obj.id].isC4D ? 'C4D' : ''} ${ reference_obj['tags'].map(tag => { return tag.title }).join(' ') } ${ reference_obj['places'].map(place => { return place }).join(' ') } ${ reference_obj['languages'].map(place => { return place }).join(' ') } search_content_item pagination_search_content_item_${ getSearchResultFilter(idx+1) } ${ idx === 0 ? 'active' : '' }'>
+        return `<div id='${idx + 1}' class='col-md-12 ${reference_links_data[reference_obj.id].isSOP ? 'SOP' : ''} ${reference_links_data[reference_obj.id].isC4D ? 'C4D' : ''} ${ reference_obj['tags'].map(tag => { return _.replace(tag.title, new RegExp(" ","g"), "_") }).join(' ') } ${ reference_obj['places'].map(place => { return _.replace(place.title, new RegExp(" ","g"), "_") }).join(' ') } ${ reference_obj['languages'].map(language => { return _.replace(language.title, new RegExp(" ","g"), "_") }).join(' ') } search_content_item pagination_search_content_item_${ getSearchResultFilter(idx+1) } ${ idx === 0 ? 'active' : '' }'>
                   <div class='col-md-1'>
                     <a id='${ reference_obj.id }' href="${ reference_obj.absolute_url }" target='_blank' class='reference_download_tracker'><img id='search_content_item_image' src="${ _.replace(reference_obj.absolute_url, new RegExp("pdf","g"), "png") }" class='img-responsive'></a>
                   </div>
@@ -611,6 +611,7 @@ $(() => {
     if ($(e.currentTarget).find('input').attr('data-filter') !== 'relevance'){
       sortFlags[sortBy] = !sortFlags[sortBy]
     }
+
     let idx = 0
     let sorted_grid_items = $(browse_grid).data('isotope').filteredItems
     _.forEach(sorted_grid_items, grid_item => {
@@ -623,7 +624,7 @@ $(() => {
     let filter_value = '.browse_content_item_' + $('.library_browse_pagination_indicators.active a').attr('id')
     _.delay(() => {
       browse_grid.isotope({ filter: filter_value })
-    }, 1000, 'later')
+    }, 100, 'later')
     return false
   })
   $('#library').on('click', '#search_sort_radio_div .ui.radio.checkbox', e => {
@@ -653,8 +654,6 @@ $(() => {
   })
 
   $('#browse_filter_dropdown_menu input').change(e => {
-    // let filter_value = _.map($('#browse_filter_dropdown_menu .check_box:checked'), input => { return $(input).val() }).join(', ')
-    // [[],[],[]]
     let filter_value = ''
     browseFilterDisplayUpdate(e.currentTarget)
     let theme_values = _.map($('#browse_filter_dropdown_menu #theme_checkboxes .check_box:checked'), input => { return _.trim($(input).val()).replace(new RegExp(' ', 'g'), '_') })
@@ -662,12 +661,20 @@ $(() => {
     let language_values = _.map($('#browse_filter_dropdown_menu #language_checkboxes .check_box:checked'), input => { return _.trim($(input).val()).replace(new RegExp(' ', 'g'), '_') })
     filter_value = _.trim(theme_values.join('') + place_values.join('') + language_values.join(''))
     buildAndAppendUrlFilters({ themes: theme_values, places: place_values, languages: language_values })
+    let filterPagination = false
     if (_.isEmpty(filter_value)) {
       $(browse_grid).isotope({ filter: `.browse_content_item_${ $('.library_browse_pagination_indicators.active a').attr('id') === undefined ? '1' : $('.library_browse_pagination_indicators.active a').attr('id') }` })
     } else {
+      filterPagination = true
       $(browse_grid).isotope({ filter: filter_value })
     }
+    if (filterPagination){
+      updatePaginationIndicators($(browse_grid).data('isotope').filteredItems)
+    }
   })
+
+  function updatePaginationIndicators(filteredItems) {
+  }
   function browseFilterDisplayUpdate(ele){
     if(ele.checked){
       $('#browse_filter_display_div').append(`<div id="${ele.id}" class='inline_block padding_left_2px'>${ele.id.replace(new RegExp('_', 'g'), ' ')}</div`)
