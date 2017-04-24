@@ -473,7 +473,6 @@ $(() => {
 
     $(window).load(() => {
       $featured_grid.isotope({filter: '.active'})
-      loadBrowseGrid()
       $('.ui.simple.dropdown.item').dropdown()
       $('.ui.radio.checkbox').checkbox()
       $('#browse_filter_dropdown').dropdown({
@@ -483,7 +482,22 @@ $(() => {
       _.forEach($('.featured_content_item'), content_item => {
         $(content_item).css('visibility', 'visible')
       })
+      if (!document.getElementById('active_browse_filters')) {
+        loadBrowseGrid()
+      } else {
+        activateFiltersInBrowseGrid()
+      }
     })
+
+    function activateFiltersInBrowseGrid(){
+      let filters = $('#active_browse_filters div')[0].textContent
+      $(browse_grid).isotope({ filter: filters })
+      _.forEach(filters.split('.').splice(1), filter => {
+        let ele = $('#browse_filter_dropdown_parent').find(`input[value=".${filter}"]`)
+        ele.prop('checked', true)
+        browseFilterDisplayUpdate(ele[0])
+      })
+    }
 
     function loadBrowseGrid(){
       browse_grid.isotope({
@@ -638,11 +652,7 @@ $(() => {
     // let filter_value = _.map($('#browse_filter_dropdown_menu .check_box:checked'), input => { return $(input).val() }).join(', ')
     // [[],[],[]]
     let filter_value = ''
-    if(e.currentTarget.checked){
-      $('#browse_filter_display_div').append(`<div id="${e.currentTarget.id}" class='inline_block padding_left_2px'>${e.currentTarget.id.replace(new RegExp('_', 'g'), ' ')}</div`)
-    } else {
-      $('#browse_filter_display_div').find(`#${e.currentTarget.id}`).remove()
-    }
+    browseFilterDisplayUpdate(e.currentTarget)
     let theme_values = _.map($('#browse_filter_dropdown_menu #theme_checkboxes .check_box:checked'), input => { return _.trim($(input).val()).replace(new RegExp(' ', 'g'), '_') })
     let place_values = _.map($('#browse_filter_dropdown_menu #place_checkboxes .check_box:checked'), input => { return _.trim($(input).val()).replace(new RegExp(' ', 'g'), '_') })
     let language_values = _.map($('#browse_filter_dropdown_menu #language_checkboxes .check_box:checked'), input => { return _.trim($(input).val()).replace(new RegExp(' ', 'g'), '_') })
@@ -654,7 +664,13 @@ $(() => {
       $(browse_grid).isotope({ filter: filter_value })
     }
   })
-
+  function browseFilterDisplayUpdate(ele){
+    if(ele.checked){
+      $('#browse_filter_display_div').append(`<div id="${ele.id}" class='inline_block padding_left_2px'>${ele.id.replace(new RegExp('_', 'g'), ' ')}</div`)
+    } else {
+      $('#browse_filter_display_div').find(`#${ele.id}`).remove()
+    }
+  }
   function buildAndAppendUrlFilters(args){
     let filter_url = '/library/'
     if ((!_.isEmpty(args['themes']) || !_.isEmpty(args['places']) || !_.isEmpty(args['languages']))){
