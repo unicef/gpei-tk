@@ -84,8 +84,8 @@ $(() => {
       })
     }
     function getPaginator(references, reference_links_data, type_name){
-      return `<div id='library_index_content_${type_name}_results_pagination_wrapper' class='col-md-5'>
-                ${references.length > 10 ? getResultsPaginator({ references: references, reference_links_data: reference_links_data, type_name: type_name }) : ''}
+      return `<div id='${type_name}_paginator_div' class='col-md-5'>
+                ${references.length > 10 ? getResultsPaginator({ references: references, type_name: type_name }) : ''}
               </div>`
     }
 
@@ -229,9 +229,9 @@ $(() => {
     }
 
     function getResultsPaginator(args) {
-      return `<div id='${args['type_name']}_results_paginator_left_angle' class=''><a href=''><i class='fa fa-angle-left fa-2x' aria-hidden='true'></i></a></div>
-              <div id='' class='inline_block ${args['type_name']}_results_paginator_page_numbers'>${getPaginatorPageNumbers(args['references'], args['type_name'])}</div>
-              <div id='${args['type_name']}_results_paginator_right_angle' class=''><a href=''><i id='${ getPaginatorLastPageNumber(args['references'].length) }' class='fa fa-angle-right fa-2x' aria-hidden='true'></i></a></div>`
+      return `<div id='${args['type_name']}_paginator_left_angle' class=''><a href=''><i class='fa fa-angle-left fa-2x' aria-hidden='true'></i></a></div>
+              <div id='' class='inline_block ${args['type_name']}_paginator_page_numbers'>${getPaginatorPageNumbers(args['references'], args['type_name'])}</div>
+              <div id='${args['type_name']}_paginator_right_angle' class=''><a href=''><i id='${ getPaginatorLastPageNumber(args['references'].length) }' class='fa fa-angle-right fa-2x' aria-hidden='true'></i></a></div>`
     }
 
     function getPaginatorLastPageNumber(item_count) {
@@ -443,10 +443,10 @@ $(() => {
       return false
     })
 
-    $('#library').on('click', '#search_results_paginator_left_angle a', e => {
+    $('#library').on('click', '#search_paginator_left_angle a', e => {
       e.preventDefault()
       let id = parseInt($('.library_search_pagination_indicators.active a').attr('id'))
-      let max_id = parseInt($('#search_results_paginator_right_angle a i').attr('id'))
+      let max_id = parseInt($('#search_paginator_right_angle a i').attr('id'))
       if (id !== 1){
         $('#library .library_search_pagination_indicators.active').removeClass('active')
         $(`#library .library_search_pagination_indicators #${id-1}`).parent().addClass('active')
@@ -459,10 +459,10 @@ $(() => {
       return false
     })
 
-    $('#library').on('click', '#search_results_paginator_right_angle a', e => {
+    $('#library').on('click', '#search_paginator_right_angle a', e => {
       e.preventDefault()
       let id = parseInt($('.library_search_pagination_indicators.active a').attr('id'))
-      let max_id = parseInt($('#search_results_paginator_right_angle a i').attr('id'))
+      let max_id = parseInt($('#search_paginator_right_angle a i').attr('id'))
       if (id !== max_id){
         $('#library .library_search_pagination_indicators.active').removeClass('active')
         $(`#library .library_search_pagination_indicators #${id+1}`).parent().addClass('active')
@@ -539,216 +539,232 @@ $(() => {
       // $('#library_content_search_input').val('')
       // return false
     })
-  }
-  $('#reference_link_show_modal').modal({
-    allowMultiple: true,
-    onHide: () => {
-      history.back()
-      $('#reference_link_show_modal .content').empty()
-      $('#reference_link_show_modal .header').empty()
-    }
-  })
-
-  // browse paginator clicks
-  let browse_grid = $(`#library_index_content_popular_content_grid`)
-  $('#library').on('click', '.library_browse_pagination_indicators a', e => {
-    e.preventDefault()
-    let id = e.currentTarget.id
-    $('.library_browse_pagination_indicators.active').removeClass('active')
-    $(e.currentTarget.parentElement).addClass('active')
-    browse_grid.isotope({ filter: `.browse_content_item_${id}`})
-    return false
-  })
-
-  $('#library').on('click', '.library_browse_pagination_indicators', e => {
-    e.preventDefault()
-    let id = $(e.currentTarget).find('a').attr('id')
-    $('.library_browse_pagination_indicators.active').removeClass('active')
-    $(e.currentTarget).addClass('active')
-    browse_grid.isotope({ filter: `.browse_content_item_${id}`})
-    return false
-  })
-
-  $('#library').on('click', '#browse_paginator_left_angle a', e => {
-    e.preventDefault()
-    let id = parseInt($('.library_browse_pagination_indicators.active a').attr('id'))
-    let max_id = parseInt($('#browse_paginator_right_angle a i').attr('id'))
-    if (id !== 1){
-      $('#library .library_browse_pagination_indicators.active').removeClass('active')
-      $(`#library .library_browse_pagination_indicators #${id-1}`).parent().addClass('active')
-      browse_grid.isotope({ filter: `.browse_content_item_${id-1}`})
-    } else if (id === 1){
-      $('#library .library_browse_pagination_indicators.active').removeClass('active')
-      $(`#library .library_browse_pagination_indicators #${max_id}`).parent().addClass('active')
-      browse_grid.isotope({ filter: `.browse_content_item_${max_id}`})
-    }
-    return false
-  })
-
-  $('#library').on('click', '#browse_paginator_right_angle a', e => {
-    e.preventDefault()
-    let id = parseInt($('.library_browse_pagination_indicators.active a').attr('id'))
-    let max_id = parseInt($('#browse_paginator_right_angle a i').attr('id'))
-    if (id !== max_id){
-      $('#library .library_browse_pagination_indicators.active').removeClass('active')
-      $(`#library .library_browse_pagination_indicators #${id+1}`).parent().addClass('active')
-      browse_grid.isotope({ filter: `.browse_content_item_${id+1}`})
-    } else if (id === max_id){
-      $('#library .library_browse_pagination_indicators.active').removeClass('active')
-      $(`#library .library_browse_pagination_indicators #1`).parent().addClass('active')
-      browse_grid.isotope({ filter: `.browse_content_item_1`})
-    }
-    return false
-  })
-  $('#browse_sort_radio_div .ui.radio.checkbox').click(e => {
-    let sortBy = $(e.currentTarget).find('input').attr('data-filter')
-
-    browse_grid.isotope({ filter: '*' })
-    browse_grid.isotope({
-      sortAscending: sortFlags[sortBy]
+    $('#reference_link_show_modal').modal({
+      allowMultiple: true,
+      onHide: () => {
+        history.back()
+        $('#reference_link_show_modal .content').empty()
+        $('#reference_link_show_modal .header').empty()
+      }
     })
-    browse_grid.isotope({ sortBy: sortBy })
-    if ($(e.currentTarget).find('input').attr('data-filter') !== 'relevance'){
+
+    // browse paginator clicks
+    let browse_grid = $(`#library_index_content_popular_content_grid`)
+    $('#library').on('click', '.library_browse_pagination_indicators a', e => {
+      e.preventDefault()
+      let id = e.currentTarget.id
+      $('.library_browse_pagination_indicators.active').removeClass('active')
+      $(e.currentTarget.parentElement).addClass('active')
+      browse_grid.isotope({ filter: `.browse_content_item_${id}`})
+      return false
+    })
+
+    $('#library').on('click', '.library_browse_pagination_indicators', e => {
+      e.preventDefault()
+      let id = $(e.currentTarget).find('a').attr('id')
+      $('.library_browse_pagination_indicators.active').removeClass('active')
+      $(e.currentTarget).addClass('active')
+      browse_grid.isotope({ filter: `.browse_content_item_${id}`})
+      return false
+    })
+
+    $('#library').on('click', '#browse_paginator_left_angle a', e => {
+      e.preventDefault()
+      let id = parseInt($('.library_browse_pagination_indicators.active a').attr('id'))
+      let max_id = parseInt($('#browse_paginator_right_angle a i').attr('id'))
+      if (id !== 1){
+        $('#library .library_browse_pagination_indicators.active').removeClass('active')
+        $(`#library .library_browse_pagination_indicators #${id-1}`).parent().addClass('active')
+        browse_grid.isotope({ filter: `.browse_content_item_${id-1}`})
+      } else if (id === 1){
+        $('#library .library_browse_pagination_indicators.active').removeClass('active')
+        $(`#library .library_browse_pagination_indicators #${max_id}`).parent().addClass('active')
+        browse_grid.isotope({ filter: `.browse_content_item_${max_id}`})
+      }
+      return false
+    })
+
+    $('#library').on('click', '#browse_paginator_right_angle a', e => {
+      e.preventDefault()
+      let id = parseInt($('.library_browse_pagination_indicators.active a').attr('id'))
+      let max_id = parseInt($('#browse_paginator_right_angle a i').attr('id'))
+      if (id !== max_id){
+        $('#library .library_browse_pagination_indicators.active').removeClass('active')
+        $(`#library .library_browse_pagination_indicators #${id+1}`).parent().addClass('active')
+        browse_grid.isotope({ filter: `.browse_content_item_${id+1}`})
+      } else if (id === max_id){
+        $('#library .library_browse_pagination_indicators.active').removeClass('active')
+        $(`#library .library_browse_pagination_indicators #1`).parent().addClass('active')
+        browse_grid.isotope({ filter: `.browse_content_item_1`})
+      }
+      return false
+    })
+    $('#browse_sort_radio_div .ui.radio.checkbox').click(e => {
+      let sortBy = $(e.currentTarget).find('input').attr('data-filter')
+
+      browse_grid.isotope({ filter: '*' })
+      browse_grid.isotope({
+        sortAscending: sortFlags[sortBy]
+      })
+      browse_grid.isotope({ sortBy: sortBy })
+      if ($(e.currentTarget).find('input').attr('data-filter') !== 'relevance'){
+        sortFlags[sortBy] = !sortFlags[sortBy]
+      }
+
+      let idx = 0
+      let sorted_grid_items = $(browse_grid).data('isotope').filteredItems
+      _.forEach(sorted_grid_items, grid_item => {
+        $(grid_item.element).removeClass (function (index, css) {
+          return (css.match(/browse_content_item_\d+/) || []).join(' ')
+        })
+        $(grid_item.element).addClass(`browse_content_item_${getSearchResultFilter(idx+1)}`)
+        idx +=1
+      })
+      let filter_value = '.browse_content_item_' + $('.library_browse_pagination_indicators.active a').attr('id')
+      _.delay(() => {
+        browse_grid.isotope({ filter: filter_value })
+      }, 100, 'later')
+      return false
+    })
+    $('#library').on('click', '#search_sort_radio_div .ui.radio.checkbox', e => {
+      let sortBy = $(e.currentTarget).find('input').attr('data-filter')
+
+      search_grid.isotope({ filter: '*' })
+      search_grid.isotope({
+        sortAscending: sortFlags[sortBy]
+      })
+      search_grid.isotope({ sortBy: sortBy })
       sortFlags[sortBy] = !sortFlags[sortBy]
-    }
-
-    let idx = 0
-    let sorted_grid_items = $(browse_grid).data('isotope').filteredItems
-    _.forEach(sorted_grid_items, grid_item => {
-      $(grid_item.element).removeClass (function (index, css) {
-        return (css.match(/browse_content_item_\d+/) || []).join(' ')
+      let idx = 0
+      let sorted_grid_items = $(search_grid).data('isotope').filteredItems
+      _.forEach(sorted_grid_items, grid_item => {
+        $(grid_item.element).removeClass (function (index, css) {
+          return (css.match(/pagination_search_content_item_\d+/) || []).join(' ')
+        })
+        $(grid_item.element).addClass(`pagination_search_content_item_${getSearchResultFilter(idx+1)}`)
+        idx +=1
       })
-      $(grid_item.element).addClass(`browse_content_item_${getSearchResultFilter(idx+1)}`)
-      idx +=1
-    })
-    let filter_value = '.browse_content_item_' + $('.library_browse_pagination_indicators.active a').attr('id')
-    _.delay(() => {
-      browse_grid.isotope({ filter: filter_value })
-    }, 100, 'later')
-    return false
-  })
-  $('#library').on('click', '#search_sort_radio_div .ui.radio.checkbox', e => {
-    let sortBy = $(e.currentTarget).find('input').attr('data-filter')
+      let filter_value = `.pagination_search_content_item_${$('.library_search_pagination_indicators.active a').attr('id') === undefined ? '1' : $('.library_search_pagination_indicators.active a').attr('id')}`
 
-    search_grid.isotope({ filter: '*' })
-    search_grid.isotope({
-      sortAscending: sortFlags[sortBy]
+      _.delay(() => {
+        search_grid.isotope({ filter: filter_value })
+      }, 1000, 'later')
+      return false
     })
-    search_grid.isotope({ sortBy: sortBy })
-    sortFlags[sortBy] = !sortFlags[sortBy]
-    let idx = 0
-    let sorted_grid_items = $(search_grid).data('isotope').filteredItems
-    _.forEach(sorted_grid_items, grid_item => {
-      $(grid_item.element).removeClass (function (index, css) {
-        return (css.match(/pagination_search_content_item_\d+/) || []).join(' ')
+
+    $('#browse_filter_dropdown_menu input').change(e => {
+      let filter_value = ''
+      browseFilterDisplayUpdate(e.currentTarget)
+      let theme_values = _.map($('#browse_filter_dropdown_menu #theme_checkboxes .check_box:checked'), input => { return _.trim($(input).val()).replace(new RegExp(' ', 'g'), '_') })
+      let place_values = _.map($('#browse_filter_dropdown_menu #place_checkboxes .check_box:checked'), input => { return _.trim($(input).val()).replace(new RegExp(' ', 'g'), '_') })
+      let language_values = _.map($('#browse_filter_dropdown_menu #language_checkboxes .check_box:checked'), input => { return _.trim($(input).val()).replace(new RegExp(' ', 'g'), '_') })
+      filter_value = _.trim(theme_values.join('') + place_values.join('') + language_values.join(''))
+      buildAndAppendUrlFilters({ themes: theme_values, places: place_values, languages: language_values })
+
+      if (_.isEmpty(filter_value)) {
+        $(browse_grid).isotope({ filter: `.browse_content_item_${ $('.library_browse_pagination_indicators.active a').attr('id') === undefined ? '1' : $('.library_browse_pagination_indicators.active a').attr('id') }` })
+        updatePaginationIndicators({ filteredItems: $(browse_grid).data('isotope').items, type_name: 'browse' })
+        updateFilteredItemClasses($(browse_grid).data('isotope').items)
+      } else {
+        $(browse_grid).isotope({ filter: filter_value })
+        updatePaginationIndicators({ filteredItems: $(browse_grid).data('isotope').filteredItems, type_name: 'browse' })
+        updateFilteredItemClasses($(browse_grid).data('isotope').filteredItems)
+      }
+      $(browse_grid).isotope({ filter: `.browse_content_item_1` })
+    })
+
+    function updateFilteredItemClasses(filtered_elements){
+      let all_elements_with_filter = $('[class*="browse_content_item_"]')
+      _.forEach(all_elements_with_filter, element => {
+        let found_class_name = element.className.match(/browse_content_item_\d+/)[0]
+        $(element).removeClass(found_class_name)
       })
-      $(grid_item.element).addClass(`pagination_search_content_item_${getSearchResultFilter(idx+1)}`)
-      idx +=1
+      let idx = 1
+      _.forEach(filtered_elements, element => {
+        let class_name = 'browse_content_item_' + getSearchResultFilter(idx)
+        $(element.element).addClass(class_name)
+        idx++
+      })
+    }
+    function updatePaginationIndicators(args) {
+      var paginator = `${args['filteredItems'].length > 10 ? getResultsPaginator({ references: args['filteredItems'], type_name: args['type_name'] }) : ''}`
+      $(`#${args['type_name']}_paginator_div`).html(paginator)
+    }
+    function browseFilterDisplayUpdate(ele){
+      if(ele.checked){
+        $('#browse_filter_display_div').append(`<div id="${ele.id}" class='inline_block padding_left_2px'>${ele.id.replace(new RegExp('_', 'g'), ' ')}</div`)
+      } else {
+        $('#browse_filter_display_div').find(`#${ele.id}`).remove()
+      }
+    }
+    function buildAndAppendUrlFilters(args){
+      let filter_url = '/library/'
+      if ((!_.isEmpty(args['themes']) || !_.isEmpty(args['places']) || !_.isEmpty(args['languages']))){
+        filter_url = '?' + _.concat(args['themes'], args['places'], args['languages']).map(filter => { return `filters[]=${filter}`}).join('&')
+      }
+      history.replaceState(null, null, filter_url)
+    }
+
+    $('#browse_filter_clear_all a').click(e => {
+      e.preventDefault()
+      _.forEach($('#browse_filter_dropdown_menu .check_box'), check_box => {
+        check_box.checked = false
+      })
+      sortFlags['download'] = false
+
+      // $('#browse_sort_radio_div input[data-filter=download]').trigger('click')
+      $('#browse_filter_display_div').empty()
+      return false
     })
-    let filter_value = `.pagination_search_content_item_${$('.library_search_pagination_indicators.active a').attr('id') === undefined ? '1' : $('.library_search_pagination_indicators.active a').attr('id')}`
 
-    _.delay(() => {
-      search_grid.isotope({ filter: filter_value })
-    }, 1000, 'later')
-    return false
-  })
-
-  $('#browse_filter_dropdown_menu input').change(e => {
-    let filter_value = ''
-    browseFilterDisplayUpdate(e.currentTarget)
-    let theme_values = _.map($('#browse_filter_dropdown_menu #theme_checkboxes .check_box:checked'), input => { return _.trim($(input).val()).replace(new RegExp(' ', 'g'), '_') })
-    let place_values = _.map($('#browse_filter_dropdown_menu #place_checkboxes .check_box:checked'), input => { return _.trim($(input).val()).replace(new RegExp(' ', 'g'), '_') })
-    let language_values = _.map($('#browse_filter_dropdown_menu #language_checkboxes .check_box:checked'), input => { return _.trim($(input).val()).replace(new RegExp(' ', 'g'), '_') })
-    filter_value = _.trim(theme_values.join('') + place_values.join('') + language_values.join(''))
-    buildAndAppendUrlFilters({ themes: theme_values, places: place_values, languages: language_values })
-    let filterPagination = false
-    if (_.isEmpty(filter_value)) {
-      $(browse_grid).isotope({ filter: `.browse_content_item_${ $('.library_browse_pagination_indicators.active a').attr('id') === undefined ? '1' : $('.library_browse_pagination_indicators.active a').attr('id') }` })
-    } else {
-      filterPagination = true
-      $(browse_grid).isotope({ filter: filter_value })
-    }
-    if (filterPagination){
-      updatePaginationIndicators($(browse_grid).data('isotope').filteredItems)
-    }
-  })
-
-  function updatePaginationIndicators(filteredItems) {
-  }
-  function browseFilterDisplayUpdate(ele){
-    if(ele.checked){
-      $('#browse_filter_display_div').append(`<div id="${ele.id}" class='inline_block padding_left_2px'>${ele.id.replace(new RegExp('_', 'g'), ' ')}</div`)
-    } else {
-      $('#browse_filter_display_div').find(`#${ele.id}`).remove()
-    }
-  }
-  function buildAndAppendUrlFilters(args){
-    let filter_url = '/library/'
-    if ((!_.isEmpty(args['themes']) || !_.isEmpty(args['places']) || !_.isEmpty(args['languages']))){
-      filter_url = '?' + _.concat(args['themes'], args['places'], args['languages']).map(filter => { return `filters[]=${filter}`}).join('&')
-    }
-    history.replaceState(null, null, filter_url)
-  }
-
-  $('#browse_filter_clear_all a').click(e => {
-    e.preventDefault()
-    _.forEach($('#browse_filter_dropdown_menu .check_box'), check_box => {
-      check_box.checked = false
+    $('#library_content_search_results').on('change', '#search_filter_dropdown_menu input', e => {
+      // let filter_value = _.map($('#search_filter_dropdown_menu .check_box:checked'), input => { return $(input).val() }).join(', ')
+      // [[],[],[]]
+      let filter_value = ''
+      if(e.currentTarget.checked){
+        $('#library_content_search_results #search_filter_display_div').append(`<div id="${e.currentTarget.id}" class='inline_block padding_left_2px'>${e.currentTarget.id.replace(new RegExp('_', 'g'), ' ')}</div`)
+      } else {
+        $('#library_content_search_results #search_filter_display_div').find(`#${e.currentTarget.id}`).remove()
+      }
+      let theme_values = _.map($('#library_content_search_results #search_filter_dropdown_menu #theme_checkboxes .check_box:checked'), input => { return _.trim($(input).val()).replace(new RegExp(' ', 'g'), '_') })
+      let place_values = _.map($('#library_content_search_results #search_filter_dropdown_menu #place_checkboxes .check_box:checked'), input => { return _.trim($(input).val()).replace(new RegExp(' ', 'g'), '_') })
+      let language_values = _.map($('#library_content_search_results #search_filter_dropdown_menu #language_checkboxes .check_box:checked'), input => { return _.trim($(input).val()).replace(new RegExp(' ', 'g'), '_') })
+      filter_value = _.trim(theme_values.join('') + place_values.join('') + language_values.join(''))
+      if (_.isEmpty(filter_value)) {
+        $(search_grid).isotope({ filter: `${ $('.library_search_pagination_indicators.active a').attr('id') === undefined ? '.pagination_search_content_item_1' : `.pagination_search_content_item_${$('.library_search_pagination_indicators.active a').attr('id')}` }` })
+      } else {
+        $(search_grid).isotope({ filter: filter_value })
+      }
+      // searchfilterchange
     })
-    sortFlags['download'] = false
-
-    $('#browse_sort_radio_div input[data-filter=download]').trigger('click')
-    $('#browse_filter_display_div').empty()
-    return false
-  })
-
-  $('#library_content_search_results').on('change', '#search_filter_dropdown_menu input', e => {
-    // let filter_value = _.map($('#search_filter_dropdown_menu .check_box:checked'), input => { return $(input).val() }).join(', ')
-    // [[],[],[]]
-    let filter_value = ''
-    if(e.currentTarget.checked){
-      $('#library_content_search_results #search_filter_display_div').append(`<div id="${e.currentTarget.id}" class='inline_block padding_left_2px'>${e.currentTarget.id.replace(new RegExp('_', 'g'), ' ')}</div`)
-    } else {
-      $('#library_content_search_results #search_filter_display_div').find(`#${e.currentTarget.id}`).remove()
-    }
-    let theme_values = _.map($('#library_content_search_results #search_filter_dropdown_menu #theme_checkboxes .check_box:checked'), input => { return _.trim($(input).val()).replace(new RegExp(' ', 'g'), '_') })
-    let place_values = _.map($('#library_content_search_results #search_filter_dropdown_menu #place_checkboxes .check_box:checked'), input => { return _.trim($(input).val()).replace(new RegExp(' ', 'g'), '_') })
-    let language_values = _.map($('#library_content_search_results #search_filter_dropdown_menu #language_checkboxes .check_box:checked'), input => { return _.trim($(input).val()).replace(new RegExp(' ', 'g'), '_') })
-    filter_value = _.trim(theme_values.join('') + place_values.join('') + language_values.join(''))
-
-    if (_.isEmpty(filter_value)) {
-      $(search_grid).isotope({ filter: `${ $('.library_search_pagination_indicators.active a').attr('id') === undefined ? '.pagination_search_content_item_1' : `.pagination_search_content_item_${$('.library_search_pagination_indicators.active a').attr('id')}` }` })
-    } else {
-      $(search_grid).isotope({ filter: filter_value })
-    }
-  })
-  $('#library_content_search_results').on('click', '#search_filter_clear_all a', e => {
-    e.preventDefault()
-    _.forEach($('#library_content_search_results #search_filter_dropdown_menu .check_box'), check_box => {
-      check_box.checked = false
+    $('#library_content_search_results').on('click', '#search_filter_clear_all a', e => {
+      e.preventDefault()
+      _.forEach($('#library_content_search_results #search_filter_dropdown_menu .check_box'), check_box => {
+        check_box.checked = false
+      })
+      $('#library_content_search_results #search_sort_radio_div input[data-filter=relevance]').trigger('click')
+      $('#library_content_search_results #search_filter_display_div').empty()
+      return false
     })
-    $('#library_content_search_results #search_sort_radio_div input[data-filter=relevance]').trigger('click')
-    $('#library_content_search_results #search_filter_display_div').empty()
-    return false
-  })
 
-  // check if filter is overflowed
-  function isOverflowed(element){
-    // element.clientHeight
-    // only checking for vertical overflow
-    return element.scrollHeight > 350;
+    // check if filter is overflowed
+    function isOverflowed(element){
+      // element.clientHeight
+      // only checking for vertical overflow
+      return element.scrollHeight > 350;
+    }
+
+    $('#overflow_filter_arrows #filter_down_arrows').click(e => {
+      $('#overflow_filter_arrows #filter_up_arrows').removeClass('display_none')
+      $('#overflow_filter_arrows #filter_down_arrows').addClass('display_none')
+      $('#browse_filter_dropdown_parent').css('maxHeight', 'none')
+      $('#browse_filter_dropdown_parent').css('overflow', 'visible')
+    })
+    $('#overflow_filter_arrows #filter_up_arrows').click(e => {
+      $('#overflow_filter_arrows #filter_down_arrows').removeClass('display_none')
+      $('#overflow_filter_arrows #filter_up_arrows').addClass('display_none')
+      $('#browse_filter_dropdown_parent').css('maxHeight', '350px')
+      $('#browse_filter_dropdown_parent').css('overflow', 'hidden')
+    })
   }
-
-  $('#overflow_filter_arrows #filter_down_arrows').click(e => {
-    $('#overflow_filter_arrows #filter_up_arrows').removeClass('display_none')
-    $('#overflow_filter_arrows #filter_down_arrows').addClass('display_none')
-    $('#browse_filter_dropdown_parent').css('maxHeight', 'none')
-    $('#browse_filter_dropdown_parent').css('overflow', 'visible')
-  })
-  $('#overflow_filter_arrows #filter_up_arrows').click(e => {
-    $('#overflow_filter_arrows #filter_down_arrows').removeClass('display_none')
-    $('#overflow_filter_arrows #filter_up_arrows').addClass('display_none')
-    $('#browse_filter_dropdown_parent').css('maxHeight', '350px')
-    $('#browse_filter_dropdown_parent').css('overflow', 'hidden')
-  })
 })
