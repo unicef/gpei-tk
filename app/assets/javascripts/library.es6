@@ -501,6 +501,9 @@ $(() => {
         ele.prop('checked', true)
         browseFilterDisplayUpdate(ele[0])
       })
+      updatePaginationIndicators({ filteredItems: $(browse_grid).data('isotope').filteredItems, type_name: 'browse' })
+      updateFilteredItemClasses($(browse_grid).data('isotope').filteredItems)
+      $(browse_grid).isotope({ filter: `.browse_content_item_1` })
     }
 
     function loadBrowseGrid(){
@@ -710,7 +713,7 @@ $(() => {
       _.forEach($('#browse_filter_dropdown_menu .check_box'), check_box => {
         check_box.checked = false
       })
-      sortFlags['download'] = false
+      sortFlags['download'] = true
       updateFilteredItemClasses($(browse_grid).data('isotope').items)
       updatePaginationIndicators({ filteredItems: $(browse_grid).data('isotope').items, type_name: 'browse' })
       $('#browse_filter_display_div').empty()
