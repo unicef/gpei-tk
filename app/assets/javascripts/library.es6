@@ -623,7 +623,7 @@ $(() => {
       let filter_value = '.browse_content_item_' + $('.library_browse_pagination_indicators.active a').attr('id')
       _.delay(() => {
         browse_grid.isotope({ filter: filter_value })
-      }, 100, 'later')
+      }, 1000, 'later')
       return false
     })
     $('#library').on('click', '#search_sort_radio_div .ui.radio.checkbox', e => {
@@ -662,15 +662,15 @@ $(() => {
       buildAndAppendUrlFilters({ themes: theme_values, places: place_values, languages: language_values })
 
       if (_.isEmpty(filter_value)) {
-        $(browse_grid).isotope({ filter: `.browse_content_item_${ $('.library_browse_pagination_indicators.active a').attr('id') === undefined ? '1' : $('.library_browse_pagination_indicators.active a').attr('id') }` })
         updatePaginationIndicators({ filteredItems: $(browse_grid).data('isotope').items, type_name: 'browse' })
         updateFilteredItemClasses($(browse_grid).data('isotope').items)
+        $(browse_grid).isotope({ filter: `.browse_content_item_${ $('.library_browse_pagination_indicators.active a').attr('id') === undefined ? '1' : $('.library_browse_pagination_indicators.active a').attr('id') }` })
       } else {
         $(browse_grid).isotope({ filter: filter_value })
         updatePaginationIndicators({ filteredItems: $(browse_grid).data('isotope').filteredItems, type_name: 'browse' })
         updateFilteredItemClasses($(browse_grid).data('isotope').filteredItems)
+        $(browse_grid).isotope({ filter: `.browse_content_item_1` })
       }
-      $(browse_grid).isotope({ filter: `.browse_content_item_1` })
     })
 
     function updateFilteredItemClasses(filtered_elements){
@@ -711,9 +711,11 @@ $(() => {
         check_box.checked = false
       })
       sortFlags['download'] = false
-
-      // $('#browse_sort_radio_div input[data-filter=download]').trigger('click')
+      updateFilteredItemClasses($(browse_grid).data('isotope').items)
+      updatePaginationIndicators({ filteredItems: $(browse_grid).data('isotope').items, type_name: 'browse' })
       $('#browse_filter_display_div').empty()
+      history.replaceState(null, null, '/library/')
+      $('#browse_sort_radio_div input[data-filter=download]').trigger('click')
       return false
     })
 
