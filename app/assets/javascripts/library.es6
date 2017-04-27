@@ -713,7 +713,7 @@ $(() => {
       _.forEach($('#browse_filter_dropdown_menu .check_box'), check_box => {
         check_box.checked = false
       })
-      sortFlags['download'] = true
+      sortFlags['download'] = false
       updateFilteredItemClasses($(browse_grid).data('isotope').items)
       updatePaginationIndicators({ filteredItems: $(browse_grid).data('isotope').items, type_name: 'browse' })
       $('#browse_filter_display_div').empty()
