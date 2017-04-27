@@ -33,15 +33,21 @@ class ReferenceLink < ActiveRecord::Base
 
   has_attached_file :document,
                     :path => 'reference_links/:language/:filename',
-                    :styles => { thumb: ["200x200#", :png] }
+                    :styles => { thumb: ["200x200#", :png] }, unless: :is_video?
 
   has_many :featured_references
 
-  validates_attachment :document, content_type: { content_type: 'application/pdf' }
-  validates_uniqueness_of :document_file_name
+  validates_attachment :document, content_type: { content_type: 'application/pdf' }, unless: :is_video?
+  validates_uniqueness_of :document_file_name, unless: :is_video?
+  validates_presence_of :absolute_url, unless: :is_video?
+  validates_presence_of :video_url, if: :is_video?
 
   Paperclip.interpolates :language do |attachment, style|
     attachment.instance.language
+  end
+
+  def is_video?
+    self.is_video
   end
 
   def related_topics
