@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170324152655) do
+ActiveRecord::Schema.define(version: 20170427150740) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -191,7 +191,7 @@ ActiveRecord::Schema.define(version: 20170324152655) do
   end
 
   create_table "reference_links", force: :cascade do |t|
-    t.string   "absolute_url",          null: false
+    t.string   "absolute_url"
     t.string   "language",              null: false
     t.integer  "author_id",             null: false
     t.datetime "created_at",            null: false
@@ -203,9 +203,10 @@ ActiveRecord::Schema.define(version: 20170324152655) do
     t.string   "description"
     t.string   "title"
     t.string   "document_language"
-    t.string   "countries"
     t.integer  "download_count"
     t.integer  "like_count"
+    t.string   "video_url"
+    t.boolean  "is_video"
   end
 
   create_table "reference_mp3_articles", force: :cascade do |t|
