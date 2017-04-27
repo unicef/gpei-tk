@@ -125,7 +125,7 @@
 .reference_search_result_is_c4d,
 .reference_search_result_is_sop {
   position: relative;
-  right:5px;
+  right:0px;
 }
 #library_content_search_header_text {
   margin-bottom:10px;
@@ -439,7 +439,7 @@ a.max_width {
 }
 #catalogue_wrapper {
   position:absolute;
-  right:5px;
+  right:0px;
 }
 #library_index_content_featured_pagination *,
 #browse_paginator_div *{
