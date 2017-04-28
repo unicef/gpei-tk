@@ -90,7 +90,8 @@ class Cms::ReferenceLinksController < ApplicationController
                        document_language: reference_link.document_language,
                        places: reference_link.places,
                        tags: reference_link.tags,
-                       languages: reference_link.languages }
+                       languages: reference_link.languages,
+                       video_url: reference_link.video_url }
       else
         render json: { status: 403 }
       end
@@ -152,6 +153,6 @@ class Cms::ReferenceLinksController < ApplicationController
   end
 
   def safe_reference_link_params
-    params.require(:reference_link).permit(:description, :title, :document_language,)
+    params.require(:reference_link).permit(:description, :title, :document_language, :video_url)
   end
 end
