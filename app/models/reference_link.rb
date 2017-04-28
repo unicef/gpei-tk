@@ -1,6 +1,8 @@
 class ReferenceLink < ActiveRecord::Base
   include PgSearch
 
+  before_validation :update_is_video
+
   pg_search_scope :search_refs, :against => { :title => 'A', :description => 'B', :document_file_name => 'C' },
                   :using => { tsearch: { prefix: true } }
 
@@ -40,14 +42,20 @@ class ReferenceLink < ActiveRecord::Base
   validates_attachment :document, content_type: { content_type: 'application/pdf' }, unless: :is_video?
   validates_uniqueness_of :document_file_name, unless: :is_video?
   validates_presence_of :absolute_url, unless: :is_video?
+
   validates_presence_of :video_url, if: :is_video?
+  validates_presence_of :is_video, if: :video_url_exists?
 
   Paperclip.interpolates :language do |attachment, style|
     attachment.instance.language
   end
 
+  def video_url_exists?
+    !!self.video_url
+  end
+
   def is_video?
-    self.is_video
+    !!self.is_video
   end
 
   def related_topics
@@ -60,5 +68,17 @@ class ReferenceLink < ActiveRecord::Base
 
   def utilized?
     !ReferenceLinkArticle.where(reference_link_id: self.id).empty?
+  end
+
+  def update_is_video
+    return false if self.video_url.nil?
+    if self.is_url?
+      self.is_video = true
+    end
+  end
+
+  def is_url?
+    uri = URI.parse(self.video_url)
+    %w( http https ).include?(uri.scheme)
   end
 end
