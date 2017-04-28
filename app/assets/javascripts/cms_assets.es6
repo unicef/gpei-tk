@@ -217,20 +217,20 @@ $(() => {
                       <div class='col-md-4'>
                         <div id='reference_${type}_list_name_td' class='col-md-12'>
                           <div id='${ reference_link.id }' class='col-md-12'>
-                            <a id='cms_reference_${type}_icon' href="${ reference_link.absolute_url }" target='_blank'><i class="fa fa-search" aria-hidden="true"></i> <strong><u>Preview .${type === 'link' ? 'pdf' : type}</u></strong></a>
-                            <div id='cms_reference_${type}_title'>Title: <div id='cms_reference_${type}_title_div'>${!_.isNull(reference_link.title) ? reference_link.title : 'No title given' }</div></div>
+                            <a id='cms_reference_${type}_icon' href="${ _.isEmpty(reference_link.absolute_url) ? '' : reference_link.absolute_url }" target='_blank'><i class="fa fa-search" aria-hidden="true"></i> <strong><u>Preview .${type === 'link' ? 'pdf' : type}</u></strong></a>
+                            <div id='cms_reference_${type}_title'><strong>Title:</strong> <div id='cms_reference_${type}_title_div'>${!_.isEmpty(reference_link.title) ? reference_link.title : 'No title given' }</div></div>
                             <div style='height:10px' class='col-md-12'></div>
-                            <div class='col-md-12'><strong>File name:</strong> <div id='cms_reference_${type}_file_name_div'>${ type === 'mp3' ? reference_link.clip_file_name : reference_link.document_file_name }</div></div>
+                            <div class='col-md-12'><strong>File name:</strong> <div id='cms_reference_${type}_file_name_div'>${ type === 'mp3' ? _.isEmpty(reference_link.clip_file_name) ? 'No clip name' : reference_link.clip_file_name : _.isEmpty(reference_link.document_file_name) ? 'No file name' : reference_link.document_file_name }</div></div>
                           </div>
                           <div style='height:10px' class='col-md-12'></div>
                           <div class='col-md-12'>
                             <div class='col-md-12'><strong>Description:</strong></div>
-                            <div id='cms_reference_${type}_description_div' class='col-md-12'>${!_.isNull(reference_link.description) ? reference_link.description : 'Description coming soon'}</div>
+                            <div id='cms_reference_${type}_description_div' class='col-md-12'>${!_.isEmpty(reference_link.description) ? reference_link.description : 'Description coming soon'}</div>
                           </div>
                           <div style='height:10px' class='col-md-12'></div>
                           <div class='col-md-12'>
                             <div class='col-md-12'><strong>${type === 'mp3' ? 'Clip' : 'Document'} Language:</strong></div>
-                            <div id='cms_reference_${type}_document_language_div' class='col-md-12'>${!_.isNull(reference_link.document_language) ? reference_link.document_language : 'No document language input'}</div>
+                            <div id='cms_reference_${type}_document_language_div' class='col-md-12'>${!_.isEmpty(reference_link.document_language) ? reference_link.document_language : 'No document language input'}</div>
                           </div>
                           <div class='col-md-12'>
                             <div class='col-md-12'><strong>Tags:</strong></div>
@@ -247,13 +247,20 @@ $(() => {
                             <div id='cms_reference_${type}_languages_div' class='col-md-12'>${!_.isEmpty(reference_link.languages) ? _.map(reference_link.languages, language => { return language.title }).join(' ') : 'No languages selected'}</div>
                           </div>
                           <div style='height:10px' class='col-md-12'></div>
+                          ${ type === 'link' ?
+                            `<div class='col-md-12'>
+                              <div class='col-md-12'><strong>Video URL:</strong></div>
+                              <div id='cms_reference_${type}_video_url_div' class='col-md-12'>${ !_.isEmpty(reference_link.video_url) ? `${reference_link.video_url}` : 'No video URL' }</div>
+                            </div>
+                            <div style='height:10px' class='col-md-12'></div>`
+                            : ''}
                         </div>
                       </div>
                       <div class='col-md-2'><strong>Where ${type === 'link' ? 'pdf' : type} is attached:</strong><br> ${ _.isUndefined(reference_link_categories[reference_link.id]) ? '' : _.map(reference_link_categories[reference_link.id], reference_link_categories => { return reference_link_categories.details }).join("<div style='height:2px;background:black;width:100%'></div>")}</div>
                       <div class='col-md-1 text-center'><strong>Language:</strong><br> ${reference_link.language}</div>
                       <div class='col-md-1'><a id='cms_reference_link_updated_column' href=''><strong>Updated:</strong></a><br> <div id='updated_at_div'>${moment(reference_link.updated_at, "YYYY-MM-DD").format("MMM DD, YYYY")}</div></a></div>
                       <div class='col-md-1'><a id='cms_reference_link_created_column' href=''><strong>Created:</strong></a><br><div id='created_at_div'>${moment(reference_link.created_at, "YYYY-MM-DD").format("MMM DD, YYYY")}</div></div>
-                      ${ _.isNull(users) ? `<div id='cms_author_div' class='col-md-2'><strong>Author:</strong><br></div>` : `<div id='cms_author_div' class='col-md-2'><strong>Author:</strong><br> ${users[reference_link.author_id].first_name + ' ' + users[reference_link.author_id].last_name}</div>`}
+                      ${ _.isEmpty(users) ? `<div id='cms_author_div' class='col-md-2'><strong>Author:</strong><br></div>` : `<div id='cms_author_div' class='col-md-2'><strong>Author:</strong><br> ${users[reference_link.author_id].first_name + ' ' + users[reference_link.author_id].last_name}</div>`}
                       ${ isNotDeletable === true ? `<div class='col-md-1'><a id='reference_link_${featured}_delete' href=''><i class="fa fa-times" aria-hidden="true"></i> delete</a></div>` : `<div class='col-md-1'><a id='reference_${type}_delete' href=''><i class="fa fa-times" aria-hidden="true"></i> delete</a></div>` }
                       ${ isNotEditable === true ? `<div id='${reference_link.id}' class='col-md-3 bottom-right-position'></div>` : `<div id='${reference_link.id}' class='col-md-3 bottom-right-position'><a id='cms_reference_${type}_edit' href="${ reference_link.absolute_url }"><i class="fa fa-pencil-square-o" aria-hidden="true"></i>Edit</a></div>` }
                     </div>`}).join('')}
@@ -494,12 +501,14 @@ $(() => {
                         <a id='' href="${ args['reference'].absolute_url }" target='_blank'>
                           <i class="fa fa-search" aria-hidden="true"></i> <strong><u>Preview .pdf</u></strong>
                         </a><br>
-                        <u>File name:</u> ${ args['reference'].document_file_name }
+                        <u>File name:</u> ${ _.isEmpty(args['reference'].document_file_name) ? 'No file name' : args['reference'].document_file_name }
                         <br>
                         <u>Title:</u>
+                        <input type="text" placeholder="No title" name="reference_${ args['reference_type'] }[title]" value="${ (_.isNull(args['reference'].title) || args['reference'].title === '' || args['reference'].title === 'No title given') ? '' : args['reference'].title }" style='margin-bottom:5px' required>
+                        <u>Video URL:</u>
+                        <input type="text" placeholder="enter url for video" name="reference_${ args['reference_type'] }[video_url]" value="${ (_.isNull(args['reference'].video_url) || args['reference'].video_url === '' || args['reference'].video_url === 'No video url given') ? '' : args['reference'].video_url }" style='margin-bottom:5px' required>
                       </h4>
                     </label>
-                    <input type="text" placeholder="No title" name="reference_${ args['reference_type'] }[title]" value="${ (_.isNull(args['reference'].title) || args['reference'].title === '' || args['reference'].title === 'No title given') ? '' : args['reference'].title }" style='margin-bottom:5px' required>
                     <label>Description:</label>
                     <textarea name="reference_${ args['reference_type'] }[description]" placeholder="descriptive text" required>${(_.isNull(args['reference'].description) || args['reference'].description === '' || args['reference'].description === 'Description coming soon') ? '' : args['reference'].description }</textarea>
                     ${ getReferenceDocumentLanguageInput(args['reference_type'], args['reference'].document_language) }
@@ -555,6 +564,7 @@ $(() => {
         $('#cms_reference_link_grid #'+response.id+'.reference_link_item').find('#cms_reference_link_places_div').text(_.map(response.places, place => { return place.title }).join(' '))
         $('#cms_reference_link_grid #'+response.id+'.reference_link_item').find('#cms_reference_link_languages_div').text(_.map(response.languages, language => { return language.title }).join(' '))
         $('#cms_reference_link_grid #'+response.id+'.reference_link_item').find('#cms_reference_link_tags_div').text(_.map(response.tags, tag => { return tag.title}).join(' '))
+        $('#cms_reference_link_grid #'+response.id+'.reference_link_item').find('#cms_reference_link_video_url_div').text(`${_.isEmpty(response.video_url) ? '' : response.video_url}`)
       })
       return false
     })
