@@ -1,6 +1,5 @@
 $(() => {
   $('#application').on('click', '.reference_download_tracker', e => {
-    e.preventDefault()
     $.ajax({
       method: 'POST',
       url: '/api/reference_downloads/',
@@ -17,9 +16,13 @@ $(() => {
     }).done(response => {
       $('#reference_link_show_modal .content').empty()
       $('#reference_link_show_modal .header').empty()
-      loadPDF(response.reference_link)
+      if (!response.reference_link['is_video']) {
+        e.preventDefault()
+        loadPDF(response.reference_link)
+      } else {
+        // do something for video viewing? tbd
+      }
     })
-    return false
   })
 
   function loadPDF(reference_link) {
