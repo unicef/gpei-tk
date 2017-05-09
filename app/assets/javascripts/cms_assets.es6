@@ -234,7 +234,7 @@ $(() => {
                           </div>
                           <div class='col-md-12'>
                             <div class='col-md-12'><strong>Tags:</strong></div>
-                            <div id='cms_reference_${type}_tags_div' class='col-md-12'>${!_.isUndefined(reference_link_categories[reference_link.id]) ? _.map(reference_link_categories[reference_link.id][0]['tags'], tag => { return tag.title }).join(' ') : ''}</div>
+                            <div id='cms_reference_${type}_tags_div' class='col-md-12'>${!_.isUndefined(reference_link_categories[reference_link.id]) ? _.map(reference_link_categories[reference_link.id][0]['tags'], tag => { return tag.title }).join(' ') : 'No tags selected'}</div>
                           </div>
                           <div style='height:10px' class='col-md-12'></div>
                           <div class='col-md-12'>
@@ -518,7 +518,7 @@ $(() => {
                     ${ getSelectorWithoutPreview({ object_type: 'places', selected_objects: args['reference']['places'], objects: args['places'] }) }
                     <label>Tags:</label>
                     ${ getSelectorWithoutPreview({ object_type: 'tags', selected_objects: args['reference']['tags'], objects: args['tags'] }) }
-                    ${ args['reference_type'] === 'link' ? getReferenceLinkSelector({ all_other_reference_links: args['all_other_reference_links'], related_topics: args['reference']['related_topics'], reference_link_id: args['reference'].id, selector_header_label: 'Related reference links:', object_type: 'related_topics' }) : '' }
+                    ${ args['reference_type'] === 'link' ? getReferenceLinkSelector({ reference_links: args['all_other_reference_links'], selected_references: args['reference']['related_topics'], reference_link_id: args['reference'].id, selector_header_label: 'Related reference links:', object_type: 'related_topics' }) : '' }
                   </div>
                   <button class="ui button" type="submit">Submit</button>
                 </form>
@@ -686,11 +686,11 @@ $(() => {
         <div id='reference_link_checkboxes' class="field">
           <label>${args['selector_header_label']}</label>
             <ul class='${ args['object_type'] === 'featured_links' ? 'featured_ul_select' : '' } list-unstyled'>
-            ${_.map(args['all_other_reference_links'], reference_link => {
+            ${_.map(args['reference_links'], reference_link => {
               if (reference_link.id !== args['current_reference_link_id']){
-                let checked = !_.isEmpty(_.filter(args['related_topics'], (selected_reference) => { return selected_reference.id === reference_link.id })) ? "checked" : ""
+                let checked = !_.isEmpty(_.filter(args['selected_references'], (selected_reference) => { return selected_reference.id === reference_link.id })) ? "checked" : ""
                 return `<li><input id=${ reference_link.id } ${ checked } type='checkbox' name="reference_link[${ args['object_type'] }][]" value="${ reference_link.id }">
-                          <label id='cms_reference_link_label' class='filter-label' for=${ reference_link.id }>${ reference_link.document_file_name } -  <a href="${ reference_link.absolute_url }" target='_blank'><i class="fa fa-search" aria-hidden="true"></i></a></label>
+                          <label id='cms_reference_link_label' class='filter-label' for=${ reference_link.id }>${ reference_link['is_video'] ? (_.isNull(reference_link['title']) ? reference_link['video_url'] : reference_link['title']) : reference_link.document_file_name } -  <a href="${ reference_link['is_video'] ? reference_link['video_url'] : reference_link.absolute_url }" target='_blank'><i class="fa fa-search" aria-hidden="true"></i></a></label>
                         </li>`
               } else {
                 return ''
@@ -755,10 +755,10 @@ $(() => {
       })
       return false
     })
-    function getFeaturedReferenceSelectorForm(reference_links, related_reference_links){
+    function getFeaturedReferenceSelectorForm(reference_links, selected_references){
       return `<form id="CMS_reference_link_feature_select_form" class="ui form">
                 <div class="field">
-                  ${getReferenceLinkSelector({ reference_links: reference_links, related_topics: null, reference_link_id: null, selector_header_label: 'Reference Link List', object_type: 'featured_links' })}
+                  ${getReferenceLinkSelector({ reference_links: reference_links, selected_references: selected_references, reference_link_id: null, selector_header_label: 'Reference Link List', object_type: 'featured_links' })}
                 </div>
                 <button class="ui button" type="submit">Submit</button>
               </form>`
