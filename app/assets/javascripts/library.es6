@@ -296,7 +296,7 @@ $(() => {
         idx += 1
         return `<div id='${idx + 1}' class='col-md-12 ${reference_links_data[reference_obj.id].isSOP ? 'SOP' : ''} ${reference_links_data[reference_obj.id].isC4D ? 'C4D' : ''} ${ reference_obj['tags'].map(tag => { return _.replace(tag.title, new RegExp(" ","g"), "_") }).join(' ') } ${ reference_obj['places'].map(place => { return _.replace(place.title, new RegExp(" ","g"), "_") }).join(' ') } ${ reference_obj['languages'].map(language => { return _.replace(language.title, new RegExp(" ","g"), "_") }).join(' ') } search_content_item pagination_search_content_item_${ getSearchResultFilter(idx+1) } ${ idx === 0 ? 'active' : '' }'>
                   <div class='col-md-1'>
-                    <a id='${ reference_obj.id }' href="${ reference_obj.absolute_url }" target='_blank' class='reference_download_tracker'><img id='search_content_item_image' src="${ _.replace(reference_obj.absolute_url, new RegExp("pdf","g"), "png") }" class='img-responsive'></a>
+                    ${ reference_obj.is_video ? getThumbnailVideo.bind(reference_obj)() : getThumbnailImage.bind(reference_obj)() }
                   </div>
                   <div id='search_content_filter_div' class='display_none'>
                     <div id='search_content_relevance'>
@@ -311,28 +311,28 @@ $(() => {
                   </div>
                   <div id='search_content_item_info_wrapper' class='col-md-11'>
                     <div id='search_content_title_text' class='col-md-12'>
-                      <a id='${ reference_obj.id }' href="${ reference_obj.absolute_url }" target='_blank' class='reference_download_tracker'>${ reference_obj.title ? reference_obj.title : _.replace(_.replace(reference_obj.document_file_name, new RegExp("_","g"), " "), new RegExp(".pdf","g"), "") }</a>
+                      <a id='${ reference_obj.id }' href="${ reference_obj.is_video ? reference_obj.video_url : reference_obj.absolute_url }" target='_blank' class='reference_download_tracker'>${ reference_obj.title ? reference_obj.title : _.replace(_.replace(reference_obj.document_file_name, new RegExp("_","g"), " "), new RegExp(".pdf","g"), "") }</a>
                     </div>
                     <div id='like_and_download_wrapper' class='col-md-2'>
                       <div id='library_download_div' class='inline_block'>
-                        <a id='${ reference_obj.id }' href="${ reference_obj.absolute_url }" target='_blank' class='inline_block library_download_img reference_download_tracker'>
+                        <a id='${ reference_obj.id }' href="${ reference_obj.is_video ? reference_obj.video_url : reference_obj.absolute_url }" target='_blank' class='inline_block library_download_img reference_download_tracker'>
                           <img src='/assets/icons/icon-download2x.png' class='library_grid_icon'>
                         </a>
-                        <div class='counter_indicator_text_div inline_block'>${ reference_obj['download_count'] }</div>
+                        <div class='counter_indicator_text_div inline_block'>${ _.isNull(reference_obj['download_count']) ? '0' : reference_obj['download_count'] }</div>
                       </div>
                       <div id='library_like_div' class='inline_block ${ reference_links_data[reference_obj.id]['liked_by_user'] ? 'like_by_user_div' : '' }'>
                         <a id='${ reference_obj.id }' href='' class='inline_block library_like_img reference_like_tracker'>
                           <img src='${ reference_links_data[reference_obj.id]['liked_by_user'] ? '/assets/icons/icon-like-white-2x.png' : '/assets/icons/icon-like-grey2x.png' }' class='library_grid_icon'>
                         </a>
-                        <div class='counter_indicator_text_div inline_block ${reference_links_data[reference_obj.id]['liked_by_user'] ? 'liked_by_user_white_text' : ''}'>${ reference_obj['like_count'] }</div>
+                        <div class='counter_indicator_text_div inline_block ${reference_links_data[reference_obj.id]['liked_by_user'] ? 'liked_by_user_white_text' : ''}'>${ _.isNull(reference_obj['like_count']) ? '0' : reference_obj['like_count'] }</div>
                       </div>
                     </div>
                     <div class='col-md-7'>
-                      <div id='download_related_topics_div' class='bold_text col-md-3'>DOWNLOAD</div>
+                      <div id='download_related_topics_div' class='bold_text col-md-3'>${ reference_obj.is_video ? 'VIEW' : 'DOWNLOAD' }</div>
                       <div class='col-md-8 langauage_indicator_wrapper'>
-                        <a id='${ reference_obj.id }' href="${ reference_obj.absolute_url }" target='_blank' class='reference_download_tracker'><div class='reference_search_result_info_language '>${ _.upperCase(!_.isEmpty(reference_obj.document_language) ? reference_obj.document_language : reference_obj.language) }</div> PDF ${ convertBytesToKbOrMb(reference_obj.document_file_size) }</a>
+                        <a id='${ reference_obj.id }' href="${ reference_obj.is_video ? reference_obj.video_url : reference_obj.absolute_url }" target='_blank' class='reference_download_tracker'><div class='reference_search_result_info_language '>${ _.upperCase(!_.isEmpty(reference_obj.document_language) ? reference_obj.document_language : reference_obj.language) }</div> ${ _.isEmpty(reference_obj.is_video) ? 'MOV' : ('PDF ' + convertBytesToKbOrMb(reference_obj.document_file_size)) }</a>
                         ${ reference_obj['related_topics'].map(related_topic => {
-                                return `<a id='${ related_topic.id }' href="${ related_topic.absolute_url }" target='_blank' class='reference_download_tracker'><div class='reference_search_result_info_language'>${ _.upperCase(!_.isNull(related_topic.document_language) ? related_topic.document_language : related_topic.language) }</div> PDF ${ convertBytesToKbOrMb(related_topic.document_file_size) }</a>`
+                                return `<a id='${ related_topic.id }' href="${ reference_obj.is_video ? reference_obj.video_url : related_topic.absolute_url }" target='_blank' class='reference_download_tracker'><div class='reference_search_result_info_language'>${ _.upperCase(!_.isEmpty(related_topic.document_language) ? related_topic.document_language : related_topic.language) }</div> ${ _.isEmpty(reference_obj.is_video) ? 'MOV' : ('PDF ' + convertBytesToKbOrMb(related_topic.document_file_size)) }</a>`
                               }).join('')
                           }
                       </div>
@@ -350,6 +350,15 @@ $(() => {
                 </div>`
           }).join('')
         }`
+    }
+
+    function getThumbnailVideo(){
+      return `<div class='col-md-12'>
+                <iframe src="${ _.replace(this.video_url, new RegExp("https://vimeo.com/","g"), "https://player.vimeo.com/video/") }" width="97%" height="auto" frameborder="0"></iframe>
+              </div>`
+    }
+    function getThumbnailImage(){
+      return `<a id='${ this.id }' href="${ this.absolute_url }" target='_blank' class='reference_download_tracker'><img id='search_content_item_image' src="${ _.replace(this.absolute_url, new RegExp("pdf","g"), "png") }" class='img-responsive'></a>`
     }
 
     function convertBytesToKbOrMb(bytes){
