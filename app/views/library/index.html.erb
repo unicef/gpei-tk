@@ -46,7 +46,11 @@
           <% @featured_references.each_with_index do |reference, idx| %>
             <div class='col-md-12 featured_content_item featured_content_item_<%= idx+1 %> <%= 'active' if idx == 0 %>' style="<%= "visibility: hidden;" if idx > 0 %>">
               <div class='col-md-2'>
-                <a id='<%= reference['id'] %>' href="<%= reference.absolute_url %>" target='_blank' class='reference_download_tracker'><img id='featured_content_item_image' src="<%= reference.absolute_url.gsub('pdf', 'png') %>" class='img-responsive'></a>
+                <% if @reference_links_data[reference['id']][:reference_link]['is_video'] %>
+                  <%= render 'library/video_embed', locals: { :reference_link => @reference_links_data[reference['id']][:reference_link] } %>
+                <% else %>
+                  <a id='<%= reference['id'] %>' href="<%= reference.absolute_url %>" target='_blank' class='reference_download_tracker'><img id='featured_content_item_image' src="<%= reference.absolute_url.gsub('pdf', 'png') %>" class='img-responsive'></a>
+                <% end %>
               </div>
               <div id='featured_content_item_info_wrapper' class='col-md-10'>
                 <div id='featured_content_title_text' class='col-md-12'>
@@ -67,12 +71,12 @@
                   </div>
                 </div>
                 <div class='col-md-7'>
-                  <div id='download_related_topics_div' class='bold_text col-md-3'>DOWNLOAD</div>
+                  <div id='download_related_topics_div' class='bold_text col-md-3'><%= reference.is_video ? 'VIEW' : 'DOWNLOAD' %></div>
                   <div class='col-md-8 langauage_indicator_wrapper'>
-                    <a id='<%= reference['id'] %>' href="<%= reference.absolute_url %>" target='_blank' class='reference_download_tracker'><div class='reference_search_result_info_language '><%= reference.document_language ? reference.document_language.upcase : reference.language.upcase %></div> PDF <%= number_to_human_size(reference.document_file_size) %></a>
+                    <a id='<%= reference['id'] %>' href="<%= reference.is_video ? reference.video_url : reference.absolute_url %>" target='_blank' class='reference_download_tracker'><div class='reference_search_result_info_language '><%= reference.document_language ? reference.document_language.upcase : reference.language.upcase %></div> <%= reference.is_video ? 'MOV' : 'PDF' %> <%= number_to_human_size(reference.document_file_size) %></a>
                     <% if @reference_links_data[reference['id']][:related_topics] %>
                       <% @reference_links_data[reference['id']][:related_topics].each do |reference_link| %>
-                        <a id='<%= reference_link.id %>' href="<%= reference_link.absolute_url %>" target='_blank' class=' reference_download_tracker'><div class='reference_search_result_info_language'><%= reference_link.document_language ? reference_link.document_language.upcase : reference_link.language.upcase %></div> PDF <%= number_to_human_size(reference_link.document_file_size) %></a>
+                        <a id='<%= reference_link.id %>' href="<%= reference_link.absolute_url %>" target='_blank' class=' reference_download_tracker'><div class='reference_search_result_info_language'><%= reference_link.document_language ? reference_link.document_language.upcase : reference_link.language.upcase %></div> <%= reference_link.is_video ? 'MOV' : 'PDF' %> <%= number_to_human_size(reference_link.document_file_size) %></a>
                       <% end %>
                     <% end %>
                   </div>
@@ -116,11 +120,15 @@
                 </div>
               </div>
               <div class='col-md-1'>
-                <a id='<%= reference['id'] %>' href="<%= @reference_links_data[reference['id']][:reference_link]['absolute_url'] %>" target='_blank' class='reference_download_tracker'><img id='popular_content_item_image' src="<%= @reference_links_data[reference['id']][:reference_link]['absolute_url'].gsub('pdf', 'png') %>" class='img-responsive'></a>
+                <% if @reference_links_data[reference['id']][:reference_link]['is_video'] %>
+                  <%= render 'library/video_embed', locals: { :reference_link => @reference_links_data[reference['id']][:reference_link] } %>
+                <% else %>
+                  <a id='<%= reference['id'] %>' href="<%= @reference_links_data[reference['id']][:reference_link]['absolute_url'] %>" target='_blank' class='reference_download_tracker'><img id='popular_content_item_image' src="<%= @reference_links_data[reference['id']][:reference_link]['absolute_url'].gsub('pdf', 'png') %>" class='img-responsive'></a>
+                <% end %>
               </div>
               <div id='popular_content_item_info_wrapper' class='col-md-11'>
                 <div id='popular_content_title_text' class='col-md-12'>
-                  <a id='<%= reference['id'] %>' href="<%= @reference_links_data[reference['id']][:reference_link]['absolute_url'] %>" target='_blank' class='reference_download_tracker'><%= @reference_links_data[reference['id']][:reference_link]['title'] ? @reference_links_data[reference['id']][:reference_link]['title'] : @reference_links_data[reference['id']][:reference_link]['document_file_name'].gsub('_', ' ').gsub('.pdf', '') %></a>
+                  <a id='<%= reference['id'] %>' href="<%= @reference_links_data[reference['id']][:reference_link]['absolute_url'] %>" target='_blank' class='reference_download_tracker'><%= @reference_links_data[reference['id']][:reference_link]['title'] || @reference_links_data[reference['id']][:reference_link]['is_video'] ? @reference_links_data[reference['id']][:reference_link]['title'] : @reference_links_data[reference['id']][:reference_link]['document_file_name'].gsub('_', ' ').gsub('.pdf', '') %></a>
                 </div>
                 <div id='like_and_download_wrapper' class='col-md-2'>
                   <div id='library_download_div' class='inline_block'>
@@ -137,12 +145,12 @@
                   </div>
                 </div>
                 <div class='col-md-7'>
-                  <div id='download_related_topics_div' class='bold_text col-md-3'>DOWNLOAD</div>
+                  <div id='download_related_topics_div' class='bold_text col-md-3'><%= @reference_links_data[reference['id']][:reference_link]['is_video'] ? 'VIEW' : 'DOWNLOAD' %></div>
                   <div class='col-md-8 langauage_indicator_wrapper'>
-                    <a id='<%= reference['id'] %>' href="<%= @reference_links_data[reference['id']][:reference_link]['absolute_url'] %>" target='_blank' class='reference_download_tracker'><div class='reference_search_result_info_language'><%= @reference_links_data[reference['id']][:reference_link]['document_language'] ? @reference_links_data[reference['id']][:reference_link]['document_language'].upcase : @reference_links_data[reference['id']][:reference_link]['language'].upcase %></div> PDF <%= number_to_human_size(@reference_links_data[reference['id']][:reference_link]['document_file_size']) %></a>
+                    <a id='<%= reference['id'] %>' href="<%= @reference_links_data[reference['id']][:reference_link]['is_video'] ? @reference_links_data[reference['id']][:reference_link]['video_url'] : @reference_links_data[reference['id']][:reference_link]['absolute_url'] %>" target='_blank' class='reference_download_tracker'><div class='reference_search_result_info_language'><%= @reference_links_data[reference['id']][:reference_link]['document_language'] ? @reference_links_data[reference['id']][:reference_link]['document_language'].upcase : @reference_links_data[reference['id']][:reference_link]['language'].upcase %></div> <%= @reference_links_data[reference['id']][:reference_link]['is_video'] ? 'MOV' : 'PDF' %> <%= number_to_human_size(@reference_links_data[reference['id']][:reference_link]['document_file_size']) %></a>
                     <% if @reference_links_data[reference['id']][:reference_link]['related_topics'] %>
                       <% @reference_links_data[reference['id']][:reference_link]['related_topics'].each do |reference_link| %>
-                        <a id='<%= reference_link['id'] %>' href="<%= reference_link['absolute_url'] %>" target='_blank' class='reference_download_tracker'><div class='reference_search_result_info_language'><%= reference_link['document_language'] ? reference_link['document_language'].upcase : reference_link['language'].upcase %></div> PDF <%= number_to_human_size(reference_link['document_file_size']) %></a>
+                        <a id='<%= reference_link['id'] %>' href="<%= @reference_links_data[reference['id']][:reference_link]['is_video'] ? @reference_links_data[reference['id']][:reference_link]['video_url'] : @reference_links_data[reference['id']][:reference_link]['absolute_url'] %>" target='_blank' class='reference_download_tracker'><div class='reference_search_result_info_language'><%= reference_link['document_language'] ? reference_link['document_language'].upcase : reference_link['language'].upcase %></div> PDF <%= number_to_human_size(reference_link['document_file_size']) %></a>
                       <% end %>
                     <% end %>
                   </div>
