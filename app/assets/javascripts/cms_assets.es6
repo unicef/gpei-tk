@@ -217,7 +217,7 @@ $(() => {
                       <div class='col-md-4'>
                         <div id='reference_${type}_list_name_td' class='col-md-12'>
                           <div id='${ reference_link.id }' class='col-md-12'>
-                            <a id='cms_reference_${type}_icon' href="${ _.isEmpty(reference_link.absolute_url) ? '' : reference_link.absolute_url }" target='_blank'><i class="fa fa-search" aria-hidden="true"></i> <strong><u>Preview .${type === 'link' ? 'pdf' : type}</u></strong></a>
+                            <a id='cms_reference_${type}_icon' href="${ reference_link['is_video'] ? reference_link['video_url'] : _.isEmpty(reference_link.absolute_url) ? '' : reference_link.absolute_url }" target='_blank'><i class="fa fa-search" aria-hidden="true"></i> <strong><u>${reference_link['is_video'] ? 'View Movie Clip' : `Preview .${type === 'link' ? 'pdf' : type}`}</u></strong></a>
                             <div id='cms_reference_${type}_title'><strong>Title:</strong> <div id='cms_reference_${type}_title_div'>${!_.isEmpty(reference_link.title) ? reference_link.title : 'No title given' }</div></div>
                             <div style='height:10px' class='col-md-12'></div>
                             <div class='col-md-12'><strong>File name:</strong> <div id='cms_reference_${type}_file_name_div'>${ type === 'mp3' ? _.isEmpty(reference_link.clip_file_name) ? 'No clip name' : reference_link.clip_file_name : _.isEmpty(reference_link.document_file_name) ? 'No file name' : reference_link.document_file_name }</div></div>
@@ -266,7 +266,7 @@ $(() => {
                     </div>`}).join('')}
                 </div>`
     }
-    $('#CMS_references_link_upload').click(e => {
+    $('#CMS_reference_links_upload').click(e => {
       e.preventDefault()
       toggleProgressSpinner()
       let content = formForReferenceLinkUpload('link')
@@ -275,15 +275,59 @@ $(() => {
       toggleProgressSpinner()
     })
 
+    $('#CMS_reference_links_create').click(e => {
+      e.preventDefault()
+      toggleProgressSpinner()
+      let content = formForReferenceLinkCreate('link')
+      $('#CMS_index_content').empty()
+      $('#CMS_index_content').append(content)
+      toggleProgressSpinner()
+    })
+
+    function formForReferenceLinkCreate(type) {
+      return (`
+        <h2 id='cms_reference_${ type }_list_header'>Create reference ${ type }</h2>
+        <form id="CMS_reference_${ type }_create_form" class="ui form CMS_c4d_article_form_div">
+          ${ getLanguageDropdown(type) }
+          ${ getReferenceVideoURLInput(type, null) }
+          <input type="text" name="reference_${type}[is_video]" value="true" style='display:none;margin-bottom:5px'>
+          <button class="ui button" type="submit">Submit</button>
+        </form>
+        `)
+    }
+
+    function getReferenceVideoURLInput(type, reference_link_video_url){
+      return `<label>Video URL:</label>
+              <input type="text" placeholder="Example: https://example.com" name="reference_${type}[video_url]" value="${(_.isNull(reference_link_video_url) || reference_link_video_url === '' || reference_link_video_url === 'No URL given') ? '' : reference_link_video_url}" style='margin-bottom:5px' required>`
+    }
+
+    $('#CMS_index_content').on('submit', '#CMS_reference_link_create_form', e => {
+      $('#CMS_reference_link_create_form button').prop('disabled', true)
+      toggleProgressSpinner()
+      $.ajax({
+        method: 'POST',
+        url: '/cms/reference_links/',
+        data: $(e.currentTarget).serialize()
+      }).done(response => {
+        toggleProgressSpinner()
+        $('#CMS_reference_link_create_form button').prop('disabled', false)
+        if (response.status === 403){
+          alert(response.error)
+        } else {
+          $('#CMS_reference_links_create').click()
+          showDimmerClearBrowser()
+        }
+      })
+      return false
+    })
+
     $('#CMS_index_content').on('submit', '#CMS_reference_link_upload_form', e => {
-      e.preventDefaua = new FormData($(e.currentTarget)[0])
       let formData = new FormData()
       $.each($("input[type=file]")[0].files, (idx, file) => {
         formData.append('reference_link['+idx+']', file);
       })
       formData.append('language', $('#CMS_reference_link_upload_form').find('select')[0].value)
       formData.append('document_language', $("#CMS_reference_link_upload_form [name='reference_link[document_language]']").val())
-      formData.append('places', $("#CMS_reference_link_upload_form [name='reference_link[places]']").val())
       $('#CMS_reference_link_upload_form button').prop('disabled', true)
       toggleProgressSpinner()
       $.ajax({
@@ -299,7 +343,7 @@ $(() => {
         if (response.status === 403){
           alert(response.error)
         } else {
-          $('#CMS_references_link_upload').click()
+          $('#CMS_reference_links_upload').click()
           showDimmerClearBrowser()
         }
       })
@@ -308,7 +352,6 @@ $(() => {
 
     $('#CMS_index_content').on('submit', '#CMS_reference_mp3_upload_form', e => {
       e.preventDefault()
-      // let formData = new FormData($(e.currentTarget)[0])
       let formData = new FormData()
       $.each($("input[type=file]")[0].files, (idx, file) => {
         formData.append('reference_mp3['+idx+']', file);
@@ -337,7 +380,6 @@ $(() => {
     })
     $('#CMS_index_content').on('submit', '#CMS_reference_pptx_upload_form', e => {
       e.preventDefault()
-      // let formData = new FormData($(e.currentTarget)[0])
       let formData = new FormData()
       $.each($("input[type=file]")[0].files, (idx, file) => {
         formData.append('reference_pptx['+idx+']', file);
@@ -498,8 +540,8 @@ $(() => {
                   <div class="field">
                     <label>
                       <h4>
-                        <a id='' href="${ args['reference'].absolute_url }" target='_blank'>
-                          <i class="fa fa-search" aria-hidden="true"></i> <strong><u>Preview .pdf</u></strong>
+                        <a id='' href="${ args['reference']['is_video'] ? args['reference'].video_url : args['reference'].absolute_url }" target='_blank'>
+                          <i class="fa fa-search" aria-hidden="true"></i> <strong><u>${ args['reference'].is_video ? 'View Movie Clip' : 'Preview .pdf' }</u></strong>
                         </a><br>
                         <u>File name:</u> ${ _.isEmpty(args['reference'].document_file_name) ? 'No file name' : args['reference'].document_file_name }
                         <br>
@@ -541,7 +583,7 @@ $(() => {
     }
     function getReferenceDocumentLanguageInput(type, reference_link_document_language){
       return `<label>Document Language:</label>
-              <input type="text" placeholder="Example: EN FR" name="reference_${type}[document_language]" value="${(_.isNull(reference_link_document_language) || reference_link_document_language === '' || reference_link_document_language === 'No title given') ? '' : reference_link_document_language}" style='margin-bottom:5px' required>`
+              <input type="text" placeholder="Example: EN FR" name="reference_${type}[document_language]" value="${(_.isNull(reference_link_document_language) || reference_link_document_language === '' || reference_link_document_language === 'No language given') ? '' : reference_link_document_language}" style='margin-bottom:5px' required>`
     }
     function getReferencePlacesInput(type, reference_link_places){
       return `<label>Places(seperate each with a space):</label>
