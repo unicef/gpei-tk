@@ -71,13 +71,16 @@ class ReferenceLink < ActiveRecord::Base
   end
 
   def update_is_video
-    return false if self.video_url.nil?
     if self.is_url?
       self.is_video = true
+    else
+      self.is_video = false
     end
+    true
   end
 
   def is_url?
+    return false if !self.video_url
     uri = URI.parse(self.video_url)
     %w( http https ).include?(uri.scheme)
   end
