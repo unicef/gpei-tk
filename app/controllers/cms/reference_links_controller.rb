@@ -34,8 +34,10 @@ class Cms::ReferenceLinksController < ApplicationController
       errors = []
       if params['reference_link']['is_video'] == true.to_s
         reference_link = ReferenceLink.create(video_url: params['reference_link']['video_url'],
-                             language: params['reference_link']['language'],
-                             author_id: current_user.id,)
+                                              language: params['reference_link']['language'],
+                                              title: params['reference_link']['title'],
+                                              description: params['reference_link']['description'],
+                                              author_id: current_user.id)
         if !reference_link.save
           errors << reference_link.errors
         end

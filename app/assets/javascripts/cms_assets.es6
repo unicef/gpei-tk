@@ -289,16 +289,18 @@ $(() => {
         <h2 id='cms_reference_${ type }_list_header'>Create reference ${ type }</h2>
         <form id="CMS_reference_${ type }_create_form" class="ui form CMS_c4d_article_form_div">
           ${ getLanguageDropdown(type) }
-          ${ getReferenceVideoURLInput(type, null) }
+          ${ getInputField({ type: type, label: "Video URL", placeholder_value: "https://example.com", input_value: null, input_name: "video_url", is_required: true }) }
+          ${ getInputField({ type: type, label: "Title", placeholder_value: "Amazing Polio Title", input_value: null, input_name: "title", is_required: true }) }
+          ${ getInputField({ type: type, label: "Description", placeholder_value: "Descriptive text here", input_value: null, input_name: "description", is_required: true }) }
           <input type="text" name="reference_${type}[is_video]" value="true" style='display:none;margin-bottom:5px'>
           <button class="ui button" type="submit">Submit</button>
         </form>
         `)
     }
 
-    function getReferenceVideoURLInput(type, reference_link_video_url){
-      return `<label>Video URL:</label>
-              <input type="text" placeholder="Example: https://example.com" name="reference_${type}[video_url]" value="${(_.isNull(reference_link_video_url) || reference_link_video_url === '' || reference_link_video_url === 'No URL given') ? '' : reference_link_video_url}" style='margin-bottom:5px' required>`
+    function getInputField(args){
+      return `<label>${args['label']}:</label>
+              <input type="text" placeholder="Example: ${_.isNull(args['placeholder_value']) ? '' : args['placeholder_value']}" name="reference_${args['type']}[${_.replace(args['label'].toLowerCase().replace(new RegExp(' ', 'g'), '_'))}]" value="${(_.isNull(args['input_value']) || args['input_value'] === '' || args['input_value'] === 'No URL given') ? '' : args['input_value']}" style='margin-bottom:5px' ${args['is_required'] ? 'required' : ''}>`
     }
 
     $('#CMS_index_content').on('submit', '#CMS_reference_link_create_form', e => {
