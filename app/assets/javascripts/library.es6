@@ -93,7 +93,7 @@ $(() => {
       return `<div id='search_filter_row' class='col-md-12'>
                 <div id="search_filter_dropdown" class="ui dropdown col-md-12">
                   <div id="" class="">
-                    <span class='filter_header_text'>SELECT FILTERS</span>
+                    <span class='filter_header_text'><i class="fa fa-angle-down" aria-hidden="true"></i> SELECT FILTERS</span>
                   </div>
                   <div id='search_filter_dropdown_menu' class="menu">
                     <div id='' class="item col-md-12">
@@ -162,7 +162,7 @@ $(() => {
                 </div>
                 <div id='search_filter_display_div' class='col-md-6'>
                 </div>
-                ${getSearchResultsSort()}
+                ${ getSearchResultsSort()}
               </div>`
     }
 
