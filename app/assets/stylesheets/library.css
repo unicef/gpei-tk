@@ -546,7 +546,8 @@ a.max_width {
 #browse_sort_wrapper .ui.compact.menu .ui.simple.dropdown.item {
   padding:0px;
 }
-.browse_header_text {
+.browse_header_text,
+.browse_header_text i {
   color:#CC9555 !important;
 }
 #search_filter_dropdown_menu .item,
