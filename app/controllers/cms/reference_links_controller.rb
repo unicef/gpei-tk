@@ -32,18 +32,27 @@ class Cms::ReferenceLinksController < ApplicationController
   def create
     if request.xhr?
       errors = []
-      params[:reference_link].each do |document|
-        if ReferenceLink.find_by(document_file_name: document[1].original_filename).nil?
-          reference_link = ReferenceLink.new(author_id: current_user.id,
-                                            document: document[1],
-                                            language: params[:language],
-                                            document_language: params[:document_language])
-          reference_link.absolute_url = normalizeURI(reference_link.document.url)
-          if !reference_link.save
-            errors << reference_link.errors
+      if params['reference_link']['is_video'] == true.to_s
+        reference_link = ReferenceLink.create(video_url: params['reference_link']['video_url'],
+                             language: params['reference_link']['language'],
+                             author_id: current_user.id,)
+        if !reference_link.save
+          errors << reference_link.errors
+        end
+      else
+        params[:reference_link].each do |document|
+          if ReferenceLink.find_by(document_file_name: document[1].original_filename).nil?
+            reference_link = ReferenceLink.new(author_id: current_user.id,
+                                              document: document[1],
+                                              language: params[:language],
+                                              document_language: params[:document_language])
+            reference_link.absolute_url = normalizeURI(reference_link.document.url)
+            if !reference_link.save
+              errors << reference_link.errors
+            end
+          else
+            errors << "duplicate files not allowed"
           end
-        else
-          errors << "duplicate files not allowed"
         end
       end
       if errors.empty?
