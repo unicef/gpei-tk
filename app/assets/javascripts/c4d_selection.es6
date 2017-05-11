@@ -354,14 +354,7 @@ $(() => {
               } else {
                 reference_title = reference_link.title
               }
-              rows += `<div id='reference_link_row' class='row'>
-                        <div class='col-md-2'>
-                          <img class='reference_link_pdf_icon' src="${_.replace(reference_link.absolute_url, new RegExp(".pdf","g"),".png")}">
-                        </div>
-                        <div id='reference_link_anchor_div' class='col-md-10'>
-                          <strong><a id='${reference_link.id}' class='reference_download_tracker reference_link_anchor' href="${ reference_link.absolute_url }" target='_blank'>&nbsp;${ reference_title }</a></strong>
-                        </div>
-                      </div>`
+              rows += _.isNull(reference_link.is_video) || !reference_link.is_video ? getThumbnailPDF.bind(reference_link)(reference_title) : getThumbnailVideo.bind(reference_link)(reference_title)
             }
           })
         })
@@ -376,6 +369,23 @@ $(() => {
         </div>`
       }
       return content
+    }
+
+    function getThumbnailPDF(reference_title){
+      return `<div id='reference_link_row' class='row'>
+                <div class='col-md-2'>
+                  <img class='reference_link_pdf_icon' src="${_.replace(this.absolute_url, new RegExp(".pdf","g"),".png")}">
+                </div>
+                <div id='reference_link_anchor_div' class='col-md-10'>
+                  <strong><a id='${this.id}' class='reference_download_tracker reference_link_anchor' href="${ this.absolute_url }" target='_blank'>&nbsp;${ reference_title }</a></strong>
+                </div>
+              </div>`
+    }
+
+    function getThumbnailVideo(reference_title){
+      return `<div class='col-md-12'>
+                <iframe src="${ _.replace(this.video_url, new RegExp("https://vimeo.com/","g"), "https://player.vimeo.com/video/") }" width="100%" height="auto" frameborder="0"></iframe>
+              </div>`
     }
 
     function c4d_style_visible (icon, user, article, toolkit_articles) {
