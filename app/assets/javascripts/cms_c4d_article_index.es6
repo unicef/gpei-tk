@@ -355,7 +355,7 @@ $(() => {
                       <div id='c4d_article_reference_id_down_div' class='col-md-6'><a id='c4d_article_reference_id_down' href=''><i class="fa fa-sort-desc" aria-hidden="true"></i></a></div>
                     </div>
                     <div id='${reference_link.id}' class='col-md-11'>
-                      <strong>Reference Link: </strong>${reference_link.document_file_name} - <a href="${reference_link.absolute_url}" target="_blank">${reference_link.absolute_url}</a>
+                      <strong>Reference Link: </strong>${ _.isNull(reference_link.is_video) || !reference_link.is_video ? reference_link.document_file_name : reference_link.video_url } - <a href="${_.isNull(reference_link.is_video) || !reference_link.is_video ? reference_link.absolute_url : reference_link.video_url }" target="_blank">${ _.isNull(reference_link.is_video) || !reference_link.is_video ? reference_link.absolute_url : reference_link.video_url }</a>
                     </div>
                   </div>`
           }
@@ -427,9 +427,10 @@ $(() => {
           <label>Available reference links:</label>
             <ul class='list-unstyled'>
             ${_.map(reference_links, reference_link => {
+              debugger
               let checked = !_.isEmpty(_.filter(selected_reference_links, (selected_reference) => { return selected_reference.id === reference_link.id })) ? "checked" : ""
               return `<li><input id=${reference_link.id} ${checked} type='checkbox' name="article[reference_links][]" value="${reference_link.id}">
-                      <label id='cms_reference_link_label' class='filter-label' for=${reference_link.id}>${reference_link.document_file_name} -  <a href="${ reference_link.absolute_url }" target='_blank'><i class="fa fa-search" aria-hidden="true"></i></a></label></li>`
+                      <label id='cms_reference_link_label' class='filter-label' for=${reference_link.id}>${ _.isNull(reference_link.is_video) || !reference_link.is_video ? reference_link.document_file_name : reference_link.video_url } -  <a href="${ _.isNull(reference_link.is_video) || !reference_link.is_video ? reference_link.absolute_url : reference_link.video_url }" target='_blank'><i class="fa fa-search" aria-hidden="true"></i></a></label></li>`
             }).join('\n')}
             </ul>
         </div>
