@@ -1,5 +1,6 @@
 $(() => {
   $('#application').on('click', '.reference_download_tracker', e => {
+    var preventEvent;
     $.ajax({
       method: 'POST',
       url: '/api/reference_downloads/',
@@ -12,17 +13,22 @@ $(() => {
     })
     $.ajax({
       method: 'GET',
-      url: '/api/reference_links/' + $(e.currentTarget).attr('id')
-    }).done(response => {
+      url: '/api/reference_links/' + $(e.currentTarget).attr('id'),
+      async: false
+    }).done(function(response) {
       $('#reference_link_show_modal .content').empty()
       $('#reference_link_show_modal .header').empty()
       if (!response.reference_link['is_video']) {
         e.preventDefault()
         loadPDF(response.reference_link)
+        preventEvent = true
       } else {
         // do something for video viewing? tbd
       }
     })
+    if (preventEvent == true){
+      return false
+    }
   })
 
   function loadPDF(reference_link) {
