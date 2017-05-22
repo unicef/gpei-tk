@@ -224,7 +224,7 @@ $(() => {
         let prev_id = $(prev_row).attr('id')
         $.ajax({
           method: 'PATCH',
-          url: '/cms/c4d_articles/orderUp/' + id + '?prev_id=' + prev_id
+          url: '/cms/c4d_articles/order_up/' + id + '?prev_id=' + prev_id
         }).done(response => {
           if (response.status === 200){
             current_row.find('#cms_c4d_article_order_id_div').text(response.current_c4d_article_order_id)
@@ -261,7 +261,7 @@ $(() => {
         let next_id = $(next_row).attr('id')
         $.ajax({
           method: 'PATCH',
-          url: '/cms/c4d_articles/orderDown/' + id + '?next_id=' + next_id
+          url: '/cms/c4d_articles/order_down/' + id + '?next_id=' + next_id
         }).done(response => {
           if (response.status === 200){
             current_row.find('#cms_c4d_article_order_id_div').text(response.current_c4d_article_order_id)

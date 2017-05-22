@@ -3,7 +3,7 @@ class Cms::ReferenceLinksController < ApplicationController
 
   def index
     reference_links = ReferenceLink.all.order(:document_file_name).as_json(:include => [:author, :tags, :places, :languages, :related_topics]).uniq
-    reference_link_categories = getReferenceLinkCategories(reference_links)
+    reference_link_categories = get_reference_link_categories(reference_links)
     categories = { sop_categories: SopCategory.all, c4d_categories: C4dCategory.all }
     render json: { reference_links: reference_links,
                    reference_link_categories: reference_link_categories,
@@ -48,7 +48,7 @@ class Cms::ReferenceLinksController < ApplicationController
                                               document: document[1],
                                               language: params[:language],
                                               document_language: params[:document_language])
-            reference_link.absolute_url = normalizeURI(reference_link.document.url)
+            reference_link.absolute_url = normalize_uri(reference_link.document.url)
             if !reference_link.save
               errors << reference_link.errors
             end
@@ -122,7 +122,7 @@ class Cms::ReferenceLinksController < ApplicationController
 
   def utilized
     reference_links = ReferenceLink.all.order(:document_file_name).uniq
-    reference_link_categories = getReferenceLinkCategories(reference_links)
+    reference_link_categories = get_reference_link_categories(reference_links)
     categories = { sop_categories: SopCategory.all, c4d_categories: C4dCategory.all }
     render json: { reference_links: reference_links,
                    reference_link_categories: reference_link_categories,
@@ -132,7 +132,7 @@ class Cms::ReferenceLinksController < ApplicationController
 
   private
 
-  def getReferenceLinkCategories(reference_links)
+  def get_reference_link_categories(reference_links)
     reference_link_categories = {}
     reference_links.each do |reference_link|
       links = ReferenceLinkArticle.where(reference_link_id: reference_link['id'])
@@ -152,7 +152,7 @@ class Cms::ReferenceLinksController < ApplicationController
     reference_link_categories
   end
 
-  def normalizeURI(url)
+  def normalize_uri(url)
     uri = URI.parse(url)
     if uri.kind_of?(URI::HTTPS)
       return url

@@ -41,7 +41,7 @@ class ForgotPasswordsController < ApplicationController
             forgot_pwd.update(expired: true)
             render json: { status: 200 }
           else
-            render json: { status: 200, errors: buildErrorMsg(user.errors.messages)}
+            render json: { status: 200, errors: build_error_msg(user.errors.messages)}
           end
         end
       end

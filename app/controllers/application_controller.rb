@@ -26,7 +26,7 @@ class ApplicationController < ActionController::Base
     end
   end
 
-  def buildErrorMsg(messages)
+  def build_error_msg(messages)
     error_text = []
     messages.each do |key, value|
       messages[key].each do |value|

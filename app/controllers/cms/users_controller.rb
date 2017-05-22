@@ -3,7 +3,7 @@ class Cms::UsersController < ApplicationController
   def index
     if current_user.is_admin? || current_user.is_editor?
       if request.xhr?
-        users = getAllowedUsers
+        users = get_allowed_users
         roles = Role.all
         render json: { users: users, roles: roles, status: 200 }
       end
@@ -39,7 +39,7 @@ class Cms::UsersController < ApplicationController
     end
   end
 
-  def toggleActive
+  def toggle_active
     if current_user.is_admin?
       if request.xhr?
         user = User.find_by(id: params[:id])
@@ -52,7 +52,7 @@ class Cms::UsersController < ApplicationController
 
   private
 
-  def getAllowedUsers
+  def get_allowed_users
     columns = User.attribute_names - ['password_digest']
     root = Role.find_by(title: 'root')
     users = User.all.select(columns).where.not(role_id: root.id)

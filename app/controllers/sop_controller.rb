@@ -9,7 +9,7 @@ class SopController < ApplicationController
     @backgrounds = { index: '#904941', wtdw: nil, overview: nil, borders: 'active' }
   end
 
-  def whatToDoWhen
+  def what_to_do_when
     @loadSopArticle = true unless params[:id].nil?
     @sop_times = SopTime.all
     @sop_categories = SopCategory.all

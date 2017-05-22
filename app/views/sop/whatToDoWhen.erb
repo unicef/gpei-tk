@@ -31,7 +31,7 @@
                 <div id='sop_category_filter' class='sop_checkboxes'>
                   <ul class='list-unstyled'>
                     <% @sop_categories.each do |category| %>
-                      <li class='filter-item'><input class='check_box' id=<%= category.title.gsub(' ', '_') %> type='checkbox' value=".<%= category.title.gsub(' ', '_') %>"><label class='filter-label' for=<%= category.title.gsub(' ', '_') %>><img id='sop_filter_category_icon' src='<%= getSopCategoryIcon(category.title) %>'><span id='sop_filter_category_span'><%= category.title %></span></label></li>
+                      <li class='filter-item'><input class='check_box' id=<%= category.title.gsub(' ', '_') %> type='checkbox' value=".<%= category.title.gsub(' ', '_') %>"><label class='filter-label' for=<%= category.title.gsub(' ', '_') %>><img id='sop_filter_category_icon' src='<%= get_sop_category_icon(category.title) %>'><span id='sop_filter_category_span'><%= category.title %></span></label></li>
                     <% end %>
                   </ul>
                 </div>

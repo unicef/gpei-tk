@@ -3,7 +3,7 @@ class Cms::ReferenceMp3sController < ApplicationController
 
   def index
     reference_mp3s = ReferenceMp3.all.order(:clip_file_name)
-    reference_mp3_categories = getReferenceMp3Categories(reference_mp3s)
+    reference_mp3_categories = get_reference_mp3_categories(reference_mp3s)
     categories = { sop_categories: SopCategory.all, c4d_categories: C4dCategory.all }
     render json: { reference_mp3s: reference_mp3s, reference_mp3_categories: reference_mp3_categories, categories: categories, status: 200 }
   end
@@ -62,7 +62,7 @@ class Cms::ReferenceMp3sController < ApplicationController
 
   private
 
-  def getReferenceMp3Categories(reference_mp3s)
+  def get_reference_mp3_categories(reference_mp3s)
     reference_mp3_categories = {}
     reference_mp3s.each do |reference_mp3|
       links = ReferenceMp3Article.where(reference_mp3_id: reference_mp3.id)

@@ -9,8 +9,8 @@
       <% item_idx += 1 %>
       <% if item_idx % 10 === 0 || item_idx === last_idx %>
         <div class='library_browse_pagination_indicators <%= item_idx === 10 ? 'active' : '' %>'>
-          <a id="<%= getPaginatorIdNumber(item_idx, last_idx) %>" href='' class='max_width'>
-            <%= getPaginatorIdNumber(item_idx, last_idx) %>
+          <a id="<%= get_paginator_id_number(item_idx, last_idx) %>" href='' class='max_width'>
+            <%= get_paginator_id_number(item_idx, last_idx) %>
           </a>
         </div>
       <% end %>
@@ -18,7 +18,7 @@
   </div>
   <div id='browse_paginator_right_angle' class=''>
     <a href=''>
-      <i id='<%= getPaginatorLastPageNumber(@reference_links.count - 1) %>' class='fa fa-angle-right fa-2x' aria-hidden='true'></i>
+      <i id='<%= get_paginator_last_page_number(@reference_links.count - 1) %>' class='fa fa-angle-right fa-2x' aria-hidden='true'></i>
     </a>
   </div>
 </div>

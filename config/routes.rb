@@ -20,8 +20,8 @@ Rails.application.routes.draw do
 
   get '/sop/' => 'sop#index'
 
-  get '/sop/what_to_do_when/' => 'sop#whatToDoWhen'
-  get '/sop/what_to_do_when/:id' => 'sop#whatToDoWhen'
+  get '/sop/what_to_do_when/' => 'sop#what_to_do_when'
+  get '/sop/what_to_do_when/:id' => 'sop#what_to_do_when'
   get '/sop/overview/' => 'sop#overview'
 
   post '/sop/checklist/' => 'sop_checklist#create'
@@ -32,7 +32,7 @@ Rails.application.routes.draw do
 
   namespace :cms, defaults: { format: :json } do
     resources :users, only: [:index, :update, :create]
-    patch '/users/toggleActive/:id' => 'users#toggleActive', as: :users_toggle_active
+    patch '/users/toggle_active/:id' => 'users#toggle_active', as: :users_toggle_active
 
     resources :sop_articles, only: [:index, :update, :show, :create]
     resources :c4d_articles, only: [:index, :update, :show, :create]
@@ -40,10 +40,10 @@ Rails.application.routes.draw do
     patch '/sop_articles/publish/:id' => 'sop_articles#publish', as: :sop_article_publish
     patch '/c4d_articles/publish/:id' => 'c4d_articles#publish', as: :c4d_article_publish
 
-    patch '/c4d_articles/orderUp/:id' => 'c4d_articles#orderUp', as: :c4d_article_order_up
-    patch '/c4d_articles/orderDown/:id' => 'c4d_articles#orderDown', as: :c4d_article_order_down
-    patch '/sop_articles/orderUp/:id' => 'sop_articles#orderUp', as: :sop_article_order_up
-    patch '/sop_articles/orderDown/:id' => 'sop_articles#orderDown', as: :sop_article_order_down
+    patch '/c4d_articles/order_up/:id' => 'c4d_articles#order_up', as: :c4d_article_order_up
+    patch '/c4d_articles/order_down/:id' => 'c4d_articles#order_down', as: :c4d_article_order_down
+    patch '/sop_articles/order_up/:id' => 'sop_articles#order_up', as: :sop_article_order_up
+    patch '/sop_articles/order_down/:id' => 'sop_articles#order_down', as: :sop_article_order_down
 
     resources :reference_links, only: [:index, :show, :create, :update, :destroy]do
       get :utilized, on: :collection
@@ -89,6 +89,6 @@ Rails.application.routes.draw do
   post '/feedback/' => 'feedback#create'
 
   get '/library/' => 'library#index'
-  get '/library/referenceSearch/' => 'library#referenceSearch'
-  get '/library/:title' => 'library#referenceShow'
+  get '/library/reference_search/' => 'library#reference_search'
+  get '/library/:title' => 'library#reference_show'
 end

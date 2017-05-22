@@ -3,7 +3,7 @@ class Cms::ReferencePptxesController < ApplicationController
 
   def index
     reference_pptxes = ReferencePptx.all.order(:document_file_name)
-    reference_pptx_categories = getReferencePptxCategories(reference_pptxes)
+    reference_pptx_categories = get_reference_pptx_categories(reference_pptxes)
     categories = { sop_categories: SopCategory.all, c4d_categories: C4dCategory.all }
     render json: { reference_pptxes: reference_pptxes, reference_pptx_categories: reference_pptx_categories, categories: categories, status: 200 }
   end
@@ -62,7 +62,7 @@ class Cms::ReferencePptxesController < ApplicationController
 
   private
 
-  def getReferencePptxCategories(reference_pptxes)
+  def get_reference_pptx_categories(reference_pptxes)
     reference_pptx_categories = {}
     reference_pptxes.each do |reference_pptx|
       links = ReferencePptxArticle.where(reference_pptx_id: reference_pptx.id)

@@ -1,14 +1,14 @@
 class LibraryController < ApplicationController
   def index
-    initializeVars
+    initialize_vars
   end
 
-  def referenceSearch
+  def reference_search
     reference_links = ReferenceLink.all.order('download_count DESC NULLS LAST, like_count DESC NULLS LAST, created_at DESC')
                       .search_refs(params[:search][:query])
                       .as_json(:include => [:author, :tags, :places, :languages, :related_topics]).uniq
     references = reference_links
-    reference_links_data, sopCount, c4dCount, places, languages, tags = getReferenceLinkData(references)
+    reference_links_data, sopCount, c4dCount, places, languages, tags = get_reference_link_data(references)
     users = Hash[User.all.pluck(:id, :first_name)]
     render json: { status: 200,
                    references: references,
@@ -21,30 +21,30 @@ class LibraryController < ApplicationController
                    tags: tags }
   end
 
-  def referenceShow
+  def reference_show
     @reference_link = ReferenceLink.find_by('title LIKE ?', "%#{params[:title]}%")
     @reference_link ||= ReferenceLink.find_by('document_file_name LIKE ?', "#{params[:title].gsub('_', ' ')}%")
-    initializeVars
+    initialize_vars
     render 'library/index'
   end
 
   private
 
-  def initializeVars
+  def initialize_vars
     @is_library = true
     @reference_links = ReferenceLink.all.order('download_count DESC NULLS LAST, like_count DESC NULLS LAST, created_at DESC').as_json(:include => [:author, :tags, :places, :languages, :related_topics]).uniq
-    @reference_links_data, @sopCount, @c4dCount, @places, @languages, @tags = getReferenceLinkData(@reference_links)
+    @reference_links_data, @sopCount, @c4dCount, @places, @languages, @tags = get_reference_link_data(@reference_links)
     @filters = params[:filters] if params[:filters]
     @featured_references = ReferenceLink.joins(:featured_references).all.uniq
   end
 
-  def getReferenceLinkData(reference_links)
+  def get_reference_link_data(reference_links)
     reference_links_data, places, languages, tags = {}, {}, {}, {}
     sopCount, c4dCount = 0, 0
     reference_links.each do |reference_link|
-      places.merge!(mapFilters(reference_link['places'], places))
-      languages.merge!(mapFilters(reference_link['languages'], languages))
-      tags.merge!(mapFilters(reference_link['tags'], tags))
+      places.merge!(map_filters(reference_link['places'], places))
+      languages.merge!(map_filters(reference_link['languages'], languages))
+      tags.merge!(map_filters(reference_link['tags'], tags))
       ref_join = ReferenceLinkArticle.where(reference_link_id: reference_link['id'])
       reference_links_data[reference_link['id']] = { reference_link: reference_link,
                                                      isSOP: false,
@@ -62,21 +62,21 @@ class LibraryController < ApplicationController
       if current_user
         liked_by_user = !Like.joins(:reference_likes).where('likes.author_id = ? AND reference_likes.reference_likeable_id = ?', current_user.id, reference_link['id']).empty?
       end
-      reference_links_data[reference_link['id']].merge!({ download_count: roundStatsToView(ReferenceDownload.where(reference_downloadable_id: reference_link['id']).count),
-                                                         like_count: roundStatsToView(ReferenceLike.where(reference_likeable_id: reference_link['id']).count),
+      reference_links_data[reference_link['id']].merge!({ download_count: round_stats_to_view(ReferenceDownload.where(reference_downloadable_id: reference_link['id']).count),
+                                                         like_count: round_stats_to_view(ReferenceLike.where(reference_likeable_id: reference_link['id']).count),
                                                          liked_by_user: liked_by_user })
     end
     return reference_links_data, sopCount, c4dCount, places.sort_by{|k, v| v[:count] * -1 }, languages.sort_by{|k, v| v[:count] * -1 }, tags.sort_by{|k, v| v[:count] * -1 }
   end
 
-  def mapFilters(filters, existing_filters)
+  def map_filters(filters, existing_filters)
     filters.each do |filter|
       existing_filters[filter['title']] ? existing_filters[filter['title']][:count] += 1 : existing_filters[filter['title']] = { count: 1 }
     end
     existing_filters
   end
 
-  def roundStatsToView(count)
+  def round_stats_to_view(count)
     rounded = count
     if count > 999
       rounded = (count / 1000).to_s + '.' + ((count%1000)/100).to_s + 'k'

@@ -19,8 +19,8 @@ class UsersController < ApplicationController
         session[:last_seen] = current_time
         render :js => "window.location = '/'"
       else
-        buildErrorMsg(@user.errors.messages)
-        render json: { status: 403, errors: buildErrorMsg(@user.errors.messages) }
+        build_error_msg(@user.errors.messages)
+        render json: { status: 403, errors: build_error_msg(@user.errors.messages) }
       end
     end
   end

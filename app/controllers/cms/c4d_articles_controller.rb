@@ -50,7 +50,7 @@ class Cms::C4dArticlesController < ApplicationController
     if request.xhr?
       c4d_article = C4dArticle.find_by(id: params[:id])
       if c4d_article
-        attachReferenceLinksToC4dArticle(c4d_article)
+        attach_reference_links_to_c4d_article(c4d_article)
         c4d_article.update(safe_article_params)
         # if c4d_article.update(safe_article_params)
         #   c4d_article.update(published: false)
@@ -67,7 +67,7 @@ class Cms::C4dArticlesController < ApplicationController
     end
   end
 
-  def orderUp
+  def order_up
     if request.xhr? && current_user.is_admin?
       c4d_article = C4dArticle.find_by(id: params[:id])
       prev_c4d_article = C4dArticle.find_by(id: params[:prev_id])
@@ -82,7 +82,7 @@ class Cms::C4dArticlesController < ApplicationController
     end
   end
 
-  def orderDown
+  def order_down
     if request.xhr? && current_user.is_admin?
       c4d_article = C4dArticle.find_by(id: params[:id])
       next_c4d_article = C4dArticle.find_by(id: params[:next_id])
@@ -99,7 +99,7 @@ class Cms::C4dArticlesController < ApplicationController
 
   private
 
-  def attachReferenceLinksToC4dArticle(c4d_article)
+  def attach_reference_links_to_c4d_article(c4d_article)
     ReferenceLinkArticle.where(reference_linkable: c4d_article).destroy_all
     if !params[:article][:reference_links].nil?
       params[:article][:reference_links].each do |reference_id|

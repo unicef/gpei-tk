@@ -34,7 +34,7 @@ $(() => {
       e.preventDefault()
       $.ajax({
         method: 'GET',
-        url: '/library/referenceSearch/',
+        url: '/library/reference_search/',
         data: $(e.currentTarget).serialize()
       }).done(response => {
         if (response.status === 200){

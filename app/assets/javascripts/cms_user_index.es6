@@ -68,7 +68,7 @@ $(() => {
     $('#CMS_index_content').on('click', '#CMS_toggle_user_active', e => {
       $.ajax({
         method: 'PATCH',
-        url: '/cms/users/toggleActive/' + e.currentTarget.parentElement.id
+        url: '/cms/users/toggle_active/' + e.currentTarget.parentElement.id
       }).done(response => {
         $('#CMS_users_link').click()
         // let element = _.filter($('#CMS_users_table tr'), tr => {

@@ -4,7 +4,7 @@ class Cms::FeaturedReferencesController < ApplicationController
   def index
     if request.xhr?
       reference_links = ReferenceLink.joins(:featured_references).all.order(:document_file_name).uniq
-      reference_link_categories = getReferenceLinkCategories(reference_links)
+      reference_link_categories = get_reference_link_categories(reference_links)
       categories = { sop_categories: SopCategory.all, c4d_categories: C4dCategory.all }
       render json: { reference_links: reference_links,
                      reference_link_categories: reference_link_categories,
@@ -35,7 +35,7 @@ class Cms::FeaturedReferencesController < ApplicationController
 
   private
 
-  def getReferenceLinkCategories(reference_links)
+  def get_reference_link_categories(reference_links)
     reference_link_categories = {}
     reference_links.each do |reference_link|
       links = ReferenceLinkArticle.where(reference_link_id: reference_link.id)

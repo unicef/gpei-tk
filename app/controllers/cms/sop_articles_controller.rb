@@ -16,9 +16,9 @@ class Cms::SopArticlesController < ApplicationController
       sop_article.order_id = SopArticle.maximum(:order_id) + 1
       sop_article.author = current_user
       if sop_article.save
-        attachReferenceLinksToSopArticle(sop_article) unless params[:article][:reference_links].nil?
-        attachReferenceMp3sToSopArticle(sop_article) unless params[:article][:reference_mp3s].nil?
-        attachReferencePptxesToSopArticle(sop_article) unless params[:article][:reference_pptxes].nil?
+        attach_reference_links_to_sop_article(sop_article) unless params[:article][:reference_links].nil?
+        attach_reference_mp3s_to_sop_article(sop_article) unless params[:article][:reference_mp3s].nil?
+        attach_reference_pptxes_to_sop_article(sop_article) unless params[:article][:reference_pptxes].nil?
         render json: { sop_article: sop_article, status: 200 }
       end
     end
@@ -53,9 +53,9 @@ class Cms::SopArticlesController < ApplicationController
   def update
     if request.xhr?
       sop_article = SopArticle.find_by(id: params[:id])
-      attachReferenceLinksToSopArticle(sop_article)
-      attachReferenceMp3sToSopArticle(sop_article)
-      attachReferencePptxesToSopArticle(sop_article)
+      attach_reference_links_to_sop_article(sop_article)
+      attach_reference_mp3s_to_sop_article(sop_article)
+      attach_reference_pptxes_to_sop_article(sop_article)
       sop_article.update(safe_article_params)
       # if sop_article.update(safe_article_params)
       #   sop_article.update(published: false)
@@ -71,7 +71,7 @@ class Cms::SopArticlesController < ApplicationController
     end
   end
 
-  def orderUp
+  def order_up
     if request.xhr? && current_user.is_admin?
       sop_article = SopArticle.find_by(id: params[:id])
       prev_sop_article = SopArticle.find_by(id: params[:prev_id])
@@ -86,7 +86,7 @@ class Cms::SopArticlesController < ApplicationController
     end
   end
 
-  def orderDown
+  def order_down
     if request.xhr? && current_user.is_admin?
       sop_article = SopArticle.find_by(id: params[:id])
       next_sop_article = SopArticle.find_by(id: params[:next_id])
@@ -103,7 +103,7 @@ class Cms::SopArticlesController < ApplicationController
 
   private
 
-  def attachReferenceLinksToSopArticle(sop_article)
+  def attach_reference_links_to_sop_article(sop_article)
     ReferenceLinkArticle.where(reference_linkable: sop_article).destroy_all
     if !params[:article][:reference_links].nil?
       params[:article][:reference_links].each do |reference_id|
@@ -120,7 +120,7 @@ class Cms::SopArticlesController < ApplicationController
     end
   end
 
-  def attachReferenceMp3sToSopArticle(sop_article)
+  def attach_reference_mp3s_to_sop_article(sop_article)
     ReferenceMp3Article.where(reference_mp3able: sop_article).destroy_all
     if !params[:article][:reference_mp3s].nil?
       params[:article][:reference_mp3s].each do |reference_id|
@@ -137,7 +137,7 @@ class Cms::SopArticlesController < ApplicationController
     end
   end
 
-  def attachReferencePptxesToSopArticle(sop_article)
+  def attach_reference_pptxes_to_sop_article(sop_article)
     ReferencePptxArticle.where(reference_pptxable: sop_article).destroy_all
     if !params[:article][:reference_pptxes].nil?
       params[:article][:reference_pptxes].each do |reference_id|
