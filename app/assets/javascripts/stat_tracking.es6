@@ -18,7 +18,6 @@ $(() => {
     }).done(function(response) {
       $('#reference_link_show_modal .content').empty()
       $('#reference_link_show_modal .header').empty()
-      debugger
       if (!response.reference_link['is_video']) {
         e.preventDefault()
         loadPDF(response.reference_link)
