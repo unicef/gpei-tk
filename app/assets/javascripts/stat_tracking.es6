@@ -18,6 +18,7 @@ $(() => {
     }).done(function(response) {
       $('#reference_link_show_modal .content').empty()
       $('#reference_link_show_modal .header').empty()
+      debugger
       if (!response.reference_link['is_video']) {
         e.preventDefault()
         loadPDF(response.reference_link)
@@ -56,6 +57,7 @@ $(() => {
   $('#application').on('click', '#reference_link_show_close_div a', e => {
     e.preventDefault()
     $('#reference_link_show_modal').modal('hide')
+    history.back()
     return false
   })
   $('#application').on('click', '#user_friendly_reference_link_anchor', e => {
