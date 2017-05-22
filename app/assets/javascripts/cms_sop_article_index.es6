@@ -499,11 +499,12 @@ $(() => {
                      </div>`
       return content
     }
-    $('#CMS_index_content').on('click', '#sop_article_reference_id_up', e => {
+    $('#CMS_modal').on('click', '#sop_article_reference_id_up', e => {
       e.preventDefault()
+      debugger
       let parent = e.currentTarget.parentElement.parentElement.parentElement
       let id = parent.id
-      let current_row = $('#CMS_index_content #cms_sop_article_reference_link_list').find('.reference_link_row#'+id)
+      let current_row = $('#CMS_modal #cms_sop_article_reference_link_list').find('.reference_link_row#'+id)
       if (!(current_row.hasClass('first_reference_link'))) {
         let prev_row = current_row.prev()
         if (current_row.hasClass('last_reference_link') && prev_row.hasClass('first_reference_link') ){
@@ -521,11 +522,11 @@ $(() => {
       }
       return false
     })
-    $('#CMS_index_content').on('click', '#sop_article_reference_id_down', e => {
+    $('#CMS_modal').on('click', '#sop_article_reference_id_down', e => {
       e.preventDefault()
       let parent = e.currentTarget.parentElement.parentElement.parentElement
       let id = parent.id
-      let current_row = $('#CMS_index_content #cms_sop_article_reference_link_list').find('.reference_link_row#'+id)
+      let current_row = $('#CMS_modal #cms_sop_article_reference_link_list').find('.reference_link_row#'+id)
       if (!(current_row.hasClass('last_reference_link'))) {
         let next_row = current_row.next()
         if (current_row.hasClass('first_reference_link') && next_row.hasClass('last_reference_link') ){
@@ -544,11 +545,11 @@ $(() => {
       }
       return false
     })
-    $('#CMS_index_content').on('click', '#sop_article_reference_pptx_id_up', e => {
+    $('#CMS_modal').on('click', '#sop_article_reference_pptx_id_up', e => {
       e.preventDefault()
       let parent = e.currentTarget.parentElement.parentElement.parentElement
       let id = parent.id
-      let current_row = $('#CMS_index_content #cms_sop_article_reference_pptx_list').find('.reference_pptx_row#'+id)
+      let current_row = $('#CMS_modal #cms_sop_article_reference_pptx_list').find('.reference_pptx_row#'+id)
       let prev_row = current_row.prev()
       if (!(current_row.hasClass('first_reference_pptx'))) {
         if (current_row.hasClass('last_reference_pptx') && prev_row.hasClass('first_reference_pptx') ){
@@ -566,11 +567,11 @@ $(() => {
       }
       return false
     })
-    $('#CMS_index_content').on('click', '#sop_article_reference_pptx_id_down', e => {
+    $('#CMS_modal').on('click', '#sop_article_reference_pptx_id_down', e => {
       e.preventDefault()
       let parent = e.currentTarget.parentElement.parentElement.parentElement
       let id = parent.id
-      let current_row = $('#CMS_index_content #cms_sop_article_reference_pptx_list').find('.reference_pptx_row#'+id)
+      let current_row = $('#CMS_modal #cms_sop_article_reference_pptx_list').find('.reference_pptx_row#'+id)
       if (!(current_row.hasClass('last_reference_pptx'))) {
         let next_row = current_row.next()
         if (current_row.hasClass('first_reference_pptx') && next_row.hasClass('last_reference_pptx') ){
@@ -590,11 +591,11 @@ $(() => {
       return false
     })
 
-    $('#CMS_index_content').on('click', '#sop_article_reference_mp3_id_up', e => {
+    $('#CMS_modal').on('click', '#sop_article_reference_mp3_id_up', e => {
       e.preventDefault()
       let parent = e.currentTarget.parentElement.parentElement.parentElement
       let id = parent.id
-      let current_row = $('#CMS_index_content #cms_sop_article_reference_mp3_list').find('.reference_mp3_row#'+id)
+      let current_row = $('#CMS_modal #cms_sop_article_reference_mp3_list').find('.reference_mp3_row#'+id)
       let prev_row = current_row.prev()
       if (!(current_row.hasClass('first_reference_mp3'))) {
         if (current_row.hasClass('last_reference_mp3') && prev_row.hasClass('first_reference_mp3') ){
@@ -612,11 +613,11 @@ $(() => {
       }
       return false
     })
-    $('#CMS_index_content').on('click', '#sop_article_reference_mp3_id_down', e => {
+    $('#CMS_modal').on('click', '#sop_article_reference_mp3_id_down', e => {
       e.preventDefault()
       let parent = e.currentTarget.parentElement.parentElement.parentElement
       let id = parent.id
-      let current_row = $('#CMS_index_content #cms_sop_article_reference_mp3_list').find('.reference_mp3_row#'+id)
+      let current_row = $('#CMS_modal #cms_sop_article_reference_mp3_list').find('.reference_mp3_row#'+id)
       if (!(current_row.hasClass('last_reference_mp3'))) {
         let next_row = current_row.next()
         if (current_row.hasClass('first_reference_mp3') && next_row.hasClass('last_reference_mp3') ){
