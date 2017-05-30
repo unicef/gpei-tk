@@ -427,7 +427,6 @@ $(() => {
           <label>Available reference links:</label>
             <ul class='list-unstyled'>
             ${_.map(reference_links, reference_link => {
-              debugger
               let checked = !_.isEmpty(_.filter(selected_reference_links, (selected_reference) => { return selected_reference.id === reference_link.id })) ? "checked" : ""
               return `<li><input id=${reference_link.id} ${checked} type='checkbox' name="article[reference_links][]" value="${reference_link.id}">
                       <label id='cms_reference_link_label' class='filter-label' for=${reference_link.id}>${ _.isNull(reference_link.is_video) || !reference_link.is_video ? reference_link.document_file_name : reference_link.video_url } -  <a href="${ _.isNull(reference_link.is_video) || !reference_link.is_video ? reference_link.absolute_url : reference_link.video_url }" target='_blank'><i class="fa fa-search" aria-hidden="true"></i></a></label></li>`

@@ -501,7 +501,6 @@ $(() => {
     }
     $('#CMS_modal').on('click', '#sop_article_reference_id_up', e => {
       e.preventDefault()
-      debugger
       let parent = e.currentTarget.parentElement.parentElement.parentElement
       let id = parent.id
       let current_row = $('#CMS_modal #cms_sop_article_reference_link_list').find('.reference_link_row#'+id)
