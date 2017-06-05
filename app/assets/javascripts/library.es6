@@ -237,12 +237,13 @@ $(() => {
     function getPaginatorLastPageNumber(item_count) {
       let divided_idx = item_count / 10
       let modulus_idx = item_count % 10
+      debugger
       return (divided_idx >= 1 ? (parseInt(Math.floor(divided_idx)) + (modulus_idx === 0 ? 0 : 1 )) :  1)
     }
 
     function getPaginatorPageNumbers(items, type_name) {
       let item_idx = 0
-      let last_idx = items.length - 1
+      let last_idx = items.length
       return `${items.map(item => {
                   item_idx += 1
                   return `${item_idx % 10 === 0 || item_idx === last_idx ? `<div class='library_${type_name}_pagination_indicators ${item_idx === 10 ? 'active' : ''}'>${`<a id='${ getPaginatorIdNumber(item_idx, last_idx) }' href='' class='max_width'>${getPaginatorIdNumber(item_idx, last_idx)}</a>`}</div>` : ''}`
