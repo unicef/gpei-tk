@@ -237,7 +237,6 @@ $(() => {
     function getPaginatorLastPageNumber(item_count) {
       let divided_idx = item_count / 10
       let modulus_idx = item_count % 10
-      debugger
       return (divided_idx >= 1 ? (parseInt(Math.floor(divided_idx)) + (modulus_idx === 0 ? 0 : 1 )) :  1)
     }
 
