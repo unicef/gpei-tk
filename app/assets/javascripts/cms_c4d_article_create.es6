@@ -94,7 +94,7 @@ $(() => {
         <div class="field">
           <label>${label}</label>
           <select name="article[${option_name}]" class="ui dropdown cms_dropdown_select" required>
-            <option value="">Select Subcategory</option>
+            <option value="">Select ${label}</option>
             ${_.map(categories, category => { return `<option value="${category.id}">${category.title}</option>` }).join('\n')}
           </select>
         </div>
