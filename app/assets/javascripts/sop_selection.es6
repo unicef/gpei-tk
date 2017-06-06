@@ -268,6 +268,11 @@ $(() => {
       allowMultiple: true,
       onHide: () => {
         $('#vimeo_modal .content').empty()
+        clearUrlState()
+        if ($('#sop_article_show_modal .content').css('visibility') === 'hidden'){
+          $('#sop_article_show_modal .content').empty()
+          $('#sop_article_show_modal .header').empty()
+        }
       }
     })
     // sop article modal

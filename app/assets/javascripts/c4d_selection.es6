@@ -119,7 +119,14 @@ $(() => {
 
     $('.coupled.modal')
     .modal({
-      allowMultiple: true
+      allowMultiple: true,
+      onHide: () => {
+        $('#vimeo_modal .content').empty()
+        history.back()
+        if ($('#c4d_article_show_modal .content').css('visibility') === 'hidden') {
+          clearContents()
+        }
+      }
     })
 
 
@@ -127,12 +134,14 @@ $(() => {
     $('#c4d_article_show_modal').modal({
       allowMultiple: true,
       onHide: () => {
-        $('#c4d_article_show_modal .content').empty()
-        $('#c4d_article_show_modal .header').empty()
-        clearUrlState()
+        clearContents()
       }
     })
-
+    function clearContents() {
+        clearUrlState()
+        $('#c4d_article_show_modal .content').empty()
+        $('#c4d_article_show_modal .header').empty()
+    }
     $('#c4d_subcategory_accordion #c4d_grid_tile_title').click(e => {
       e.preventDefault()
       $.ajax({
