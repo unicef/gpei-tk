@@ -9,8 +9,10 @@
           <div class="title">
             <table>
               <tr>
+                <% color = '' %>
                 <% @c4d_articles.each_with_index do |article, idx| %>
                   <% if article.c4d_subcategory_id == subcategory.id %>
+                    <% color = @article_colors[article.c4d_category.title.gsub(' ','').to_sym][article.c4d_subcategory.title.gsub(' ','').gsub(',','').to_sym][color_idx] %>
                     <td id="<%= article.id %>" class='c4d_article_item' style="background-color: <%= @article_colors[article.c4d_category.title.gsub(' ','').to_sym][article.c4d_subcategory.title.gsub(' ','').gsub(',','').to_sym][color_idx] %>;">
                         <a id='<%= article.id %>' class='c4d_grid_add' href='' style="<%= c4d_style_visible('add', @user, article) %>;" title='Add to toolkit' data-toggle='tooltip'><img id='add_article_image' src='/assets/icons/add-to.png'></a>
                         <a id='<%= article.id %>' class='c4d_grid_check' href='' style="<%= c4d_style_visible('check', @user, article) %>;" title='Remove from toolkit' data-toggle='tooltip'><img id='remove_article_image' src='/assets/icons/remove-check.png'></a>
@@ -19,6 +21,9 @@
                     <% color_idx += 1 %>
                   <% end %>
                 <% end %>
+                <!-- <td class='c4d_article_item' style="background-color: <#%= color %>">
+                  <a href='/library/?filters[]=.Training&filters[]=.Global'>Training Global Links</a>
+                </td> -->
               </tr>
             </table>
           </div>
