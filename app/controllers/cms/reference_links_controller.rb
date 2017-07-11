@@ -68,6 +68,7 @@ class Cms::ReferenceLinksController < ApplicationController
   def update
     if request.xhr?
       reference_link = ReferenceLink.find_by(id: params[:id])
+      params[:reference_link][:video_url] = nil if params[:reference_link][:video_url] == ''
       params[:reference_link][:document_language].strip!
       if reference_link.update(safe_reference_link_params)
         TagReference.where(reference_tagable: reference_link).destroy_all
