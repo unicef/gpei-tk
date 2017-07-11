@@ -550,7 +550,7 @@ $(() => {
                         <u>Title:</u>
                         <input type="text" placeholder="No title" name="reference_${ args['reference_type'] }[title]" value="${ (_.isNull(args['reference'].title) || args['reference'].title === '' || args['reference'].title === 'No title given') ? '' : args['reference'].title }" style='margin-bottom:5px' required>
                         <u>Video URL:</u>
-                        <input type="text" placeholder="enter url for video" name="reference_${ args['reference_type'] }[video_url]" value="${ (_.isNull(args['reference'].video_url) || args['reference'].video_url === '' || args['reference'].video_url === 'No video url given') ? '' : args['reference'].video_url }" style='margin-bottom:5px' required>
+                        <input type="text" placeholder="enter url for video" name="reference_${ args['reference_type'] }[video_url]" value="${ (_.isNull(args['reference'].video_url) || args['reference'].video_url === '' || args['reference'].video_url === 'No video url given') ? '' : args['reference'].video_url }" style='margin-bottom:5px' ${ args['reference']['is_video'] ? `required` : `` }>
                       </h4>
                     </label>
                     <label>Description:</label>
