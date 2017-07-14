@@ -21,9 +21,11 @@
                     <% color_idx += 1 %>
                   <% end %>
                 <% end %>
-                <!-- <td class='c4d_article_item' style="background-color: <#%= color %>">
-                  <a href='/library/?filters[]=.Training&filters[]=.Global'>Training Global Links</a>
-                </td> -->
+                <% if subcategory.title == 'Integrated Action' %>
+                  <td class='c4d_article_item' style="background-color: <%= color %>">
+                    <a href='/library/?filters[]=.GPEI_FLW_Curriculum'>GPEI FLW Curriculum</a>
+                  </td>
+                <% end %>
               </tr>
             </table>
           </div>
