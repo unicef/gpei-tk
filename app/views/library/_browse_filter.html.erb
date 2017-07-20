@@ -21,7 +21,7 @@
               </li>
               <% @tags.each do |title, value| %>
                 <li>
-                  <input class='check_box' id='<%= title.gsub(' ', '_') %>' type='checkbox' value=".<%= title %>">
+                  <input class='check_box' id='<%= title.gsub(' ', '_') %>' type='checkbox' value=".<%= title.gsub(' ', '_') %>">
                   <label for='<%= title %>'><%= title %> <span class='filter_label_count'>[<%= value[:count] %>]</span></label>
                 </li>
               <% end %>
@@ -36,7 +36,7 @@
             <ul class='list-unstyled'>
               <% @places.each do |title, value| %>
                 <li>
-                  <input class='check_box' id='<%= title.gsub(' ', '_') %>' type='checkbox' value=".<%= title %>">
+                  <input class='check_box' id='<%= title.gsub(' ', '_') %>' type='checkbox' value=".<%= title.gsub(' ', '_') %>">
                   <label for='<%= title %>'><%= title %> <span class='filter_label_count'>[<%= value[:count] %>]</span></label>
                 </li>
               <% end %>
@@ -51,7 +51,7 @@
             <ul class='list-unstyled'>
               <% @languages.each do |title, value| %>
                 <li>
-                  <input class='check_box' id='<%= title.gsub(' ', '_') %>' type='checkbox' value=".<%= title %>">
+                  <input class='check_box' id='<%= title.gsub(' ', '_') %>' type='checkbox' value=".<%= title.gsub(' ', '_') %>">
                   <label for='<%= title %>'><%= title %> <span class='filter_label_count'>[<%= value[:count] %>]</span></label>
                 </li>
               <% end %>
