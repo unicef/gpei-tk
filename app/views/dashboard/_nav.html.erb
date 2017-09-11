@@ -1,7 +1,7 @@
 <nav class='navbar navbar-default navbar-fixed-top'>
   <!-- <div id='nav_bar' class='container'> -->
-  <div class='container'>
-    <div id='nav_bar_header' class='navbar-header'>
+  <div class='container <%= 'immunization_nav' if @is_c4d_immunization %>'>
+    <div id='nav_bar_header' class='navbar-header <%= 'immunization_nav' if @is_c4d_immunization %>'>
       <button type='button' class='navbar-toggle' data-toggle='collapse' data-target='#navbar' aria-expanded='true' aria-controls='navbar'>
         <span class='sr-only'>Toggle navigation</span>
         <span class='icon-bar'></span>
@@ -12,7 +12,7 @@
         <%= image_tag 'home/Rhizome-V2_White.png', id: 'nav_bar_logo', class:'img-responsive', alt: 'GPEI Toolkit' %>
       <% end %>
     </div>
-    <div id='navbar' class='navbar-collapse collapse'>
+    <div id='navbar' class='navbar-collapse collapse <%= 'immunization_nav' if @is_c4d_immunization %>'>
       <ul id='sop_c4d_nav_list_items' class="nav navbar-nav <%= 'display_none_ow' if @display %>">
       <% if @is_sop %>
         <li id='sop_nav_button' class='<%= @backgrounds[:borders] if @backgrounds[:index] %>'><a href='/sop/'>SOP</a></li>
@@ -35,11 +35,23 @@
         <li>
           <a id='c4d_tools_button' href='/library/' <%= "style=background-color:#{ @c4d_category.color }" if @is_c4d_tools %> class='<%= 'active' if @is_c4d_tools %> <%= 'library_active' if @is_library %>'>4. LIBRARY</a>
         </li>
+        <li id='c4d_category_dropdown_li'>
+          <div id='c4d_category_dropdown' class="ui pointing dropdown">
+            <button type="button" class="btn btn-default btn-sm">
+              <i class="fa fa-bars" aria-hidden="true"></i>
+            </button>
+            <div id="c4d_category_dropdown_items" class="left menu">
+              <div class="item">
+                <a href='/c4d/immunization/'>Immunization</a>
+              </div>
+            </div>
+          </div>
+        </li>
       <% end %>
       </ul>
       <ul class='nav navbar-nav navbar-right'>
-        <li><a id='nav_contact_link' href=''>CONTACT</a></li>
-        <li><a id='nav_about_link' href=''>ABOUT</a></li>
+        <li><a id='nav_contact_link' class='<%= 'immunization_nav' if @is_c4d_immunization %>' href=''>CONTACT</a></li>
+        <li><a id='nav_about_link' class='<%= 'immunization_nav' if @is_c4d_immunization %>' href=''>ABOUT</a></li>
         <li><a id='nav_library_link' href='/library/' class='<%= 'active' if @is_library %>'><img src='/assets/icons/Icon-Library.png'/></a></li>
         <!-- <li><a id='nav_search_link' href=''><img src='/assets/icons/Icon-search.png'/></a></li> -->
         <% if current_user %>
@@ -110,7 +122,7 @@
           </li>
         <% else %>
           <li id='nav_user_sign_in_li'>
-            <a id="nav_user_sign_in" class="white_text_black_bg" href=''><i id="sign_in_icon" class="fa fa-sign-in" aria-hidden="true"></i>&nbsp;Sign in</a>
+            <a id="nav_user_sign_in"  class="<%= 'white_text_black_bg' unless @is_c4d_immunization %> <%= 'immunization_nav' if @is_c4d_immunization %>" href=''><i id="sign_in_icon" class="fa fa-sign-in" aria-hidden="true"></i>&nbsp;Sign in</a>
           </li>
         <% end %>
       </ul>
