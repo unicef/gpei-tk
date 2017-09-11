@@ -10,7 +10,8 @@
 .ui.pointing.dropdown.link.item.white_text_black_bg,
 .ui.menu.white_text_black_bg,
 #toolkit_dropdown,
-#toolkit_dropdown .item
+#toolkit_dropdown .item,
+#c4d_category_dropdown_li *
 {
   background-color: black;
   color: white;
@@ -46,17 +47,12 @@
 #nav_user_register {
   color:blue;
 }
-
-.navbar-header {
-  background-color:black;
-}
 #nav_bar {
   position: relative;
   min-width:100%;
   min-height:48px;
   z-index:10;
   width:100%;
-  background: black;
   font-family:'proxima-nova' !important;
 }
 #nav_default_buttons_div {
@@ -88,7 +84,12 @@
   top: 50%;
   transform: translateY(-50%);
 }
-
+#c4d_category_dropdown_li {
+  position: relative;
+  left:1%;
+  top:50%;
+  transform: translateY(30%);
+}
 #c4d_plan_div,
 #c4d_act_div,
 #c4d_tools_div {
@@ -103,6 +104,11 @@
 #nav_contact_link a,
 #nav_about_link a {
   color:white;
+}
+#nav_user_sign_in.immunization_nav,
+#nav_about_link.immunization_nav,
+#nav_contact_link.immunization_nav {
+  color:black;
 }
 #sop_nav_button.active,
 #sop_overview_button.active,
@@ -165,6 +171,16 @@ nav {
 }
 nav .container {
   background-color:black;
+}
+#gpei_footer_logo_div.immunization_nav {
+  padding-top:5px;
+}
+
+#gpei_footer_logo_div.immunization_nav,
+#navbar.immunization_nav *,
+#navbar.immunization_nav,
+.navbar-header.immunization_nav {
+  background-color:#1399DE;
 }
 #nav_bar_logo {
   max-height:100%;
@@ -268,10 +284,6 @@ nav .container {
   background:#2C9674 !important;
   opacity:0.9;
 }
-/*#c4d_tools_button:not(.active):hover{
-  background:#35A3AE !important;
-  opacity:0.9;
-}*/
 #c4d_tools_button:not(.library_active):hover{
   background:#A37743 !important;
   opacity:0.9;
