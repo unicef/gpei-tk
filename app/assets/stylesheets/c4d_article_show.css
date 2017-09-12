@@ -179,6 +179,7 @@
 }
 #c4d_article_show_info_column_content {
   padding:15px;
+  width:100%;
 }
 #c4d_article_content,
 #sop_article_content {
@@ -211,6 +212,9 @@
 #cgi_reference_link_div {
   font-family:'proxima-nova';
   font-size: 19px !important;
+}
+#c4d_article_show_page {
+  width: 100%;
 }
 #cgi_c4d_article_show_page,
 #cgi_c4d_article_all_content {

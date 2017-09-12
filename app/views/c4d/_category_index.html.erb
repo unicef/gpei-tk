@@ -21,7 +21,7 @@
                     <% color_idx += 1 %>
                   <% end %>
                 <% end %>
-                <% if subcategory.title == 'Integrated Action' %>
+                <% if @c4d_category.title == 'Act' && subcategory.title == 'Integrated Action' %>
                   <td class='c4d_article_item' style="background-color: <%= color %>">
                     <a href='/library/?filters[]=.GPEI_FLW_Curriculum'>Training Tools</a>
                   </td>
@@ -41,9 +41,13 @@
   </div>
 <% if @c4d_category %>
   <script type="text/javascript">
-    $(document.getElementById("c4d_selection_page")).css('background',`linear-gradient(<%= @c4d_category.color %>,#000000)`)
-    $(document.getElementById("c4d_selection_page")).css('background', `-webkit-linear-gradient(<%= @c4d_category.color %>,#000000)`)
-    $(document.getElementById("c4d_selection_page")).css('background', `-o-linear-gradient(<%= @c4d_category.color %>,#000000)`)
-    $(document.getElementById("c4d_selection_page")).css('background', `-moz-linear-gradient(<%= @c4d_category.color %>,#000000)`)
+    <% if !@is_c4d_immunization %>
+      $(document.getElementById("c4d_selection_page")).css('background',`linear-gradient(<%= @c4d_category.color %>,#000000)`)
+      $(document.getElementById("c4d_selection_page")).css('background', `-webkit-linear-gradient(<%= @c4d_category.color %>,#000000)`)
+      $(document.getElementById("c4d_selection_page")).css('background', `-o-linear-gradient(<%= @c4d_category.color %>,#000000)`)
+      $(document.getElementById("c4d_selection_page")).css('background', `-moz-linear-gradient(<%= @c4d_category.color %>,#000000)`)
+    <% else %>
+      $(document.getElementById("c4d_selection_page")).css('background','#FFFFFF')
+    <% end %>
   </script>
 <% end %>

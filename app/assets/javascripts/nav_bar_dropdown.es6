@@ -6,6 +6,12 @@ $(() => {
     transition: 'horizontal flip'
   })
 
+  $('#c4d_category_dropdown').dropdown({
+    on: 'hover',
+    action: 'nothing',
+    transition: 'horizontal flip'
+  })
+
   $('#nav_about_link').click(e => {
     e.preventDefault()
     $('#user_account_modal .header').append(`<div class='about_header_header'>About Us</div>`)

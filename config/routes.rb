@@ -7,11 +7,13 @@ Rails.application.routes.draw do
   get '/c4d/plan/' => 'c4d#plan'
   get '/c4d/act/' => 'c4d#act'
   get '/c4d/tools/' => 'c4d#tools'
+  get '/c4d/immunization/' => 'c4d#immunization'
 
   get '/c4d/understand/:id' => 'c4d#understand'
   get '/c4d/plan/:id' => 'c4d#plan'
   get '/c4d/act/:id' => 'c4d#act'
   get '/c4d/tools/:id' => 'c4d#tools'
+  get '/c4d/immunization/:id' => 'c4d#immunization'
 
   post '/c4d/toolkit/' => 'c4d_toolkit#create'
   delete '/c4d/toolkit/' => 'c4d_toolkit#destroy'
