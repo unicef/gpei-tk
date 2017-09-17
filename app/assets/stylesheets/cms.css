@@ -1,5 +1,5 @@
 .black_text {
-  color: black;
+  color: black !important;
 }
 #CMS_how_to_instructions_form .field {
   width:90%;
