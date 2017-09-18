@@ -20,8 +20,8 @@ gem 'jbuilder', '~> 2.0'
 # gem 'sdoc', '~> 0.4.0', group: :doc
 gem 'puma'
 gem 'bcrypt'
-gem 'aws-sdk'
-gem "paperclip", git: "https://github.com/thoughtbot/paperclip.git"
+gem 'aws-sdk', "< 2.0"
+gem "paperclip", "4.3.7"
 
 gem 'sprockets-es6'
 
