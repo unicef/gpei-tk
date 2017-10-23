@@ -88,11 +88,11 @@ class C4dController < ApplicationController
                   },
                 'Immunization':
                   {
-                    'Pre Vaccination': ['#1399DE', '#1399DE', '#1399DE', '#1399DE', '#1399DE'],
-                    'Point of Service': ['#1399DE', '#1399DE', '#1399DE', '#1399DE', '#1399DE'],
+                    'PreVaccination': ['#1399DE', '#1399DE', '#1399DE', '#1399DE', '#1399DE'],
+                    'PointofService': ['#1399DE', '#1399DE', '#1399DE', '#1399DE', '#1399DE'],
                     'Post-Vaccination': ['#1399DE', '#1399DE', '#1399DE', '#1399DE', '#1399DE'],
-                    'Key Themes': ['#1399DE', '#1399DE', '#1399DE', '#1399DE', '#1399DE'],
-                    'Theory - Papers': ['#1399DE', '#1399DE', '#1399DE', '#1399DE', '#1399DE'],
+                    'KeyThemes': ['#1399DE', '#1399DE', '#1399DE', '#1399DE', '#1399DE'],
+                    'Theory-Papers': ['#1399DE', '#1399DE', '#1399DE', '#1399DE', '#1399DE'],
                     'Toolkits': ['#1399DE', '#1399DE', '#1399DE', '#1399DE', '#1399DE'],
                   }
               }
