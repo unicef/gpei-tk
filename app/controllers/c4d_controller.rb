@@ -87,9 +87,13 @@ class C4dController < ApplicationController
                     'InnovationTechandData': ['#4DAFAF', '#57B7B7', '#62C4C4', '#6ECCCC']
                   },
                 'Immunization':
-                  { 'Research': ['#1399DE', '#1399DE', '#1399DE', '#1399DE', '#1399DE'],
-                    'UsingEvidence': ['#60791C', '#749115', '#80A30A', '#98B90B'],
-                    'IdentifyHighRiskGroups': ['#81A228']
+                  {
+                    'Pre Vaccination': ['#1399DE', '#1399DE', '#1399DE', '#1399DE', '#1399DE'],
+                    'Point of Service': ['#1399DE', '#1399DE', '#1399DE', '#1399DE', '#1399DE'],
+                    'Post-Vaccination': ['#1399DE', '#1399DE', '#1399DE', '#1399DE', '#1399DE'],
+                    'Key Themes': ['#1399DE', '#1399DE', '#1399DE', '#1399DE', '#1399DE'],
+                    'Theory - Papers': ['#1399DE', '#1399DE', '#1399DE', '#1399DE', '#1399DE'],
+                    'Toolkits': ['#1399DE', '#1399DE', '#1399DE', '#1399DE', '#1399DE'],
                   }
               }
   end
