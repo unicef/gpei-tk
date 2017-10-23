@@ -4,7 +4,7 @@
       <div id='c4d_subcategory_accordion' class='ui styled accordion col-md-12' style='background-color:<%= subcategory.color %>'>
         <div id='c4d_subcategory_title_div' class='title'>
           <i class="fa fa-angle-right" aria-hidden="true"></i>
-          <%= image_tag "c4d/icons/#{@c4d_category.title}/#{subcategory.title + '.png'}", id: 'c4d_subcategory_accordian_icon', alt: subcategory.title %><span><%= subcategory.title %></span><div style='height:1px;border-bottom:1px solid white;margin-top:10px'></div></div>
+          <%= image_tag "c4d/icons/#{@c4d_category.title}/#{@c4d_category.title == "Immunization" ? 'Research' : subcategory.title + '.png'}", id: 'c4d_subcategory_accordian_icon', alt: subcategory.title %><span><%= subcategory.title %></span><div style='height:1px;border-bottom:1px solid white;margin-top:10px'></div></div>
         <div class="content">
           <div class="title">
             <table>
