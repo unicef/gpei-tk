@@ -1,4 +1,4 @@
-class ReferenceMp3 < ActiveRecord::Base
+class ReferenceMp3 < ApplicationRecord
   include PgSearch
 
   pg_search_scope :search_refs, :against => { :title => 'A', :description => 'B', :clip_file_name => 'C' }

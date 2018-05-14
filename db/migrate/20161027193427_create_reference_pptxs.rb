@@ -1,4 +1,4 @@
-class CreateReferencePptxs < ActiveRecord::Migration
+class CreateReferencePptxs < ActiveRecord::Migration[4.2]
   def change
     create_table :reference_pptxes do |t|
       t.string :url, null: false

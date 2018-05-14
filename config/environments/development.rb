@@ -11,6 +11,10 @@ Rails.application.configure do
   }
   config.action_mailer.delivery_method = :smtp
 
+  config.action_controller.per_form_csrf_tokens = true
+  config.active_record.belongs_to_required_by_default = false
+  config.action_controller.forgery_protection_origin_check = true
+  config.action_mailer.deliver_later_queue_name = :mailers
   # In the development environment your application's code is reloaded on
   # every request. This slows down response time but is perfect for development
   # since you don't have to restart the web server when you make code changes.

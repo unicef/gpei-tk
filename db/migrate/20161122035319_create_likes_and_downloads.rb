@@ -1,4 +1,4 @@
-class CreateLikesAndDownloads < ActiveRecord::Migration
+class CreateLikesAndDownloads < ActiveRecord::Migration[4.2]
   def change
     create_table :likes do |t|
       t.integer :author_id, null: false

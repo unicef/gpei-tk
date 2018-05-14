@@ -1,4 +1,4 @@
-class ReferenceLinkVideoUrl < ActiveRecord::Migration
+class ReferenceLinkVideoUrl < ActiveRecord::Migration[4.2]
   def change
     add_column :reference_links, :video_url, :string
     add_column :reference_links, :is_video, :boolean

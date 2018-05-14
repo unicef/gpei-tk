@@ -1,4 +1,4 @@
-class CreateReferenceMp3s < ActiveRecord::Migration
+class CreateReferenceMp3s < ActiveRecord::Migration[4.2]
   def change
     create_table :reference_mp3s do |t|
       t.string :url, null: false

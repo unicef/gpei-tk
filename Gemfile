@@ -1,8 +1,8 @@
 source 'https://rubygems.org'
-ruby "2.3.1"
+ruby "2.5.1"
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem 'rails', '4.2.9'
+gem 'rails', '5.2.0'
 
 # Use postgresql as the database for Active Record
 gem 'pg'
@@ -20,8 +20,8 @@ gem 'jbuilder', '~> 2.0'
 # gem 'sdoc', '~> 0.4.0', group: :doc
 gem 'puma'
 gem 'bcrypt'
-gem 'aws-sdk', "< 2.0"
-gem "paperclip", "4.3.7"
+gem 'aws-sdk'
+gem 'paperclip'
 
 gem 'sprockets-es6'
 

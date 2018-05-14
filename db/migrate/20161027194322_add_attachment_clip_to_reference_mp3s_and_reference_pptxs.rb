@@ -1,4 +1,4 @@
-class AddAttachmentClipToReferenceMp3sAndReferencePptxs < ActiveRecord::Migration
+class AddAttachmentClipToReferenceMp3sAndReferencePptxs < ActiveRecord::Migration[4.2]
   def self.up
     change_table :reference_mp3s do |t|
       t.attachment :clip

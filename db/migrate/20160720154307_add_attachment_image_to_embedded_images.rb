@@ -1,4 +1,4 @@
-class AddAttachmentImageToEmbeddedImages < ActiveRecord::Migration
+class AddAttachmentImageToEmbeddedImages < ActiveRecord::Migration[4.2]
   def self.up
     change_table :embedded_images do |t|
       t.attachment :image

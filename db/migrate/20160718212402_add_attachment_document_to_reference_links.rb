@@ -1,4 +1,4 @@
-class AddAttachmentDocumentToReferenceLinks < ActiveRecord::Migration
+class AddAttachmentDocumentToReferenceLinks < ActiveRecord::Migration[4.2]
   def self.up
     change_table :reference_links do |t|
       t.attachment :document

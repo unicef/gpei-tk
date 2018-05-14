@@ -1,4 +1,4 @@
-class SopArticle < ActiveRecord::Base
+class SopArticle < ApplicationRecord
   include PgSearch
 
   multisearchable :against => [:title, :content, :support, :responsible],

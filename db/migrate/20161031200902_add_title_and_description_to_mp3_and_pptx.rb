@@ -1,4 +1,4 @@
-class AddTitleAndDescriptionToMp3AndPptx < ActiveRecord::Migration
+class AddTitleAndDescriptionToMp3AndPptx < ActiveRecord::Migration[4.2]
   def change
     add_column :reference_mp3s, :title, :string
     add_column :reference_mp3s, :description, :string

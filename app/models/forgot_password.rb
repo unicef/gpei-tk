@@ -1,4 +1,4 @@
-class ForgotPassword < ActiveRecord::Base
+class ForgotPassword < ApplicationRecord
   belongs_to :user
 
   validates_uniqueness_of :user_key
