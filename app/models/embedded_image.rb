@@ -1,4 +1,4 @@
-class EmbeddedImage < ActiveRecord::Base
+class EmbeddedImage < ApplicationRecord
   belongs_to :c4d_article
   has_attached_file :image,
                     :path => 'embedded_images/c4d_articles/:article_id/:filename'

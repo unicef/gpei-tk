@@ -1,4 +1,4 @@
-class CreateFeaturedReferences < ActiveRecord::Migration
+class CreateFeaturedReferences < ActiveRecord::Migration[4.2]
   def change
     create_table :featured_references do |t|
       t.integer :reference_link_id

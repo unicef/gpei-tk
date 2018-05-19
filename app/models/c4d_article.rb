@@ -1,4 +1,4 @@
-class C4dArticle < ActiveRecord::Base
+class C4dArticle < ApplicationRecord
   include PgSearch
 
   multisearchable :against => [:title, :content],

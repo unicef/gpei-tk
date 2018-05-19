@@ -1,4 +1,4 @@
-class ReferenceLink < ActiveRecord::Base
+class ReferenceLink < ApplicationRecord
   include PgSearch
 
   before_validation :update_is_video
@@ -24,14 +24,14 @@ class ReferenceLink < ActiveRecord::Base
   has_many :reference_likes, as: :reference_likeable
   alias_attribute :likes, :reference_likes
 
-  has_many :tags, through: :tag_references
   has_many :tag_references, as: :reference_tagable
+  has_many :tags, through: :tag_references
 
-  has_many :places, through: :place_references
   has_many :place_references, as: :reference_placeable
+  has_many :places, through: :place_references
 
-  has_many :languages, through: :language_references
   has_many :language_references, as: :reference_languageable
+  has_many :languages, through: :language_references
 
   has_attached_file :document,
                     :path => 'reference_links/:language/:filename',

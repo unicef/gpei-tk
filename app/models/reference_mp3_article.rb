@@ -1,4 +1,4 @@
-class ReferenceMp3Article < ActiveRecord::Base
+class ReferenceMp3Article < ApplicationRecord
   belongs_to :reference_mp3able, :polymorphic => true
   belongs_to :reference_mp3
 

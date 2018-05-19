@@ -1,7 +1,7 @@
 class ApplicationController < ActionController::Base
   # For APIs, you may want to use :null_session instead.
   helper_method :current_user, :latest_notification, :length_greater_than_eight
-  protect_from_forgery with: :exception
+  protect_from_forgery with: :exception, prepend: true
 
   def current_user
     @current_user ||= User.find_by(id: session[:id]) if session[:uuid]

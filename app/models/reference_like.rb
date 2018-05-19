@@ -1,4 +1,4 @@
-class ReferenceLike < ActiveRecord::Base
+class ReferenceLike < ApplicationRecord
   belongs_to :reference_likeable, :polymorphic => true
 
   has_many :likes

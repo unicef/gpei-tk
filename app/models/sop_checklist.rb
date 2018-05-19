@@ -1,4 +1,4 @@
-class SopChecklist < ActiveRecord::Base
+class SopChecklist < ApplicationRecord
   belongs_to :user
   has_many :sop_checklist_sop_articles
   has_many :sop_articles

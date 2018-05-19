@@ -1,4 +1,4 @@
-class RemoveTypeReferenceDownloadsAndDownloads < ActiveRecord::Migration
+class RemoveTypeReferenceDownloadsAndDownloads < ActiveRecord::Migration[4.2]
   def change
     remove_column :reference_likes, :type, :string
     remove_column :reference_downloads, :type, :string

@@ -1,3 +1,3 @@
-class SupportAffiliation < ActiveRecord::Base
+class SupportAffiliation < ApplicationRecord
   validates_uniqueness_of :title
 end

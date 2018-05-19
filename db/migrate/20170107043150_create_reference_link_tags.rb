@@ -1,4 +1,4 @@
-class CreateReferenceLinkTags < ActiveRecord::Migration
+class CreateReferenceLinkTags < ActiveRecord::Migration[4.2]
   def change
     create_table :tag_references do |t|
       t.integer :tag_id

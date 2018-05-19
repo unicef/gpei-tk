@@ -1,3 +1,3 @@
-class SopCategory < ActiveRecord::Base
+class SopCategory < ApplicationRecord
   validates_uniqueness_of :title
 end

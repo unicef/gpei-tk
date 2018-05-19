@@ -1,4 +1,4 @@
-class ReferencePptx < ActiveRecord::Base
+class ReferencePptx < ApplicationRecord
   include PgSearch
 
   pg_search_scope :search_refs, :against => { :title => 'A', :description => 'B', :document_file_name => 'C' }

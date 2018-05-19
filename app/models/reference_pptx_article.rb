@@ -1,4 +1,4 @@
-class ReferencePptxArticle < ActiveRecord::Base
+class ReferencePptxArticle < ApplicationRecord
   belongs_to :reference_pptxable, :polymorphic => true
   belongs_to :reference_pptx
 

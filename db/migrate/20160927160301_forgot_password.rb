@@ -1,4 +1,4 @@
-class ForgotPassword < ActiveRecord::Migration
+class ForgotPassword < ActiveRecord::Migration[4.2][4.2]
   def change
     create_table :forgot_passwords do |t|
       t.integer :user_id, null: false

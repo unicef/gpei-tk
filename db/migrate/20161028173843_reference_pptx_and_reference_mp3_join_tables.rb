@@ -1,4 +1,4 @@
-class ReferencePptxAndReferenceMp3JoinTables < ActiveRecord::Migration
+class ReferencePptxAndReferenceMp3JoinTables < ActiveRecord::Migration[4.2]
   def change
     create_table :reference_mp3_articles do |t|
       t.integer :reference_mp3_id

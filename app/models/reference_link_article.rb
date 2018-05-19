@@ -1,4 +1,4 @@
-class ReferenceLinkArticle < ActiveRecord::Base
+class ReferenceLinkArticle < ApplicationRecord
   belongs_to :reference_linkable, :polymorphic => true
   belongs_to :reference_link
 

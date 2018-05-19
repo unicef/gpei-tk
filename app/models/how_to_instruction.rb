@@ -1,2 +1,2 @@
-class HowToInstruction < ActiveRecord::Base
+class HowToInstruction < ApplicationRecord
 end
