@@ -13,16 +13,16 @@
             <ul class='list-unstyled'>
               <li>
                 <input class='check_box' id='C4D' type='checkbox' value=".C4D">
-                <label for='C4D'>C4D <span class='filter_label_count'>[<%= @c4dCount %>]</span></label>
+                <label for='C4D'>C4D</label>
               </li>
               <li>
                 <input class='check_box' id='SOP' type='checkbox' value=".SOP">
-                <label for='SOP'>SOP <span class='filter_label_count'>[<%= @sopCount %>]</span></label>
+                <label for='SOP'>SOP</label>
               </li>
               <% @tags.each do |title, value| %>
                 <li>
                   <input class='check_box' id='<%= title.gsub(' ', '_') %>' type='checkbox' value=".<%= title.gsub(' ', '_') %>">
-                  <label for='<%= title %>'><%= title %> <span class='filter_label_count'>[<%= value[:count] %>]</span></label>
+                  <label for='<%= title %>'><%= title %></label>
                 </li>
               <% end %>
             </ul>
@@ -37,7 +37,7 @@
               <% @places.each do |title, value| %>
                 <li>
                   <input class='check_box' id='<%= title.gsub(' ', '_') %>' type='checkbox' value=".<%= title.gsub(' ', '_') %>">
-                  <label for='<%= title %>'><%= title %> <span class='filter_label_count'>[<%= value[:count] %>]</span></label>
+                  <label for='<%= title %>'><%= title %></label>
                 </li>
               <% end %>
             </ul>
@@ -52,7 +52,7 @@
               <% @languages.each do |title, value| %>
                 <li>
                   <input class='check_box' id='<%= title.gsub(' ', '_') %>' type='checkbox' value=".<%= title.gsub(' ', '_') %>">
-                  <label for='<%= title %>'><%= title %> <span class='filter_label_count'>[<%= value[:count] %>]</span></label>
+                  <label for='<%= title %>'><%= title %></label>
                 </li>
               <% end %>
             </ul>
