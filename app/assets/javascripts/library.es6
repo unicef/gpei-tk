@@ -30,6 +30,9 @@ $(() => {
       filter: '.featured_content_item_1'
     })
 
+    $(document).ready(() => {
+      $('#library_browse_datatable').DataTable();
+    });
     $('#library_content_search_form').submit(e => {
       e.preventDefault()
       $.ajax({
@@ -54,6 +57,69 @@ $(() => {
       })
       return false
     })
+
+    // ######NEW LIBRARY CONTENT
+    //
+    //
+    $('#library_content_modal').modal({
+      allowMultiple: true,
+      observeChanges: true,
+      onHide: () => {
+        $('#library_content_modal .content').empty()
+        $('#library_content_modal .header').empty()
+      }
+    })
+
+    let $lib_grid = $('#library_browse_isotope_grid').isotope({
+      itemSelector: '.library_browse_grid_cell',
+      filter: '.library_base_category'
+    })
+    $('.library_browse_grid_cell').click(e => {
+      if (!e.target.classList.contains('library_subcategory_cell') === true) {
+        $lib_grid.isotope({ filter: $(e.target).attr('data-filter') })
+      }
+    })
+    $('#library_browse_clear_all').click(e => {
+      $lib_grid.isotope({ filter: '.library_base_category' })
+    })
+    function appendSpinnerLibModal() {
+      $('#library_content_modal .content').append(`<div id='library_content_cell_progress_spinner'>
+                Loading resources...<i class="fa fa-spinner fa-spin fa-fw"></i>
+              </div>`)
+    }
+    $('.library_subcategory_cell').click(e => {
+      e.preventDefault()
+      appendSpinnerLibModal()
+      // $('#library_content_cell_progress_spinner').css('visibility', 'visible')
+      // $lib_grid.isotope({ filter: '.library_content_tile' })
+      $.ajax({
+        method: 'GET',
+        url: '/library/reference_links/',
+        data: { subcategory_title: $(e.target).attr('data-filter'), category: $(e.target).attr('data-id') }
+      }).done(response => {
+        if (response.status === 200){
+          $('#library_content_cell_progress_spinner').css('visibility', 'hidden')
+          $('#library_content_modal .header').append(`<div>${response.category}</div><div class='library_content_modal_close col-md-offset-10 text-right'><span style='cursor:pointer;'>CLOSE&nbsp;<i class="fa fa-remove" aria-hidden="true"></i></span></div>`)
+          $('#library_content_modal .content').append(getSearchResultContent({ references: response.references, reference_links_data: response.reference_links_data, users: response.users, places: response.places, languages: response.languages, tags: response.tags, sopCount: response.sopCount, c4dCount: response.c4dCount }))
+          $('#application .ui.simple.dropdown.item').dropdown()
+          $('#application .ui.radio.checkbox').checkbox()
+          $('#application .ui.checkbox').checkbox()
+          $('#application .ui.dropdown').dropdown({
+            on:'hover',
+            action:'nothing'
+          })
+          loadSearchGrid()
+          $('#library_content_modal').modal('show')
+        }
+        return false
+      })
+    })
+
+    $('#application').on('click', '.library_content_modal_close', e => {
+      $('#library_content_modal').modal('hide')
+      return false
+    })
+    //
 
     function loadSearchGrid() {
       search_grid = $(`#library #library_content_search_results_grid`)
@@ -162,14 +228,13 @@ $(() => {
                 </div>
                 <div id='search_filter_display_div' class='col-md-6'>
                 </div>
-                ${ getSearchResultsSort()}
+
               </div>`
     }
-
+//                 ${ getSearchResultsSort()}
     function getSearchResultContent(args){
       return `${args['references'].length > 10  ? `<div id='search_results_header_wrapper' class='col-md-12'>
                 <div id='library_index_content_search_results_header_text' class='col-md-3'>
-                  Search Results
                 </div>
               </div>` : ''}
               ${args['references'].length > 0 ? getSearchResultsFilter({ places: args['places'], tags: args['tags'], languages: args['languages'], sopCount: args['sopCount'], c4dCount: args['c4dCount'] }) : ''}
@@ -259,7 +324,7 @@ $(() => {
       //   action: 'nothing',
       //   transition: 'horizontal flip'
       // })
-      $(`#library_content_search_results #library_content_search_results_grid`).isotope({
+      $(`#application #library_content_search_results_grid`).isotope({
         itemSelector: `.reference_search_result_item`
       })
       // ,
@@ -294,7 +359,7 @@ $(() => {
       }
       return `${references.map(reference_obj => {
         idx += 1
-        return `<div id='${idx + 1}' class='col-md-12 ${reference_links_data[reference_obj.id].isSOP ? 'SOP' : ''} ${reference_links_data[reference_obj.id].isC4D ? 'C4D' : ''} ${ reference_obj['tags'].map(tag => { return _.replace(tag.title, new RegExp(" ","g"), "_") }).join(' ') } ${ reference_obj['places'].map(place => { return _.replace(place.title, new RegExp(" ","g"), "_") }).join(' ') } ${ reference_obj['languages'].map(language => { return _.replace(language.title, new RegExp(" ","g"), "_") }).join(' ') } search_content_item pagination_search_content_item_${ getSearchResultFilter(idx+1) } ${ idx === 0 ? 'active' : '' }'>
+        return `<div id='${idx + 1}' class='col-md-12 ${reference_links_data[reference_obj.id].isSOP ? 'SOP' : ''} ${reference_links_data[reference_obj.id].isC4D ? 'C4D' : ''} ${ reference_obj['tags'] === undefined ? '' : reference_obj['tags'].map(tag => { return _.replace(tag.title, new RegExp(" ","g"), "_") }).join(' ') } ${ reference_obj['places'] === undefined ? '' : reference_obj['places'].map(place => { return _.replace(place.title, new RegExp(" ","g"), "_") }).join(' ') } ${ reference_obj['languages'] === undefined ? '' : reference_obj['languages'].map(language => { return _.replace(language.title, new RegExp(" ","g"), "_") }).join(' ') } search_content_item pagination_search_content_item_${ getSearchResultFilter(idx+1) } ${ idx === 0 ? 'active' : '' }'>
                   <div class='col-md-1'>
                     ${ reference_obj.is_video ? getThumbnailVideo.bind(reference_obj)() : getThumbnailImage.bind(reference_obj)() }
                   </div>
@@ -330,9 +395,9 @@ $(() => {
                     <div class='col-md-7'>
                       <div id='download_related_topics_div' class='bold_text col-md-3'>${ reference_obj.is_video ? 'VIEW' : 'DOWNLOAD' }</div>
                       <div class='col-md-8 langauage_indicator_wrapper'>
-                        <a id='${ reference_obj.id }' href="${ reference_obj.is_video ? reference_obj.video_url : reference_obj.absolute_url }" target='_blank' class='reference_download_tracker'><div class='reference_search_result_info_language '>${ _.upperCase(!_.isEmpty(reference_obj.document_language) ? reference_obj.document_language : reference_obj.language) }</div> ${ _.isEmpty(reference_obj.is_video) ? 'MOV' : ('PDF ' + convertBytesToKbOrMb(reference_obj.document_file_size)) }</a>
-                        ${ reference_obj['related_topics'].map(related_topic => {
-                                return `<a id='${ related_topic.id }' href="${ reference_obj.is_video ? reference_obj.video_url : related_topic.absolute_url }" target='_blank' class='reference_download_tracker'><div class='reference_search_result_info_language'>${ _.upperCase(!_.isEmpty(related_topic.document_language) ? related_topic.document_language : related_topic.language) }</div> ${ _.isEmpty(reference_obj.is_video) ? 'MOV' : ('PDF ' + convertBytesToKbOrMb(related_topic.document_file_size)) }</a>`
+                        <a id='${ reference_obj.id }' href="${ reference_obj.is_video ? reference_obj.video_url : reference_obj.absolute_url }" target='_blank' class='reference_download_tracker'><div class='reference_search_result_info_language '>${ _.upperCase(!_.isEmpty(reference_obj.document_language) ? reference_obj.document_language : reference_obj.language) }</div> ${ reference_obj.is_video ? 'MOV' : ('PDF ' + convertBytesToKbOrMb(reference_obj.document_file_size)) }</a>
+                        ${ reference_obj['related_topics'] === undefined ? '' : reference_obj['related_topics'].map(related_topic => {
+                                return `<a id='${ related_topic.id }' href="${ reference_obj.is_video ? reference_obj.video_url : related_topic.absolute_url }" target='_blank' class='reference_download_tracker'><div class='reference_search_result_info_language'>${ _.upperCase(!_.isEmpty(related_topic.document_language) ? related_topic.document_language : related_topic.language) }</div> ${ reference_obj.is_video ? 'MOV' : ('PDF ' + convertBytesToKbOrMb(related_topic.document_file_size)) }</a>`
                               }).join('')
                           }
                       </div>
@@ -553,13 +618,13 @@ $(() => {
     })
     $('#reference_link_show_modal').modal({
       allowMultiple: true,
+      observeChanges: true,
       onHide: () => {
         history.back()
         $('#reference_link_show_modal .content').empty()
         $('#reference_link_show_modal .header').empty()
       }
     })
-
     // browse paginator clicks
     let browse_grid = $(`#library_index_content_popular_content_grid`)
     $('#library').on('click', '.library_browse_pagination_indicators a', e => {
@@ -731,18 +796,18 @@ $(() => {
       return false
     })
 
-    $('#library_content_search_results').on('change', '#search_filter_dropdown_menu input', e => {
+    $('#application').on('change', '#search_filter_dropdown_menu input', e => {
       // let filter_value = _.map($('#search_filter_dropdown_menu .check_box:checked'), input => { return $(input).val() }).join(', ')
       // [[],[],[]]
       let filter_value = ''
       if(e.currentTarget.checked){
-        $('#library_content_search_results #search_filter_display_div').append(`<div id="${e.currentTarget.id}" class='inline_block padding_left_2px'>${e.currentTarget.id.replace(new RegExp('_', 'g'), ' ')}</div`)
+        $('#application #search_filter_display_div').append(`<div id="${e.currentTarget.id}" class='inline_block padding_left_2px'>${e.currentTarget.id.replace(new RegExp('_', 'g'), ' ')}</div`)
       } else {
-        $('#library_content_search_results #search_filter_display_div').find(`#${e.currentTarget.id}`).remove()
+        $('#application #search_filter_display_div').find(`#${e.currentTarget.id}`).remove()
       }
-      let theme_values = _.map($('#library_content_search_results #search_filter_dropdown_menu #theme_checkboxes .check_box:checked'), input => { return _.trim($(input).val()).replace(new RegExp(' ', 'g'), '_') })
-      let place_values = _.map($('#library_content_search_results #search_filter_dropdown_menu #place_checkboxes .check_box:checked'), input => { return _.trim($(input).val()).replace(new RegExp(' ', 'g'), '_') })
-      let language_values = _.map($('#library_content_search_results #search_filter_dropdown_menu #language_checkboxes .check_box:checked'), input => { return _.trim($(input).val()).replace(new RegExp(' ', 'g'), '_') })
+      let theme_values = _.map($('#application #search_filter_dropdown_menu #theme_checkboxes .check_box:checked'), input => { return _.trim($(input).val()).replace(new RegExp(' ', 'g'), '_') })
+      let place_values = _.map($('#application #search_filter_dropdown_menu #place_checkboxes .check_box:checked'), input => { return _.trim($(input).val()).replace(new RegExp(' ', 'g'), '_') })
+      let language_values = _.map($('#application #search_filter_dropdown_menu #language_checkboxes .check_box:checked'), input => { return _.trim($(input).val()).replace(new RegExp(' ', 'g'), '_') })
       filter_value = _.trim(theme_values.join('') + place_values.join('') + language_values.join(''))
       if (_.isEmpty(filter_value)) {
         $(search_grid).isotope({ filter: `${ $('.library_search_pagination_indicators.active a').attr('id') === undefined ? '.pagination_search_content_item_1' : `.pagination_search_content_item_${$('.library_search_pagination_indicators.active a').attr('id')}` }` })
@@ -751,13 +816,13 @@ $(() => {
       }
       // searchfilterchange
     })
-    $('#library_content_search_results').on('click', '#search_filter_clear_all a', e => {
+    $('#application').on('click', '#search_filter_clear_all a', e => {
       e.preventDefault()
-      _.forEach($('#library_content_search_results #search_filter_dropdown_menu .check_box'), check_box => {
+      _.forEach($('#application #search_filter_dropdown_menu .check_box'), check_box => {
         check_box.checked = false
       })
-      $('#library_content_search_results #search_sort_radio_div input[data-filter=relevance]').trigger('click')
-      $('#library_content_search_results #search_filter_display_div').empty()
+      $('#application #search_sort_radio_div input[data-filter=relevance]').trigger('click')
+      $('#application #search_filter_display_div').empty()
       return false
     })
 

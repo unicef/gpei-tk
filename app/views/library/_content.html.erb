@@ -1,0 +1,43 @@
+<div id='library' class='col-md-12'>
+  <div id='library_logo' class='col-md-12'>
+    <div id='library_logo_image'>
+      <div id='c4d_image_div'><img src='/assets/headers/repository-header3-DSC_0473.jpg' class='img-responsive'></div>
+    </div>
+    <div id='library_logo_text' class='col-md-12'>
+      <a id='library_logo_text_link' href='/library/'>Library</a>
+    </div>
+    <div id='library_content_search' class='col-md-12'>
+      <div id='library_content_search_header_text' class='col-md-12'>
+        <!-- SEARCH THE DOCUMENT LIBRARY -->
+      </div>
+      <div id='library_content_search_input_wrapper' class='col-md-6'>
+        <form id="library_content_search_form" class="ui form">
+          <!-- <input id='library_content_search_input' placeholder='Search' name='search[query]' type='text' alt='Search'> -->
+        </form>
+      </div>
+    </div>
+  </div>
+  <div id='library_index_content_wrapper' class='col-md-12'>
+    <%= render 'library/featured' %>
+    <div id='library_index_content_popular_downloads' class='col-md-12'>
+      <div id='library_index_content_popular_header_text' class='col-md-2'>
+        Browse
+      </div>
+      <div id='library_browse_clear_all' class='col-md-offset-9 col-md-1'>
+        Clear All
+      </div>
+
+      <!-- <#%= render 'library/browse_filter' %> -->
+
+      <div id='library_index_content_popular_divider' class='div_border_underline col-md-12'></div>
+      <div id='library_index_content_popular_content_grid_wrapper' class='col-md-12'>
+        <%= render 'library/browse_initial_isotope_grid' %>
+      </div>
+    </div>
+  </div>
+  <% if @filters %>
+    <div id='active_browse_filters'>
+      <div class='display_none'><%= @filters.join('') %></div>
+    </div>
+  <% end %>
+</div>
