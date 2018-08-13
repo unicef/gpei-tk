@@ -25,6 +25,7 @@
       <% @featured_references.each_with_index do |reference, idx| %>
         <div class='col-md-12 featured_content_item featured_content_item_<%= idx+1 %> <%= 'active' if idx == 0 %>' style="<%= "visibility: hidden;" if idx > 0 %>">
           <div class='col-md-2'>
+
             <% if @reference_links_data[reference['id']][:reference_link]['is_video'] %>
               <%= render 'library/video_embed', locals: { :reference_link => @reference_links_data[reference['id']][:reference_link] } %>
             <% else %>
