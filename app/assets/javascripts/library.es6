@@ -17,7 +17,7 @@ $(() => {
     download: true,
     like: true
   }
-  let search_grid = $(`#library #library_content_search_results_grid`)
+  let search_grid = $(`#application #library_content_search_results_grid`)
   if ($('#library').css('visibility') === 'visible'){
 
     let offset = $('nav').outerHeight()
@@ -99,7 +99,7 @@ $(() => {
       }).done(response => {
         if (response.status === 200){
           $('#library_content_cell_progress_spinner').css('visibility', 'hidden')
-          $('#library_content_modal .header').append(`<div>${response.category}</div><div class='library_content_modal_close col-md-offset-10 text-right'><span style='cursor:pointer;'>CLOSE&nbsp;<i class="fa fa-remove" aria-hidden="true"></i></span></div>`)
+          $('#library_content_modal .header').append(`<div class='col-md-10'>${response.category}</div><div class='library_content_modal_close col-md-2 text-right'><span style='cursor:pointer;'>CLOSE&nbsp;<i class="fa fa-remove" aria-hidden="true"></i></span></div>`)
           $('#library_content_modal .content').append(getSearchResultContent({ references: response.references, reference_links_data: response.reference_links_data, users: response.users, places: response.places, languages: response.languages, tags: response.tags, sopCount: response.sopCount, c4dCount: response.c4dCount }))
           $('#application .ui.simple.dropdown.item').dropdown()
           $('#application .ui.radio.checkbox').checkbox()

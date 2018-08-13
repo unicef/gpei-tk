@@ -525,8 +525,12 @@ a.max_width {
 .library_content_modal_close {
   font-size:14px;
 }
+#library_content_modal .content {
+  padding-bottom:0px !important;
+}
 #library_content_modal .header {
   line-height:1em;
+  min-height:50px;
 }
 #library_content_modal {
   width:80% !important;
