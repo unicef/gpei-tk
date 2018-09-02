@@ -517,7 +517,7 @@ a.max_width {
   min-height:150px;
 }
 #library_content_cell_progress_spinner {
-  visibility: visible;
+  visibility: hidden;
 }
 #library_content_modal .content {
   padding-top:0px;
