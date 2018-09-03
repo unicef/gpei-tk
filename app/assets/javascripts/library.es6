@@ -79,6 +79,7 @@ $(() => {
     $('#library_browse_clear_all').click(e => {
       $('#library_reference_links_filtered_wrapper').empty()
       $('#library_index_content_popular_content_grid_wrapper').css('display', 'block')
+      $('#library_browse_indicator_span').empty()
       $lib_grid.isotope({ filter: '.library_base_category' })
     })
     function appendSpinnerLibModal() {
@@ -91,10 +92,14 @@ $(() => {
       appendSpinnerLibModal()
       $('#library_index_content_popular_content_grid_wrapper').css('display', 'none')
       $('#library_content_cell_progress_spinner').css('display', 'block')
+      let subcategory_title = $(e.target).attr('data-filter')
+      let category_title = $(e.target).attr('data-id')
+      let category_show_title = _.capitalize(category_title.replace('.',''))
+      $('#library_browse_indicator_span').append(`<b>${category_show_title === 'C4d' || category_show_title == 'Sop' ? _.toUpper(category_show_title) : category_show_title } ${subcategory_title.replace('.', '')}</b>`)
       $.ajax({
         method: 'GET',
         url: '/library/reference_links/',
-        data: { subcategory_title: $(e.target).attr('data-filter'), category: $(e.target).attr('data-id') }
+        data: { subcategory_title: subcategory_title, category: category_title }
       }).done(response => {
         if (response.status === 200){
           $('#library_content_cell_progress_spinner').css('display', 'none')
@@ -792,8 +797,8 @@ $(() => {
       updateFilteredItemClasses($(browse_grid).data('isotope').items)
       updatePaginationIndicators({ filteredItems: $(browse_grid).data('isotope').items, type_name: 'browse' })
       $('#browse_filter_display_div').empty()
-      history.replaceState(null, null, '/library/')
-      $('#browse_sort_radio_div input[data-filter=download]').trigger('click')
+      // history.replaceState(null, null, '/library/')
+      // $('#browse_sort_radio_div input[data-filter=download]').trigger('click')
       return false
     })
 
