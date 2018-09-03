@@ -39,9 +39,6 @@
   background: -moz-linear-gradient(#252F38, #000000); /* For Firefox 3.6 to 15 */
   background: linear-gradient(#252F38, #000000); /* Standard syntax */
 }
-#library_browse_datatable{
-  background-color:white;
-}
 #library_logo {
   color:white;
   background-color:#CC9555;
@@ -391,16 +388,6 @@
   font-size: 24px !important;
   font-weight:bold !important;
 }
-table#library_browse_datatable {
-  border-bottom:none !important;
-}
-#library_browse_datatable_filter,
-#library_browse_datatable_info,
-#library_browse_datatable_paginate,
-#library_browse_datatable_wrapper .dataTables_length,
-#library_browse_datatable thead{
-  display:none;
-}
 .subcategory_content_grid_cell,
 .content_grid_cell * {
   text-align: center;
@@ -440,9 +427,7 @@ table#library_browse_datatable {
 .font_blue {
   color:blue;
 }
-#library_browse_datatable {
-  width:100%;
-}
+
 .counter_indicator_text_div {
   opacity: 0.3;
 }
@@ -517,7 +502,11 @@ a.max_width {
   min-height:150px;
 }
 #library_content_cell_progress_spinner {
-  visibility: hidden;
+  background: white;
+  padding-top:15px;
+  color: black;
+  display: none;
+  height:65px;
 }
 #library_content_modal .content {
   padding-top:0px;
@@ -625,7 +614,7 @@ a.max_width {
   margin-top:10px;
 }
 #search_filter_dropdown_wrapper {
-  padding:.92857143em 1.14285714em;
+  padding:1em 1em;
 }
 #search_filter_checkbox_div {
   width:100%;
@@ -697,6 +686,10 @@ a.max_width {
   padding-left:10px;
   padding-right:10px;
 }
+#library_content_search_results_grid,
+#search_pagination_controls_wrapper {
+  padding:0 !important;
+}
 #search_filter_display_div,
 #browse_filter_display_div {
   position: absolute;
@@ -704,8 +697,7 @@ a.max_width {
 }
 #search_filter_clear_all,
 #browse_filter_clear_all {
-  position:absolute;
-  margin-left:13% !important;
+  padding-top:7px;
 }
 #search_filter_clear_all a,
 #browse_filter_clear_all a {

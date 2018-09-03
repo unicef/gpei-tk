@@ -17,8 +17,8 @@ $(() => {
     download: true,
     like: true
   }
-  let search_grid = $(`#application #library_content_search_results_grid`)
   if ($('#library').css('visibility') === 'visible'){
+    let search_grid = ''
 
     let offset = $('nav').outerHeight()
     $('#library').offset({ top: offset })
@@ -30,9 +30,6 @@ $(() => {
       filter: '.featured_content_item_1'
     })
 
-    $(document).ready(() => {
-      $('#library_browse_datatable').DataTable();
-    });
     $('#library_content_search_form').submit(e => {
       e.preventDefault()
       $.ajax({
@@ -80,6 +77,8 @@ $(() => {
       }
     })
     $('#library_browse_clear_all').click(e => {
+      $('#library_reference_links_filtered_wrapper').empty()
+      $('#library_index_content_popular_content_grid_wrapper').css('display', 'block')
       $lib_grid.isotope({ filter: '.library_base_category' })
     })
     function appendSpinnerLibModal() {
@@ -90,17 +89,17 @@ $(() => {
     $('.library_subcategory_cell').click(e => {
       e.preventDefault()
       appendSpinnerLibModal()
-      $('#library_content_cell_progress_spinner').css('visibility', 'visible')
-      // $lib_grid.isotope({ filter: '.library_content_tile' })
+      $('#library_index_content_popular_content_grid_wrapper').css('display', 'none')
+      $('#library_content_cell_progress_spinner').css('display', 'block')
       $.ajax({
         method: 'GET',
         url: '/library/reference_links/',
         data: { subcategory_title: $(e.target).attr('data-filter'), category: $(e.target).attr('data-id') }
       }).done(response => {
         if (response.status === 200){
-          $('#library_content_cell_progress_spinner').css('visibility', 'hidden')
-          $('#library_content_modal .header').append(`<div class='col-md-10'>${response.category}</div><div class='library_content_modal_close col-md-2 text-right'><span style='cursor:pointer;'>CLOSE&nbsp;<i class="fa fa-remove" aria-hidden="true"></i></span></div>`)
-          $('#library_content_modal .content').append(getSearchResultContent({ references: response.references, reference_links_data: response.reference_links_data, users: response.users, places: response.places, languages: response.languages, tags: response.tags, sopCount: response.sopCount, c4dCount: response.c4dCount }))
+          $('#library_content_cell_progress_spinner').css('display', 'none')
+          // $('#library_content_modal .header').append(`<div class='col-md-10'>${response.category}</div><div class='library_content_modal_close col-md-2 text-right'><span style='cursor:pointer;'>CLOSE&nbsp;<i class="fa fa-remove" aria-hidden="true"></i></span></div>`)
+          $('#library_reference_links_filtered_wrapper').append(getSearchResultContent({ references: response.references, reference_links_data: response.reference_links_data, users: response.users, places: response.places, languages: response.languages, tags: response.tags, sopCount: response.sopCount, c4dCount: response.c4dCount }))
           $('#application .ui.simple.dropdown.item').dropdown()
           $('#application .ui.radio.checkbox').checkbox()
           $('#application .ui.checkbox').checkbox()
@@ -108,8 +107,8 @@ $(() => {
             on:'hover',
             action:'nothing'
           })
+
           loadSearchGrid()
-          $('#library_content_modal').modal('show')
         }
         return false
       })
@@ -122,32 +121,32 @@ $(() => {
     //
 
     function loadSearchGrid() {
-      // .pagination_search_content_item_1
+      search_grid = $(`#application #library_content_search_results_grid`)
       search_grid.isotope({
         itemSelector: `.search_content_item`,
-        layoutMode: 'fitRows',
-        filter: '',
-        getSortData: {
-          relevance: function (ele) {
-            return parseInt($(ele).find('#search_content_relevance').text())
-          },
-          created: function (ele) {
-            return (Date.parse(_.trim($(ele).find('#search_content_created_at').text())))
-          },
-          title: function (ele) {
-            return _.lowerCase(_.trim($(ele).find('#search_content_title_text a').text()))
-          },
-          author: function (ele) {
-            return _.trim($(ele).find('#search_content_author').text())
-          },
-          download: function (ele) {
-            return parseInt($(ele).find('#library_download_div .counter_indicator_text_div').text())
-          },
-          like: function (ele) {
-            return parseInt($(ele).find('#library_like_div .counter_indicator_text_div').text())
-          }
-        }
+        filter: `.pagination_search_content_item_1`
       })
+        //       getSortData: {
+        //   relevance: function (ele) {
+        //     return parseInt($(ele).find('#search_content_relevance').text())
+        //   },
+        //   created: function (ele) {
+        //     return (Date.parse(_.trim($(ele).find('#search_content_created_at').text())))
+        //   },
+        //   title: function (ele) {
+        //     return _.lowerCase(_.trim($(ele).find('#search_content_title_text a').text()))
+        //   },
+        //   author: function (ele) {
+        //     return _.trim($(ele).find('#search_content_author').text())
+        //   },
+        //   download: function (ele) {
+        //     return parseInt($(ele).find('#library_download_div .counter_indicator_text_div').text())
+        //   },
+        //   like: function (ele) {
+        //     return parseInt($(ele).find('#library_like_div .counter_indicator_text_div').text())
+        //   }
+        // }
+
     }
     function getPaginator(references, reference_links_data, type_name){
       return `<div id='${type_name}_paginator_div' class='col-md-5'>
@@ -172,19 +171,19 @@ $(() => {
                             ${ args['c4dCount'] > 0 ?
                             `<li>
                               <input class='check_box' id='C4D' type='checkbox' value=".C4D">
-                              <label for='C4D'>C4D <span class='filter_label_count'>[${ args['c4dCount'] }]</span></label>
+                              <label for='C4D'>C4D <span class='filter_label_count'></span></label>
                             </li>` : ''
                             }
                             ${ args['sopCount'] > 0 ?
                             `<li>
                               <input class='check_box' id='SOP' type='checkbox' value=".SOP">
-                              <label for='SOP'>SOP <span class='filter_label_count'>[${ args['sopCount'] }]</span></label>
+                              <label for='SOP'>SOP <span class='filter_label_count'></span></label>
                             </li>` : ''
                             }
                             ${ args['tags'].map(tag => {
                                 return `<li>
                                           <input class='check_box' id='${ _.replace(tag[0], new RegExp(" ","g"),"_") }' type='checkbox' value=".${ tag[0] }">
-                                          <label for='${ tag[0] }'>${ tag[0] } <span class='filter_label_count'>[${ tag[1]['count'] }]</span></label>
+                                          <label for='${ tag[0] }'>${ tag[0] } <span class='filter_label_count'></span></label>
                                         </li>`
                               }).join(' ')}
                           </ul>
@@ -199,7 +198,7 @@ $(() => {
                             ${ args['places'].map(place => {
                               return `<li>
                                         <input class='check_box' id='${ _.replace(place[0], new RegExp(" ","g"),"_") }' type='checkbox' value=".${ place[0] }">
-                                        <label for='${ place[0] }'>${ place[0] } <span class='filter_label_count'>[${ place[1]['count'] }]</span></label>
+                                        <label for='${ place[0] }'>${ place[0] } <span class='filter_label_count'></span></label>
                                       </li>`
                             }).join(' ')}
                           </ul>
@@ -214,7 +213,7 @@ $(() => {
                             ${ args['languages'].map(language => {
                               return `<li>
                                         <input class='check_box' id='${ _.replace(language[0], new RegExp(" ","g"),"_") }' type='checkbox' value=".${ language[0] }">
-                                        <label for='${ language[0] }'>${ language[0] } <span class='filter_label_count'>[${ language[1]['count'] }]</span></label>
+                                        <label for='${ language[0] }'>${ language[0] } <span class='filter_label_count'></span></label>
                                       </li>`
                             }).join(' ')}
                           </ul>
@@ -223,32 +222,35 @@ $(() => {
                     </div>
                   </div>
                 </div>
-                <div id='search_filter_clear_all' class='col-md-offset-2 col-md-2'>
-                  <a href=''>Clear All</a>
+                <div id='search_filter_clear_all' class='col-md-2'>
+                  <a href=''>        Clear All</a>
                 </div>
-                <div id='search_filter_display_div' class='col-md-6'>
+                <div id='search_filter_display_div' class='col-md-8'>
                 </div>
 
               </div>`
     }
 //                 ${ getSearchResultsSort()}
     function getSearchResultContent(args){
-      return `${args['references'].length > 10  ? `<div id='search_results_header_wrapper' class='col-md-12'>
+
+      return `${args['references'].length > 0 ? getSearchResultsFilter({ places: args['places'], tags: args['tags'], languages: args['languages'], sopCount: args['sopCount'], c4dCount: args['c4dCount'] }) : ''}
+              ${args['references'].length > 10  ? `<div id='search_results_header_wrapper' class='col-md-12'>
                 <div id='library_index_content_search_results_header_text' class='col-md-3'>
                 </div>
               </div>` : ''}
-              <div id='search_results_border' class='div_border_underline col-md-12'></div>
-              </div>
               <div class='col-md-12'>
                 <div id='library_content_search_results_grid'>
                   ${getSearchResultRows(args['references'], args['reference_links_data'], args['users'])}
                 </div>
+              </div>
+              <div id='search_results_border' class='div_border_underline col-md-12'></div>
+              </div>
+              <div id='search_pagination_controls_wrapper' class='col-md-12'>
+                ${args['references'].length > 10 ? getPaginator(args['references'], args['reference_links_data'], 'search') : ''}
               </div>`
     }
-                  // ${args['references'].length > 0 ? getSearchResultsFilter({ places: args['places'], tags: args['tags'], languages: args['languages'], sopCount: args['sopCount'], c4dCount: args['c4dCount'] }) : ''}
-    // <div id='search_pagination_controls_wrapper' class='col-md-12'>
-    //             ${args['references'].length > 10 ? getPaginator(args['references'], args['reference_links_data'], 'search') : ''}
-    //           </div>
+
+
 
     function getSearchResultsSort(){
       return `<div id='search_sort_wrapper' class='col-md-offset-6 col-md-2'>
@@ -705,7 +707,6 @@ $(() => {
     })
     $('#application').on('click', '#search_sort_radio_div .ui.radio.checkbox', e => {
       let sortBy = $(e.currentTarget).find('input').attr('data-filter')
-
       search_grid.isotope({ filter: '*' })
       search_grid.isotope({
         sortAscending: sortFlags[sortBy]
@@ -810,9 +811,10 @@ $(() => {
       let language_values = _.map($('#application #search_filter_dropdown_menu #language_checkboxes .check_box:checked'), input => { return _.trim($(input).val()).replace(new RegExp(' ', 'g'), '_') })
       filter_value = _.trim(theme_values.join('') + place_values.join('') + language_values.join(''))
       if (_.isEmpty(filter_value)) {
-        $(search_grid).isotope({ filter: `*` })
-        // $(search_grid).isotope({ filter: `${ $('.library_search_pagination_indicators.active a').attr('id') === undefined ? '.pagination_search_content_item_1' : `.pagination_search_content_item_${$('.library_search_pagination_indicators.active a').attr('id')}` }` })
+        $('#application #search_pagination_controls_wrapper').css('display', 'block')
+        $(search_grid).isotope({ filter: `${ $('.library_search_pagination_indicators.active a').attr('id') === undefined ? '.pagination_search_content_item_1' : `.pagination_search_content_item_${$('.library_search_pagination_indicators.active a').attr('id')}` }` })
       } else {
+        $('#application #search_pagination_controls_wrapper').css('display', 'none')
         $(search_grid).isotope({ filter: filter_value })
       }
       // searchfilterchange
@@ -822,7 +824,9 @@ $(() => {
       _.forEach($('#application #search_filter_dropdown_menu .check_box'), check_box => {
         check_box.checked = false
       })
-      $('#application #search_sort_radio_div input[data-filter=relevance]').trigger('click')
+      $('#application #search_pagination_controls_wrapper').css('display', 'block')
+      // $('#application #search_sort_radio_div input[data-filter=relevance]').trigger('click')
+      $(search_grid).isotope({ filter: '.pagination_search_content_item_1' })
       $('#application #search_filter_display_div').empty()
       return false
     })
