@@ -416,6 +416,9 @@ $(() => {
                     <div id='library_search_reference_link_description' class='col-md-9'>
                       ${ !_.isNull(reference_obj.description) ? reference_obj.description : '' }
                     </div>
+                    <div id='library_search_reference_link_related_topics' class='col-md-3  ${reference_obj.related_topics.length > 0 ? 'border_left': ''}'>
+                      ${ reference_obj.related_topics.length > 0 ? getReferenceRelatedTopics(reference_obj.related_topics) : ''}
+                    </div>
                   </div>
                   <div class='one_px_border_bottom col-md-12'>
                   </div>
@@ -423,7 +426,13 @@ $(() => {
           }).join('')
         }`
     }
-
+    function getReferenceRelatedTopics(references){
+      return `<div class='col-md-12' class='bold_underline'>Related topics:</div>${references.map(reference_obj => {
+        return `<div class='col-md-12'>
+                  <a id="${reference_obj.id}" href="${ reference_obj.is_video ? reference_obj.video_url : reference_obj.absolute_url }" target='_blank' class='reference_download_tracker'>- ${ reference_obj.title ? reference_obj.title : _.replace(_.replace(reference_obj.document_file_name, new RegExp("_","g"), " "), new RegExp(".pdf","g"), "") }</a>
+                </div>`
+      }).join('')}`
+    }
     function getThumbnailVideo(){
       return `<div class='col-md-12'>
                 <iframe src="${ _.replace(this.video_url, new RegExp("https://vimeo.com/","g"), "https://player.vimeo.com/video/") }" width="97%" height="auto" frameborder="0"></iframe>

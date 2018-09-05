@@ -286,7 +286,7 @@
 }
 .bold_underline {
   font-weight:bold;
-  text-decoration: underline
+  text-decoration: underline !important;
 }
 #cms_feedbacks_index_header,
 #CMS_feedbacks_grid {

@@ -20,6 +20,9 @@
   color:white;
   background-color:#35848C !important;
 }
+#library_search_reference_link_related_topics {
+  padding:5px;
+}
 .sop_related_cell:hover {
   color:white;
   background-color:#904941 !important;
@@ -343,6 +346,9 @@
   padding-left: 0px !important;
   font-size:16px !important;
 }
+.border_left {
+  border-left:1px solid;
+}
 .bold_text {
   font-weight:bold;
 }
@@ -350,6 +356,9 @@
 #library_search_reference_link_description {
   font-size:16px !important;
   color:#999999;
+}
+#library_search_reference_link_description {
+  padding-right:3px;
 }
 #library_search_reference_link_description,
 #library_reference_link_description {
