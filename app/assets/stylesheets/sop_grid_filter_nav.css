@@ -5,6 +5,10 @@
 #select_filter_dropdown_menu .item {
   padding:0 !important;
 }
+#search_filter_clear_all {
+  position: absolute;
+  right:0;
+}
 #sop_filter_clear_all a {
   text-decoration: none !important;
   color:#B12924;

@@ -61,7 +61,7 @@ class LibraryController < ApplicationController
     @c4d_categories = C4dCategory.all
     @sop_categories = SopCategory.all
     @tags_all = Tag.all
-    @featured_references = ReferenceLink.joins(:featured_references).all.order(created_at: :desc).as_json(:include => [:author, :tags, :places, :languages, :related_topics]).uniq
+    @featured_references = ReferenceLink.joins(:featured_references).merge(FeaturedReference.order(id: :asc)).all.order(created_at: :desc).as_json(:include => [:author, :tags, :places, :languages, :related_topics]).uniq
     @reference_links_data, @sopCount, @c4dCount, @places, @languages, @tags = get_reference_link_data(@featured_references)
     @filters = params[:filters] if params[:filters]
   end

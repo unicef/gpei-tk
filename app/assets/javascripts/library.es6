@@ -161,7 +161,7 @@ $(() => {
 
     function getSearchResultsFilter(args){
       return `<div id='search_filter_row' class='col-md-12'>
-                <div id="search_filter_dropdown" class="ui dropdown col-md-12">
+                <div id="search_filter_dropdown" class="ui dropdown col-md-3">
                   <div id="" class="">
                     <span class='filter_header_text'><i class="fa fa-angle-down" aria-hidden="true"></i> SELECT FILTERS</span>
                   </div>
@@ -227,7 +227,7 @@ $(() => {
                     </div>
                   </div>
                 </div>
-                <div id='search_filter_clear_all' class='col-md-2'>
+                <div id='search_filter_clear_all' class='col-md-2 text-right'>
                   <a href=''>        Clear All</a>
                 </div>
                 <div id='search_filter_display_div' class='col-md-8'>

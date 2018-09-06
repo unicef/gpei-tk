@@ -16,6 +16,10 @@
 #library_browse_clear_all {
   cursor: pointer;
 }
+.c4d_related_cell {
+  color:black;
+  background:rgba(53, 132, 140, 0.8) !important;
+}
 .c4d_related_cell:hover {
   color:white;
   background-color:#35848C !important;
@@ -23,9 +27,17 @@
 #library_search_reference_link_related_topics {
   padding:5px;
 }
+.sop_related_cell {
+  color:black;
+  background: rgba(144, 73, 65, 0.8) !important;
+}
 .sop_related_cell:hover {
   color:white;
   background-color:#904941 !important;
+}
+.tags_related_cell {
+  color:black;
+  background: rgba(19, 153, 222, 0.8) !important;
 }
 .tags_related_cell:hover {
   color:white;
@@ -175,7 +187,7 @@
 }
 #library_browse_clear_all,
 #library_index_content_popular_header_text {
-  padding-top:40px;
+  padding-top:20px;
 }
 #library_browse_clear_all {
   font-family: 'Adelle' !important;
@@ -710,11 +722,10 @@ a.max_width {
   position: absolute;
   left:21% !important;
 }
-#search_filter_clear_all,
 #browse_filter_clear_all {
   padding-top:7px;
 }
-#search_filter_clear_all a,
+
 #browse_filter_clear_all a {
   border-right:1px solid rgba(204,149,85,1);
   padding-right:15px;
@@ -722,6 +733,19 @@ a.max_width {
   opacity:0.3;
   font-style:italic;
   text-decoration: none;
+}
+#search_filter_clear_all a {
+  border-left:1px solid rgba(204,149,85,1);
+  padding-left:15px;
+  padding-right:5px;
+  color:black;
+  opacity:0.3;
+  font-style:italic;
+  text-decoration: none;
+}
+.filter_header_text,
+.filter_header_text i {
+  color:#CC9555 !important;
 }
 .padding_left_2px {
   margin-left:3px;
