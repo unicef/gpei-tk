@@ -29,16 +29,16 @@
             <% if @reference_links_data[reference['id']][:reference_link]['is_video'] %>
               <%= render 'library/video_embed', locals: { :reference_link => @reference_links_data[reference['id']][:reference_link] } %>
             <% else %>
-              <a id='<%= reference['id'] %>' href="<%= reference['absolute_url'].include?('https:') ? reference['absolute_url'] : reference['absolute_url'].gsub('//','https://')  %>" target='_blank' class='reference_download_tracker'><img id='featured_content_item_image' src="<%= reference['absolute_url'].include?('https:') ? reference['absolute_url'].gsub('pdf', 'png') : reference['absolute_url'].gsub('//','https://').gsub('pdf', 'png') %>" class='img-responsive'></a>
+              <a id='<%= reference['id'] %>' href="<%= reference['absolute_url'].nil? ? reference['video_url'] : reference['absolute_url'].include?('https:') ? reference['absolute_url'] : reference['absolute_url'].gsub('//','https://')  %>" target='_blank' class='reference_download_tracker'><img id='featured_content_item_image' src="<%= reference['absolute_url'].nil? ? reference['video_url'] : reference['absolute_url'].include?('https:') ? reference['absolute_url'].gsub('pdf', 'png') : reference['absolute_url'].gsub('//','https://').gsub('pdf', 'png') %>" class='img-responsive'></a>
             <% end %>
           </div>
           <div id='featured_content_item_info_wrapper' class='col-md-10'>
             <div id='featured_content_title_text' class='col-md-12'>
-              <a id='<%= reference['id'] %>' href="<%= reference['absolute_url'].include?('https:') ? reference['absolute_url'] : reference['absolute_url'].gsub('//','https://') %>" target='_blank' class='reference_download_tracker'><%= reference['title'] ? reference['title'] : reference.document_file_name.gsub('_', ' ').gsub('.pdf', '') %></a>
+              <a id='<%= reference['id'] %>' href="<%= reference['absolute_url'].nil? ? reference['video_url'] : reference['absolute_url'].include?('https:') ? reference['absolute_url'] : reference['absolute_url'].gsub('//','https://') %>" target='_blank' class='reference_download_tracker'><%= reference['title'] ? reference['title'] : reference.document_file_name.gsub('_', ' ').gsub('.pdf', '') %></a>
             </div>
             <div id='like_and_download_wrapper' class='col-md-2'>
               <div id='library_download_div' class='inline_block'>
-                <a id='<%= reference['id'] %>' href="<%= reference['absolute_url'].include?('https:') ? reference['absolute_url'] : reference['absolute_url'].gsub('//','https://') %>" target='_blank' class='inline_block library_download_img reference_download_tracker'>
+                <a id='<%= reference['id'] %>' href="<%= reference['absolute_url'].nil? ? reference['video_url'] : reference['absolute_url'].include?('https:') ? reference['absolute_url'] : reference['absolute_url'].gsub('//','https://') %>" target='_blank' class='inline_block library_download_img reference_download_tracker'>
                   <img src='/assets/icons/icon-download2x.png' class='library_grid_icon'>
                 </a>
                 <div class='counter_indicator_text_div inline_block'><%= @reference_links_data[reference['id']][:download_count] %></div>
