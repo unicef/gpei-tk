@@ -29,7 +29,7 @@
             <% if @reference_links_data[reference['id']][:reference_link]['is_video'] %>
               <%= render 'library/video_embed', locals: { :reference_link => @reference_links_data[reference['id']][:reference_link] } %>
             <% else %>
-              <a id='<%= reference['id'] %>' href="<%= reference['absolute_url'].include?('https:') ? reference['absolute_url'] : reference['absolute_url'].gsub('//','https://')  %>" target='_blank' class='reference_download_tracker'><img id='featured_content_item_image' src="<%= reference['absolute_url'].include?('https:') ? reference['absolute_url'] : reference['absolute_url'].gsub('//','https://').gsub('pdf', 'png') %>" class='img-responsive'></a>
+              <a id='<%= reference['id'] %>' href="<%= reference['absolute_url'].include?('https:') ? reference['absolute_url'] : reference['absolute_url'].gsub('//','https://')  %>" target='_blank' class='reference_download_tracker'><img id='featured_content_item_image' src="<%= reference['absolute_url'].include?('https:') ? reference['absolute_url'].gsub('pdf', 'png') : reference['absolute_url'].gsub('//','https://').gsub('pdf', 'png') %>" class='img-responsive'></a>
             <% end %>
           </div>
           <div id='featured_content_item_info_wrapper' class='col-md-10'>
