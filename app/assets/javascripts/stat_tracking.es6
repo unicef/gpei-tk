@@ -32,7 +32,7 @@ $(() => {
     has_title = (!_.isNull(reference_link.title) || reference_link.title !== '')
     let title = _.trim((!_.isNull(reference_link.title) && reference_link.title !== '' && reference_link.title !== 'null' ? reference_link.title : _.trim(reference_link.document_file_name).replace(new RegExp('_', 'g'), ' ').replace(new RegExp('.pdf', 'g'), '')))
     let user_friendly_url = `https://poliok.it/library/${title.replace(new RegExp(' ', 'g'), '_')}`
-    $('#reference_link_show_modal .header').append(`<h2>${title}<div id='reference_link_show_close_div'><a href='' class='user_friendly_reference_link_close'><i class="fa fa-times" aria-hidden="true"></i> close</div></a></h2><h5><div><a id='${reference_link['id']}' href="${user_friendly_url}" class='user_friendly_reference_link_anchor'>Copy document link</a></div></h5>`)
+    $('#application #reference_link_show_modal .header').append(`<h2>${title}<div id='reference_link_show_close_div'><a href='' class='user_friendly_reference_link_close'><i class="fa fa-times" aria-hidden="true"></i> close</div></a></h2><h5><div><a id='${reference_link['id']}' href="${user_friendly_url}" class='user_friendly_reference_link_anchor'>Copy document link</a></div></h5>`)
     let object = ``
     if (!reference_link['is_video']) {
       object = `<object data="${reference_link.absolute_url}" style="width:100%; min-height:800px;" frameborder="0"></object>`
@@ -40,7 +40,7 @@ $(() => {
       object = `${getVimeoIframe(reference_link)}`
     }
     $('#reference_link_show_modal .content').append(object)
-    $('#reference_link_show_modal').modal('show')
+
     let checkIfLibraryPathRegex = new RegExp(/^\/library\//)
     if(checkIfLibraryPathRegex.test(window.location.pathname)){
       let isAlreadyLibraryRegex = new RegExp(/\/library\/$/)
@@ -53,6 +53,7 @@ $(() => {
     }
     eventHandlingForAnchorCopy()
     ga('send', { 'hitType': 'pageview', 'page': `/library/${title}` })
+    $('#reference_link_show_modal').modal('show')
   }
 
   $('#application').on('click', '.user_friendly_reference_link_close', e => {

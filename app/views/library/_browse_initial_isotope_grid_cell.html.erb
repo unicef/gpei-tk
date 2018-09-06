@@ -1,0 +1,15 @@
+<div data-filter='.<%= parent_category %>_subcategories' class='col-md-6 library_base_category library_browse_grid_cell  <%= parent_category %>_related_cell active'>
+  <%= parent_category == 'tags' ? 'Themes' : parent_category.upcase %>
+</div>
+<% categories.each do |category| %>
+  <div data-id='<%= parent_category %>' data-filter='.<%= category.title %>' class='col-md-6 <%= parent_category %>_subcategories library_browse_grid_cell <%= "library_subcategory_cell" if parent_category != 'c4d' %>  <%= parent_category %>_related_cell active'>
+    <%= category.title %>
+  </div>
+  <% if category.respond_to?('c4d_subcategories')%>
+    <% category.c4d_subcategories.each do |subcategory| %>
+      <div data-id='<%= parent_category %>' data-filter='<%= subcategory.title %>' class='col-md-6 library_browse_grid_cell library_subcategory_cell <%= category.title %> <%= parent_category %>_related_cell active'>
+        <%= subcategory.title %>
+      </div>
+    <% end %>
+  <% end %>
+<% end %>

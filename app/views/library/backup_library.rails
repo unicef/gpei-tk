@@ -1,0 +1,18 @@
+
+
+
+
+        <% if @reference_links.count > 10 %>
+          <div id='browse_bottom_pagination_control' class='col-md-12'>
+            <%= render 'library/paginator' %>
+          </div>
+        <% end %>
+      </div>
+  <div id='library_content_search_results' class='col-md-12'>
+  </div>
+  <% if @reference_link %>
+    <div id='library_reference_link_show'>
+      <%= @reference_link.id %>
+    </div>
+  <% end %>
+</div>

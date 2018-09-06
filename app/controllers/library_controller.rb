@@ -3,6 +3,32 @@ class LibraryController < ApplicationController
     initialize_vars
   end
 
+  def reference_links
+    params['subcategory_title'].gsub!('.', '')
+    if params['category'] == 'c4d'
+      reference_links = ReferenceLink.where(id: C4dArticle.where('published = true AND c4d_subcategory_id = ?', C4dSubcategory.where(title: params['subcategory_title']).first.id).map{|article| article.reference_links.pluck(:id).flatten}.flatten.uniq).order(created_at: :desc).as_json(:include => [:author, :tags, :places, :languages, :related_topics]).uniq
+    elsif params['category'] == 'sop'
+      reference_links = ReferenceLink.where(id: SopArticle.where('published = true AND sop_category_id = ?', SopCategory.where(title: params['subcategory_title']).first.id).map{|article| article.reference_links.pluck(:id).flatten}.flatten.uniq).order(created_at: :desc).as_json(:include => [:author, :tags, :places, :languages, :related_topics]).uniq
+    elsif params['category'] == 'tags'
+      reference_links = ReferenceLink.where(id: TagReference.where(tag_id: Tag.where(title: params['subcategory_title']).first.id).pluck(:reference_tagable_id).flatten.uniq).order(created_at: :desc).as_json(:include => [:author, :tags, :places, :languages, :related_topics]).uniq
+    end
+
+    references = reference_links
+    reference_links_data, sopCount, c4dCount, places, languages, tags = get_reference_link_data(references)
+    users = Hash[User.all.pluck(:id, :first_name)]
+    category = params['subcategory_title']
+    render json: { status: 200,
+                   references: references,
+                   reference_links_data: reference_links_data,
+                   users: users,
+                   category: category,
+                   places: places,
+                   languages: languages,
+                   sopCount: sopCount,
+                   c4dCount: c4dCount,
+                   tags: tags }
+  end
+
   def reference_search
     reference_links = ReferenceLink.all.order('download_count DESC NULLS LAST, like_count DESC NULLS LAST, created_at DESC')
                       .search_refs(params[:search][:query])
@@ -32,10 +58,12 @@ class LibraryController < ApplicationController
 
   def initialize_vars
     @is_library = true
-    @reference_links = ReferenceLink.all.order('download_count DESC NULLS LAST, like_count DESC NULLS LAST, created_at DESC').as_json(:include => [:author, :tags, :places, :languages, :related_topics]).uniq
-    @reference_links_data, @sopCount, @c4dCount, @places, @languages, @tags = get_reference_link_data(@reference_links)
+    @c4d_categories = C4dCategory.all
+    @sop_categories = SopCategory.all
+    @tags_all = Tag.all
+    @featured_references = ReferenceLink.joins(:featured_references).merge(FeaturedReference.order(id: :asc)).all.order(created_at: :desc).as_json(:include => [:author, :tags, :places, :languages, :related_topics]).uniq
+    @reference_links_data, @sopCount, @c4dCount, @places, @languages, @tags = get_reference_link_data(@featured_references)
     @filters = params[:filters] if params[:filters]
-    @featured_references = ReferenceLink.joins(:featured_references).all.order(created_at: :desc).uniq
   end
 
   def get_reference_link_data(reference_links)
@@ -70,8 +98,10 @@ class LibraryController < ApplicationController
   end
 
   def map_filters(filters, existing_filters)
-    filters.each do |filter|
-      existing_filters[filter['title']] ? existing_filters[filter['title']][:count] += 1 : existing_filters[filter['title']] = { count: 1 }
+    unless filters.nil?
+      filters.each do |filter|
+        existing_filters[filter['title']] ? existing_filters[filter['title']][:count] += 1 : existing_filters[filter['title']] = { count: 1 }
+      end
     end
     existing_filters
   end

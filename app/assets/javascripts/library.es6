@@ -17,8 +17,8 @@ $(() => {
     download: true,
     like: true
   }
-  let search_grid = $(`#library #library_content_search_results_grid`)
   if ($('#library').css('visibility') === 'visible'){
+    let search_grid = ''
 
     let offset = $('nav').outerHeight()
     $('#library').offset({ top: offset })
@@ -55,33 +55,103 @@ $(() => {
       return false
     })
 
+    // ######NEW LIBRARY CONTENT
+    //
+    //
+    $('#library_content_modal').modal({
+      allowMultiple: true,
+      observeChanges: true,
+      onHide: () => {
+        $('#library_content_modal .content').empty()
+        $('#library_content_modal .header').empty()
+      }
+    })
+
+    let $lib_grid = $('#library_browse_isotope_grid').isotope({
+      itemSelector: '.library_browse_grid_cell',
+      filter: '.library_base_category'
+    })
+    $('.library_browse_grid_cell').click(e => {
+      if (!e.target.classList.contains('library_subcategory_cell') === true) {
+        $lib_grid.isotope({ filter: $(e.target).attr('data-filter') })
+      }
+    })
+    $('#library_browse_clear_all').click(e => {
+      $('#library_reference_links_filtered_wrapper').empty()
+      $('#library_index_content_popular_content_grid_wrapper').css('display', 'block')
+      $('#library_browse_indicator_span').empty()
+      $lib_grid.isotope({ filter: '.library_base_category' })
+    })
+    function appendSpinnerLibModal() {
+      $('#library_content_modal .content').append(`<div id='library_content_cell_progress_spinner'>
+                Loading resources...<i class="fa fa-spinner fa-spin fa-fw"></i>
+              </div>`)
+    }
+    $('.library_subcategory_cell').click(e => {
+      e.preventDefault()
+      appendSpinnerLibModal()
+      $('#library_index_content_popular_content_grid_wrapper').css('display', 'none')
+      $('#library_content_cell_progress_spinner').css('display', 'block')
+      let subcategory_title = $(e.target).attr('data-filter')
+      let category_title = $(e.target).attr('data-id')
+      let category_show_title = _.capitalize(category_title.replace('.',''))
+      $('#library_browse_indicator_span').append(`<b>${category_show_title === 'C4d' || category_show_title == 'Sop' ? _.toUpper(category_show_title) : category_show_title } ${subcategory_title.replace('.', '')}</b>`)
+      $.ajax({
+        method: 'GET',
+        url: '/library/reference_links/',
+        data: { subcategory_title: subcategory_title, category: category_title }
+      }).done(response => {
+        if (response.status === 200){
+          $('#library_content_cell_progress_spinner').css('display', 'none')
+          // $('#library_content_modal .header').append(`<div class='col-md-10'>${response.category}</div><div class='library_content_modal_close col-md-2 text-right'><span style='cursor:pointer;'>CLOSE&nbsp;<i class="fa fa-remove" aria-hidden="true"></i></span></div>`)
+          $('#library_reference_links_filtered_wrapper').append(getSearchResultContent({ references: response.references, reference_links_data: response.reference_links_data, users: response.users, places: response.places, languages: response.languages, tags: response.tags, sopCount: response.sopCount, c4dCount: response.c4dCount }))
+          $('#application .ui.simple.dropdown.item').dropdown()
+          $('#application .ui.radio.checkbox').checkbox()
+          $('#application .ui.checkbox').checkbox()
+          $('#application .ui.dropdown').dropdown({
+            on:'hover',
+            action:'nothing'
+          })
+
+          loadSearchGrid()
+        }
+        return false
+      })
+    })
+
+    $('#application').on('click', '.library_content_modal_close', e => {
+      $('#library_content_modal').modal('hide')
+      return false
+    })
+    //
+
     function loadSearchGrid() {
-      search_grid = $(`#library #library_content_search_results_grid`)
+      search_grid = $(`#application #library_content_search_results_grid`)
       search_grid.isotope({
         itemSelector: `.search_content_item`,
-        layoutMode: 'fitRows',
-        filter: '.pagination_search_content_item_1',
-        getSortData: {
-          relevance: function (ele) {
-            return parseInt($(ele).find('#search_content_relevance').text())
-          },
-          created: function (ele) {
-            return (Date.parse(_.trim($(ele).find('#search_content_created_at').text())))
-          },
-          title: function (ele) {
-            return _.lowerCase(_.trim($(ele).find('#search_content_title_text a').text()))
-          },
-          author: function (ele) {
-            return _.trim($(ele).find('#search_content_author').text())
-          },
-          download: function (ele) {
-            return parseInt($(ele).find('#library_download_div .counter_indicator_text_div').text())
-          },
-          like: function (ele) {
-            return parseInt($(ele).find('#library_like_div .counter_indicator_text_div').text())
-          }
-        }
+        filter: `.pagination_search_content_item_1`
       })
+        //       getSortData: {
+        //   relevance: function (ele) {
+        //     return parseInt($(ele).find('#search_content_relevance').text())
+        //   },
+        //   created: function (ele) {
+        //     return (Date.parse(_.trim($(ele).find('#search_content_created_at').text())))
+        //   },
+        //   title: function (ele) {
+        //     return _.lowerCase(_.trim($(ele).find('#search_content_title_text a').text()))
+        //   },
+        //   author: function (ele) {
+        //     return _.trim($(ele).find('#search_content_author').text())
+        //   },
+        //   download: function (ele) {
+        //     return parseInt($(ele).find('#library_download_div .counter_indicator_text_div').text())
+        //   },
+        //   like: function (ele) {
+        //     return parseInt($(ele).find('#library_like_div .counter_indicator_text_div').text())
+        //   }
+        // }
+
     }
     function getPaginator(references, reference_links_data, type_name){
       return `<div id='${type_name}_paginator_div' class='col-md-5'>
@@ -91,7 +161,7 @@ $(() => {
 
     function getSearchResultsFilter(args){
       return `<div id='search_filter_row' class='col-md-12'>
-                <div id="search_filter_dropdown" class="ui dropdown col-md-12">
+                <div id="search_filter_dropdown" class="ui dropdown col-md-3">
                   <div id="" class="">
                     <span class='filter_header_text'><i class="fa fa-angle-down" aria-hidden="true"></i> SELECT FILTERS</span>
                   </div>
@@ -106,19 +176,19 @@ $(() => {
                             ${ args['c4dCount'] > 0 ?
                             `<li>
                               <input class='check_box' id='C4D' type='checkbox' value=".C4D">
-                              <label for='C4D'>C4D <span class='filter_label_count'>[${ args['c4dCount'] }]</span></label>
+                              <label for='C4D'>C4D <span class='filter_label_count'></span></label>
                             </li>` : ''
                             }
                             ${ args['sopCount'] > 0 ?
                             `<li>
                               <input class='check_box' id='SOP' type='checkbox' value=".SOP">
-                              <label for='SOP'>SOP <span class='filter_label_count'>[${ args['sopCount'] }]</span></label>
+                              <label for='SOP'>SOP <span class='filter_label_count'></span></label>
                             </li>` : ''
                             }
                             ${ args['tags'].map(tag => {
                                 return `<li>
                                           <input class='check_box' id='${ _.replace(tag[0], new RegExp(" ","g"),"_") }' type='checkbox' value=".${ tag[0] }">
-                                          <label for='${ tag[0] }'>${ tag[0] } <span class='filter_label_count'>[${ tag[1]['count'] }]</span></label>
+                                          <label for='${ tag[0] }'>${ tag[0] } <span class='filter_label_count'></span></label>
                                         </li>`
                               }).join(' ')}
                           </ul>
@@ -133,7 +203,7 @@ $(() => {
                             ${ args['places'].map(place => {
                               return `<li>
                                         <input class='check_box' id='${ _.replace(place[0], new RegExp(" ","g"),"_") }' type='checkbox' value=".${ place[0] }">
-                                        <label for='${ place[0] }'>${ place[0] } <span class='filter_label_count'>[${ place[1]['count'] }]</span></label>
+                                        <label for='${ place[0] }'>${ place[0] } <span class='filter_label_count'></span></label>
                                       </li>`
                             }).join(' ')}
                           </ul>
@@ -148,7 +218,7 @@ $(() => {
                             ${ args['languages'].map(language => {
                               return `<li>
                                         <input class='check_box' id='${ _.replace(language[0], new RegExp(" ","g"),"_") }' type='checkbox' value=".${ language[0] }">
-                                        <label for='${ language[0] }'>${ language[0] } <span class='filter_label_count'>[${ language[1]['count'] }]</span></label>
+                                        <label for='${ language[0] }'>${ language[0] } <span class='filter_label_count'></span></label>
                                       </li>`
                             }).join(' ')}
                           </ul>
@@ -157,33 +227,35 @@ $(() => {
                     </div>
                   </div>
                 </div>
-                <div id='search_filter_clear_all' class='col-md-offset-2 col-md-2'>
-                  <a href=''>Clear All</a>
+                <div id='search_filter_clear_all' class='col-md-2 text-right'>
+                  <a href=''>        Clear All</a>
                 </div>
-                <div id='search_filter_display_div' class='col-md-6'>
+                <div id='search_filter_display_div' class='col-md-8'>
                 </div>
-                ${ getSearchResultsSort()}
+
               </div>`
     }
-
+//                 ${ getSearchResultsSort()}
     function getSearchResultContent(args){
-      return `${args['references'].length > 10  ? `<div id='search_results_header_wrapper' class='col-md-12'>
+
+      return `${args['references'].length > 0 ? getSearchResultsFilter({ places: args['places'], tags: args['tags'], languages: args['languages'], sopCount: args['sopCount'], c4dCount: args['c4dCount'] }) : ''}
+              ${args['references'].length > 10  ? `<div id='search_results_header_wrapper' class='col-md-12'>
                 <div id='library_index_content_search_results_header_text' class='col-md-3'>
-                  Search Results
                 </div>
               </div>` : ''}
-              ${args['references'].length > 0 ? getSearchResultsFilter({ places: args['places'], tags: args['tags'], languages: args['languages'], sopCount: args['sopCount'], c4dCount: args['c4dCount'] }) : ''}
-              <div id='search_results_border' class='div_border_underline col-md-12'></div>
-              </div>
               <div class='col-md-12'>
                 <div id='library_content_search_results_grid'>
                   ${getSearchResultRows(args['references'], args['reference_links_data'], args['users'])}
                 </div>
               </div>
+              <div id='search_results_border' class='div_border_underline col-md-12'></div>
+              </div>
               <div id='search_pagination_controls_wrapper' class='col-md-12'>
                 ${args['references'].length > 10 ? getPaginator(args['references'], args['reference_links_data'], 'search') : ''}
               </div>`
     }
+
+
 
     function getSearchResultsSort(){
       return `<div id='search_sort_wrapper' class='col-md-offset-6 col-md-2'>
@@ -259,7 +331,7 @@ $(() => {
       //   action: 'nothing',
       //   transition: 'horizontal flip'
       // })
-      $(`#library_content_search_results #library_content_search_results_grid`).isotope({
+      $(`#application #library_content_search_results_grid`).isotope({
         itemSelector: `.reference_search_result_item`
       })
       // ,
@@ -294,7 +366,7 @@ $(() => {
       }
       return `${references.map(reference_obj => {
         idx += 1
-        return `<div id='${idx + 1}' class='col-md-12 ${reference_links_data[reference_obj.id].isSOP ? 'SOP' : ''} ${reference_links_data[reference_obj.id].isC4D ? 'C4D' : ''} ${ reference_obj['tags'].map(tag => { return _.replace(tag.title, new RegExp(" ","g"), "_") }).join(' ') } ${ reference_obj['places'].map(place => { return _.replace(place.title, new RegExp(" ","g"), "_") }).join(' ') } ${ reference_obj['languages'].map(language => { return _.replace(language.title, new RegExp(" ","g"), "_") }).join(' ') } search_content_item pagination_search_content_item_${ getSearchResultFilter(idx+1) } ${ idx === 0 ? 'active' : '' }'>
+        return `<div id='${idx + 1}' class='col-md-12 ${reference_links_data[reference_obj.id].isSOP ? 'SOP' : ''} ${reference_links_data[reference_obj.id].isC4D ? 'C4D' : ''} ${ reference_obj['tags'] === undefined ? '' : reference_obj['tags'].map(tag => { return _.replace(tag.title, new RegExp(" ","g"), "_") }).join(' ') } ${ reference_obj['places'] === undefined ? '' : reference_obj['places'].map(place => { return _.replace(place.title, new RegExp(" ","g"), "_") }).join(' ') } ${ reference_obj['languages'] === undefined ? '' : reference_obj['languages'].map(language => { return _.replace(language.title, new RegExp(" ","g"), "_") }).join(' ') } search_content_item pagination_search_content_item_${ getSearchResultFilter(idx+1) } ${ idx === 0 ? 'active' : '' }'>
                   <div class='col-md-1'>
                     ${ reference_obj.is_video ? getThumbnailVideo.bind(reference_obj)() : getThumbnailImage.bind(reference_obj)() }
                   </div>
@@ -330,9 +402,9 @@ $(() => {
                     <div class='col-md-7'>
                       <div id='download_related_topics_div' class='bold_text col-md-3'>${ reference_obj.is_video ? 'VIEW' : 'DOWNLOAD' }</div>
                       <div class='col-md-8 langauage_indicator_wrapper'>
-                        <a id='${ reference_obj.id }' href="${ reference_obj.is_video ? reference_obj.video_url : reference_obj.absolute_url }" target='_blank' class='reference_download_tracker'><div class='reference_search_result_info_language '>${ _.upperCase(!_.isEmpty(reference_obj.document_language) ? reference_obj.document_language : reference_obj.language) }</div> ${ _.isEmpty(reference_obj.is_video) ? 'MOV' : ('PDF ' + convertBytesToKbOrMb(reference_obj.document_file_size)) }</a>
-                        ${ reference_obj['related_topics'].map(related_topic => {
-                                return `<a id='${ related_topic.id }' href="${ reference_obj.is_video ? reference_obj.video_url : related_topic.absolute_url }" target='_blank' class='reference_download_tracker'><div class='reference_search_result_info_language'>${ _.upperCase(!_.isEmpty(related_topic.document_language) ? related_topic.document_language : related_topic.language) }</div> ${ _.isEmpty(reference_obj.is_video) ? 'MOV' : ('PDF ' + convertBytesToKbOrMb(related_topic.document_file_size)) }</a>`
+                        <a id='${ reference_obj.id }' href="${ reference_obj.is_video ? reference_obj.video_url : reference_obj.absolute_url }" target='_blank' class='reference_download_tracker'><div class='reference_search_result_info_language '>${ _.upperCase(!_.isEmpty(reference_obj.document_language) ? reference_obj.document_language : reference_obj.language) }</div> ${ reference_obj.is_video ? 'MOV' : ('PDF ' + convertBytesToKbOrMb(reference_obj.document_file_size)) }</a>
+                        ${ reference_obj['related_topics'] === undefined ? '' : reference_obj['related_topics'].map(related_topic => {
+                                return `<a id='${ related_topic.id }' href="${ reference_obj.is_video ? reference_obj.video_url : related_topic.absolute_url }" target='_blank' class='reference_download_tracker'><div class='reference_search_result_info_language'>${ _.upperCase(!_.isEmpty(related_topic.document_language) ? related_topic.document_language : related_topic.language) }</div> ${ reference_obj.is_video ? 'MOV' : ('PDF ' + convertBytesToKbOrMb(related_topic.document_file_size)) }</a>`
                               }).join('')
                           }
                       </div>
@@ -344,6 +416,9 @@ $(() => {
                     <div id='library_search_reference_link_description' class='col-md-9'>
                       ${ !_.isNull(reference_obj.description) ? reference_obj.description : '' }
                     </div>
+                    <div id='library_search_reference_link_related_topics' class='col-md-3  ${reference_obj.related_topics.length > 0 ? 'border_left': ''}'>
+                      ${ reference_obj.related_topics.length > 0 ? getReferenceRelatedTopics(reference_obj.related_topics) : ''}
+                    </div>
                   </div>
                   <div class='one_px_border_bottom col-md-12'>
                   </div>
@@ -351,7 +426,13 @@ $(() => {
           }).join('')
         }`
     }
-
+    function getReferenceRelatedTopics(references){
+      return `<div class='col-md-12' class='bold_underline'>Related topics:</div>${references.map(reference_obj => {
+        return `<div class='col-md-12'>
+                  <a id="${reference_obj.id}" href="${ reference_obj.is_video ? reference_obj.video_url : reference_obj.absolute_url }" target='_blank' class='reference_download_tracker'>- ${ reference_obj.title ? reference_obj.title : _.replace(_.replace(reference_obj.document_file_name, new RegExp("_","g"), " "), new RegExp(".pdf","g"), "") }</a>
+                </div>`
+      }).join('')}`
+    }
     function getThumbnailVideo(){
       return `<div class='col-md-12'>
                 <iframe src="${ _.replace(this.video_url, new RegExp("https://vimeo.com/","g"), "https://player.vimeo.com/video/") }" width="97%" height="auto" frameborder="0"></iframe>
@@ -553,13 +634,13 @@ $(() => {
     })
     $('#reference_link_show_modal').modal({
       allowMultiple: true,
+      observeChanges: true,
       onHide: () => {
         history.back()
         $('#reference_link_show_modal .content').empty()
         $('#reference_link_show_modal .header').empty()
       }
     })
-
     // browse paginator clicks
     let browse_grid = $(`#library_index_content_popular_content_grid`)
     $('#library').on('click', '.library_browse_pagination_indicators a', e => {
@@ -638,9 +719,8 @@ $(() => {
       }, 1000, 'later')
       return false
     })
-    $('#library').on('click', '#search_sort_radio_div .ui.radio.checkbox', e => {
+    $('#application').on('click', '#search_sort_radio_div .ui.radio.checkbox', e => {
       let sortBy = $(e.currentTarget).find('input').attr('data-filter')
-
       search_grid.isotope({ filter: '*' })
       search_grid.isotope({
         sortAscending: sortFlags[sortBy]
@@ -726,38 +806,42 @@ $(() => {
       updateFilteredItemClasses($(browse_grid).data('isotope').items)
       updatePaginationIndicators({ filteredItems: $(browse_grid).data('isotope').items, type_name: 'browse' })
       $('#browse_filter_display_div').empty()
-      history.replaceState(null, null, '/library/')
-      $('#browse_sort_radio_div input[data-filter=download]').trigger('click')
+      // history.replaceState(null, null, '/library/')
+      // $('#browse_sort_radio_div input[data-filter=download]').trigger('click')
       return false
     })
 
-    $('#library_content_search_results').on('change', '#search_filter_dropdown_menu input', e => {
-      // let filter_value = _.map($('#search_filter_dropdown_menu .check_box:checked'), input => { return $(input).val() }).join(', ')
+    $('#application').on('change', '#search_filter_dropdown_menu input', e => {
+      let filter_value = _.map($('#search_filter_dropdown_menu .check_box:checked'), input => { return $(input).val() }).join(', ')
       // [[],[],[]]
-      let filter_value = ''
+      // let filter_value = ''
       if(e.currentTarget.checked){
-        $('#library_content_search_results #search_filter_display_div').append(`<div id="${e.currentTarget.id}" class='inline_block padding_left_2px'>${e.currentTarget.id.replace(new RegExp('_', 'g'), ' ')}</div`)
+        $('#application #search_filter_display_div').append(`<div id="${e.currentTarget.id}" class='inline_block padding_left_2px'>${e.currentTarget.id.replace(new RegExp('_', 'g'), ' ')}</div`)
       } else {
-        $('#library_content_search_results #search_filter_display_div').find(`#${e.currentTarget.id}`).remove()
+        $('#application #search_filter_display_div').find(`#${e.currentTarget.id}`).remove()
       }
-      let theme_values = _.map($('#library_content_search_results #search_filter_dropdown_menu #theme_checkboxes .check_box:checked'), input => { return _.trim($(input).val()).replace(new RegExp(' ', 'g'), '_') })
-      let place_values = _.map($('#library_content_search_results #search_filter_dropdown_menu #place_checkboxes .check_box:checked'), input => { return _.trim($(input).val()).replace(new RegExp(' ', 'g'), '_') })
-      let language_values = _.map($('#library_content_search_results #search_filter_dropdown_menu #language_checkboxes .check_box:checked'), input => { return _.trim($(input).val()).replace(new RegExp(' ', 'g'), '_') })
+      let theme_values = _.map($('#application #search_filter_dropdown_menu #theme_checkboxes .check_box:checked'), input => { return _.trim($(input).val()).replace(new RegExp(' ', 'g'), '_') })
+      let place_values = _.map($('#application #search_filter_dropdown_menu #place_checkboxes .check_box:checked'), input => { return _.trim($(input).val()).replace(new RegExp(' ', 'g'), '_') })
+      let language_values = _.map($('#application #search_filter_dropdown_menu #language_checkboxes .check_box:checked'), input => { return _.trim($(input).val()).replace(new RegExp(' ', 'g'), '_') })
       filter_value = _.trim(theme_values.join('') + place_values.join('') + language_values.join(''))
       if (_.isEmpty(filter_value)) {
+        $('#application #search_pagination_controls_wrapper').css('display', 'block')
         $(search_grid).isotope({ filter: `${ $('.library_search_pagination_indicators.active a').attr('id') === undefined ? '.pagination_search_content_item_1' : `.pagination_search_content_item_${$('.library_search_pagination_indicators.active a').attr('id')}` }` })
       } else {
+        $('#application #search_pagination_controls_wrapper').css('display', 'none')
         $(search_grid).isotope({ filter: filter_value })
       }
       // searchfilterchange
     })
-    $('#library_content_search_results').on('click', '#search_filter_clear_all a', e => {
+    $('#application').on('click', '#search_filter_clear_all a', e => {
       e.preventDefault()
-      _.forEach($('#library_content_search_results #search_filter_dropdown_menu .check_box'), check_box => {
+      _.forEach($('#application #search_filter_dropdown_menu .check_box'), check_box => {
         check_box.checked = false
       })
-      $('#library_content_search_results #search_sort_radio_div input[data-filter=relevance]').trigger('click')
-      $('#library_content_search_results #search_filter_display_div').empty()
+      $('#application #search_pagination_controls_wrapper').css('display', 'block')
+      // $('#application #search_sort_radio_div input[data-filter=relevance]').trigger('click')
+      $(search_grid).isotope({ filter: '.pagination_search_content_item_1' })
+      $('#application #search_filter_display_div').empty()
       return false
     })
 
