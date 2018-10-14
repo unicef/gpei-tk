@@ -45,4 +45,9 @@
       <div class='display_none'><%= @filters.join('') %></div>
     </div>
   <% end %>
+  <% if @reference_link %>
+    <div id='library_reference_link_show'>
+      <%= @reference_link.id %>
+    </div>
+  <% end %>
 </div>
