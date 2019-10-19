@@ -5,8 +5,8 @@ Toolkit for c4d training within the Global Polio Eradication Initiative ( GPEI )
 ###### Mac OS X
 You will need Ruby 2.3.0, and PostgreSQL installed prior. I would recommend installing rbenv and ruby-builder to handle your ruby environment:
 ```
-rbenv install 2.3.0
-rbenv global 2.3.0
+rbenv install 2.5.1
+rbenv global 2.5.1
 ```
 After having install ruby you will need to install a gem "bundle" to install all dependencies in the application.
 ```
