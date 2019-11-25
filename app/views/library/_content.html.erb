@@ -8,32 +8,35 @@
     </div>
     <div id='library_content_search' class='col-md-12'>
       <div id='library_content_search_header_text' class='col-md-12'>
-        <!-- SEARCH THE DOCUMENT LIBRARY -->
+        Library Resource Search:
       </div>
       <div id='library_content_search_input_wrapper' class='col-md-6'>
         <form id="library_content_search_form" class="ui form">
-          <!-- <input id='library_content_search_input' placeholder='Search' name='search[query]' type='text' alt='Search'> -->
+          <div class="input-group">
+            <input id='library_content_search_input' placeholder="Search" name='search[query]' type='text' alt='Search'>
+            <!-- <span id="search_button_library" class="input-group-addon">Search</span> -->
+          </div>
         </form>
       </div>
     </div>
   </div>
   <div id='library_index_content_wrapper' class='col-md-12'>
-    <%= render 'library/featured' %>
     <div id='library_index_content_popular_downloads' class='col-md-12'>
       <div id='library_index_content_popular_header_text' class='col-md-6'>
-        Browse <span id='library_browse_indicator_span'></span>
+        Browse <span id='library_browse_indicator_span'><div id="library_reference_count_indicator"></div></span>
       </div>
       <div id='library_browse_clear_all' class='col-md-offset-5 col-md-1'>
         Clear All
       </div>
-
-      <!-- <#%= render 'library/browse_filter' %> -->
-
       <div id='library_index_content_popular_divider' class='div_border_underline col-md-12'></div>
       <div id='library_index_content_popular_content_grid_wrapper' class='col-md-12'>
-        <%= render 'library/browse_initial_isotope_grid' %>
+        <% if @param_exists %>
+          <div id='library_show_reference_links' class='<%= params['category'] %>'><%= params['tag'].nil? ? '' : params['tag'] %></div>
+        <% else %>
+          <%= render 'library/browse_initial_isotope_grid' %>
+        <% end %>
       </div>
-      <div id='library_content_cell_progress_spinner' class='col-md-12'>
+      <div id='library_content_cell_progress_spinner' class='col-md-12' style='<%= @param_exists ? 'display:block;' : '' %>'>
         Loading resources...<i class="fa fa-spinner fa-spin fa-fw fa-2x"></i>
       </div>
       <div id='library_reference_links_filtered_wrapper' class='col-md-12'>

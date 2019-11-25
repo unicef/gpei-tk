@@ -32,16 +32,24 @@ $(() => {
 
     $('#library_content_search_form').submit(e => {
       e.preventDefault()
+      appendSpinnerLibModal()
+      $('#library_index_content_popular_content_grid_wrapper').css('display', 'none')
+      $('#library_content_cell_progress_spinner').css('display', 'block')
       $.ajax({
         method: 'GET',
         url: '/library/reference_search/',
         data: $(e.currentTarget).serialize()
       }).done(response => {
         if (response.status === 200){
-          $('#library_index_content_featured').css('display', 'none')
-          $('#library_index_content_popular_downloads').css('display', 'none')
-          $('#library_content_search_results').empty()
-          $('#library_content_search_results').append(getSearchResultContent({ references: response.references, reference_links_data: response.reference_links_data, users: response.users, places: response.places, languages: response.languages, tags: response.tags, sopCount: response.sopCount, c4dCount: response.c4dCount }))
+          let reference_count = response.references.length
+          let browse_text =`<h1>${reference_count} <i class="fa fa-file-text-o"></i> <span style="font-weight:bold;color:black !important;">Documents</span></h1><`
+          // referenceNode.parentNode.insertBefore(el, referenceNode.nextSibling);
+          $('#library_browse_indicator_span #library_reference_count_indicator').text('')
+          $('#library_browse_indicator_span #library_reference_count_indicator').append(browse_text)
+
+          $('#library_content_cell_progress_spinner').css('display', 'none')
+          // $('#library_content_modal .header').append(`<div class='col-md-10'>${response.category}</div><div class='library_content_modal_close col-md-2 text-right'><span style='cursor:pointer;'>CLOSE&nbsp;<i class="fa fa-remove" aria-hidden="true"></i></span></div>`)
+          $('#library_reference_links_filtered_wrapper').append(getSearchResultContent({ references: response.references, reference_links_data: response.reference_links_data, users: response.users, places: response.places, languages: response.languages, tags: response.tags, sopCount: response.sopCount, c4dCount: response.c4dCount }))
           $('#application .ui.simple.dropdown.item').dropdown()
           $('#application .ui.radio.checkbox').checkbox()
           $('#application .ui.checkbox').checkbox()
@@ -49,6 +57,7 @@ $(() => {
             on:'hover',
             action:'nothing'
           })
+
           loadSearchGrid()
         }
       })
@@ -102,6 +111,11 @@ $(() => {
         data: { subcategory_title: subcategory_title, category: category_title }
       }).done(response => {
         if (response.status === 200){
+          let reference_count = response.references.length
+          let browse_text =`<div id="library_reference_count_indicator">${reference_count} <i class="fa fa-file-text-o"></i> <span style="font-weight:bold;color:black !important;">Documents</span></div>`
+          // referenceNode.parentNode.insertBefore(el, referenceNode.nextSibling);
+          $('#library_browse_indicator_span').text('')
+          $('#library_browse_indicator_span').append(browse_text)
           $('#library_content_cell_progress_spinner').css('display', 'none')
           // $('#library_content_modal .header').append(`<div class='col-md-10'>${response.category}</div><div class='library_content_modal_close col-md-2 text-right'><span style='cursor:pointer;'>CLOSE&nbsp;<i class="fa fa-remove" aria-hidden="true"></i></span></div>`)
           $('#library_reference_links_filtered_wrapper').append(getSearchResultContent({ references: response.references, reference_links_data: response.reference_links_data, users: response.users, places: response.places, languages: response.languages, tags: response.tags, sopCount: response.sopCount, c4dCount: response.c4dCount }))
@@ -237,7 +251,6 @@ $(() => {
     }
 //                 ${ getSearchResultsSort()}
     function getSearchResultContent(args){
-
       return `${args['references'].length > 0 ? getSearchResultsFilter({ places: args['places'], tags: args['tags'], languages: args['languages'], sopCount: args['sopCount'], c4dCount: args['c4dCount'] }) : ''}
               ${args['references'].length > 10  ? `<div id='search_results_header_wrapper' class='col-md-12'>
                 <div id='library_index_content_search_results_header_text' class='col-md-3'>
@@ -576,9 +589,37 @@ $(() => {
       _.forEach($('.featured_content_item'), content_item => {
         $(content_item).css('visibility', 'visible')
       })
-      if (!document.getElementById('active_browse_filters')) {
+      if (!!document.getElementById('library_show_reference_links')) {
+        var category = document.getElementById("library_show_reference_links").className
+        var subcategory = document.getElementById('library_show_reference_links').textContent
+        $.ajax({
+          method: 'GET',
+          url: '/library/reference_links/',
+          data: { subcategory_title: subcategory, category: category }
+        }).done(response => {
+            if (response.status === 200){
+            let reference_count = response.references.length
+            let browse_text =`<div id="library_reference_count_indicator">${reference_count} <i class="fa fa-file-text-o"></i> <span style="font-weight:bold;color:black !important;">Documents</span></div>`
+            // referenceNode.parentNode.insertBefore(el, referenceNode.nextSibling);
+            $('#library_browse_indicator_span').text('')
+            $('#library_browse_indicator_span').append(browse_text)
+            $('#library_content_cell_progress_spinner').css('display', 'none')
+            // $('#library_content_modal .header').append(`<div class='col-md-10'>${response.category}</div><div class='library_content_modal_close col-md-2 text-right'><span style='cursor:pointer;'>CLOSE&nbsp;<i class="fa fa-remove" aria-hidden="true"></i></span></div>`)
+            $('#library_reference_links_filtered_wrapper').append(getSearchResultContent({ references: response.references, reference_links_data: response.reference_links_data, users: response.users, places: response.places, languages: response.languages, tags: response.tags, sopCount: response.sopCount, c4dCount: response.c4dCount }))
+            $('#application .ui.simple.dropdown.item').dropdown()
+            $('#application .ui.radio.checkbox').checkbox()
+            $('#application .ui.checkbox').checkbox()
+            $('#application .ui.dropdown').dropdown({
+              on:'hover',
+              action:'nothing'
+            })
+            loadSearchGrid()
+          }
+        })
+      } else if (!document.getElementById('active_browse_filters')) {
         loadBrowseGrid()
-      } else {
+      }
+      else {
         activateFiltersInBrowseGrid()
       }
     })

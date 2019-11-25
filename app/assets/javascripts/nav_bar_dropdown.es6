@@ -25,10 +25,15 @@ $(() => {
         `<div class='about_content_header'><strong>About Rhizome:</strong></div>
         <div><br></div>
         <p class='about_content'>
+        A web-based repository of communication for development resources designed to improve sharing of data and information between the GPEI, local organizations working to eradicate polio, and frontline workers.
+        </p>
+        <div><br></div>
+        <p class='about_content'>
         Rhizomes are underground plant systems that produce stems and roots. By continuously establishing new connections, the whole system grows, thrives and regenerates both above and below ground, even in the most challenging conditions.
-        Inspired by this ecosystem of adaptation and innovation, this online resource is designed to support the endgame of global polio eradication by bringing together quality guidance, tools and standards for polio Communication for Development (C4D) strategies.
+        
+        Inspired by this ecosystem of adaptation and innovation, this online resource brings together quality guidance, tools and standards for polio Communication for Development (C4D) strategies. Better strategies, better tools and access to best practices can improve results so no child is needlessly paralyzed by polio again.
 
-        For teams being deployed to outbreaks, the SOP pages digitize the Global Polio Eradication Initiative’s Standard Operating Procedures for Outbreak response and includes valuable resource documents for outbreak responders.
+        Rhizome is an initiative of the GPEI and is managed and maintained by the polio team of the United Nations Children Fund (UNICEF).
 
         Better strategies, better tools and access to best practices can improve results so no child is needlessly paralyzed by polio again.
 

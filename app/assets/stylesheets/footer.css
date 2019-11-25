@@ -1,5 +1,6 @@
 #gpei_footer_overview_logo_div #overview_footer_img,
 #gpei_footer_logo_div #footer_img {
+  padding-top:60px;
   position: relative;
   margin:0 auto;
   width:250px;
@@ -15,8 +16,8 @@
   font-family: 'proxima-nova' !important;
   font-size:12px;
 }
-#gpei_footer_logo_div {
+/*#gpei_footer_logo_div {
   position:absolute;
   width:80%;
   bottom:10px;
-}
+/*}*/

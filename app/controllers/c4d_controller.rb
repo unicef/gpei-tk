@@ -22,6 +22,7 @@ class C4dController < ApplicationController
   end
 
   def immunization
+    @is_c4d = false
     @is_c4d_immunization = true
     @c4d_category = C4dCategory.find_by(title: 'Immunization')
     @c4d_articles = C4dArticle.where(c4d_category_id: @c4d_category.id, published: true).order(order_id: :asc)
@@ -60,7 +61,7 @@ class C4dController < ApplicationController
 
   private
   def get_c4d_article_color_array category
-    colors =  {
+    # colors =  {
                 'Understand':
                   { 'BehaviouralGoal': ['#4B5C16', '#586E12', '#6F8D0E', '#77980F', '#8DAC2B'],
                     'UsingEvidence': ['#60791C', '#749115', '#80A30A', '#98B90B'],

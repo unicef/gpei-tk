@@ -27,10 +27,13 @@
   right: 5%;
   bottom: 5%;
 }
+#c4d_selection_page.landing{
+  padding-top:40px;
+}
 #c4d_selection_page {
   padding-left:10%;
   padding-right:10%;
-  padding-bottom:120px;
+  padding-bottom:90px;
   background: #000000; /* For browsers that do not support gradients */
   background: -webkit-linear-gradient(#252F38, #000000); /* For Safari 5.1 to 6.0 */
   background: -o-linear-gradient(#252F38, #000000); /* For Opera 11.1 to 12.0 */

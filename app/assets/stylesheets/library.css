@@ -20,6 +20,9 @@
   color:black;
   background:rgba(53, 132, 140, 0.8) !important;
 }
+.reference_download_tracker:hover {
+  color:blue !important;
+}
 .c4d_related_cell:hover {
   color:white;
   background-color:#35848C !important;
@@ -72,18 +75,33 @@
   bottom:20px;
   left:15px;
 }
+#library_browse_indicator_span {
+  font-size: 22px;
+  color:#A37743 !important;
+}
 .browse_paginator_page_numbers {
   padding-left:5px;
   padding-right:5px;
 }
+#library_content_search_form #search_button_library {
+  background-color: #CC9555;
+  color: black !important;
+}
 #library_content_search_input {
   background: url(/assets/icons/icon-search-grey-sml.png) no-repeat;
   background-position:right 5px center;
-  background-color:white;
+  background-color:#DCDCDC;
   color:black;
+  width:200%;
   font-family:'proxima-nova' !important;
+  border-bottom: 2px solid orange;
+  margin-right:5px;
 }
 
+#search_button_library {
+  padding-left:5px;
+  cursor: pointer;
+}
 .library_content_search_input_no_text {
   background: url(/assets/icons/icon-search-grey-sml.png) no-repeat !important;
   background-position:right 5px center !important;
@@ -204,9 +222,6 @@
   padding-left:5px;
 }
 #library_browse_indicator_span {
-  color:grey;
-  font-size:16px;
-  font-weight:normal;
   margin-left:5px;
 }
 #search_paginator_div {
@@ -528,12 +543,18 @@ a.max_width {
 .library_subcategory_cell {
   min-height:150px;
 }
+#library_show_reference_links {
+  display: none;
+}
 #library_content_cell_progress_spinner {
   background: white;
   padding-top:15px;
   color: black;
   display: none;
   height:65px;
+}
+#library_content_cell_progress_spinner.show_div_force {
+  display: block;
 }
 #library_content_modal .content {
   padding-top:0px;
