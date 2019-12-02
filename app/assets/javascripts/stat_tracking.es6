@@ -1,8 +1,6 @@
 $(() => {
   $('#application').on('click', '.reference_download_tracker', e => {
-    // e.preventDefault()
     referenceTrackAndLoad(e.currentTarget, $(e.currentTarget).attr('id'))
-    return false
   })
 
   function referenceTrackAndLoad(el,id){
@@ -11,8 +9,7 @@ $(() => {
       url: '/api/reference_downloads/',
       data: { id }
     }).done(response => {
-      let $text_div = $(el.parentElement).find('.counter_indicator_text_div')
-      console.log($text_div)
+      let $text_div = $('#application').find('.counter_indicator_text_div')
       if (!_.isEmpty($text_div)) {
         $text_div.text(response.download_count)
       }

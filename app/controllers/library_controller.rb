@@ -6,18 +6,18 @@ class LibraryController < ApplicationController
   def reference_links
     params['subcategory_title'].gsub!('.', '')
     if params['category'] == 'c4d'
-      reference_links = ReferenceLink.where(id: C4dArticle.where(published: true).map{|article| article.reference_links.pluck(:id).flatten}.flatten.uniq).order(created_at: :desc).as_json(:include => [:author, :tags, :places, :languages, :related_topics]).uniq
+      reference_links = ReferenceLink.where(id: C4dArticle.where(published: true).map{|article| article.reference_links.pluck(:id).flatten}.flatten.uniq, is_archived: false).order(created_at: :desc).as_json(:include => [:author, :tags, :places, :languages, :related_topics]).uniq
     elsif params['category'] == 'sop'
-      reference_links = ReferenceLink.where(id: SopArticle.where(published: true).map{|article| article.reference_links.pluck(:id).flatten}.flatten.uniq).order(created_at: :desc).as_json(:include => [:author, :tags, :places, :languages, :related_topics]).uniq
+      reference_links = ReferenceLink.where(id: SopArticle.where(published: true).map{|article| article.reference_links.pluck(:id).flatten}.flatten.uniq, is_archived: false).order(created_at: :desc).as_json(:include => [:author, :tags, :places, :languages, :related_topics]).uniq
     elsif params['category'] == 'tags'
-      reference_links = ReferenceLink.where(id: TagReference.where(tag_id: Tag.where(title: params['subcategory_title']).first.id).pluck(:reference_tagable_id).flatten.uniq).order(created_at: :desc).as_json(:include => [:author, :tags, :places, :languages, :related_topics]).uniq
+      reference_links = ReferenceLink.where(id: TagReference.where(tag_id: Tag.where(title: params['subcategory_title']).first.id).pluck(:reference_tagable_id).flatten.uniq, is_archived: false).order(created_at: :desc).as_json(:include => [:author, :tags, :places, :languages, :related_topics]).uniq
     end
-
     references = reference_links
     reference_links_data, sopCount, c4dCount, places, languages, tags = get_reference_link_data(references)
     users = Hash[User.all.pluck(:id, :first_name)]
     category = params['subcategory_title']
     render json: { status: 200,
+                   file_types: [],
                    references: references,
                    reference_links_data: reference_links_data,
                    users: users,
@@ -30,7 +30,7 @@ class LibraryController < ApplicationController
   end
 
   def reference_search
-    reference_links = ReferenceLink.all.order('title ASC NULLS LAST')
+    reference_links = ReferenceLink.where(is_archived: false).order('title ASC NULLS LAST')
                       .search_refs(params[:search][:query])
                       .as_json(:include => [:author, :tags, :places, :languages, :related_topics]).uniq
     references = reference_links

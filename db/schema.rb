@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2017_04_27_150740) do
+ActiveRecord::Schema.define(version: 2019_11_30_173847) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -204,6 +204,8 @@ ActiveRecord::Schema.define(version: 2017_04_27_150740) do
     t.integer "like_count"
     t.string "video_url"
     t.boolean "is_video"
+    t.string "publication_year", default: ""
+    t.boolean "is_archived", default: false
   end
 
   create_table "reference_mp3_articles", id: :serial, force: :cascade do |t|

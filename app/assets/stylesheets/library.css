@@ -1,16 +1,38 @@
+#tags_category_cell {
+}
+.tag_cell {
+  border-radius: 10px !important;
+  margin-bottom:0.5% !important;
+  font-size:23px !important;
+  margin-right:1px;
+  margin-left:1px;
+}
+#search_count_text_span {
+  font-size:15px !important;
+}
+#search_count_span {
+  color:#f4cb66;
+}
+.notTagsCell {
+  margin-left:4.5% !important;
+  margin-bottom:0.5% !important;
+}
 #library_browse_isotope_grid {
-  height:100%;
-  padding-top:8px;
+  padding-top:1%;
+  width:100%;
 }
 .library_browse_grid_cell {
-  padding:20px;
-  line-height:100px;
+  line-height: 55px;
+  width: auto;
+  padding:3px;
+  padding-right:8px;
+  padding-left:8px;
+  white-space: nowrap;
   text-align: center;
-  height:100px;
-  font-size:28px;
+  font-size:22px;
   font-weight:bold;
   cursor: pointer;
-  border:3px groove;
+  border:2px groove;
   border-radius: 5px;
 }
 #library_browse_clear_all {
@@ -540,11 +562,11 @@ a.max_width {
 #search_content_title_text a {
   color:black;
 }
-.library_subcategory_cell {
-  min-height:150px;
-}
 #library_show_reference_links {
   display: none;
+}
+.grid-sizer {
+  width:15%;
 }
 #library_content_cell_progress_spinner {
   background: white;

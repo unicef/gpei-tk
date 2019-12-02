@@ -35,6 +35,7 @@ $(() => {
           toggleProgressSpinner()
           let type = 'link'
           $('#CMS_index_content').empty()
+          $('#CMS_index_content').append("<a href='/cms/reference_links/csv' download>download as CSV format</a>")
           $('#CMS_index_content').append("<h2 id='cms_reference_links_list_header'>Uploaded Reference Links - (.pdf's) Index</h2>")
           $('#CMS_index_content').append(getReferenceLinkGrid(reference_links, reference_link_categories, response.users, type, categories, false, false, null))
           loadIsotopeHandlers(type)
@@ -233,18 +234,20 @@ $(() => {
                             <div id='cms_reference_${type}_document_language_div' class='col-md-12'>${!_.isEmpty(reference_link.document_language) ? reference_link.document_language : 'No document language input'}</div>
                           </div>
                           <div class='col-md-12'>
-                            <div class='col-md-12'><strong>Tags:</strong></div>
-                            <div id='cms_reference_${type}_tags_div' class='col-md-12'>${!_.isUndefined(reference_link_categories[reference_link.id]) ? _.map(reference_link_categories[reference_link.id][0]['tags'], tag => { return tag.title }).join(' ') : 'No tags selected'}</div>
+                            <div class='col-md-12'><strong>Languages:</strong></div>
+                            <div id='cms_reference_${type}_languages_div' class='col-md-12'>${!_.isEmpty(reference_link.languages) ? _.map(reference_link.languages, language => { return language.title }).join(' ') : 'No languages selected'}</div>
                           </div>
-                          <div style='height:10px' class='col-md-12'></div>
                           <div class='col-md-12'>
                             <div class='col-md-12'><strong>Places:</strong></div>
                             <div id='cms_reference_${type}_places_div' class='col-md-12'>${!_.isEmpty(reference_link.places) ? _.map(reference_link.places, place => { return place.title }).join(' ') : 'No places selected'}</div>
                           </div>
-                          <div style='height:10px' class='col-md-12'></div>
                           <div class='col-md-12'>
-                            <div class='col-md-12'><strong>Languages:</strong></div>
-                            <div id='cms_reference_${type}_languages_div' class='col-md-12'>${!_.isEmpty(reference_link.languages) ? _.map(reference_link.languages, language => { return language.title }).join(' ') : 'No languages selected'}</div>
+                            <div class='col-md-12'><strong>Publication Year:</strong></div>
+                            <div id='cms_reference_${type}_publication_year_div' class='col-md-12'>${reference_link.publication_year}</div>
+                          </div>
+                          <div class='col-md-12'>
+                            <div class='col-md-12'><strong>Tags:</strong></div>
+                            <div id='cms_reference_${type}_tags_div' class='col-md-12'>${!_.isUndefined(reference_link_categories[reference_link.id]) ? _.map(reference_link_categories[reference_link.id][0]['tags'], tag => { return tag.title }).join(' ') : 'No tags selected'}</div>
                           </div>
                           <div style='height:10px' class='col-md-12'></div>
                           ${ type === 'link' ?
@@ -547,12 +550,20 @@ $(() => {
                         </a><br>
                         <u>File name:</u> ${ _.isEmpty(args['reference'].document_file_name) ? 'No file name' : args['reference'].document_file_name }
                         <br>
+                        <u>Publication Year:</u>
+                        <input type="text" placeholder="No publication year" name="reference_${ args['reference_type'] }[publication_year]" value="${ (_.isNull(args['reference'].publication_year) || args['reference'].publication_year === '' || args['reference'].publication_year === 'No publication year given') ? '' : args['reference'].publication_year }" style='margin-bottom:5px'>
+                        <br>
                         <u>Title:</u>
                         <input type="text" placeholder="No title" name="reference_${ args['reference_type'] }[title]" value="${ (_.isNull(args['reference'].title) || args['reference'].title === '' || args['reference'].title === 'No title given') ? '' : args['reference'].title }" style='margin-bottom:5px' required>
                         <u>Video URL:</u>
                         <input type="text" placeholder="enter url for video" name="reference_${ args['reference_type'] }[video_url]" value="${ (_.isNull(args['reference'].video_url) || args['reference'].video_url === '' || args['reference'].video_url === 'No video url given') ? '' : args['reference'].video_url }" style='margin-bottom:5px' ${ args['reference']['is_video'] ? `required` : `` }>
                       </h4>
                     </label>
+                    <u>Archived:</u>
+                    <select name="reference_${ args['reference_type'] }[is_archived]">
+                      <option value="true" ${ args['reference']['is_archived'] === true ? 'selected' : '' }>True</option>
+                      <option value="false" ${ args['reference']['is_archived'] === false ? 'selected' : '' }>False</option>
+                    </select>
                     <label>Description:</label>
                     <textarea name="reference_${ args['reference_type'] }[description]" placeholder="descriptive text" required>${(_.isNull(args['reference'].description) || args['reference'].description === '' || args['reference'].description === 'Description coming soon') ? '' : args['reference'].description }</textarea>
                     ${ getReferenceDocumentLanguageInput(args['reference_type'], args['reference'].document_language) }
@@ -603,7 +614,10 @@ $(() => {
         $('#CMS_modal').modal('hide')
         toggleProgressSpinner()
         $('#cms_reference_link_grid #'+response.id+'.reference_link_item').find('#cms_reference_link_title_div').text(response.title)
+        $('#cms_reference_link_grid #'+response.id+'.reference_link_item').find('#cms_reference_link_publication_year_div').text(response.publication_year)
         $('#cms_reference_link_grid #'+response.id+'.reference_link_item').find('#cms_reference_link_description_div').text(response.description)
+        is_archived = response.is_archived === true ? 'Yes' : 'No'
+        $('#cms_reference_link_grid #'+response.id+'.reference_link_item').find('#cms_reference_link_is_archived_div').text(is_archived)
         $('#cms_reference_link_grid #'+response.id+'.reference_link_item').find('#cms_reference_link_document_language_div').text(response.document_language)
         $('#cms_reference_link_grid #'+response.id+'.reference_link_item').find('#cms_reference_link_places_div').text(_.map(response.places, place => { return place.title }).join(' '))
         $('#cms_reference_link_grid #'+response.id+'.reference_link_item').find('#cms_reference_link_languages_div').text(_.map(response.languages, language => { return language.title }).join(' '))

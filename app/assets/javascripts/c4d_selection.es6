@@ -475,6 +475,7 @@ $(() => {
           $(img).css('height', 'auto')
         })
       })
+      document.getElementById('c4d_article_show_modal').scrollIntoView()
     }
 
     $('#c4d_toolkit_list').on('click', 'a', e => {

@@ -26,7 +26,7 @@ $(() => {
 
     $featured_grid.isotope({
       itemSelector: `.featured_content_item`,
-      layoutMode: 'fitRows',
+      layoutMode: 'masonryHorizontal',
       filter: '.featured_content_item_1'
     })
 
@@ -41,23 +41,12 @@ $(() => {
         data: $(e.currentTarget).serialize()
       }).done(response => {
         if (response.status === 200){
-          let reference_count = response.references.length
-          let browse_text =`<h1>${reference_count} <i class="fa fa-file-text-o"></i> <span style="font-weight:bold;color:black !important;">Documents</span></h1><`
           // referenceNode.parentNode.insertBefore(el, referenceNode.nextSibling);
-          $('#library_browse_indicator_span #library_reference_count_indicator').text('')
-          $('#library_browse_indicator_span #library_reference_count_indicator').append(browse_text)
-
+          loadDocumentCount(response.references.length)
           $('#library_content_cell_progress_spinner').css('display', 'none')
           // $('#library_content_modal .header').append(`<div class='col-md-10'>${response.category}</div><div class='library_content_modal_close col-md-2 text-right'><span style='cursor:pointer;'>CLOSE&nbsp;<i class="fa fa-remove" aria-hidden="true"></i></span></div>`)
           $('#library_reference_links_filtered_wrapper').append(getSearchResultContent({ references: response.references, reference_links_data: response.reference_links_data, users: response.users, places: response.places, languages: response.languages, tags: response.tags, sopCount: response.sopCount, c4dCount: response.c4dCount }))
-          $('#application .ui.simple.dropdown.item').dropdown()
-          $('#application .ui.radio.checkbox').checkbox()
-          $('#application .ui.checkbox').checkbox()
-          $('#application .ui.dropdown').dropdown({
-            on:'hover',
-            action:'nothing'
-          })
-
+          loadSearchGridFilters(response)
           loadSearchGrid()
         }
       })
@@ -67,6 +56,11 @@ $(() => {
     // ######NEW LIBRARY CONTENT
     //
     //
+    function loadDocumentCount(referenceCount) {
+      var countText =`<h1><span id="search_count_span">${referenceCount} <i class="fa fa-file-text-o"></i></span> <span id="search_count_text_span" style="font-weight:bold;color:black !important;">DOCUMENTS</span></h1>`
+      $('#library_document_count_wrapper').empty()
+      $('#library_document_count_wrapper').append(countText)
+    }
     $('#library_content_modal').modal({
       allowMultiple: true,
       observeChanges: true,
@@ -78,7 +72,11 @@ $(() => {
 
     let $lib_grid = $('#library_browse_isotope_grid').isotope({
       itemSelector: '.library_browse_grid_cell',
-      filter: '.library_base_category'
+      filter: '.library_base_category',
+      masonry: {
+        // use element for option
+        columnWidth: 5
+      }
     })
     $('.library_browse_grid_cell').click(e => {
       if (!e.target.classList.contains('library_subcategory_cell') === true) {
@@ -101,32 +99,66 @@ $(() => {
       appendSpinnerLibModal()
       $('#library_index_content_popular_content_grid_wrapper').css('display', 'none')
       $('#library_content_cell_progress_spinner').css('display', 'block')
-      let subcategory_title = $(e.target).attr('data-filter')
-      let category_title = $(e.target).attr('data-id')
-      let category_show_title = _.capitalize(category_title.replace('.',''))
-      $('#library_browse_indicator_span').append(`<b>${category_show_title === 'C4d' || category_show_title == 'Sop' ? _.toUpper(category_show_title) : category_show_title } ${subcategory_title.replace('.', '')}</b>`)
+      var subcategory_title = $(e.target).attr('data-filter')
+      var category_title = $(e.target).attr('data-id')
+      var category_show_title = _.capitalize(category_title.replace('.',''))
+      // $('#library_browse_indicator_span').append(`<b>${category_show_title === 'C4d' || category_show_title == 'Sop' ? _.toUpper(category_show_title) : category_show_title } ${subcategory_title.replace('.', '')}</b>`)
       $.ajax({
         method: 'GET',
         url: '/library/reference_links/',
         data: { subcategory_title: subcategory_title, category: category_title }
       }).done(response => {
         if (response.status === 200){
-          let reference_count = response.references.length
-          let browse_text =`<div id="library_reference_count_indicator">${reference_count} <i class="fa fa-file-text-o"></i> <span style="font-weight:bold;color:black !important;">Documents</span></div>`
-          // referenceNode.parentNode.insertBefore(el, referenceNode.nextSibling);
-          $('#library_browse_indicator_span').text('')
-          $('#library_browse_indicator_span').append(browse_text)
+          loadDocumentCount(response.references.length)
           $('#library_content_cell_progress_spinner').css('display', 'none')
           // $('#library_content_modal .header').append(`<div class='col-md-10'>${response.category}</div><div class='library_content_modal_close col-md-2 text-right'><span style='cursor:pointer;'>CLOSE&nbsp;<i class="fa fa-remove" aria-hidden="true"></i></span></div>`)
           $('#library_reference_links_filtered_wrapper').append(getSearchResultContent({ references: response.references, reference_links_data: response.reference_links_data, users: response.users, places: response.places, languages: response.languages, tags: response.tags, sopCount: response.sopCount, c4dCount: response.c4dCount }))
-          $('#application .ui.simple.dropdown.item').dropdown()
-          $('#application .ui.radio.checkbox').checkbox()
-          $('#application .ui.checkbox').checkbox()
-          $('#application .ui.dropdown').dropdown({
-            on:'hover',
-            action:'nothing'
-          })
-
+          loadSearchGridFilters(response)
+          loadSearchGrid()
+        }
+        return false
+      })
+    })
+    $('#application').on('change', '#search_grid_select_wrapper select', e => {
+      var selectedValue = "." + _.replace($(e.target).val(), new RegExp(" ","g"),"_")
+      console.log(selectedValue)
+      search_grid.isotope({ filter: selectedValue })
+      return false
+    })
+    function loadSearchGridFilters(response) {
+      var themes = `<div class='col-md-3'><select name="reference_links_theme"><option value='' selected="selected">Any Theme</option>${response.tags.map(tag => { 
+        return `<option value="${tag[0]}">${tag[0]}</option>`}).join(' ')}</select></div>`
+      var places = `<div class='col-md-4'><select name="reference_links_place"><option value='' selected="selected">Any Place</option>${response.places.map(tag => { 
+        return `<option value="${tag[0]}">${tag[0]}</option>`}).join(' ')}</select></div>`
+      var languages = `<div class='col-md-2'><select name="reference_links_language"><option value='' selected="selected">Any Language</option>${response.languages.map(tag => { 
+        return `<option value="${tag[0]}">${tag[0]}</option>`}).join(' ')}</select></div>`
+      // var fileTypes = `<div class='col-md-3'><select name="reference_links_place"><option selected="selected">Any Place</option>${response.tags.map(tag => { 
+      //   return `<option value="${tag[0]}">${tag[0]}</option>`}).join(' ')}</select></div>`
+      $('#library_search_filter_wrapper').empty()
+      var filterContent = `<div id='search_grid_select_wrapper'>${themes}${places}${languages}</div>`
+      $('#library_search_filter_wrapper').append(filterContent)
+      return false
+    }
+    $('.library_base_category').click(e => {
+      if (e.target.textContent.replace(/\s+/g, '') !== "CommunicationStrategy") {
+        return false
+      }
+      e.preventDefault()
+      appendSpinnerLibModal()
+      $('#library_index_content_popular_content_grid_wrapper').css('display', 'none')
+      $('#library_content_cell_progress_spinner').css('display', 'block')
+      // $('#library_browse_indicator_span').append(`<b>${category_show_title === 'C4d' || category_show_title == 'Sop' ? _.toUpper(category_show_title) : category_show_title } ${subcategory_title.replace('.', '')}</b>`)
+      $.ajax({
+        method: 'GET',
+        url: '/library/reference_links/',
+        data: { subcategory_title: '', category: 'c4d' }
+      }).done(response => {
+        if (response.status === 200){
+          loadDocumentCount(response.references.length)
+          $('#library_content_cell_progress_spinner').css('display', 'none')
+          // $('#library_content_modal .header').append(`<div class='col-md-10'>${response.category}</div><div class='library_content_modal_close col-md-2 text-right'><span style='cursor:pointer;'>CLOSE&nbsp;<i class="fa fa-remove" aria-hidden="true"></i></span></div>`)
+          $('#library_reference_links_filtered_wrapper').append(getSearchResultContent({ references: response.references, reference_links_data: response.reference_links_data, users: response.users, places: response.places, languages: response.languages, tags: response.tags, sopCount: response.sopCount, c4dCount: response.c4dCount }))
+          loadSearchGridFilters(response)
           loadSearchGrid()
         }
         return false
@@ -142,8 +174,7 @@ $(() => {
     function loadSearchGrid() {
       search_grid = $(`#application #library_content_search_results_grid`)
       search_grid.isotope({
-        itemSelector: `.search_content_item`,
-        filter: `.pagination_search_content_item_1`
+        itemSelector: `.search_content_item`
       })
         //       getSortData: {
         //   relevance: function (ele) {
@@ -251,8 +282,8 @@ $(() => {
     }
 //                 ${ getSearchResultsSort()}
     function getSearchResultContent(args){
-      return `${args['references'].length > 0 ? getSearchResultsFilter({ places: args['places'], tags: args['tags'], languages: args['languages'], sopCount: args['sopCount'], c4dCount: args['c4dCount'] }) : ''}
-              ${args['references'].length > 10  ? `<div id='search_results_header_wrapper' class='col-md-12'>
+      // ${args['references'].length > 0 ? getSearchResultsFilter({ places: args['places'], tags: args['tags'], languages: args['languages'], sopCount: args['sopCount'], c4dCount: args['c4dCount'] }) : ''}
+      return `${args['references'].length > 10  ? `<div id='search_results_header_wrapper' class='col-md-12'>
                 <div id='library_index_content_search_results_header_text' class='col-md-3'>
                 </div>
               </div>` : ''}
@@ -263,10 +294,11 @@ $(() => {
               </div>
               <div id='search_results_border' class='div_border_underline col-md-12'></div>
               </div>
-              <div id='search_pagination_controls_wrapper' class='col-md-12'>
-                ${args['references'].length > 10 ? getPaginator(args['references'], args['reference_links_data'], 'search') : ''}
-              </div>`
+              `
     }
+    // <div id='search_pagination_controls_wrapper' class='col-md-12'>
+    //             ${args['references'].length > 10 ? getPaginator(args['references'], args['reference_links_data'], 'search') : ''}
+    //           </div>
 
 
 
@@ -414,15 +446,16 @@ $(() => {
                     </div>
                     <div class='col-md-7'>
                       <div id='download_related_topics_div' class='bold_text col-md-3'>${ reference_obj.is_video ? 'VIEW' : 'DOWNLOAD' }</div>
-                      <div class='col-md-8 langauage_indicator_wrapper'>
+                      <div class='col-md-3 langauage_indicator_wrapper'>
                         <a id='${ reference_obj.id }' href="${ reference_obj.is_video ? reference_obj.video_url : reference_obj.absolute_url }" target='_blank' class='reference_download_tracker'><div class='reference_search_result_info_language '>${ _.upperCase(!_.isEmpty(reference_obj.document_language) ? reference_obj.document_language : reference_obj.language) }</div> ${ reference_obj.is_video ? 'MOV' : ('PDF ' + convertBytesToKbOrMb(reference_obj.document_file_size)) }</a>
                         ${ reference_obj['related_topics'] === undefined ? '' : reference_obj['related_topics'].map(related_topic => {
                                 return `<a id='${ related_topic.id }' href="${ reference_obj.is_video ? reference_obj.video_url : related_topic.absolute_url }" target='_blank' class='reference_download_tracker'><div class='reference_search_result_info_language'>${ _.upperCase(!_.isEmpty(related_topic.document_language) ? related_topic.document_language : related_topic.language) }</div> ${ reference_obj.is_video ? 'MOV' : ('PDF ' + convertBytesToKbOrMb(related_topic.document_file_size)) }</a>`
                               }).join('')
                           }
                       </div>
+                      ${ reference_obj['publication_year'] === '' ? '' : `<div class="col-md-6"><span class="bold_text">Publication:</span> ${ reference_obj['publication_year'] }</div>` }
                     </div>
-                    <div id='catalogue_wrapper' class='col-md-offset-1 col-md-2 text-right'>
+                    <div id='catalogue_wrapper' class='col-md-3 text-right'>
                       ${ reference_links_data[reference_obj.id]['isC4D'] ? "<div class='inline_block reference_search_result_is_c4d bold_text'>C4D </div>" : '' }
                       ${ reference_links_data[reference_obj.id]['isSOP'] ? "<div class='inline_block reference_search_result_is_sop bold_text'>SOP</div>" : '' }
                     </div>
@@ -580,8 +613,6 @@ $(() => {
 
     $(window).load(() => {
       $featured_grid.isotope({filter: '.active'})
-      $('.ui.simple.dropdown.item').dropdown()
-      $('.ui.radio.checkbox').checkbox()
       $('#browse_filter_dropdown').dropdown({
         on:'hover',
         action:'nothing'
@@ -597,22 +628,12 @@ $(() => {
           url: '/library/reference_links/',
           data: { subcategory_title: subcategory, category: category }
         }).done(response => {
-            if (response.status === 200){
-            let reference_count = response.references.length
-            let browse_text =`<div id="library_reference_count_indicator">${reference_count} <i class="fa fa-file-text-o"></i> <span style="font-weight:bold;color:black !important;">Documents</span></div>`
-            // referenceNode.parentNode.insertBefore(el, referenceNode.nextSibling);
-            $('#library_browse_indicator_span').text('')
-            $('#library_browse_indicator_span').append(browse_text)
+          if (response.status === 200){
+            loadDocumentCount(response.references.length)
             $('#library_content_cell_progress_spinner').css('display', 'none')
             // $('#library_content_modal .header').append(`<div class='col-md-10'>${response.category}</div><div class='library_content_modal_close col-md-2 text-right'><span style='cursor:pointer;'>CLOSE&nbsp;<i class="fa fa-remove" aria-hidden="true"></i></span></div>`)
             $('#library_reference_links_filtered_wrapper').append(getSearchResultContent({ references: response.references, reference_links_data: response.reference_links_data, users: response.users, places: response.places, languages: response.languages, tags: response.tags, sopCount: response.sopCount, c4dCount: response.c4dCount }))
-            $('#application .ui.simple.dropdown.item').dropdown()
-            $('#application .ui.radio.checkbox').checkbox()
-            $('#application .ui.checkbox').checkbox()
-            $('#application .ui.dropdown').dropdown({
-              on:'hover',
-              action:'nothing'
-            })
+            loadSearchGridFilters(response)
             loadSearchGrid()
           }
         })
@@ -640,7 +661,7 @@ $(() => {
     function loadBrowseGrid(){
       browse_grid.isotope({
         itemSelector: `.browse_content_item`,
-        layoutMode: 'fitRows',
+        layoutMode: 'masonryHorizontal',
         filter: '.browse_content_item_1',
         getSortData: {
           relevance: function (ele) {

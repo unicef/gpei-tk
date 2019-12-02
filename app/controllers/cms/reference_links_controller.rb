@@ -1,3 +1,4 @@
+require 'mime/types'
 class Cms::ReferenceLinksController < ApplicationController
   before_action :user_is_admin_or_editor?
 
@@ -26,6 +27,14 @@ class Cms::ReferenceLinksController < ApplicationController
                      reference_link: reference_link,
                      tags: tags,
                      selected_tags: selected_tags }
+    end
+  end
+
+  def csv
+    @reference_links = ReferenceLink.all
+    respond_to do |format|
+      format.html
+      format.csv { send_data @reference_links.to_csv, filename: "reference_links-#{Date.today}.csv", type: "text/csv; charset=UTF-8;" }
     end
   end
 
@@ -98,6 +107,8 @@ class Cms::ReferenceLinksController < ApplicationController
         render json: { status: 200,
                        id: reference_link.id,
                        description: reference_link.description,
+                       publication_year: reference_link.publication_year,
+                       is_archived: reference_link.is_archived,
                        title: reference_link.title,
                        document_language: reference_link.document_language,
                        places: reference_link.places,
@@ -165,6 +176,6 @@ class Cms::ReferenceLinksController < ApplicationController
   end
 
   def safe_reference_link_params
-    params.require(:reference_link).permit(:description, :title, :document_language, :video_url)
+    params.require(:reference_link).permit(:description, :is_archived, :publication_year, :title, :document_language, :video_url)
   end
 end
