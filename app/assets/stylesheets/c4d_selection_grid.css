@@ -64,7 +64,6 @@
 #c4d_category_description_div {
   position: absolute;
   bottom:10px;
-  opacity:0.5;
 }
 #c4d_selection_page a {
   color:white;
@@ -118,12 +117,17 @@
   line-height: 39px;
   font-weight: bold;
 }
-#c4d_category_description_div,
-#c4d_image_description {
+#c4d_category_description_div {
   font-family: 'proxima-nova' !important;
   color:white;
   font-size:15px !important;
   line-height: 18px;
+}
+#c4d_image_description {
+  font-family: 'proxima-nova' !important;
+  color:white;
+  font-size:19px !important;
+  line-height: 19px;
 }
 #c4d_subcategory_title_div {
   font-size:18px;

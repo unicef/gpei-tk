@@ -1,15 +1,15 @@
-<div data-filter='.<%= parent_category %>_subcategories' class='<%= 'col-md-offset-3 col-md-5' if parent_category == 'tags' %> <%= 'col-md-5' if parent_category != 'tags' %> <%= 'notTagsCell' if parent_category != 'tags' %> library_base_category library_browse_grid_cell  <%= parent_category %>_related_cell active'>
-  <% if parent_category == 'tags' %>
-    Themes
-  <% elsif parent_category == 'c4d' %>
+<% if parent_category != 'tags' %>
+<div data-filter='.<%= parent_category %>_subcategories' class='<%= 'col-md-offset-2 col-md-5' if parent_category == 'tags' %> <%= 'col-md-5' if parent_category != 'tags' %> <%= 'notTagsCell' if parent_category != 'tags' %> library_base_category library_browse_grid_cell  <%= parent_category %>_related_cell active'>
+  <% if parent_category == 'c4d' %>
     Communication Strategy
   <% elsif parent_category == 'sop' %>
     SOPs for Outbreak Response
   <% end %>
 </div>
+<% end %>
 <% if parent_category != "c4d" %>
   <% categories.each do |category| %>
-    <div data-id='<%= parent_category %>' data-filter='.<%= category.title %>' class='<%= parent_category %>_subcategories <%= 'tag_cell' if parent_category == 'tags' %> library_browse_grid_cell <%= "library_subcategory_cell" if parent_category != 'c4d' %> <%= parent_category %>_related_cell active'>
+    <div data-id='<%= parent_category %>' data-filter='.<%= category.title %>' class='<%= parent_category %>_subcategories <%= 'tag_cell' if parent_category == 'tags' %> library_browse_grid_cell <%= "library_base_category" if parent_category == 'tags' %> <%= "library_subcategory_cell" if parent_category != 'c4d' %> <%= parent_category %>_related_cell active'>
       <%= category.title %>
     </div>
     <% if category.respond_to?('c4d_subcategories')%>

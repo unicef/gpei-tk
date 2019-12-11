@@ -564,6 +564,10 @@ $(() => {
                       <option value="true" ${ args['reference']['is_archived'] === true ? 'selected' : '' }>True</option>
                       <option value="false" ${ args['reference']['is_archived'] === false ? 'selected' : '' }>False</option>
                     </select>
+                    <select name="reference_${ args['reference_type'] }[is_featured]">
+                      <option value="true" ${ args['reference']['is_featured'] === true ? 'selected' : '' }>True</option>
+                      <option value="false" ${ args['reference']['is_featured'] === false ? 'selected' : '' }>False</option>
+                    </select>
                     <label>Description:</label>
                     <textarea name="reference_${ args['reference_type'] }[description]" placeholder="descriptive text" required>${(_.isNull(args['reference'].description) || args['reference'].description === '' || args['reference'].description === 'Description coming soon') ? '' : args['reference'].description }</textarea>
                     ${ getReferenceDocumentLanguageInput(args['reference_type'], args['reference'].document_language) }
@@ -618,6 +622,8 @@ $(() => {
         $('#cms_reference_link_grid #'+response.id+'.reference_link_item').find('#cms_reference_link_description_div').text(response.description)
         is_archived = response.is_archived === true ? 'Yes' : 'No'
         $('#cms_reference_link_grid #'+response.id+'.reference_link_item').find('#cms_reference_link_is_archived_div').text(is_archived)
+        is_featured = response.is_featured === true ? 'Yes' : 'No'
+        $('#cms_reference_link_grid #'+response.id+'.reference_link_item').find('#cms_reference_link_is_featured_div').text(is_featured)
         $('#cms_reference_link_grid #'+response.id+'.reference_link_item').find('#cms_reference_link_document_language_div').text(response.document_language)
         $('#cms_reference_link_grid #'+response.id+'.reference_link_item').find('#cms_reference_link_places_div').text(_.map(response.places, place => { return place.title }).join(' '))
         $('#cms_reference_link_grid #'+response.id+'.reference_link_item').find('#cms_reference_link_languages_div').text(_.map(response.languages, language => { return language.title }).join(' '))

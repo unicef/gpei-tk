@@ -1,3 +1,10 @@
+#home_page_gpei_img_div {
+  padding-bottom:20px;
+  text-align: center;
+}
+#home_page_gpei_img {
+  width:20%;
+}
 #application {
   background: #000000; /* For browsers that do not support gradients */
   background: -webkit-linear-gradient(#252F38, #000000); /* For Safari 5.1 to 6.0 */

@@ -8,13 +8,15 @@
   margin-left:1px;
 }
 #search_count_text_span {
-  font-size:15px !important;
+  font-size:17px !important;
 }
 #search_count_span {
   color:#f4cb66;
+  line-height: 17px;
 }
 .notTagsCell {
-  margin-left:4.5% !important;
+  margin-left:3% !important;
+  margin-right:4% !important;
   margin-bottom:0.5% !important;
 }
 #library_browse_isotope_grid {
@@ -23,7 +25,6 @@
 }
 .library_browse_grid_cell {
   line-height: 55px;
-  width: auto;
   padding:3px;
   padding-right:8px;
   padding-left:8px;
@@ -235,6 +236,7 @@
   font-size:14px;
   line-height:14px;
 }
+#library_content_search_header_text,
 #library_index_content_popular_header_text,
 #library_index_content_featured_header_text {
   font-family: 'Adelle' !important;

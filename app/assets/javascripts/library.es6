@@ -41,7 +41,9 @@ $(() => {
         data: $(e.currentTarget).serialize()
       }).done(response => {
         if (response.status === 200){
+          $('#library_reference_links_filtered_wrapper').empty()
           // referenceNode.parentNode.insertBefore(el, referenceNode.nextSibling);
+          $("#library_index_content_popular_header_text").text("Results")
           loadDocumentCount(response.references.length)
           $('#library_content_cell_progress_spinner').css('display', 'none')
           // $('#library_content_modal .header').append(`<div class='col-md-10'>${response.category}</div><div class='library_content_modal_close col-md-2 text-right'><span style='cursor:pointer;'>CLOSE&nbsp;<i class="fa fa-remove" aria-hidden="true"></i></span></div>`)
@@ -57,9 +59,9 @@ $(() => {
     //
     //
     function loadDocumentCount(referenceCount) {
-      var countText =`<h1><span id="search_count_span">${referenceCount} <i class="fa fa-file-text-o"></i></span> <span id="search_count_text_span" style="font-weight:bold;color:black !important;">DOCUMENTS</span></h1>`
+      var countText =`<span id="search_count_span"> ${referenceCount} <i class="fa fa-file-text-o"></i></span> <span id="search_count_text_span" style="font-weight:bold;color:black !important;">DOCUMENTS</span>`
       $('#library_document_count_wrapper').empty()
-      $('#library_document_count_wrapper').append(countText)
+      $('#library_index_content_popular_header_text').append(countText)
     }
     $('#library_content_modal').modal({
       allowMultiple: true,
@@ -109,6 +111,8 @@ $(() => {
         data: { subcategory_title: subcategory_title, category: category_title }
       }).done(response => {
         if (response.status === 200){
+          $('#library_reference_links_filtered_wrapper').empty()
+          $("#library_index_content_popular_header_text").text("Results")
           loadDocumentCount(response.references.length)
           $('#library_content_cell_progress_spinner').css('display', 'none')
           // $('#library_content_modal .header').append(`<div class='col-md-10'>${response.category}</div><div class='library_content_modal_close col-md-2 text-right'><span style='cursor:pointer;'>CLOSE&nbsp;<i class="fa fa-remove" aria-hidden="true"></i></span></div>`)
@@ -154,6 +158,8 @@ $(() => {
         data: { subcategory_title: '', category: 'c4d' }
       }).done(response => {
         if (response.status === 200){
+          $('#library_reference_links_filtered_wrapper').empty()
+          $("#library_index_content_popular_header_text").text("Results")
           loadDocumentCount(response.references.length)
           $('#library_content_cell_progress_spinner').css('display', 'none')
           // $('#library_content_modal .header').append(`<div class='col-md-10'>${response.category}</div><div class='library_content_modal_close col-md-2 text-right'><span style='cursor:pointer;'>CLOSE&nbsp;<i class="fa fa-remove" aria-hidden="true"></i></span></div>`)
@@ -448,10 +454,6 @@ $(() => {
                       <div id='download_related_topics_div' class='bold_text col-md-3'>${ reference_obj.is_video ? 'VIEW' : 'DOWNLOAD' }</div>
                       <div class='col-md-3 langauage_indicator_wrapper'>
                         <a id='${ reference_obj.id }' href="${ reference_obj.is_video ? reference_obj.video_url : reference_obj.absolute_url }" target='_blank' class='reference_download_tracker'><div class='reference_search_result_info_language '>${ _.upperCase(!_.isEmpty(reference_obj.document_language) ? reference_obj.document_language : reference_obj.language) }</div> ${ reference_obj.is_video ? 'MOV' : ('PDF ' + convertBytesToKbOrMb(reference_obj.document_file_size)) }</a>
-                        ${ reference_obj['related_topics'] === undefined ? '' : reference_obj['related_topics'].map(related_topic => {
-                                return `<a id='${ related_topic.id }' href="${ reference_obj.is_video ? reference_obj.video_url : related_topic.absolute_url }" target='_blank' class='reference_download_tracker'><div class='reference_search_result_info_language'>${ _.upperCase(!_.isEmpty(related_topic.document_language) ? related_topic.document_language : related_topic.language) }</div> ${ reference_obj.is_video ? 'MOV' : ('PDF ' + convertBytesToKbOrMb(related_topic.document_file_size)) }</a>`
-                              }).join('')
-                          }
                       </div>
                       ${ reference_obj['publication_year'] === '' ? '' : `<div class="col-md-6"><span class="bold_text">Publication:</span> ${ reference_obj['publication_year'] }</div>` }
                     </div>
@@ -629,6 +631,8 @@ $(() => {
           data: { subcategory_title: subcategory, category: category }
         }).done(response => {
           if (response.status === 200){
+            $('#library_reference_links_filtered_wrapper').empty()
+            $("#library_index_content_popular_header_text").text("Results")
             loadDocumentCount(response.references.length)
             $('#library_content_cell_progress_spinner').css('display', 'none')
             // $('#library_content_modal .header').append(`<div class='col-md-10'>${response.category}</div><div class='library_content_modal_close col-md-2 text-right'><span style='cursor:pointer;'>CLOSE&nbsp;<i class="fa fa-remove" aria-hidden="true"></i></span></div>`)

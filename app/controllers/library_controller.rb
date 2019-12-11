@@ -6,11 +6,11 @@ class LibraryController < ApplicationController
   def reference_links
     params['subcategory_title'].gsub!('.', '')
     if params['category'] == 'c4d'
-      reference_links = ReferenceLink.where(id: C4dArticle.where(published: true).map{|article| article.reference_links.pluck(:id).flatten}.flatten.uniq, is_archived: false).order(created_at: :desc).as_json(:include => [:author, :tags, :places, :languages, :related_topics]).uniq
+      reference_links = ReferenceLink.where(id: C4dArticle.where(published: true).map{|article| article.reference_links.pluck(:id).flatten}.flatten.uniq, is_archived: false).order('title ASC NULLS LAST').as_json(:include => [:author, :tags, :places, :languages, :related_topics]).uniq
     elsif params['category'] == 'sop'
-      reference_links = ReferenceLink.where(id: SopArticle.where(published: true).map{|article| article.reference_links.pluck(:id).flatten}.flatten.uniq, is_archived: false).order(created_at: :desc).as_json(:include => [:author, :tags, :places, :languages, :related_topics]).uniq
+      reference_links = ReferenceLink.where(id: SopArticle.where(published: true).map{|article| article.reference_links.pluck(:id).flatten}.flatten.uniq, is_archived: false).order('title ASC NULLS LAST').as_json(:include => [:author, :tags, :places, :languages, :related_topics]).uniq
     elsif params['category'] == 'tags'
-      reference_links = ReferenceLink.where(id: TagReference.where(tag_id: Tag.where(title: params['subcategory_title']).first.id).pluck(:reference_tagable_id).flatten.uniq, is_archived: false).order(created_at: :desc).as_json(:include => [:author, :tags, :places, :languages, :related_topics]).uniq
+      reference_links = ReferenceLink.where(id: TagReference.where(tag_id: Tag.where(title: params['subcategory_title']).first.id).pluck(:reference_tagable_id).flatten.uniq, is_archived: false).order('title ASC NULLS LAST').as_json(:include => [:author, :tags, :places, :languages, :related_topics]).uniq
     end
     references = reference_links
     reference_links_data, sopCount, c4dCount, places, languages, tags = get_reference_link_data(references)
@@ -61,7 +61,7 @@ class LibraryController < ApplicationController
     @c4d_categories = C4dCategory.all.order(:title)
     @sop_categories = SopCategory.all.order(:title)
     @tags_all = Tag.all.order(:title)
-    @featured_references = ReferenceLink.joins(:featured_references).merge(FeaturedReference.order(id: :asc)).all.order(created_at: :desc).as_json(:include => [:author, :tags, :places, :languages, :related_topics]).uniq
+    @featured_references = ReferenceLink.joins(:featured_references).merge(FeaturedReference.order(id: :asc)).all.order('title ASC NULLS LAST').as_json(:include => [:author, :tags, :places, :languages, :related_topics]).uniq
     @reference_links_data, @sopCount, @c4dCount, @places, @languages, @tags = get_reference_link_data(@featured_references)
     @param_exists = nil
     @param_exists = true if params['category'] != nil

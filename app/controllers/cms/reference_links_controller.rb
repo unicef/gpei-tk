@@ -109,6 +109,7 @@ class Cms::ReferenceLinksController < ApplicationController
                        description: reference_link.description,
                        publication_year: reference_link.publication_year,
                        is_archived: reference_link.is_archived,
+                       is_featured: reference_link.is_featured,
                        title: reference_link.title,
                        document_language: reference_link.document_language,
                        places: reference_link.places,
@@ -176,6 +177,6 @@ class Cms::ReferenceLinksController < ApplicationController
   end
 
   def safe_reference_link_params
-    params.require(:reference_link).permit(:description, :is_archived, :publication_year, :title, :document_language, :video_url)
+    params.require(:reference_link).permit(:description, :is_featured, :is_archived, :publication_year, :title, :document_language, :video_url)
   end
 end
