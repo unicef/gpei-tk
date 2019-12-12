@@ -118,7 +118,7 @@ $(() => {
           // $('#library_content_modal .header').append(`<div class='col-md-10'>${response.category}</div><div class='library_content_modal_close col-md-2 text-right'><span style='cursor:pointer;'>CLOSE&nbsp;<i class="fa fa-remove" aria-hidden="true"></i></span></div>`)
           $('#library_reference_links_filtered_wrapper').append(getSearchResultContent({ references: response.references, reference_links_data: response.reference_links_data, users: response.users, places: response.places, languages: response.languages, tags: response.tags, sopCount: response.sopCount, c4dCount: response.c4dCount }))
           loadSearchGridFilters(response)
-          loadSearchGrid()
+          loadSearchGrid(response)
         }
         return false
       })
@@ -139,7 +139,7 @@ $(() => {
     })
     function loadSearchGridFilters(response) {
       var themes = `<select class='grid_filter_select' name="reference_links_theme"><option value='' selected="selected">Any Theme</option>${response.tags.map(tag => { 
-        return `<option value="${tag[0]}" ${response.parent_category === 'tags' ? (tag[0] === response.category ? 'selected' : '') : ''}>${tag[0]}</option>`}).join(' ')}</select>`
+        return `<option value="${tag[0]}" ${response.parent_category === "" ? '' : (response.parent_category === 'tags' ? (tag[0] === response.category ? 'selected' : '') : '')}>${tag[0]}</option>`}).join(' ')}</select>`
       var places = `<select class='grid_filter_select' name="reference_links_place"><option value='' selected="selected">Any Place</option>${response.places.map(tag => { 
         return `<option value="${tag[0]}">${tag[0]}</option>`}).join(' ')}</select>`
       var languages = `<select class='grid_filter_select' name="reference_links_language"><option value='' selected="selected">Any Language</option>${response.languages.map(tag => { 
@@ -190,8 +190,10 @@ $(() => {
 
     function loadSearchGrid(response) {
       var itemSelector = '.search_content_item'
-      if (response.parent_category === 'tags') {
-        itemSelector = "." + _.join(_.split(response.category, " "), "_")
+      if (!_.isUndefined(response.parent_category)) {
+        if (response.parent_category === 'tags') {
+          itemSelector = "." + _.join(_.split(response.category, " "), "_")
+        }
       }
       search_grid = $(`#application #library_content_search_results_grid`)
       search_grid.isotope({
@@ -653,8 +655,10 @@ $(() => {
             // $('#library_content_modal .header').append(`<div class='col-md-10'>${response.category}</div><div class='library_content_modal_close col-md-2 text-right'><span style='cursor:pointer;'>CLOSE&nbsp;<i class="fa fa-remove" aria-hidden="true"></i></span></div>`)
             $('#library_reference_links_filtered_wrapper').append(getSearchResultContent({ references: response.references, reference_links_data: response.reference_links_data, users: response.users, places: response.places, languages: response.languages, tags: response.tags, sopCount: response.sopCount, c4dCount: response.c4dCount }))
             loadSearchGridFilters(response)
-            loadSearchGrid()
+            loadSearchGrid(response)
+
           }
+          return false
         })
       } else if (!document.getElementById('active_browse_filters')) {
         loadBrowseGrid()

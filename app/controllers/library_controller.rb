@@ -17,6 +17,7 @@ class LibraryController < ApplicationController
                         .search_refs(params['search'])
                         .as_json(:include => [:author, :tags, :places, :languages, :related_topics]).uniq
     end
+    query = params['category'] == 'c4d' || params['category'] == 'sop' ? params['category'].upcase : params['search']
     references = reference_links
     reference_links_data, sopCount, c4dCount, places, languages, tags = get_reference_link_data(references)
     users = Hash[User.all.pluck(:id, :first_name)]
@@ -28,6 +29,7 @@ class LibraryController < ApplicationController
                    users: users,
                    parent_category: params['category'],
                    category: category,
+                   query: query,
                    places: places,
                    languages: languages,
                    sopCount: sopCount,
