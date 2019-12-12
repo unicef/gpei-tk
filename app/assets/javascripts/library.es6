@@ -147,7 +147,7 @@ $(() => {
       // var fileTypes = `<div class='col-md-3'><select name="reference_links_place"><option selected="selected">Any Place</option>${response.tags.map(tag => { 
       //   return `<option value="${tag[0]}">${tag[0]}</option>`}).join(' ')}</select></div>`
       $('#library_search_filter_wrapper').empty()
-      var filterContent = `<div id='search_grid_select_wrapper'>${themes}${places}${languages}<button id='library_start_button'>Start</button></div><div class='col-md-12 search_query_indicator_div'>${_.isUndefined(response.query) ? '' : `<span id='search_query_indicator_div_header'>Current Search:</span> ${response.query}`}</div>`
+      var filterContent = `<div id='search_grid_select_wrapper'>${themes}${places}${languages}<div class='col-md-12 search_query_indicator_div'>${_.isUndefined(response.query) ? '' : `<span id='search_query_indicator_div_header'>Current Search:</span> ${response.query}`}</div>`
       $('#library_search_filter_wrapper').append(filterContent)
       return false
     }
