@@ -10,7 +10,7 @@
 <% if parent_category != "c4d" %>
   <% categories.each do |category| %>
     <div data-id='<%= parent_category %>' data-filter='.<%= category.title %>' class='<%= parent_category %>_subcategories <%= 'tag_cell' if parent_category == 'tags' %> library_browse_grid_cell <%= "library_base_category" if parent_category == 'tags' %> <%= "library_subcategory_cell" if parent_category != 'c4d' %> <%= parent_category %>_related_cell active'>
-      <%= category.title %>
+      <%= category.title %><br>(<%= @tag_counts[category.id] if parent_category == 'tags' %>)
     </div>
     <% if category.respond_to?('c4d_subcategories')%>
       <% category.c4d_subcategories.each do |subcategory| %>

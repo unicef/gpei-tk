@@ -13,7 +13,7 @@
       <div id='library_content_search_input_wrapper' class='col-md-12'>
         <form id="library_content_search_form" class="col-md-3 ui form">
           <div class="input-group">
-            <input id='library_content_search_input' placeholder="Search" name='search[query]' type='text' alt='Search'>
+            <input id='library_content_search_input' placeholder="Search" name='search' type='text' alt='Search'>
             <!-- <span id="search_button_library" class="input-group-addon">Search</span> -->
           </div>
         </form>
@@ -30,7 +30,7 @@
       <div id='library_index_content_popular_divider' class='div_border_underline col-md-12'></div>
       <div id='library_index_content_popular_content_grid_wrapper' class='col-md-12'>
         <% if @param_exists %>
-          <div id='library_show_reference_links' class='<%= params['category'] %>'><%= params['tag'].nil? ? '' : params['tag'] %></div>
+          <div id='library_show_reference_links' class="<%= params['category'] %>"><%= params['search'] if params['search'] %></div>
         <% else %>
           <%= render 'library/browse_initial_isotope_grid' %>
         <% end %>

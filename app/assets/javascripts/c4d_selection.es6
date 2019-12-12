@@ -231,7 +231,7 @@ $(() => {
     function getArticleCycleDiv(params){
       return `<div id='article_cycle_div'>
                 ${ _.isNull(params['previous_article']) ? '' : getPreviousArticleDiv(params) }
-                ${ _.isNull(params['next_article']) ? '' : getNextArticleDiv(params) }
+                ${ _.isNull(params['next_article']) ? "<div id='c4d_close_icon' class='text-right bottom_c4d_close_icon'><a href='' class='black_text'>CLOSE&nbsp;<i class='fa fa-remove' aria-hidden='true'></i></a></div>" : getNextArticleDiv(params) }
               </div>`
     }
 

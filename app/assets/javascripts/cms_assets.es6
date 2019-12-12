@@ -228,6 +228,14 @@ $(() => {
                             <div class='col-md-12'><strong>Description:</strong></div>
                             <div id='cms_reference_${type}_description_div' class='col-md-12'>${!_.isEmpty(reference_link.description) ? reference_link.description : 'Description coming soon'}</div>
                           </div>
+                          <div class='col-md-12'>
+                            <div class='col-md-12'><strong>Archived:</strong></div>
+                            <div id='cms_reference_${type}_is_archived_div' class='col-md-12'>${reference_link.is_archived ? 'Yes' : 'No'}</div>
+                          </div>
+                          <div class='col-md-12'>
+                            <div class='col-md-12'><strong>Featured:</strong></div>
+                            <div id='cms_reference_${type}_is_featured_div' class='col-md-12'>${reference_link.is_featured ? 'Yes' : 'No'}</div>
+                          </div>
                           <div style='height:10px' class='col-md-12'></div>
                           <div class='col-md-12'>
                             <div class='col-md-12'><strong>${type === 'mp3' ? 'Clip' : 'Document'} Language:</strong></div>
@@ -564,6 +572,7 @@ $(() => {
                       <option value="true" ${ args['reference']['is_archived'] === true ? 'selected' : '' }>True</option>
                       <option value="false" ${ args['reference']['is_archived'] === false ? 'selected' : '' }>False</option>
                     </select>
+                    <u>Featured:</u>
                     <select name="reference_${ args['reference_type'] }[is_featured]">
                       <option value="true" ${ args['reference']['is_featured'] === true ? 'selected' : '' }>True</option>
                       <option value="false" ${ args['reference']['is_featured'] === false ? 'selected' : '' }>False</option>
@@ -620,9 +629,9 @@ $(() => {
         $('#cms_reference_link_grid #'+response.id+'.reference_link_item').find('#cms_reference_link_title_div').text(response.title)
         $('#cms_reference_link_grid #'+response.id+'.reference_link_item').find('#cms_reference_link_publication_year_div').text(response.publication_year)
         $('#cms_reference_link_grid #'+response.id+'.reference_link_item').find('#cms_reference_link_description_div').text(response.description)
-        is_archived = response.is_archived === true ? 'Yes' : 'No'
+        var is_archived = response.is_archived === true ? 'Yes' : 'No';
         $('#cms_reference_link_grid #'+response.id+'.reference_link_item').find('#cms_reference_link_is_archived_div').text(is_archived)
-        is_featured = response.is_featured === true ? 'Yes' : 'No'
+        var is_featured = response.is_featured === true ? 'Yes' : 'No';
         $('#cms_reference_link_grid #'+response.id+'.reference_link_item').find('#cms_reference_link_is_featured_div').text(is_featured)
         $('#cms_reference_link_grid #'+response.id+'.reference_link_item').find('#cms_reference_link_document_language_div').text(response.document_language)
         $('#cms_reference_link_grid #'+response.id+'.reference_link_item').find('#cms_reference_link_places_div').text(_.map(response.places, place => { return place.title }).join(' '))

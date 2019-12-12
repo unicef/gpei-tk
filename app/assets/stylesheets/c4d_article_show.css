@@ -47,6 +47,9 @@
 #c4d_modal_close_icon {
   font-size:75%;
 }
+#c4d_close_icon.bottom_c4d_close_icon {
+  top: auto !important;
+}
 #c4d_close_icon {
   position: absolute;
   top:8px;

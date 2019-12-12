@@ -16,10 +16,10 @@ class Cms::ReferenceLinksController < ApplicationController
     if request.xhr?
       reference_link = ReferenceLink.find_by(id: params[:id]).as_json(:include => [:author, :tags, :places, :languages, :related_topics])
       reference_links = ReferenceLink.where('id <> ?', reference_link['id']).order(:document_file_name)
-      selected_tags = reference_link['tags']
-      tags = Tag.all
-      places = Place.all
-      languages = Language.all
+      selected_tags = reference_link['tags'].sort_by { |ref| ref['title'] }
+      tags = Tag.all.order(:title)
+      places = Place.all.order(:title).sort_by { |place| place.title == 'Global' ? 0 : 1 }
+      languages = Language.all.sort_by { |language| language.title == 'English' || language.title == 'French' || language.title == 'Urdu' || language.title == 'Pashto' || language.title == 'Global' ? 0 : 1 }
       render json: { status: 200,
                      places: places,
                      languages: languages,

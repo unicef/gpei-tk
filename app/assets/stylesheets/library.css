@@ -1,18 +1,27 @@
-#tags_category_cell {
-}
+
 .tag_cell {
   border-radius: 10px !important;
   margin-bottom:0.5% !important;
-  font-size:23px !important;
+  font-size:21px !important;
   margin-right:1px;
   margin-left:1px;
 }
+#search_query_indicator_div_header {
+  font-weight: bold !important;
+}
+#ref_search_count_span {
+  padding-bottom: 15px;
+}
 #search_count_text_span {
   font-size:17px !important;
+  line-height:20px !important;
 }
 #search_count_span {
   color:#f4cb66;
   line-height: 17px;
+}
+.search_query_indicator_div {
+  margin-top:5px !important;
 }
 .notTagsCell {
   margin-left:3% !important;
@@ -63,6 +72,7 @@
 }
 .tags_related_cell {
   color:black;
+  line-height:30px !important;
   background: rgba(19, 153, 222, 0.8) !important;
 }
 .tags_related_cell:hover {
@@ -216,6 +226,12 @@
 #library_content_search_header_text {
   margin-bottom:10px;
 }
+.grid_filter_select {
+  margin:5px;
+}
+#search_grid_select_wrapper select {
+  width: auto;
+}
 .div_border_underline {
   margin-top:5px !important;
   height:5px;
@@ -228,7 +244,7 @@
 }
 #library_browse_clear_all,
 #library_index_content_popular_header_text {
-  padding-top:20px;
+  padding-top:10px;
 }
 #library_browse_clear_all {
   font-family: 'Adelle' !important;
