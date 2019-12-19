@@ -3,7 +3,7 @@ class Cms::ReferenceLinksController < ApplicationController
   before_action :user_is_admin_or_editor?
 
   def index
-    reference_links = ReferenceLink.all.order(:document_file_name).as_json(:include => [:author, :tags, :places, :languages, :related_topics]).uniq
+    reference_links = ReferenceLink.all.order(:document_file_name).as_json(:include => [:author, :tags, :places, :languages, :related_topics, :file_type]).uniq
     reference_link_categories = get_reference_link_categories(reference_links)
     categories = { sop_categories: SopCategory.all, c4d_categories: C4dCategory.all }
     render json: { reference_links: reference_links,
@@ -34,7 +34,7 @@ class Cms::ReferenceLinksController < ApplicationController
     @reference_links = ReferenceLink.all
     respond_to do |format|
       format.html
-      format.csv { send_data @reference_links.to_csv, filename: "reference_links-#{Date.today}.csv", type: "text/csv; charset=UTF-8;" }
+      format.csv { send_data @reference_links.to_csv, filename: "reference_links-#{Date.today}.csv" }
     end
   end
 

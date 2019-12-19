@@ -24,6 +24,8 @@ class ReferenceLink < ApplicationRecord
   has_many :reference_likes, as: :reference_likeable
   alias_attribute :likes, :reference_likes
 
+  belongs_to :file_type
+
   has_many :tag_references, as: :reference_tagable
   has_many :tags, through: :tag_references
 

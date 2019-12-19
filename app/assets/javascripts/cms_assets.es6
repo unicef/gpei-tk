@@ -35,7 +35,7 @@ $(() => {
           toggleProgressSpinner()
           let type = 'link'
           $('#CMS_index_content').empty()
-          $('#CMS_index_content').append("<a href='/cms/reference_links/csv' download>download as CSV format</a>")
+          $('#CMS_index_content').append("<a href='/cms/reference_links/download' download>download as CSV format</a>")
           $('#CMS_index_content').append("<h2 id='cms_reference_links_list_header'>Uploaded Reference Links - (.pdf's) Index</h2>")
           $('#CMS_index_content').append(getReferenceLinkGrid(reference_links, reference_link_categories, response.users, type, categories, false, false, null))
           loadIsotopeHandlers(type)
@@ -235,6 +235,10 @@ $(() => {
                           <div class='col-md-12'>
                             <div class='col-md-12'><strong>Featured:</strong></div>
                             <div id='cms_reference_${type}_is_featured_div' class='col-md-12'>${reference_link.is_featured ? 'Yes' : 'No'}</div>
+                          </div>
+                          <div class='col-md-12'>
+                            <div class='col-md-12'><strong>File Type:</strong></div>
+                            <div id='cms_reference_${type}_file_type_div' class='col-md-12'>${_.isUndefined(reference_link.file_type) ? 'no value' : reference_link.file_type.title}</div>
                           </div>
                           <div style='height:10px' class='col-md-12'></div>
                           <div class='col-md-12'>
@@ -580,6 +584,8 @@ $(() => {
                     <label>Description:</label>
                     <textarea name="reference_${ args['reference_type'] }[description]" placeholder="descriptive text" required>${(_.isNull(args['reference'].description) || args['reference'].description === '' || args['reference'].description === 'Description coming soon') ? '' : args['reference'].description }</textarea>
                     ${ getReferenceDocumentLanguageInput(args['reference_type'], args['reference'].document_language) }
+                    <label>File TYpe:</label>
+                    ${ getSelectorWithoutPreview({ object_type: 'file_type', selected_objects: args['reference']['file_type'], objects: args['file_type'] }) }
                     <label>Languages:</label>
                     ${ getSelectorWithoutPreview({ object_type: 'languages', selected_objects: args['reference']['languages'], objects: args['languages'] }) }
                     <label>Places:</label>
@@ -631,6 +637,8 @@ $(() => {
         $('#cms_reference_link_grid #'+response.id+'.reference_link_item').find('#cms_reference_link_description_div').text(response.description)
         var is_archived = response.is_archived === true ? 'Yes' : 'No';
         $('#cms_reference_link_grid #'+response.id+'.reference_link_item').find('#cms_reference_link_is_archived_div').text(is_archived)
+        var file_type = _.isUndefined(response.file_type) ? 'no value' : response.file_type.title;
+        $('#cms_reference_link_grid #'+response.id+'.reference_link_item').find('#cms_reference_link_file_type_div').text(file_type)
         var is_featured = response.is_featured === true ? 'Yes' : 'No';
         $('#cms_reference_link_grid #'+response.id+'.reference_link_item').find('#cms_reference_link_is_featured_div').text(is_featured)
         $('#cms_reference_link_grid #'+response.id+'.reference_link_item').find('#cms_reference_link_document_language_div').text(response.document_language)

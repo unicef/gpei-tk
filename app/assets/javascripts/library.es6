@@ -97,10 +97,10 @@ $(() => {
               </div>`)
     }
     $('.library_subcategory_cell').click(e => {
-      e.preventDefault()
-      appendSpinnerLibModal()
       $('#library_index_content_popular_content_grid_wrapper').css('display', 'none')
       $('#library_content_cell_progress_spinner').css('display', 'block')
+      e.preventDefault()
+      appendSpinnerLibModal()
       var subcategory_title = $(e.target).attr('data-filter')
       var category_title = $(e.target).attr('data-id')
       var category_show_title = _.capitalize(category_title.replace('.',''))
@@ -155,7 +155,7 @@ $(() => {
       window.location = '/library'
     })
     $('.library_base_category').click(e => {
-      if (e.target.textContent.replace(/\s+/g, '') !== "CommunicationStrategy") {
+      if ($(e.target).attr('data-category') !== "c4d") {
         return false
       }
       e.preventDefault()

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_12_11_061937) do
+ActiveRecord::Schema.define(version: 2019_12_17_141454) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -95,6 +95,12 @@ ActiveRecord::Schema.define(version: 2019_12_11_061937) do
   create_table "feedbacks", id: :serial, force: :cascade do |t|
     t.string "content", null: false
     t.integer "author_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "file_types", force: :cascade do |t|
+    t.string "title", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -207,6 +213,7 @@ ActiveRecord::Schema.define(version: 2019_12_11_061937) do
     t.string "publication_year", default: ""
     t.boolean "is_archived", default: false
     t.boolean "is_featured", default: false
+    t.integer "file_type_id"
   end
 
   create_table "reference_mp3_articles", id: :serial, force: :cascade do |t|

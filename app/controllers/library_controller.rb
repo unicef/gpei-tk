@@ -38,8 +38,9 @@ class LibraryController < ApplicationController
   end
 
   def reference_search
-    reference_links = ReferenceLink.where(is_archived: false).order('title ASC NULLS LAST')
+    reference_links = ReferenceLink.where(is_archived: false)
                       .search_refs(params['search'])
+                      .order('title ASC NULLS LAST')
                       .as_json(:include => [:author, :tags, :places, :languages, :related_topics]).uniq
     references = reference_links
     reference_links_data, sopCount, c4dCount, places, languages, tags = get_reference_link_data(references)
@@ -69,7 +70,10 @@ class LibraryController < ApplicationController
     @is_library = true
     @c4d_categories = C4dCategory.all.order(:title)
     @sop_categories = SopCategory.all.order(:title)
+    @sop_count = ReferenceLinkArticle.where(reference_link_id: SopArticle.pluck(:id).uniq).pluck(:reference_link_id).uniq.count
+    @c4d_count = ReferenceLinkArticle.where(reference_link_id: C4dArticle.pluck(:id).uniq).pluck(:reference_link_id).uniq.count
     @tags_all = Tag.all.order(:title)
+    @sop_category_counts = get_sop_category_counts
     @featured_references = ReferenceLink.joins(:featured_references).merge(FeaturedReference.order(id: :asc)).all.order('title ASC NULLS LAST').as_json(:include => [:author, :tags, :places, :languages, :related_topics]).uniq
     @reference_links_data, @sopCount, @c4dCount, @places, @languages, @tags = get_reference_link_data(@featured_references)
     @param_exists = nil
@@ -79,6 +83,14 @@ class LibraryController < ApplicationController
     end
     @tag_counts = TagReference.group(:tag_id).count
     @filters = params[:filters] if params[:filters]
+  end
+
+  def get_sop_category_counts()
+    count_hash = {}
+    SopCategory.all.each do |category|
+      count_hash[category.title] = ReferenceLinkArticle.where(reference_link_id: SopArticle.where(sop_category_id: category.id).pluck(:id).uniq).pluck(:reference_link_id).uniq.count
+    end
+    count_hash
   end
 
   def get_reference_link_data(reference_links)

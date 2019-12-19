@@ -1,20 +1,25 @@
 <% if parent_category != 'tags' %>
-<div data-filter='.<%= parent_category %>_subcategories' class='<%= 'col-md-offset-2 col-md-5' if parent_category == 'tags' %> <%= 'col-md-5' if parent_category != 'tags' %> <%= 'notTagsCell' if parent_category != 'tags' %> library_base_category library_browse_grid_cell  <%= parent_category %>_related_cell active'>
+<div data-filter='.<%= parent_category %>_subcategories' class='<%= 'col-md-offset-2 col-md-5' if parent_category == 'tags' %> <%= 'col-md-5' if parent_category != 'tags' %> <%= 'notTagsCell' if parent_category != 'tags' %> library_base_category library_browse_grid_cell  <%= parent_category %>_related_cell active' data-category='<%= parent_category %>'>
   <% if parent_category == 'c4d' %>
-    Communication Strategy
+    Communication Strategy (<%= @c4d_count%>)
   <% elsif parent_category == 'sop' %>
-    SOPs for Outbreak Response
+    SOPs for Outbreak Response (<%= @sop_count%>)
   <% end %>
 </div>
 <% end %>
 <% if parent_category != "c4d" %>
   <% categories.each do |category| %>
     <div data-id='<%= parent_category %>' data-filter='.<%= category.title %>' class='<%= parent_category %>_subcategories <%= 'tag_cell' if parent_category == 'tags' %> library_browse_grid_cell <%= "library_base_category" if parent_category == 'tags' %> <%= "library_subcategory_cell" if parent_category != 'c4d' %> <%= parent_category %>_related_cell active'>
-      <%= category.title %><br>(<%= @tag_counts[category.id] if parent_category == 'tags' %>)
+      <%= category.title %>
+      <% if parent_category == 'tags' %>
+        (<%= @tag_counts[category.id]%>)
+      <% elsif parent_category == 'sop' %>
+        (<%= @sop_category_counts[category.title] %>)
+      <% end %>
     </div>
     <% if category.respond_to?('c4d_subcategories')%>
       <% category.c4d_subcategories.each do |subcategory| %>
-        <div data-id='<%= parent_category %>' data-filter='<%= subcategory.title %>' class='library_browse_grid_cell library_subcategory_cell <%= category.title %> <%= parent_category %>_related_cell active'>
+        <div data-id='<%= parent_category %>' data-filter='<%= subcategory.title %>' class='library_browse_grid_cell library_subcategory_cell <%= category.title %> <%= parent_category %>_related_cell active' data-category='<%= subcategory.title %>'>
           <%= subcategory.title %>
         </div>
       <% end %>

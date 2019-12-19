@@ -72,7 +72,7 @@
 }
 .tags_related_cell {
   color:black;
-  line-height:30px !important;
+  line-height:40px !important;
   background: rgba(19, 153, 222, 0.8) !important;
 }
 .tags_related_cell:hover {
@@ -229,6 +229,12 @@
   position: relative;
   right:0px;
 }
+#search_parameter_select_dropdown select {
+  margin-top:5px;
+  width: auto;
+  background-color: #A37743;
+  color: white !important;
+}
 #library_content_search_header_text {
   margin-bottom:10px;
 }
@@ -237,7 +243,10 @@
 }
 #search_grid_select_wrapper select {
   width: auto;
+  background-color: #A37743;
+  color: white !important;
 }
+
 .div_border_underline {
   margin-top:5px !important;
   height:5px;
