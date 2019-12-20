@@ -1,4 +1,3 @@
-require 'mime/types'
 class Cms::ReferenceLinksController < ApplicationController
   before_action :user_is_admin_or_editor?
 
@@ -27,14 +26,6 @@ class Cms::ReferenceLinksController < ApplicationController
                      reference_link: reference_link,
                      tags: tags,
                      selected_tags: selected_tags }
-    end
-  end
-
-  def csv
-    @reference_links = ReferenceLink.all
-    respond_to do |format|
-      format.html
-      format.csv { send_data @reference_links.to_csv, filename: "reference_links-#{Date.today}.csv" }
     end
   end
 

@@ -35,7 +35,7 @@ $(() => {
           toggleProgressSpinner()
           let type = 'link'
           $('#CMS_index_content').empty()
-          $('#CMS_index_content').append("<a href='/cms/reference_links/download' download>download as CSV format</a>")
+          $('#CMS_index_content').append("<a href='/downloads/reference_links.csv'>download as CSV format</a>")
           $('#CMS_index_content').append("<h2 id='cms_reference_links_list_header'>Uploaded Reference Links - (.pdf's) Index</h2>")
           $('#CMS_index_content').append(getReferenceLinkGrid(reference_links, reference_link_categories, response.users, type, categories, false, false, null))
           loadIsotopeHandlers(type)

@@ -65,7 +65,7 @@ Rails.application.routes.draw do
     resources :how_to_instructions, only: [:index, :create]
   end
 
-  get '/cms/reference_links/download' => 'cms/reference_links#csv', as: :reference_links_download
+  get 'downloads/reference_links' => 'downloads#reference_links'
 
   namespace :api, defaults: { format: :json } do
     resources :reference_downloads, only: [:create]
