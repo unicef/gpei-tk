@@ -11,6 +11,7 @@ $(() => {
 
   let sortFlags = {
     relevance: true,
+    publication: true,
     created: true,
     title: true,
     author: true,
@@ -34,6 +35,9 @@ $(() => {
       e.preventDefault()
       appendSpinnerLibModal()
       $('#library_index_content_popular_content_grid_wrapper').css('display', 'none')
+      $('#library_index_content_popular_content_grid_wrapper_header').css('display', 'none')
+      $('#library_index_content_popular_header_text').css('display', 'block')
+      $('#library_search_select').css('display', 'block')
       $('#library_content_cell_progress_spinner').css('display', 'block')
       window.location.href = '/library/?' + $(e.currentTarget).serialize()
       // $.ajax({
@@ -71,7 +75,6 @@ $(() => {
         $('#library_content_modal .header').empty()
       }
     })
-
     let $lib_grid = $('#library_browse_isotope_grid').isotope({
       itemSelector: '.library_browse_grid_cell',
       filter: '.library_base_category',
@@ -88,6 +91,9 @@ $(() => {
     $('#library_browse_clear_all').click(e => {
       $('#library_reference_links_filtered_wrapper').empty()
       $('#library_index_content_popular_content_grid_wrapper').css('display', 'block')
+      $('#library_index_content_popular_content_grid_wrapper_header').css('display', 'block')
+      $('#library_index_content_popular_header_text').css('display', 'none')
+
       $('#library_browse_indicator_span').empty()
       $lib_grid.isotope({ filter: '.library_base_category' })
     })
@@ -98,6 +104,9 @@ $(() => {
     }
     $('.library_subcategory_cell').click(e => {
       $('#library_index_content_popular_content_grid_wrapper').css('display', 'none')
+      $('#library_index_content_popular_content_grid_wrapper_header').css('display', 'none')
+      $('#library_index_content_popular_header_text').css('display', 'block')
+      $('#library_search_select').css('display', 'block')
       $('#library_content_cell_progress_spinner').css('display', 'block')
       e.preventDefault()
       appendSpinnerLibModal()
@@ -131,6 +140,10 @@ $(() => {
       })
       selectedValues = _.join(_.compact(selectedValues), "")
       search_grid.isotope({ filter: selectedValues })
+      $('#library_index_content_popular_header_text').text("")
+      $('#library_index_content_popular_header_text').text("Results: ")
+      var itemCount = $(search_grid).data('isotope').filteredItems.length
+      loadDocumentCount(itemCount)
       return false
     })
     $('#application').on('change', '#search_grid_clear', e => {
@@ -139,18 +152,33 @@ $(() => {
     })
     function loadSearchGridFilters(response) {
       var themes = `<select class='grid_filter_select' name="reference_links_theme"><option value='' selected="selected">Any Theme</option>${response.tags.map(tag => { 
-        return `<option value="${tag[0]}" ${response.parent_category === "" ? '' : (response.parent_category === 'tags' ? (tag[0] === response.category ? 'selected' : '') : '')}>${tag[0]}</option>`}).join(' ')}</select>`
-      var places = `<select class='grid_filter_select' name="reference_links_place"><option value='' selected="selected">Any Place</option>${response.places.map(tag => { 
-        return `<option value="${tag[0]}">${tag[0]}</option>`}).join(' ')}</select>`
-      var languages = `<select class='grid_filter_select' name="reference_links_language"><option value='' selected="selected">Any Language</option>${response.languages.map(tag => { 
-        return `<option value="${tag[0]}">${tag[0]}</option>`}).join(' ')}</select>`
+        return `<option class='option_background_color' value="${tag[0]}" ${response.parent_category === "" ? '' : (response.parent_category === 'tags' ? (tag[0] === response.category ? 'selected' : '') : '')}>${tag[0]}</option>`}).join(' ')}</select>`
+      var places = `<select class='grid_filter_select' name="reference_links_place"><option value='' selected="selected">Any Place</option>${response.places.map(place => { 
+        return `<option class='option_background_color' value="${place[0]}">${place[0]}</option>`}).join(' ')}</select>`
+      var languages = `<select class='grid_filter_select' name="reference_links_language"><option value='' selected="selected">Any Language</option>${response.languages.map(language => { 
+        return `<option class='option_background_color' value="${language[0]}">${language[0]}</option>`}).join(' ')}</select>`
+      var file_types = `<select class='grid_filter_select' name="reference_links_language"><option value='' selected="selected">Any File Type</option>${response.file_types.map(file_type => { 
+        return `<option class='option_background_color' value="${file_type}">${file_type}</option>`}).join(' ')}</select>`
       // var fileTypes = `<div class='col-md-3'><select name="reference_links_place"><option selected="selected">Any Place</option>${response.tags.map(tag => { 
       //   return `<option value="${tag[0]}">${tag[0]}</option>`}).join(' ')}</select></div>`
       $('#library_search_filter_wrapper').empty()
-      var filterContent = `<div id='search_grid_select_wrapper'>${themes}${places}${languages}<div class='col-md-12 search_query_indicator_div'>${_.isUndefined(response.query) ? '' : `<span id='search_query_indicator_div_header'>Current Search:</span> ${response.query}`}</div>`
+      var filterContent = `<div class='col-md-12 search_query_indicator_div'>${_.isUndefined(response.query) ? '' : `<span id='search_query_indicator_div_header'>Current Search:</span> ${response.query}`}</div><div id='search_grid_select_wrapper'>${themes}${places}${languages}${file_types}</div>`
       $('#library_search_filter_wrapper').append(filterContent)
       return false
     }
+    $('#library_search_select').on('change', e => {
+      var selectValue = $(e.target).val()
+      if (selectValue === 'alphabetical') {
+        search_grid.isotope({ sortBy: 'alphabetical' })
+      } else if (selectValue === 'relevance') {
+        search_grid.isotope({ filter: '*' })      
+      } else if (selectValue === 'publication') {
+        search_grid.isotope({ sortBy: 'publication' })
+      }
+      sortFlags[selectValue] = !sortFlags[selectValue]
+      search_grid.isotope({ sortAscending: sortFlags[selectValue] })
+      return false
+    })
     $('#application').on('click', '#library_start_button', e => {
       window.location = '/library'
     })
@@ -161,6 +189,9 @@ $(() => {
       e.preventDefault()
       appendSpinnerLibModal()
       $('#library_index_content_popular_content_grid_wrapper').css('display', 'none')
+      $('#library_index_content_popular_content_grid_wrapper_header').css('display', 'none')
+      $('#library_index_content_popular_header_text').css('display', 'block')
+      $('#library_search_select').css('display', 'block')
       $('#library_content_cell_progress_spinner').css('display', 'block')
       // $('#library_browse_indicator_span').append(`<b>${category_show_title === 'C4d' || category_show_title == 'Sop' ? _.toUpper(category_show_title) : category_show_title } ${subcategory_title.replace('.', '')}</b>`)
       $.ajax({
@@ -197,7 +228,15 @@ $(() => {
       }
       search_grid = $(`#application #library_content_search_results_grid`)
       search_grid.isotope({
-        itemSelector: itemSelector
+        itemSelector: itemSelector,
+        getSortData: {
+          publication: function (ele) {
+            return parseInt($(ele).find('#publication_year').text())
+          },
+          alphabetical: function (ele) {
+            return _.lowerCase(_.trim($(ele).find('#search_content_title_text a').text()))
+          }
+        }
       })
         //       getSortData: {
         //   relevance: function (ele) {
@@ -434,7 +473,7 @@ $(() => {
       }
       return `${references.map(reference_obj => {
         idx += 1
-        return `<div id='${idx + 1}' class='col-md-12 ${reference_links_data[reference_obj.id].isSOP ? 'SOP' : ''} ${reference_links_data[reference_obj.id].isC4D ? 'C4D' : ''} ${ reference_obj['tags'] === undefined ? '' : reference_obj['tags'].map(tag => { return _.replace(tag.title, new RegExp(" ","g"), "_") }).join(' ') } ${ reference_obj['places'] === undefined ? '' : reference_obj['places'].map(place => { return _.replace(place.title, new RegExp(" ","g"), "_") }).join(' ') } ${ reference_obj['languages'] === undefined ? '' : reference_obj['languages'].map(language => { return _.replace(language.title, new RegExp(" ","g"), "_") }).join(' ') } search_content_item pagination_search_content_item_${ getSearchResultFilter(idx+1) } ${ idx === 0 ? 'active' : '' }'>
+        return `<div id='${idx + 1}' class='col-md-12 ${ (_.isUndefined(reference_obj.file_type) ? '' : reference_obj.file_type.title) } ${reference_links_data[reference_obj.id].isSOP ? 'SOP' : ''} ${reference_links_data[reference_obj.id].isC4D ? 'C4D' : ''} ${ reference_obj['tags'] === undefined ? '' : reference_obj['tags'].map(tag => { return _.replace(tag.title, new RegExp(" ","g"), "_") }).join(' ') } ${ reference_obj['places'] === undefined ? '' : reference_obj['places'].map(place => { return _.replace(place.title, new RegExp(" ","g"), "_") }).join(' ') } ${ reference_obj['languages'] === undefined ? '' : reference_obj['languages'].map(language => { return _.replace(language.title, new RegExp(" ","g"), "_") }).join(' ') } search_content_item pagination_search_content_item_${ getSearchResultFilter(idx+1) } ${ idx === 0 ? 'active' : '' }'>
                   <div class='col-md-1'>
                     ${ reference_obj.is_video ? getThumbnailVideo.bind(reference_obj)() : getThumbnailImage.bind(reference_obj)() }
                   </div>
@@ -472,7 +511,7 @@ $(() => {
                       <div class='col-md-3 langauage_indicator_wrapper'>
                         <a id='${ reference_obj.id }' href="${ reference_obj.is_video ? reference_obj.video_url : reference_obj.absolute_url }" target='_blank' class='reference_download_tracker'><div class='reference_search_result_info_language '>${ _.upperCase(!_.isEmpty(reference_obj.document_language) ? reference_obj.document_language : reference_obj.language) }</div> ${ reference_obj.is_video ? 'MOV' : ('PDF ' + convertBytesToKbOrMb(reference_obj.document_file_size)) }</a>
                       </div>
-                      ${ reference_obj['publication_year'] === '' ? '' : `<div class="col-md-6"><span class="bold_text">Publication:</span> ${ reference_obj['publication_year'] }</div>` }
+                      ${ reference_obj['publication_year'] === '' ? '' : `<div class="col-md-6"><span class="bold_text">Publication Date:</span> <span id="publication_year">${ reference_obj['publication_year'] }</span></div>` }
                     </div>
                     <div id='catalogue_wrapper' class='col-md-3 text-right'>
                       ${ reference_links_data[reference_obj.id]['isC4D'] ? "<div class='inline_block reference_search_result_is_c4d bold_text'>C4D </div>" : '' }
@@ -908,6 +947,7 @@ $(() => {
       let theme_values = _.map($('#application #search_filter_dropdown_menu #theme_checkboxes .check_box:checked'), input => { return _.trim($(input).val()).replace(new RegExp(' ', 'g'), '_') })
       let place_values = _.map($('#application #search_filter_dropdown_menu #place_checkboxes .check_box:checked'), input => { return _.trim($(input).val()).replace(new RegExp(' ', 'g'), '_') })
       let language_values = _.map($('#application #search_filter_dropdown_menu #language_checkboxes .check_box:checked'), input => { return _.trim($(input).val()).replace(new RegExp(' ', 'g'), '_') })
+      let file_type_values = _.map($('#application #search_filter_dropdown_menu #file_type_checkboxes .check_box:checked'), input => { return _.trim($(input).val()).replace(new RegExp(' ', 'g'), '_') })
       filter_value = _.trim(theme_values.join('') + place_values.join('') + language_values.join(''))
       if (_.isEmpty(filter_value)) {
         $('#application #search_pagination_controls_wrapper').css('display', 'block')

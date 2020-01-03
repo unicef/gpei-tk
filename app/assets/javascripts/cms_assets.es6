@@ -508,6 +508,7 @@ $(() => {
         let content = getReferenceEditForm({ reference_type: type,
                                              reference: response.reference_link,
                                              all_other_reference_links: response.reference_links,
+                                             file_types: response.file_types,
                                              tags: response.tags,
                                              languages: response.languages,
                                              places: response.places })
@@ -552,6 +553,8 @@ $(() => {
       return false
     })
     function getReferenceEditForm(args){
+      var arr = [];
+      arr.push(args['reference']['file_type'])
       return `<div id='${ args['reference'].id }'>
                 <form id="CMS_reference_${ args['reference_type'] }_edit" class="ui form">
                   <div class="field">
@@ -584,8 +587,8 @@ $(() => {
                     <label>Description:</label>
                     <textarea name="reference_${ args['reference_type'] }[description]" placeholder="descriptive text" required>${(_.isNull(args['reference'].description) || args['reference'].description === '' || args['reference'].description === 'Description coming soon') ? '' : args['reference'].description }</textarea>
                     ${ getReferenceDocumentLanguageInput(args['reference_type'], args['reference'].document_language) }
-                    <label>File TYpe:</label>
-                    ${ getSelectorWithoutPreview({ object_type: 'file_type', selected_objects: args['reference']['file_type'], objects: args['file_type'] }) }
+                    <label>File Type: (select only one)</label>
+                    ${ getSelectorWithoutPreview({ object_type: 'file_types', selected_objects: arr, objects: args['file_types'] }) }
                     <label>Languages:</label>
                     ${ getSelectorWithoutPreview({ object_type: 'languages', selected_objects: args['reference']['languages'], objects: args['languages'] }) }
                     <label>Places:</label>
@@ -605,7 +608,7 @@ $(() => {
             ${_.map(args['objects'], object => {
                 let checked = !_.isEmpty(_.filter(args['selected_objects'], (selected_object) => { return selected_object.id === object.id })) ? "checked" : ""
                 return `<li>
-                          <input id=${object.id} ${checked} type='checkbox' name="reference_link[${args['object_type']}][]" value="${object.id}">
+                          <input id='${object.id}' ${checked} type='checkbox' name="${ (args['object_type'] === 'file_types') ? "reference_link[file_type_id]" : `reference_link[${args['object_type']}][]` }" value="${object.id}">
                           <label id='cms_reference_${args['object_type']}_label' class='filter-label' for=${ object.id }>${object.title}</label>
                         </li>`
             }).join('\n')}
@@ -637,7 +640,7 @@ $(() => {
         $('#cms_reference_link_grid #'+response.id+'.reference_link_item').find('#cms_reference_link_description_div').text(response.description)
         var is_archived = response.is_archived === true ? 'Yes' : 'No';
         $('#cms_reference_link_grid #'+response.id+'.reference_link_item').find('#cms_reference_link_is_archived_div').text(is_archived)
-        var file_type = _.isUndefined(response.file_type) ? 'no value' : response.file_type.title;
+        var file_type = _.isUndefined(response.file_type_title) ? 'no value' : response.file_type_title;
         $('#cms_reference_link_grid #'+response.id+'.reference_link_item').find('#cms_reference_link_file_type_div').text(file_type)
         var is_featured = response.is_featured === true ? 'Yes' : 'No';
         $('#cms_reference_link_grid #'+response.id+'.reference_link_item').find('#cms_reference_link_is_featured_div').text(is_featured)
@@ -649,7 +652,11 @@ $(() => {
       })
       return false
     })
-
+    $('#application').on('change', '#file_types_checkboxes', function(evt) {
+      if($(this).siblings(':checked').length > 1) {
+        this.checked = false;
+      }
+    });
     $('#CMS_modal').on('submit', '#CMS_reference_mp3_edit', e => {
       e.preventDefault()
       toggleProgressSpinner()

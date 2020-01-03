@@ -23,7 +23,7 @@
         </form>
       </div>
       <div id='search_parameter_select_dropdown'>
-        <select>
+        <select id='library_search_select'>
           <option value='relevance' selected='selected'>Relevance</option>
           <option value='alphabetical'>Alphabetical</option>
           <option value='publicaion'>Publication</option>
@@ -32,13 +32,16 @@
     </div>
   </div>
   <div id='library_index_content_wrapper' class='col-md-12'>
+    <div id='library_search_filter_wrapper' class='col-md-12'></div>
     <div id='library_index_content_popular_downloads' class='col-md-12'>
-      <div id='library_search_filter_wrapper' class='col-md-12'></div>
-      <div id='library_index_content_popular_header_text' class='col-md-12'>
-        Browse <span id='library_browse_indicator_span'><div id="library_reference_count_indicator"></div></span>
+      <div id='library_index_content_popular_content_grid_wrapper_header' class='col-md-12'>
+        Browse by Content Area
       </div>
-      <div id='library_index_content_popular_divider' class='div_border_underline col-md-12'></div>
+      <div id='library_index_content_popular_header_text' class='col-md-12'><span id='library_browse_indicator_span'><div id="library_reference_count_indicator"></div></span>
+      </div>
+      <!-- <div id='library_index_content_popular_divider' class='div_border_underline col-md-12'></div> -->
       <div id='library_index_content_popular_content_grid_wrapper' class='col-md-12'>
+        <span id="search_count_span"><%= @total_reference_count %> <i class="fa fa-file-text-o"></i></span> <span id="search_count_text_span" style="font-weight:bold;color:black !important;">DOCUMENTS</span>`
         <% if @param_exists %>
           <div id='library_show_reference_links' class="<%= params['category'] %>"><%= params['search'] if params['search'] %></div>
         <% else %>

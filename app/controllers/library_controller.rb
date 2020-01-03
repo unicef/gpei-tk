@@ -7,28 +7,28 @@ class LibraryController < ApplicationController
     params['search'] = params['tag'] unless params['tag'].nil?
     params['search'].gsub!(".","")
     if params['category'] == 'c4d'
-      reference_links = ReferenceLink.where(id: C4dArticle.where(published: true).map{|article| article.reference_links.pluck(:id).flatten}.flatten.uniq, is_archived: false).order('title ASC NULLS LAST').as_json(:include => [:author, :tags, :places, :languages, :related_topics]).uniq
+      reference_links = ReferenceLink.where(id: C4dArticle.where(published: true).map{|article| article.reference_links.pluck(:id).flatten}.flatten.uniq, is_archived: false).order('title ASC NULLS LAST').as_json(:include => [:author, :tags, :places, :languages, :related_topics, :file_type]).uniq
     elsif params['category'] == 'sop'
-      reference_links = ReferenceLink.where(id: SopArticle.where(published: true).map{|article| article.reference_links.pluck(:id).flatten}.flatten.uniq, is_archived: false).order('title ASC NULLS LAST').as_json(:include => [:author, :tags, :places, :languages, :related_topics]).uniq
+      reference_links = ReferenceLink.where(id: SopArticle.where(published: true).map{|article| article.reference_links.pluck(:id).flatten}.flatten.uniq, is_archived: false).order('title ASC NULLS LAST').as_json(:include => [:author, :tags, :places, :languages, :related_topics, :file_type]).uniq
     elsif params['category'] == 'tags'
-      reference_links = ReferenceLink.where(id: TagReference.where(tag_id: Tag.where(title: params['search']).first.id).pluck(:reference_tagable_id).flatten.uniq, is_archived: false).order('title ASC NULLS LAST').as_json(:include => [:author, :tags, :places, :languages, :related_topics]).uniq
+      reference_links = ReferenceLink.where(id: TagReference.where(tag_id: Tag.where(title: params['search']).first.id).pluck(:reference_tagable_id).flatten.uniq, is_archived: false).order('title ASC NULLS LAST').as_json(:include => [:author, :tags, :places, :languages, :related_topics, :file_type]).uniq
     elsif params['search'] != nil
       reference_links = ReferenceLink.where(is_archived: false).order('title ASC NULLS LAST')
                         .search_refs(params['search'])
-                        .as_json(:include => [:author, :tags, :places, :languages, :related_topics]).uniq
+                        .as_json(:include => [:author, :tags, :places, :languages, :related_topics, :file_type]).uniq
     end
     query = params['category'] == 'c4d' || params['category'] == 'sop' ? params['category'].upcase : params['search']
     references = reference_links
-    reference_links_data, sopCount, c4dCount, places, languages, tags = get_reference_link_data(references)
+    reference_links_data, sopCount, c4dCount, places, languages, tags, file_types = get_reference_link_data(references)
     users = Hash[User.all.pluck(:id, :first_name)]
     category = params['search']
     render json: { status: 200,
-                   file_types: [],
                    references: references,
                    reference_links_data: reference_links_data,
                    users: users,
                    parent_category: params['category'],
                    category: category,
+                   file_types: file_types,
                    query: query,
                    places: places,
                    languages: languages,
@@ -41,15 +41,16 @@ class LibraryController < ApplicationController
     reference_links = ReferenceLink.where(is_archived: false)
                       .search_refs(params['search'])
                       .order('title ASC NULLS LAST')
-                      .as_json(:include => [:author, :tags, :places, :languages, :related_topics]).uniq
+                      .as_json(:include => [:author, :tags, :places, :languages, :related_topics, :file_type]).uniq
     references = reference_links
-    reference_links_data, sopCount, c4dCount, places, languages, tags = get_reference_link_data(references)
+    reference_links_data, sopCount, c4dCount, places, languages, tags, file_types = get_reference_link_data(references)
     users = Hash[User.all.pluck(:id, :first_name)]
     render json: { status: 200,
                    references: references,
                    reference_links_data: reference_links_data,
                    users: users,
                    places: places,
+                   file_types: file_types,
                    query: params['search'],
                    languages: languages,
                    sopCount: sopCount,
@@ -76,6 +77,7 @@ class LibraryController < ApplicationController
     @sop_category_counts = get_sop_category_counts
     @featured_references = ReferenceLink.joins(:featured_references).merge(FeaturedReference.order(id: :asc)).all.order('title ASC NULLS LAST').as_json(:include => [:author, :tags, :places, :languages, :related_topics]).uniq
     @reference_links_data, @sopCount, @c4dCount, @places, @languages, @tags = get_reference_link_data(@featured_references)
+    @total_reference_count = ReferenceLink.where(is_archived: false).count
     @param_exists = nil
     @param_exists = true if params['category'] != nil || params['search'] != nil
     if params['tag'] != nil
@@ -94,12 +96,16 @@ class LibraryController < ApplicationController
   end
 
   def get_reference_link_data(reference_links)
-    reference_links_data, places, languages, tags = {}, {}, {}, {}
+    reference_links_data, places, languages, tags = {}, {}, {}, {}, {}
+    file_types = []
     sopCount, c4dCount = 0, 0
     reference_links.each do |reference_link|
       places.merge!(map_filters(reference_link['places'], places))
       languages.merge!(map_filters(reference_link['languages'], languages))
       tags.merge!(map_filters(reference_link['tags'], tags))
+      if reference_link['file_type'] != nil
+        file_types << reference_link['file_type']['title']
+      end
       ref_join = ReferenceLinkArticle.where(reference_link_id: reference_link['id'])
       reference_links_data[reference_link['id']] = { reference_link: reference_link,
                                                      isSOP: false,
@@ -121,7 +127,7 @@ class LibraryController < ApplicationController
                                                          like_count: round_stats_to_view(ReferenceLike.where(reference_likeable_id: reference_link['id']).count),
                                                          liked_by_user: liked_by_user })
     end
-    return reference_links_data, sopCount, c4dCount, places.sort_by{|k, v| v[:count] * -1 }.sort!, languages.sort_by{|k, v| v[:count] * -1 }.sort!, tags.sort_by{|k, v| v[:count] * -1 }.sort!
+    return reference_links_data, sopCount, c4dCount, places.sort_by{|k, v| v[:count] * -1 }.sort!, languages.sort_by{|k, v| v[:count] * -1 }.sort!, tags.sort_by{|k, v| v[:count] * -1 }.sort!, file_types.sort!
   end
 
   def map_filters(filters, existing_filters)
