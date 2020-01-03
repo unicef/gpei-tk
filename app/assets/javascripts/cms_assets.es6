@@ -554,7 +554,9 @@ $(() => {
     })
     function getReferenceEditForm(args){
       var arr = [];
-      arr.push(args['reference']['file_type'])
+      if (!_.isUndefined(args['reference']['file_type'])){
+        arr.push(args['reference']['file_type'])
+      }
       return `<div id='${ args['reference'].id }'>
                 <form id="CMS_reference_${ args['reference_type'] }_edit" class="ui form">
                   <div class="field">
