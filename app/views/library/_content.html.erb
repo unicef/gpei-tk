@@ -43,7 +43,7 @@
       <div id='library_index_content_popular_content_grid_wrapper' class='col-md-12'>
         <span id="search_count_span"><%= @total_reference_count %> <i class="fa fa-file-text-o"></i></span> <span id="search_count_text_span" style="font-weight:bold;color:black !important;">DOCUMENTS</span>`
         <% if @param_exists %>
-          <div id='library_show_reference_links' class="<%= params[:category] %>" data-tag='<%= params[:filters][:tag] %>' data-place='<%= params[:filters][:place] %>' data-language='<%= params[:filters][:language] %>' data-file-type='<%= params[:filters]['file-type'] %>'><%= params['search'] if params['search'] %></div>
+          <div id='library_show_reference_links' class="<%= params[:category] %>" data-tag='<%= params[:filters][:tag] if defined?(params[:filters][:tag]) %>' data-place='<%= params[:filters][:place] if defined?(params[:filters][:place]) %>' data-language='<%= params[:filters][:language] if defined?(params[:filters][:language]) %>' data-file-type='<%= params[:filters]['file-type'] if defined?(params[:filters]['file-type']) %>'><%= params['search'] if params['search'] %></div>
         <% else %>
           <%= render 'library/browse_initial_isotope_grid' %>
         <% end %>
