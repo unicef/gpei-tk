@@ -144,6 +144,27 @@ $(() => {
       $('#library_index_content_popular_header_text').text("Results: ")
       var itemCount = $(search_grid).data('isotope').filteredItems.length
       loadDocumentCount(itemCount)
+      var tagFilter = ""
+      var placeFilter = ""
+      var languageFilter = ""
+      var fileTypeFilter = ""
+      // filters[tag]=
+      if ($('#application select[name="reference_links_theme"]').val() !== "") {
+        tagFilter = `filters[tag]=${$('#application select[name="reference_links_theme"]').val()}&`
+      }
+      if ($('#application select[name="reference_links_language"]').val() !== "") {
+        languageFilter = `filters[language]=${$('#application select[name="reference_links_language"]').val()}&`
+      }
+      if ($('#application select[name="reference_links_place"]').val() !== "") {
+        placeFilter = `filters[place]=${$('#application select[name="reference_links_place"]').val()}&`
+      }
+      debugger
+      if ($('#application select[name="reference_links_file_type"]').val() !== "") {
+        fileTypeFilter = `filters[file-type]=${$('#application select[name="reference_links_file_type"]').val()}`
+      }
+      var pushState = "/library/?" + tagFilter + languageFilter + placeFilter + fileTypeFilter 
+      debugger
+      window.history.pushState("", "", pushState);
       return false
     })
     $('#application').on('change', '#search_grid_clear', e => {
@@ -152,13 +173,13 @@ $(() => {
     })
     function loadSearchGridFilters(response) {
       var themes = `<select class='grid_filter_select' name="reference_links_theme"><option value='' selected="selected">Any Theme</option>${response.tags.map(tag => { 
-        return `<option class='option_background_color' value="${tag[0]}" ${response.parent_category === "" ? '' : (response.parent_category === 'tags' ? (tag[0] === response.category ? 'selected' : '') : '')}>${tag[0]}</option>`}).join(' ')}</select>`
+        return `<option class='option_background_color' value="${tag[0].trim()}" ${response.parent_category === "" ? '' : (response.parent_category === 'tags' ? (tag[0] === response.category ? 'selected' : '') : '')}>${tag[0].trim()}</option>`}).join(' ')}</select>`
       var places = `<select class='grid_filter_select' name="reference_links_place"><option value='' selected="selected">Any Place</option>${response.places.map(place => { 
-        return `<option class='option_background_color' value="${place[0]}">${place[0]}</option>`}).join(' ')}</select>`
+        return `<option class='option_background_color' value="${place[0].trim()}">${place[0].trim()}</option>`}).join(' ')}</select>`
       var languages = `<select class='grid_filter_select' name="reference_links_language"><option value='' selected="selected">Any Language</option>${response.languages.map(language => { 
-        return `<option class='option_background_color' value="${language[0]}">${language[0]}</option>`}).join(' ')}</select>`
-      var file_types = `<select class='grid_filter_select' name="reference_links_language"><option value='' selected="selected">Any File Type</option>${response.file_types.map(file_type => { 
-        return `<option class='option_background_color' value="${file_type}">${file_type}</option>`}).join(' ')}</select>`
+        return `<option class='option_background_color' value="${language[0].trim()}">${language[0].trim()}</option>`}).join(' ')}</select>`
+      var file_types = `<select class='grid_filter_select' name="reference_links_file_type"><option value='' selected="selected">Any File Type</option>${response.file_types.map(file_type => { 
+        return `<option class='option_background_color' value="${file_type.trim()}">${file_type.trim()}</option>`}).join(' ')}</select>`
       // var fileTypes = `<div class='col-md-3'><select name="reference_links_place"><option selected="selected">Any Place</option>${response.tags.map(tag => { 
       //   return `<option value="${tag[0]}">${tag[0]}</option>`}).join(' ')}</select></div>`
       $('#library_search_filter_wrapper').empty()
@@ -695,12 +716,59 @@ $(() => {
             $('#library_reference_links_filtered_wrapper').append(getSearchResultContent({ references: response.references, reference_links_data: response.reference_links_data, users: response.users, places: response.places, languages: response.languages, tags: response.tags, sopCount: response.sopCount, c4dCount: response.c4dCount }))
             loadSearchGridFilters(response)
             loadSearchGrid(response)
+            setTimeout(function() {
+              if (!!document.getElementById('library_show_reference_links')) {
+                var tag = $(document.getElementById('library_show_reference_links')).attr('data-tag')
+                var language = $(document.getElementById('library_show_reference_links')).attr('data-language')
+                var place = $(document.getElementById('library_show_reference_links')).attr('data-place')
+                var fileType = $(document.getElementById('library_show_reference_links')).attr('data-file-type')
+                var tags = $('#application select[name="reference_links_theme"] option')
+                var languages = $('#application select[name="reference_links_language"] option')
+                var places = $('#application select[name="reference_links_place"] option')
+                var fileTypes = $('#application select[name="reference_links_file_type"] option')
+                for (var i = 0; i < tags.length; i++) {
+                  if ($(tags[i]).val().trim() === tag) {
+                    $('#application select[name="reference_links_theme"]').val(tag)    
+                  }
+                }
+                for (var i = 0; i < languages.length; i++) {
+                  if ($(languages[i]).val().trim() === language) {
+                    $('#application select[name="reference_links_language"]').val(language)
+                  }
+                }
+                for (var i = 0; i < places.length; i++) {
+                  if ($(places[i]).val().trim() === place) {
+                    $('#application select[name="reference_links_place"]').val(place)
+                  }
+                }
+                for (var i = 0; i < fileTypes.length; i++) {
+                  if ($(fileTypes[i]).val().trim() === fileType) {
+                    $('#application select[name="reference_links_file_type"]').val(fileType)
+                  }
+                }
+              }
+              var selectedValues = _.map($('#search_grid_select_wrapper option:selected'), function(el){
+                if ($(el).val() !== "") {
+                  return "." + _.replace($(el).val(), new RegExp(" ","g"),"_");
+                }
+              })
+              selectedValues = _.join(_.compact(selectedValues), "")
+              search_grid.isotope({ filter: selectedValues })
+              $('#library_index_content_popular_header_text').text("")
+              $('#library_index_content_popular_header_text').text("Results: ")
+              $('#library_index_content_popular_content_grid_wrapper').css('display', 'none')
+              $('#library_index_content_popular_content_grid_wrapper_header').css('display', 'none')
+              $('#library_index_content_popular_header_text').css('display', 'block')
+              var itemCount = $(search_grid).data('isotope').filteredItems.length
+              $("#library_index_content_popular_content_grid_wrapper").text("Results:")
+              loadDocumentCount(itemCount)
 
+            }, 500);
           }
           return false
         })
       } else if (!document.getElementById('active_browse_filters')) {
-        loadBrowseGrid()
+        // loadBrowseGrid()
       }
       else {
         activateFiltersInBrowseGrid()
