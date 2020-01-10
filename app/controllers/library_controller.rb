@@ -13,7 +13,7 @@ class LibraryController < ApplicationController
     elsif params['category'] == 'tags'
       reference_links = ReferenceLink.where(id: TagReference.where(tag_id: Tag.where(title: params['search']).first.id).pluck(:reference_tagable_id).flatten.uniq, is_archived: false).order('title ASC NULLS LAST').as_json(:include => [:author, :tags, :places, :languages, :related_topics, :file_type]).uniq
     elsif params['search'] != ""
-      reference_links = ReferenceLink.where(is_archived: false).order('title ASC NULLS LAST')
+      reference_links = ReferenceLink.where(is_archived: false)
                         .search_refs(params['search'])
                         .as_json(:include => [:author, :tags, :places, :languages, :related_topics, :file_type]).uniq
     elsif params['search'] == ""
