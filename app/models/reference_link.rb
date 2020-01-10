@@ -4,7 +4,7 @@ class ReferenceLink < ApplicationRecord
   before_validation :update_is_video
 
   # pg_search_scope :search_refs, :against => { :title => 'A', :description => 'B', :document_file_name => 'C' },
-  pg_search_scope :search_refs, :against => [ :title, :description, :document_file_name ],
+  pg_search_scope :search_refs, :against => [ :title, :document_file_name, :description ],
                   :using => { dmetaphone: { any_word: true } }
 
   has_many :reference_link_articles
