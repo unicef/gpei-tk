@@ -22,16 +22,13 @@
           </div>
         </form>
       </div>
-      <div id='search_parameter_select_dropdown'>
-        <select id='library_search_select'>
-          <option value='relevance' selected='selected'>Relevance</option>
-          <option value='alphabetical'>Alphabetical</option>
-          <option value='publicaion'>Publication Date</option>
-        </select>
-      </div>
     </div>
   </div>
   <div id='library_index_content_wrapper' class='col-md-12'>
+    <div id='library_reference_count_wrapper'>
+      <div id='initial_reference_count_div'></div>
+      <span id="search_count_span" class='library_reference_count_wrapper_initial'><%= @total_reference_count %> <i class="fa fa-file-text-o"></i></span> <span id="search_count_text_span" style="font-weight:bold;color:black !important;" class='library_reference_count_wrapper_initial'>DOCUMENTS</span>
+    </div>
     <div id='library_search_filter_wrapper' class='col-md-12'></div>
     <div id='library_index_content_popular_downloads' class='col-md-12'>
       <div id='library_index_content_popular_content_grid_wrapper_header' class='col-md-12'>
@@ -41,7 +38,6 @@
       </div>
       <!-- <div id='library_index_content_popular_divider' class='div_border_underline col-md-12'></div> -->
       <div id='library_index_content_popular_content_grid_wrapper' class='col-md-12'>
-        <span id="search_count_span"><%= @total_reference_count %> <i class="fa fa-file-text-o"></i></span> <span id="search_count_text_span" style="font-weight:bold;color:black !important;">DOCUMENTS</span>`
         <% if @param_exists %>
           <div id='library_show_reference_links' class="<%= params[:category] %>" data-tag='<%= params[:filters][:tag] if defined?(params[:filters][:tag]) %>' data-place='<%= params[:filters][:place] if defined?(params[:filters][:place]) %>' data-language='<%= params[:filters][:language] if defined?(params[:filters][:language]) %>' data-file-type='<%= params[:filters]['file-type'] if defined?(params[:filters]['file-type']) %>'><%= params['search'] if params['search'] %></div>
         <% else %>
