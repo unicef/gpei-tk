@@ -14,7 +14,7 @@ class ReferenceLink < ApplicationRecord
                                                       places: :title,
                                                       tags: :title,
                                                     },
-                                :using => { dmetaphone: { any_word: true } }
+                                using: :dmetaphone
   has_many :reference_link_articles
 
   has_many :related_references, class_name: "RelatedReference",

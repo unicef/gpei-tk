@@ -74,12 +74,18 @@
   color:white;
   background-color:#35848C !important;
 }
+.widthFifty {
+  width:45% !important;
+}
+.marginLeft {
+  margin-left: 4% !important;
+}
 #library_search_reference_link_related_topics {
   padding:5px;
 }
 .sop_related_cell {
   color:black;
-  background: rgba(144, 73, 65, 0.8) !important;
+  background: #8D3733 !important;
 }
 .sop_related_cell:hover {
   color:white;
@@ -88,7 +94,7 @@
 .tags_related_cell {
   color:black;
   line-height:40px !important;
-  background: rgba(19, 153, 222, 0.8) !important;
+  background: #6398CF !important;
 }
 .tags_related_cell:hover {
   color:white;
@@ -260,7 +266,10 @@
   margin-top:5px;
   width: auto;
   background-color: #CC9A60;
-  color: white !important;
+  color: black !important;
+}
+.boldtext {
+  font-weight: bold;
 }
 #library_content_search_header_text {
   margin-bottom:10px;
@@ -269,11 +278,14 @@
   margin:5px;
   font-size: 18px;
 }
+#library_search_select option {
+  background-color: black;
+}
 #library_search_select {
   display: none;
 }
 #search_grid_select_wrapper select:first-child {
-  margin-left:15% !important;
+  margin-left:13% !important;
 }
 #search_grid_select_wrapper select{
   background-color: #A37743 !important;

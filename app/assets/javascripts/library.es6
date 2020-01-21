@@ -117,7 +117,7 @@ $(() => {
       $.ajax({
         method: 'GET',
         url: '/library/reference_links/',
-        data: { search: subcategory_title, category: category_title }
+        data: { search: subcategory_title, category: category_title, tag: subcategory_title }
       }).done(response => {
         if (response.status === 200){
           $('#library_reference_links_filtered_wrapper').empty()
@@ -163,7 +163,11 @@ $(() => {
       if ($('#application select[name="reference_links_file_type"]').val() !== "") {
         fileTypeFilter = `filters[file-type]=${$('#application select[name="reference_links_file_type"]').val()}`
       }
-      var pushState = "/library/?" + tagFilter + languageFilter + placeFilter + fileTypeFilter 
+      var searchValue = $('#library_content_search_input').val()
+      if (searchValue !== '') {
+        searchValue = `search=${searchValue}&`
+      }
+      var pushState = "/library/?" + searchValue + tagFilter + languageFilter + placeFilter + fileTypeFilter 
       window.history.pushState("", "", pushState);
       return false
     })
@@ -184,8 +188,10 @@ $(() => {
       //   return `<option value="${tag[0]}">${tag[0]}</option>`}).join(' ')}</select></div>`
       $('#library_search_filter_wrapper').empty()
       var filterContent = `<div class='col-md-12 search_query_indicator_div'>${_.isUndefined(response.query) ? '' : `<span id='search_query_indicator_div_header'>Current Search:</span> ${response.query}`}</div><div id='search_grid_select_wrapper'>${themes}${places}${languages}${file_types}</div><div id='search_parameter_select_dropdown'>
+      <div class='black_text col-md-12 boldtext'>Sort Results By:</div>
         <select id='library_search_select'>
           <option value='relevance' selected='selected'>Relevance</option>
+          <option value='like'>Popular</option>
           <option value='alphabetical'>Alphabetical</option>
           <option value='publicaion'>Publication Date</option>
         </select>
@@ -199,11 +205,15 @@ $(() => {
         search_grid.isotope({ sortBy: 'alphabetical' })
       } else if (selectValue === 'relevance') {
         search_grid.isotope({ sortBy: 'relevance' })   
+      } else if (selectValue === 'like') {
+        search_grid.isotope({ sortBy: 'like' })   
       } else if (selectValue === 'publication') {
         search_grid.isotope({ sortBy: 'publication' })
       }
-      sortFlags[selectValue] = !sortFlags[selectValue]
       search_grid.isotope({ sortAscending: sortFlags[selectValue] })
+      if (selectValue !== 'relevance') {
+        sortFlags[selectValue] = !sortFlags[selectValue]
+      }
       return false
     })
     $('#application').on('click', '#library_start_button', e => {
@@ -289,7 +299,10 @@ $(() => {
         itemSelector: itemSelector,
         getSortData: {
           relevance:  function (ele) {
-            return parseInt($(ele).find('#search_content_relevance').text())
+            return parseInt(_.trim($(ele).find('#search_content_relevance').text()))
+          },
+          like:  function (ele) {
+            return parseInt(_.trim($(ele).find('#search_like_count_div').attr('data-likes')))
           },
           publication: function (ele) {
             return parseInt($(ele).find('#publication_year').text())
@@ -427,6 +440,7 @@ $(() => {
 
     function getSearchResultsSort(){
       return `<div id='search_sort_wrapper' class='col-md-offset-6 col-md-2'>
+
                 <div class="ui compact menu">
                   <div class="ui simple dropdown item">
                     <span id='sort_search_dropdown_header'>SORT RESULTS</span>
@@ -553,6 +567,7 @@ $(() => {
                     <div id='search_content_title_text' class='col-md-12'>
                       <a id='${ reference_obj.id }' href="${ reference_obj.is_video ? reference_obj.video_url : reference_obj.absolute_url }" target='_blank' class='reference_download_tracker'>${ reference_obj.title ? reference_obj.title : _.replace(_.replace(reference_obj.document_file_name, new RegExp("_","g"), " "), new RegExp(".pdf","g"), "") }</a>
                     </div>
+                    <div id='search_like_count_div' class='display_none' data-likes='${reference_obj.like_count}'></div>
                     <div id='like_and_download_wrapper' class='col-md-2'>
                       <div id='library_download_div' class='inline_block'>
                         <a id='${ reference_obj.id }' href="${ reference_obj.is_video ? reference_obj.video_url : reference_obj.absolute_url }" target='_blank' class='inline_block library_download_img reference_download_tracker'>
@@ -744,10 +759,15 @@ $(() => {
         var search = $('#library_show_reference_links').text()
         $('#library_content_cell_progress_spinner').css('display', 'block')
         $('#library_index_content_popular_content_grid_wrapper_header').css('display', 'none')
+        var url = new URL(window.location.href)
+        var tag = url.searchParams.get("tag")
+        if (tag === null) {
+          tag = url.searchParams.get("search")
+        }
         $.ajax({
           method: 'GET',
           url: '/library/reference_links/',
-          data: { search: search, category: category }
+          data: { search: search, category: category, tag: tag }
         }).done(response => {
           if (response.status === 200){
             $('#library_reference_links_filtered_wrapper').empty()

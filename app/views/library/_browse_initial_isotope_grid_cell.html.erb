@@ -14,8 +14,15 @@
   </div>
 <% end %>
 <% if parent_category != "c4d" %>
+  <% idx = 0 %>
+  <% if parent_category == 'sop' %>
+    <div data-id='<%= parent_category %>' data-filter='.SOP' class='<%= parent_category %>_subcategories library_browse_grid_cell library_subcategory_cell widthFifty <%= "marginLeft" if parent_category == 'sop' && idx%2 == 0 %> <%= parent_category %>_related_cell active'>
+        SOP (<%= @sop_count %>)
+    </div>
+  <% end %>
+
   <% categories.each do |category| %>
-    <div data-id='<%= parent_category %>' data-filter='.<%= category.title %>' class='<%= parent_category %>_subcategories <%= 'tag_cell' if parent_category == 'tags' %> library_browse_grid_cell <%= "library_base_category" if parent_category == 'tags' %> <%= "library_subcategory_cell" if parent_category != 'c4d' %> <%= parent_category %>_related_cell active'>
+    <div data-id='<%= parent_category %>' data-filter='.<%= category.title %>' class='<%= parent_category %>_subcategories <%= 'tag_cell' if parent_category == 'tags' %> library_browse_grid_cell <%= "library_base_category" if parent_category == 'tags' %> <%= "library_subcategory_cell" if parent_category != 'c4d' %> <%= "widthFifty" if parent_category == 'sop' %> <%= "marginLeft" if parent_category == 'sop' && idx%2 == 0 %> <%= parent_category %>_related_cell active'>
       <%= category.title %>
       <% if parent_category == 'tags' %>
         (<%= @tag_counts[category.id]%>)
