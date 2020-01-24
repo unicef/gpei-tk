@@ -97,13 +97,14 @@ class Cms::ReferenceLinksController < ApplicationController
             RelatedReference.create(reference_link_id: reference_link.id, related_referenceable_id: id, related_referenceable_type: 'ReferenceLink')
           end
         end
+        file_type = reference_link.file_type.nil? ? nil : reference_link.file_type.title
         render json: { status: 200,
                        id: reference_link.id,
                        description: reference_link.description,
                        publication_year: reference_link.publication_year,
                        is_archived: reference_link.is_archived,
                        is_featured: reference_link.is_featured,
-                       file_type_title: reference_link.file_type.title,
+                       file_type_title: file_type,
                        title: reference_link.title,
                        document_language: reference_link.document_language,
                        places: reference_link.places,
