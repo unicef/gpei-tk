@@ -642,7 +642,7 @@ $(() => {
         $('#cms_reference_link_grid #'+response.id+'.reference_link_item').find('#cms_reference_link_description_div').text(response.description)
         var is_archived = response.is_archived === true ? 'Yes' : 'No';
         $('#cms_reference_link_grid #'+response.id+'.reference_link_item').find('#cms_reference_link_is_archived_div').text(is_archived)
-        var file_type = _.isUndefined(response.file_type_title) ? 'no value' : response.file_type_title;
+        var file_type = _.isUndefined(response.file_type_title) || _.isNull(response.file_type_title) ? 'no value' : response.file_type_title;
         $('#cms_reference_link_grid #'+response.id+'.reference_link_item').find('#cms_reference_link_file_type_div').text(file_type)
         var is_featured = response.is_featured === true ? 'Yes' : 'No';
         $('#cms_reference_link_grid #'+response.id+'.reference_link_item').find('#cms_reference_link_is_featured_div').text(is_featured)
