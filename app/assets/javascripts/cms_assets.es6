@@ -238,7 +238,7 @@ $(() => {
                           </div>
                           <div class='col-md-12'>
                             <div class='col-md-12'><strong>File Type:</strong></div>
-                            <div id='cms_reference_${type}_file_type_div' class='col-md-12'>${_.isUndefined(reference_link.file_type) ? 'no value' : reference_link.file_type.title}</div>
+                            <div id='cms_reference_${type}_file_type_div' class='col-md-12'>${_.isUndefined(reference_link.file_type) || _.isNull(reference_link.file_type) ? 'no value' : reference_link.file_type.title}</div>
                           </div>
                           <div style='height:10px' class='col-md-12'></div>
                           <div class='col-md-12'>
