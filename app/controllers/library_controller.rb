@@ -9,7 +9,7 @@ class LibraryController < ApplicationController
     c4dCount = ReferenceLink.where(id: ReferenceLinkArticle.where(reference_linkable_type: 'C4dArticle').pluck(:reference_link_id).uniq, is_archived: false).count
     sopCount = ReferenceLink.where(id: ReferenceLinkArticle.where(reference_linkable_type: 'SopArticle').pluck(:reference_link_id).uniq, is_archived: false).count
     if params['category'] == 'c4d'
-      reference_links = ReferenceLink.where(id: ReferenceLinkArticle.where(reference_linkable_type: 'C4dArticle').pluck(:reference_link_id).uniq, is_archived: false).order('title ASC NULLS LAST').as_json(:include => [:author, :tags, :places, :languages, :related_topics, :file_type]).uniq.sort_by {|obj| obj['is_featured'] }
+      reference_links = ReferenceLink.where(id: ReferenceLinkArticle.where(reference_linkable_type: 'C4dArticle').pluck(:reference_link_id).uniq, is_archived: false).order('title ASC NULLS LAST').as_json(:include => [:author, :tags, :places, :languages, :related_topics, :file_type]).uniq.sort_by {|obj| obj['is_featured'] ? 0 : 1 }
     elsif params['category'] == 'sop'
       category = ''
       if params['tag'] == 'SOP'
@@ -17,18 +17,18 @@ class LibraryController < ApplicationController
       else
         category = SopCategory.where(title: params['tag'])
       end
-      reference_links = ReferenceLink.where(id: SopArticle.joins(:reference_links).where(sop_category_id: category).map { |art| art.reference_links.map {|ref| ref.id } }.flatten.uniq, is_archived: false).order('title ASC NULLS LAST').as_json(:include => [:author, :tags, :places, :languages, :related_topics, :file_type]).uniq.sort_by {|obj| obj['is_featured'] }
+      reference_links = ReferenceLink.where(id: SopArticle.joins(:reference_links).where(sop_category_id: category).map { |art| art.reference_links.map {|ref| ref.id } }.flatten.uniq, is_archived: false).order('title ASC NULLS LAST').as_json(:include => [:author, :tags, :places, :languages, :related_topics, :file_type]).uniq.sort_by {|obj| obj['is_featured'] ? 0 : 1 }
     elsif params['category'] == 'tags'
-      reference_links = ReferenceLink.where(id: TagReference.where(tag_id: Tag.where(title: params['tag']).first.id).pluck(:reference_tagable_id).flatten.uniq, is_archived: false).order('title ASC NULLS LAST').as_json(:include => [:author, :tags, :places, :languages, :related_topics, :file_type]).uniq.sort_by {|obj| obj['is_featured'] }
+      reference_links = ReferenceLink.where(id: TagReference.where(tag_id: Tag.where(title: params['tag']).first.id).pluck(:reference_tagable_id).flatten.uniq, is_archived: false).order('title ASC NULLS LAST').as_json(:include => [:author, :tags, :places, :languages, :related_topics, :file_type]).uniq.sort_by {|obj| obj['is_featured'] ? 0 : 1 }
     elsif params['category'] == 'all'
-      reference_links = ReferenceLink.where(is_archived: false).order('title ASC NULLS LAST').as_json(:include => [:author, :tags, :places, :languages, :related_topics, :file_type]).uniq.sort_by {|obj| obj['is_featured'] }
+      reference_links = ReferenceLink.where(is_archived: false).order('title ASC NULLS LAST').as_json(:include => [:author, :tags, :places, :languages, :related_topics, :file_type]).uniq.sort_by {|obj| obj['is_featured'] ? 0 : 1 }
     elsif params['search'] != ""
       reference_links = ReferenceLink.where(is_archived: false)
                         .search_refs(params['search'])
-                        .as_json(:include => [:author, :tags, :places, :languages, :related_topics, :file_type]).uniq.sort_by {|obj| obj['is_featured'] }
+                        .as_json(:include => [:author, :tags, :places, :languages, :related_topics, :file_type]).uniq.sort_by {|obj| obj['is_featured'] ? 0 : 1 }
     elsif params['search'] == ""
       reference_links = ReferenceLink.where(is_archived: false).order('title ASC NULLS LAST')
-                        .as_json(:include => [:author, :tags, :places, :languages, :related_topics, :file_type]).uniq.sort_by {|obj| obj['is_featured'] }
+                        .as_json(:include => [:author, :tags, :places, :languages, :related_topics, :file_type]).uniq.sort_by {|obj| obj['is_featured'] ? 0 : 1 }
     end
     query = params['category'] == 'c4d' || params['category'] == 'sop' ? params['category'].upcase : params['search']
     references = reference_links
