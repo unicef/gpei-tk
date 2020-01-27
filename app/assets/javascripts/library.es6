@@ -17,7 +17,7 @@ $(() => {
     title: true,
     author: true,
     download: true,
-    like: true
+    like: false
   }
   if ($('#library').css('visibility') === 'visible'){
     let search_grid = ''
@@ -236,7 +236,7 @@ $(() => {
         search_grid.isotope({ sortBy: 'publication' })
       }
       search_grid.isotope({ sortAscending: sortFlags[selectValue] })
-      if (selectValue !== 'relevance') {
+      if (selectValue !== 'relevance' || selectValue !== 'like') {
         sortFlags[selectValue] = !sortFlags[selectValue]
       }
       return false
