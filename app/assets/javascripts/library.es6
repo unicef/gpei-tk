@@ -10,6 +10,7 @@ $(() => {
   }
 
   let sortFlags = {
+    alphabetical: true,
     relevance: true,
     publication: true,
     created: true,
@@ -129,6 +130,14 @@ $(() => {
           loadSearchGridFilters(response)
           $('#library_search_select').css('display', 'block')
           loadSearchGrid(response)
+          var pushState = ''
+          if (response.parent_category === 'sop') {
+            pushState = "/library/?category=" + response.parent_category + "&" + `subcategory=${response.category}`
+          } else if (response.parent_category === 'tags') {
+            pushState = "/library/?category=" + response.parent_category + "&" + `tag=${response.category}`
+          }
+          window.history.pushState("", "", pushState);
+
         }
         return false
       })
@@ -145,7 +154,6 @@ $(() => {
       $('#library_search_select').css('display', 'block')
       $('#library_reference_count_wrapper').text("Results: ")
       var itemCount = $(search_grid).data('isotope').filteredItems.length
-      loadDocumentCount(itemCount)
       var tagFilter = ""
       var placeFilter = ""
       var languageFilter = ""
@@ -163,11 +171,28 @@ $(() => {
       if ($('#application select[name="reference_links_file_type"]').val() !== "") {
         fileTypeFilter = `filters[file-type]=${$('#application select[name="reference_links_file_type"]').val()}`
       }
-      var searchValue = $('#library_content_search_input').val()
-      if (searchValue !== '') {
-        searchValue = `search=${searchValue}&`
+      var url = new URL(window.location.href)
+      var searchValue = ''
+      var search = url.searchParams.get("search")
+      if (!_.isNull(search)) {
+        searchValue = `search=${search}&`
       }
-      var pushState = "/library/?" + searchValue + tagFilter + languageFilter + placeFilter + fileTypeFilter 
+      var categoryValue = ''
+      var category = url.searchParams.get("category")
+      var subCat = ''
+      if (!_.isNull(category)) {
+        categoryValue = `category=${category}&`
+        if (category == 'tags'){
+          var subCatgry = url.searchParams.get("tag")
+          subCat = `tag=${subCatgry}&`
+        } else if (category == 'sop') {
+          var subCatgry = url.searchParams.get("subcategory")
+          subCat = `subcategory=${subCatgry}&`          
+        }
+      }
+
+      var pushState = "/library/?" + categoryValue + subCat + searchValue + tagFilter + languageFilter + placeFilter + fileTypeFilter 
+      loadDocumentCount(itemCount)
       window.history.pushState("", "", pushState);
       return false
     })
@@ -191,9 +216,9 @@ $(() => {
       <div class='black_text col-md-12 boldtext'>Sort Results By:</div>
         <select id='library_search_select'>
           <option value='relevance' selected='selected'>Relevance</option>
-          <option value='like'>Popular</option>
+          <option value='like'>Most Popular</option>
           <option value='alphabetical'>Alphabetical</option>
-          <option value='publicaion'>Publication Date</option>
+          <option value='publication'>Publication Date</option>
         </select>
       </div>`
       $('#library_search_filter_wrapper').append(filterContent)
@@ -276,6 +301,8 @@ $(() => {
           loadSearchGridFilters(response)
           $('#library_search_select').css('display', 'block')
           loadSearchGrid(response)
+          var pushState = "/library/?category=c4d"
+          window.history.pushState("", "", pushState);
         }
         return false
       })
@@ -302,7 +329,7 @@ $(() => {
             return parseInt(_.trim($(ele).find('#search_content_relevance').text()))
           },
           like:  function (ele) {
-            return parseInt(_.trim($(ele).find('#search_like_count_div').attr('data-likes')))
+            return parseInt(_.trim($(ele).find('#search_download_count_div').attr('data-downloads')))
           },
           publication: function (ele) {
             return parseInt($(ele).find('#publication_year').text())
@@ -567,7 +594,7 @@ $(() => {
                     <div id='search_content_title_text' class='col-md-12'>
                       <a id='${ reference_obj.id }' href="${ reference_obj.is_video ? reference_obj.video_url : reference_obj.absolute_url }" target='_blank' class='reference_download_tracker'>${ reference_obj.title ? reference_obj.title : _.replace(_.replace(reference_obj.document_file_name, new RegExp("_","g"), " "), new RegExp(".pdf","g"), "") }</a>
                     </div>
-                    <div id='search_like_count_div' class='display_none' data-likes='${reference_obj.like_count}'></div>
+                    <div id='search_download_count_div' class='display_none' data-downloads='${ _.isNull(reference_obj['download_count']) ? '0' : reference_obj['download_count'] }'></div>
                     <div id='like_and_download_wrapper' class='col-md-2'>
                       <div id='library_download_div' class='inline_block'>
                         <a id='${ reference_obj.id }' href="${ reference_obj.is_video ? reference_obj.video_url : reference_obj.absolute_url }" target='_blank' class='inline_block library_download_img reference_download_tracker'>
@@ -764,10 +791,11 @@ $(() => {
         if (tag === null) {
           tag = url.searchParams.get("search")
         }
+        var subcategory = url.searchParams.get("subcategory")
         $.ajax({
           method: 'GET',
           url: '/library/reference_links/',
-          data: { search: search, category: category, tag: tag }
+          data: { search: search, category: category, tag: tag, subcategory: subcategory }
         }).done(response => {
           if (response.status === 200){
             $('#library_reference_links_filtered_wrapper').empty()
@@ -822,10 +850,12 @@ $(() => {
               $('#library_reference_count_wrapper').text("Results: ")
               $('#library_index_content_popular_content_grid_wrapper').css('display', 'none')
               $('#library_index_content_popular_header_text').css('display', 'block')
-              var itemCount = $(search_grid).data('isotope').filteredItems.length
               $("#library_reference_count_wrapper").text("Results:")
-              loadDocumentCount(itemCount)
-
+              var refCount = 0
+              if ($('#library_content_search_results_grid:contains("No Results")').length === 0) {
+                refCount = search_grid.data('isotope').filteredItems.length
+              }
+              loadDocumentCount(refCount)
             }, 500);
           }
           return false
@@ -858,6 +888,7 @@ $(() => {
         filter: '.browse_content_item_1',
         getSortData: {
           relevance: function (ele) {
+            console.log('relevance')
             return parseInt($(ele).find('#browse_content_relevance').text())
           },
           created: function (ele) {
@@ -873,6 +904,7 @@ $(() => {
             return parseInt($(ele).find('#library_download_div .counter_indicator_text_div').text())
           },
           like: function (ele) {
+            console.log('like')
             return parseInt($(ele).find('#library_like_div .counter_indicator_text_div').text())
           }
         }

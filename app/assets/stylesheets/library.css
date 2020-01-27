@@ -279,7 +279,7 @@
   font-size: 18px;
 }
 #library_search_select option {
-  background-color: black;
+  background-color: #CC9A60;
 }
 #library_search_select {
   display: none;

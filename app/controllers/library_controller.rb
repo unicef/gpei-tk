@@ -15,7 +15,8 @@ class LibraryController < ApplicationController
       if params['tag'] == 'SOP'
         category = SopCategory.all.pluck(:id)
       else
-        category = SopCategory.where(title: params['tag'])
+        title = params['tag'] != "" ? params['tag'] : params['subcategory']
+        category = SopCategory.where(title: title)
       end
       reference_links = ReferenceLink.where(id: SopArticle.joins(:reference_links).where(sop_category_id: category).map { |art| art.reference_links.map {|ref| ref.id } }.flatten.uniq, is_archived: false).order('title ASC NULLS LAST').as_json(:include => [:author, :tags, :places, :languages, :related_topics, :file_type]).uniq.sort_by {|obj| obj['is_featured'] ? 0 : 1 }
     elsif params['category'] == 'tags'
