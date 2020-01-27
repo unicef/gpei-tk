@@ -8,7 +8,7 @@
         <span class='icon-bar'></span>
         <span class='icon-bar'></span>
       </button>
-      <%= link_to c4d_path, class: 'navbar-brand' do %>
+      <%= link_to root_path, class: 'navbar-brand' do %>
         <%= image_tag 'home/Rhizome-V2_White.png', id: 'nav_bar_logo', class:'img-responsive', alt: 'GPEI Toolkit' %>
       <% end %>
     </div>
@@ -50,7 +50,7 @@
       <% end %>
       </ul>
       <ul class='nav navbar-nav navbar-right'>
-        <li><a id='nav_contact_link' class='<%= 'immunization_nav' if @is_c4d_immunization %>' href=''>CONTACT</a></li>
+        <li><a id='nav_contact_link' class='<%= 'immunization_nav' if @is_c4d_immunization %>' href=''>FEEDBACK</a></li>
         <li><a id='nav_about_link' class='<%= 'immunization_nav' if @is_c4d_immunization %>' href=''>ABOUT</a></li>
         <li><a id='nav_library_link' href='/library/' class='<%= 'active' if @is_library %>'><img src='/assets/icons/Icon-Library.png'/></a></li>
         <!-- <li><a id='nav_search_link' href=''><img src='/assets/icons/Icon-search.png'/></a></li> -->

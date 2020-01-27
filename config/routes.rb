@@ -65,6 +65,8 @@ Rails.application.routes.draw do
     resources :how_to_instructions, only: [:index, :create]
   end
 
+  get 'downloads/reference_links' => 'downloads#reference_links'
+
   namespace :api, defaults: { format: :json } do
     resources :reference_downloads, only: [:create]
     resources :reference_likes, only: [:create]

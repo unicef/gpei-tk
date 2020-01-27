@@ -1,15 +1,41 @@
-<div data-filter='.<%= parent_category %>_subcategories' class='col-md-6 library_base_category library_browse_grid_cell  <%= parent_category %>_related_cell active'>
-  <%= parent_category == 'tags' ? 'Themes' : parent_category.upcase %>
-</div>
-<% categories.each do |category| %>
-  <div data-id='<%= parent_category %>' data-filter='.<%= category.title %>' class='col-md-6 <%= parent_category %>_subcategories library_browse_grid_cell <%= "library_subcategory_cell" if parent_category != 'c4d' %>  <%= parent_category %>_related_cell active'>
-    <%= category.title %>
+<% if parent_category != 'tags' %>
+  <div data-filter='.<%= parent_category %>_subcategories' class='<%= 'col-md-offset-2 col-md-5' if parent_category == 'tags' %> <%= 'col-md-5' if parent_category != 'tags' %> <%= 'notTagsCell' if parent_category != 'tags' %> library_base_category library_browse_grid_cell  <%= parent_category %>_related_cell active' data-category='<%= parent_category %>'>
+    <% if parent_category == 'c4d' %>
+      Communication Strategy (<%= @c4d_count %>)
+    <% elsif parent_category == 'sop' %>
+      SOPs for Outbreak Response (<%= @sop_count %>)
+    <% end %>
   </div>
-  <% if category.respond_to?('c4d_subcategories')%>
-    <% category.c4d_subcategories.each do |subcategory| %>
-      <div data-id='<%= parent_category %>' data-filter='<%= subcategory.title %>' class='col-md-6 library_browse_grid_cell library_subcategory_cell <%= category.title %> <%= parent_category %>_related_cell active'>
-        <%= subcategory.title %>
-      </div>
+<% end %>
+<% if parent_category == 'tags' %>
+  <div data-filter='.library_base_category' class='tags_divider col-md-12 library_base_category library_browse_grid_cell'>
+    <div class='tags_divider_padding'></div>
+    Browse by Theme
+  </div>
+<% end %>
+<% if parent_category != "c4d" %>
+  <% idx = 0 %>
+  <% if parent_category == 'sop' %>
+    <div data-id='<%= parent_category %>' data-filter='.SOP' class='<%= parent_category %>_subcategories library_browse_grid_cell library_subcategory_cell widthFifty <%= "marginLeft" if parent_category == 'sop' && idx%2 == 0 %> <%= parent_category %>_related_cell active'>
+        SOP (<%= @sop_count %>)
+    </div>
+  <% end %>
+
+  <% categories.each do |category| %>
+    <div data-id='<%= parent_category %>' data-filter='.<%= category.title %>' class='<%= parent_category %>_subcategories <%= 'tag_cell' if parent_category == 'tags' %> library_browse_grid_cell <%= "library_base_category" if parent_category == 'tags' %> <%= "library_subcategory_cell" if parent_category != 'c4d' %> <%= "widthFifty" if parent_category == 'sop' %> <%= "marginLeft" if parent_category == 'sop' && idx%2 == 0 %> <%= parent_category %>_related_cell active'>
+      <%= category.title %>
+      <% if parent_category == 'tags' %>
+        (<%= @tag_counts[category.id]%>)
+      <% elsif parent_category == 'sop' %>
+        (<%= @sop_category_counts[category.title] %>)
+      <% end %>
+    </div>
+    <% if category.respond_to?('c4d_subcategories')%>
+      <% category.c4d_subcategories.each do |subcategory| %>
+        <div data-id='<%= parent_category %>' data-filter='<%= subcategory.title %>' class='library_browse_grid_cell library_subcategory_cell <%= category.title %> <%= parent_category %>_related_cell active' data-category='<%= subcategory.title %>'>
+          <%= subcategory.title %>
+        </div>
+      <% end %>
     <% end %>
   <% end %>
 <% end %>

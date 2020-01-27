@@ -1,0 +1,52 @@
+
+<div id="c4d_selection_page" class="col-md-12 landing">
+  <div id="home_page_gpei_img_div" class='col-md-12'>
+    <img id='home_page_gpei_img' src='/assets/home/gpei_logo_white_orange.png'>
+  </div>
+  <a href='/c4d/'>
+  <div id='c4d_category_div' class='col-md-6' style='background-color:#35848C'>
+    <div id='c4d_category_title_div' class='col-md-12'>Design Communication Strategy</div>
+    <div id='c4d_right_angle_div' class='col-md-1 text-right'>
+      <i class="fa fa-angle-right fa-4x" aria-hidden="true"></i>
+    </div>
+    <div id='c4d_category_description_div' class='col-md-8'></div>
+  </div>
+  </a>
+  <a href='/c4d/immunization/'>
+  <div id='c4d_category_div' class='col-md-6' style='background-color:<%= @c4d_categories[4].color if @c4d_categories %>'>
+    <div id='c4d_category_title_div' class='col-md-12'>Use Social Data for Immunization</div>
+    <div id='c4d_right_angle_div' class='col-md-12 text-right'>
+      <i class="fa fa-angle-right fa-4x" aria-hidden="true"></i>
+    </div>
+    <div id='c4d_category_description_div' class='col-md-6'></div>
+  </div>
+  </a>
+  <a href='/library/?category=tags&tag=Training'>
+  <div id='c4d_category_div' class='col-md-6' style='background:#9BB234 !important'>
+    <div id='c4d_category_title_div' class='col-md-12'>Access Capacity Development Files</div>
+    <div id='c4d_right_angle_div' class='col-md-12 text-right'>
+      <i class="fa fa-angle-right fa-4x" aria-hidden="true"></i>
+    </div>
+    <div id='c4d_category_description_div' class='col-md-8'></div>
+  </div>
+  </a>
+  <a href='/library/?category=sop'>
+  <div id='c4d_category_div' class='col-md-6' style='background:rgba(144, 73, 65, 0.8) !important;'>
+    <div id='c4d_category_title_div' class='col-md-12'>Access Documents for Outbreak Response</div>
+    <div id='c4d_right_angle_div' class='col-md-12 text-right'>
+      <i class="fa fa-angle-right fa-4x" aria-hidden="true"></i>
+    </div>
+    <div id='c4d_category_description_div' class='col-md-9'></div>
+  </div>
+  </a>
+  <a href='/library/'>
+  <div id='c4d_category_div' class='col-md-offset-3 col-md-6' style='background-color:<%= @c4d_categories[3].color if @c4d_categories %>'>
+    <div id='c4d_category_title_div' class='col-md-12'>Quick Access to Library</div>
+    <div id='c4d_right_angle_div' class='col-md-12 text-right'>
+      <i class="fa fa-angle-right fa-4x" aria-hidden="true"></i>
+    </div>
+    <div id='c4d_category_description_div' class='col-md-8'></div>
+  </div>
+  </a>
+  <%= render 'footer/index' %>
+</div>

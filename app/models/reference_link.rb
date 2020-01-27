@@ -3,9 +3,18 @@ class ReferenceLink < ApplicationRecord
 
   before_validation :update_is_video
 
-  pg_search_scope :search_refs, :against => { :title => 'A', :description => 'B', :document_file_name => 'C' },
-                  :using => { tsearch: { prefix: true } }
-
+  # pg_search_scope :search_refs, :against => { :title => 'A', :description => 'B', :document_file_name => 'C' },
+  pg_search_scope :search_refs, :against => {
+                                              title: 'A',
+                                              document_file_name: 'B',
+                                              description: 'C'
+                                            },
+                                associated_against: {
+                                                      languages: :title,
+                                                      places: :title,
+                                                      tags: :title,
+                                                    },
+                                :using => :dmetaphone
   has_many :reference_link_articles
 
   has_many :related_references, class_name: "RelatedReference",
@@ -23,6 +32,8 @@ class ReferenceLink < ApplicationRecord
 
   has_many :reference_likes, as: :reference_likeable
   alias_attribute :likes, :reference_likes
+
+  belongs_to :file_type
 
   has_many :tag_references, as: :reference_tagable
   has_many :tags, through: :tag_references
@@ -83,5 +94,14 @@ class ReferenceLink < ApplicationRecord
     return false if !self.video_url
     uri = URI.parse(self.video_url)
     %w( http https ).include?(uri.scheme)
+  end
+
+  def self.to_csv
+    CSV.generate do |csv|
+      csv << column_names
+      all.each do |result|
+        csv << result.attributes.values_at(*column_names)
+      end
+    end
   end
 end

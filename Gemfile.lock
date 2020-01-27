@@ -611,6 +611,7 @@ GEM
     coderay (1.1.2)
     concurrent-ruby (1.0.5)
     crass (1.0.4)
+    csv (1.0.0)
     debug_inspector (0.0.3)
     erubi (1.7.1)
     execjs (2.7.0)
@@ -729,6 +730,7 @@ DEPENDENCIES
   aws-sdk
   bcrypt
   byebug
+  csv
   faker
   jbuilder (~> 2.0)
   jquery-rails
@@ -747,4 +749,4 @@ RUBY VERSION
    ruby 2.5.1p57
 
 BUNDLED WITH
-   1.16.1
+   1.17.3

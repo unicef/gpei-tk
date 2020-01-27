@@ -22,6 +22,7 @@ class C4dController < ApplicationController
   end
 
   def immunization
+    @is_c4d = false
     @is_c4d_immunization = true
     @c4d_category = C4dCategory.find_by(title: 'Immunization')
     @c4d_articles = C4dArticle.where(c4d_category_id: @c4d_category.id, published: true).order(order_id: :asc)

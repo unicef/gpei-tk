@@ -1,3 +1,12 @@
+.immunization_image {
+  padding-top:4em;
+}
+#immunization_header_wrapper {
+  margin-bottom:50px;
+}
+.immunization_description {
+  bottom: -1.5em !important;
+}
 .button-group:after {
   content: '';
   display: block;
@@ -27,10 +36,13 @@
   right: 5%;
   bottom: 5%;
 }
+#c4d_selection_page.landing{
+  padding-top:40px;
+}
 #c4d_selection_page {
   padding-left:10%;
   padding-right:10%;
-  padding-bottom:120px;
+  padding-bottom:90px;
   background: #000000; /* For browsers that do not support gradients */
   background: -webkit-linear-gradient(#252F38, #000000); /* For Safari 5.1 to 6.0 */
   background: -o-linear-gradient(#252F38, #000000); /* For Opera 11.1 to 12.0 */
@@ -61,7 +73,6 @@
 #c4d_category_description_div {
   position: absolute;
   bottom:10px;
-  opacity:0.5;
 }
 #c4d_selection_page a {
   color:white;
@@ -115,12 +126,17 @@
   line-height: 39px;
   font-weight: bold;
 }
-#c4d_category_description_div,
-#c4d_image_description {
+#c4d_category_description_div {
   font-family: 'proxima-nova' !important;
   color:white;
   font-size:15px !important;
   line-height: 18px;
+}
+#c4d_image_description {
+  font-family: 'proxima-nova' !important;
+  color:white;
+  font-size:20px !important;
+  line-height: 19px;
 }
 #c4d_subcategory_title_div {
   font-size:18px;

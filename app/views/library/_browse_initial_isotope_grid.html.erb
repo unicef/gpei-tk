@@ -1,5 +1,5 @@
-<div id='library_browse_isotope_grid' class='col-md-12'>
+<div id='library_browse_isotope_grid'>
   <%= render partial: 'library/browse_initial_isotope_grid_cell', locals: {categories: @c4d_categories, parent_category: 'c4d'} %>
   <%= render partial: 'library/browse_initial_isotope_grid_cell', locals: {categories: @sop_categories, parent_category: 'sop'} %>
-  <%= render partial: 'library/browse_initial_isotope_grid_cell', locals: {categories: @tags_all, parent_category: 'tags'} %>
+  <%= render partial: 'library/browse_initial_isotope_grid_cell', locals: {categories: @tags_all, parent_category: 'tags', tags_count: @tag_counts, sop_count: @sop_count, c4d_count: @c4d_count, sop_category_counts: @sop_category_counts} %>
 </div>

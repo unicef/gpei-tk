@@ -10,9 +10,10 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2017_04_27_150740) do
+ActiveRecord::Schema.define(version: 2020_01_03_205301) do
 
   # These are extensions that must be enabled in order to support this database
+  enable_extension "fuzzystrmatch"
   enable_extension "plpgsql"
 
   create_table "article_likes", id: :serial, force: :cascade do |t|
@@ -95,6 +96,12 @@ ActiveRecord::Schema.define(version: 2017_04_27_150740) do
   create_table "feedbacks", id: :serial, force: :cascade do |t|
     t.string "content", null: false
     t.integer "author_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "file_types", force: :cascade do |t|
+    t.string "title", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -204,6 +211,10 @@ ActiveRecord::Schema.define(version: 2017_04_27_150740) do
     t.integer "like_count"
     t.string "video_url"
     t.boolean "is_video"
+    t.string "publication_year", default: ""
+    t.boolean "is_archived", default: false
+    t.boolean "is_featured", default: false
+    t.integer "file_type_id"
   end
 
   create_table "reference_mp3_articles", id: :serial, force: :cascade do |t|

@@ -5,46 +5,57 @@
     </div>
     <div id='library_logo_text' class='col-md-12'>
       <a id='library_logo_text_link' href='/library/'>Library</a>
+      <div>
+      <button id='library_start_button'>Start <i class="fa fa-undo" aria-hidden="true"></i>
+</button>
+      </div>
     </div>
     <div id='library_content_search' class='col-md-12'>
       <div id='library_content_search_header_text' class='col-md-12'>
-        <!-- SEARCH THE DOCUMENT LIBRARY -->
+        Library Resource Search:
       </div>
-      <div id='library_content_search_input_wrapper' class='col-md-6'>
-        <form id="library_content_search_form" class="ui form">
-          <!-- <input id='library_content_search_input' placeholder='Search' name='search[query]' type='text' alt='Search'> -->
+      <div id='library_content_search_input_wrapper' class='col-md-12'>
+        <form id="library_content_search_form" class="col-md-3 ui form">
+          <div class="input-group">
+            <input id='library_content_search_input' placeholder="Search" name='search' type='text' alt='Search'>
+            <!-- <span id="search_button_library" class="input-group-addon">Search</span> -->
+          </div>
         </form>
       </div>
     </div>
   </div>
   <div id='library_index_content_wrapper' class='col-md-12'>
-    <%= render 'library/featured' %>
+    <div id='library_reference_count_wrapper'>
+      <div id='initial_reference_count_div'></div>
+      <span id="search_count_span" class='library_reference_count_wrapper_initial'><%= @total_reference_count %> <i class="fa fa-file-text-o"></i></span> <span id="search_count_text_span" style="font-weight:bold;color:black !important;" class='library_reference_count_wrapper_initial'>DOCUMENTS</span>
+    </div>
+    <div id='library_search_filter_wrapper' class='col-md-12'></div>
     <div id='library_index_content_popular_downloads' class='col-md-12'>
-      <div id='library_index_content_popular_header_text' class='col-md-6'>
-        Browse <span id='library_browse_indicator_span'></span>
+      <div id='library_index_content_popular_content_grid_wrapper_header' class='col-md-12'>
+        Browse by Content Area
       </div>
-      <div id='library_browse_clear_all' class='col-md-offset-5 col-md-1'>
-        Clear All
+      <div id='library_index_content_popular_header_text' class='col-md-12'><span id='library_browse_indicator_span'><div id="library_reference_count_indicator"></div></span>
       </div>
-
-      <!-- <#%= render 'library/browse_filter' %> -->
-
-      <div id='library_index_content_popular_divider' class='div_border_underline col-md-12'></div>
+      <!-- <div id='library_index_content_popular_divider' class='div_border_underline col-md-12'></div> -->
       <div id='library_index_content_popular_content_grid_wrapper' class='col-md-12'>
-        <%= render 'library/browse_initial_isotope_grid' %>
+        <% if @param_exists %>
+          <div id='library_show_reference_links' class="<%= params[:category] %>" data-tag='<%= params[:filters][:tag] if defined?(params[:filters][:tag]) %>' data-place='<%= params[:filters][:place] if defined?(params[:filters][:place]) %>' data-language='<%= params[:filters][:language] if defined?(params[:filters][:language]) %>' data-file-type='<%= params[:filters]['file-type'] if defined?(params[:filters]['file-type']) %>'><%= params['search'] if params['search'] %></div>
+        <% else %>
+          <%= render 'library/browse_initial_isotope_grid' %>
+        <% end %>
       </div>
-      <div id='library_content_cell_progress_spinner' class='col-md-12'>
+      <div id='library_content_cell_progress_spinner' class='col-md-12' style='<%= @param_exists ? 'display:block;' : '' %>'>
         Loading resources...<i class="fa fa-spinner fa-spin fa-fw fa-2x"></i>
       </div>
       <div id='library_reference_links_filtered_wrapper' class='col-md-12'>
       </div>
     </div>
   </div>
-  <% if @filters %>
-    <div id='active_browse_filters'>
-      <div class='display_none'><%= @filters.join('') %></div>
-    </div>
-  <% end %>
+  <!-- <#% if @filters %> -->
+ <!--    <div id='active_browse_filters'>
+      <div class='display_none'><#%= @filters.join('') %></div>
+    </div> -->
+  <!-- <#% end %> -->
   <% if @reference_link %>
     <div id='library_reference_link_show'>
       <%= @reference_link.id %>

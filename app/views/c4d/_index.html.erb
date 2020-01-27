@@ -1,9 +1,9 @@
-<div id="c4d_selection_page" class="col-md-12 <%= 'display_none_ow' if @display == 'none' %>">
+<div id="c4d_selection_page" class="col-md-12">
   <div class='col-md-12'>
     <div class='col-md-12'>
       <div id='c4d_image_div'><img src="/assets/headers/C4D-crop-Pervez-Altaf.jpg" class='img-responsive'></div>
-      <div id='c4d_image_title' class='col-md-7'>Communicate effectively</div>
-      <div id='c4d_image_description' class='col-md-8'>TOOLS & GUIDANCE TO HELP YOU DESIGN DATA-DRIVEN COMMUNICATION STRATEGIES THAT HELP VACCINATE EVERY CHILD.</div>
+      <div id='c4d_image_title' class='col-md-7'>Communicate Effectively</div>
+      <div id='c4d_image_description' class='col-md-12'>Follow the learning modules in this 4-step tutorial to design evidence-driven communication strategies to help vaccinate every child.</div>
     </div>
   </div>
   <a href='/c4d/understand/'>
@@ -13,7 +13,9 @@
       <i class="fa fa-angle-right fa-4x" aria-hidden="true"></i>
     </div>
     <div id='c4d_category_description_div' class='col-md-8'>
-    GET TO KNOW THE PROBLEM, THE RISK GROUPS AND THEIR PERCEPTIONS, AND HOW TO USE RESEARCH TO REFINE OBJECTIVES
+      <% @c4d_categories[0].c4d_subcategories.each do |subcategory| %>
+        <li><%= subcategory.title %></li>
+      <% end %>
     </div>
   </div>
   </a>
@@ -24,7 +26,9 @@
       <i class="fa fa-angle-right fa-4x" aria-hidden="true"></i>
     </div>
     <div id='c4d_category_description_div' class='col-md-9'>
-    DEFINE YOUR TARGET AUDIENCE AND BARRIERS TO CHANGE, THEN DEVELOP MESSAGES AND CHOOSE CHANNELS TO REACH YOUR AUDIENCE
+      <% @c4d_categories[1].c4d_subcategories.each do |subcategory| %>
+        <li><%= subcategory.title %></li>
+      <% end %>
     </div>
   </div>
   </a>
@@ -35,7 +39,9 @@
       <i class="fa fa-angle-right fa-4x" aria-hidden="true"></i>
     </div>
     <div id='c4d_category_description_div' class='col-md-8'>
-    INTEGRATE COMMUNICATIONS TACTICS AND UNDERSTAND THEIR STRENGTHS AND WEAKNESSES, THEN EVALUATE PERFORMANCE
+      <% @c4d_categories[2].c4d_subcategories.each do |subcategory| %>
+        <li><%= subcategory.title %></li>
+      <% end %>
     </div>
   </div>
   </a>
@@ -46,7 +52,7 @@
       <i class="fa fa-angle-right fa-4x" aria-hidden="true"></i>
     </div>
     <div id='c4d_category_description_div' class='col-md-6'>
-    EXTRA TOOLS, TEMPLATES & TRAINING TO HELP YOU REACH YOUR OBJECTIVES
+      Browse tools, templates and capacity development materials to help you reach your objectives.
     </div>
   </div>
   </a>

@@ -10,7 +10,9 @@ $(() => {
   }
 
   let sortFlags = {
+    alphabetical: true,
     relevance: true,
+    publication: true,
     created: true,
     title: true,
     author: true,
@@ -26,38 +28,46 @@ $(() => {
 
     $featured_grid.isotope({
       itemSelector: `.featured_content_item`,
-      layoutMode: 'fitRows',
+      layoutMode: 'masonryHorizontal',
       filter: '.featured_content_item_1'
     })
 
     $('#library_content_search_form').submit(e => {
       e.preventDefault()
-      $.ajax({
-        method: 'GET',
-        url: '/library/reference_search/',
-        data: $(e.currentTarget).serialize()
-      }).done(response => {
-        if (response.status === 200){
-          $('#library_index_content_featured').css('display', 'none')
-          $('#library_index_content_popular_downloads').css('display', 'none')
-          $('#library_content_search_results').empty()
-          $('#library_content_search_results').append(getSearchResultContent({ references: response.references, reference_links_data: response.reference_links_data, users: response.users, places: response.places, languages: response.languages, tags: response.tags, sopCount: response.sopCount, c4dCount: response.c4dCount }))
-          $('#application .ui.simple.dropdown.item').dropdown()
-          $('#application .ui.radio.checkbox').checkbox()
-          $('#application .ui.checkbox').checkbox()
-          $('#application .ui.dropdown').dropdown({
-            on:'hover',
-            action:'nothing'
-          })
-          loadSearchGrid()
-        }
-      })
-      return false
+      appendSpinnerLibModal()
+      $('#library_index_content_popular_content_grid_wrapper').css('display', 'none')
+      $('#library_index_content_popular_content_grid_wrapper_header').css('display', 'none')
+      $('#library_index_content_popular_header_text').css('display', 'block')
+      $('#library_search_select').css('display', 'block')
+      $('#library_content_cell_progress_spinner').css('display', 'block')
+      window.location.href = '/library/?' + $(e.currentTarget).serialize()
+      // $.ajax({
+      //   method: 'GET',
+      //   url: '/library/reference_search/',
+      //   data: $(e.currentTarget).serialize()
+      // }).done(response => {
+      //   if (response.status === 200){
+      //     $('#library_reference_links_filtered_wrapper').empty()
+      //     // referenceNode.parentNode.insertBefore(el, referenceNode.nextSibling);
+      //     $("#library_index_content_popular_header_text").text("Results:")
+      //     loadDocumentCount(response.references.length)
+      //     $('#library_content_cell_progress_spinner').css('display', 'none')
+      //     // $('#library_content_modal .header').append(`<div class='col-md-10'>${response.category}</div><div class='library_content_modal_close col-md-2 text-right'><span style='cursor:pointer;'>CLOSE&nbsp;<i class="fa fa-remove" aria-hidden="true"></i></span></div>`)
+      //     $('#library_reference_links_filtered_wrapper').append(getSearchResultContent({ references: response.references, reference_links_data: response.reference_links_data, users: response.users, places: response.places, languages: response.languages, tags: response.tags, sopCount: response.sopCount, c4dCount: response.c4dCount }))
+      //     loadSearchGridFilters(response)
+      //     loadSearchGrid()
+      //   }
+      // })
     })
 
     // ######NEW LIBRARY CONTENT
     //
     //
+    function loadDocumentCount(referenceCount) {
+      var countText =`<span id="search_count_span"> ${referenceCount} <i class="fa fa-file-text-o"></i></span> <span id="search_count_text_span" style="font-weight:bold;color:black !important;">DOCUMENTS</span>`
+      $('#library_document_count_wrapper').empty()
+      $('#library_reference_count_wrapper').append(countText)
+    }
     $('#library_content_modal').modal({
       allowMultiple: true,
       observeChanges: true,
@@ -66,10 +76,13 @@ $(() => {
         $('#library_content_modal .header').empty()
       }
     })
-
     let $lib_grid = $('#library_browse_isotope_grid').isotope({
       itemSelector: '.library_browse_grid_cell',
-      filter: '.library_base_category'
+      filter: '.library_base_category',
+      masonry: {
+        // use element for option
+        columnWidth: 5
+      }
     })
     $('.library_browse_grid_cell').click(e => {
       if (!e.target.classList.contains('library_subcategory_cell') === true) {
@@ -79,6 +92,9 @@ $(() => {
     $('#library_browse_clear_all').click(e => {
       $('#library_reference_links_filtered_wrapper').empty()
       $('#library_index_content_popular_content_grid_wrapper').css('display', 'block')
+      $('#library_index_content_popular_content_grid_wrapper_header').css('display', 'block')
+      $('#library_index_content_popular_header_text').css('display', 'none')
+
       $('#library_browse_indicator_span').empty()
       $lib_grid.isotope({ filter: '.library_base_category' })
     })
@@ -88,32 +104,205 @@ $(() => {
               </div>`)
     }
     $('.library_subcategory_cell').click(e => {
+      $('#library_index_content_popular_content_grid_wrapper').css('display', 'none')
+      $('#library_index_content_popular_content_grid_wrapper_header').css('display', 'none')
+      $('#library_index_content_popular_header_text').css('display', 'block')
+      $('#library_search_select').css('display', 'block')
+      $('#library_content_cell_progress_spinner').css('display', 'block')
       e.preventDefault()
       appendSpinnerLibModal()
-      $('#library_index_content_popular_content_grid_wrapper').css('display', 'none')
-      $('#library_content_cell_progress_spinner').css('display', 'block')
-      let subcategory_title = $(e.target).attr('data-filter')
-      let category_title = $(e.target).attr('data-id')
-      let category_show_title = _.capitalize(category_title.replace('.',''))
-      $('#library_browse_indicator_span').append(`<b>${category_show_title === 'C4d' || category_show_title == 'Sop' ? _.toUpper(category_show_title) : category_show_title } ${subcategory_title.replace('.', '')}</b>`)
+      var subcategory_title = $(e.target).attr('data-filter')
+      var category_title = $(e.target).attr('data-id')
+      var category_show_title = _.capitalize(category_title.replace('.',''))
+      // $('#library_browse_indicator_span').append(`<b>${category_show_title === 'C4d' || category_show_title == 'Sop' ? _.toUpper(category_show_title) : category_show_title } ${subcategory_title.replace('.', '')}</b>`)
       $.ajax({
         method: 'GET',
         url: '/library/reference_links/',
-        data: { subcategory_title: subcategory_title, category: category_title }
+        data: { search: subcategory_title, category: category_title, tag: subcategory_title }
       }).done(response => {
         if (response.status === 200){
+          $('#library_reference_links_filtered_wrapper').empty()
+          $("#library_reference_count_wrapper").text("Results:")
+          loadDocumentCount(response.references.length)
           $('#library_content_cell_progress_spinner').css('display', 'none')
           // $('#library_content_modal .header').append(`<div class='col-md-10'>${response.category}</div><div class='library_content_modal_close col-md-2 text-right'><span style='cursor:pointer;'>CLOSE&nbsp;<i class="fa fa-remove" aria-hidden="true"></i></span></div>`)
           $('#library_reference_links_filtered_wrapper').append(getSearchResultContent({ references: response.references, reference_links_data: response.reference_links_data, users: response.users, places: response.places, languages: response.languages, tags: response.tags, sopCount: response.sopCount, c4dCount: response.c4dCount }))
-          $('#application .ui.simple.dropdown.item').dropdown()
-          $('#application .ui.radio.checkbox').checkbox()
-          $('#application .ui.checkbox').checkbox()
-          $('#application .ui.dropdown').dropdown({
-            on:'hover',
-            action:'nothing'
-          })
+          loadSearchGridFilters(response)
+          $('#library_search_select').css('display', 'block')
+          loadSearchGrid(response)
+          var pushState = ''
+          if (response.parent_category === 'sop') {
+            pushState = "/library/?category=" + response.parent_category + "&" + `subcategory=${response.category}`
+          } else if (response.parent_category === 'tags') {
+            pushState = "/library/?category=" + response.parent_category + "&" + `tag=${response.category}`
+          }
+          window.history.pushState("", "", pushState);
 
-          loadSearchGrid()
+        }
+        return false
+      })
+    })
+    $('#application').on('change', '#search_grid_select_wrapper select', e => {
+      var selectedValues = _.map($('#search_grid_select_wrapper option:selected'), function(el){
+        if ($(el).val() !== "") {
+          return "." + _.replace($(el).val(), new RegExp(" ","g"),"_");
+        }
+      })
+      selectedValues = _.join(_.compact(selectedValues), "")
+      search_grid.isotope({ filter: selectedValues })
+      $('#library_reference_count_wrapper').text("")
+      $('#library_search_select').css('display', 'block')
+      $('#library_reference_count_wrapper').text("Results: ")
+      var itemCount = $(search_grid).data('isotope').filteredItems.length
+      var tagFilter = ""
+      var placeFilter = ""
+      var languageFilter = ""
+      var fileTypeFilter = ""
+      // filters[tag]=
+      if ($('#application select[name="reference_links_theme"]').val() !== "") {
+        tagFilter = `filters[tag]=${$('#application select[name="reference_links_theme"]').val()}&`
+      }
+      if ($('#application select[name="reference_links_language"]').val() !== "") {
+        languageFilter = `filters[language]=${$('#application select[name="reference_links_language"]').val()}&`
+      }
+      if ($('#application select[name="reference_links_place"]').val() !== "") {
+        placeFilter = `filters[place]=${$('#application select[name="reference_links_place"]').val()}&`
+      }
+      if ($('#application select[name="reference_links_file_type"]').val() !== "") {
+        fileTypeFilter = `filters[file-type]=${$('#application select[name="reference_links_file_type"]').val()}`
+      }
+      var url = new URL(window.location.href)
+      var searchValue = ''
+      var search = url.searchParams.get("search")
+      if (!_.isNull(search)) {
+        searchValue = `search=${search}&`
+      }
+      var categoryValue = ''
+      var category = url.searchParams.get("category")
+      var subCat = ''
+      if (!_.isNull(category)) {
+        categoryValue = `category=${category}&`
+        if (category == 'tags'){
+          var subCatgry = url.searchParams.get("tag")
+          subCat = `tag=${subCatgry}&`
+        } else if (category == 'sop') {
+          var subCatgry = url.searchParams.get("subcategory")
+          subCat = `subcategory=${subCatgry}&`          
+        }
+      }
+
+      var pushState = "/library/?" + categoryValue + subCat + searchValue + tagFilter + languageFilter + placeFilter + fileTypeFilter 
+      loadDocumentCount(itemCount)
+      window.history.pushState("", "", pushState);
+      return false
+    })
+    $('#application').on('change', '#search_grid_clear', e => {
+      search_grid.isotope({ filter: "*" })
+      return false
+    })
+    function loadSearchGridFilters(response) {
+      var themes = `<select class='grid_filter_select' name="reference_links_theme"><option value='' selected="selected">Any Theme</option>${response.tags.map(tag => { 
+        return `<option class='option_background_color' value="${tag[0].trim()}" ${response.parent_category === "" ? '' : (response.parent_category === 'tags' ? (tag[0] === response.category ? 'selected' : '') : '')}>${tag[0].trim()}</option>`}).join(' ')}</select>`
+      var places = `<select class='grid_filter_select' name="reference_links_place"><option value='' selected="selected">Any Place</option>${response.places.map(place => { 
+        return `<option class='option_background_color' value="${place[0].trim()}">${place[0].trim()}</option>`}).join(' ')}</select>`
+      var languages = `<select class='grid_filter_select' name="reference_links_language"><option value='' selected="selected">Any Language</option>${response.languages.map(language => { 
+        return `<option class='option_background_color' value="${language[0].trim()}">${language[0].trim()}</option>`}).join(' ')}</select>`
+      var file_types = `<select class='grid_filter_select' name="reference_links_file_type"><option value='' selected="selected">Any File Type</option>${response.file_types.map(file_type => { 
+        return `<option class='option_background_color' value="${file_type.trim()}">${file_type.trim()}</option>`}).join(' ')}</select>`
+      // var fileTypes = `<div class='col-md-3'><select name="reference_links_place"><option selected="selected">Any Place</option>${response.tags.map(tag => { 
+      //   return `<option value="${tag[0]}">${tag[0]}</option>`}).join(' ')}</select></div>`
+      $('#library_search_filter_wrapper').empty()
+      var filterContent = `<div class='col-md-12 search_query_indicator_div'>${_.isUndefined(response.query) ? '' : `<span id='search_query_indicator_div_header'>Current Search:</span> ${response.query}`}</div><div id='search_grid_select_wrapper'>${themes}${places}${languages}${file_types}</div><div id='search_parameter_select_dropdown'>
+      <div class='black_text col-md-12 boldtext'>Sort Results By:</div>
+        <select id='library_search_select'>
+          <option value='relevance' selected='selected'>Relevance</option>
+          <option value='like'>Most Popular</option>
+          <option value='alphabetical'>Alphabetical</option>
+          <option value='publication'>Publication Date</option>
+        </select>
+      </div>`
+      $('#library_search_filter_wrapper').append(filterContent)
+      return false
+    }
+    $('#application').on('change', '#library_search_select', e => {
+      var selectValue = $(e.target).val()
+      if (selectValue === 'alphabetical') {
+        search_grid.isotope({ sortBy: 'alphabetical' })
+      } else if (selectValue === 'relevance') {
+        search_grid.isotope({ sortBy: 'relevance' })   
+      } else if (selectValue === 'like') {
+        search_grid.isotope({ sortBy: 'like' })   
+      } else if (selectValue === 'publication') {
+        search_grid.isotope({ sortBy: 'publication' })
+      }
+      search_grid.isotope({ sortAscending: sortFlags[selectValue] })
+      if (selectValue !== 'relevance') {
+        sortFlags[selectValue] = !sortFlags[selectValue]
+      }
+      return false
+    })
+    $('#application').on('click', '#library_start_button', e => {
+      window.location = '/library'
+    })
+    $('#library_reference_count_wrapper').on('click', e => {
+      // #initial_reference_count_div
+      if ($('#library_reference_count_wrapper').has('#initial_reference_count_div').length > 0) {
+        appendSpinnerLibModal()
+        $('#library_index_content_popular_content_grid_wrapper').css('display', 'none')
+        $('#library_index_content_popular_content_grid_wrapper_header').css('display', 'none')
+        $('#library_index_content_popular_header_text').css('display', 'block')
+        $('#library_search_select').css('display', 'block')
+        $('#library_content_cell_progress_spinner').css('display', 'block')
+        // $('#library_browse_indicator_span').append(`<b>${category_show_title === 'C4d' || category_show_title == 'Sop' ? _.toUpper(category_show_title) : category_show_title } ${subcategory_title.replace('.', '')}</b>`)
+        $.ajax({
+          method: 'GET',
+          url: '/library/reference_links/',
+          data: { search: '', category: 'all' }
+        }).done(response => {
+          if (response.status === 200){
+            $('#library_reference_links_filtered_wrapper').empty()
+            $("#library_reference_count_wrapper").text("Results:")
+            loadDocumentCount(response.references.length)
+            $('#library_content_cell_progress_spinner').css('display', 'none')
+            // $('#library_content_modal .header').append(`<div class='col-md-10'>${response.category}</div><div class='library_content_modal_close col-md-2 text-right'><span style='cursor:pointer;'>CLOSE&nbsp;<i class="fa fa-remove" aria-hidden="true"></i></span></div>`)
+            $('#library_reference_links_filtered_wrapper').append(getSearchResultContent({ references: response.references, reference_links_data: response.reference_links_data, users: response.users, places: response.places, languages: response.languages, tags: response.tags, sopCount: response.sopCount, c4dCount: response.c4dCount }))
+            loadSearchGridFilters(response)
+            $('#library_search_select').css('display', 'block')
+            loadSearchGrid(response)
+          }
+          return false
+        })        
+      }
+    })
+    $('.library_base_category').click(e => {
+      if ($(e.target).attr('data-category') !== "c4d") {
+        return false
+      }
+      e.preventDefault()
+      appendSpinnerLibModal()
+      $('#library_index_content_popular_content_grid_wrapper').css('display', 'none')
+      $('#library_index_content_popular_content_grid_wrapper_header').css('display', 'none')
+      $('#library_index_content_popular_header_text').css('display', 'block')
+      $('#library_search_select').css('display', 'block')
+      $('#library_content_cell_progress_spinner').css('display', 'block')
+      // $('#library_browse_indicator_span').append(`<b>${category_show_title === 'C4d' || category_show_title == 'Sop' ? _.toUpper(category_show_title) : category_show_title } ${subcategory_title.replace('.', '')}</b>`)
+      $.ajax({
+        method: 'GET',
+        url: '/library/reference_links/',
+        data: { search: '', category: 'c4d' }
+      }).done(response => {
+        if (response.status === 200){
+          $('#library_reference_links_filtered_wrapper').empty()
+          $("#library_reference_count_wrapper").text("Results:")
+          loadDocumentCount(response.references.length)
+          $('#library_content_cell_progress_spinner').css('display', 'none')
+          // $('#library_content_modal .header').append(`<div class='col-md-10'>${response.category}</div><div class='library_content_modal_close col-md-2 text-right'><span style='cursor:pointer;'>CLOSE&nbsp;<i class="fa fa-remove" aria-hidden="true"></i></span></div>`)
+          $('#library_reference_links_filtered_wrapper').append(getSearchResultContent({ references: response.references, reference_links_data: response.reference_links_data, users: response.users, places: response.places, languages: response.languages, tags: response.tags, sopCount: response.sopCount, c4dCount: response.c4dCount }))
+          loadSearchGridFilters(response)
+          $('#library_search_select').css('display', 'block')
+          loadSearchGrid(response)
+          var pushState = "/library/?category=c4d"
+          window.history.pushState("", "", pushState);
         }
         return false
       })
@@ -125,11 +314,30 @@ $(() => {
     })
     //
 
-    function loadSearchGrid() {
+    function loadSearchGrid(response) {
+      var itemSelector = '.search_content_item'
+      if (!_.isUndefined(response.parent_category)) {
+        if (response.parent_category === 'tags') {
+          itemSelector = "." + _.join(_.split(response.category, " "), "_")
+        }
+      }
       search_grid = $(`#application #library_content_search_results_grid`)
       search_grid.isotope({
-        itemSelector: `.search_content_item`,
-        filter: `.pagination_search_content_item_1`
+        itemSelector: itemSelector,
+        getSortData: {
+          relevance:  function (ele) {
+            return parseInt(_.trim($(ele).find('#search_content_relevance').text()))
+          },
+          like:  function (ele) {
+            return parseInt(_.trim($(ele).find('#search_download_count_div').attr('data-downloads')))
+          },
+          publication: function (ele) {
+            return parseInt($(ele).find('#publication_year').text())
+          },
+          alphabetical: function (ele) {
+            return _.lowerCase(_.trim($(ele).find('#search_content_title_text a').text()))
+          }
+        }
       })
         //       getSortData: {
         //   relevance: function (ele) {
@@ -237,9 +445,8 @@ $(() => {
     }
 //                 ${ getSearchResultsSort()}
     function getSearchResultContent(args){
-
-      return `${args['references'].length > 0 ? getSearchResultsFilter({ places: args['places'], tags: args['tags'], languages: args['languages'], sopCount: args['sopCount'], c4dCount: args['c4dCount'] }) : ''}
-              ${args['references'].length > 10  ? `<div id='search_results_header_wrapper' class='col-md-12'>
+      // ${args['references'].length > 0 ? getSearchResultsFilter({ places: args['places'], tags: args['tags'], languages: args['languages'], sopCount: args['sopCount'], c4dCount: args['c4dCount'] }) : ''}
+      return `${args['references'].length > 10  ? `<div id='search_results_header_wrapper' class='col-md-12'>
                 <div id='library_index_content_search_results_header_text' class='col-md-3'>
                 </div>
               </div>` : ''}
@@ -250,15 +457,17 @@ $(() => {
               </div>
               <div id='search_results_border' class='div_border_underline col-md-12'></div>
               </div>
-              <div id='search_pagination_controls_wrapper' class='col-md-12'>
-                ${args['references'].length > 10 ? getPaginator(args['references'], args['reference_links_data'], 'search') : ''}
-              </div>`
+              `
     }
+    // <div id='search_pagination_controls_wrapper' class='col-md-12'>
+    //             ${args['references'].length > 10 ? getPaginator(args['references'], args['reference_links_data'], 'search') : ''}
+    //           </div>
 
 
 
     function getSearchResultsSort(){
       return `<div id='search_sort_wrapper' class='col-md-offset-6 col-md-2'>
+
                 <div class="ui compact menu">
                   <div class="ui simple dropdown item">
                     <span id='sort_search_dropdown_header'>SORT RESULTS</span>
@@ -366,7 +575,7 @@ $(() => {
       }
       return `${references.map(reference_obj => {
         idx += 1
-        return `<div id='${idx + 1}' class='col-md-12 ${reference_links_data[reference_obj.id].isSOP ? 'SOP' : ''} ${reference_links_data[reference_obj.id].isC4D ? 'C4D' : ''} ${ reference_obj['tags'] === undefined ? '' : reference_obj['tags'].map(tag => { return _.replace(tag.title, new RegExp(" ","g"), "_") }).join(' ') } ${ reference_obj['places'] === undefined ? '' : reference_obj['places'].map(place => { return _.replace(place.title, new RegExp(" ","g"), "_") }).join(' ') } ${ reference_obj['languages'] === undefined ? '' : reference_obj['languages'].map(language => { return _.replace(language.title, new RegExp(" ","g"), "_") }).join(' ') } search_content_item pagination_search_content_item_${ getSearchResultFilter(idx+1) } ${ idx === 0 ? 'active' : '' }'>
+        return `<div id='${idx + 1}' class='col-md-12 ${ (_.isUndefined(reference_obj.file_type) ? '' : reference_obj.file_type.title) } ${reference_links_data[reference_obj.id].isSOP ? 'SOP' : ''} ${reference_links_data[reference_obj.id].isC4D ? 'C4D' : ''} ${ reference_obj['tags'] === undefined ? '' : reference_obj['tags'].map(tag => { return _.replace(tag.title, new RegExp(" ","g"), "_") }).join(' ') } ${ reference_obj['places'] === undefined ? '' : reference_obj['places'].map(place => { return _.replace(place.title, new RegExp(" ","g"), "_") }).join(' ') } ${ reference_obj['languages'] === undefined ? '' : reference_obj['languages'].map(language => { return _.replace(language.title, new RegExp(" ","g"), "_") }).join(' ') } search_content_item pagination_search_content_item_${ getSearchResultFilter(idx+1) } ${ idx === 0 ? 'active' : '' }'>
                   <div class='col-md-1'>
                     ${ reference_obj.is_video ? getThumbnailVideo.bind(reference_obj)() : getThumbnailImage.bind(reference_obj)() }
                   </div>
@@ -385,6 +594,7 @@ $(() => {
                     <div id='search_content_title_text' class='col-md-12'>
                       <a id='${ reference_obj.id }' href="${ reference_obj.is_video ? reference_obj.video_url : reference_obj.absolute_url }" target='_blank' class='reference_download_tracker'>${ reference_obj.title ? reference_obj.title : _.replace(_.replace(reference_obj.document_file_name, new RegExp("_","g"), " "), new RegExp(".pdf","g"), "") }</a>
                     </div>
+                    <div id='search_download_count_div' class='display_none' data-downloads='${ _.isNull(reference_obj['download_count']) ? '0' : reference_obj['download_count'] }'></div>
                     <div id='like_and_download_wrapper' class='col-md-2'>
                       <div id='library_download_div' class='inline_block'>
                         <a id='${ reference_obj.id }' href="${ reference_obj.is_video ? reference_obj.video_url : reference_obj.absolute_url }" target='_blank' class='inline_block library_download_img reference_download_tracker'>
@@ -401,15 +611,12 @@ $(() => {
                     </div>
                     <div class='col-md-7'>
                       <div id='download_related_topics_div' class='bold_text col-md-3'>${ reference_obj.is_video ? 'VIEW' : 'DOWNLOAD' }</div>
-                      <div class='col-md-8 langauage_indicator_wrapper'>
+                      <div class='col-md-3 langauage_indicator_wrapper'>
                         <a id='${ reference_obj.id }' href="${ reference_obj.is_video ? reference_obj.video_url : reference_obj.absolute_url }" target='_blank' class='reference_download_tracker'><div class='reference_search_result_info_language '>${ _.upperCase(!_.isEmpty(reference_obj.document_language) ? reference_obj.document_language : reference_obj.language) }</div> ${ reference_obj.is_video ? 'MOV' : ('PDF ' + convertBytesToKbOrMb(reference_obj.document_file_size)) }</a>
-                        ${ reference_obj['related_topics'] === undefined ? '' : reference_obj['related_topics'].map(related_topic => {
-                                return `<a id='${ related_topic.id }' href="${ reference_obj.is_video ? reference_obj.video_url : related_topic.absolute_url }" target='_blank' class='reference_download_tracker'><div class='reference_search_result_info_language'>${ _.upperCase(!_.isEmpty(related_topic.document_language) ? related_topic.document_language : related_topic.language) }</div> ${ reference_obj.is_video ? 'MOV' : ('PDF ' + convertBytesToKbOrMb(related_topic.document_file_size)) }</a>`
-                              }).join('')
-                          }
                       </div>
+                      ${ reference_obj['publication_year'] === '' ? '' : `<div class="col-md-6"><span class="bold_text">Publication Date:</span> <span id="publication_year">${ reference_obj['publication_year'] }</span></div>` }
                     </div>
-                    <div id='catalogue_wrapper' class='col-md-offset-1 col-md-2 text-right'>
+                    <div id='catalogue_wrapper' class='col-md-3 text-right'>
                       ${ reference_links_data[reference_obj.id]['isC4D'] ? "<div class='inline_block reference_search_result_is_c4d bold_text'>C4D </div>" : '' }
                       ${ reference_links_data[reference_obj.id]['isSOP'] ? "<div class='inline_block reference_search_result_is_sop bold_text'>SOP</div>" : '' }
                     </div>
@@ -567,8 +774,6 @@ $(() => {
 
     $(window).load(() => {
       $featured_grid.isotope({filter: '.active'})
-      $('.ui.simple.dropdown.item').dropdown()
-      $('.ui.radio.checkbox').checkbox()
       $('#browse_filter_dropdown').dropdown({
         on:'hover',
         action:'nothing'
@@ -576,9 +781,89 @@ $(() => {
       _.forEach($('.featured_content_item'), content_item => {
         $(content_item).css('visibility', 'visible')
       })
-      if (!document.getElementById('active_browse_filters')) {
-        loadBrowseGrid()
-      } else {
+      if (!!document.getElementById('library_show_reference_links')) {
+        var category = document.getElementById("library_show_reference_links").className
+        var search = $('#library_show_reference_links').text()
+        $('#library_content_cell_progress_spinner').css('display', 'block')
+        $('#library_index_content_popular_content_grid_wrapper_header').css('display', 'none')
+        var url = new URL(window.location.href)
+        var tag = url.searchParams.get("tag")
+        if (tag === null) {
+          tag = url.searchParams.get("search")
+        }
+        var subcategory = url.searchParams.get("subcategory")
+        $.ajax({
+          method: 'GET',
+          url: '/library/reference_links/',
+          data: { search: search, category: category, tag: tag, subcategory: subcategory }
+        }).done(response => {
+          if (response.status === 200){
+            $('#library_reference_links_filtered_wrapper').empty()
+            $("#library_reference_count_wrapper").text("Results:")
+            loadDocumentCount(response.references.length)
+            $('#library_content_cell_progress_spinner').css('display', 'none')
+            // $('#library_content_modal .header').append(`<div class='col-md-10'>${response.category}</div><div class='library_content_modal_close col-md-2 text-right'><span style='cursor:pointer;'>CLOSE&nbsp;<i class="fa fa-remove" aria-hidden="true"></i></span></div>`)
+            $('#library_reference_links_filtered_wrapper').append(getSearchResultContent({ references: response.references, reference_links_data: response.reference_links_data, users: response.users, places: response.places, languages: response.languages, tags: response.tags, sopCount: response.sopCount, c4dCount: response.c4dCount }))
+            loadSearchGridFilters(response)
+            $('#library_search_select').css('display', 'block')
+            loadSearchGrid(response)
+            setTimeout(function() {
+              if (!!document.getElementById('library_show_reference_links')) {
+                var tag = $(document.getElementById('library_show_reference_links')).attr('data-tag')
+                var language = $(document.getElementById('library_show_reference_links')).attr('data-language')
+                var place = $(document.getElementById('library_show_reference_links')).attr('data-place')
+                var fileType = $(document.getElementById('library_show_reference_links')).attr('data-file-type')
+                var tags = $('#application select[name="reference_links_theme"] option')
+                var languages = $('#application select[name="reference_links_language"] option')
+                var places = $('#application select[name="reference_links_place"] option')
+                var fileTypes = $('#application select[name="reference_links_file_type"] option')
+                for (var i = 0; i < tags.length; i++) {
+                  if ($(tags[i]).val().trim() === tag) {
+                    $('#application select[name="reference_links_theme"]').val(tag)    
+                  }
+                }
+                for (var i = 0; i < languages.length; i++) {
+                  if ($(languages[i]).val().trim() === language) {
+                    $('#application select[name="reference_links_language"]').val(language)
+                  }
+                }
+                for (var i = 0; i < places.length; i++) {
+                  if ($(places[i]).val().trim() === place) {
+                    $('#application select[name="reference_links_place"]').val(place)
+                  }
+                }
+                for (var i = 0; i < fileTypes.length; i++) {
+                  if ($(fileTypes[i]).val().trim() === fileType) {
+                    $('#application select[name="reference_links_file_type"]').val(fileType)
+                  }
+                }
+              }
+              var selectedValues = _.map($('#search_grid_select_wrapper option:selected'), function(el){
+                if ($(el).val() !== "") {
+                  return "." + _.replace($(el).val(), new RegExp(" ","g"),"_");
+                }
+              })
+              selectedValues = _.join(_.compact(selectedValues), "")
+              search_grid.isotope({ filter: selectedValues })
+              $('#library_index_content_popular_header_text').text("")
+              $('#library_search_select').css('display', 'block')
+              $('#library_reference_count_wrapper').text("Results: ")
+              $('#library_index_content_popular_content_grid_wrapper').css('display', 'none')
+              $('#library_index_content_popular_header_text').css('display', 'block')
+              $("#library_reference_count_wrapper").text("Results:")
+              var refCount = 0
+              if ($('#library_content_search_results_grid:contains("No Results")').length === 0) {
+                refCount = search_grid.data('isotope').filteredItems.length
+              }
+              loadDocumentCount(refCount)
+            }, 500);
+          }
+          return false
+        })
+      } else if (!document.getElementById('active_browse_filters')) {
+        // loadBrowseGrid()
+      }
+      else {
         activateFiltersInBrowseGrid()
       }
     })
@@ -599,10 +884,11 @@ $(() => {
     function loadBrowseGrid(){
       browse_grid.isotope({
         itemSelector: `.browse_content_item`,
-        layoutMode: 'fitRows',
+        layoutMode: 'masonryHorizontal',
         filter: '.browse_content_item_1',
         getSortData: {
           relevance: function (ele) {
+            console.log('relevance')
             return parseInt($(ele).find('#browse_content_relevance').text())
           },
           created: function (ele) {
@@ -618,6 +904,7 @@ $(() => {
             return parseInt($(ele).find('#library_download_div .counter_indicator_text_div').text())
           },
           like: function (ele) {
+            console.log('like')
             return parseInt($(ele).find('#library_like_div .counter_indicator_text_div').text())
           }
         }
@@ -823,6 +1110,7 @@ $(() => {
       let theme_values = _.map($('#application #search_filter_dropdown_menu #theme_checkboxes .check_box:checked'), input => { return _.trim($(input).val()).replace(new RegExp(' ', 'g'), '_') })
       let place_values = _.map($('#application #search_filter_dropdown_menu #place_checkboxes .check_box:checked'), input => { return _.trim($(input).val()).replace(new RegExp(' ', 'g'), '_') })
       let language_values = _.map($('#application #search_filter_dropdown_menu #language_checkboxes .check_box:checked'), input => { return _.trim($(input).val()).replace(new RegExp(' ', 'g'), '_') })
+      let file_type_values = _.map($('#application #search_filter_dropdown_menu #file_type_checkboxes .check_box:checked'), input => { return _.trim($(input).val()).replace(new RegExp(' ', 'g'), '_') })
       filter_value = _.trim(theme_values.join('') + place_values.join('') + language_values.join(''))
       if (_.isEmpty(filter_value)) {
         $('#application #search_pagination_controls_wrapper').css('display', 'block')

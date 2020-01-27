@@ -105,11 +105,6 @@
 #nav_about_link a {
   color:white;
 }
-#nav_user_sign_in.immunization_nav,
-#nav_about_link.immunization_nav,
-#nav_contact_link.immunization_nav {
-  color:black;
-}
 #sop_nav_button.active,
 #sop_overview_button.active,
 #sop_what_to_do_nav_button.active {
@@ -176,12 +171,6 @@ nav .container {
   padding-top:5px;
 }
 
-#gpei_footer_logo_div.immunization_nav,
-#navbar.immunization_nav *,
-#navbar.immunization_nav,
-.navbar-header.immunization_nav {
-  background-color:#1399DE;
-}
 #nav_bar_logo {
   max-height:100%;
 }
