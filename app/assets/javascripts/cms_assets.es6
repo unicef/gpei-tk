@@ -576,11 +576,6 @@ $(() => {
                         <input type="text" placeholder="enter url for video" name="reference_${ args['reference_type'] }[video_url]" value="${ (_.isNull(args['reference'].video_url) || args['reference'].video_url === '' || args['reference'].video_url === 'No video url given') ? '' : args['reference'].video_url }" style='margin-bottom:5px' ${ args['reference']['is_video'] ? `required` : `` }>
                       </h4>
                     </label>
-                    <u>Archived:</u>
-                    <select name="reference_${ args['reference_type'] }[is_archived]">
-                      <option value="true" ${ args['reference']['is_archived'] === true ? 'selected' : '' }>True</option>
-                      <option value="false" ${ args['reference']['is_archived'] === false ? 'selected' : '' }>False</option>
-                    </select>
                     <u>Featured:</u>
                     <select name="reference_${ args['reference_type'] }[is_featured]">
                       <option value="true" ${ args['reference']['is_featured'] === true ? 'selected' : '' }>True</option>
@@ -598,6 +593,11 @@ $(() => {
                     <label>Tags:</label>
                     ${ getSelectorWithoutPreview({ object_type: 'tags', selected_objects: args['reference']['tags'], objects: args['tags'] }) }
                     ${ args['reference_type'] === 'link' ? getReferenceLinkSelector({ reference_links: args['all_other_reference_links'], selected_references: args['reference']['related_topics'], reference_link_id: args['reference'].id, selector_header_label: 'Related reference links:', object_type: 'related_topics' }) : '' }
+                    <u>Archived:</u>
+                    <select name="reference_${ args['reference_type'] }[is_archived]">
+                      <option value="true" ${ args['reference']['is_archived'] === true ? 'selected' : '' }>True</option>
+                      <option value="false" ${ args['reference']['is_archived'] === false ? 'selected' : '' }>False</option>
+                    </select>
                   </div>
                   <button class="ui button" type="submit">Submit</button>
                 </form>
