@@ -111,14 +111,13 @@ class LibraryController < ApplicationController
   end
 
   def get_reference_link_data(reference_links)
-    reference_links_data, places, languages, tags = {}, {}, {}, {}, {}
-    file_types = []
+    reference_links_data, places, languages, tags, file_types = {}, {}, {}, {}, {}, {}
     reference_links.each do |reference_link|
       places.merge!(map_filters(reference_link['places'], places))
       languages.merge!(map_filters(reference_link['languages'], languages))
       tags.merge!(map_filters(reference_link['tags'], tags))
-      if reference_link['file_type'] != nil
-        file_types << reference_link['file_type']['title']
+      if reference_link['file_type_id'] != nil
+        file_types[reference_link['file_type_id']] = FileType.find(reference_link['file_type_id'])
       end
       ref_join = ReferenceLinkArticle.where(reference_link_id: reference_link['id'])
       reference_links_data[reference_link['id']] = { reference_link: reference_link,
@@ -139,7 +138,7 @@ class LibraryController < ApplicationController
                                                          like_count: round_stats_to_view(ReferenceLike.where(reference_likeable_id: reference_link['id']).count),
                                                          liked_by_user: liked_by_user })
     end
-    return reference_links_data, places.sort_by{|k, v| v[:count] * -1 }.sort!, languages.sort_by{|k, v| v[:count] * -1 }.sort!, tags.sort_by{|k, v| v[:count] * -1 }.sort!, file_types.sort!.uniq
+    return reference_links_data, places.sort_by{|k, v| v[:count] * -1 }.sort!, languages.sort_by{|k, v| v[:count] * -1 }.sort!, tags.sort_by{|k, v| v[:count] * -1 }.sort!, file_types
   end
 
   def map_filters(filters, existing_filters)

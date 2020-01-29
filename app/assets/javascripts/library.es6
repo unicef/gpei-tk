@@ -126,7 +126,7 @@ $(() => {
           loadDocumentCount(response.references.length)
           $('#library_content_cell_progress_spinner').css('display', 'none')
           // $('#library_content_modal .header').append(`<div class='col-md-10'>${response.category}</div><div class='library_content_modal_close col-md-2 text-right'><span style='cursor:pointer;'>CLOSE&nbsp;<i class="fa fa-remove" aria-hidden="true"></i></span></div>`)
-          $('#library_reference_links_filtered_wrapper').append(getSearchResultContent({ references: response.references, reference_links_data: response.reference_links_data, users: response.users, places: response.places, languages: response.languages, tags: response.tags, sopCount: response.sopCount, c4dCount: response.c4dCount }))
+          $('#library_reference_links_filtered_wrapper').append(getSearchResultContent({ references: response.references, reference_links_data: response.reference_links_data, users: response.users, places: response.places, languages: response.languages, tags: response.tags, sopCount: response.sopCount, c4dCount: response.c4dCount, file_types: response.file_types }))
           loadSearchGridFilters(response)
           $('#library_search_select').css('display', 'block')
           loadSearchGrid(response)
@@ -207,8 +207,8 @@ $(() => {
         return `<option class='option_background_color' value="${place[0].trim()}">${place[0].trim()}</option>`}).join(' ')}</select>`
       var languages = `<select class='grid_filter_select' name="reference_links_language"><option value='' selected="selected">Any Language</option>${response.languages.map(language => { 
         return `<option class='option_background_color' value="${language[0].trim()}">${language[0].trim()}</option>`}).join(' ')}</select>`
-      var file_types = `<select class='grid_filter_select' name="reference_links_file_type"><option value='' selected="selected">Any File Type</option>${response.file_types.map(file_type => { 
-        return `<option class='option_background_color' value="${file_type.trim()}">${file_type.trim()}</option>`}).join(' ')}</select>`
+      var file_types = `<select class='grid_filter_select' name="reference_links_file_type"><option value='' selected="selected">Any File Type</option>${_.map(response.file_types, function(n){
+        return `<option class='option_background_color' value="${n.title.trim()}">${n.title.trim()}</option>`}).join(' ')}</select>`
       // var fileTypes = `<div class='col-md-3'><select name="reference_links_place"><option selected="selected">Any Place</option>${response.tags.map(tag => { 
       //   return `<option value="${tag[0]}">${tag[0]}</option>`}).join(' ')}</select></div>`
       $('#library_search_filter_wrapper').empty()
@@ -265,7 +265,7 @@ $(() => {
             loadDocumentCount(response.references.length)
             $('#library_content_cell_progress_spinner').css('display', 'none')
             // $('#library_content_modal .header').append(`<div class='col-md-10'>${response.category}</div><div class='library_content_modal_close col-md-2 text-right'><span style='cursor:pointer;'>CLOSE&nbsp;<i class="fa fa-remove" aria-hidden="true"></i></span></div>`)
-            $('#library_reference_links_filtered_wrapper').append(getSearchResultContent({ references: response.references, reference_links_data: response.reference_links_data, users: response.users, places: response.places, languages: response.languages, tags: response.tags, sopCount: response.sopCount, c4dCount: response.c4dCount }))
+            $('#library_reference_links_filtered_wrapper').append(getSearchResultContent({ references: response.references, reference_links_data: response.reference_links_data, users: response.users, places: response.places, languages: response.languages, tags: response.tags, sopCount: response.sopCount, c4dCount: response.c4dCount, file_types: response.file_types }))
             loadSearchGridFilters(response)
             $('#library_search_select').css('display', 'block')
             loadSearchGrid(response)
@@ -297,7 +297,7 @@ $(() => {
           loadDocumentCount(response.references.length)
           $('#library_content_cell_progress_spinner').css('display', 'none')
           // $('#library_content_modal .header').append(`<div class='col-md-10'>${response.category}</div><div class='library_content_modal_close col-md-2 text-right'><span style='cursor:pointer;'>CLOSE&nbsp;<i class="fa fa-remove" aria-hidden="true"></i></span></div>`)
-          $('#library_reference_links_filtered_wrapper').append(getSearchResultContent({ references: response.references, reference_links_data: response.reference_links_data, users: response.users, places: response.places, languages: response.languages, tags: response.tags, sopCount: response.sopCount, c4dCount: response.c4dCount }))
+          $('#library_reference_links_filtered_wrapper').append(getSearchResultContent({ references: response.references, reference_links_data: response.reference_links_data, users: response.users, places: response.places, languages: response.languages, tags: response.tags, sopCount: response.sopCount, c4dCount: response.c4dCount, file_types: response.file_types }))
           loadSearchGridFilters(response)
           $('#library_search_select').css('display', 'block')
           loadSearchGrid(response)
@@ -452,7 +452,7 @@ $(() => {
               </div>` : ''}
               <div class='col-md-12'>
                 <div id='library_content_search_results_grid'>
-                  ${getSearchResultRows(args['references'], args['reference_links_data'], args['users'])}
+                  ${getSearchResultRows(args['references'], args['reference_links_data'], args['users'], args['file_types'])}
                 </div>
               </div>
               <div id='search_results_border' class='div_border_underline col-md-12'></div>
@@ -567,7 +567,7 @@ $(() => {
       // })
     }
 
-    function getSearchResultRows(references, reference_links_data, users){
+    function getSearchResultRows(references, reference_links_data, users, file_types){
       let idx = -1
       let last_idx = references.length - 1
       if (references.length === 0){
@@ -575,7 +575,7 @@ $(() => {
       }
       return `${references.map(reference_obj => {
         idx += 1
-        return `<div id='${idx + 1}' class='col-md-12 ${ (_.isUndefined(reference_obj.file_type) ? '' : reference_obj.file_type.title) } ${reference_links_data[reference_obj.id].isSOP ? 'SOP' : ''} ${reference_links_data[reference_obj.id].isC4D ? 'C4D' : ''} ${ reference_obj['tags'] === undefined ? '' : reference_obj['tags'].map(tag => { return _.replace(tag.title, new RegExp(" ","g"), "_") }).join(' ') } ${ reference_obj['places'] === undefined ? '' : reference_obj['places'].map(place => { return _.replace(place.title, new RegExp(" ","g"), "_") }).join(' ') } ${ reference_obj['languages'] === undefined ? '' : reference_obj['languages'].map(language => { return _.replace(language.title, new RegExp(" ","g"), "_") }).join(' ') } search_content_item pagination_search_content_item_${ getSearchResultFilter(idx+1) } ${ idx === 0 ? 'active' : '' }'>
+        return `<div id='${idx + 1}' class='col-md-12 ${ _.isNull(reference_obj.file_type_id) || _.isUndefined(reference_obj.file_type_id) ? '': _.replace(file_types[reference_obj.file_type_id].title, new RegExp(" ","g"), "_")} ${reference_links_data[reference_obj.id].isSOP ? 'SOP' : ''} ${reference_links_data[reference_obj.id].isC4D ? 'C4D' : ''} ${ reference_obj['tags'] === undefined ? '' : reference_obj['tags'].map(tag => { return _.replace(tag.title, new RegExp(" ","g"), "_") }).join(' ') } ${ reference_obj['places'] === undefined ? '' : reference_obj['places'].map(place => { return _.replace(place.title, new RegExp(" ","g"), "_") }).join(' ') } ${ reference_obj['languages'] === undefined ? '' : reference_obj['languages'].map(language => { return _.replace(language.title, new RegExp(" ","g"), "_") }).join(' ') } search_content_item pagination_search_content_item_${ getSearchResultFilter(idx+1) } ${ idx === 0 ? 'active' : '' }'>
                   <div class='col-md-1'>
                     ${ reference_obj.is_video ? getThumbnailVideo.bind(reference_obj)() : getThumbnailImage.bind(reference_obj)() }
                   </div>
@@ -803,7 +803,7 @@ $(() => {
             loadDocumentCount(response.references.length)
             $('#library_content_cell_progress_spinner').css('display', 'none')
             // $('#library_content_modal .header').append(`<div class='col-md-10'>${response.category}</div><div class='library_content_modal_close col-md-2 text-right'><span style='cursor:pointer;'>CLOSE&nbsp;<i class="fa fa-remove" aria-hidden="true"></i></span></div>`)
-            $('#library_reference_links_filtered_wrapper').append(getSearchResultContent({ references: response.references, reference_links_data: response.reference_links_data, users: response.users, places: response.places, languages: response.languages, tags: response.tags, sopCount: response.sopCount, c4dCount: response.c4dCount }))
+            $('#library_reference_links_filtered_wrapper').append(getSearchResultContent({ references: response.references, reference_links_data: response.reference_links_data, users: response.users, places: response.places, languages: response.languages, tags: response.tags, sopCount: response.sopCount, c4dCount: response.c4dCount, file_types: response.file_types }))
             loadSearchGridFilters(response)
             $('#library_search_select').css('display', 'block')
             loadSearchGrid(response)
