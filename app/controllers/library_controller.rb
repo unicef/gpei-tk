@@ -8,6 +8,7 @@ class LibraryController < ApplicationController
     params['search'].gsub!(".","")
     c4dCount = ReferenceLink.where(id: ReferenceLinkArticle.where(reference_linkable_type: 'C4dArticle').pluck(:reference_link_id).uniq, is_archived: false).count
     sopCount = ReferenceLink.where(id: ReferenceLinkArticle.where(reference_linkable_type: 'SopArticle').pluck(:reference_link_id).uniq, is_archived: false).count
+    covid19Count = TagReference.where(tag_id: Tag.where(title:'COVID-19').first.id).uniq(&:reference_tagable_id).count
     if params['category'] == 'c4d'
       reference_links = ReferenceLink.where(id: ReferenceLinkArticle.where(reference_linkable_type: 'C4dArticle').pluck(:reference_link_id).uniq, is_archived: false).order('title ASC NULLS LAST').as_json(:include => [:author, :tags, :places, :languages, :related_topics, :file_type]).uniq.sort_by {|obj| obj['is_featured'] ? 0 : 1 }
     elsif params['category'] == 'sop'
@@ -19,6 +20,8 @@ class LibraryController < ApplicationController
         category = SopCategory.where(title: title)
       end
       reference_links = ReferenceLink.where(id: SopArticle.joins(:reference_links).where(sop_category_id: category).map { |art| art.reference_links.map {|ref| ref.id } }.flatten.uniq, is_archived: false).order('title ASC NULLS LAST').as_json(:include => [:author, :tags, :places, :languages, :related_topics, :file_type]).uniq.sort_by {|obj| obj['is_featured'] ? 0 : 1 }
+    elsif params['category'] == 'covid19'
+      reference_links = ReferenceLink.where(id: TagReference.where(tag_id: Tag.where(title: 'COVID-19').first.id).pluck(:reference_tagable_id).flatten.uniq, is_archived: false).order('title ASC NULLS LAST').as_json(:include => [:author, :tags, :places, :languages, :related_topics, :file_type]).uniq.sort_by {|obj| obj['is_featured'] ? 0 : 1 }
     elsif params['category'] == 'tags'
       reference_links = ReferenceLink.where(id: TagReference.where(tag_id: Tag.where(title: params['tag']).first.id).pluck(:reference_tagable_id).flatten.uniq, is_archived: false).order('title ASC NULLS LAST').as_json(:include => [:author, :tags, :places, :languages, :related_topics, :file_type]).uniq.sort_by {|obj| obj['is_featured'] ? 0 : 1 }
     elsif params['category'] == 'all'
@@ -46,6 +49,7 @@ class LibraryController < ApplicationController
                    query: query,
                    places: places,
                    languages: languages,
+                   covid19Count: covid19Count,
                    sopCount: sopCount,
                    c4dCount: c4dCount,
                    tags: tags }
@@ -96,6 +100,7 @@ class LibraryController < ApplicationController
     if params['category'] != nil || params['search'] != nil || params['filters'] != nil
       @param_exists = true
     end
+    @covid19_count = TagReference.where(tag_id: Tag.where(title:'COVID-19').first.id).uniq(&:reference_tagable_id).count
     @tag_counts = {}
     Tag.all.each do |tag|
       @tag_counts[tag.id] = TagReference.where(reference_tagable_id: ReferenceLink.where(is_archived: false).pluck(:id), tag_id: tag.id).count

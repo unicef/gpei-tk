@@ -1,3 +1,6 @@
+.covid_left_position {
+  margin-left: 25% !important;
+}
 #library_index_content_popular_content_grid_wrapper_header,
 .tags_divider {
   border: 0 !important;
@@ -45,6 +48,13 @@
 #library_browse_isotope_grid {
   padding-top:1%;
   width:100%;
+}
+.covid19_cell {
+  background-color: #CC9555 !important;
+  margin-left: 34% !important;
+}
+.covid19_cell:hover {
+  color: white;
 }
 .library_browse_grid_cell {
   line-height: 55px;

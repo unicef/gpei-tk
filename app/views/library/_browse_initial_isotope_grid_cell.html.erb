@@ -1,9 +1,11 @@
 <% if parent_category != 'tags' %>
-  <div data-filter='.<%= parent_category %>_subcategories' class='<%= 'col-md-offset-2 col-md-5' if parent_category == 'tags' %> <%= 'col-md-5' if parent_category != 'tags' %> <%= 'notTagsCell' if parent_category != 'tags' %> library_base_category library_browse_grid_cell  <%= parent_category %>_related_cell active' data-category='<%= parent_category %>'>
+  <div data-filter='.<%= parent_category %>_subcategories' class='<%= 'col-md-offset-2 col-md-5' if parent_category == 'tags' %> <%= 'col-md-5' if parent_category != 'tags' && parent_category != 'covid19' %> <%= 'notTagsCell' if parent_category != 'tags' && parent_category != 'covid19' %> <%= 'covid19_cell col-md-3' if parent_category == 'covid19' %> library_base_category library_browse_grid_cell  <%= parent_category %>_related_cell active' data-category='<%= parent_category %>'>
     <% if parent_category == 'c4d' %>
       Communication Strategy (<%= @c4d_count %>)
     <% elsif parent_category == 'sop' %>
       SOPs for Outbreak Response (<%= @sop_count %>)
+    <% elsif parent_category == 'covid19' %>
+      COVID-19 (<%= @covid19_count %>)
     <% end %>
   </div>
 <% end %>

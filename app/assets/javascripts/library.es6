@@ -187,11 +187,11 @@ $(() => {
           subCat = `tag=${subCatgry}&`
         } else if (category == 'sop') {
           var subCatgry = url.searchParams.get("subcategory")
-          subCat = `subcategory=${subCatgry}&`          
+          subCat = `subcategory=${subCatgry}&`
         }
       }
 
-      var pushState = "/library/?" + categoryValue + subCat + searchValue + tagFilter + languageFilter + placeFilter + fileTypeFilter 
+      var pushState = "/library/?" + categoryValue + subCat + searchValue + tagFilter + languageFilter + placeFilter + fileTypeFilter
       loadDocumentCount(itemCount)
       window.history.pushState("", "", pushState);
       return false
@@ -201,15 +201,15 @@ $(() => {
       return false
     })
     function loadSearchGridFilters(response) {
-      var themes = `<select class='grid_filter_select' name="reference_links_theme"><option value='' selected="selected">Any Theme</option>${response.tags.map(tag => { 
+      var themes = `<select class='grid_filter_select' name="reference_links_theme"><option value='' selected="selected">Any Theme</option>${response.tags.map(tag => {
         return `<option class='option_background_color' value="${tag[0].trim()}" ${response.parent_category === "" ? '' : (response.parent_category === 'tags' ? (tag[0] === response.category ? 'selected' : '') : '')}>${tag[0].trim()}</option>`}).join(' ')}</select>`
-      var places = `<select class='grid_filter_select' name="reference_links_place"><option value='' selected="selected">Any Place</option>${response.places.map(place => { 
+      var places = `<select class='grid_filter_select' name="reference_links_place"><option value='' selected="selected">Any Place</option>${response.places.map(place => {
         return `<option class='option_background_color' value="${place[0].trim()}">${place[0].trim()}</option>`}).join(' ')}</select>`
-      var languages = `<select class='grid_filter_select' name="reference_links_language"><option value='' selected="selected">Any Language</option>${response.languages.map(language => { 
+      var languages = `<select class='grid_filter_select' name="reference_links_language"><option value='' selected="selected">Any Language</option>${response.languages.map(language => {
         return `<option class='option_background_color' value="${language[0].trim()}">${language[0].trim()}</option>`}).join(' ')}</select>`
       var file_types = `<select class='grid_filter_select' name="reference_links_file_type"><option value='' selected="selected">Any File Type</option>${_.map(response.file_types, function(n){
         return `<option class='option_background_color' value="${n.title.trim()}">${n.title.trim()}</option>`}).join(' ')}</select>`
-      // var fileTypes = `<div class='col-md-3'><select name="reference_links_place"><option selected="selected">Any Place</option>${response.tags.map(tag => { 
+      // var fileTypes = `<div class='col-md-3'><select name="reference_links_place"><option selected="selected">Any Place</option>${response.tags.map(tag => {
       //   return `<option value="${tag[0]}">${tag[0]}</option>`}).join(' ')}</select></div>`
       $('#library_search_filter_wrapper').empty()
       var filterContent = `<div class='col-md-12 search_query_indicator_div'>${_.isUndefined(response.query) ? '' : `<span id='search_query_indicator_div_header'>Current Search:</span> ${response.query}`}</div><div id='search_grid_select_wrapper'>${themes}${places}${languages}${file_types}</div><div id='search_parameter_select_dropdown'>
@@ -229,9 +229,9 @@ $(() => {
       if (selectValue === 'alphabetical') {
         search_grid.isotope({ sortBy: 'alphabetical' })
       } else if (selectValue === 'relevance') {
-        search_grid.isotope({ sortBy: 'relevance' })   
+        search_grid.isotope({ sortBy: 'relevance' })
       } else if (selectValue === 'like') {
-        search_grid.isotope({ sortBy: 'like' })   
+        search_grid.isotope({ sortBy: 'like' })
       } else if (selectValue === 'publication') {
         search_grid.isotope({ sortBy: 'publication' })
       }
@@ -271,11 +271,12 @@ $(() => {
             loadSearchGrid(response)
           }
           return false
-        })        
+        })
       }
     })
     $('.library_base_category').click(e => {
-      if ($(e.target).attr('data-category') !== "c4d") {
+      var current_category = $(e.target).attr('data-category')
+      if (current_category !== "c4d" && current_category !== 'covid19') {
         return false
       }
       e.preventDefault()
@@ -289,7 +290,7 @@ $(() => {
       $.ajax({
         method: 'GET',
         url: '/library/reference_links/',
-        data: { search: '', category: 'c4d' }
+        data: { search: '', category: current_category }
       }).done(response => {
         if (response.status === 200){
           $('#library_reference_links_filtered_wrapper').empty()
@@ -297,11 +298,11 @@ $(() => {
           loadDocumentCount(response.references.length)
           $('#library_content_cell_progress_spinner').css('display', 'none')
           // $('#library_content_modal .header').append(`<div class='col-md-10'>${response.category}</div><div class='library_content_modal_close col-md-2 text-right'><span style='cursor:pointer;'>CLOSE&nbsp;<i class="fa fa-remove" aria-hidden="true"></i></span></div>`)
-          $('#library_reference_links_filtered_wrapper').append(getSearchResultContent({ references: response.references, reference_links_data: response.reference_links_data, users: response.users, places: response.places, languages: response.languages, tags: response.tags, sopCount: response.sopCount, c4dCount: response.c4dCount, file_types: response.file_types }))
+          $('#library_reference_links_filtered_wrapper').append(getSearchResultContent({ references: response.references, reference_links_data: response.reference_links_data, users: response.users, places: response.places, languages: response.languages, tags: response.tags, sopCount: response.sopCount, c4dCount: response.c4dCount, file_types: response.file_types, covid19Count: response.covid19Count }))
           loadSearchGridFilters(response)
           $('#library_search_select').css('display', 'block')
           loadSearchGrid(response)
-          var pushState = "/library/?category=c4d"
+          var pushState = `/library/?category=${current_category}`
           window.history.pushState("", "", pushState);
         }
         return false
@@ -819,7 +820,7 @@ $(() => {
                 var fileTypes = $('#application select[name="reference_links_file_type"] option')
                 for (var i = 0; i < tags.length; i++) {
                   if ($(tags[i]).val().trim() === tag) {
-                    $('#application select[name="reference_links_theme"]').val(tag)    
+                    $('#application select[name="reference_links_theme"]').val(tag)
                   }
                 }
                 for (var i = 0; i < languages.length; i++) {
