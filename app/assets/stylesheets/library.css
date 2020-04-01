@@ -50,12 +50,17 @@
   width:100%;
 }
 .covid19_cell {
-  background-color: #CC9555 !important;
+  background-color: red !important;
   margin-left: 34% !important;
 }
-.covid19_cell:hover {
-  color: white;
+.covid19_cell *{
+  background-color: red !important;
 }
+.covid19_cell:hover,
+#covid19iconlibrary:hover {
+  color: white !important;
+}
+
 .library_browse_grid_cell {
   line-height: 55px;
   padding:3px;

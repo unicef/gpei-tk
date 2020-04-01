@@ -7,6 +7,9 @@
 #covid19homepage {
   border-radius:25px;
 }
+#covid19iconlibrary {
+  color: black;
+}
 #covid19hometext {
   padding-left:5px;
   color: black;
@@ -16,6 +19,13 @@
 }
 #covid19homepage {
   background-color: white !important;
+  font-size: 18px;
+}
+#covid19icon, #covid19hometext {
+  line-height: 30px;
+}
+#covid19hometext {
+  font-weight: bold;
 }
 #covid19icon {
   border-radius: 15px;

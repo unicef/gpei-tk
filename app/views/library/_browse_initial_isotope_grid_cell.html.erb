@@ -5,7 +5,7 @@
     <% elsif parent_category == 'sop' %>
       SOPs for Outbreak Response (<%= @sop_count %>)
     <% elsif parent_category == 'covid19' %>
-      COVID-19 (<%= @covid19_count %>)
+      <i class="fa fa-exclamation-triangle" aria-hidden="true"></i>COVID-19 (<%= @covid19_count %>)
     <% end %>
   </div>
 <% end %>
