@@ -332,7 +332,6 @@ $(() => {
           alert(response.error)
         } else {
           $('#CMS_reference_links_create').click()
-          showDimmerClearBrowser()
         }
       })
       return false
@@ -361,7 +360,6 @@ $(() => {
           alert(response.error)
         } else {
           $('#CMS_reference_links_upload').click()
-          showDimmerClearBrowser()
         }
       })
       return false
@@ -390,7 +388,6 @@ $(() => {
           alert(response.error)
         } else {
           $('#CMS_references_mp3_upload').click()
-          showDimmerClearBrowser()
         }
       })
       return false
@@ -418,7 +415,6 @@ $(() => {
           alert(response.error)
         } else {
           $('#CMS_references_pptx_upload').click()
-          showDimmerClearBrowser()
         }
       })
       return false
@@ -743,7 +739,6 @@ $(() => {
         data: formData
       }).done(response => {
         toggleProgressSpinner()
-        showDimmerClearBrowser()
         $('#CMS_embedded_images_link_upload').click()
       })
       return false
