@@ -75,3 +75,10 @@ p {
 #reference_header_text_div {
   margin-bottom:5px;
 }
+
+@font-face {
+   font-family: 'proxima-nova';
+   src: url('/assets/ProximaNova-Regular.otf');
+   font-family: 'adelle';
+   src: url('/assets/Adelle_Reg.otf')
+}
