@@ -97,10 +97,15 @@ class ReferenceLink < ApplicationRecord
   end
 
   def self.to_csv
+    column_names << "tags"
+    column_names << "file_type"
     CSV.generate do |csv|
-      csv << (column_names << "tags" << "file_type")
+      csv << column_names
       all.each do |result|
-        csv << ((result.attributes.values_at(*column_names) << result.tags.pluck(:title).join(" ")) << (result.file_type ? result.file_type.title : nil))
+        array = result.attributes.values_at(*column_names)
+        array << (result.tags ? result.tags.pluck(:title).join(" ") : nil)
+        array << (result.file_type ? result.file_type.title : nil)
+        csv << array
       end
     end
   end
