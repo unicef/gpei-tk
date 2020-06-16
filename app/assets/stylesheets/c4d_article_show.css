@@ -2,6 +2,9 @@
 .c4d_grid_check {
   color:white;
 }
+.fontEighteen {
+  font-size:18px;
+}
 #c4d_show_add,
 #c4d_show_check {
   top:0px;
