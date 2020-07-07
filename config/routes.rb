@@ -84,6 +84,7 @@ Rails.application.routes.draw do
 
   resources :forgot_passwords, only: [:create, :update]
   get '/forgot_passwords/:key' => 'forgot_passwords#new'
+  post '/forgot_passwords/new' => 'forgot_passwords#update'
 
   post '/signin/' => 'sessions#create', as: :signin
   delete '/signout/' => 'sessions#destroy', as: :signout

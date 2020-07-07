@@ -1,0 +1,19 @@
+<% if @found %>
+  <% if @forgot_pwd.expired? %>
+    <div id="forgot_pw_user_update" class='white_txt col-md-offset-4 col-md-4'>The password has expired. Please submit a new forgot password request from the login window.</div>
+  <% else %>
+    <div id="forgot_pw_user_update" class='white_txt col-md-offset-4 col-md-4'><%=  params['user_msg'] if params.key?('user_msg') %></div>
+    <div id="forgot_pw_user_form_div" class='forgot_pwd_div col-md-offset-4 col-md-4'>
+      <form  action="/forgot_passwords/new" data-remote="true" method="post">
+        <input hidden="true" name="key" value="<%= params['key'] %>">
+        <label class="white_txt" for="new_password">New Password:</label>
+        <input id="new_password_input" type="password" name="password" required="required" class="form-control" id="new_password">
+        <label class="white_txt"  for="confirm_new_password">Confirm New Password</label>
+        <input id="confirm_new_password_input" type="password" required="required" class="form-control" id="confirm_new_password">
+        <button type="submit" class="btn btn-primary">Submit</button>
+      </form>
+    </div>
+  <% end %>
+<% else %>
+  <div id="forgot_pw_user_update" class='white_txt col-md-offset-4 col-md-4'>This forgot password link was not found.</div>
+<% end %>

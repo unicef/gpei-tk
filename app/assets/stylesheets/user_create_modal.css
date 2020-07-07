@@ -1,3 +1,16 @@
+#forgot_pw_user_update{
+  margin-top:5%;
+}
+.white_txt {
+  color:white;
+}
+.forgot_pwd {
+  margin:50px;
+  color:white;
+}
+.forgot_pwd_form {
+  color: blue;
+}
 #reset_pwd_form button,
 #forgot_pwd_form button,
 #create_user_form button {

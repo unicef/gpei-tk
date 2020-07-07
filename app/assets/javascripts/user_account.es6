@@ -15,6 +15,26 @@ $(() => {
     return false
   })
 
+  $('#forgot_pw_user_form_div').on('submit', 'form', e => {
+    e.preventDefault()
+    if ($('#new_password_input').val() !== $('#confirm_new_password_input').val()) {
+      $('#forgot_pw_user_update').html("<i class=\"fa fa-exclamation-triangle\" aria-hidden=\"true\"></i> Passwords do not match")
+    } else {
+      $.ajax({
+        method: 'POST',
+        url: '/forgot_passwords/new/',
+        data: $(e.currentTarget).serialize()
+      }).done(response => {
+        if (response.status === 200) {
+          $('#forgot_pw_user_update').html("Password update successful! Please login.")
+          setTimeout(function(){ window.location.href = "/" }, 3000);
+        } else {
+          $('#forgot_pw_user_update').html(`<i class=\"fa fa-exclamation-triangle\" aria-hidden=\"true\"></i> ${response.message}`)
+        }
+      })
+      return false
+    }
+  })
   function signinForm(){
     return (`
       <form id="sign_in_form" class="ui form">

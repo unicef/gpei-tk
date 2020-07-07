@@ -30,6 +30,5 @@ module GPEITk
     # config.i18n.default_locale = :de
     config.action_dispatch.default_headers.merge!({"X-Frame-Options" => "ALLOW-FROM http://poliok.it"})
     # Do not swallow errors in after_commit/after_rollback callbacks.
-    config.action_mailer.delivery_method = :smtp
   end
 end

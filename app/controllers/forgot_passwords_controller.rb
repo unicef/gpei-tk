@@ -1,14 +1,7 @@
 class ForgotPasswordsController < ApplicationController
   def new
-    forgot_pwd = ForgotPassword.find_by(user_key: params[:key])
-    if forgot_pwd
-      if !forgot_pwd.expired?
-        @display = 'none'
-        render '/home/index', :locals => { user_id: forgot_pwd.user_id, is_forgot_pwd: true }
-      else
-        render json: { status: 403, error: 'This email was not found.' }
-      end
-    end
+    @forgot_pwd = ForgotPassword.find_by(user_key: params[:key])
+    @found = !!@forgot_pwd
   end
 
   def create
@@ -25,26 +18,64 @@ class ForgotPasswordsController < ApplicationController
         @forgot_pwd.user_key = key
       end until @forgot_pwd.valid?
 
-      ForgotPasswordMailer.send_user_url(@user, @forgot_pwd).deliver_now if @forgot_pwd.save
+      if @forgot_pwd.save
+        email_body = "<body>
+                                  <p>Please follow the link below to reset your password for poliok.it.</p>
+                                  <p>Click <a href=\"https://poliok.it/forgot_passwords/#{@forgot_pwd.user_key}\" target=\"_blank\">here</a> to reset your password.</p>
+                                  <p>If this email was sent in error or seems suspicious please contact us through the contact option at <a href=\"https://poliok.it\" target=\"_blank\">https://poliok.it</a> website.
+                                  </p>
+                                </body>"
+        client = Aws::SES::Client.new(region:'us-east-1')
+        client.send_email({
+          destination: {
+            to_addresses: [
+              @user.email,
+            ],
+          },
+          message: {
+            body: {
+              html: {
+                charset: "UTF-8",
+                data: email_body,
+              },
+            },
+            subject: {
+              charset: "UTF-8",
+              data: "poliok.it password reset",
+            },
+          },
+          source: "no-reply@poliok.it",
+        })
+      end
       render json: { status: 200, id: @user.id, message: 'A link has been sent to the email you have provided to reset your password.' }
     end
   end
 
   def update
-    forgot_pwd = ForgotPassword.find_by(user_key: params[:user_key])
-    user = User.find_by(id: params[:id])
+    forgot_pwd = ForgotPassword.find_by(user_key: params[:key])
+    user = nil
+    user_msg = nil
+    status = 500
+    key = nil
     if forgot_pwd
+      user = forgot_pwd.user
+      key = forgot_pwd.user_key
       if !forgot_pwd.expired?
-        user.password = params[:password]
         if length_greater_than_eight(params[:password])
+          user.password = params[:password]
           if user.save
+            status = 200
             forgot_pwd.update(expired: true)
-            render json: { status: 200 }
           else
-            render json: { status: 200, errors: build_error_msg(user.errors.messages)}
+            status = 422
+            user_msg = build_error_msg(user.errors.messages)
           end
         end
+      else
+        status = 404
+        user_msg =  "Forgot password link is already expired"
       end
     end
+    render json: { status: status, message: user_msg, key: key}
   end
 end
