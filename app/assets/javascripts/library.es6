@@ -86,7 +86,7 @@ $(() => {
     })
     $('.library_browse_grid_cell').click(e => {
       if (!e.target.classList.contains('library_subcategory_cell') === true) {
-        $lib_grid.isotope({ filter: $(e.target).attr('data-filter') })
+        $lib_grid.isotope({ filter: searchifyTitle($(e.target).attr('data-filter')) })
       }
     })
     $('#library_browse_clear_all').click(e => {
@@ -134,10 +134,9 @@ $(() => {
           if (response.parent_category === 'sop') {
             pushState = "/library/?category=" + escape(response.parent_category) + "&" + `subcategory=${escape(response.category)}`
           } else if (response.parent_category === 'tags') {
-            pushState = "/library/?category=" + escape(response.parent_category) + "&" + `tag=${escape(response.category)}`
+            pushState = "/library/?category=" + escape(response.parent_category) + "&" + `filters[tag]=${escape(response.category)}`
           }
           window.history.pushState("", "", pushState);
-
         }
         return false
       })
@@ -184,7 +183,7 @@ $(() => {
         categoryValue = `category=${category}&`
         if (category == 'tags'){
           var subCatgry = normalizeTitle(url.searchParams.get("tag"))
-          subCat = `tag=${subCatgry}&`
+          subCat = `filters[tag]=${subCatgry}&`
         } else if (category == 'sop') {
           var subCatgry = url.searchParams.get("subcategory")
           subCat = `subcategory=${subCatgry}&`
@@ -322,20 +321,25 @@ $(() => {
           itemSelector = "." + _.join(_.split(response.category, " "), "_")
         }
       }
+      itemSelector = searchifyTitle(itemSelector)
       search_grid = $(`#application #library_content_search_results_grid`)
       search_grid.isotope({
         itemSelector: itemSelector,
         getSortData: {
           relevance:  function (ele) {
+            console.log("relevance")
             return parseInt(_.trim($(ele).find('#search_content_relevance').text()))
           },
           like:  function (ele) {
+            console.log("like")
             return parseInt(_.trim($(ele).find('#search_download_count_div').attr('data-downloads')))
           },
           publication: function (ele) {
+            console.log("publication")
             return parseInt($(ele).find('#publication_year').text())
           },
           alphabetical: function (ele) {
+            console.log("alphabetical")
             return _.lowerCase(_.trim($(ele).find('#search_content_title_text a').text()))
           }
         }
