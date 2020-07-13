@@ -132,9 +132,9 @@ $(() => {
           loadSearchGrid(response)
           var pushState = ''
           if (response.parent_category === 'sop') {
-            pushState = "/library/?category=" + response.parent_category + "&" + `subcategory=${response.category}`
+            pushState = "/library/?category=" + escape(response.parent_category) + "&" + `subcategory=${escape(response.category)}`
           } else if (response.parent_category === 'tags') {
-            pushState = "/library/?category=" + response.parent_category + "&" + `tag=${response.category}`
+            pushState = "/library/?category=" + escape(response.parent_category) + "&" + `tag=${escape(response.category)}`
           }
           window.history.pushState("", "", pushState);
 
@@ -160,7 +160,7 @@ $(() => {
       var fileTypeFilter = ""
       // filters[tag]=
       if ($('#application select[name="reference_links_theme"]').val() !== "") {
-        tagFilter = `filters[tag]=${$('#application select[name="reference_links_theme"]').val()}&`
+        tagFilter = `filters[tag]=${escape(normalizeTitle($('#application select[name="reference_links_theme"]').val()))}&`
       }
       if ($('#application select[name="reference_links_language"]').val() !== "") {
         languageFilter = `filters[language]=${$('#application select[name="reference_links_language"]').val()}&`
@@ -183,7 +183,7 @@ $(() => {
       if (!_.isNull(category)) {
         categoryValue = `category=${category}&`
         if (category == 'tags'){
-          var subCatgry = url.searchParams.get("tag")
+          var subCatgry = normalizeTitle(url.searchParams.get("tag"))
           subCat = `tag=${subCatgry}&`
         } else if (category == 'sop') {
           var subCatgry = url.searchParams.get("subcategory")
@@ -202,7 +202,7 @@ $(() => {
     })
     function loadSearchGridFilters(response) {
       var themes = `<select class='grid_filter_select' name="reference_links_theme"><option value='' selected="selected">Any Theme</option>${response.tags.map(tag => {
-        return `<option class='option_background_color' value="${tag[0].trim()}" ${response.parent_category === "" ? '' : (response.parent_category === 'tags' ? (tag[0] === response.category ? 'selected' : '') : '')}>${tag[0].trim()}</option>`}).join(' ')}</select>`
+        return `<option class='option_background_color' value="${searchifyTitle(tag[0].trim())}" ${response.parent_category === "" ? '' : (response.parent_category === 'tags' ? (tag[0] === response.category ? 'selected' : '') : '')}>${tag[0].trim()}</option>`}).join(' ')}</select>`
       var places = `<select class='grid_filter_select' name="reference_links_place"><option value='' selected="selected">Any Place</option>${response.places.map(place => {
         return `<option class='option_background_color' value="${place[0].trim()}">${place[0].trim()}</option>`}).join(' ')}</select>`
       var languages = `<select class='grid_filter_select' name="reference_links_language"><option value='' selected="selected">Any Language</option>${response.languages.map(language => {
@@ -212,7 +212,7 @@ $(() => {
       // var fileTypes = `<div class='col-md-3'><select name="reference_links_place"><option selected="selected">Any Place</option>${response.tags.map(tag => {
       //   return `<option value="${tag[0]}">${tag[0]}</option>`}).join(' ')}</select></div>`
       $('#library_search_filter_wrapper').empty()
-      var filterContent = `<div class='col-md-12 search_query_indicator_div'>${_.isUndefined(response.query) ? '' : `<span id='search_query_indicator_div_header'>Current Search:</span> ${response.query}`}</div><div id='search_grid_select_wrapper'>${themes}${places}${languages}${file_types}</div><div id='search_parameter_select_dropdown'>
+      var filterContent = `<div class='col-md-12 search_query_indicator_div'>${response.query === '' ? '' : `<span id='search_query_indicator_div_header'>Current Search:</span> ${response.query}`}</div><div id='search_grid_select_wrapper'>${themes}${places}${languages}${file_types}</div><div id='search_parameter_select_dropdown'>
       <div class='black_text col-md-12 boldtext'>Sort Results By:</div>
         <select id='library_search_select'>
           <option value='relevance' selected='selected'>Relevance</option>
@@ -302,7 +302,7 @@ $(() => {
           loadSearchGridFilters(response)
           $('#library_search_select').css('display', 'block')
           loadSearchGrid(response)
-          var pushState = `/library/?category=${current_category}`
+          var pushState = `/library/?category=${escape(current_category)}`
           window.history.pushState("", "", pushState);
         }
         return false
@@ -576,7 +576,7 @@ $(() => {
       }
       return `${references.map(reference_obj => {
         idx += 1
-        return `<div id='${idx + 1}' class='col-md-12 ${ _.isNull(reference_obj.file_type_id) || _.isUndefined(reference_obj.file_type_id) ? '': _.replace(file_types[reference_obj.file_type_id].title, new RegExp(" ","g"), "_")} ${reference_links_data[reference_obj.id].isSOP ? 'SOP' : ''} ${reference_links_data[reference_obj.id].isC4D ? 'C4D' : ''} ${ reference_obj['tags'] === undefined ? '' : reference_obj['tags'].map(tag => { return _.replace(tag.title, new RegExp(" ","g"), "_") }).join(' ') } ${ reference_obj['places'] === undefined ? '' : reference_obj['places'].map(place => { return _.replace(place.title, new RegExp(" ","g"), "_") }).join(' ') } ${ reference_obj['languages'] === undefined ? '' : reference_obj['languages'].map(language => { return _.replace(language.title, new RegExp(" ","g"), "_") }).join(' ') } search_content_item pagination_search_content_item_${ getSearchResultFilter(idx+1) } ${ idx === 0 ? 'active' : '' }'>
+        return `<div id='${idx + 1}' class='col-md-12 ${ _.isNull(reference_obj.file_type_id) || _.isUndefined(reference_obj.file_type_id) ? '': _.replace(file_types[reference_obj.file_type_id].title, new RegExp(" ","g"), "_")} ${reference_links_data[reference_obj.id].isSOP ? 'SOP' : ''} ${reference_links_data[reference_obj.id].isC4D ? 'C4D' : ''} ${ reference_obj['tags'] === undefined ? '' : reference_obj['tags'].map(tag => { return searchifyTitle(tag.title) }).join(' ') } ${ reference_obj['places'] === undefined ? '' : reference_obj['places'].map(place => { return _.replace(place.title, new RegExp(" ","g"), "_") }).join(' ') } ${ reference_obj['languages'] === undefined ? '' : reference_obj['languages'].map(language => { return _.replace(language.title, new RegExp(" ","g"), "_") }).join(' ') } search_content_item pagination_search_content_item_${ getSearchResultFilter(idx+1) } ${ idx === 0 ? 'active' : '' }'>
                   <div class='col-md-1'>
                     ${ reference_obj.is_video ? getThumbnailVideo.bind(reference_obj)() : getThumbnailImage.bind(reference_obj)() }
                   </div>
@@ -633,6 +633,20 @@ $(() => {
                 </div>`
           }).join('')
         }`
+    }
+    function searchifyTitle(title){
+      title = _.replace(title, new RegExp(" ","g"), "_")
+      title = _.replace(title, new RegExp(",","g"), "ZZZ")
+      title = _.replace(title, new RegExp("&","g"), "YYY")
+      title = _.replace(title, new RegExp(":","g"), "XXX")
+      return title
+    }
+    function normalizeTitle(title){
+      title = _.replace(title, new RegExp("_","g"), " ")
+      title = _.replace(title, new RegExp("ZZZ","g"), ",")
+      title = _.replace(title, new RegExp("YYY","g"), "&")
+      title = _.replace(title, new RegExp("XXX","g"), ":")
+      return title
     }
     function getReferenceRelatedTopics(references){
       return `<div class='col-md-12' class='bold_underline'>Related topics:</div>${references.map(reference_obj => {
@@ -788,9 +802,16 @@ $(() => {
         $('#library_content_cell_progress_spinner').css('display', 'block')
         $('#library_index_content_popular_content_grid_wrapper_header').css('display', 'none')
         var url = new URL(window.location.href)
-        var tag = url.searchParams.get("tag")
+        var tag = null
+        if (!_.isUndefined(url.searchParams.get("filters[tag]"))) {
+          tag = url.searchParams.get("filters[tag]")
+        }
         if (tag === null) {
           tag = url.searchParams.get("search")
+        } else if (url.searchParams.get("filters[tag]") === 'SOP'){
+          category = 'sop'
+        } else {
+          category = 'tags'
         }
         var subcategory = url.searchParams.get("subcategory")
         $.ajax({
@@ -820,7 +841,7 @@ $(() => {
                 var fileTypes = $('#application select[name="reference_links_file_type"] option')
                 for (var i = 0; i < tags.length; i++) {
                   if ($(tags[i]).val().trim() === tag) {
-                    $('#application select[name="reference_links_theme"]').val(tag)
+                    $('#application select[name="reference_links_theme"]').val(searchifyTitle(tag))
                   }
                 }
                 for (var i = 0; i < languages.length; i++) {
@@ -889,7 +910,6 @@ $(() => {
         filter: '.browse_content_item_1',
         getSortData: {
           relevance: function (ele) {
-            console.log('relevance')
             return parseInt($(ele).find('#browse_content_relevance').text())
           },
           created: function (ele) {
@@ -905,7 +925,6 @@ $(() => {
             return parseInt($(ele).find('#library_download_div .counter_indicator_text_div').text())
           },
           like: function (ele) {
-            console.log('like')
             return parseInt($(ele).find('#library_like_div .counter_indicator_text_div').text())
           }
         }

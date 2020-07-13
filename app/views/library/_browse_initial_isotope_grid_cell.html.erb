@@ -24,7 +24,7 @@
   <% end %>
 
   <% categories.each do |category| %>
-    <div data-id='<%= parent_category %>' data-filter='.<%= category.title %>' class='<%= parent_category %>_subcategories <%= 'tag_cell' if parent_category == 'tags' %> library_browse_grid_cell <%= "library_base_category" if parent_category == 'tags' %> <%= "library_subcategory_cell" if parent_category != 'c4d' %> <%= "widthFifty" if parent_category == 'sop' %> <%= "marginLeft" if parent_category == 'sop' && idx%2 == 0 %> <%= parent_category %>_related_cell active'>
+    <div data-id='<%= parent_category %>' data-filter='.<%= category.title %>' class='<%= parent_category %>_subcategories <%= 'tag_cell' if parent_category == 'tags' %> library_browse_grid_cell <%= parent_category %>_id_<%= category.id %> <%= "library_base_category" if parent_category == 'tags' %> <%= "library_subcategory_cell" if parent_category != 'c4d' %> <%= "widthFifty" if parent_category == 'sop' %> <%= "marginLeft" if parent_category == 'sop' && idx%2 == 0 %> <%= parent_category %>_related_cell active'>
       <%= category.title %>
       <% if parent_category == 'tags' %>
         (<%= @tag_counts[category.id]%>)
