@@ -100,7 +100,7 @@ class LibraryController < ApplicationController
     if params['category'] != nil || params['search'] != nil || params['filters'] != nil
       @param_exists = true
     end
-    @covid19_count = ReferenceLink.where(id: TagReference.where(tag_id: Tag.where(title:'COVID-19').first.id).uniq(&:reference_tagable_id), is_archived: false).count
+    @covid19_count = ReferenceLink.where(id: TagReference.where(tag_id: Tag.where(title:'COVID-19').first.id).pluck(:reference_tagable_id).uniq, is_archived: false).count
     @tag_counts = {}
     Tag.all.each do |tag|
       @tag_counts[tag.id] = ReferenceLink.where(id: TagReference.where(tag_id: tag.id).uniq(&:reference_tagable_id).pluck(:reference_tagable_id).uniq, is_archived: false).count
