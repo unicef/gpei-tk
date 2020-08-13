@@ -91,7 +91,7 @@ class LibraryController < ApplicationController
     @sop_categories = SopCategory.all.order(:title)
     @c4d_count = ReferenceLink.where(id: ReferenceLinkArticle.where(reference_linkable_type: 'C4dArticle').pluck(:reference_link_id), is_archived: false).uniq.count
     @sop_count = ReferenceLink.where(id: ReferenceLinkArticle.where(reference_linkable_type: 'SopArticle').pluck(:reference_link_id), is_archived: false).uniq.count
-    @tags_all = Tag.all.order(:title)
+    @tags_all = Tag.all.order('LOWER(title)')
     @sop_category_counts = get_sop_category_counts
     # @featured_references = ReferenceLink.joins(:featured_references).merge(FeaturedReference.order(id: :asc)).all.order('title ASC NULLS LAST').as_json(:include => [:author, :tags, :places, :languages, :related_topics]).uniq
     # @reference_links_data, @sopCount, @c4dCount, @places, @languages, @tags = get_reference_link_data(@featured_references)
@@ -102,7 +102,7 @@ class LibraryController < ApplicationController
     end
     @covid19_count = ReferenceLink.where(id: TagReference.where(tag_id: Tag.where(title:'COVID-19').first.id).pluck(:reference_tagable_id).uniq, is_archived: false).count
     @tag_counts = {}
-    Tag.all.each do |tag|
+    @tags_all.each do |tag|
       @tag_counts[tag.id] = ReferenceLink.where(id: TagReference.where(tag_id: tag.id).uniq(&:reference_tagable_id).pluck(:reference_tagable_id).uniq, is_archived: false).count
     end
   end

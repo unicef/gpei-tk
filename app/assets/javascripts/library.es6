@@ -177,19 +177,20 @@ $(() => {
         searchValue = `search=${search}&`
       }
       var categoryValue = ''
+      debugger
       var category = url.searchParams.get("category")
       var subCat = ''
       if (!_.isNull(category)) {
         categoryValue = `category=${category}&`
-        if (category == 'tags'){
-          var subCatgry = normalizeTitle(url.searchParams.get("tag"))
-          subCat = `filters[tag]=${subCatgry}&`
-        } else if (category == 'sop') {
+        // if (category == 'tags'){
+        //   var subCatgry = normalizeTitle(url.searchParams.get("tag"))
+        //   subCat = `filters[tag]=${subCatgry}&`
+        // } else
+         if (category == 'sop') {
           var subCatgry = url.searchParams.get("subcategory")
           subCat = `subcategory=${subCatgry}&`
         }
       }
-
       var pushState = "/library/?" + categoryValue + subCat + searchValue + tagFilter + languageFilter + placeFilter + fileTypeFilter
       loadDocumentCount(itemCount)
       window.history.pushState("", "", pushState);
@@ -200,6 +201,11 @@ $(() => {
       return false
     })
     function loadSearchGridFilters(response) {
+      var tags = []
+      _.forEach(response.tags, function(value) {
+          tags.push(value[0]);
+        })
+      tags = _.sortBy(tags, [function(o) { return _.toLower(o); }])
       var themes = `<select class='grid_filter_select' name="reference_links_theme"><option value='' selected="selected">Any Theme</option>${response.tags.map(tag => {
         return `<option class='option_background_color' value="${searchifyTitle(tag[0].trim())}" ${response.parent_category === "" ? '' : (response.parent_category === 'tags' ? (tag[0] === response.category ? 'selected' : '') : '')}>${tag[0].trim()}</option>`}).join(' ')}</select>`
       var places = `<select class='grid_filter_select' name="reference_links_place"><option value='' selected="selected">Any Place</option>${response.places.map(place => {
@@ -327,19 +333,15 @@ $(() => {
         itemSelector: itemSelector,
         getSortData: {
           relevance:  function (ele) {
-            console.log("relevance")
             return parseInt(_.trim($(ele).find('#search_content_relevance').text()))
           },
           like:  function (ele) {
-            console.log("like")
             return parseInt(_.trim($(ele).find('#search_download_count_div').attr('data-downloads')))
           },
           publication: function (ele) {
-            console.log("publication")
             return parseInt($(ele).find('#publication_year').text())
           },
           alphabetical: function (ele) {
-            console.log("alphabetical")
             return _.lowerCase(_.trim($(ele).find('#search_content_title_text a').text()))
           }
         }
