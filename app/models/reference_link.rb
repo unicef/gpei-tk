@@ -46,7 +46,7 @@ class ReferenceLink < ApplicationRecord
 
   has_attached_file :document,
                     :path => 'reference_links/:language/:filename',
-                    :styles => { thumb: ["200x200#", :png] }, unless: :is_video?
+                    :styles => { thumb: ["500x500#", :png] }, unless: :is_video?
 
   has_many :featured_references
 
