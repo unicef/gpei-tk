@@ -12,7 +12,7 @@ $(() => {
   let sortFlags = {
     alphabetical: true,
     relevance: true,
-    publication: true,
+    publication: false,
     created: true,
     title: true,
     author: true,
@@ -177,7 +177,6 @@ $(() => {
         searchValue = `search=${search}&`
       }
       var categoryValue = ''
-      debugger
       var category = url.searchParams.get("category")
       var subCat = ''
       if (!_.isNull(category)) {
@@ -206,8 +205,8 @@ $(() => {
           tags.push(value[0]);
         })
       tags = _.sortBy(tags, [function(o) { return _.toLower(o); }])
-      var themes = `<select class='grid_filter_select' name="reference_links_theme"><option value='' selected="selected">Any Theme</option>${response.tags.map(tag => {
-        return `<option class='option_background_color' value="${searchifyTitle(tag[0].trim())}" ${response.parent_category === "" ? '' : (response.parent_category === 'tags' ? (tag[0] === response.category ? 'selected' : '') : '')}>${tag[0].trim()}</option>`}).join(' ')}</select>`
+      var themes = `<select class='grid_filter_select' name="reference_links_theme"><option value='' selected="selected">Any Theme</option>${tags.map(tag => {
+        return `<option class='option_background_color' value="${searchifyTitle(tag.trim())}" ${response.parent_category === "" ? '' : (response.parent_category === 'tags' ? (tag === response.category ? 'selected' : '') : '')}>${tag.trim()}</option>`}).join(' ')}</select>`
       var places = `<select class='grid_filter_select' name="reference_links_place"><option value='' selected="selected">Any Place</option>${response.places.map(place => {
         return `<option class='option_background_color' value="${place[0].trim()}">${place[0].trim()}</option>`}).join(' ')}</select>`
       var languages = `<select class='grid_filter_select' name="reference_links_language"><option value='' selected="selected">Any Language</option>${response.languages.map(language => {
@@ -238,6 +237,7 @@ $(() => {
       } else if (selectValue === 'like') {
         search_grid.isotope({ sortBy: 'like' })
       } else if (selectValue === 'publication') {
+        console.log('publication')
         search_grid.isotope({ sortBy: 'publication' })
       }
       search_grid.isotope({ sortAscending: sortFlags[selectValue] })
@@ -621,7 +621,7 @@ $(() => {
                       <div class='col-md-3 langauage_indicator_wrapper'>
                         <a id='${ reference_obj.id }' href="${ reference_obj.is_video ? reference_obj.video_url : reference_obj.absolute_url }" target='_blank' class='reference_download_tracker'><div class='reference_search_result_info_language '>${ _.upperCase(!_.isEmpty(reference_obj.document_language) ? reference_obj.document_language : reference_obj.language) }</div> ${ reference_obj.is_video ? 'MOV' : ('PDF ' + convertBytesToKbOrMb(reference_obj.document_file_size)) }</a>
                       </div>
-                      ${ reference_obj['publication_year'] === '' ? '' : `<div class="col-md-6"><span class="bold_text">Publication Date:</span> <span id="publication_year">${ reference_obj['publication_year'] }</span></div>` }
+                      <div class="col-md-6 ${ reference_obj['publication_year'] === '' ? 'display_none' : '' }"><span class="bold_text">Publication Date:</span> <span id="publication_year">${ reference_obj['publication_year'] === '' ? '0' : reference_obj['publication_year'] }</span></div>
                     </div>
                     <div id='catalogue_wrapper' class='col-md-3 text-right'>
                       ${ reference_links_data[reference_obj.id]['isC4D'] ? "<div class='inline_block reference_search_result_is_c4d bold_text'>C4D </div>" : '' }
