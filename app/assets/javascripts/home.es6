@@ -1,5 +1,6 @@
 $(() => {
   $(window).load(() => {
+    $('#c4d_selection_page').css('display', 'none')
     if ($('#landing_page_sop_c4d_nav_container').css('visibility') === 'visible'){
       // let nav_bar_height = $('nav').outerHeight()
       // let $container = $("#landing_page_sop_c4d_nav_container")
@@ -33,11 +34,10 @@ $(() => {
         transitionLandingPageToC4dIndex()
         return false
       })
-
     }
   })
   function transitionLandingPageToC4dIndex(){
-    let nav_bar_height = $('nav').outerHeight()
+    let nav_bar_height = $('nav').outerHeight() + 25
     let $second_container = $("#c4d_selection_page")
     $second_container.css({
       paddingTop: nav_bar_height,
@@ -47,6 +47,7 @@ $(() => {
     _.delay(() => {
       $('#landing_page_container').css('display', 'none')
       $('#sop_c4d_nav_list_items').css('display', 'block')
+      $('#c4d_selection_page').css('display', 'block')
     }, 1000, 'later')
   }
 

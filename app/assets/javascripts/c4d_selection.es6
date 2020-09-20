@@ -492,7 +492,7 @@ $(() => {
 
     if ($('#c4d_selection_page').css('visibility') === 'visible'){
       let offset = $('nav').outerHeight()
-      $('#c4d_selection_page').offset({ top: offset })
+      // $('#c4d_selection_page').offset({ top: offset })
     }
 
     if ($('#c4d_article_load_trigger_div').css('visibility') !== undefined) {
