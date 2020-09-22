@@ -1,4 +1,4 @@
-<div id='landing_page_container' class='container fill landing'>
+<div id='landing_page_container' class='container fill landing <%= @landing ? '' : 'display_none' %>'>
   <div id='logo_container' class='text-center'>
     <div id='landing_logo_text'>
       Rhizome is a collection of guidance and tools from the GPEI to help you eradicate polio.
@@ -17,7 +17,7 @@
     </div>
   </div>
 </div>
-<div id="c4d_selection_page" class="col-md-12 landing">
+<div id="c4d_selection_page" class="col-md-12 landing <%= @landing ? 'display_none' : '' %>">
   <div id="home_page_gpei_img_div" class='col-md-12'>
     <div id='gpei_home_img_div'  class='col-md-7 text_align_right'><img id='home_page_gpei_img' src='/assets/home/gpei_logo_white_orange.png'></div>
     <div class='col-md-1'></div>

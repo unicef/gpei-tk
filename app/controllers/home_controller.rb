@@ -8,6 +8,7 @@ class HomeController < ApplicationController
     # @loadC4DArticle = true unless params[:id].nil?
     @is_c4d_nav = true
     # @c4d_category = C4dCategory.find_by(title:'Understand')
+    @landing = true
     @c4d_categories = C4dCategory.all
   end
 

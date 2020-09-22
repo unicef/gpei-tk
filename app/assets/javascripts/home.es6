@@ -1,6 +1,5 @@
 $(() => {
   $(window).load(() => {
-    $('#c4d_selection_page').css('display', 'none')
     if ($('#landing_page_sop_c4d_nav_container').css('visibility') === 'visible'){
       // let nav_bar_height = $('nav').outerHeight()
       // let $container = $("#landing_page_sop_c4d_nav_container")
@@ -37,18 +36,20 @@ $(() => {
     }
   })
   function transitionLandingPageToC4dIndex(){
-    let nav_bar_height = $('nav').outerHeight() + 25
-    let $second_container = $("#c4d_selection_page")
-    $second_container.css({
-      paddingTop: nav_bar_height,
-      display: 'block'
-    })
-    $('html,body').animate({ scrollTop: $second_container.offset().top },'slow')
-    _.delay(() => {
-      $('#landing_page_container').css('display', 'none')
-      $('#sop_c4d_nav_list_items').css('display', 'block')
-      $('#c4d_selection_page').css('display', 'block')
-    }, 1000, 'later')
+    if ($('#c4d_selection_page').css('display') === 'none') {
+      let nav_bar_height = $('nav').outerHeight() + 25
+      let $second_container = $("#c4d_selection_page")
+      $second_container.css({
+        paddingTop: nav_bar_height
+      })
+      $('#c4d_selection_page').removeClass('display_none')
+      $('#sop_c4d_nav_list_items').css('display', 'table')
+      $('#c4d_selection_page').css('display', 'table')
+      $('html,body').animate({ scrollTop: $second_container.offset().top },'slow')
+      _.delay(() => {
+        $('#landing_page_container').css('display', 'none')
+      }, 500, 'later')
+    }
   }
 
   function transitionLandingPageToSopC4d() {

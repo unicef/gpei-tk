@@ -4,6 +4,7 @@ class C4dController < ApplicationController
     @user = current_user
     @nav_bar_offset = 'col-md-offset-1'
     @loadC4DArticle = true unless params[:id].nil?
+    @landing = false
   end
 
   def index
